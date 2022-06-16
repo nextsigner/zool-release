@@ -1,0 +1,41 @@
+# Zool<br />
+### Aplicación de Astrología<br />
+
+Creada por<br />
+Ricardo Martín Pizarro<br />
+
+Inicio del Desarrollo:<br />
+14/04/2021
+
+---
+
+# Licencia de Zool<br />
+Esta aplicación es de uso libre y gratuito.<br />
+
+Esta aplicación es distribuida bajo las licencias GPL2.
+
+---
+
+### Descargar Zool<br />
+
+**Sitio Web:** Zool.ar<br />
+
+### Información del Código fuente<br />
+
+**Repositorio Público:** GitHub.com/nextsigner/zool
+---
+## Zool fue creado con:<br />
+* Qt Open Source
+* SwissEph
+* Astrolog
+---
+# Contacto<br />
+
+**Whatsapp:**<br />
++549 11 3802 4370<br />
+
+**E-Mail:**<br />
+nextsigner@gmail.com<br />
+
+**Twitch:**<br />
+RicardoMartinPizarro<br />
