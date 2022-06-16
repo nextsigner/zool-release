@@ -1,0 +1,4 @@
+resources/*.xcf
+resources/*.dat
+resources/*.sh
+*.sh
