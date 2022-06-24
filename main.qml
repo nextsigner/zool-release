@@ -21,8 +21,10 @@ AppWin {
     minimumWidth: Screen.desktopAvailableWidth-app.fs*4
     minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-    title: '+++Zool '+version
+    title: 'Zool '+version
     property bool dev: false
+
+
     property string mainLocation: ''
     property string pythonLocation: Qt.platform.os==='windows'?'./Python/python.exe':'python3'
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
@@ -202,6 +204,7 @@ AppWin {
     Settings{
         id: apps
         fileName:unik.getPath(4)+'/zool_'+Qt.platform.os+'.cfg'
+        property bool showLog: false
         property int fs: app.width*0.02
         property int fsSbValue: 50
         property string host: 'http://localhost'
@@ -263,7 +266,7 @@ AppWin {
 
         //GUI
         property string zFocus: 'xLatIzq'
-        property bool showLog: false
+        //property bool showLog: false
         property bool showMenuBar: true
         property bool enableBackgroundColor: false
         property string backgroundColor: "black"
@@ -807,8 +810,16 @@ AppWin {
             }else{
                 console.log('Loading United Kingston now...')
                 console.log('JsonFolder: '+apps.jsonsFolder)
+
                 let d=new Date(Date.now())
-                JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, "United Kingston", "United Kingston England", "pron", false)
+                let dia=d.getDate()
+                let mes=d.getMonth()+1
+                let anio=d.getFullYear()
+                let nom="United Kingston England "+dia+"-"+mes+'-'+anio
+                log.ls('No hay ningún archivo previo que se haya cargado.', 0, xLatIzq.width)
+                log.ls('Cargando de manera temporal el archivo '+nom, 0, xLatIzq.width)
+
+                JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, "United Kingston", nom, "pron", false)
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)

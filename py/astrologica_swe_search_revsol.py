@@ -26,12 +26,15 @@ segundoArg = int(sys.argv[11])
 
 houseType=sys.argv[12]
 
+swePath=sys.argv[13]
+
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
 
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 horaLocal = horaLocal - datetime.timedelta(hours=float(gmt))
 
-swe.set_ephe_path('./swe')
+swe.set_ephe_path(swePath+'/swe')
+#swe.set_ephe_path('./swe')
 
 jsonMomentos='{'
 
@@ -100,6 +103,7 @@ else:
     cmd+=' '+str(lat)
     cmd+=' '+str(lon)
     cmd+=' '+str(houseType)
+    cmd+=' '+str(swePath)
     #cmd+=' -35.47857 -69.61535'
     #print(cmd)
     os.system(cmd)

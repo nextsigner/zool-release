@@ -13,6 +13,7 @@ gmt = sys.argv[6]
 
 lat = sys.argv[7]
 lon = sys.argv[8]
+swePath=sys.argv[9]
 
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
 
@@ -28,7 +29,8 @@ horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
 
 #print('Tiempo: ' + dia + '/' + mes + '/' + anio + ' ' + hora + ':' + min)
 
-swe.set_ephe_path('./swe')
+swe.set_ephe_path(swePath+'/swe')
+#swe.set_ephe_path('./swe')
 
 jsonMomentos='{'
 

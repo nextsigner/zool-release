@@ -87,6 +87,7 @@ gmt = sys.argv[6]
 
 lat = sys.argv[7]
 lon = sys.argv[8]
+swePath=sys.argv[9]
 
 if int(gmt) < 0:
         gmtCar='W'

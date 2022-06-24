@@ -42,7 +42,7 @@ Item {
             currentLon=lon
             currentLat=lat
             currentAlt=alt
-            run('python3 ./resources/jday2.py '+dia+' '+mes+' '+anio+' '+hora+' '+minuto+'')
+            run('python3 ./resources/jday2.py '+dia+' '+mes+' '+anio+' '+hora+' '+minuto+' '+unik.currentFolderPath())
         }
     }
     UnikQProcess{
@@ -74,7 +74,7 @@ Item {
         uqpGetHourGmtZero.currentLon=lon
         uqpGetHourGmtZero.currentLat=lat
         uqpGetHourGmtZero.currentAlt=alt
-        uqpGetHourGmtZero.run('python3 ./resources/setGmtHour.py '+d+' '+m+' '+a+' '+h+' '+min+' '+Math.abs(gmt))
+        uqpGetHourGmtZero.run('python3 ./resources/setGmtHour.py '+d+' '+m+' '+a+' '+h+' '+min+' '+Math.abs(gmt))+'  '+unik.currentFolderPath()
     }
     Component.onCompleted: {
         //run('python3 ./resources/jday2.py 20 06 1975 23 00')

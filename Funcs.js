@@ -48,6 +48,7 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
     //xDataBar.opacity=1.0
     //app.currentData=j
     app.fileData=j
+    app.currentData=j
     runJsonTemp()
 }
 
@@ -614,6 +615,8 @@ function runJsonTemp(){
     catch (e)
     {
         console.log('Json Fallado: '+app.currentData)
+        log.ls('Ha fallado la carga del archivo '+apps.url, 0, xApp.width)
+        log.ls(app.currentData, 0, xApp.width)
         //unik.speak('Error in Json file')
         return
     }
@@ -646,6 +649,8 @@ function runJsonTempBack(){
     catch (e)
     {
         console.log('Json Fallado: '+app.currentDataBack)
+        log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, xApp.width)
+        log.ls(app.currentData, 0, xApp.width)
         //unik.speak('Error in Json file')
         return
     }

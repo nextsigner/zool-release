@@ -568,6 +568,14 @@ ApplicationWindow {
         }
     }
 
+    //Mostrar/Activar Show Log
+    Shortcut{
+        sequence: 'Ctrl+Shift+l'
+        onActivated: {
+            apps.showLog=!apps.showLog
+        }
+    }
+
     //Guardar Zoom y Pos
     Shortcut{
         sequence: 'Ctrl+Shift+r'

@@ -88,6 +88,8 @@ gmt = sys.argv[6]
 lat = sys.argv[7]
 lon = sys.argv[8]
 
+swePath=sys.argv[9]
+
 if float(gmt) < 0.0:
         gmtCar='W'
         gmtNum=abs(float(gmt))
@@ -154,7 +156,8 @@ min=horaLocal.strftime('%M')
 
 #print('Tiempo: ' + dia + '/' + mes + '/' + anio + ' ' + hora + ':' + min)
 
-swe.set_ephe_path('./swe')
+swe.set_ephe_path(swePath+'/swe')
+#swe.set_ephe_path('./swe')
 
 d = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 jd1 =jdutil.datetime_to_jd(d)

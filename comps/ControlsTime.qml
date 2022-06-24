@@ -347,7 +347,15 @@ Rectangle {
         }
     }
     Component.onCompleted: {
-        if(!r.currentDate)r.currentDate=new Date(Date.now())
+        if(!r.currentDate || r.currentDate.toString().indexOf('Invalid')>=0){
+            r.currentDate=new Date(Date.now())
+            //log.ls('r.currentDate now:'+r.currentDate.toString(), 0, xLatIzq.width)
+        }
+        r.anio=r.currentDate.getFullYear()
+        r.mes=r.currentDate.getMonth() + 1
+        r.dia=r.currentDate.getDate()
+        r.hora=r.currentDate.getHours()
+        r.minuto=r.currentDate.getMinutes()
     }
     function setTime(datetime){
         let sap=r.setAppTime

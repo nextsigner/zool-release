@@ -446,7 +446,7 @@ Rectangle {
         }
         let finalCmd=''
         //+nppython+' '+app.mainLocation+'/py/astrologica_trans.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+y+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+p1+' '+p2+' '+r.aAspNamesRes[cbAsp.currentIndex]+' '+y+' "'+astrologPath+'"'
-            +nppython+' '+app.mainLocation+'/py/astrologica_trans.py 1 1 '+y+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+p1+' '+p2+' '+r.aAspNamesRes[cbAsp.currentIndex]+' '+y+' "'+astrologPath+'"'
+            +nppython+' '+app.mainLocation+'/py/astrologica_trans.py 1 1 '+y+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+p1+' '+p2+' '+r.aAspNamesRes[cbAsp.currentIndex]+' '+y+' "'+astrologPath+'" '+unik.currentFolderPath()
         console.log('cmd astrolog: '+finalCmd)
         //        log.l('cmd: '+finalCmd)
         //        log.visible=true

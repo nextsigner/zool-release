@@ -30,6 +30,8 @@ segundoArg = int(sys.argv[11])
 
 rsl=int(sys.argv[12])
 
+swePath=sys.argv[13]
+
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
 
 enDia1=False
@@ -87,9 +89,9 @@ def getRs(h):
     else:
         #print(dateTimeFinal)
         if os.name == 'nt':
-            proc = subprocess.Popen(['./Python/python.exe', str(pathlib.Path(__file__).parent.absolute())+'/astrologica_swe_search_revsol_date.py', str(dateTimeFinal.day), str(dateTimeFinal.month), str(dateTimeFinal.year), str(dateTimeFinal.hour), str(dateTimeFinal.minute), str(gmt), str(lat), str(lon)], universal_newlines=True, stdout=subprocess.PIPE)
+            proc = subprocess.Popen(['./Python/python.exe', str(pathlib.Path(__file__).parent.absolute())+'/astrologica_swe_search_revsol_date.py', str(dateTimeFinal.day), str(dateTimeFinal.month), str(dateTimeFinal.year), str(dateTimeFinal.hour), str(dateTimeFinal.minute), str(gmt), str(lat), str(lon), str(swePath)], universal_newlines=True, stdout=subprocess.PIPE)
         else:
-            proc = subprocess.Popen(['python3', str(pathlib.Path(__file__).parent.absolute())+'/astrologica_swe_search_revsol_date.py', str(dateTimeFinal.day), str(dateTimeFinal.month), str(dateTimeFinal.year), str(dateTimeFinal.hour), str(dateTimeFinal.minute), str(gmt), str(lat), str(lon)], universal_newlines=True, stdout=subprocess.PIPE)
+            proc = subprocess.Popen(['python3', str(pathlib.Path(__file__).parent.absolute())+'/astrologica_swe_search_revsol_date.py', str(dateTimeFinal.day), str(dateTimeFinal.month), str(dateTimeFinal.year), str(dateTimeFinal.hour), str(dateTimeFinal.minute), str(gmt), str(lat), str(lon), str(swePath)], universal_newlines=True, stdout=subprocess.PIPE)
         #proc = subprocess.Popen(['python3', './py/astrologica_swe_search_revsol.py', str(dia), str(mes), str(anio), str(hora), str(min), str(gmt), str(lat), str(lon), str(gdeg), str(mdeg), str(sdeg)], shell=True, stdout=subprocess.PIPE)
         output = proc.stdout.read()
         return output
