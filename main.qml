@@ -21,7 +21,7 @@ AppWin {
     minimumWidth: Screen.desktopAvailableWidth-app.fs*4
     minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-    title: 'AA Zool '+version
+    title: 'AA2 Zool '+version
     property bool dev: false
 
 
