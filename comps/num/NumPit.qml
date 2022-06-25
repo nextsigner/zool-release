@@ -1233,7 +1233,7 @@ Rectangle {
         for(i=0;i<av.length;i++){
             rc=gvl(av[i])
             vtv+=rc
-            console.log('vtv firma:'+vtv)
+            //console.log('vtv firma:'+vtv)
         }
 
         let m0

@@ -12,6 +12,11 @@ ApplicationWindow{
     title: 'Fake Window Zool'
     property int fs: width*0.02
     Item{
+        id: apps
+        property color backgroundColor: 'black'
+        property color fontColor: 'white'
+    }
+    Item{
         id: xApp
         anchors.fill: parent
         Item{
@@ -44,16 +49,29 @@ ApplicationWindow{
             }
             SweGraphicFake{
                 id: sweg
-                objectName: 'sweg'
+                objectName: 'sweg'                
                 Rectangle{
-                    //anchors.fill: parent
+                    //id: signCircle
+                    anchors.fill: parent
                     color: 'transparent'
-                    border.width: 4
-                    border.color: 'yellow'
-                    //radius: width*0.5
                     anchors.centerIn: parent
                 }
             }
+        }
+        Item{
+            id: panelZoolModules
+            width: xApp.width*0.2
+            height: parent.height
+            property alias c: col
+            Column{
+                id: col
+            }
+        }
+        Item{
+            id: xLatDer
+            width: xApp.width*0.2
+            height: xApp.height
+            anchors.right: parent.right
         }
     }
     ModuleMain{}

@@ -21,7 +21,7 @@ AppWin {
     minimumWidth: Screen.desktopAvailableWidth-app.fs*4
     minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-    title: 'AA4 Zool '+version
+    title: 'Zool '+version
     property bool dev: false
 
 
@@ -30,6 +30,8 @@ AppWin {
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string url
     property string mod: 'mi'
+
+    property var objInFullWin
 
     property bool showCenterLine: false
     property bool enableAn: false

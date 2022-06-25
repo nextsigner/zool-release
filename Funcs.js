@@ -1073,7 +1073,7 @@ function loadModules(){
             //log.ls('Modules Folder: '+folder, 0, 500)
             if(!unik.folderExist(folder)){
                 unik.mkdir(folder)
-                let download=unik.downloadGit(url, folder)
+                //let download=unik.downloadGit(url, folder)
                 //log.ls('Modules Folder not exist making: '+folder, 0, 500)
             }else{
                 //log.ls('Modules Folder exist: '+folder, 0, 500)
@@ -1101,4 +1101,5 @@ function loadModule(folder){
     c+='}\n'
     //log.ls('code: '+c, 0, xLatIzq.width)
     let comp=Qt.createQmlObject(c, xApp, 'loadmodule')
+    //log.ls('L1104 Funcs.js Current Path: '+unik.currentFolderPath(), 0, xApp.width*0.2)
 }

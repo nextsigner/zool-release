@@ -251,6 +251,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(app.objInFullWin){
+                app.objInFullWin.escaped()
+                return
+            }
             if(panelLog.visible){
                 panelLog.visible=false
                 return
