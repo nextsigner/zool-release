@@ -1094,10 +1094,12 @@ function loadModule(folder){
     //engine.addImportPath(unik.getPath(4)+'/modules/'+folder);
     let c='import QtQuick 2.0\n'
     //c+='import "'+unik.currentFolderPath()+'/zool-modules/'+folder+'" as Module\n'
-    c+='import "./modules/'+folder+'" as Module\n'
-    //c+='import "'++'" as Module\n'
+    //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
+    //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
+    //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
+    c+='import ModuleMain 1.0\n'
     c+='Item{\n'
-    c+='    Module.ModuleMain{}\n'
+    c+='    ModuleMain{}\n'
     c+='}\n'
     //log.ls('code: '+c, 0, xLatIzq.width)
     let comp=Qt.createQmlObject(c, xApp, 'loadmodule')
