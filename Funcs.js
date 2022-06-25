@@ -1057,7 +1057,7 @@ function getNums(fecha){
 function loadModules(){
     let d='{"modules":['
 
-    d+='{"enabled": true, "name":"Contexto de Namimiento", "url": "https://github.com/nextsigner/zool-ctx-nac.git"}'
+    d+='{"enabled": true, "name":"Contexto de Namimiento", "url": "https://github.com/nextsigner/ZoolCtxNac.git"}'
     d+=',{"enabled": false, "name":"Modulo inexistente", "url": "https://github.com/nextsigner/inexistente.git"}'
 
     d+=']}'
@@ -1089,7 +1089,7 @@ function loadModules(){
         }
     }
 }
-function loadModule(folder){
+function loadModule(module){
     //log.ls('loadModule('+folder+')...', 0, xLatIzq.width)
     //engine.addImportPath(unik.getPath(4)+'/modules/'+folder);
     let c='import QtQuick 2.0\n'
@@ -1097,9 +1097,9 @@ function loadModule(folder){
     //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
     //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
     //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
-    c+='import ModuleMain 1.0\n'
+    c+='import '+module+' 1.0\n'
     c+='Item{\n'
-    c+='    ModuleMain{}\n'
+    c+='    '+module+'{}\n'
     c+='}\n'
     //log.ls('code: '+c, 0, xLatIzq.width)
     let comp=Qt.createQmlObject(c, xApp, 'loadmodule')
