@@ -94,6 +94,9 @@ Rectangle {
                             height: parent.height
                             anchors.centerIn: parent
                             validator: IntValidator {bottom: 1; top: 150}
+                            onTextChanged: {
+                                if(focus)apps.zFocus='xLatIzq'
+                            }
                             Keys.onReturnPressed: {
                                 xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
                                 xTit.showTi=false
@@ -285,7 +288,8 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             visible: index===lv.currentIndex
                             onClicked: {
-                                xBottomBar.objPanelCmd.makeRSBack(itemRS.rsDate)
+                                JS.loadRs(itemRS.rsDate)
+                                //xBottomBar.objPanelCmd.makeRSBack(itemRS.rsDate)
 //                                let date=new Date(itemRS.rsDate)
 //                                let d=date.getDate()
 //                                let m=date.getMonth()// + 1

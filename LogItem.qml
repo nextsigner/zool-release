@@ -22,18 +22,24 @@ Rectangle{
         contentWidth: parent.width
         contentHeight: taLog.contentHeight
         clip: true
-        TextArea{
-            id: taLog
-            width: r.width-app.fs//*0.5
-            //height: contentHeight
-            wrapMode: r.ww?Text.WordWrap:Text.WrapAnywhere
+        Item{
+            id: xTaLog
+            width: r.width-app.fs
+            height: taLog.contentHeight
             anchors.horizontalCenter: parent.horizontalCenter
-            //anchors.top: parent.top
-            //anchors.topMargin: app.fs*0.5
-            font.pixelSize: app.fs*0.5
-            color: 'white'
-            background: Rectangle{color: 'black'}
-            clip: true
+            TextArea{
+                id: taLog
+                width: parent.width//-app.fs*2//*0.5
+                //height: contentHeight
+                wrapMode: r.ww?Text.WordWrap:Text.WrapAnywhere
+                anchors.horizontalCenter: parent.horizontalCenter
+                //anchors.top: parent.top
+                //anchors.topMargin: app.fs*0.5
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+                background: Rectangle{color: 'black'}
+                clip: true
+            }
         }
     }
     Rectangle{

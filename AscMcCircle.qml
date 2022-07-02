@@ -391,6 +391,10 @@ Item {
             json.zoompos={}
         }
         json.zoompos[''+eje]=sweg.getZoomAndPos()
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
         let njson=JSON.stringify(json)
         app.fileData=njson
         app.currentData=app.fileData

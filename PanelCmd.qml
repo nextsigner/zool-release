@@ -237,6 +237,18 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         cd2 = cd2.setDate(cd2.getDate() - 1)
         let hsys=apps.currentHsys
         let cd3=new Date(cd2)
+
+        //Momento de creación de RS
+        let nDateNow= new Date(Date.now())
+
+        let nDate= new Date(date)
+        let dia=nDate.getDate()
+        let mes=nDate.getMonth() + 1
+        let anio=nDate.getFullYear()
+        let hora=nDate.getHours()
+        let minuto=nDate.getMinutes()
+        let j='{"paramsBack":{"tipo":"rs","ms":'+nDateNow.getTime()+',"n":"Revolución Solar '+anio+' de '+app.currentNom+'","d":'+dia+',"m":'+mes+',"a":'+anio+',"h":'+hora+',"min":'+minuto+',"gmt":'+app.currentGmt+',"lat":'+app.currentLat+',"lon":'+app.currentLon+',"alt":0,"ciudad":"'+app.currentLugar+'"}}'
+        app.currentDataBack=j
         let finalCmd=''
             +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
         //console.log('finalCmd: '+finalCmd)

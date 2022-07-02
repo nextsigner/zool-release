@@ -27,6 +27,7 @@ AppWin {
 
     property string mainLocation: ''
     property string pythonLocation: Qt.platform.os==='windows'?'./Python/python.exe':'python3'
+    //property string pythonLocation: './Python/python.exe'
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string url
     property string mod: 'mi'
@@ -67,6 +68,7 @@ AppWin {
     property real currentGmt: 0
     property real currentLon: 0.0
     property real currentLat: 0.0
+    property real currentAlt: 0
 
     property date currentDateBack
     property string currentNomBack: ''
@@ -438,7 +440,7 @@ AppWin {
     Item{
         id: capa101
         anchors.fill: xApp
-        XDataBar{id: xDataBar}
+        XDataBarV3{id: xDataBar}
         Row{
             //anchors.centerIn: parent
             anchors.top: xDataBar.bottom
@@ -677,6 +679,7 @@ AppWin {
                 }
             }
         }
+        Comps.XDataStatusBar{id: xDataStatusBar}
         XTools{
             id: xTools
             anchors.bottom: parent.bottom
@@ -765,6 +768,13 @@ AppWin {
             log.ls('Minyma For Me: '+data, 0, 500)
         }
     }
+
+    //Linea vertical medio
+//    Rectangle{
+//        width: 2
+//        height: xApp.height*2
+//        anchors.centerIn: parent
+//    }
 //    Timer{
 //        id: tLoadModules
 //        running: false
@@ -818,9 +828,14 @@ AppWin {
                 let mes=d.getMonth()+1
                 let anio=d.getFullYear()
                 let nom="United Kingston England "+dia+"-"+mes+'-'+anio
+                log.ls('Bienvenido!.', 0, xLatIzq.width)
                 log.ls('No hay ningún archivo previo que se haya cargado.', 0, xLatIzq.width)
                 log.ls('Cargando de manera temporal el archivo '+nom, 0, xLatIzq.width)
 
+
+                //Detalles Técnicos extras
+                log.l('Zool se está ejecutando en la carpeta'+unik.currentFolderPath())
+                log.l('El módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                 JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, "United Kingston", nom, "pron", false)
             }
         }

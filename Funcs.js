@@ -59,7 +59,16 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
     let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
     app.mod=tipo
     //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
-    addTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
+    if(tipo==='sin'){
+        xDataBar.stringMiddleSeparator='Sinastría'
+        addTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
+    }
+    if(tipo==='rs'){
+        xDataBar.stringMiddleSeparator='Rev. Solar '+a+' de '+nom
+        xDataStatusBar.currentIndex=1
+        setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
+    }
+
     if(save){
         let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
         console.log('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
@@ -67,12 +76,6 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
         loadJsonBack(fn)
         return
     }
-    //xDataBar.state='show'
-    //xDataBar.opacity=1.0
-    //app.currentData=j
-    //    log.l('loadFromArgsBack: '+j)
-    //    log.visible=true
-    //    log.width=xApp.width*0.2
     app.currentDataBack=j
     runJsonTempBack()
 }
@@ -200,7 +203,7 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
                         for(var i=0;i<dataJson0.length;i++){
                             dataList.push(dataJson0[i])
                         }
-                    }                    
+                    }
 
                     //console.log('Signo para mostar: '+s)
                     if(result['s'+s]){
@@ -363,21 +366,32 @@ function loadJson(file){
         }
         sweg.loadSign(jsonData)
     }else{
+        //log.ww=false
+        //log.ls('sweg.load(jsonData): '+JSON.stringify(jsonData), 0, 500)
         sweg.load(jsonData)
     }
     if(jsonData.params.fileNamePath){
         panelPronEdit.loadJson(jsonData.params.fileNamePath)
     }
-    let nom=jsonData.params.n.replace(/_/g, ' ')
-    let vd=jsonData.params.d
-    let vm=jsonData.params.m
-    let va=jsonData.params.a
-    let vh=jsonData.params.h
-    let vmin=jsonData.params.min
-    let vgmt=jsonData.params.gmt
-    let vlon=jsonData.params.lon
-    let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+
+    let params
+
+    if((jsonData.params.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack) ){
+        params=jsonData.paramsBack
+    }else{
+        params=jsonData.params
+    }
+
+    let nom=params.n.replace(/_/g, ' ')
+    let vd=params.d
+    let vm=params.m
+    let va=params.a
+    let vh=params.h
+    let vmin=params.min
+    let vgmt=params.gmt
+    let vlon=params.lon
+    let vlat=params.lat
+    let vCiudad=params.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -394,10 +408,29 @@ function loadJson(file){
     app.currentLon=vlon
     app.currentLat=vlat
 
-    setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
 
-    if(jsonData.params.tipo==='sin'){
+    if(jsonData.params.tipo==='sin' && jsonData.paramsBack){
+        let m0NomCorr=nom.split(' - ')
+        nom=m0NomCorr[0].replace('Sinastría ', '')
+        vd=jsonData.params.d
+        vm=jsonData.params.m
+        va=jsonData.params.a
+        vh=jsonData.params.h
+        vmin=jsonData.params.min
+        vgmt=jsonData.params.gmt
+        vlon=jsonData.params.lon
+        vlat=jsonData.params.lat
+        vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+        edad=''
+        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+        stringEdad=edad.indexOf('NaN')<0?edad:''
+        setTitleData('Interior: '+nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
+
+        //Preparando datos para addTitle de tipo sin.
         nom=jsonData.paramsBack.n.replace(/_/g, ' ')
+        if(m0NomCorr.length>1){
+            nom=m0NomCorr[1].replace('Sinastría ', '')
+        }
         vd=jsonData.paramsBack.d
         vm=jsonData.paramsBack.m
         va=jsonData.paramsBack.a
@@ -406,21 +439,41 @@ function loadJson(file){
         vgmt=jsonData.paramsBack.gmt
         vlon=jsonData.paramsBack.lon
         vlat=jsonData.paramsBack.lat
-        let valt=0
-        if(jsonData.paramsBack.alt){
-            valt=jsonData.paramsBack.alt
-        }
         vCiudad=jsonData.paramsBack.ciudad.replace(/_/g, ' ')
-        //let edad=''
-        //numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-        //let stringEdad=edad.indexOf('NaN')<0?edad:''
+        edad=''
+        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+        stringEdad=edad.indexOf('NaN')<0?edad:''
 
-        loadFromArgsBack(vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, nom, vCiudad, 'sin', false)
-        //log.l('Cargando sinastría...')
-        //log.visible=true
+        addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
+    }else{
+        setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
     }
+    //    if(jsonData.params.tipo==='sin'){
+    //        nom=jsonData.paramsBack.n.replace(/_/g, ' ')
+    //        vd=jsonData.paramsBack.d
+    //        vm=jsonData.paramsBack.m
+    //        va=jsonData.paramsBack.a
+    //        vh=jsonData.paramsBack.h
+    //        vmin=jsonData.paramsBack.min
+    //        vgmt=jsonData.paramsBack.gmt
+    //        vlon=jsonData.paramsBack.lon
+    //        vlat=jsonData.paramsBack.lat
+    //        let valt=0
+    //        if(jsonData.paramsBack.alt){
+    //            valt=jsonData.paramsBack.alt
+    //        }
+    //        vCiudad=jsonData.paramsBack.ciudad.replace(/_/g, ' ')
+    //        //let edad=''
+    //        //numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    //        //let stringEdad=edad.indexOf('NaN')<0?edad:''
+
+    //        loadFromArgsBack(vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, nom, vCiudad, 'sin', false)
+    //        //log.l('Cargando sinastría...')
+    //        //log.visible=true
+    //    }
     //xDataBar.titleData=textData
     xDataBar.state='show'
+    xDataStatusBar.currentIndex=-1
     app.setFromFile=false
 }
 function loadJsonBack(file){
@@ -514,6 +567,7 @@ function loadJsonBack(file){
     addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
     //xDataBar.titleData=textData
     xDataBar.state='show'
+    xDataStatusBar.currentIndex=0
     app.setFromFile=false
 }
 function loadJsonFromParamsBack(json){
@@ -577,34 +631,64 @@ function loadJsonFromParamsBack(json){
 
 function mkSinFile(file){
     let jsonFileDataInterior=app.fileData
-    let jsonInt=JSON.parse(jsonFileDataInterior)
-    let fn=file
-    let jsonFileName=fn
-    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-    let jsonExt=JSON.parse(jsonFileData)
-    jsonInt.tipo='sin'
-    jsonExt.tipo='sin'
-    let nJson=jsonInt
-    nJson.paramsBack=jsonExt.params
-    nJson.params.tipo='sin'
-    nJson.params.n='Sinastría '+nJson.params.n+' - '+nJson.paramsBack.n
-    nJson.paramsBack.tipo='sin'
-    let sf=JSON.stringify(nJson)
-    //log.l(sf)
+    let json=JSON.parse(jsonFileDataInterior)
+    let jsonFileDataExt=unik.getFile(file).replace(/\n/g, '')
+    let jsonExt=JSON.parse(jsonFileDataExt)
+    json.params.tipo='sin'
+    json.paramsBack=jsonExt.params
+    json.paramsBack.tipo='sin'
+    json.paramsBack.n='Sinastría '+json.params.n+' - '+json.paramsBack.n
 
-    let nFileName=(apps.jsonsFolder+'/Sinastría_'+jsonInt.params.n+'_-_'+jsonExt.params.n+'.json').replace(/ /g,'_')
-    //log.l(nFileName)
+    let cNom=json.paramsBack.n
+    let nFileName=(apps.jsonsFolder+'/'+cNom+'.json').replace(/ /g,'_')
     let e=unik.fileExist(nFileName)
     if(e){
         //log.l('Existe')
         loadJson(nFileName)
     }else{
         //log.l('No Existe')
-        unik.setFile(nFileName, sf)
+        unik.setFile(nFileName, JSON.stringify(json))
         xEditor.visible=true
         loadJson(nFileName)
     }
-    //log.visible=true
+}
+function loadRs(date){
+    let cd=date
+    cd = cd.setFullYear(date.getFullYear())
+    let cd2=new Date(cd)
+    cd2 = cd2.setDate(cd2.getDate() - 1)
+    let cd3=new Date(cd2)
+    let hsys=apps.currentHsys
+    let ad=getADate(cd3)
+    //log.ls('cd3:'+ad.toString(), 0, 500)
+    loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[3], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
+//    let finalCmd=''
+//        +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
+//    //console.log('finalCmd: '+finalCmd)
+//    let c=''
+//    c+=''
+//            +'  if(logData.length<=3||logData==="")return\n'
+//            +'  let j\n'
+//            +'try {\n'
+//            +'      let s=""+logData\n'
+//            +'      //console.log("RS: "+s)\n'
+//            +'      r.state="hide"\n'
+//            +'      app.mod="rs"\n'
+//            +'      sweg.loadSweJson(s)\n'
+//            +'      //swegz.sweg.loadSweJson(s)\n'
+//            +'      let j=JSON.parse(s)\n'
+//            +'      let o=j.params\n'
+//            +'      let m0=o.sdgmt.split(" ")\n'
+//            +'      let m1=m0[0].split("/")\n'
+//            +'      let m2=m0[1].split(":")\n'
+//            +'      JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+//            +'      logData=""\n'
+//            +'} catch(e) {\n'
+//            +'  console.log("Error makeRS Code: "+e+" "+logData);\n'
+//            +'  //unik.speak("error");\n'
+//            +'}\n'
+
+//    mkCmd(finalCmd, c)
 }
 function runJsonTemp(){
     var jsonData
@@ -775,8 +859,33 @@ function setNewTimeJsonFileDataBack(date){
 function saveJson(){
     app.fileData=app.currentData
     let jsonFileName=apps.url
-    unik.setFile(jsonFileName, app.currentData)
+    let json=JSON.parse(app.fileData)
+    if(unik.fileExist(apps.url.replace('file://', ''))){
+        let dataModNow=new Date(Date.now())
+        json.params.msmod=dataModNow.getTime()
+    }
+    unik.setFile(jsonFileName, JSON.stringify(json))
     loadJson(apps.url)
+}
+function saveJsonBack(){
+    app.fileData=app.currentData
+    let json=JSON.parse(app.currentData)
+    json.params.tipo='rs'
+    //log.ls('app.currentDataBack: '+app.currentDataBack, 0, 500)
+    //json['paramsBack']={}
+    let pb=JSON.parse(app.currentDataBack)
+    json['paramsBack']={}=pb.paramsBack
+    if(unik.fileExist(apps.url.replace('file://', ''))){
+        let dataModNow=new Date(Date.now())
+        json.params.msmod=dataModNow.getTime()
+    }
+    log.ww=false
+    log.ls('app.fileData: '+JSON.stringify(json), 0, 500)
+    let jsonFileName=apps.jsonsFolder+'/'+(''+pb.paramsBack.n).replace(/ /g, '_')+'.json'
+    apps.url=jsonFileName
+    log.ls('apps.url: '+apps.url, 0, 500)
+    unik.setFile(jsonFileName, JSON.stringify(json))
+    //loadJson(apps.url)
 }
 function saveJsonAs(newUrl){
     app.fileData=app.currentData
@@ -887,7 +996,7 @@ function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
         stringTiempo='<b> Edad:</b> '+nAnio+' años '
     }
     let a=[]
-    a.push('@')
+    //a.push('@')
     let ni=0
     if(xDataBar.at[0]==='@'){
         ni=1
@@ -903,7 +1012,7 @@ function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
     a.push('@')
     let sTipo='Sinastría'
     if(app.mod==='trans')sTipo='Tránsitos'
-    a.push('Exterior: <b>'+sTipo+'</b>')
+    a.push('Exterior: <b>'+nom+'</b>')
     a.push(vd+'/'+vm+'/'+va)
     a.push(vh+':'+vmin+'hs')
     a.push('GMT '+vgmt)
@@ -913,6 +1022,45 @@ function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
     a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
     xDataBar.at=a
 }
+
+function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
+    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    let stringTiempo=''
+    //console.log('Edad: '+numEdad)
+    if(mod===0){
+        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
+    }else if(mod===2){
+        stringTiempo=''
+    }else{
+        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
+        stringTiempo='<b> Edad:</b> '+nAnio+' años '
+    }
+    let a=[]
+    a.push('@')
+    let ni=0
+    if(xDataBar.at[0]==='@'){
+        ni=1
+    }
+    //a.push(xDataBar.at[ni])
+    a.push(xDataBar.at[ni+1])
+    a.push(xDataBar.at[ni+2])
+    a.push(xDataBar.at[ni+3])
+    a.push(xDataBar.at[ni+4])
+    a.push(xDataBar.at[ni+5])
+    a.push(xDataBar.at[ni+6])
+    a.push(xDataBar.at[ni+7])
+    a.push('@')
+    a.push('Exterior')
+    a.push(vd+'/'+vm+'/'+va)
+    a.push(vh+':'+vmin+'hs')
+    a.push('GMT '+vgmt)
+    a.push(stringTiempo)
+    a.push('<b> '+vCiudad+'</b>')
+    a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+    a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+    xDataBar.at=a
+}
+
 function setTitleDataTo1(){
     let jsonData=app.currentJson
     let nom=jsonData.params.n.replace(/_/g, ' ')
@@ -960,7 +1108,14 @@ function parseRetRed(d){
         return d
     }
 }
-
+function getADate(date){
+    let d=date.getDate()
+    let m=date.getMonth() + 1
+    let a=date.getFullYear()
+    let h=date.getHours()
+    let min=date.getMinutes()
+    return [d, m, a, h, min]
+}
 //Funciones de GUI
 function showMsgDialog(title, text, itext){
     let c='import QtQuick 2.0\n'
@@ -1079,10 +1234,10 @@ function loadModules(){
                 //log.ls('Modules Folder exist: '+folder, 0, 500)
             }
             //loadModule(f)
-//            let download=unik.downloadGit(url, folder)
-//            if(download){
-//                loadModule(f)
-//            }
+            //            let download=unik.downloadGit(url, folder)
+            //            if(download){
+            //                loadModule(f)
+            //            }
             loadModule(f)
         }else{
             //log.ls('Modules disabled: '+json.modules[i].name, 0, 500)

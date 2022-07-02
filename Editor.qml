@@ -204,7 +204,11 @@ Rectangle{
     function save(){
         let json=JSON.parse(app.fileData)
         json.params.data=editor.text
-        let njson=JSON.stringify(json)
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
+        let njson=JSON.stringify(json)        
         app.fileData=njson
         app.currentData=app.fileData
         unik.setFile(apps.url.replace('file://', ''), app.fileData)

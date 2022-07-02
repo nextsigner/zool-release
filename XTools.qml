@@ -337,7 +337,7 @@ Rectangle {
                 //width: app.fs*3
                 height: app.fs*0.6
                 anchors.verticalCenter: parent.verticalCenter
-                visible: app.ev&&app.mod!=='sin'
+                visible: false//app.ev&&app.mod!=='sin'&&app.mod!=='rs'
                 onClicked: {
                     JS.mkSinFile(apps.urlBack)
                 }

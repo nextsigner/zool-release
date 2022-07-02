@@ -13,6 +13,10 @@ Rectangle{
     property bool fileInitLoaded: false
     property int fs: app.fs*0.75
     property bool showAreaVideo: true
+    property alias text: txtAboutZool.text
+    property alias fontSize: txtAboutZool.font.pixelSize
+    property string uFile: ''
+    property string uData: ''
     Column{
         id: col0
         anchors.centerIn: parent
@@ -36,6 +40,7 @@ Rectangle{
                             tTxtAboutZool.v=0
                         }
                         txtAboutZool.text=txtAboutZool.aData[tTxtAboutZool.v]
+                        txtAboutZool.setTxt()
                     }else{
                         tTxtAboutZool.running=!tTxtAboutZool.running
                     }
@@ -43,7 +48,7 @@ Rectangle{
             }
             Text{
                 id: txtAboutZool
-                text: aData[0]
+                text: (''+aData[0]).indexOf('import ')<0?aData[0]:aData[1]
                 font.pixelSize: r.fs
                 color: 'white'
                 width: r.width-app.fs
@@ -52,40 +57,68 @@ Rectangle{
                 wrapMode: Text.WordWrap
                 //onLinkActivated: Qt.openUrlExternally(link)
                 property var aData: []
+                property real nextFS: 1.0
                 Behavior on opacity{NumberAnimation{duration: 1500}}
                 onOpacityChanged: {
                     if(opacity===0.0){
+                        setTxt()
+                    }
+                }
+                function setTxt(){
+                    txtAboutZool.font.pixelSize=app.fs*nextFS
+                    if(txtAboutZool.aData[tTxtAboutZool.v].indexOf('import')===0){
+
+                        let comp=Qt.createQmlObject(txtAboutZool.aData[tTxtAboutZool.v], app, 'qmlcodeargFs')
+                        //tTxtAboutZool.v++
+                        txtAboutZool.text=txtAboutZool.aData[tTxtAboutZool.v]
+                        tTxtAboutZool.running=true
+                        txtAboutZool.opacity=1.0
+                    }else{
                         txtAboutZool.text=txtAboutZool.aData[tTxtAboutZool.v]
                         tTxtAboutZool.running=true
                         txtAboutZool.opacity=1.0
                     }
                 }
                 Timer{
-                    id: tTxtAboutZool
-                    running: sv.currentIndex===0
+                    id: tDataChangedCheck
+                    running: tTxtAboutZool.running
                     repeat: true
-                    interval: 12000
-                    property int v: 1
-                    property var aTimes: [3000, 10000]
+                    interval: 3000
                     onTriggered: {
-                        //txtAboutZool.text=txtAboutZool.aData[v]
+                        let data=unik.getFile(r.uFile)
+                        if(r.uData!==data){
+                            //log.ls('Diferente', 300, 500)
+                            //tTxtAboutZool.stop()
+                            //tTxtAboutZool.v=0
+                            //loadZoolText()
+                        }else{
+                            //log.ls('Igual', 300, 500)
+                        }
+                    }
+                }
+                Timer{
+                    id: tTxtAboutZool
+                    running: sv.currentIndex===0 && aTimes.length>0
+                    repeat: true
+                    interval: aTimes[0]
+                    property int v: 0
+                    property var aTimes: []
+                    property var aFs: []
+                    onVChanged: {
+                        interval=aTimes[v]
+                        txtAboutZool.nextFS=parseFloat(aFs[v])
+                        //txtAboutZool.font.pixelSize=app.fs*parseFloat(aFs[v])
+                    }
+                    onTriggered: {
                         if(v<txtAboutZool.aData.length-1){
                             v++
                         }else{
                             loadZoolText()
                             v=0
                         }
-                        if(aTimes.length>0){
-                            interval=aTimes[v]
-                        }else{
-                            interval=12000
-                        }
                         txtAboutZool.opacity=0.0
                         running=false
                     }
-                }
-                Component.onCompleted: {
-                    loadZoolText()
                 }
             }
         }
@@ -141,47 +174,92 @@ Rectangle{
             }
         }
     }
+    //    Text{
+    //        text: 'I: '+tTxtAboutZool.interval+' v: '+tTxtAboutZool.v+' fs: '+tTxtAboutZool.aFs[tTxtAboutZool.v]
+    //        font.pixelSize: 30
+    //        color: 'red'
+    //    }
+    Component.onCompleted: {
+        setFilePath('')
+        //log.ls('uFile: '+r.uFile, 0, 500)
+        loadZoolText()
+    }
+    function setFilePath(newFilePath){
+        let fp='./resources/zooltext.txt'
+        if(url===''){
+            let appArgs=Qt.application.arguments
+            let arg=''
+            for(var i=0;i<appArgs.length;i++){
+                let a=appArgs[i]
+                if(a.indexOf('tempzooltext')>=0){
+                    let ma=a.split('=')
+                    if(ma.length>1){
+                        arg=ma[1]
+                    }
+                }
+            }
+            if(arg!==''){
+                if(!unik.fileExist(arg)&&!r.noFoundFileExistNofify){
+                    r.noFoundFileExistNofify=true
+                    log.l('El archivo ingresado mediante el parámetro tempzooltext no existe.')
+                    log.l('Archivo tempzooltex: '+arg)
+                    log.l('Cargando archivo por defecto tempzooltex: '+fp)
+                    log.visible=true
+                    //data=unik.getFile(fp)
+                }
+                fp=arg
+            }
+        }else{
+            fp=newFilePath
+        }
+        r.uFile=fp
+    }
     function loadZoolText(){
         let appArgs=Qt.application.arguments
         let fp
-        let data=''
-        fp='./resources/zooltext.txt'
-        let arg=''
-        for(var i=0;i<appArgs.length;i++){
-            let a=appArgs[i]
-            if(a.indexOf('tempzooltext')>=0){
-                let ma=a.split('=')
-                if(ma.length>1){
-                    arg=ma[1]
-                }
-            }
-        }
-        if(arg!==''){
-            if(!unik.fileExist(arg)&&!r.noFoundFileExistNofify){
-                r.noFoundFileExistNofify=true
-                log.l('El archivo ingresado mediante el parámetro tempzooltext no existe.')
-                log.l('Archivo tempzooltex: '+arg)
-                log.l('Cargando archivo por defecto tempzooltex: '+fp)
-                log.visible=true
-                data=unik.getFile(fp)
-            }
-            fp=arg
-            if(unik.fileExist(fp)){
-                data=unik.getFile(fp)
-            }
-        }else{
-            data=unik.getFile(fp)
-        }
+        let data=unik.getFile(r.uFile)
+        r.uData=data
         var aD=[]
         var aT=[]
+        var aF=[]
         var aS=data.split('---')
-        for(i=0;i<aS.length;i++){
+        for(var i=0;i<aS.length;i++){
             let dato=aS[i]
-            if(dato.indexOf('time=')<0&&dato.indexOf('qml=')<0){
+            let code=''
+            let mAC
+            if(dato.indexOf('time=')<0&&dato.indexOf('qml=')<0&&dato.indexOf('zfs=')<0){
                 aD.push(aS[i])
+            }else if(dato.indexOf('zfs=')>=0){
+                code='import QtQuick 2.0\n'
+                code+='Item{\n'
+                code+=' Component.onCompleted:{\n'
+                let mLines=aS[i].split('\n')
+                let mTime
+                if(i===0){
+                    mAC=mLines[0].split('zfs=')
+                    mTime=mLines[1].split('time=')
+                }else{
+                    mAC=mLines[1].split('zfs=')
+                    mTime=mLines[2].split('time=')
+                }
+                if(mAC.length>1 && mTime.length > 1){
+                    //code=mAC[1]
+                    aT.push(parseInt(mTime[1]))
+                    code+='     panelZoolText.fontSize='+mAC[1]+'\n'
+                    code+=' }\n'
+                    code+='}\n'
+                    aF.push(mAC[1])
+                    //aD.push(code)
+                    //log.ls('Code: '+code, 0, 500)
+                    //let comp=Qt.createQmlObject(code, app, 'qmlcodeargFs')
+                }else{
+                    log.l('Error en carga de código qml en archivo '+arg)
+                    log.l('mLines:'+mLines.toString())
+                    log.visible=true
+                }
             }else if(dato.indexOf('qml=')>=0){
-                let code=''
-                let mAC=aS[i].split('qml=')
+                code=''
+                mAC=aS[i].split('qml=')
                 if(mAC.length>1){
                     code=mAC[1]
                     let comp=Qt.createQmlObject(code, app, 'qmlcodearg')
@@ -198,11 +276,16 @@ Rectangle{
                 }
             }
         }
-        //txtAboutZool.aData=data.split('---')
-        //log.l('aD: '+aD.toString())
-        //log.l('aT: '+aT.toString())
-        //log.visible=true
+
+        //Se agrega vacio al final
+        aD.push('')
+        aT.push(100)
+        aF.push(0.0)
+
         txtAboutZool.aData=aD
         tTxtAboutZool.aTimes=aT
+        tTxtAboutZool.aFs=aF
+        tTxtAboutZool.interval=aT[0]
+        txtAboutZool.font.pixelSize=app.fs*parseFloat(aF[0])
     }
 }

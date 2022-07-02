@@ -40,6 +40,8 @@ Item {
 
     property bool enableAnZoomAndPos: true
 
+    property var jsonStandByForBack
+
     state: apps.swegMod//aStates[0]
     states: [
         State {//PS
@@ -425,6 +427,11 @@ Item {
         c+='        //console.log(\'JSON: \'+json)\n'
         c+='        loadSweJson(json)\n'
         c+='        //swegz.sweg.loadSweJson(json)\n'
+        if((j.params.tipo==='rs' && j.paramsBack) || j.params.tipo==='sin' && j.paramsBack){
+                r.jsonStandByForBack=j.paramsBack
+                //log.ls('r.jsonStandByForBack:'+JSON.stringify(r.jsonStandByForBack), 0, 500)
+                c+='        loadBackFromStandBy()\n'
+        }
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
@@ -458,7 +465,47 @@ Item {
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
         c+='        let json=(\'\'+logData)\n'
-        c+='        console.log(\'JSON Back: \'+json)\n'
+        c+='        //console.log(\'JSON Back: \'+json)\n'
+        c+='        loadSweJsonBack(json)\n'
+        c+='        //swegz.sweg.loadSweJsonBack(json)\n'
+        c+='        uqp'+ms+'.destroy(3000)\n'
+        c+='    }\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        let cmd=\'sweg.loadBack() '+app.pythonLocation+' '+unik.currentFolderPath()+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+'\'\n'
+        c+='    if(apps.showLog){\n'
+        c+='        log.ls(cmd, 0, xApp.width)\n'
+        c+='    }\n'
+        c+='        run(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+'\')\n'
+        c+='    }\n'
+        c+='}\n'
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
+    }
+    function loadBackFromStandBy(){
+        //console.log('Ejecutando SweGraphic.load()...')
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
+        let j=r.jsonStandByForBack
+        let vd=j.d
+        let vm=j.m
+        let va=j.a
+        let vh=j.h
+        let vmin=j.min
+        let vgmt=j.gmt
+        let vlon=j.lon
+        let vlat=j.lat
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let hsys=apps.currentHsys
+        app.currentFechaBack=vd+'/'+vm+'/'+va
+        if(j.hsys)hsys=j.hsys
+        let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='UnikQProcess{\n'
+        c+='    id: uqp'+ms+'\n'
+        c+='    onLogDataChanged:{\n'
+        c+='        let json=(\'\'+logData)\n'
+        c+='        //console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
         c+='        //swegz.sweg.loadSweJsonBack(json)\n'
         c+='        uqp'+ms+'.destroy(3000)\n'

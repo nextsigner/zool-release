@@ -140,20 +140,54 @@ Rectangle {
     Component{
         id: compItemList
         Rectangle{
+            id: xDatos
             width: lv.width
-            height: txtData.contentHeight+app.fs
+            height: colDatos.height+app.fs
             color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
             border.width: index===lv.currentIndex?4:2
             border.color: 'white'
-            XText {
-                id: txtData
-                text: dato
-                font.pixelSize: app.fs*0.5
-                width: parent.width-app.fs
-                wrapMode: Text.WordWrap
-                textFormat: Text.RichText
-                color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+            property bool selected: index===lv.currentIndex
+            Column{
+                id: colDatos
+                spacing: app.fs*0.25
                 anchors.centerIn: parent
+                XText {
+                    id: txtData
+                    //text: dato
+                    font.pixelSize: app.fs*0.5
+                    width: xDatos.width-app.fs
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    //anchors.centerIn: parent
+                }
+                XText {
+                    id: txtDataExtra
+                    font.pixelSize: app.fs*0.35
+                    width: xDatos.width-app.fs
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: xDatos.selected
+                    //anchors.centerIn: parent
+                }
+                Button{
+                    text:'Cargar en Exterior'
+                    width: app.fs*3
+                    height: app.fs*0.8
+                    font.pixelSize: app.fs*0.25
+                    anchors.right: parent.right
+                    anchors.rightMargin: app.fs*0.1
+                    //anchors.bottom: parent.bottom
+                    //anchors.bottomMargin: app.fs*0.1
+                    visible: index===lv.currentIndex
+                    onClicked: {
+                        JS.loadJsonBack(fileName)
+                        r.state='hide'
+                    }
+                }
             }
             MouseArea{
                 anchors.fill: parent
@@ -185,20 +219,10 @@ Rectangle {
                     onDoubleClicked: deleteVnData(fileName)
                 }
             }
-            Button{
-                text:'Cargar en Exterior'
-                width: app.fs*3
-                height: app.fs*0.8
-                font.pixelSize: app.fs*0.25
-                anchors.right: parent.right
-                anchors.rightMargin: app.fs*0.1
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: app.fs*0.1
-                visible: index===lv.currentIndex
-                onClicked: {
-                    JS.loadJsonBack(fileName)
-                    r.state='hide'
-                }
+            Component.onCompleted: {
+                let m0=dato.split('<!-- extra -->')
+                txtData.text=m0[0]
+                txtDataExtra.text=m0[1]
             }
         }
     }
@@ -241,6 +265,9 @@ Rectangle {
             try {
                 jsonData=JSON.parse(jsonFileData)
                 let nom=''+jsonData.params.n.replace(/_/g, ' ')
+                if((jsonData.params.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack)){
+                    nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
+                }
                 if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
                     if(jsonData.asp){
                         //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
@@ -256,11 +283,39 @@ Rectangle {
                     let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
                     let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
                     let stringEdad=edad.indexOf('NaN')<0?edad:''
+
+                    //Date of Make File
+                    let d=new Date(jsonData.params.ms)
+                    let dia=d.getDate()
+                    let mes=d.getMonth() + 1
+                    let anio=d.getFullYear()
+                    let hora=d.getHours()
+                    let minuto=d.getMinutes()
+                    let sMkFile='<b>Creado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
+                    let sModFile='<b>Modificado:</b> Nunca'
+                    if(jsonData.params.msmod){
+                        d=new Date(jsonData.params.ms)
+                        dia=d.getDate()
+                        mes=d.getMonth() + 1
+                        anio=d.getFullYear()
+                        hora=d.getHours()
+                        minuto=d.getMinutes()
+                        sModFile='<b>Modificado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
+                    }
+                    let sDataFile='<b>Tiene información:</b> No'
+                    if(jsonData.params.data){
+                        sDataFile='<b>Tiene información:</b> Si'
+                    }
                     let textData=''
                         +'<b>'+nom+'</b>'
-                        +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+                        +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
                         +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+                        +'<!-- extra -->'
                         +'<p style="font-size:'+parseInt(app.fs*0.35)+'px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+                        +sMkFile+'<br>'
+                        +sModFile+'<br>'
+                        +sDataFile+'<br>'
+                        +'<b>Archivo: </b>'+file
                     //xNombre.nom=textData
                     lm.append(lm.addItem(file,textData))
                 }

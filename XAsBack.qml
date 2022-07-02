@@ -110,8 +110,8 @@ Item{
             height: width
             anchors.centerIn: parent
             radius: width*0.5
-            border.width: 0
-            border.color: apps.backgroundColor
+            border.width: 1
+            border.color: "yellow"//apps.backgroundColor
             color: apps.xAsBackgroundColorBack
             antialiasing: true
             visible: false
@@ -283,10 +283,14 @@ Item{
             json.rots={}
         }
         json.rots['rcBack'+r.numAstro]=rot
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
         let njson=JSON.stringify(json)
         app.fileData=njson
         app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
     }
 
     //Rot
@@ -308,10 +312,14 @@ Item{
             json.zoompos={}
         }
         json.zoompos['zpcBack'+r.numAstro]=sweg.getZoomAndPos()
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
         let njson=JSON.stringify(json)
         app.fileData=njson
         app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
     }
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)

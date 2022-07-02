@@ -278,10 +278,14 @@ Item{
             json.rots={}
         }
         json.rots['rc'+r.numAstro]=rot
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
         let njson=JSON.stringify(json)
         app.fileData=njson
         app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
     }
 
     //Rot
@@ -303,10 +307,14 @@ Item{
             json.zoompos={}
         }
         json.zoompos['zpc'+r.numAstro]=sweg.getZoomAndPos()
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
         let njson=JSON.stringify(json)
         app.fileData=njson
         app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
     }
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)

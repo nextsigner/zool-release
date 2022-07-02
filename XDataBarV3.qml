@@ -100,7 +100,8 @@ Rectangle {
                 id: rep
                 Rectangle{
                     visible: txtRow.text.indexOf(':</b>-1')<0||txtRow.text.indexOf(':</b>0')<0
-                    width: modelData==='@'?1:(txtRow.text.indexOf(':</b>-1')>=0||txtRow.text.indexOf(':</b>0')>=0?1:txtRow.contentWidth+app.fs*0.3)
+                    //width: modelData==='@'?1:(txtRow.text.indexOf(':</b>-1')>=0||txtRow.text.indexOf(':</b>0')>=0?1:txtRow.contentWidth+app.fs*0.3)
+                    width: txtRow.contentWidth+app.fs*0.3
                     height: txtRow.contentHeight+app.fs*0.3
                     color: apps.backgroundColor
                     border.width: modelData==='@'?0:1
@@ -120,10 +121,10 @@ Rectangle {
                     }
                     Text{
                         id: txtRow
-                        text: modelData//.replace(/_/g, ' ')
+                        text: modelData!=='@'?modelData:r.stringMiddleSeparator//.replace(/_/g, ' ')
                         font.pixelSize: r.fs
                         color: apps.fontColor
-                        visible: modelData!=='@' && parent.width>2
+                        //visible: modelData!=='@' && parent.width>2
                         anchors.centerIn: parent
 //                        Timer{
 //                            running: true

@@ -17,6 +17,7 @@ Item {
     property string txtInfo: "Información"
     property string txtInfoC1: "Información Columna 1"
     property string txtInfoC2: "Información Columna 2"
+    property string img1: ""
     onVisibleChanged: {
         if(visible){
             sweg.centerZoomAndPos()
@@ -479,27 +480,42 @@ Item {
                 width: parent.width
                 height: parent.height
                 contentWidth: parent.width
-                contentHeight: !xPanelInfo.showMaximized?txtInfo.contentHeight*1.2:(txtInfoC1.contentHeight>txtInfoC2.contentHeight?txtInfoC1.contentHeight*1.2:txtInfoC2.contentHeight*1.2)
+                contentHeight: !xPanelInfo.showMaximized?colTxtInfo.height*1.2:(txtInfoC1.contentHeight>colTxtCol2.height?txtInfoC1.contentHeight*1.2:colTxtCol2.height*1.2)
                 ScrollBar.vertical: ScrollBar {
-                        width: !xPanelInfo.showMaximized?app.fs*0.25:app.fs
-                        anchors.right: parent.right
-                        policy: ScrollBar.AlwaysOn
-                    }
+                    width: !xPanelInfo.showMaximized?app.fs*0.25:app.fs
+                    anchors.right: parent.right
+                    policy: ScrollBar.AlwaysOn
+                }
                 MouseArea{
                     anchors.fill: parent
                     onClicked: xPanelInfo.showMaximized=!xPanelInfo.showMaximized
                 }
-                Text{
-                    id: txtInfo
-                    text: r.txtInfo
-                    font.pixelSize: xPanelInfo.showMaximized?app.fs:app.fs*0.5
+                Column{
+                    id:colTxtInfo
+                    spacing: app.fs*0.5
                     width: parent.width-app.fs*0.5
-                    wrapMode: Text.WordWrap
-                    color: apps.fontColor
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: parent.top
                     anchors.topMargin: app.fs*0.5
                     visible: !xPanelInfo.showMaximized
+                    Image {
+                        id: imgTxt2
+                        source: r.img1
+                        width: parent.width
+                        fillMode: Image.PreserveAspectFit
+                    }
+                    Text{
+                        id: txtInfo
+                        text: r.txtInfo
+                        font.pixelSize: xPanelInfo.showMaximized?app.fs:app.fs*0.5
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        color: apps.fontColor
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        //anchors.top: parent.top
+                        //anchors.topMargin: app.fs*0.5
+                        //visible: !xPanelInfo.showMaximized
+                    }
                 }
                 Row{
                     spacing: app.fs*0.25
@@ -516,13 +532,23 @@ Item {
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                     }
-                    Text{
-                        id: txtInfoC2
-                        text: r.txtInfoC2
-                        font.pixelSize: xPanelInfo.showMaximized?app.fs:app.fs*0.5
-                        width: parent.parent.width*0.5-app.fs//*0.5
-                        wrapMode: Text.WordWrap
-                        color: apps.fontColor
+                    Column{
+                        id: colTxtCol2
+                        spacing: app.fs*0.25
+                        Image {
+                            id: imgTxt1
+                            source: r.img1
+                            width: txtInfoC2.width
+                            fillMode: Image.PreserveAspectFit
+                        }
+                        Text{
+                            id: txtInfoC2
+                            text: r.txtInfoC2
+                            font.pixelSize: xPanelInfo.showMaximized?app.fs:app.fs*0.5
+                            width: parent.parent.width*0.5-app.fs//*0.5
+                            wrapMode: Text.WordWrap
+                            color: apps.fontColor
+                        }
                     }
                 }
             }
@@ -555,7 +581,10 @@ Item {
             setBg(0)
             xFakeSol.solTipo=3
             if(ih===7){
-                txt+='<h3>Sol en Casa 7</h3><br>
+                r.img1="ocaso.jpg"
+                txt+='<h2>Sol en el Ocaso</h2><br>
+<h3>La palabra ocaso también significa occidente, oeste o poniente. El ocaso es el punto cardinal que indica el lado donde el Sol se pone o se oculta.</h3><br>
+<h2>Sol en Casa 7</h2><br>
 <p>La persona nacida con el sol en la casa 7, en principio podría tratarse de una persona cuya personalidad tendrá un perfil sociable.</p>
 
 <p>Es una persona mental, ágil para los negocios, despierta, atenta y quiere que las cosas se hagan bien. No le gustará que la traten de un modo inadecuado, será paciente con aquellas personas que deba serlo pero en determinado punto, al momento de dictar sentencia, si tiene que ser muy firme y dura, lo será de la manera más fría y mental sin importar a quien le caiga bien su veredicto. Buscará que las cosas sean justas.</p>
@@ -578,13 +607,54 @@ Item {
 '
             }
             if(ih===12){
-                txt+='En casa 12 o 7'
-            }
+                r.img1="amanecer.jpg"
+                txt+='<h2>Sol en Casa 12</h2><br>
+<p></p>
 
+<p></p>
+
+<h2>Sol bien aspectado</h2>
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<!--break-->
+
+<h2>Sol mal aspectado</h2>
+<p></p>
+
+<p></p>
+
+<p></p>'
+            }
         }else if(ih===1||ih===2||ih===3||ih===4||ih===5||ih===6){
             setBg(3)
             xFakeSol.solTipo=0
             txt+='En casa 1, 2, 3, 4, 5, 6 o 7'
+            if(ih===1){
+                txt+='<h2>Sol en Casa 12</h2><br>
+<p></p>
+
+<p></p>
+
+<h2>Sol bien aspectado</h2>
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<!--break-->
+
+<h2>Sol mal aspectado</h2>
+<p></p>
+
+<p></p>
+
+<p></p>'
+            }
             //horizonteBg.opacity-=0.05
         }else if(ih===8||ih===9||ih===11){
             setBg(1)
