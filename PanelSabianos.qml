@@ -330,7 +330,7 @@ Rectangle {
                 r.numSign=11
             }
         }
-        let fileUrl=app.mainLocation+'/resources/sab'+r.numSign+'.json'
+        let fileUrl='"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
         fileUrl=fileUrl.replace(/\"/g, '')
         let fileData=''+unik.getFile(fileUrl)
         let json=JSON.parse(fileData.replace(/\n/g, ''))
@@ -354,7 +354,7 @@ Rectangle {
                 r.numSign=11
             }
         }
-        let fileUrl=app.mainLocation+'/resources/sab'+r.numSign+'.json'
+        let fileUrl='"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
         fileUrl=fileUrl.replace(/\"/g, '')
         let fileData=''+unik.getFile(fileUrl)
         let json=JSON.parse(fileData.replace(/\n/g, ''))

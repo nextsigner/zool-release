@@ -88,7 +88,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             sweg.objHousesCircle.currentHouse=-1
 
             finalCmd=''
-                    +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+' '+unik.currentFolderPath()
+                    +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_eclipses.py" '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+' '+unik.currentFolderPath()
         }
         if(comando[0]==='rs'){
             if(comando.length<1)return
@@ -99,7 +99,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             let cd3=new Date(cd2)
             let hsys=apps.currentHsys
             finalCmd=''
-                    +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
+                    +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
             //console.log('finalCmd: '+finalCmd)
             c=''
             c+=''
@@ -157,7 +157,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             let j=JSON.parse(app.currentData)
             let hsys=apps.defaultHsys
             if(j.params.hsys)hsys=j.params.hsys
-            let sh='python3 '+app.mainLocation+'/py/astrologica_swe.py '+j.params.d+' '+j.params.m+' '+j.params.a+' '+j.params.h+' '+j.params.min+' '+j.params.gmt+' '+j.params.lat+' '+j.params.lon+' '+hsys+' '+unik.currentFolderPath()
+            let sh='python3 "'+unik.currentFolderPath()+'/py/astrologica_swe.py" '+j.params.d+' '+j.params.m+' '+j.params.a+' '+j.params.h+' '+j.params.min+' '+j.params.gmt+' '+j.params.lat+' '+j.params.lon+' '+hsys+' '+unik.currentFolderPath()
             //unik.clipboard
             console.log('sh: '+sh)
             tiCmd.text=sh
@@ -203,7 +203,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let cd3=new Date(cd2)
         let hsys=apps.currentHsys
         let finalCmd=''
-            +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
+            +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
         //console.log('finalCmd: '+finalCmd)
         let c=''
         c+=''
@@ -250,7 +250,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let j='{"paramsBack":{"tipo":"rs","ms":'+nDateNow.getTime()+',"n":"Revolución Solar '+anio+' de '+app.currentNom+'","d":'+dia+',"m":'+mes+',"a":'+anio+',"h":'+hora+',"min":'+minuto+',"gmt":'+app.currentGmt+',"lat":'+app.currentLat+',"lon":'+app.currentLon+',"alt":0,"ciudad":"'+app.currentLugar+'"}}'
         app.currentDataBack=j
         let finalCmd=''
-            +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
+            +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
         //console.log('finalCmd: '+finalCmd)
         let c=''
         c+=''

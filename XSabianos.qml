@@ -241,7 +241,7 @@ Rectangle {
                 r.numSign=11
             }
         }
-        let fileData=''+unik.getFile(app.mainLocation+'/resources/sab'+r.numSign+'.json')
+        let fileData=''+unik.getFile('"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"')
         let json=JSON.parse(fileData.replace(/\n/g, ''))
         //console.log('df:'+df)
         //console.log('sf:'+sf)
