@@ -21,7 +21,7 @@ AppWin {
     minimumWidth: Screen.desktopAvailableWidth-app.fs*4
     minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-    title: 'Zool '+version
+    title: argtitle && argtitle!==""?argtitle:'Zool '+version
     property bool dev: false
 
 
@@ -762,10 +762,23 @@ AppWin {
         loginUserName: 'zool'
         onNewMessage: {
             //let json=JSON.parse(data)
-            log.ls('Minyma Recibe: '+data, 0, 500)
+            //log.ls('Minyma Recibe: '+data, 0, 500)
         }
         onNewMessageForMe: {
-            log.ls('Minyma For Me: '+data, 0, 500)
+            //log.ls('Minyma For Me: '+data, 0, 500)
+            if(data==='isWindowTool'){
+                if(app.flags===Qt.Tool){
+                    minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=true')
+                }else{
+                    minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=false')
+                }
+            }
+            if(data==='windowToWindow'){
+                app.flags=Qt.Window
+            }
+            if(data==='windowToTool'){
+                app.flags=Qt.Tool
+            }
         }
     }
 

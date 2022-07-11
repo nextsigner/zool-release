@@ -279,7 +279,7 @@ Rectangle {
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         //c+='        console.log(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" '+unik.currentFolderPath()+'\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
