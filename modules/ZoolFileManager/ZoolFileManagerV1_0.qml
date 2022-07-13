@@ -1,15 +1,15 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
-import "comps" as Comps
-import "Funcs.js" as JS
+import "../../comps" as Comps
+import "../../Funcs.js" as JS
 Rectangle {
     id: r
     width: parent.width
     height: parent.height
-    color: 'black'
+    color: apps.backgroundColor
     border.width: 2
-    border.color: 'white'
+    border.color: apps.fontColor
 
     property alias tiN: tiNombre.t
     property alias tiC: tiCiudad.t
@@ -42,6 +42,15 @@ Rectangle {
         }
     }
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
+    Text{
+        text: 'ZoolFileManager v1.0'
+        font.pixelSize: app.fs*0.5
+        color: apps.fontColor
+        anchors.left: parent.left
+        anchors.leftMargin: app.fs*0.1
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.1
+    }
     Column{
         id: col
         anchors.centerIn: parent

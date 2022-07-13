@@ -196,7 +196,7 @@ ApplicationWindow {
                 return
             }
             if(apps.currentSwipeViewIndex===3){
-                panelNewVNA.enter()
+                zoolFileManager.enter()
                 return
             }
             if(apps.currentSwipeViewIndex===4){
@@ -230,7 +230,7 @@ ApplicationWindow {
                 return
             }
             if(apps.currentSwipeViewIndex===3){
-                panelNewVNA.enter()
+                zoolFileManager.enter()
                 return
             }
             if(apps.currentSwipeViewIndex===4){
@@ -272,12 +272,12 @@ ApplicationWindow {
                 panelFileLoader.ti.focus=false
                 return
             }
-            if(panelNewVNA.visible&&(panelNewVNA.tiN.focus||panelNewVNA.tiC.focus)){
-                if(panelNewVNA.tiN.focus){
-                    panelNewVNA.tiN.focus=false
+            if(zoolFileManager.visible&&(zoolFileManager.tiN.focus||zoolFileManager.tiC.focus)){
+                if(zoolFileManager.tiN.focus){
+                    zoolFileManager.tiN.focus=false
                 }
-                if(panelNewVNA.tiC.focus){
-                    panelNewVNA.tiC.focus=false
+                if(zoolFileManager.tiC.focus){
+                    zoolFileManager.tiC.focus=false
                 }
                 return
             }
@@ -326,8 +326,8 @@ ApplicationWindow {
                 panelDataBodies.state='hide'
                 return
             }
-            if(panelNewVNA.state==='show'){
-                panelNewVNA.state='hide'
+            if(zoolFileManager.state==='show'){
+                zoolFileManager.state='hide'
                 return
             }
             if(panelControlsSign.state==='show'){
@@ -369,7 +369,7 @@ ApplicationWindow {
                     return
                 }
                 if(apps.currentSwipeViewIndex===3){
-                    panelNewVNA.toUp()
+                    zoolFileManager.toUp()
                     return
                 }
                 if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
@@ -433,7 +433,7 @@ ApplicationWindow {
                     return
                 }
                 if(apps.currentSwipeViewIndex===3){
-                    panelNewVNA.toDown()
+                    zoolFileManager.toDown()
                     return
                 }
                 if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
@@ -485,7 +485,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Left'
         onActivated: {
-            //if(panelNewVNA.state==='show'){
+            //if(zoolFileManager.state==='show'){
             if(apps.zFocus==='xLatDer'){
                 panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
                 return
@@ -496,7 +496,7 @@ ApplicationWindow {
                     return
                 }
                 if(sv.currentIndex===2){
-                    panelNewVNA.toLeft()
+                    zoolFileManager.toLeft()
                     return
                 }
             }
@@ -529,7 +529,7 @@ ApplicationWindow {
             }
             if(apps.zFocus==='xLatIzq'){
                 if(sv.currentIndex===2){
-                    panelNewVNA.toRight()
+                    zoolFileManager.toRight()
                     return
                 }
                 if(xSabianos.visible){
@@ -713,7 +713,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
-            panelNewVNA.state=panelNewVNA.state==='show'?'hide':'show'
+            zoolFileManager.state=zoolFileManager.state==='show'?'hide':'show'
         }
     }
     //Mostrar Panel de Revoluciones Solares

@@ -12,6 +12,10 @@ import "Funcs.js" as JS
 import "./comps" as Comps
 import "./comps/num" as Num
 
+//Default Modules
+import ZoolFileManager 1.1
+import ZoolFileLoader 1.0
+
 AppWin {
     id: app
     visible: true
@@ -37,7 +41,6 @@ AppWin {
     property bool showCenterLine: false
     property bool enableAn: false
     property int msDesDuration: 500
-    //property var api: [panelNewVNA, panelFileLoader]
 
 
     property string fileData: ''
@@ -485,8 +488,8 @@ AppWin {
                         clip: true
                         XPaneles{Comps.PanelZoolText{id: panelZoolText;itemIndex: 0}}
                         XPaneles{PanelSabianos{id: panelSabianos;itemIndex: 1}}
-                        XPaneles{PanelFileLoader{id: panelFileLoader;itemIndex: 2}}
-                        XPaneles{PanelNewVNA{id: panelNewVNA;itemIndex: 3}}
+                        XPaneles{ZoolFileLoader{id: panelFileLoader;itemIndex: 2}}
+                        XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
                         XPaneles{PanelRsList{id: panelRsList;itemIndex: 4}}
                         //XPaneles{PanelAspTransList{id: panelAspTransList;itemIndex: 5}}
                         XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
