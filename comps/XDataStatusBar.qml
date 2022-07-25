@@ -70,14 +70,18 @@ Rectangle {
         txt.text=(r.textStatus[r.currentIndex]).replace(/\./g, '.\n')
         if(r.currentIndex===0){
             bot1.text='Crear Sinastría'
+            bot2.text='Cancelar Sinastría'
             bot1.visible=true
-            bot2.visible=false
+            bot2.visible=true
         }
     }
     function run(numBot){
         if(r.currentIndex===0){
             if(numBot===0){
                 JS.mkSinFile(apps.urlBack)
+            }
+            if(numBot===1){
+                JS.loadJson(apps.url)
             }
         }
     }

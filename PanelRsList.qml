@@ -385,6 +385,7 @@ Rectangle {
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
+        //c+='        log.ls(\'finalCmdRS: '+finalCmd+'\', 0, 500)\n'
         c+='        run(\''+finalCmd+'\')\n'
         c+='    }\n'
         c+='}\n'

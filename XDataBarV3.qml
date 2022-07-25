@@ -119,6 +119,14 @@ Rectangle {
                             }
                         }
                     }
+                    Rectangle{
+                        id: bgCell
+                        anchors.fill: parent
+                        color: apps.backgroundColor
+                        radius: parent.radius
+                        border.width: modelData==='@'?0:1
+                        border.color: apps.fontColor
+                    }
                     Text{
                         id: txtRow
                         text: modelData!=='@'?modelData:r.stringMiddleSeparator//.replace(/_/g, ' ')
@@ -140,7 +148,8 @@ Rectangle {
                         width: r.width*2
                         height: r.height
                         color: apps.houseColor
-                        visible: modelData==='@'&&index===0
+                        z:parent.z-3
+                        visible: index===0 && app.ev//(app.mod==='sin' || app.mod==='rs')
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 0-r.width
@@ -149,9 +158,11 @@ Rectangle {
                         width: r.width*2
                         height: r.height
                         color: apps.houseColorBack
-                        visible: modelData==='@'&&index!==0
+                        z:parent.z-3
+                        visible: modelData==='@' && index!==0 && app.ev
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
+                        anchors.leftMargin: 0-rowData.children[8].width*0.5
                     }
                 }
             }

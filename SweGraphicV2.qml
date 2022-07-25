@@ -446,19 +446,19 @@ Item {
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        let vd=j.params.d
-        let vm=j.params.m
-        let va=j.params.a
-        let vh=j.params.h
-        let vmin=j.params.min
-        let vgmt=j.params.gmt
-        let vlon=j.params.lon
-        let vlat=j.params.lat
+        let vd=j.paramsBack.d
+        let vm=j.paramsBack.m
+        let va=j.paramsBack.a
+        let vh=j.paramsBack.h
+        let vmin=j.paramsBack.min
+        let vgmt=j.paramsBack.gmt
+        let vlon=j.paramsBack.lon
+        let vlat=j.paramsBack.lat
         let d = new Date(Date.now())
         let ms=d.getTime()
         let hsys=apps.currentHsys
         app.currentFechaBack=vd+'/'+vm+'/'+va
-        if(j.params.hsys)hsys=j.params.hsys
+        if(j.paramsBack.hsys)hsys=j.paramsBack.hsys
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
@@ -574,7 +574,7 @@ Item {
             //panelSabianos.state='show'
             sv.currentIndex=1
         }
-        centerZoomAndPos()
+        //centerZoomAndPos()
         //panelAspTransList.state='hide'
         //        } catch(e) {
         //            //alert(e); // error in the above string (in this case, yes)!
@@ -606,7 +606,7 @@ Item {
         panelDataBodies.loadJsonBack(j)
         //panelDataBodiesV2.loadJson(j)
         app.ev=true
-        centerZoomAndPos()
+        //centerZoomAndPos()
     }
     function nextState(){
         let currentIndexState=r.aStates.indexOf(r.state)

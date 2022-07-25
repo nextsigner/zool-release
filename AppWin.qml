@@ -191,22 +191,22 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-            if(apps.currentSwipeViewIndex===2&&panelFileLoader.currentIndex>=0){
-                panelFileLoader.enter()
-                return
-            }
-            if(apps.currentSwipeViewIndex===3){
-                zoolFileManager.enter()
-                return
-            }
-            if(apps.currentSwipeViewIndex===4){
-                panelRsList.enter()
-                return
-            }
-            if(apps.currentSwipeViewIndex===5){
-                ncv.enter()
-                return
-            }
+                if(apps.currentSwipeViewIndex===2&&zoolFileManager.currentIndex>=0){
+                    zoolFileManager.enter()
+                    return
+                }
+//                if(apps.currentSwipeViewIndex===3){
+//                    zoolFileManager.enter()
+//                    return
+//                }
+                if(apps.currentSwipeViewIndex===3){
+                    panelRsList.enter()
+                    return
+                }
+                if(apps.currentSwipeViewIndex===4){
+                    ncv.enter()
+                    return
+                }
             }
         }
     }
@@ -225,8 +225,8 @@ ApplicationWindow {
                 //xEditor.enter()
                 //return
             }
-            if(apps.currentSwipeViewIndex===2&&panelFileLoader.currentIndex>=0){
-                panelFileLoader.enter()
+            if(apps.currentSwipeViewIndex===2&&zoolFileManager.currentIndex>=0){
+                zoolFileManager.enter()
                 return
             }
             if(apps.currentSwipeViewIndex===3){
@@ -268,8 +268,8 @@ ApplicationWindow {
                 return
             }
             //Efecto sobre los paneles
-            if(panelFileLoader.visible&&panelFileLoader.ti.focus){
-                panelFileLoader.ti.focus=false
+            if(zoolFileManager.visible&&zoolFileManager.ti.focus){
+                zoolFileManager.ti.focus=false
                 return
             }
             if(zoolFileManager.visible&&(zoolFileManager.tiN.focus||zoolFileManager.tiC.focus)){
@@ -314,12 +314,12 @@ ApplicationWindow {
                 xBottomBar.objPanelCmd.state='hide'
                 return
             }
-//            if(panelRsList.state==='show'){
-//                panelRsList.state='hide'
-//                return
-//            }
-            if(panelFileLoader.state==='show'){
-                panelFileLoader.state='hide'
+            //            if(panelRsList.state==='show'){
+            //                panelRsList.state='hide'
+            //                return
+            //            }
+            if(zoolFileManager.state==='show'){
+                zoolFileManager.state='hide'
                 return
             }
             if(panelDataBodies.state==='show'){
@@ -361,10 +361,10 @@ ApplicationWindow {
 
             if(apps.zFocus==='xLatIzq'){
                 if(apps.currentSwipeViewIndex===2){
-                    if(panelFileLoader.currentIndex>0){
-                        panelFileLoader.currentIndex--
+                    if(zoolFileManager.currentIndex>0){
+                        zoolFileManager.currentIndex--
                     }else{
-                        panelFileLoader.currentIndex=panelFileLoader.listModel.count-1
+                        zoolFileManager.currentIndex=zoolFileManager.listModel.count-1
                     }
                     return
                 }
@@ -392,20 +392,20 @@ ApplicationWindow {
             if(apps.zFocus==='xLatDer'){
                 tAutoMaticPlanets.stop()
                 panelDataBodies.toUp()
-//                if(panelDataBodies.latFocus===0){
-//                    if(currentPlanetIndex>-1){
-//                        currentPlanetIndex--
-//                    }else{
-//                        currentPlanetIndex=16
-//                    }
-//                }
-//                if(panelDataBodies.latFocus===1){
-//                    if(currentPlanetIndexBack>-1){
-//                        currentPlanetIndexBack--
-//                    }else{
-//                        currentPlanetIndexBack=16
-//                    }
-//                }
+                //                if(panelDataBodies.latFocus===0){
+                //                    if(currentPlanetIndex>-1){
+                //                        currentPlanetIndex--
+                //                    }else{
+                //                        currentPlanetIndex=16
+                //                    }
+                //                }
+                //                if(panelDataBodies.latFocus===1){
+                //                    if(currentPlanetIndexBack>-1){
+                //                        currentPlanetIndexBack--
+                //                    }else{
+                //                        currentPlanetIndexBack=16
+                //                    }
+                //                }
 
             }
             //xAreaInteractiva.back()
@@ -425,10 +425,10 @@ ApplicationWindow {
             }
             if(apps.zFocus==='xLatIzq'){
                 if(apps.currentSwipeViewIndex===2){
-                    if(panelFileLoader.currentIndex<panelFileLoader.listModel.count){
-                        panelFileLoader.currentIndex++
+                    if(zoolFileManager.currentIndex<zoolFileManager.listModel.count){
+                        zoolFileManager.currentIndex++
                     }else{
-                        panelFileLoader.currentIndex=0
+                        zoolFileManager.currentIndex=0
                     }
                     return
                 }
@@ -458,20 +458,20 @@ ApplicationWindow {
                 tAutoMaticPlanets.stop()
                 panelDataBodies.toDown()
 
-//                if(panelDataBodies.latFocus===0){
-//                    if(currentPlanetIndex<16){
-//                        currentPlanetIndex++
-//                    }else{
-//                        currentPlanetIndex=-1
-//                    }
-//                }
-//                if(panelDataBodies.latFocus===1){
-//                    if(currentPlanetIndexBack<16){
-//                        currentPlanetIndexBack++
-//                    }else{
-//                        currentPlanetIndexBack=-1
-//                    }
-//                }
+                //                if(panelDataBodies.latFocus===0){
+                //                    if(currentPlanetIndex<16){
+                //                        currentPlanetIndex++
+                //                    }else{
+                //                        currentPlanetIndex=-1
+                //                    }
+                //                }
+                //                if(panelDataBodies.latFocus===1){
+                //                    if(currentPlanetIndexBack<16){
+                //                        currentPlanetIndexBack++
+                //                    }else{
+                //                        currentPlanetIndexBack=-1
+                //                    }
+                //                }
 
             }
 
@@ -675,12 +675,12 @@ ApplicationWindow {
         }
     }
     //Mostrar Panel PL Signos
-//    Shortcut{
-//        sequence: 'Ctrl+w'
-//        onActivated: {
-//            panelControlsSign.state=panelControlsSign.state==='show'?'hide':'show'
-//        }
-//    }
+    //    Shortcut{
+    //        sequence: 'Ctrl+w'
+    //        onActivated: {
+    //            panelControlsSign.state=panelControlsSign.state==='show'?'hide':'show'
+    //        }
+    //    }
     //Mostrar Panel Editor de Pronósticos
     Shortcut{
         sequence: 'Ctrl+e'

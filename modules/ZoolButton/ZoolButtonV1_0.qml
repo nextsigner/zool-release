@@ -4,7 +4,7 @@ import QtQuick.Controls 2.12
 Item{
     id: r
     width: btn.width
-    height: btn.height
+    height: btnText.contentHeight+(r.paddingWidth*2)
     property string text: '?'
     property int fs: app.fs*0.5
     property int paddingWidth: app.fs*0.25
@@ -13,6 +13,7 @@ Item{
     Button{
         id: btn
         background: Rectangle {
+            id: bg
             implicitWidth: btnText.contentWidth+r.paddingWidth
             implicitHeight: btnText.contentHeight+r.paddingWidth
             color: !r.colorInverted?apps.fontColor:apps.backgroundColor

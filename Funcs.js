@@ -55,12 +55,26 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
 //Funciones de Cargar Datos Exterior
 function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
     app.ev=true
+
+    let nGmt=gmt
+    //IMPORTANTE
+    //GMT A 0 SI ES RS
+    if(tipo==='rs')nGmt=0
+
     let dataMs=new Date(Date.now())
-    let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
+    let j='{"paramsBack":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+nGmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
     app.mod=tipo
     //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
     if(tipo==='sin'){
         xDataBar.stringMiddleSeparator='Sinastría'
+
+        app.currentNomBack=nom
+        app.currentFechaBack=d+'/'+vm+'/'+va
+        app.currentLugarBack=ciudad
+        app.currentGmtBack=gmt
+        app.currentLonBack=lon
+        app.currentLatBack=lat
+
         addTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
     }
     if(tipo==='rs'){
@@ -77,7 +91,8 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
         return
     }
     app.currentDataBack=j
-    runJsonTempBack()
+    sweg.loadBack(JSON.parse(j))
+    //runJsonTempBack()
 }
 
 function loadTransFromTime(date){
@@ -444,6 +459,13 @@ function loadJson(file){
         numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
         stringEdad=edad.indexOf('NaN')<0?edad:''
 
+        app.currentNomBack=nom
+        app.currentFechaBack=vd+'/'+vm+'/'+va
+        app.currentLugarBack=vCiudad
+        app.currentGmtBack=vgmt
+        app.currentLonBack=vlon
+        app.currentLatBack=vlat
+
         addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
     }else{
         setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
@@ -475,6 +497,7 @@ function loadJson(file){
     xDataBar.state='show'
     xDataStatusBar.currentIndex=-1
     app.setFromFile=false
+    sweg.centerZoomAndPos()
 }
 function loadJsonBack(file){
     //Global Vars Reset
@@ -653,42 +676,27 @@ function mkSinFile(file){
     }
 }
 function loadRs(date){
-    let cd=date
+    /*let cd=date
     cd = cd.setFullYear(date.getFullYear())
     let cd2=new Date(cd)
     cd2 = cd2.setDate(cd2.getDate() - 1)
     let cd3=new Date(cd2)
     let hsys=apps.currentHsys
-    let ad=getADate(cd3)
-    //log.ls('cd3:'+ad.toString(), 0, 500)
-    loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[3], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
-//    let finalCmd=''
-//        +app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' '+unik.currentFolderPath()
-//    //console.log('finalCmd: '+finalCmd)
-//    let c=''
-//    c+=''
-//            +'  if(logData.length<=3||logData==="")return\n'
-//            +'  let j\n'
-//            +'try {\n'
-//            +'      let s=""+logData\n'
-//            +'      //console.log("RS: "+s)\n'
-//            +'      r.state="hide"\n'
-//            +'      app.mod="rs"\n'
-//            +'      sweg.loadSweJson(s)\n'
-//            +'      //swegz.sweg.loadSweJson(s)\n'
-//            +'      let j=JSON.parse(s)\n'
-//            +'      let o=j.params\n'
-//            +'      let m0=o.sdgmt.split(" ")\n'
-//            +'      let m1=m0[0].split("/")\n'
-//            +'      let m2=m0[1].split(":")\n'
-//            +'      JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
-//            +'      logData=""\n'
-//            +'} catch(e) {\n'
-//            +'  console.log("Error makeRS Code: "+e+" "+logData);\n'
-//            +'  //unik.speak("error");\n'
-//            +'}\n'
+    let ad=getADate(cd3)*/
 
-//    mkCmd(finalCmd, c)
+    let nDateNow= new Date(Date.now())
+
+    let nDate= new Date(date)
+    let dia=nDate.getDate()
+    let mes=nDate.getMonth() + 1
+    let anio=nDate.getFullYear()
+    let hora=nDate.getHours()
+    let minuto=nDate.getMinutes()
+
+
+    let ad=getADate(nDate)
+    //log.ls('nDate:'+ad.toString(), 0, 500)
+    loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
 }
 function runJsonTemp(){
     var jsonData
@@ -739,16 +747,16 @@ function runJsonTempBack(){
         return
     }
 
-    let nom=jsonData.params.n.replace(/_/g, ' ')
-    let vd=jsonData.params.d
-    let vm=jsonData.params.m
-    let va=jsonData.params.a
-    let vh=jsonData.params.h
-    let vmin=jsonData.params.min
+    let nom=jsonData.paramsBack.n.replace(/_/g, ' ')
+    let vd=jsonData.paramsBack.d
+    let vm=jsonData.paramsBack.m
+    let va=jsonData.paramsBack.a
+    let vh=jsonData.paramsBack.h
+    let vmin=jsonData.paramsBack.min
     let vgmt=app.currentGmt
-    let vlon=jsonData.params.lon
-    let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vlon=jsonData.paramsBack.lon
+    let vlat=jsonData.paramsBack.lat
+    let vCiudad=jsonData.paramsBack.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''

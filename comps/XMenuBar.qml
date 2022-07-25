@@ -94,7 +94,7 @@ MenuBar{
     XMenu {
         title: qsTr("&Archivo")
         Action {text: qsTr("&Nuevo"); onTriggered: zoolFileManager.state='show'}
-        Action { text: qsTr("&Abrir"); onTriggered: panelFileLoader.state='show' }
+        Action { text: qsTr("&Abrir"); onTriggered: zoolFileManager.state='show' }
         Action {enabled: app.fileData!==app.currentData; text: qsTr("&Guardar"); onTriggered: JS.saveJson() }
         //Action { text: qsTr("Save &As...") }
         MenuSeparator { }
@@ -196,7 +196,7 @@ MenuBar{
         title: qsTr("&Paneles")
         Action { text: qsTr("&Panel Información"); onTriggered: panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'; checkable: true; checked: panelDataBodies.state==='show'}
         Action { text: qsTr("&Panel Crear Archivo"); onTriggered: zoolFileManager.state=zoolFileManager.state==='show'?'hide':'show'; checkable: true; checked: zoolFileManager.state==='show'}
-        Action { text: qsTr("&Panel Buscar Archivo"); onTriggered: panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'; checkable: true; checked: panelFileLoader.state==='show'}
+        Action { text: qsTr("&Panel Buscar Archivo"); onTriggered: zoolFileManager.state=zoolFileManager.state==='show'?'hide':'show'; checkable: true; checked: zoolFileManager.state==='show'}
         Action { text: qsTr("&Panel Inferior"); onTriggered: xBottomBar.state=xBottomBar.state==='show'?'hide':'show'; checkable: true; checked: xBottomBar.state==='show'}
         Action { text: qsTr("&Panel Zoom"); onTriggered: apps.showSWEZ=!apps.showSWEZ; checkable: true; checked: apps.showSWEZ}
     }

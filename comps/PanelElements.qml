@@ -55,7 +55,7 @@ Item {
                     ncv.setCurrentNombre(app.currentNom)
                     ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
                     ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
-                    sv.currentIndex=6
+                    sv.currentIndex=5
                     //ncv.printData(app.currentNom, app.currentDate)
                     //ncv.visible=true
                 }

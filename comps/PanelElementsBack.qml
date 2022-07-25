@@ -14,6 +14,7 @@ Item {
     visible: app.ev&&app.mod!=='rs'
     property var aPorcs: [0.0, 0.0,0.0,0.0]
     property int spacing: apps.elementsFs.fs*0.1
+    property string arbolGen: '?'
 
     Column{
         Rectangle{
@@ -46,13 +47,16 @@ Item {
             radius: apps.elementsFs*0.15
             property int nd: 0
             property string ns: '0'
+            property int ag: -1
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
                     ncv.currentDate=app.currentDateBack
                     ncv.setCurrentDate(app.currentDateBack)
                     ncv.setCurrentNombre(app.currentNomBack)
-                    sv.currentIndex=6
+                    ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
+                    ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
+                    sv.currentIndex=5
                     //ncv.currentDate=app.currentDateBack
                     //ncv.visible=true
                 }
@@ -62,6 +66,7 @@ Item {
                 spacing: apps.elementsFs*0.5
                 XText{text: '<b>'+xItemNums.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
                 XText{text: '<b>'+xItemNums.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                XText{text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
             }
         }
     }
@@ -91,7 +96,7 @@ Item {
                 anchors.centerIn: parent
                 spacing: apps.elementsFs*0.5
                 XText{text: '<b>'+element+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}
-                XText{text: '<b>%'+porc+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}
+                XText{text: '<b>%'+porc+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}                
             }
             Row{
                 id: row
@@ -201,6 +206,8 @@ Item {
         let d = JS.getNums(app.currentFechaBack)
         xItemNums.nd=d[0]
         xItemNums.ns=d[1]
+        xItemNums.ag=parseInt(d[2])
+        r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
     }
     function updateListModel(af, v1, v2, v3, v4){
         lm.clear()

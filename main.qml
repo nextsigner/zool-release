@@ -347,11 +347,11 @@ AppWin {
 
         onZFocusChanged: {
             if(zFocus==='xMed'||zFocus==='xLatDer'){
-                panelFileLoader.ti.focus=false
-                panelRsList.desactivar()
+                //zoolFileManager.ti.focus=false
+                //panelRsList.desactivar()
             }else{
                 if(sv.currentIndex===2){
-                    panelFileLoader.ti.focus=true
+                    //zoolFileManager.ti.focus=true
                 }
             }
         }
@@ -464,14 +464,14 @@ AppWin {
                     Rectangle{
                         id: xPanelesTits
                         width: xLatIzq.width
-                        height: app.fs*1.2
+                        height: app.fs*0.6
                         color: apps.fontColor
                         anchors.horizontalCenter: parent.horizontalCenter
-                        property var aPanelesTits: ['Información','Sabianos', 'Archivos', 'Crear Carta', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
+                        property var aPanelesTits: ['Información','Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
                         Text{
                             text: parseInt(sv.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[sv.currentIndex]
                             color: apps.backgroundColor
-                            font.pixelSize: app.fs*0.8
+                            font.pixelSize: app.fs*0.5
                             anchors.centerIn: parent
                         }
                     }
@@ -488,16 +488,15 @@ AppWin {
                         clip: true
                         XPaneles{Comps.PanelZoolText{id: panelZoolText;itemIndex: 0}}
                         XPaneles{PanelSabianos{id: panelSabianos;itemIndex: 1}}
-                        XPaneles{ZoolFileLoader{id: panelFileLoader;itemIndex: 2}}
-                        XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
-                        XPaneles{PanelRsList{id: panelRsList;itemIndex: 4}}
+                        XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
+                        XPaneles{PanelRsList{id: panelRsList;itemIndex: 3}}
                         //XPaneles{PanelAspTransList{id: panelAspTransList;itemIndex: 5}}
-                        XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
+                        XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
                         //XPaneles{PanelZonaMes{id: panelZonaMes;;itemIndex: 6}}
-                        XPaneles{Num.NumPit{id: ncv;itemIndex: 6}}
-                        XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 7}}
-                        XPaneles{PanelRemotoV2{id: panelRemoto;itemIndex: 8}}
-                        XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 9}}
+                        XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
+                        XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
+                        XPaneles{PanelRemotoV2{id: panelRemoto;itemIndex: 7}}
+                        XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 8}}
                         //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
                     }
                     Rectangle{
@@ -799,8 +798,15 @@ AppWin {
 //        onTriggered: JS.loadModules()
 //    }
     Component.onCompleted: {
-        //log.visible=true
-        //log.l('--------->'+EXTRA.getColor(10))
+        if(isDev){
+            log.ls('\nRunning as Dev', 0, xLatIzq.width)
+            //log.ls('\nVersion:\n'+version, log.x,
+            log.ls('\nunik.currentFolderPath():\n'+unik.currentFolderPath(), log.x, log.width)
+            log.ls('\nunik.getPath(4):\n'+unik.getPath(4), log.x, log.width)
+            log.ls('\napps.jsonsFolder:\n'+apps.jsonsFolder, log.x, log.width)
+            log.ls('\nDocumentPath:\n'+documentsPath, log.x, log.width)
+        }
+
         //        for(let i=0;i<256;i++){
         //            log.l('--------->'+i+': '+EXTRA.getArrayColor()[i]+'\n')
         //        }

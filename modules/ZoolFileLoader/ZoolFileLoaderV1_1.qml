@@ -7,7 +7,7 @@ import "../../Funcs.js" as JS
 Rectangle {
     id: r
     width: xLatIzq.width
-    height: xLatIzq.height
+    height: xLatIzq.height-xPanelesTits.height-app.fs*0.5
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
@@ -17,17 +17,17 @@ Rectangle {
     property string currentFile: ''
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
-    visible: itemIndex===sv.currentIndex
-    onSvIndexChanged: {
-        if(svIndex===itemIndex){
-            tF.restart()
-        }else{
-            tF.stop()
-        }
-    }
+//    visible: itemIndex===sv.currentIndex
+//    onSvIndexChanged: {
+//        if(svIndex===itemIndex){
+//            tF.restart()
+//        }else{
+//            tF.stop()
+//        }
+//    }
     Timer{
         id: tF
-        running: svIndex===itemIndex
+        running: r.visible
         repeat: false
         interval: 1500
         onTriggered: {
