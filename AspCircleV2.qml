@@ -5,7 +5,7 @@ Rectangle {
     width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-sweg.fs*2-(apps.showNumberLines?sweg.fs:0)
     height: width
     radius: width*0.5
-    color: 'transparent'
+    color: 'red'//'transparent'
     border.width: 2
     border.color: 'white'
     anchors.centerIn: parent

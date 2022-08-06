@@ -207,13 +207,14 @@ AppWin {
         let min=currentDateBack.getMinutes()
         tReloadBack.restart()
     }
-    //FontLoader {name: "FontAwesome";source: "qrc:/resources/fontawesome-webfont.ttf";}
-    //FontLoader {name: "ArialMdm";source: "qrc:/resources/ArialMdm.ttf";}
-    //FontLoader {name: "TypeWriter";source: "qrc:/resources/typewriter.ttf";}
+    FontLoader {name: "FontAwesome";source: "./resources/fontawesome-webfont.ttf";}
+    FontLoader {name: "ArialMdm";source: "./resources/ArialMdm.ttf";}
+    FontLoader {name: "TypeWriter";source: "./resources/typewriter.ttf";}
     Unik{id: unik}
     Settings{
         id: apps
-        fileName:unik.getPath(4)+'/zool_'+Qt.platform.os+'.cfg'
+        //fileName:unik.getPath(4)+'/zool_'+Qt.platform.os+'.cfg'
+        fileName:'zool_'+Qt.platform.os+'.cfg'
         property bool showLog: false
         property int fs: app.width*0.02
         property int fsSbValue: 50
@@ -260,14 +261,14 @@ AppWin {
 
         //Swe
         property string swegMod: 'ps'
-        property bool showNumberLines: true
+        property bool showNumberLines: false
         property bool showDec: false
         property bool showXAsLineCenter: false
         property color xAsLineCenterColor: 'red'
-        property real sweMargin: 1.75
+        property real sweMargin: 2.15
         property real signCircleWidth: Screen.width*0.02
         property real signCircleWidthSbValue: 8000
-        property int sweFs: Screen.width*0.035
+        property int sweFs: Screen.width*0.025
         property bool showAspCircle: true
         property bool showAspCircleBack: true
         property bool showAspPanel: true
