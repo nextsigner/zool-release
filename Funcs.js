@@ -808,8 +808,8 @@ function setNewTimeJsonFileData(date){
     j+='}'
     j+='}'
     let json=JSON.parse(j)
-    if(jsonData.zoompos){
-        json.zoompos=jsonData.zoompos
+    if(jsonData[app.stringRes+'zoompos']){
+        json[app.stringRes+'zoompos']=jsonData[app.stringRes+'zoompos']
     }
     if(jsonData.rots){
         json.rots=jsonData.rots

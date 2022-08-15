@@ -387,10 +387,10 @@ Item {
     }
     function saveZoomAndPos(eje){
         let json=JSON.parse(app.fileData)
-        if(!json.zoompos){
-            json.zoompos={}
+        if(!json[app.stringRes+'zoompos']){
+            json[app.stringRes+'zoompos']={}
         }
-        json.zoompos[''+eje]=sweg.getZoomAndPos()
+        json[app.stringRes+'zoompos'][''+eje]=sweg.getZoomAndPos()
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
@@ -402,8 +402,8 @@ Item {
     }
     function setZoomAndPos(eje){
         let json=JSON.parse(app.fileData)
-        if(json.zoompos&&json.zoompos[''+eje]){
-            sweg.setZoomAndPos(json.zoompos[''+eje])
+        if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos'][''+eje]){
+            sweg.setZoomAndPos(json[app.stringRes+'zoompos'][''+eje])
         }
     }
 }

@@ -303,10 +303,10 @@ Item{
     //Zoom And Pos
     function saveZoomAndPos(){
         let json=JSON.parse(app.fileData)
-        if(!json.zoompos){
-            json.zoompos={}
+        if(!json[app.stringRes+'zoompos']){
+            json[app.stringRes+'zoompos']={}
         }
-        json.zoompos['zpc'+r.numAstro]=sweg.getZoomAndPos()
+        json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
@@ -318,8 +318,8 @@ Item{
     }
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)
-        if(json.zoompos&&json.zoompos['zpc'+r.numAstro]){
-            sweg.setZoomAndPos(json.zoompos['zpc'+r.numAstro])
+        if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos']['zpc'+r.numAstro]){
+            sweg.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true
         }else{
             r.isZoomAndPosSeted=false

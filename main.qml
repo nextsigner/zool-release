@@ -35,6 +35,7 @@ AppWin {
     property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
     //property string pythonLocation: './Python/python.exe'
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
+    property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
     property string url
     property string mod: 'mi'
 
@@ -132,7 +133,7 @@ AppWin {
     property int uAscDegreeTotal: -1
     property int uAscDegree: -1
     property int uMcDegree: -1
-    property string stringRes: "Res"+Screen.width+"x"+Screen.height
+    //property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
     property bool ev: false //Exterior Visible
 
