@@ -1,5 +1,22 @@
 ---
-zfs=0.9
+# RadioZoolar<br />
+### Canal de Astrología
+---
+zfs=app.fs*1.5
+time=6000
+---
+# Zool<br />
+### Aplicación de Astrología
+
+La aplicación que se muestra en pantalla se llama Zool.
+
+Fue desarrollada para mostrar cartas astrales en pantalla de una manera dinámica.
+
+Pronto se iran agregando nuevos eventos y animaciones a la transmisión.
+---
+time=6000
+---
+zfs=app.fs*1.5
 time=6000
 ---
 # Zool<br />
@@ -12,17 +29,16 @@ Inicio del Desarrollo:<br />
 14/04/2021
 
 ---
-zfs=0.9
-time=6000
+zfs=app.fs*1.5
+time=1000
 ---
-
 # Licencia de Zool<br />
 Esta aplicación es de uso libre y gratuito.<br />
 
 Esta aplicación es distribuida bajo las licencias GPL2.
 
 ---
-zfs=0.9
+zfs=app.fs*1.5
 time=6000
 ---
 
@@ -34,17 +50,19 @@ time=6000
 
 **Repositorio Público:** GitHub.com/nextsigner/zool
 ---
-zfs=0.9
+zfs=app.fs*1.5
 time=6000
 ---
+
 ## Zool fue creado con:<br />
 * Qt Open Source
 * SwissEph
 * Astrolog
 ---
-zfs=0.9
+zfs=app.fs*1.5
 time=6000
 ---
+
 # Contacto<br />
 
 **Whatsapp:**<br />
@@ -55,3 +73,61 @@ nextsigner@gmail.com<br />
 
 **Twitch:**<br />
 RicardoMartinPizarro<br />
+
+---
+zfs=app.fs*1.5
+time=15000
+---
+
+
+### Pronto quedaré ciego<br />
+
+Tengo 46 años. A los 8 años me diagnosticaron una enfermedad en la vista que me conduce a la ceguera.<br />
+La enfermedad se llama Retinitis Pigmentaria. Es progresiva y no tiene cura.
+
+---
+time=15000
+---
+
+
+### ¿Quieres la lectura de tu Carta Natal?<br />
+
+Las lecturas son libres y gratuitas.
+
+Debes cumplir estos requisitos.
+
+* Ser mayor de 18 años
+* Saber a qué hora naciste
+* Pide tu turno por el chat
+
+---
+zfs=app.fs*1.5
+time=15000
+---
+
+### ¿Qué datos se necesitan para la lectura?<br />
+
+Se necesita tu fecha, hora y lugar de nacimiento.<br />
+
+No hace falta ni tu nombre real. Ningún dato privado que comprometa tu seguridad personal.
+
+**Nota:** La lectura puede durar entre 1 y 2 horas.
+
+---
+zfs=app.fs*1.5
+time=15000
+---
+qml=import QtQuick 2.0
+import "../Funcs.js" as JS
+Item{
+    Component.onCompleted:{
+        panelZoolText.fs=app.fs*0.5
+        if(!panelZoolText.fileInitLoaded){
+            //JS.loadJson('/home/zool//gd/Zool/Ricardo.json')
+            //tAutoMaticPlanets.currentJsonData=app.currentData
+            //tAutoMaticPlanets.running=true
+            app.currentPlanetIndex=0
+        }
+        panelZoolText.fileInitLoaded=true        
+     }
+}
