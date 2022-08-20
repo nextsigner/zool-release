@@ -174,7 +174,7 @@ Rectangle {
         anchors.rightMargin: app.fs*0.5
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: yPos
-        visible:  !app.ev
+        visible:  false//!app.ev || JSON.parse(app.currentData).params.tipo==='pron'
     }
 
     //Editor Nombre
