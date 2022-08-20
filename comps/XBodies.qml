@@ -275,8 +275,12 @@ Column{
         if(!r.isBack&&JSON.parse(app.currentData).params.tipo==='pron')loadAudio=true
         if(loadAudio)plau.clear()
         let msg=''
+        let stringIndex='&index=-1'
         let voice='es-ES_LauraVoice'
+        msg='Estas son las posiciones de los planetas para '+tAutoMatic.lugares[tAutoMatic.currentIndex]
+        plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
         for(var i=0;i<15;i++){
+            stringIndex='&index='+i
             jo=json.pc['c'+i]
             ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' <b>Casa:</b> ' +ih
@@ -284,11 +288,14 @@ Column{
             //console.log('--->'+s)
             lm.append(lm.addItem(jo.is, ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
             if(loadAudio){
+                //Set voice
                 if(i===1 || i===3  || i===5  || i===7  || i===9){
                     voice='es-ES_LauraVoice'
                 }else{
                     voice='es-ES_EnriqueVoice'
                 }
+
+                //Set msgs
                 if(i===0){
                     msg='El '+app.planetas[i]+' está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+parseInt(ih + 1)+' en el grado '+jo.rsgdeg+' '+jo.mdeg+' minutos y '+jo.sdeg+' segundos.'
                 }else if(i===1){
@@ -306,7 +313,7 @@ Column{
                 }else{
                     msg='El planeta '+app.planetas[i]+' está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+parseInt(ih + 1)+' en el grado '+jo.rsgdeg+' '+jo.mdeg+' minutos y '+jo.sdeg+' segundos.'
                 }
-                plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
+                plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
             }
 
 
@@ -317,8 +324,9 @@ Column{
         let o1=json.ph['h1']
         //s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         if(loadAudio){
+            stringIndex='&index=15'
             msg='El signo ascendente en el horizonte terrestre es '+app.signos[o1.is]+' en el grado '+o1.rsgdeg
-            plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice=es-ES_EnriqueVoice&download=true&accept=audio%2Fmp3')
+            plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice=es-ES_EnriqueVoice&download=true&accept=audio%2Fmp3'+stringIndex)
         }
         s = '<b>Ascendente</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 1'
         lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
@@ -347,6 +355,17 @@ Column{
         }*/
 
         //if(app.mod!=='rs'&&app.mod!=='pl')r.state='show'
-        if(loadAudio)apau.play()
+        if(loadAudio){
+            voice='es-ES_EnriqueVoice'
+            msg='Si usted desea agregar la ubicación de su país o región a este sistema comuníquese con el programador de este software. La información de contacto se muestra a la izquierda de esta pantalla.'
+            plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
+            voice='es-ES_LauraVoice'
+            msg='Si desea apoyar este canal para que continúe creciendo, puede hacer una donación.'
+            plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
+            msg='Escriba en el chat el comando donación, exclamación donacion y allí obtendrá un enlace para realizar su colaboración.'
+            plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+msg+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
+            plau.currentIndex=-2
+            apau.play()
+        }
     }
 }

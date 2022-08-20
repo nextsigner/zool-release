@@ -105,14 +105,14 @@ Rectangle {
         Row{
             spacing: app.fs*0.25
             anchors.right: parent.right
-            ButtonIcon{
-                text:  '<b>PAU</b>'
-                width: apps.botSize
-                height: width
-                onClicked: {
-                    apau.play()
-                }
-            }
+//            ButtonIcon{
+//                text:  '<b>PAU</b>'
+//                width: apps.botSize
+//                height: width
+//                onClicked: {
+//                    apau.play()
+//                }
+//            }
             ButtonIcon{
                 text:  '<b>AU</b>'
                 width: apps.botSize

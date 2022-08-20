@@ -727,6 +727,10 @@ AppWin {
         repeat: false
         interval: 1000
         property string currentJsonData: ''
+        property int currentIndex: 0
+        property var lugares: ["United Kingston England", "Córdoba Argentina"]
+        property var lats: [-31.416187, 53.4543314]
+        property var longs: [-64.175087, -2.113293483429562]
         onTriggered: {
             let d0=new Date(Date.now())
             d0=d0.setHours(d0.getHours() + 3)
@@ -737,8 +741,14 @@ AppWin {
             let hora=d.getHours()
             let minutos=d.getMinutes()
             let nom="Los Astros Ahora "+dia+"-"+mes+'-'+anio+' '+hora+':'+minutos+'hs'
-            let lugar="United Kingston England "
-            JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, nom, lugar, "pron", false)
+            let lugar=lugares[currentIndex]
+            //JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, nom, lugar, "pron", false)
+            JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0, lats[currentIndex],longs[currentIndex],6, nom, lugar, "pron", false)
+            if(currentIndex<lugares.length-1){
+                currentIndex++
+            }else{
+                currentIndex=0
+            }
         }
     }
     //MediaPlayer{
@@ -756,9 +766,13 @@ AppWin {
         playlist: Playlist{
             id: plau
             onCurrentIndexChanged: {
+                if(plau.currentIndex<0)return
                 //log.ls('plau index:'+currentIndex, 0, 500)
-                app.currentPlanetIndex=currentIndex
-                if(currentIndex===15){
+//                let m0=(''+apau.source).split('&index=')
+//                log.ls('plau currentItemsource 0:'+m0[1], 0, 500)
+//                log.ls('plau currentItemsource:'+apau.source, 0, 500)
+                app.currentPlanetIndex=plau.currentIndex-1
+                if(currentIndex===18){
                     //log.ls('plau index 16:'+currentIndex, 0, 500)
                     tAutoMatic.running=true
                 }
