@@ -270,7 +270,7 @@ AppWin {
         property real sweMargin: 2.15
         property real signCircleWidth: Screen.width*0.02
         property real signCircleWidthSbValue: 8000
-        property int sweFs: Screen.width*0.025
+        property int sweFs: Screen.width*0.020
         property bool showAspCircle: true
         property bool showAspCircleBack: true
         property bool showAspPanel: true
@@ -731,9 +731,10 @@ AppWin {
         property var lugares: ["United Kingston England", "Córdoba Argentina"]
         property var lats: [-31.416187, 53.4543314]
         property var longs: [-64.175087, -2.113293483429562]
+        property var gmts: [0, 3]
         onTriggered: {
             let d0=new Date(Date.now())
-            d0=d0.setHours(d0.getHours() + 3)
+            d0=d0.setHours(d0.getHours() + gmts[currentIndex])
             let d=new Date(d0)
             let dia=d.getDate()
             let mes=d.getMonth()+1
@@ -772,7 +773,7 @@ AppWin {
 //                log.ls('plau currentItemsource 0:'+m0[1], 0, 500)
 //                log.ls('plau currentItemsource:'+apau.source, 0, 500)
                 app.currentPlanetIndex=plau.currentIndex-1
-                if(currentIndex===18){
+                if(currentIndex===19){
                     //log.ls('plau index 16:'+currentIndex, 0, 500)
                     tAutoMatic.running=true
                 }
