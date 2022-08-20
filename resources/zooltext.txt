@@ -6,7 +6,7 @@ zfs=app.fs*1.5
 time=6000
 ---
 # Zool<br />
-### Aplicación de Astrología
+### Aplicación de Astrología<br />
 
 La aplicación que se muestra en pantalla se llama Zool.
 
@@ -30,7 +30,7 @@ Inicio del Desarrollo:<br />
 
 ---
 zfs=app.fs*1.5
-time=1000
+time=6000
 ---
 # Licencia de Zool<br />
 Esta aplicación es de uso libre y gratuito.<br />
@@ -42,27 +42,21 @@ zfs=app.fs*1.5
 time=6000
 ---
 
-### Descargar Zool<br />
-
-**Sitio Web:** Zool.ar<br />
+### Información sobre Zool<br />
 
 ### Información del Código fuente<br />
-
-**Repositorio Público:** GitHub.com/nextsigner/zool
----
-zfs=app.fs*1.5
-time=6000
----
 
 ## Zool fue creado con:<br />
 * Qt Open Source
 * SwissEph
-* Astrolog
+
+**Repositorio Público:** GitHub.com/nextsigner/zool
+
+
 ---
 zfs=app.fs*1.5
 time=6000
 ---
-
 # Contacto<br />
 
 **Whatsapp:**<br />
@@ -78,12 +72,9 @@ RicardoMartinPizarro<br />
 zfs=app.fs*1.5
 time=15000
 ---
+### ¿Qué es RadioZoolar?<br />
 
-
-### Pronto quedaré ciego<br />
-
-Tengo 46 años. A los 8 años me diagnosticaron una enfermedad en la vista que me conduce a la ceguera.<br />
-La enfermedad se llama Retinitis Pigmentaria. Es progresiva y no tiene cura.
+Este será el nombre de la transmisión mediante la cual se emitirán en directo las posiciones de los astros, audios y videos relacionados a los mismos, videos, promociones, publicidad, noticias y todo lo relacionado con el ámbito astrologico.
 
 ---
 time=15000
@@ -94,7 +85,7 @@ time=15000
 
 Las lecturas son libres y gratuitas.
 
-Debes cumplir estos requisitos.
+Debes cumplir estos requisitos.<br />
 
 * Ser mayor de 18 años
 * Saber a qué hora naciste
@@ -116,6 +107,18 @@ No hace falta ni tu nombre real. Ningún dato privado que comprometa tu segurida
 ---
 zfs=app.fs*1.5
 time=15000
+---
+### ¿Como me puedes contactar?<br />
+
+La manera más directa de contactarme es por medio de la aplicación Whatsapps al número +549 11 3802 4370 o al correo nextsigner@gmail.com
+
+Si escribes en el chat de la transmisión, es posible que tambien te pueda atender.
+
+Estoy dedicando muchas horas a la programación de la aplicación y a veces no puedo estar atento al chat.
+
+---
+zfs=app.fs*1.5
+time=20000
 ---
 qml=import QtQuick 2.0
 import "../Funcs.js" as JS

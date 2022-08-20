@@ -107,7 +107,7 @@ Item{
             expand: r.selected
             iconoSignRot: img.rotation
             p: r.numAstro
-            opacity: r.selected&&app.showPointerXAs?1.0:0.0
+            opacity: r.selected&&app.showPointerXAs?1.0:0.0 && JSON.parse(app.currentData).params.tipo!=='pron'
         }
         MouseArea{
             id: maSig
@@ -256,7 +256,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: xIcon
-        visible: r.selected && !r.isZoomAndPosSeted
+        visible: r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.tipo!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected

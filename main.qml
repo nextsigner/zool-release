@@ -2,6 +2,7 @@
 //import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.0
+import QtMultimedia 5.12
 import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
 
@@ -718,6 +719,57 @@ AppWin {
             }else{
                 app.currentPlanetIndex=-1
             }
+        }
+    }
+    Timer{
+        id: tAutoMatic
+        running: false
+        repeat: false
+        interval: 1000
+        property string currentJsonData: ''
+        onTriggered: {
+            let d0=new Date(Date.now())
+            d0=d0.setHours(d0.getHours() + 3)
+            let d=new Date(d0)
+            let dia=d.getDate()
+            let mes=d.getMonth()+1
+            let anio=d.getFullYear()
+            let hora=d.getHours()
+            let minutos=d.getMinutes()
+            let nom="Los Astros Ahora "+dia+"-"+mes+'-'+anio+' '+hora+':'+minutos+'hs'
+            let lugar="United Kingston England "
+            JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, nom, lugar, "pron", false)
+        }
+    }
+    //MediaPlayer{
+    Audio{
+        id: apau
+        autoPlay: true
+        onSourceChanged: {
+            //txtCurrentText.text='E: '+getDataIndex(r.currentP, r.currentS, r.currentH, playList.currentIndex - 1)
+        }
+        onPositionChanged:{
+            if(position>duration-3000&&duration>=1000){
+                //tPlayTrans.start()
+            }
+        }
+        playlist: Playlist{
+            id: plau
+            onCurrentIndexChanged: {
+                //log.ls('plau index:'+currentIndex, 0, 500)
+                app.currentPlanetIndex=currentIndex
+                if(currentIndex===15){
+                    //log.ls('plau index 16:'+currentIndex, 0, 500)
+                    tAutoMatic.running=true
+                }
+                //txtCurrentText.text=''+getDataIndex(r.currentP, r.currentS, r.currentH, currentIndex, lmCmd.get(currentIndex).tipo)
+            }
+            onItemCountChanged: {
+                if(itemCount===lmCmd.count){
+                    //plau.currentIndex=r.uCurrentPlayListIndex
+                }
+            }
+
         }
     }
     Init{longAppName: 'Zool'; folderName: 'zool'}

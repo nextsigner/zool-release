@@ -36,7 +36,10 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
     apps.urlBack=''
     let dataMs=new Date(Date.now())
     let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
-    setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
+    let setTitleMod=1
+    if(tipo==='pron')setTitleMod=2
+    setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, setTitleMod)
+
     if(save){
         let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
         console.log('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
@@ -725,6 +728,7 @@ function runJsonTemp(){
     let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    if(jsonData.params.tipo==='pron')numEdad=0
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
     app.currentFecha=vd+'/'+vm+'/'+va
