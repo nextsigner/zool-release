@@ -756,9 +756,6 @@ AppWin {
     Audio{
         id: apau
         autoPlay: false
-        onSourceChanged: {
-            //txtCurrentText.text='E: '+getDataIndex(r.currentP, r.currentS, r.currentH, playList.currentIndex - 1)
-        }
         onPlaybackStateChanged:{
             if(playbackState===Audio.StoppedState){
                 if(plau.currentIndex===plau.itemCount-1){
@@ -767,32 +764,16 @@ AppWin {
                 }
             }
         }
-        onPositionChanged:{
-            if(position>duration-3000&&duration>=1000){
-                //tPlayTrans.start()
-            }
-        }
         playlist: Playlist{
             id: plau
             onCurrentIndexChanged: {
                 if(plau.currentIndex<0)return
-                //log.ls('plau index:'+currentIndex, 0, 500)
-//                let m0=(''+apau.source).split('&index=')
-//                log.ls('plau currentItemsource 0:'+m0[1], 0, 500)
-//                log.ls('plau currentItemsource:'+apau.source, 0, 500)
-                app.currentPlanetIndex=plau.currentIndex-1
-//                if(currentIndex===19){
-//                    //log.ls('plau index 16:'+currentIndex, 0, 500)
-//                    tAutoMatic.running=true
-//                }
-                //txtCurrentText.text=''+getDataIndex(r.currentP, r.currentS, r.currentH, currentIndex, lmCmd.get(currentIndex).tipo)
-            }
-            onItemCountChanged: {
-                if(itemCount===lmCmd.count){
-                    //plau.currentIndex=r.uCurrentPlayListIndex
+                if(currentIndex<=15){
+                    app.currentPlanetIndex=plau.currentIndex-1
+                }else{
+                    app.currentPlanetIndex=-1
                 }
             }
-
         }
     }
     Init{longAppName: 'Zool'; folderName: 'zool'}
@@ -880,6 +861,16 @@ AppWin {
     Component.onCompleted: {
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
+
+        let args=Qt.application.arguments
+        for(var i=0;i<args.length;i++){
+            let a=args[i]
+            if(a.indexOf('-title=')>=0){
+                let mt=a.split('-title=')
+                app.title=mt[1]
+            }
+        }
+
         if(isDev){
             log.ls('\nRunning as Dev', 0, xLatIzq.width)
             //log.ls('\nVersion:\n'+version, log.x,
@@ -895,6 +886,7 @@ AppWin {
         if(Qt.application.arguments.indexOf('-dev')>=0){
             app.dev=true
         }
+
         JS.setFs()
         app.mainLocation=unik.getPath(5)
         if(Qt.platform.os==='windows'){

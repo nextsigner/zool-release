@@ -278,9 +278,9 @@ Column{
         let urlEncoded=''
         let voice='es-ES_LauraVoice'
         msg='Estas son las posiciones de los planetas para '+tAutoMatic.lugares[tAutoMatic.currentIndex]
-        plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
+        plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
         for(var i=0;i<15;i++){
-            stringIndex='&index='+i
+            //stringIndex='&index='+i
             jo=json.pc['c'+i]
             ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' <b>Casa:</b> ' +ih
@@ -326,7 +326,7 @@ Column{
         let o1=json.ph['h1']
         //s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         if(loadAudio){
-            stringIndex='&index=15'
+            //stringIndex='&index=15'
             msg='El signo ascendente en el horizonte terrestre es '+app.signos[o1.is]+' en el grado '+o1.rsgdeg
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
@@ -373,11 +373,14 @@ Column{
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             plau.addItem(urlEncoded)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
-            msg='Escriba en el chat el comando donación, exclamación donacion y allí obtendrá un enlace para realizar su colaboración.'
+            if(Qt.application.arguments.indexOf('-youtube')>=0){
+                msg='En la descripción de este video está el enlace para realizar su colaboración.'
+            }else{
+                msg='Escriba en el chat el comando donación, exclamación donacion y allí obtendrá un enlace para realizar su colaboración.'
+            }
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             plau.addItem(urlEncoded)
-            //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
             plau.currentIndex=-2
             apau.play()
         }
