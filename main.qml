@@ -755,9 +755,17 @@ AppWin {
     //MediaPlayer{
     Audio{
         id: apau
-        autoPlay: true
+        autoPlay: false
         onSourceChanged: {
             //txtCurrentText.text='E: '+getDataIndex(r.currentP, r.currentS, r.currentH, playList.currentIndex - 1)
+        }
+        onPlaybackStateChanged:{
+            if(playbackState===Audio.StoppedState){
+                if(plau.currentIndex===plau.itemCount-1){
+                    //log.ls('plau index 16:'+currentIndex, 0, 500)
+                    tAutoMatic.running=true
+                }
+            }
         }
         onPositionChanged:{
             if(position>duration-3000&&duration>=1000){
@@ -773,10 +781,10 @@ AppWin {
 //                log.ls('plau currentItemsource 0:'+m0[1], 0, 500)
 //                log.ls('plau currentItemsource:'+apau.source, 0, 500)
                 app.currentPlanetIndex=plau.currentIndex-1
-                if(currentIndex===19){
-                    //log.ls('plau index 16:'+currentIndex, 0, 500)
-                    tAutoMatic.running=true
-                }
+//                if(currentIndex===19){
+//                    //log.ls('plau index 16:'+currentIndex, 0, 500)
+//                    tAutoMatic.running=true
+//                }
                 //txtCurrentText.text=''+getDataIndex(r.currentP, r.currentS, r.currentH, currentIndex, lmCmd.get(currentIndex).tipo)
             }
             onItemCountChanged: {
