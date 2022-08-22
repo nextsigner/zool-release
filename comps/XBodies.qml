@@ -277,7 +277,7 @@ Column{
         let msg=''
         let urlEncoded=''
         let voice='es-ES_LauraVoice'
-        msg='Estas son las posiciones de los planetas para '+tAutoMatic.lugares[tAutoMatic.currentIndex]
+        msg='Estas son las posiciones de los planetas para '+tAutoMatic.currentLugar
         plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
         for(var i=0;i<15;i++){
             //stringIndex='&index='+i

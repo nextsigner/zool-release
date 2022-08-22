@@ -731,7 +731,8 @@ AppWin {
         property var lugares: ["Córdoba Argentina", "United Kingston England"]
         property var lats: [-31.416187, 53.4543314]
         property var longs: [-64.175087, -2.113293483429562]
-        property var gmts: [3, 3]
+        property var gmts: [0, 3]
+        property string currentLugar: 'Mundo'
         onTriggered: {
             let d0=new Date(Date.now())
             d0=d0.setHours(d0.getHours() + gmts[currentIndex])
@@ -745,6 +746,7 @@ AppWin {
             let lugar=lugares[currentIndex]
             //JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, nom, lugar, "pron", false)
             JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0, lats[currentIndex],longs[currentIndex],6, nom, lugar, "pron", false)
+            currentLugar=lugares[currentIndex]
             if(currentIndex<lugares.length-1){
                 currentIndex++
             }else{
