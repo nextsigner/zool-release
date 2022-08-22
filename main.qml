@@ -728,10 +728,10 @@ AppWin {
         interval: 1000
         property string currentJsonData: ''
         property int currentIndex: 0
-        property var lugares: ["United Kingston England", "Córdoba Argentina"]
+        property var lugares: ["Córdoba Argentina", "United Kingston England"]
         property var lats: [-31.416187, 53.4543314]
         property var longs: [-64.175087, -2.113293483429562]
-        property var gmts: [0, 3]
+        property var gmts: [3, 3]
         onTriggered: {
             let d0=new Date(Date.now())
             d0=d0.setHours(d0.getHours() + gmts[currentIndex])
