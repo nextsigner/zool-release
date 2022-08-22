@@ -727,7 +727,7 @@ AppWin {
         repeat: false
         interval: 1000
         property string currentJsonData: ''
-        property int currentIndex: 0
+        property int currentIndex: 1
         property var lugares: ["Córdoba Argentina", "United Kingston England"]
         property var lats: [-31.416187, 53.4543314]
         property var longs: [-64.175087, -2.113293483429562]
