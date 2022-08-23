@@ -280,7 +280,7 @@ AppWin {
         //GUI
         property string zFocus: 'xLatIzq'
         //property bool showLog: false
-        property bool showMenuBar: true
+        property bool showMenuBar: false
         property bool enableBackgroundColor: false
         property string backgroundColor: "black"
         property string fontFamily: "ArialMdm"
@@ -341,7 +341,7 @@ AppWin {
         property bool lt:false
         property bool enableFullAnimation: false
 
-        property string jsonsFolder: documentsPath
+        property string jsonsFolder: ''
 
         //Num
         property string numCurrentFolder: unik.getPath(3)
@@ -864,6 +864,8 @@ AppWin {
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
 
+
+        //Argumentos
         let args=Qt.application.arguments
         for(var i=0;i<args.length;i++){
             let a=args[i]
@@ -914,27 +916,11 @@ AppWin {
         }
         if(!fileLoaded){
             //let fp=
-            if(apps.url!==''&&unik.fileExist(apps.url)){
+            if(apps.url!==''&&unik.fileExist(apps.url&&apps.jsonsFolder!=='')){
                 console.log('Cargando al iniciar: '+apps.url)
                 JS.loadJson(apps.url)
             }else{
-                console.log('Loading United Kingston now...')
-                console.log('JsonFolder: '+apps.jsonsFolder)
-
-                let d=new Date(Date.now())
-                let dia=d.getDate()
-                let mes=d.getMonth()+1
-                let anio=d.getFullYear()
-                let nom="United Kingston England "+dia+"-"+mes+'-'+anio
-                log.ls('Bienvenido!.\n', 0, xLatIzq.width)
-                log.ls('No hay ningún archivo previo que se haya cargado.', 0, xLatIzq.width)
-                log.ls('Cargando de manera temporal el archivo '+nom, 0, xLatIzq.width)
-
-
-                //Detalles Técnicos extras
-                log.l('\nZool se está ejecutando en la carpeta'+unik.currentFolderPath())
-                log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
-                JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0,53.4543314,-2.113293483429562,6, "United Kingston", nom, "pron", false)
+                JS.firstRunTime()
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)

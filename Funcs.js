@@ -1,3 +1,42 @@
+function firstRunTime(){
+    log.ls('\n\nBienvenido!.\n', 0, xLatIzq.width)
+    if(apps.jsonsFolder===''){
+        let jsonFolder=unik.getPath(3)+'/Zool'
+        apps.jsonsFolder=jsonFolder
+        if(!unik.fileExist(jsonFolder)){
+          log.ls('\nCreando carpeta de archivos:\n'+apps.jsonsFolder, log.x, log.width)
+          unik.mkdir(jsonFolder)
+        }
+    }
+    console.log('Loading United Kingston now...')
+    console.log('JsonFolder: '+apps.jsonsFolder)
+
+    let d=new Date(Date.now())
+    let currentUserHours=d.getHours()
+    let diffHours=d.getUTCHours()
+    let currentGmtUser=0
+    if(currentUserHours>diffHours){
+        currentGmtUser=parseFloat(currentUserHours-diffHours)
+    }else{
+        currentGmtUser=parseFloat(0-(diffHours-currentUserHours)).toFixed(1)
+    }
+
+    //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
+    let dia=d.getDate()
+    let mes=d.getMonth()+1
+    let anio=d.getFullYear()
+    let nom="Primer Inicio de Zool"
+
+    log.ls('Al parecer es la primera vez que inicia Zool en su equipo.\n\n', 0, xLatIzq.width)
+    apps.url=apps.jsonsFolder+'/Primer_Inicio_de_Zool.json'
+    log.ls('Cargando el archivo '+apps.url+' creado por primera y única vez a modo de ejemplo.\n\n', 0, xLatIzq.width)
+
+
+    //Detalles Técnicos extras
+    log.l('\nZool se está ejecutando en la carpeta'+unik.currentFolderPath())
+    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
+    JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
+}
 function setFs() {
     let w = Screen.width
     let h = Screen.height
