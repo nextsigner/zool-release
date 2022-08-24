@@ -17,6 +17,7 @@ import "./comps/num" as Num
 //Default Modules
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
+import ZoolDataBodies 3.0
 
 AppWin {
     id: app
@@ -676,7 +677,7 @@ AppWin {
 
                 //Chat{id: chat; z: onTop?panelPronEdit.z+1:panelControlsSign.z-1}
                 PanelControlsSign{id: panelControlsSign}
-                PanelDataBodiesV2{id: panelDataBodies}
+                ZoolDataBodies{id: panelDataBodies}
                 PanelPronEdit{id: panelPronEdit;}
                 Rectangle{
                     width: parent.width
@@ -924,8 +925,6 @@ AppWin {
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)
-
         JS.loadModules()
-        //tLoadModules.start()
     }
 }
