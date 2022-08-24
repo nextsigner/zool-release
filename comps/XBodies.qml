@@ -271,14 +271,6 @@ Column{
         let jo
         let o
         var ih
-        let loadAudio=false
-        if(!r.isBack&&JSON.parse(app.currentData).params.tipo==='pron')loadAudio=true
-        if(loadAudio)plau.clear()
-        let msg=''
-        let urlEncoded=''
-        let voice='es-ES_LauraVoice'
-        msg='Estas son las posiciones de los planetas para '+tAutoMatic.currentLugar
-        plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
         for(var i=0;i<15;i++){
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
@@ -287,36 +279,6 @@ Column{
             if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'
             //console.log('--->'+s)
             lm.append(lm.addItem(jo.is, ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
-            if(loadAudio){
-                //Set voice
-                if(i===1 || i===3  || i===5  || i===7  || i===9){
-                    voice='es-ES_LauraVoice'
-                }else{
-                    voice='es-ES_EnriqueVoice'
-                }
-
-                //Set msgs
-                if(i===0){
-                    msg='El '+app.planetas[i]+' está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+' '+jo.mdeg+' minutos y '+jo.sdeg+' segundos.'
-                }else if(i===1){
-                    msg='La '+app.planetas[i]+' está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+' '+jo.mdeg+' minutos y '+jo.sdeg+' segundos.'
-                }else if(i===10){
-                    msg='El nodo norte está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+'.'
-                }else if(i===11){
-                    msg='El nodo sur está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+'.'
-                }else if(i===12){
-                    msg='El asteroide quirón está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+'.'
-                }else if(i===13){
-                    msg='Selena está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+'.'
-                }else if(i===14){
-                    msg='Lilith está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+'.'
-                }else{
-                    msg='El planeta '+app.planetas[i]+' está en tránsito por el signo '+app.signos[jo.is]+' en la casa '+ih+' en el grado '+jo.rsgdeg+' '+jo.mdeg+' minutos y '+jo.sdeg+' segundos.'
-                }
-                urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
-                //log.ls('urlEncoded:'+urlEncoded, 0, 350)
-                plau.addItem(urlEncoded)
-            }
 
 
             //            if(i===0){
@@ -325,14 +287,6 @@ Column{
         }
         let o1=json.ph['h1']
         //s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
-        if(loadAudio){
-            //stringIndex='&index=15'
-            msg='El signo ascendente en el horizonte terrestre es '+app.signos[o1.is]+' en el grado '+o1.rsgdeg
-            urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
-            //log.ls('urlEncoded:'+urlEncoded, 0, 350)
-            plau.addItem(urlEncoded)
-            //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice=es-ES_EnriqueVoice&download=true&accept=audio%2Fmp3'+stringIndex)
-        }
         s = '<b>Ascendente</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 1'
         lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
         o1=json.ph['h10']
@@ -360,29 +314,5 @@ Column{
         }*/
 
         //if(app.mod!=='rs'&&app.mod!=='pl')r.state='show'
-        if(loadAudio){
-            voice='es-ES_EnriqueVoice'
-            msg='Si usted desea agregar la ubicación de su país o región a este sistema comuníquese con el programador de este software. La información de contacto se muestra a la izquierda de esta pantalla.'
-            urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
-            //log.ls('urlEncoded:'+urlEncoded, 0, 350)
-            plau.addItem(urlEncoded)
-            //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
-            voice='es-ES_LauraVoice'
-            msg='Si desea apoyar este canal para que continúe creciendo, puede hacer una donación.'
-            urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
-            //log.ls('urlEncoded:'+urlEncoded, 0, 350)
-            plau.addItem(urlEncoded)
-            //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
-            if(Qt.application.arguments.indexOf('-youtube')>=0){
-                msg='En la descripción de este video está el enlace para realizar su colaboración.'
-            }else{
-                msg='Escriba en el chat el comando donación, exclamación donacion y allí obtendrá un enlace para realizar su colaboración.'
-            }
-            urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
-            //log.ls('urlEncoded:'+urlEncoded, 0, 350)
-            plau.addItem(urlEncoded)
-            plau.currentIndex=-2
-            apau.play()
-        }
     }
 }

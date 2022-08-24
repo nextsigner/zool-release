@@ -117,6 +117,7 @@ Rectangle {
                 text:  '<b>AU</b>'
                 width: apps.botSize
                 height: width
+                visible: false
                 onClicked: {
                     tAutoMatic.running=!tAutoMatic.running
                 }
