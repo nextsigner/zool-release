@@ -18,10 +18,10 @@ Rectangle{
     property alias mp: apau
     property alias mplis: plau
     property int currentIndex: 0
-    property var lugares: ["Córdoba Argentina", "United Kingston England"]
-    property var lats: [-31.416187, 53.4543314]
-    property var longs: [-64.175087, -2.113293483429562]
-    property var gmts: [0, 3]
+    property var lugares: []//["Córdoba Argentina", "United Kingston England"]
+    property var lats: []//[-31.416187, 53.4543314]
+    property var longs: []//[-64.175087, -2.113293483429562]
+    property var gmts: []//[0, 3]
     property string currentLugar: 'Mundo'
     state: 'hide'
     states: [
@@ -206,6 +206,9 @@ Rectangle{
             }
         }
     }
+    Component.onCompleted: {
+        loadLocations()
+    }
     function run(index, row){
         if(row===0){
             //if(index===0)minymaClient.sendData(minymaClient.loginUserName, '', 'isWindowTool=true')
@@ -338,5 +341,31 @@ Rectangle{
             plau.currentIndex=-2
             apau.play()
         }
-    }               /**/
+    }
+    function loadLocations(){
+        let lugares=[]
+        let lats=[]
+        let longs=[]
+        let gmts=[]
+        let fl='./modules/ZoolMediaLive/locations.json'
+        if(!unik.fileExist(fl)){
+            log.ls('Error ZoolMediaLive: No se ha podido localizar el archivo '+fl+'', 0, 500)
+            return
+        }
+        let fd=(''+unik.getFile(fl)).replace(/\n/g, '')
+        let json=JSON.parse(fd)
+
+        for(var i=0;i<Object.keys(json['locations']).length;i++){
+            lugares.push(json['locations'][i].n)
+            lats.push(json['locations'][i].lat)
+            longs.push(json['locations'][i].lon)
+            gmts.push(json['locations'][i].gmt)
+        }
+        r.lugares=lugares
+        r.lats=lats
+        r.longs=longs
+        r.gmts=gmts
+    }
+
+    /**/
 }
