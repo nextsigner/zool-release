@@ -755,30 +755,6 @@ AppWin {
             }
         }
     }
-    //MediaPlayer{
-    Audio{
-        id: apau
-        autoPlay: false
-        onPlaybackStateChanged:{
-            if(playbackState===Audio.StoppedState){
-                if(plau.currentIndex===plau.itemCount-1){
-                    //log.ls('plau index 16:'+currentIndex, 0, 500)
-                    tAutoMatic.running=true
-                }
-            }
-        }
-        playlist: Playlist{
-            id: plau
-            onCurrentIndexChanged: {
-                if(plau.currentIndex<0)return
-                if(currentIndex<=15){
-                    app.currentPlanetIndex=plau.currentIndex-1
-                }else{
-                    app.currentPlanetIndex=-1
-                }
-            }
-        }
-    }
     Init{longAppName: 'Zool'; folderName: 'zool'}
     Comps.XSelectColor{
         id: xSelectColor

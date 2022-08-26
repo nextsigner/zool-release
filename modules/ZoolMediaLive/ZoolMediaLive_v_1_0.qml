@@ -1,7 +1,9 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtMultimedia 5.12
+import Qt.labs.settings 1.0
 import "../../Funcs.js" as JS
+
 
 import ZoolButton 1.0
 Rectangle{
@@ -40,6 +42,11 @@ Rectangle{
     ]
 
     Behavior on x{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
+    Settings{
+        id: s
+        fileName: 'zoolMediaLive.cfg'
+        property bool repAutomatica: true
+    }
     Item{
         anchors.fill: parent
         anchors.right: parent.right
@@ -66,6 +73,7 @@ Rectangle{
         Rectangle{
             width: r.width-app.fs*0.5
             height: txt.contentHeight+app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
             Text{
                 id: txt
                 text: '<b>Lugares del Mundo</b>'
@@ -78,6 +86,7 @@ Rectangle{
             id: rowBtns1
             spacing: app.fs*0.25
             width: r.width-app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
             Repeater{
                 model: r.lugares
                 ZoolButton{
@@ -88,8 +97,92 @@ Rectangle{
                 }
             }
         }
+        Item{
+            width: r.width
+            height: app.fs*3
+            Row{
+                spacing: app.fs*0.25
+                anchors.centerIn: parent
+                Row{
+                    spacing: app.fs*0.1
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text{
+                        text:'Playing:'
+                        font.pixelSize: app.fs*0.35
+                        color: apps.fontColor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    Rectangle{
+                        width: app.fs*0.35
+                        height: width
+                        radius: width*0.5
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: r.mp.playbackState === Audio.PlayingState?'red':'gray'
+                    }
+                }
+                Row{
+                    spacing: app.fs*0.1
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text{
+                        text:'Loading:'
+                        font.pixelSize: app.fs*0.35
+                        color: apps.fontColor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    Rectangle{
+                        width: app.fs*0.35
+                        height: width
+                        radius: width*0.5
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: tRepAutomatic.running?'red':'gray'
+                    }
+                }
+                Text{
+                    text:'Automático:'
+                    font.pixelSize: app.fs*0.35
+                    color: apps.fontColor
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Switch{
+                    text: qsTr("Bluetooth")
+                    checked: s.repAutomatica
+                    anchors.verticalCenter: parent.verticalCenter
+                    onCheckedChanged: s.repAutomatica=checked
+                }
+            }
+        }
+        Flow{
+            id: rowBtns2
+            spacing: app.fs*0.25
+            width: r.width-app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: !s.repAutomatica
+            Repeater{
+                model: ['B', 'P', 'S', 'N']
+                ZoolButton{
+                    text:modelData
+                    onClicked: {
+                        run(index, 1)
+                    }
+                }
+            }
+        }
     }
     //MediaPlayer{
+    Timer{
+        id: tRepAutomatic
+        repeat: true
+        running: r.mp.playbackState !== Audio.PlayingState && s.repAutomatica
+        interval: 3000
+        onTriggered: {
+            if(r.currentIndex<lugares.length-1){
+                r.currentIndex++
+            }else{
+                r.currentIndex=0
+            }
+            loadBodiesNow()
+        }
+    }
     Audio{
         id: apau
         autoPlay: false
@@ -117,12 +210,27 @@ Rectangle{
         if(row===0){
             //if(index===0)minymaClient.sendData(minymaClient.loginUserName, '', 'isWindowTool=true')
             //if(index===0){
-                apau.stop()
-                plau.clear()
-                plau.currentIndex=-2
-                r.currentIndex=index
-                loadBodiesNow()
+            apau.stop()
+            plau.clear()
+            plau.currentIndex=-2
+            r.currentIndex=index
+            loadBodiesNow()
             //}
+        }
+        if(row===1){
+            //['B', 'P', 'S', 'N']
+            if(index===0){
+                r.mplis.previous()
+            }
+            if(index===1){
+                r.mp.play()
+            }
+            if(index===2){
+                r.mp.stop()
+            }
+            if(index===3){
+                r.mplis.next()
+            }
         }
     }
     function loadBodiesNow(){
@@ -139,11 +247,11 @@ Rectangle{
         //log.ls('d: '+d.toString(), 0, 500)
         JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0, lats[r.currentIndex],longs[r.currentIndex],6, nom, lugar, "pron", false)
         r.currentLugar=lugares[r.currentIndex]
-        if(r.currentIndex<lugares.length-1){
-            r.currentIndex++
-        }else{
-            r.currentIndex=0
-        }
+        //        if(r.currentIndex<lugares.length-1){
+        //            r.currentIndex++
+        //        }else{
+        //            r.currentIndex=0
+        //        }
     }
     function loadJson(json){
         let jo
@@ -155,7 +263,7 @@ Rectangle{
         let msg=''
         let urlEncoded=''
         let voice='es-ES_LauraVoice'
-        msg='Estas son las posiciones de los planetas para '+r.currentLugar
+        msg='Estas son las posiciones de los astros, planetas y cuerpos astrológicos para '+r.currentLugar
         plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
         for(var i=0;i<15;i++){
             //stringIndex='&index='+i
