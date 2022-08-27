@@ -175,12 +175,13 @@ Rectangle{
         running: r.mp.playbackState !== Audio.PlayingState && s.repAutomatica
         interval: 3000
         onTriggered: {
+            loadBodiesNow()
             if(r.currentIndex<lugares.length-1){
                 r.currentIndex++
             }else{
                 r.currentIndex=0
             }
-            loadBodiesNow()
+
         }
     }
     Audio{
@@ -236,9 +237,25 @@ Rectangle{
             }
         }
     }
+    property int gmtServer: -3
     function loadBodiesNow(){
         let d0=new Date(Date.now())
-        d0=d0.setHours(d0.getHours() + r.gmts[r.currentIndex])
+        //log.ls('gmts[r.currentIndex]: '+gmts[r.currentIndex], 0, 500)
+        //log.ls('r.gmtServer: '+r.gmtServer, 0, 500)
+        if(gmts[r.currentIndex]===r.gmtServer){
+            //log.ls('r.gmtServer===gmts[r.currentIndex]...', 0, 500)
+//            if(r.gmts[r.currentIndex]<0){
+//                d0=d0.setHours(d0.getHours() + 0 + r.gmts[r.currentIndex])
+//            }else{
+//                d0=d0.setHours(d0.getHours() + 0 - r.gmts[r.currentIndex])
+//            }
+        }else{
+            if(r.gmts[r.currentIndex]>0){
+                d0=d0.setHours(d0.getHours() + Math.abs(r.gmtServer) + r.gmts[r.currentIndex])
+            }else{
+                d0=d0.setHours(d0.getHours() + Math.abs(r.gmtServer) - r.gmts[r.currentIndex])
+            }
+        }
         let d=new Date(d0)
         let dia=d.getDate()
         let mes=d.getMonth()+1
@@ -248,7 +265,7 @@ Rectangle{
         let nom="Los Astros Ahora "+dia+"-"+mes+'-'+anio+' '+hora+':'+minutos+'hs'
         let lugar=r.lugares[r.currentIndex]
         //log.ls('d: '+d.toString(), 0, 500)
-        JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), 0.0, lats[r.currentIndex],longs[r.currentIndex],6, nom, lugar, "pron", false)
+        JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), gmts[r.currentIndex], lats[r.currentIndex],longs[r.currentIndex],6, nom, lugar, "pron", false)
         r.currentLugar=lugares[r.currentIndex]
         //        if(r.currentIndex<lugares.length-1){
         //            r.currentIndex++

@@ -1,7 +1,8 @@
 {
     "locations":[
-        {"n":"Córdoba Argentina", "lat":-31.416187, "lon":-64.175087, "gmt": 0},
-        {"n":"United Kingston England", "lat":53.4543314, "lon":-2.113293483429562, "gmt": 3},
-        {"n":"Barcelona España", "lat":41.38879, "lon":2.15899, "gmt": 5}
+        {"n":"Córdoba Argentina", "lat":-31.416187, "lon":-64.175087, "gmt": -3},
+        {"n":"United Kingston England", "lat":53.4543314, "lon":-2.113293483429562, "gmt": 0},
+        {"n":"Barcelona España", "lat":41.38879, "lon":2.15899, "gmt": 2}
+
     ]
 }
