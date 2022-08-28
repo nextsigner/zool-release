@@ -15,6 +15,8 @@ import "./comps" as Comps
 import "./comps/num" as Num
 
 //Default Modules
+import ZoolText 1.0
+import ZoolBodies 1.0
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
@@ -404,7 +406,8 @@ AppWin {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             clip: true
-            SweGraphicV2{id: sweg;objectName: 'sweg'}
+            //SweGraphicV2{id: sweg;objectName: 'sweg'}
+            ZoolBodies{id: sweg;objectName: 'sweg'}
             Rectangle{
                 width: 6
                 height: xApp.height*2
@@ -433,7 +436,7 @@ AppWin {
             border.color: 'white'
             visible: false
             anchors.centerIn: parent
-            XText {
+            ZoolText {
                 id: txtPD
                 text: 'Procesando datos...'
                 //font.pixelSize: app.fs

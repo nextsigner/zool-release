@@ -1,5 +1,5 @@
 import QtQuick 2.0
-//import "./comps" as Comps
+
 Item {
     id: r
     width: signCircle.width

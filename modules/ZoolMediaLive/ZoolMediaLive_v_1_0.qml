@@ -240,20 +240,19 @@ Rectangle{
     property int gmtServer: -3
     function loadBodiesNow(){
         let d0=new Date(Date.now())
-        //log.ls('gmts[r.currentIndex]: '+gmts[r.currentIndex], 0, 500)
-        //log.ls('r.gmtServer: '+r.gmtServer, 0, 500)
-        if(gmts[r.currentIndex]===r.gmtServer){
-            //log.ls('r.gmtServer===gmts[r.currentIndex]...', 0, 500)
-//            if(r.gmts[r.currentIndex]<0){
-//                d0=d0.setHours(d0.getHours() + 0 + r.gmts[r.currentIndex])
-//            }else{
-//                d0=d0.setHours(d0.getHours() + 0 - r.gmts[r.currentIndex])
-//            }
-        }else{
+        if(gmts[r.currentIndex]!==r.gmtServer){
             if(r.gmts[r.currentIndex]>0){
-                d0=d0.setHours(d0.getHours() + Math.abs(r.gmtServer) + r.gmts[r.currentIndex])
+                if(r.gmtServer<0){
+                    d0=d0.setHours(d0.getHours() + Math.abs(r.gmtServer) + r.gmts[r.currentIndex])
+                }else{
+                    d0=d0.setHours(d0.getHours() + r.gmtServer + r.gmts[r.currentIndex])
+                }
             }else{
-                d0=d0.setHours(d0.getHours() + Math.abs(r.gmtServer) - r.gmts[r.currentIndex])
+                if(r.gmtServer<0){
+                    d0=d0.setHours(d0.getHours() + Math.abs(r.gmtServer) - r.gmts[r.currentIndex])
+                }else{
+                    d0=d0.setHours(d0.getHours() + r.gmtServer - r.gmts[r.currentIndex])
+                }
             }
         }
         let d=new Date(d0)

@@ -1,22 +1,24 @@
 import QtQuick 2.0
+import ZoolText 1.0
 import "../"
 
 Item {
     id: r
-    width: housesCircleBack.currentHouse!==n?xArcsBack.width:xArcsBack.width+extraWidth
+    width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
     height: width
     anchors.centerIn: parent
     property real wg: 0.0
     property int wb: apps.widthHousesAxis
     property int gr: 0
     property int n: -1
-    //property int w: housesCircleBack.currentHouse!==n?housesCircleBack.w*0.5:sweg.fs*6.5
-    property int w: (housesCircleBack.width-housesCircle.width)/2
+    //property int w: housesCircle.currentHouse!==n?housesCircle.w*0.5:sweg.fs*6.5
+    property int w: app.fs
     property int c: 0
-    property var colors: [apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack]
+    //property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
+    property var colors: [apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor]
     property var colors2: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
-    property bool selected: housesCircleBack.currentHouse===n
+    property bool selected: housesCircle.currentHouse===n
     property  real op: 100.0
     property int opacitySpeed: 100
     property int extraWidth: 0
@@ -24,63 +26,62 @@ Item {
 
     //Behavior on w{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500}}
     //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration:500}}
-//    state: sweg.state
-//    states: [
-//        State {
-//            name: sweg.aStates[0]
-//            PropertyChanges {
-//                target: ejeV
-//                width:  r.width+sweg.fs*2//.5
-//            }
-//            PropertyChanges {
-//                target: canvas2
-//                opacity:  0.0
-//            }
-//            PropertyChanges {
-//                target: r
-//                //colors: [apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack]
-//                extraWidth: 0
-//                //w: (sweg.width-sweg.objAspsCircle.width)/2//housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
-//            }
-//        },
-//        State {
-//            name: sweg.aStates[1]
-//            PropertyChanges {
-//                target: ejeV
-//                width:  r.width+sweg.fs*2.5
-//            }
-//            PropertyChanges {
-//                target: canvas2
-//                opacity:  1.0
-//            }
-//            PropertyChanges {
-//                target: r
-//                //colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
-//                extraWidth: sweg.fs*2.5
-//                w: (sweg.width-sweg.objAspsCircle.width)/2
-//                //w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*2.5:sweg.fs*8)
-//            }
-//        },
-//        State {
-//            name: sweg.aStates[2]
-//            PropertyChanges {
-//                target: ejeV
-//                width: r.width+sweg.fs*2
-//            }
-//            PropertyChanges {
-//                target: canvas2
-//                opacity:  0.0
-//            }
-//            PropertyChanges {
-//                target: r
-//                //colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
-//                //colors: [apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack, apps.houseColorBack]
-//                extraWidth: 0
-//                //w: housesCircle.parent.objectName==='sweg'?(sweg.fs*2):(sweg.fs*4)
-//                w: (sweg.width-sweg.objAspsCircle.width)/2
-//            }
-//        }
-//    ]
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: ejeV
+                width:  r.width+sweg.fs*2//.5
+            }
+            PropertyChanges {
+                target: canvas2
+                opacity:  0.0
+            }
+            PropertyChanges {
+                target: r
+                //colors: r.colors//[apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor]
+                extraWidth: 0
+                w: (sweg.width-sweg.objAspsCircle.width)/2//housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: ejeV
+                width:  r.width+sweg.fs*2.5
+            }
+            PropertyChanges {
+                target: canvas2
+                opacity:  1.0
+            }
+            PropertyChanges {
+                target: r
+                //colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
+                extraWidth: sweg.fs*2.5
+                w: (sweg.width-sweg.objAspsCircle.width)/2
+                //w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*2.5:sweg.fs*8)
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: ejeV
+                width: r.width+sweg.fs*2
+            }
+            PropertyChanges {
+                target: canvas2
+                opacity:  0.0
+            }
+            PropertyChanges {
+                target: r
+                //colors: [apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor]
+                extraWidth: 0
+                //w: housesCircle.parent.objectName==='sweg'?(sweg.fs*2):(sweg.fs*4)
+                w: (sweg.width-sweg.objAspsCircle.width)/2
+            }
+        }
+    ]
 
     onColorsChanged: {
         canvas.requestPaint()
@@ -99,6 +100,9 @@ Item {
     }
     onSelectedChanged: {
         if(!selected)canvas.opacity=0.5
+    }
+    onWgChanged:{
+        canvas.opacity=0.5
     }
     Behavior on opacity{enabled: apps.enableFullAnimation;
         NumberAnimation{duration: r.opacitySpeed}
@@ -120,13 +124,14 @@ Item {
     }
     Rectangle{
         id: ejeCard1
-        width: sweg.fs*2
+        //width: sweg.fs*2
+        width: !housesCircleBack.visible?sweg.fs*2:sweg.fs*2+housesCircleBack.extraWidth+sweg.fs*5
         height: 1
-        color: apps.houseLineColorBack
+        color: apps.houseLineColor
         //anchors.centerIn: r
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: 0-sweg.fs*0.5
+        anchors.leftMargin: !housesCircleBack.visible?0-sweg.fs*2:0-sweg.fs*2-housesCircleBack.extraWidth-sweg.fs*2.5
         visible: c===0
         Canvas {
             id:canvasSen
@@ -148,6 +153,25 @@ Item {
                 ctx.fillStyle = canvasSen.parent.color
                 ctx.fill();
                 ctx.stroke();
+            }
+        }
+        Rectangle{
+            width: sweg.fs*2.2
+            height: sweg.fs
+            radius: sweg.fs*0.1
+            color: apps.fontColor
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 0-sweg.fs*2.2
+            clip: true
+            Text{
+                id: esteTxt
+                text: 'Horizonte ESTE';
+                width: sweg.fs*2
+                wrapMode: Text.WordWrap
+                color: apps.backgroundColor
+                font.pixelSize: app.fs*0.35;
+                anchors.centerIn: parent
             }
         }
     }
@@ -203,10 +227,8 @@ Item {
     }
     Rectangle{
         id: ejeV
-        width: parent.width+sweg.fs*2
         height: r.wb
         color: 'transparent'
-        //color: 'yellow'
         anchors.centerIn: r
         antialiasing: true
         Rectangle{
@@ -223,7 +245,8 @@ Item {
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
                 height: r.wb
-                color: apps.houseLineColorBack//apps.enableBackgroundColor?apps.fontColor:'white'//r.selected?r.colors[r.c]:'white'
+                //color: apps.enableBackgroundColor?apps.fontColor:'white'//r.selected?r.colors[r.c]:'white'
+                color: apps.houseLineColor
                 antialiasing: true
                 y:lineaEje.y
             }
@@ -231,7 +254,8 @@ Item {
                 id: lineaEje2
                 width: r.w
                 height: r.wb
-                color: apps.houseLineColorBack//apps.enableBackgroundColor?apps.fontColor:'white'//'red'//r.colors[r.c]
+                //color: apps.enableBackgroundColor?apps.fontColor:'white'//'red'//r.colors[r.c]
+                color: apps.houseLineColor
                 antialiasing: true
                 //y:c!==6&&c!==0?(c!==6?0-height*0.5:height*0.5):height*0.25//c===0?0-height*0.5:height
                 //anchors.verticalCenter: parent.top
@@ -248,69 +272,74 @@ Item {
         }
         Rectangle{
             id: circleBot
-            width: sweg.fs*0.5+r.wb
+            width: sweg.fs*0.75+r.wb*2
             height: width
             radius: width*0.5
-            //color: apps.enableBackgroundColor?apps.backgroundColor:'white'
-            color: 'transparent'
+            //color: apps.enableBackgroundColor?apps.fontColor:'white'
+            color: apps.backgroundColor
+            border.width: r.wb
+            border.color: apps.houseLineColor//apps.enableBackgroundColor?apps.fontColor:'white'//lineaEje.color
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
-            Rectangle{
-                anchors.fill: parent
-                radius: width*0.5
-                color: apps.backgroundColor
-                border.width: r.wb
-                border.color: apps.houseLineColorBack
-                opacity: 0.65
-                antialiasing: true
-            }
+            state: sweg.state
+            states: [
+                State {
+                    name: sweg.aStates[0]
+                    PropertyChanges {
+                        target: circleBot
+                        width: sweg.fs*0.75
+                        border.width: 1
+                        border.color: apps.enableBackgroundColor?apps.fontColor:'white'//'white'
+                    }
+                },
+                State {
+                    name: sweg.aStates[1]
+                    PropertyChanges {
+                        target: circleBot
+                        width: sweg.fs*0.75+r.wb*2
+                        border.width: r.wb
+                        border.color: lineaEje.color
+                    }
+                },
+                State {
+                    name: sweg.aStates[2]
+                    PropertyChanges {
+                        target: circleBot
+                        width: sweg.fs*0.75
+                        border.width: 1
+                        border.color: apps.fontColor//'white'
+                    }
+                }
+            ]
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
                     var ni=-1
-                    ni=sweg.objHousesCircleBack.currentHouse!==r.n?r.n:-1
-                    sweg.objHousesCircleBack.currentHouse=ni
+                    ni=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
+                    sweg.objHousesCircle.currentHouse=ni
+//                    if(sweg.state!==sweg.aStates[1]){
+//                        sweg.state=sweg.aStates[1]
+//                        ni=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
+//                        sweg.objHousesCircle.currentHouse=ni
+//                        //swegz.sweg.objHousesCircle.currentHouse=ni
+//                    }else{
+//                        sweg.state=sweg.aStates[0]
+//                        sweg.objHousesCircle.currentHouse=-1
+//                    }
                 }
             }
-            XText{
+            ZoolText{
                 text: '<b>'+r.n+'</b>'
                 font.pixelSize: parent.width*0.6
                 width: contentWidth
                 height: contentHeight
                 horizontalAlignment: Text.AlignHCenter
+                //color: apps.enableBackgroundColor?apps.backgroundColor:'black'
                 color: apps.fontColor
-                //color: circleBot.border.color
                 anchors.centerIn: parent
-                //rotation: 45-r.rotation-housesCircleBack.rotation-signCircle.rot-planetsCircleBack.rotation
-                rotation:0-r.rotation-r.parent.rotation
-                Rectangle{
-                    width: esteTxt.contentWidth+sweg.fs*0.25
-                    height: esteTxt.contentHeight+sweg.fs*0.25
-                    radius: sweg.fs*0.1
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.left
-                    anchors.rightMargin: line1.width
-                    visible: r.c===0
-                    z:parent.z-1
-                    Rectangle{
-                        id: line1
-                        width: sweg.fs*0.5
-                        height: 1
-                        color: apps.houseLineColorBack
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.right
-                    }
-                    Text{
-                        id: esteTxt
-                        text: 'Asc'
-                        wrapMode: Text.WordWrap
-                        color: apps.backgroundColor
-                        font.pixelSize: sweg.fs*0.25
-                        anchors.centerIn: parent
-                    }
-                }
+                rotation: 0-r.rotation-parent.rotation
             }
+
         }
     }
     Rectangle{
@@ -332,22 +361,34 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             rotation: 90-r.rotation-parent.rotation
             antialiasing: true
-            XText {
+            ZoolText {
                 text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
                 font.pixelSize: parent.width*0.3
                 anchors.centerIn: parent
                 color: 'white'
-                rotation: 270+ejeCentro.rotation
+                rotation: 270+ejeCentro.rotation                
             }
         }
     }
     Timer{
         id: tc
-        running: r.selected
+        running: r.selected //&& !apps.xAsShowIcon
         repeat: true
         interval: 350
         onTriggered: {
             canvas.opacity=canvas.opacity===1.0?0.65:1.0
+        }
+    }
+    Timer{
+        id: tc2
+        //running: apps.xAsShowIcon
+        repeat: true
+        interval: 350
+        onRunningChanged: {
+            if(!running)canvas.opacity=1.0
+        }
+        onTriggered: {
+            canvas.opacity=0.0
         }
     }
 
@@ -358,7 +399,7 @@ Item {
         height: apps.widthHousesAxis
         anchors.verticalCenter: parent.verticalCenter
         //anchors.centerIn: parent
-        color: apps.houseLineColorBack
+        color: apps.houseLineColor
         //color: 'blue'
         visible: apps.showHousesAxis
         y: lineaEje2.y
