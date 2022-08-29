@@ -1,8 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
-import "comps" as Comps
-import "./js/Funcs.js" as JS
+import "../../comps" as Comps
+import "../../js/Funcs.js" as JS
 
 Rectangle {
     id: r

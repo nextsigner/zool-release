@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import ZoolCmd 1.0
 
 Rectangle {
     id: r
@@ -29,7 +30,7 @@ Rectangle {
     ]
     Behavior on y {enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration;easing.type: Easing.InOutQuad}}
     XStatus{id: xStatus;}
-    PanelCmd{
+    ZoolCmd{
         id: panelCmd
         width: parent.width-xStatus.width
         onStateChanged: if(state==='show')r.state='show'

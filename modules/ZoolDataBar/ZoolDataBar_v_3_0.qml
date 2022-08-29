@@ -162,7 +162,7 @@ Rectangle {
                         visible: modelData==='@' && index!==0 && app.ev
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
-                        anchors.leftMargin: 0-rowData.children[8].width*0.5
+                        anchors.leftMargin: rowData.children[8]?0-rowData.children[8].width*0.5:0
                     }
                 }
             }

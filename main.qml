@@ -23,7 +23,7 @@ import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 
-AppWin {
+Comps.AppWin {
     id: app
     visible: true
     visibility: "Maximized"
@@ -813,7 +813,8 @@ AppWin {
 
         //Argumentos
         let args=Qt.application.arguments
-        for(var i=0;i<args.length;i++){
+        var i=0
+        for(i=0;i<args.length;i++){
             let a=args[i]
             if(a.indexOf('-title=')>=0){
                 let mt=a.split('-title=')
@@ -829,14 +830,9 @@ AppWin {
             log.ls('\napps.jsonsFolder:\n'+apps.jsonsFolder, log.x, log.width)
             log.ls('\nDocumentPath:\n'+documentsPath, log.x, log.width)
         }
-
-        //        for(let i=0;i<256;i++){
-        //            log.l('--------->'+i+': '+EXTRA.getArrayColor()[i]+'\n')
-        //        }
         if(Qt.application.arguments.indexOf('-dev')>=0){
             app.dev=true
         }
-
         JS.setFs()
         app.mainLocation=unik.getPath(5)
         if(Qt.platform.os==='windows'){
@@ -848,7 +844,7 @@ AppWin {
         let fileLoaded=false
         let appArgs=Qt.application.arguments
         let arg=''
-        for(var i=0;i<appArgs.length;i++){
+        for(i=0;i<appArgs.length;i++){
             let a=appArgs[i]
             if(a.indexOf('file=')>=0){
                 let ma=a.split('=')
