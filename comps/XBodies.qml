@@ -300,7 +300,7 @@ Column{
             jo=json.ph['h'+i]
             //s = 'Casa '+i+' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]
             s = '<b>Casa</b> '+i+' en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ''
-            lm.append(lm.addItem(jo.is, jo.ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
+            lm.append(lm.addItem(jo.is, i, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
             //lm2.append(lm2.addItem(jo.is, jo.ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
         }
 
