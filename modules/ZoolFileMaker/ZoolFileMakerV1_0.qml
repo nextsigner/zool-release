@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
-import "../../Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 
 Rectangle {
     id: r

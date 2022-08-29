@@ -121,7 +121,7 @@ zfs=app.fs*1.5
 time=20000
 ---
 qml=import QtQuick 2.0
-import "../Funcs.js" as JS
+import "../js/Funcs.js" as JS
 Item{
     Component.onCompleted:{
         panelZoolText.fs=app.fs*0.5

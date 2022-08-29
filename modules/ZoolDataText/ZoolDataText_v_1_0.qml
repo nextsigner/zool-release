@@ -186,7 +186,7 @@ Rectangle{
         loadZoolText()
     }
     function setFilePath(newFilePath){
-        let fp='./resources/zooltext.txt'
+        let fp='../../resources/zooltext.txt'
         if(url===''){
             let appArgs=Qt.application.arguments
             let arg=''

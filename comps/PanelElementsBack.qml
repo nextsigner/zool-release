@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import "../"
-import "../Funcs.js" as JS
+import "../js/Funcs.js" as JS
 
 Item {
     id: r

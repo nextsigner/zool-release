@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
-import "../../Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
 import ZoolMediaLive 1.0

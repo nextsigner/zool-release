@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.12
-import "Funcs.js" as JS
-import "./comps" as Comps
+import "../../js/Funcs.js" as JS
+import "../../comps" as Comps
 
 Rectangle {
     id: r

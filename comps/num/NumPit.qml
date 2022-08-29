@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import "../"
 import "../../comps" as Comps
-import "../../Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 
 Rectangle {
     id: r

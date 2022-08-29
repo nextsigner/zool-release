@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtMultimedia 5.12
 import Qt.labs.settings 1.0
-import "../../Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 
 
 import ZoolButton 1.0

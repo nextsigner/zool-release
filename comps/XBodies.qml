@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.0
-import "../Funcs.js" as JS
+import "../js/Funcs.js" as JS
 
 Column{
     id: r

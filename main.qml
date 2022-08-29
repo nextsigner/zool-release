@@ -9,13 +9,15 @@ import Qt.labs.settings 1.1
 import unik.UnikQProcess 1.0
 import unik.Unik 1.0
 
-import "Funcs.js" as JS
-//import "Extra.js" as EXTRA
+import "./js/Funcs.js" as JS
 import "./comps" as Comps
 import "./comps/num" as Num
 
 //Default Modules
 import ZoolText 1.0
+import ZoolDataBar 3.0
+import ZoolDataText 1.0
+import ZoolLogView 1.0
 import ZoolBodies 1.0
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
@@ -453,7 +455,7 @@ AppWin {
     Item{
         id: capa101
         anchors.fill: xApp
-        XDataBarV3{id: xDataBar}
+        ZoolDataBar{id: xDataBar}
         Row{
             //anchors.centerIn: parent
             anchors.top: xDataBar.bottom
@@ -463,12 +465,12 @@ AppWin {
                 width: xApp.width*0.2
                 height: parent.height
                 //z: xMed.z+1
-//                Rectangle{
-//                    width: 8000
-//                    height: 100
-//                    color: 'red'
-//                    anchors.centerIn: parent
-//                }
+                //                Rectangle{
+                //                    width: 8000
+                //                    height: 100
+                //                    color: 'red'
+                //                    anchors.centerIn: parent
+                //                }
                 Column{
                     anchors.centerIn: parent
                     Rectangle{
@@ -496,17 +498,14 @@ AppWin {
                         width: xApp.width*0.5
                         height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
                         clip: true
-                        XPaneles{Comps.PanelZoolText{id: panelZoolText;itemIndex: 0}}
+                        XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
                         XPaneles{PanelSabianos{id: panelSabianos;itemIndex: 1}}
                         XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
                         XPaneles{PanelRsList{id: panelRsList;itemIndex: 3}}
-                        //XPaneles{PanelAspTransList{id: panelAspTransList;itemIndex: 5}}
                         XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
-                        //XPaneles{PanelZonaMes{id: panelZonaMes;;itemIndex: 6}}
                         XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
                         XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
-                        XPaneles{PanelRemotoV2{id: panelRemoto;itemIndex: 7}}
-                        XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 8}}
+                        XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
                         //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
                     }
                     Rectangle{
@@ -743,13 +742,31 @@ AppWin {
             }
         }
     }
-    LogItem{id: log}
+    ZoolLogView{id: log}
 
     //    Text{
     //        text: '->'+menuBar.expanded
     //        font.pixelSize: app.fs*3
     //        color: 'red'
     //    }
+    Timer{
+        id: tAutoMaticPlanets
+        running: false
+        repeat: true
+        interval: 10000
+        property string currentJsonData: ''
+        onTriggered: {
+            if(tAutoMaticPlanets.currentJsonData!==app.currentData){
+                tAutoMaticPlanets.stop()
+                return
+            }
+            if(app.currentPlanetIndex<16){
+                app.currentPlanetIndex++
+            }else{
+                app.currentPlanetIndex=-1
+            }
+        }
+    }
     Comps.MenuPlanets{id: menuPlanets}
     Comps.MinymaClient{
         id: minymaClient
@@ -777,18 +794,18 @@ AppWin {
     }
 
     //Linea vertical medio
-//    Rectangle{
-//        width: 2
-//        height: xApp.height*2
-//        anchors.centerIn: parent
-//    }
-//    Timer{
-//        id: tLoadModules
-//        running: false
-//        repeat: false
-//        interval: 5000
-//        onTriggered: JS.loadModules()
-//    }
+    //    Rectangle{
+    //        width: 2
+    //        height: xApp.height*2
+    //        anchors.centerIn: parent
+    //    }
+    //    Timer{
+    //        id: tLoadModules
+    //        running: false
+    //        repeat: false
+    //        interval: 5000
+    //        onTriggered: JS.loadModules()
+    //    }
     Component.onCompleted: {
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')

@@ -1,6 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.12
-import "../../Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 
 import ZoolHousesCircle 1.0
 import ZoolHousesCircleBack 1.0

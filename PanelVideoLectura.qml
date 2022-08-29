@@ -3,7 +3,7 @@ import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import QtMultimedia 5.12
 import QtQuick.Dialogs 1.2
-import "./Funcs.js" as JS
+import "./js/Funcs.js" as JS
 import "./comps"
 import unik.UnikQProcess 1.0
 

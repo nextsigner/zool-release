@@ -3,7 +3,7 @@ import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "./comps" as Comps
-import "Funcs.js" as JS
+import "./js/Funcs.js" as JS
 Rectangle {
     id: r
     color: apps.backgroundColor
