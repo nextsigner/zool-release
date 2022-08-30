@@ -222,6 +222,10 @@ Comps.AppWin {
         id: apps
         //fileName:unik.getPath(4)+'/zool_'+Qt.platform.os+'.cfg'
         fileName:'zool_'+Qt.platform.os+'.cfg'
+
+        //Minyma
+        property string minymaClientHost: 'ws://127.0.0.1:12345'
+        property int minymaClientPort: 12345
         property bool showLog: false
         property int fs: app.width*0.02
         property int fsSbValue: 50
@@ -771,6 +775,8 @@ Comps.AppWin {
     Comps.MinymaClient{
         id: minymaClient
         loginUserName: 'zool'
+        host: apps.minymaClientHost
+        port: apps.minymaClientPort
         onNewMessage: {
             //let json=JSON.parse(data)
             //log.ls('Minyma Recibe: '+data, 0, 500)

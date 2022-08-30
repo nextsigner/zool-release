@@ -35,6 +35,7 @@ function firstRunTime(){
     //Detalles Técnicos extras
     log.l('\nZool se está ejecutando en la carpeta'+unik.currentFolderPath())
     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
+    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
     JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
 }
 function setFs() {

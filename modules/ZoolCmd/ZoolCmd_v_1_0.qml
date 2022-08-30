@@ -58,6 +58,7 @@ Rectangle {
     }
     Item{id: xuqp}
     function runCmd(cmd){
+        let help=''
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -166,6 +167,42 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         //Get sh python cmd
         if(comando[0]==='showLog'){
             apps.showLog=!apps.showLog
+            return
+        }
+
+        //Set MinymaClient Host
+        if(comando[0]==='minyma'){
+            if(comando.length===1){
+                help='\n\nPara utilizar el comando minyma se esperan los siguientes argumentos:\n\n'
+                help+='minyma sethost ws://xxx.xxx.xxx (host del servidor sin puerto)\n\n'
+                help+='minyma setip xxx.xxx.xxx (sole el ip del servidor)\n\n'
+                help+='minyma setport xxxx (número del puerto del servidor)\n\n'
+                log.clear()
+                log.ls(help, 0, xLatIzq.width)
+                return
+            }
+            if(comando[1]==='sethost'){
+                apps.minymaClientHost=comando[2]
+                log.ls('Nuevo host de minymaClient: '+apps.minymaClientHost, 0, xLatIzq.width)
+
+            }
+            if(comando[1]==='setip'){
+                apps.minymaClientHost='ws://'+comando[2]
+                log.clear()
+                log.ls('Nuevo host de minymaClient: '+apps.minymaClientHost, 0, xLatIzq.width)
+
+            }
+            if(comando[1]==='setport'){
+                apps.minymaClientPort=comando[2]
+                log.clear()
+                log.ls('Nuevo puerto de minymaClient: '+apps.minymaClientPort, 0, xLatIzq.width)
+            }
+            //Minyma Send: minyma send to data
+            if(comando[1]==='send'&&comando.length===4){
+                minymaClient.sendData('zool', comando[2], ''+(comando[3]).replace(/\"/g, '')+'')
+                log.clear()
+                log.ls('minymaClient ha enviado a '+comando[2]+' el dato '+comando[3], 0, xLatIzq.width)
+            }
             return
         }
         mkCmd(finalCmd, c)
