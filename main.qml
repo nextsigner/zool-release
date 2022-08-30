@@ -22,6 +22,7 @@ import ZoolBodies 1.0
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
+import ZoolMediaLive 1.0
 
 Comps.AppWin {
     id: app
@@ -772,6 +773,7 @@ Comps.AppWin {
         }
     }
     Comps.MenuPlanets{id: menuPlanets}
+    ZoolMediaLive{id: zoolMediaLive;parent: panelDataBodies}
     Comps.MinymaClient{
         id: minymaClient
         loginUserName: 'zool'
@@ -795,6 +797,26 @@ Comps.AppWin {
             }
             if(data==='windowToTool'){
                 app.flags=Qt.Tool
+            }
+
+            //To zoolMediaLive
+            if(data==='zoolMediaLive.loadBodiesNow()'){
+                zoolMediaLive.loadBodiesNow()
+            }
+            if(data==='zoolMediaLive.play()'){
+                zoolMediaLive.play()
+            }
+            if(data==='zoolMediaLive.pause()'){
+                zoolMediaLive.pause()
+            }
+            if(data==='zoolMediaLive.stop()'){
+                zoolMediaLive.stop()
+            }
+            if(data==='zoolMediaLive.previous()'){
+                zoolMediaLive.previous()
+            }
+            if(data==='zoolMediaLive.next()'){
+                zoolMediaLive.next()
             }
         }
     }

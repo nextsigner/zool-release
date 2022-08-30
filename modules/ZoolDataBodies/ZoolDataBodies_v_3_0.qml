@@ -4,8 +4,6 @@ import Qt.labs.folderlistmodel 2.12
 import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
-import ZoolMediaLive 1.0
-
 Rectangle {
     id: r
     width: parent.width
@@ -58,9 +56,6 @@ Rectangle {
             color: apps.fontColor
             anchors.centerIn: parent
         }
-    }
-    ZoolMediaLive{
-        id: zoolMediaLive
     }
     function loadJson(json){
         r.latFocus=0

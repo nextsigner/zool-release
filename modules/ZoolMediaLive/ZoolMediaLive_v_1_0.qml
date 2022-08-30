@@ -6,6 +6,7 @@ import "../../js/Funcs.js" as JS
 
 
 import ZoolButton 1.0
+
 Rectangle{
     id: r
     width: parent.width
@@ -383,5 +384,19 @@ Rectangle{
         r.gmts=gmts
     }
 
-    /**/
+    function play(){
+        r.mp.play()
+    }
+    function pause(){
+        r.mp.pause()
+    }
+    function stop(){
+        r.mp.stop()
+    }
+    function previous(){
+        r.mplis.previous()
+    }
+    function next(){
+        r.mplis.next()
+    }
 }

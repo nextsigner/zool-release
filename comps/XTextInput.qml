@@ -10,6 +10,7 @@ Item {
     property alias bw: xTi.border
     property alias bc: xTi.border
     signal pressed
+    signal downPressed
     width: app.fs*5
     height: xTi.height
     //focus: txt.focus
@@ -58,6 +59,7 @@ Item {
             onTextChanged: r.textChanged(text)
             Keys.onReturnPressed: r.pressed()
             Keys.onEnterPressed: r.pressed()
+            Keys.onDownPressed: r.downPressed()
         }
     }
 }

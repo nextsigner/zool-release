@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
+import Qt.labs.settings 1.0
 import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
@@ -46,6 +47,11 @@ Rectangle {
             //txtDataSearch.focus=true
         }
     }
+    Settings{
+        id: s
+        fileName:'zoolMediaLive.cfg'
+        property var cmds: []
+    }
     Comps.XTextInput{
         id: tiCmd
         width: r.width
@@ -54,10 +60,24 @@ Rectangle {
         //bw.width: 0
         //anchors.verticalCenter: parent.verticalCenter
         anchors.centerIn: parent
-        onPressed: runCmd(text)
+        onPressed: {
+            if(s.cmds.indexOf(text)<0)s.cmds.push(text)
+            runCmd(text)
+        }
+        property int cmdIndex: 0
+        onDownPressed:{
+            if(s.cmds.length===0)return
+            t.text=s.cmds[tiCmd.cmdIndex]
+            if(tiCmd.cmdIndex<s.cmds.length-1){
+                tiCmd.cmdIndex++
+            }else{
+                tiCmd.cmdIndex=0
+            }
+        }
     }
     Item{id: xuqp}
-    function runCmd(cmd){
+    function runCmd(cmdarg){
+        let cmd=(''+cmdarg)
         let help=''
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -68,6 +88,14 @@ Rectangle {
         let c=''
         let comando=cmd.split(' ')
         if(comando.length<1)return
+
+        let com=cmd.substring(0, 2)
+        let codeCom=cmd.substring(2, cmd.length)
+        //log.ls('com:::['+com+']', 0, 500)
+        //log.ls('codeCom:::'+codeCom, 0, 500)
+        if(com==='c '){
+            runQml(codeCom)
+        }
         if(comando[0]==='setzmt'){
             if(comando.length<4){
                 console.log('Error al setear el panelZonaMes: Faltan argumentos. setCurrentTime(q,m,y)')
@@ -208,6 +236,22 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         mkCmd(finalCmd, c)
         r.uCmd=cmd
     }
+    function runQml(code){
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let c='import QtQuick 2.0\n'
+        c+='Item{\n'
+        c+='    id: item'+ms+'\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        '+code+'\n'
+        c+='    }\n'
+        c+='}\n'
+        //log.ls('Run Qml Code: '+c, 0, xLatIzq.width)
+        let comp=Qt.createQmlObject(c, xuqp, 'runqmlcode')
+    }
     function mkCmd(finalCmd, code){
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -216,7 +260,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
-        c+='import "Funcs.js" as JS\n'
+        c+='import "../../js/Funcs.js" as JS\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
