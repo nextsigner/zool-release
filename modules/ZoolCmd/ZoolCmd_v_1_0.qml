@@ -1,7 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
-import Qt.labs.settings 1.0
 import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
@@ -47,11 +46,6 @@ Rectangle {
             //txtDataSearch.focus=true
         }
     }
-    Settings{
-        id: s
-        fileName:'zoolMediaLive.cfg'
-        property var cmds: []
-    }
     Comps.XTextInput{
         id: tiCmd
         width: r.width
@@ -61,14 +55,14 @@ Rectangle {
         //anchors.verticalCenter: parent.verticalCenter
         anchors.centerIn: parent
         onPressed: {
-            if(s.cmds.indexOf(text)<0)s.cmds.push(text)
+            addJsonCmds(text)
             runCmd(text)
         }
         property int cmdIndex: 0
         onDownPressed:{
-            if(s.cmds.length===0)return
-            t.text=s.cmds[tiCmd.cmdIndex]
-            if(tiCmd.cmdIndex<s.cmds.length-1){
+            if(Object.keys(getJsonCmds().cmds).length===0)return
+            tiCmd.text=getJsonCmd(tiCmd.cmdIndex)
+            if(tiCmd.cmdIndex<Object.keys(getJsonCmd().cmds).length-1){
                 tiCmd.cmdIndex++
             }else{
                 tiCmd.cmdIndex=0
@@ -95,6 +89,9 @@ Rectangle {
         //log.ls('codeCom:::'+codeCom, 0, 500)
         if(com==='c '){
             runQml(codeCom)
+        }
+        if(parseInt(cmd.substring(0, 4))<=Object.keys(getJsonCmds().cmds).length){
+            tiCmd.text=getJsonCmd(parseInt(cmd.substring(0, 4)))
         }
         if(comando[0]==='setzmt'){
             if(comando.length<4){
@@ -358,5 +355,34 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'}\n'
 
         mkCmd(finalCmd, c)
+    }
+    function getJsonCmds(){
+        let jsonString='{"cmds":[]}'
+        let jsonFilePath='./modules/ZoolCmd/cmds.json'
+        if(!unik.fileExist(jsonFilePath)) return JSON.parse(jsonString)
+        jsonString=unik.getFile(jsonFilePath)
+        return JSON.parse(jsonString)
+    }
+    function addJsonCmds(cmd){
+        let json = getJsonCmds()
+        let jsonCount=Object.keys(json.cmds).length
+        for(var i=0;i<jsonCount;i++){
+            if(cmd===json.cmds[i].cmd){
+                log.ls('Ya existe: '+cmd, 0, 500)
+                return
+            }
+        }
+        json.cmds[jsonCount]={}
+        json.cmds[jsonCount].cmd=cmd
+        log.ls('New json: '+JSON.stringify(json), 0, 500)
+        saveJsonCmds(json)
+    }
+    function getJsonCmd(index){
+        let json = getJsonCmds()
+        return json.cmds[index].cmd
+    }
+    function saveJsonCmds(json){
+        let jsonFilePath='./modules/ZoolCmd/cmds.json'
+        unik.setFile(jsonFilePath, JSON.stringify(json))
     }
 }

@@ -35,7 +35,7 @@ Comps.AppWin {
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
     title: argtitle && argtitle.length>1?argtitle:'Zool '+version
     //title:'sdsa'
-    property bool dev: false
+    property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
 
     property string mainLocation: ''
@@ -776,7 +776,7 @@ Comps.AppWin {
     ZoolMediaLive{id: zoolMediaLive;parent: panelDataBodies}
     Comps.MinymaClient{
         id: minymaClient
-        loginUserName: 'zool'
+        loginUserName: 'zool'+(app.dev?'-dev':'')
         host: apps.minymaClientHost
         port: apps.minymaClientPort
         onNewMessage: {
