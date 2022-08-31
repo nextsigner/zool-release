@@ -169,7 +169,6 @@ Rectangle{
             }
         }
     }
-    //MediaPlayer{
     Timer{
         id: tRepAutomatic
         repeat: true
@@ -185,6 +184,7 @@ Rectangle{
 
         }
     }
+    //MediaPlayer{
     Audio{
         id: apau
         autoPlay: false

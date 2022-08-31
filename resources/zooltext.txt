@@ -1,8 +1,12 @@
 ---
-# RadioZoolar<br />
-### Canal de Astrología
+zfs=app.fs*4.5
+time=500
 ---
-zfs=app.fs*1.5
+# Radio Zoolar<br />
+### Canal de Astrología
+#### Las posiciones de los astros en vivo
+---
+zfs=app.fs*4.5
 time=6000
 ---
 # Zool<br />
@@ -10,7 +14,7 @@ time=6000
 
 La aplicación que se muestra en pantalla se llama Zool.
 
-Fue desarrollada para mostrar cartas astrales en pantalla de una manera dinámica.
+Fue desarrollada por el Astrólogo Ricardo Martín Pizarro para mostrar cartas astrales en pantalla de una manera dinámica.
 
 Pronto se iran agregando nuevos eventos y animaciones a la transmisión.
 ---
@@ -121,15 +125,15 @@ zfs=app.fs*1.5
 time=20000
 ---
 qml=import QtQuick 2.0
-import "../js/Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 Item{
     Component.onCompleted:{
-        panelZoolText.fs=app.fs*0.5
+        panelZoolText.areaCamera.height=1
         if(!panelZoolText.fileInitLoaded){
             //JS.loadJson('/home/zool//gd/Zool/Ricardo.json')
             //tAutoMaticPlanets.currentJsonData=app.currentData
             //tAutoMaticPlanets.running=true
-            app.currentPlanetIndex=0
+            //app.currentPlanetIndex=0
         }
         panelZoolText.fileInitLoaded=true        
      }

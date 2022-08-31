@@ -17,6 +17,7 @@ Rectangle{
     property alias fontSize: txtAboutZool.font.pixelSize
     property string uFile: ''
     property string uData: ''
+    property alias areaCamera: cameraArea
     Column{
         id: col0
         anchors.centerIn: parent
@@ -181,44 +182,41 @@ Rectangle{
     //        color: 'red'
     //    }
     Component.onCompleted: {
-        setFilePath('')
+        let currentFileZoolText='./resources/zooltext.txt'
+        let appArgs=Qt.application.arguments
+        let arg=''
+        for(var i=0;i<appArgs.length;i++){
+            let a=appArgs[i]
+            if(a.indexOf('tempzooltext')>=0){
+                let ma=a.split('=')
+                if(ma.length>1){
+                    arg=ma[1]
+                }
+            }
+        }
+        if(arg!==''){
+            if(!unik.fileExist(arg)&&!r.noFoundFileExistNofify){
+                r.noFoundFileExistNofify=true
+                log.l('El archivo ingresado mediante el parámetro tempzooltext no existe.')
+                log.l('Archivo tempzooltex: '+arg)
+                log.l('Cargando archivo por defecto tempzooltex: '+fp)
+                log.visible=true
+                //data=unik.getFile(fp)
+            }
+            currentFileZoolText=arg
+        }
+        //log.ls('Loading ZoolDataText: '+currentFileZoolText, 0, 500)
+        setFilePath(currentFileZoolText)
         //log.ls('uFile: '+r.uFile, 0, 500)
         loadZoolText()
     }
     function setFilePath(newFilePath){
-        let fp='../../resources/zooltext.txt'
-        if(url===''){
-            let appArgs=Qt.application.arguments
-            let arg=''
-            for(var i=0;i<appArgs.length;i++){
-                let a=appArgs[i]
-                if(a.indexOf('tempzooltext')>=0){
-                    let ma=a.split('=')
-                    if(ma.length>1){
-                        arg=ma[1]
-                    }
-                }
-            }
-            if(arg!==''){
-                if(!unik.fileExist(arg)&&!r.noFoundFileExistNofify){
-                    r.noFoundFileExistNofify=true
-                    log.l('El archivo ingresado mediante el parámetro tempzooltext no existe.')
-                    log.l('Archivo tempzooltex: '+arg)
-                    log.l('Cargando archivo por defecto tempzooltex: '+fp)
-                    log.visible=true
-                    //data=unik.getFile(fp)
-                }
-                fp=arg
-            }
-        }else{
-            fp=newFilePath
-        }
-        r.uFile=fp
+        r.uFile=newFilePath
     }
     function loadZoolText(){
-        let appArgs=Qt.application.arguments
         let fp
         let data=unik.getFile(r.uFile)
+        //log.ls('Data of ZoolDataText: '+data, 0, 500)
         r.uData=data
         var aD=[]
         var aT=[]
