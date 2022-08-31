@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import "../../js/Funcs.js" as JS
 
+import ZoolBodies.ZoolAs 3.0
+
 Item{
     id: r
     property bool expand: false
@@ -41,7 +43,7 @@ Item{
     ]
     Repeater{
         model: app.planetasRes
-        XAsV2{fs:r.planetSize;astro:modelData;numAstro: index}
+        ZoolAs{fs:r.planetSize;astro:modelData;numAstro: index}
     }
     function pressed(o){
         if(app.currentPlanetIndex!==o.numAstro){

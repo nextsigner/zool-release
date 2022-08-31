@@ -9,6 +9,7 @@ import Qt.labs.settings 1.1
 import unik.UnikQProcess 1.0
 import unik.Unik 1.0
 
+
 import "./js/Funcs.js" as JS
 import "./comps" as Comps
 import "./comps/num" as Num
@@ -18,7 +19,7 @@ import ZoolText 1.0
 import ZoolDataBar 3.0
 import ZoolDataText 1.0
 import ZoolLogView 1.0
-import ZoolBodies 1.0
+import ZoolBodies 1.1
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
