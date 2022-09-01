@@ -240,6 +240,7 @@ Rectangle{
     }
     property int gmtServer: -3
     function loadBodiesNow(){
+        sweg.centerZoomAndPos()
         let d0=new Date(Date.now())
         if(gmts[r.currentIndex]!==r.gmtServer){
             if(r.gmts[r.currentIndex]>0){

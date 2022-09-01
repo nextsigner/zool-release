@@ -50,7 +50,7 @@ Item {
         //color: 'red'
         anchors.centerIn: parent
         Rectangle{
-            width: r.pointerFs*6
+            width: r.pointerFs*5
             height: apps.pointerLineWidth
             //color: apps.pointerLineColor
             //color: borde.border.color
