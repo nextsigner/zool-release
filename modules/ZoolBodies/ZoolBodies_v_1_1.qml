@@ -7,7 +7,7 @@ import ZoolHousesCircle 1.0
 import ZoolHousesCircleBack 1.0
 
 import ZoolSignCircle 1.0
-
+import ZoolAutoPanZoom 1.0
 
 //import "./comps" as Comps
 
@@ -298,6 +298,7 @@ Item {
                     anchors.centerIn: parent
                     visible: app.showCenterLine
                 }
+                ZoolAutoPanZoom{id:zoolAutoPanZoom}
             }
         }
     }

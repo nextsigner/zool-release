@@ -41,10 +41,10 @@ Item{
                 target: r
                 colorCuerpo: '#ffffff'
             }
-//            PropertyChanges {
-//                target: xIcon
-//                width: r.fs*0.85
-//            }
+            //            PropertyChanges {
+            //                target: xIcon
+            //                width: r.fs*0.85
+            //            }
         },
         State {
             name: sweg.aStates[1]
@@ -52,10 +52,10 @@ Item{
                 target: r
                 colorCuerpo: '#000000'
             }
-//            PropertyChanges {
-//                target: xIcon
-//                width: r.fs*0.5
-//            }
+            //            PropertyChanges {
+            //                target: xIcon
+            //                width: r.fs*0.5
+            //            }
         },
         State {
             name: sweg.aStates[2]
@@ -63,10 +63,10 @@ Item{
                 target: r
                 colorCuerpo: '#ffffff'
             }
-//            PropertyChanges {
-//                target: xIcon
-//                width: r.fs*0.5
-//            }
+            //            PropertyChanges {
+            //                target: xIcon
+            //                width: r.fs*0.5
+            //            }
         }
     ]
     onSelectedChanged: {
@@ -109,7 +109,7 @@ Item{
             expand: r.selected
             iconoSignRot: img.rotation
             p: r.numAstro
-            opacity: r.selected&&app.showPointerXAs?1.0:0.0 && JSON.parse(app.currentData).params.tipo!=='pron'
+            opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.tipo!=='pron'
         }
         MouseArea{
             id: maSig
@@ -121,24 +121,24 @@ Item{
                 //apps.enableFullAnimation=false
                 if (wheel.modifiers & Qt.ControlModifier) {
                     if(wheel.angleDelta.y>=0){
-                            pointerPlanet.pointerRot+=5
+                        pointerPlanet.pointerRot+=5
                     }else{
-                            pointerPlanet.pointerRot-=5
+                        pointerPlanet.pointerRot-=5
                     }
                 }else{
                     if(wheel.angleDelta.y>=0){
-    //                    if(reSizeAppsFs.fs<app.fs*2){
-    //                        reSizeAppsFs.fs+=reSizeAppsFs.fs*0.1
-    //                    }else{
-    //                        reSizeAppsFs.fs=app.fs
-    //                    }
+                        //                    if(reSizeAppsFs.fs<app.fs*2){
+                        //                        reSizeAppsFs.fs+=reSizeAppsFs.fs*0.1
+                        //                    }else{
+                        //                        reSizeAppsFs.fs=app.fs
+                        //                    }
                         pointerPlanet.pointerRot+=45
                     }else{
-    //                    if(reSizeAppsFs.fs>app.fs){
-    //                        reSizeAppsFs.fs-=reSizeAppsFs.fs*0.1
-    //                    }else{
-    //                        reSizeAppsFs.fs=app.fs*2
-    //                    }
+                        //                    if(reSizeAppsFs.fs>app.fs){
+                        //                        reSizeAppsFs.fs-=reSizeAppsFs.fs*0.1
+                        //                    }else{
+                        //                        reSizeAppsFs.fs=app.fs*2
+                        //                    }
                         pointerPlanet.pointerRot-=45
                     }
                 }
@@ -217,14 +217,14 @@ Item{
             visible: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0
         }
 
-//        Component.onCompleted: {
-//            if(r.numAstro===0){
-//                let comp=Qt.createComponent('./zoolbody/ZoolBodySun.qml')
-//                let obj=comp.createObject(xIcon, {w: xIcon.width*0.5})
-//                img.visible=false
-//                co1.visible=false
-//            }
-//        }
+        //        Component.onCompleted: {
+        //            if(r.numAstro===0){
+        //                let comp=Qt.createComponent('./zoolbody/ZoolBodySun.qml')
+        //                let obj=comp.createObject(xIcon, {w: xIcon.width*0.5})
+        //                img.visible=false
+        //                co1.visible=false
+        //            }
+        //        }
     }
     Image {
         id: imgEarth
@@ -268,9 +268,9 @@ Item{
     }
     function rot(d){
         if(d){
-                pointerPlanet.pointerRot+=5
+            pointerPlanet.pointerRot+=5
         }else{
-                pointerPlanet.pointerRot-=5
+            pointerPlanet.pointerRot-=5
         }
         saveRot(parseInt(pointerPlanet.pointerRot))
     }
@@ -292,10 +292,14 @@ Item{
 
     //Rot
     function setRot(){
-        let json=JSON.parse(app.fileData)
-        if(json.rots&&json.rots['rc'+r.numAstro]){
-            r.uRot=json.rots['rc'+r.numAstro]
-            pointerPlanet.pointerRot=r.uRot
+        if(!r.isPron){
+            let json=JSON.parse(app.fileData)
+            if(json.rots&&json.rots['rc'+r.numAstro]){
+                r.uRot=json.rots['rc'+r.numAstro]
+                pointerPlanet.pointerRot=r.uRot
+            }
+        }else{
+            pointerPlanet.pointerRot=180
         }
     }
     function restoreRot(){

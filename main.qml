@@ -822,6 +822,18 @@ Comps.AppWin {
         }
     }
 
+    //Este esta en el centro
+    Rectangle{
+        id: centroideXMed
+        visible: app.dev
+        width: 6
+        height: width
+        color: 'transparent'
+        border.width: 1
+        border.color: apps.fontColor
+        anchors.centerIn: parent
+    }
+
     //Linea vertical medio
     //    Rectangle{
     //        width: 2
@@ -836,6 +848,14 @@ Comps.AppWin {
     //        onTriggered: JS.loadModules()
     //    }
     Component.onCompleted: {
+
+        JS.setFs()
+
+        //Check is dev with the arg -dev
+        if(Qt.application.arguments.indexOf('-dev')>=0){
+            app.dev=true
+        }
+
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
 
@@ -851,7 +871,7 @@ Comps.AppWin {
             }
         }
 
-        if(isDev){
+        if(app.dev){
             log.ls('\nRunning as Dev', 0, xLatIzq.width)
             //log.ls('\nVersion:\n'+version, log.x,
             log.ls('\nunik.currentFolderPath():\n'+unik.currentFolderPath(), log.x, log.width)
@@ -859,10 +879,7 @@ Comps.AppWin {
             log.ls('\napps.jsonsFolder:\n'+apps.jsonsFolder, log.x, log.width)
             log.ls('\nDocumentPath:\n'+documentsPath, log.x, log.width)
         }
-        if(Qt.application.arguments.indexOf('-dev')>=0){
-            app.dev=true
-        }
-        JS.setFs()
+
         app.mainLocation=unik.getPath(5)
         if(Qt.platform.os==='windows'){
             app.mainLocation="\""+app.mainLocation+"\""
@@ -887,8 +904,14 @@ Comps.AppWin {
         }
         if(!fileLoaded){
             //let fp=
-            if(apps.url!==''&&unik.fileExist(apps.url&&apps.jsonsFolder!=='')){
+            if(apps.url!==''&&unik.fileExist(apps.url)&&apps.jsonsFolder!==''){
                 console.log('Cargando al iniciar: '+apps.url)
+                //Detalles Técnicos extras
+                if(app.dev){
+                    log.visible=true
+                    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
+                    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
+                }
                 JS.loadJson(apps.url)
             }else{
                 JS.firstRunTime()

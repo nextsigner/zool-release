@@ -50,7 +50,7 @@ Item {
         //color: 'red'
         anchors.centerIn: parent
         Rectangle{
-            width: r.pointerFs*3
+            width: r.pointerFs*6
             height: apps.pointerLineWidth
             //color: apps.pointerLineColor
             //color: borde.border.color
@@ -84,7 +84,7 @@ Item {
                         spacing: r.pointerFs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         Rectangle{
-                            width: r.pointerFs*0.8
+                            width: r.pointerFs//*0.8
                             height: width
                             radius: width*0.5
                             color: apps.fontColor
@@ -113,14 +113,8 @@ Item {
                                 onClicked: apps.xAsShowIcon=!apps.xAsShowIcon
                             }
                         }
-                        Text{
-                            text: app.planetas[r.p]+' en '+app.signos[r.is]
-                            font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
                         Rectangle{
-                            width: r.pointerFs*0.8
+                            width: r.pointerFs//*0.8
                             height: width
                             radius: width*0.5
                             color: apps.fontColor
@@ -151,7 +145,27 @@ Item {
                         spacing: r.pointerFs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text{
-                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg+' Casa '
+                            text: app.planetas[r.p]+' en '+app.signos[r.is]
+                            font.pixelSize: r.pointerFs*0.5
+                            color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
+                            font.pixelSize: r.pointerFs*0.5
+                            color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Casa '
                             font.pixelSize: r.pointerFs*0.5
                             color: apps.backgroundColor
                             anchors.verticalCenter: parent.verticalCenter
