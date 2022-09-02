@@ -746,7 +746,7 @@ function runJsonTemp(){
     {
         console.log('Json Fallado: '+app.currentData)
         log.ls('Ha fallado la carga del archivo '+apps.url, 0, xApp.width)
-        log.ls(app.currentData, 0, xApp.width)
+        log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
         //unik.speak('Error in Json file')
         return
     }
@@ -781,7 +781,7 @@ function runJsonTempBack(){
     {
         console.log('Json Fallado: '+app.currentDataBack)
         log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, xApp.width)
-        log.ls(app.currentData, 0, xApp.width)
+        log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
         //unik.speak('Error in Json file')
         return
     }
@@ -862,6 +862,12 @@ function setNewTimeJsonFileDataBack(date){
     //log.l('app.fileDataBack: '+app.fileDataBack)
     //log.visible=true
     //log.width=xApp.width*0.2
+    log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
+    log.ls('app.fileDataBack: '+app.fileDataBack, 0, 500)
+    if(app.fileDataBack===''){
+        log.ls('app.fileDataBack is empty.', 0, 500)
+        return
+    }
     let jsonData=JSON.parse(app.fileDataBack)
     //console.log('json: '+JSON.stringify(jsonData))
     //console.log('json2: '+jsonData.params)

@@ -23,6 +23,7 @@ import ZoolBodies 1.1
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
+import ZoolRevolutionList 1.0
 import ZoolMediaLive 1.0
 
 Comps.AppWin {
@@ -507,7 +508,7 @@ Comps.AppWin {
                         XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
                         XPaneles{PanelSabianos{id: panelSabianos;itemIndex: 1}}
                         XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
-                        XPaneles{PanelRsList{id: panelRsList;itemIndex: 3}}
+                        ZoolRevolutionList{PanelRsList{id: panelRsList;itemIndex: 3}}
                         XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
                         XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
                         XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
@@ -835,11 +836,12 @@ Comps.AppWin {
     }
 
     //Linea vertical medio
-    //    Rectangle{
-    //        width: 2
-    //        height: xApp.height*2
-    //        anchors.centerIn: parent
-    //    }
+    Rectangle{
+        width: 2
+        height: xApp.height*2
+        anchors.centerIn: parent
+        visible: app.dev
+    }
     //    Timer{
     //        id: tLoadModules
     //        running: false

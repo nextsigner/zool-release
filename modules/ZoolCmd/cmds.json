@@ -1,1 +1,1 @@
-{"cmds":[{"cmd":"0"},{"cmd":"1"},{"cmd":"minyma setip 192.168.1.39"},{"cmd":"10"},{"cmd":"2"},{"cmd":"minyma send zool zoolMediaLive.next()"},{"cmd":"minyma send zool zoolMediaLive.next"},{"cmd":"minyma send zool zoolMediaLive.loadBodiesNow()"},{"cmd":"c app.dev=false"}]}
+{"cmds":[{"cmd":"0"},{"cmd":"1"},{"cmd":"minyma setip 192.168.1.39"},{"cmd":"10"},{"cmd":"2"},{"cmd":"minyma send zool zoolMediaLive.next()"},{"cmd":"minyma send zool zoolMediaLive.next"},{"cmd":"minyma send zool zoolMediaLive.loadBodiesNow()"},{"cmd":"c app.dev=false"},{"cmd":"c app.dev=!app.dev"}]}

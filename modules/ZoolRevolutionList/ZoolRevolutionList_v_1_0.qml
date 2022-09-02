@@ -1,7 +1,9 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import "./js/Funcs.js" as JS
-import "./comps" as Comps
+import "../../js/Funcs.js" as JS
+import "../../comps" as Comps
+
+import ZoolText 1.0
 
 Rectangle {
     id: r
@@ -114,7 +116,7 @@ Rectangle {
                     }
                 }
             }
-            XText {
+            ZoolText{
                 id: txtLabelTit
                 text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
                 font.pixelSize: app.fs*0.5

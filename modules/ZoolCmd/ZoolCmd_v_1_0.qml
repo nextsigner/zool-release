@@ -93,6 +93,32 @@ Rectangle {
         if(parseInt(cmd.substring(0, 4))<=Object.keys(getJsonCmds().cmds).length){
             tiCmd.text=getJsonCmd(parseInt(cmd.substring(0, 4)))
         }
+        if(comando[0]==='logFileData'){
+            log.visible=true
+            log.l('Datos del archivo '+apps.url+':')
+            let fd=unik.getFile(apps.url)
+            log.l(fd)
+            return
+        }
+        if(comando[0]==='logFileDataBack'){
+            log.visible=true
+            log.l('Datos del archivo '+apps.urlBack+':')
+            let fd=unik.getFile(apps.urlBack)
+            log.l(fd)
+            return
+        }
+        if(comando[0]==='logJsonData'){
+            log.visible=true
+            log.l('app.currentData del archivo '+apps.url+':')
+            log.l(JSON.stringify(JSON.parse(app.currentData), null, 2))
+            return
+        }
+        if(comando[0]==='logJsonDataBack'){
+            log.visible=true
+            log.l('app.currentDataBack del archivo '+apps.url+':')
+            log.l(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
+            return
+        }
         if(comando[0]==='setzmt'){
             if(comando.length<4){
                 console.log('Error al setear el panelZonaMes: Faltan argumentos. setCurrentTime(q,m,y)')

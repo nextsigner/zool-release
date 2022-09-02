@@ -12,6 +12,7 @@ Item {
     property alias horizontalAlignment: txt.horizontalAlignment
     property alias contentWidth: txt.contentWidth
     property alias contentHeight: txt.contentHeight
+    property alias wrapMode: txt.wrapMode
     property int fs: app.fs
     property color textBackgroundColor: 'transparent'
     width: txt.contentWidth
