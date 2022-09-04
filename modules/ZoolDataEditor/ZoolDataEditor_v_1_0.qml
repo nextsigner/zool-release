@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "./editor" as Editor
+import "../../editor" as Editor
 Rectangle{
     id: r
     visible: false

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import "../"
 import "../js/Funcs.js" as JS
-
+import ZoolText 1.0
 Item {
     id: r
     width: apps.elementsFs*3
@@ -63,9 +63,9 @@ Item {
             Row{
                 anchors.centerIn: parent
                 spacing: apps.elementsFs*0.5
-                XText{text: '<b>'+xItemNums.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
-                XText{text: '<b>'+xItemNums.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
-                XText{text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                ZoolText{text: '<b>'+xItemNums.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                ZoolText{text: '<b>'+xItemNums.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                ZoolText{text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
             }
         }
     }
@@ -94,8 +94,8 @@ Item {
             Row{
                 anchors.centerIn: parent
                 spacing: apps.elementsFs*0.5
-                XText{text: '<b>'+element+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}
-                XText{text: '<b>%'+porc+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}
+                ZoolText{text: '<b>'+element+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}
+                ZoolText{text: '<b>%'+porc+'</b>'; color: index===0||index===3?'white':'black'; font.pixelSize: apps.elementsFs*0.35}
             }
             Row{
                 id: row

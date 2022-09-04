@@ -366,7 +366,7 @@ function loadJson(file){
     app.currentLon= 0.0
     app.currentLat= 0.0
     app.uSon=''
-    panelControlsSign.state='hide'
+    //panelControlsSign.state='hide'
     apps.showAspPanelBack=false
     app.ev=false
     apps.urlBack=''
@@ -552,7 +552,7 @@ function loadJsonBack(file){
     app.currentLonBack= 0.0
     app.currentLatBack= 0.0
     app.uSonBack=''
-    panelControlsSign.state='hide'
+    //panelControlsSign.state='hide'
     app.ev=true
 
     apps.urlBack=file
@@ -646,7 +646,7 @@ function loadJsonFromParamsBack(json){
     app.currentLonBack= 0.0
     app.currentLatBack= 0.0
     app.uSonBack=''
-    panelControlsSign.state='hide'
+    //panelControlsSign.state='hide'
 
     //apps.urlBack=file
     app.fileDataBack=JSON.stringify(json)

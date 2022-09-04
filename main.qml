@@ -20,12 +20,17 @@ import ZoolDataBar 3.0
 import ZoolDataText 1.0
 import ZoolLogView 1.0
 import ZoolBodies 1.1
+import ZoolBodiesGuiTools 1.0
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.0
 import ZoolRevolutionList 1.0
 import ZoolMediaLive 1.0
+import ZoolDataEditor 1.0
+import ZoolVideoPlayer 1.0
+import ZoolInfoDataView 1.0
+import ZoolBottomBar 1.0
 
 Comps.AppWin {
     id: app
@@ -519,14 +524,14 @@ Comps.AppWin {
                         width: xApp.width*0.5
                         height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
                         clip: true
-                        XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
-                        XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 1}}
-                        XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
-                        XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 3}}
-                        XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
-                        XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
-                        XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
-                        XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
+                        Comps.XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
+                        Comps.XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 1}}
+                        Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
+                        Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 3}}
+                        Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
+                        Comps.XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
+                        //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
+                        Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 6}}
                         //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
                     }
                     Rectangle{
@@ -699,9 +704,9 @@ Comps.AppWin {
                 height: parent.height
 
                 //Chat{id: chat; z: onTop?panelPronEdit.z+1:panelControlsSign.z-1}
-                PanelControlsSign{id: panelControlsSign}
+                //PanelControlsSign{id: panelControlsSign}
                 ZoolDataBodies{id: panelDataBodies}
-                PanelPronEdit{id: panelPronEdit;}
+                //PanelPronEdit{id: panelPronEdit;}
                 Rectangle{
                     width: parent.width
                     height: 3
@@ -712,22 +717,22 @@ Comps.AppWin {
             }
         }
         Comps.XDataStatusBar{id: xDataStatusBar}
-        XTools{
+        ZoolBodiesGuiTools{
             id: xTools
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             anchors.rightMargin: app.width*0.2
         }
-        XBottomBar{id: xBottomBar}
+        ZoolBottomBar{id: xBottomBar}
         //Item{id: xSabianos}
-        XInfoData{id: xInfoData}
-        Editor{id: xEditor}
+        ZoolInfoDataView{id: xInfoData}
+        ZoolDataEditor{id: xEditor}
         Num.PanelLog{id: panelLog}
         //Num.NumCiclosVida{id: ncv; anchors.fill: parent}
-        PanelVideoLectura{id: panelVideLectura;}
+        ZoolVideoPlayer{id: panelVideLectura;}
         Comps.VideoListEditor{id: videoListEditor}
     }
-    Init{longAppName: 'Zool'; folderName: 'zool'}
+    //Init{longAppName: 'Zool'; folderName: 'zool'}
     Comps.XSelectColor{
         id: xSelectColor
         width: app.fs*8

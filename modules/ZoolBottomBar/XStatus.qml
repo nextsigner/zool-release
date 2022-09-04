@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+import ZoolText 1.0
 Rectangle{
     id: r
     width: row.width+app.fs
@@ -13,41 +13,41 @@ Rectangle{
         id: row
         anchors.centerIn: parent
         spacing: app.fs*0.25
-        XText {
+        ZoolText{
             text: '<b>State:</b> '+panelDataBodies.state
             font.pixelSize: r.height*0.25
             color: 'white'
         }
         Column{
             visible: false
-            XText {
+            ZoolText{
                 text: '<b>Sol:</b> '+app.currentGradoSolar
                 font.pixelSize: r.height*0.25
                 color: 'white'
             }
-            XText {
+            ZoolText{
                 text: '<b>Asc:</b> '+app.uAscDegree
                 font.pixelSize: r.height*0.25
                 color: 'white'
             }
-            XText {
+            ZoolText{
                 text: '<b>Mc:</b> '+app.uMcDegree
                 font.pixelSize: r.height*0.25
                 color: 'white'
             }
         }
-        XText {
+        ZoolText{
             text: '<b>Mod:</b> '+app.mod
             font.pixelSize: r.height*0.5
             color: 'white'
         }
-        XText {
+        ZoolText{
             id: txtStatus
             text: '<b>SWEG:</b> '+sweg.state
             font.pixelSize: r.height*0.5
             color: 'white'
         }
-//        XText {
+//        ZoolText{
 //            text: '<b>LT:</b> '+(xLayerTouch.visible?'SI':'NO')
 //            font.pixelSize: app.fs*0.5
 //            color: 'white'

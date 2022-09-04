@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../"
+import ZoolText 1.0
 
 Item {
     id: r
@@ -17,7 +18,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             Repeater{
                 model: 3
-                XText {
+                ZoolText{
                     text: index===0?'00':':00'
                     font.pixelSize: app.fs*0.5
                     color: 'white'
@@ -46,7 +47,7 @@ Item {
             width: app.fs*1.6
             Repeater{
                 model: 3
-                XText {
+                ZoolText{
                     text: index===0?'00':':00'
                     font.pixelSize: app.fs*0.5
                     color: 'white'
