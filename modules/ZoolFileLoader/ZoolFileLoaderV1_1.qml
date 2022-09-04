@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 2.12
 import ZoolButton 1.0
+import ZoolText 1.0
 import "../../js/Funcs.js" as JS
 
 Rectangle {
@@ -11,6 +12,9 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
+
+    property alias xCfgItem: colXConfig
+
     property alias ti: txtDataSearch
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
@@ -25,6 +29,10 @@ Rectangle {
 //            tF.stop()
 //        }
 //    }
+    MouseArea{
+        anchors.fill: parent
+        onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
+    }
     Timer{
         id: tF
         running: r.visible
@@ -48,8 +56,26 @@ Rectangle {
             updateList()
         }
     }
+    ZoolButton{
+        text:'\uf013'
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.25
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.25
+        z: col.z+1
+        onClicked:{
+            colXConfig.visible=!colXConfig.visible
+        }
+    }
     Column{
+        id: col
         anchors.horizontalCenter: parent.horizontalCenter
+        Item{width: 1; height: app.fs*2; visible: colXConfig.visible}
+        Column{
+            id: colXConfig
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Item{width: 1; height: app.fs; visible: colXConfig.visible}
         Rectangle{
             id:xTit
             width: lv.width

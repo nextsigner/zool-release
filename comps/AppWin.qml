@@ -38,8 +38,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {
-            if(xSabianos.visible){
-                xSabianos.ctrlDown()
+            if(panelSabianos.view.visible){
+                panelSabianos.view.ctrlDown()
                 return
             }
             xBottomBar.state=xBottomBar.state==='show'?'hide':'show'
@@ -48,8 +48,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Up'
         onActivated: {
-            if(xSabianos.visible){
-                xSabianos.ctrlUp()
+            if(panelSabianos.view.visible){
+                panelSabianos.view.ctrlUp()
                 return
             }
             xDataBar.state=xDataBar.state==='show'?'hide':'show'
@@ -306,8 +306,8 @@ ApplicationWindow {
                 sweg.objHousesCircleBack.currentHouse=-1
                 return
             }
-            if(xSabianos.visible){
-                xSabianos.visible=false
+            if(panelSabianos.view.visible){
+                panelSabianos.view.visible=false
                 return
             }
             if(xBottomBar.objPanelCmd.state==='show'){
@@ -354,8 +354,8 @@ ApplicationWindow {
                 menuBar.u()
                 return
             }
-            if(xSabianos.visible){
-                xSabianos.toup()
+            if(panelSabianos.view.visible){
+                panelSabianos.view.toup()
                 return
             }
 
@@ -419,8 +419,8 @@ ApplicationWindow {
                 menuBar.d()
                 return
             }
-            if(xSabianos.visible){
-                xSabianos.todown()
+            if(panelSabianos.view.visible){
+                panelSabianos.view.todown()
                 return
             }
             if(apps.zFocus==='xLatIzq'){
@@ -491,8 +491,8 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                if(xSabianos.visible){
-                    xSabianos.toleft()
+                if(panelSabianos.view.visible){
+                    panelSabianos.view.toleft()
                     return
                 }
                 if(sv.currentIndex===2){
@@ -509,7 +509,7 @@ ApplicationWindow {
                 app.currentXAsBack.rot(false)
                 return
             }
-            if(menuBar.expanded&&!xSabianos.visible){
+            if(menuBar.expanded&&!panelSabianos.view.visible){
                 menuBar.left()
                 return
             }
@@ -532,8 +532,8 @@ ApplicationWindow {
                     zoolFileManager.toRight()
                     return
                 }
-                if(xSabianos.visible){
-                    xSabianos.toright()
+                if(panelSabianos.view.visible){
+                    panelSabianos.view.toright()
                     return
                 }
             }
@@ -545,7 +545,7 @@ ApplicationWindow {
                 app.currentXAsBack.rot(true)
                 return
             }
-            if(menuBar.expanded&&!xSabianos.visible){
+            if(menuBar.expanded&&!panelSabianos.view.visible){
                 menuBar.right()
                 return
             }
@@ -780,8 +780,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+Down'
         onActivated: {
-            if(xSabianos.visible){
-                xSabianos.zoomDown()
+            if(panelSabianos.view.visible){
+                panelSabianos.view.zoomDown()
                 return
             }
             //signCircle.subir()
@@ -791,8 +791,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+Up'
         onActivated: {
-            if(xSabianos.visible){
-                xSabianos.zoomUp()
+            if(panelSabianos.view.visible){
+                panelSabianos.view.zoomUp()
                 return
             }
             //signCircle.bajar()

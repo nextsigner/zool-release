@@ -4,6 +4,9 @@ import Qt.labs.settings 1.1
 import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
+import ZoolText 1.0
+import ZoolButton 1.0
+
 Rectangle {
     id: r
     width: xLatIzq.width
@@ -11,6 +14,8 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
+
+    property alias xCfgItem: colXConfig
 
     property alias tiN: tiNombre.t
     property alias tiC: tiCiudad.t
@@ -22,6 +27,11 @@ Rectangle {
     property real ulon:-100.00
 
     property string uFileNameLoaded: ''
+    MouseArea{
+        anchors.fill: parent
+        onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
+    }
+
     Timer{
         id: tF
         running: svIndex===itemIndex
@@ -53,10 +63,26 @@ Rectangle {
             onClicked: settings.showModuleVersion=!settings.showModuleVersion
         }
     }
+    ZoolButton{
+        text:'\uf013'
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.25
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.25
+        z: col.z+1
+        onClicked:{
+            colXConfig.visible=!colXConfig.visible
+        }
+    }
     Column{
         id: col
         anchors.centerIn: parent
         spacing: app.fs
+        Item{width: 1; height: app.fs; visible: colXConfig.visible}
+        Column{
+            id: colXConfig
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
         Text{
             text: '<b>Crear nueva carta natal</b>'
             font.pixelSize: app.fs*0.65
@@ -242,7 +268,7 @@ Rectangle {
                                                                 tiLat.valid && tiLon.valid?
                                                                     'Estas coordenadas son válidas.':
                                                                     'Las coordenadas no son correctas'
-                                                             )
+                                                                )
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter

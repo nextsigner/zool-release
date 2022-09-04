@@ -174,7 +174,7 @@ Rectangle {
             property int is: -1
             property var rsDate
             onIsChanged:{
-                iconoSigno.source="./resources/imgs/signos/"+is+".svg"
+                iconoSigno.source="../../resources/imgs/signos/"+is+".svg"
             }
             //Behavior on height{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
             Behavior on opacity{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
@@ -388,7 +388,7 @@ Rectangle {
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
-        c+='import "./js/Funcs.js" as JS\n'
+        c+='import "../../js/Funcs.js" as JS\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'

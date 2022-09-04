@@ -25,14 +25,14 @@ Rectangle {
                 target: r
                 y:0//r.parent.height-r.height
                 //z:1000
-            }          
+            }
         },
         State {
             name: "hide"
             PropertyChanges {
                 target: r
                 y:r.height
-            }            
+            }
         }
     ]
     Behavior on y{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
@@ -70,6 +70,7 @@ Rectangle {
         }
     }
     Item{id: xuqp}
+    Component.onCompleted: app.cmd=r
     function runCmd(cmdarg){
         let cmd=(''+cmdarg)
         let help=''
@@ -92,6 +93,19 @@ Rectangle {
         }
         if(parseInt(cmd.substring(0, 4))<=Object.keys(getJsonCmds().cmds).length){
             tiCmd.text=getJsonCmd(parseInt(cmd.substring(0, 4)))
+        }
+
+        if(comando[0]==='temp'||comando[0]==='temp-silent'){
+            apps.isJsonsFolderTemp=!apps.isJsonsFolderTemp
+            if(comando[0]==='temp'){
+                log.visible=true
+                if(apps.isJsonsFolderTemp){
+                    log.l('Los archivos se guardarán en la carpeta temporal '+apps.jsonsFolder)
+                }else{
+                    log.l('Los archivos se guardarán en la carpeta '+apps.jsonsFolder)
+                }
+            }
+            return
         }
         if(comando[0]==='logFileData'){
             log.visible=true
@@ -365,7 +379,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'      //console.log("RS: "+s)\n'
                 +'      r.state="hide"\n'
                 +'      app.mod="rs"\n'
-                //+'      app.currentFechaBack=\'20/06/1975 22:03\'\n'
+        //+'      app.currentFechaBack=\'20/06/1975 22:03\'\n'
                 +'      sweg.loadSweJsonBack(s)\n'
                 +'      //swegz.sweg.loadSweJsonBack(s)\n'
                 +'      let j=JSON.parse(s)\n'

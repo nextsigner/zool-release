@@ -7,6 +7,7 @@ import "../../js/Funcs.js" as JS
 import ZoolFileMaker 1.0
 import ZoolFileLoader 1.1
 import ZoolButton 1.0
+import ZoolText 1.0
 
 Rectangle {
     id: r
@@ -104,6 +105,64 @@ Rectangle {
             id: zoolFileLoader;
             visible: false
             height: zoolFileMaker.height
+        }
+    }
+    Rectangle{
+        id: xConfig
+        width: r.width-app.fs*0.5
+        height: colTextJsonFolder.height+app.fs*0.5
+        border.width: 1
+        border.color: apps.fontColor
+        radius: app.fs*0.25
+        color: 'transparent'
+        visible: app.dev
+        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:zoolFileLoader.xCfgItem
+        Column{
+            id: colTextJsonFolder
+            anchors.centerIn: parent
+            spacing: app.fs*0.5
+            ZoolText{
+                text:'<b>Carpeta de Archivos</b>'
+                fs: app.fs*0.5
+            }
+            ZoolText{
+                text:apps.jsonsFolder
+                fs: app.fs*0.5
+            }
+            Row{
+                spacing: app.fs*0.25
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    text:'Usar Carpeta Temporal:'
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                CheckBox{
+                    width: app.fs*0.5
+                    checked: apps.isJsonsFolderTemp
+                    anchors.verticalCenter: parent.verticalCenter
+                    onCheckedChanged:app.cmd.runCmd('temp-silent')
+                }
+            }
+            Comps.XTextInput{
+                id: tiJsonsFolder
+                width: xConfig.width-app.fs*0.5
+                t.font.pixelSize: app.fs*0.65
+                anchors.horizontalCenter: parent.horizontalCenter
+                t.maximumLength: 200
+                text: apps.jsonsFolder
+                onPressed: {
+                    apps.jsonsFolder=text
+                }
+                Text {
+                    text: 'Cambiar a carpeta'
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.top
+                }
+            }
+
         }
     }
     function enter(){

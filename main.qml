@@ -23,6 +23,7 @@ import ZoolBodies 1.1
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
+import ZoolSabianos 1.0
 import ZoolRevolutionList 1.0
 import ZoolMediaLive 1.0
 
@@ -144,6 +145,7 @@ Comps.AppWin {
     property int uMcDegree: -1
     //property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
+    property var cmd
     property bool ev: false //Exterior Visible
 
     //XAs
@@ -354,6 +356,8 @@ Comps.AppWin {
         property bool enableFullAnimation: false
 
         property string jsonsFolder: ''
+        property string jsonsFolderTemp: ''
+        property bool isJsonsFolderTemp: false
 
         //Num
         property string numCurrentFolder: unik.getPath(3)
@@ -362,7 +366,17 @@ Comps.AppWin {
         property string numUFirma
         property bool numShowFormula: false
         property int numPanelLogFs: app.width*0.02
-
+        onIsJsonsFolderTempChanged: {
+            let jf=jsonsFolder
+            let jft=jsonsFolderTemp
+            if(isJsonsFolderTemp){
+                jsonsFolder=jft
+                jsonsFolderTemp=jf
+            }else{
+                jsonsFolder=jft
+                jsonsFolderTemp=jf
+            }
+        }
         onZFocusChanged: {
             if(zFocus==='xMed'||zFocus==='xLatDer'){
                 //zoolFileManager.ti.focus=false
@@ -506,9 +520,9 @@ Comps.AppWin {
                         height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
                         clip: true
                         XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
-                        XPaneles{PanelSabianos{id: panelSabianos;itemIndex: 1}}
+                        XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 1}}
                         XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
-                        ZoolRevolutionList{PanelRsList{id: panelRsList;itemIndex: 3}}
+                        XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 3}}
                         XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
                         XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
                         XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
@@ -705,7 +719,7 @@ Comps.AppWin {
             anchors.rightMargin: app.width*0.2
         }
         XBottomBar{id: xBottomBar}
-        XSabianos{id: xSabianos}
+        //Item{id: xSabianos}
         XInfoData{id: xInfoData}
         Editor{id: xEditor}
         Num.PanelLog{id: panelLog}
@@ -871,6 +885,13 @@ Comps.AppWin {
                 let mt=a.split('-title=')
                 app.title=mt[1]
             }
+        }
+
+        //Check apps.jsonsFolderTemp
+        if(apps.jsonsFolder===''){
+            let jft=unik.getPath(3)+'/Zool/Temp'
+            unik.mkdir(jft)
+            apps.jsonsFolderTemp=jft
         }
 
         if(app.dev){

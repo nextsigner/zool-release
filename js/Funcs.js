@@ -780,8 +780,10 @@ function runJsonTempBack(){
     catch (e)
     {
         console.log('Json Fallado: '+app.currentDataBack)
-        log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, xApp.width)
-        log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
+        if(app.dev){
+            log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, xApp.width)
+            log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
+        }
         //unik.speak('Error in Json file')
         return
     }
@@ -862,9 +864,9 @@ function setNewTimeJsonFileDataBack(date){
     //log.l('app.fileDataBack: '+app.fileDataBack)
     //log.visible=true
     //log.width=xApp.width*0.2
-    log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
-    log.ls('app.fileDataBack: '+app.fileDataBack, 0, 500)
-    if(app.fileDataBack===''){
+    //log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
+    //log.ls('app.fileDataBack: '+app.fileDataBack, 0, 500)
+    if(app.fileDataBack===''&&app.dev){
         log.ls('app.fileDataBack is empty.', 0, 500)
         return
     }
