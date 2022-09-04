@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.1
-import "../js/Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 
 MenuBar{
     id: r
@@ -93,8 +93,8 @@ MenuBar{
     }
     XMenu {
         title: qsTr("&Archivo")
-        Action {text: qsTr("&Nuevo"); onTriggered: zoolFileManager.state='show'}
-        Action { text: qsTr("&Abrir"); onTriggered: zoolFileManager.state='show' }
+        Action {text: qsTr("&Nuevo"); onTriggered: zoolFileManager.showFileMaker()}
+        Action { text: qsTr("&Abrir"); onTriggered: zoolFileManager.showFileLoader() }
         Action {enabled: app.fileData!==app.currentData; text: qsTr("&Guardar"); onTriggered: JS.saveJson() }
         //Action { text: qsTr("Save &As...") }
         MenuSeparator { }
@@ -184,8 +184,8 @@ MenuBar{
         Action { text: qsTr("Ver Rueda Sin Aspectos"); onTriggered: sweg.state=sweg.aStates[0]; checkable: true; checked: sweg.state===sweg.aStates[0]}
         Action { text: qsTr("Ver Rueda Resaltando Casas "); onTriggered: sweg.state=sweg.aStates[1]; checkable: true; checked: sweg.state===sweg.aStates[1]}
         Action { text: qsTr("Ver Rueda con Aspectos"); onTriggered: sweg.state=sweg.aStates[2]; checkable: true; checked: sweg.state===sweg.aStates[2]}
-        MenuSeparator { }
-        Action { text: qsTr("Ver PanelRemoto"); onTriggered: panelRemoto.state=panelRemoto.state==='show'?'hide':'show'; checkable: true; checked: panelRemoto.state==='show'}
+        //MenuSeparator { }
+        //Action { text: qsTr("Ver PanelRemoto"); onTriggered: panelRemoto.state=panelRemoto.state==='show'?'hide':'show'; checkable: true; checked: panelRemoto.state==='show'}
     }
     XMenu {
         title: qsTr("&Colores")

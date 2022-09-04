@@ -5,14 +5,19 @@ import "../"
 import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
+import ZoolNumPit.ZoolNumPitLog 1.0
+
 Rectangle {
     id: r
     width: parent.width
     height: parent.height
     clip: true
     color: apps.backgroundColor
+
+    property alias log: zoolNumPitLog
+
     property bool calcForm: false
-    property string jsonPath: './comps/num/numv3.json'
+    property string jsonPath: './modules/ZoolNumPit/numv3.json'
     property string jsonNum: ''
     property var aDes: ['dato1', 'dato2', 'dato3', 'dato4', 'dato5', 'dato6', 'dato7', 'dato8', 'dato9']
 
@@ -90,8 +95,8 @@ Rectangle {
         currentNum=currentNumAnioPersonal-1
     }
     onCurrentDateChanged: {
-        //panelLog.l('CurrentDate: '+currentDate.toString())
-        //panelLog.visible=true
+        //r.log.l('CurrentDate: '+currentDate.toString())
+        //r.log.visible=true
         let d = currentDate.getDate()
         let m = currentDate.getMonth() + 1
         let a = currentDate.getFullYear()
@@ -166,7 +171,7 @@ Rectangle {
                                         Keys.onReturnPressed: {
                                             if(text==='')return
                                             calc()
-                                            //panelLog.l(getNumNomText(text))
+                                            //r.log.l(getNumNomText(text))
                                         }
                                         onTextChanged: {
                                             calc()
@@ -330,12 +335,12 @@ Rectangle {
                             anchors.centerIn: parent
                             Keys.onReturnPressed: {
                                 if(text==='')return
-                                //panelLog.l(getNumNomText(text))
+                                //r.log.l(getNumNomText(text))
                                 calc()
                                 apps.numUNom=text
                             }
                             onTextChanged: {
-                                //panelLog.l(getNumNomText(text))
+                                //r.log.l(getNumNomText(text))
                                 calc()
                                 apps.numUNom=text
                             }
@@ -379,12 +384,12 @@ Rectangle {
                             anchors.centerIn: parent
                             Keys.onReturnPressed: {
                                 if(text==='')return
-                                //panelLog.l(getNumNomText(text))
+                                //r.log.l(getNumNomText(text))
                                 calc()
                                 apps.numUNom=text
                             }
                             onTextChanged: {
-                                //panelLog.l(getNumNomText(text))
+                                //r.log.l(getNumNomText(text))
                                 calc()
                                 apps.numUFirma=text
                             }
@@ -486,17 +491,17 @@ Rectangle {
                             onClicked: {
                                 let genero='m'
                                 if(rbF.checked)genero='f'
-                                panelLog.clear()
+                                r.log.clear()
                                 if(checkBoxFormula.checked){
-                                    panelLog.l('N° de Nacimiento/Karma '+r.currentNumNacimiento+'\n')
-                                    panelLog.l('Fórmula: '+f0.text+'\n')
-                                    panelLog.l(getItemJson('per'+r.currentNumNacimiento+genero))
+                                    r.log.l('N° de Nacimiento/Karma '+r.currentNumNacimiento+'\n')
+                                    r.log.l('Fórmula: '+f0.text+'\n')
+                                    r.log.l(getItemJson('per'+r.currentNumNacimiento+genero))
                                 }else{
-                                    panelLog.l('¿Cómo es su vibración de nacimiento o karma '+r.currentNumNacimiento+'?\n')
-                                    panelLog.l(getItemJson('per'+r.currentNumNacimiento+genero))
+                                    r.log.l('¿Cómo es su vibración de nacimiento o karma '+r.currentNumNacimiento+'?\n')
+                                    r.log.l(getItemJson('per'+r.currentNumNacimiento+genero))
                                 }
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                             }
                         }
                     }
@@ -516,17 +521,17 @@ Rectangle {
                             onClicked: {
                                 let genero='m'
                                 if(rbF.checked)genero='f'
-                                panelLog.clear()
+                                r.log.clear()
                                 if(checkBoxFormula.checked){
-                                    panelLog.l('Personalidad '+r.currentNumPersonalidad+'\n')
-                                    panelLog.l('Fórmula: '+r.sFormulaNumPer+'\n')
-                                    panelLog.l(getItemJson('per'+r.currentNumPersonalidad+genero))
+                                    r.log.l('Personalidad '+r.currentNumPersonalidad+'\n')
+                                    r.log.l('Fórmula: '+r.sFormulaNumPer+'\n')
+                                    r.log.l(getItemJson('per'+r.currentNumPersonalidad+genero))
                                 }else{
-                                    panelLog.l('¿Cómo es su personalidad?\n')
-                                    panelLog.l(getItemJson('per'+r.currentNumPersonalidad+genero))
+                                    r.log.l('¿Cómo es su personalidad?\n')
+                                    r.log.l(getItemJson('per'+r.currentNumPersonalidad+genero))
                                 }
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                             }
                         }
                     }
@@ -555,10 +560,10 @@ Rectangle {
                                     anchors.verticalCenter: parent.verticalCenter
                                     onClicked: {
                                         if(txtDataSearchNom.text==='')return
-                                        panelLog.clear()
-                                        panelLog.l(getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked))
-                                        panelLog.visible=true
-                                        panelLog.flk.contentY=0
+                                        r.log.clear()
+                                        r.log.l(getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked))
+                                        r.log.visible=true
+                                        r.log.flk.contentY=0
                                     }
                                 }
                             }
@@ -587,10 +592,10 @@ Rectangle {
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
                                 if(txtDataSearchNom.text==='')return
-                                panelLog.clear()
-                                panelLog.l(getDataJsonNumDia())
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.clear()
+                                r.log.l(getDataJsonNumDia())
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                             }
                         }
                     }
@@ -608,11 +613,11 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                panelLog.clear()
-                                panelLog.l('¿Cómo es la energía de su firma?\n')
-                                panelLog.l(getItemJson('firma'+r.currentNumFirma))
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.clear()
+                                r.log.l('¿Cómo es la energía de su firma?\n')
+                                r.log.l(getItemJson('firma'+r.currentNumFirma))
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                             }
                         }
                     }
@@ -630,11 +635,11 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                panelLog.clear()
-                                panelLog.l('¿Cómo podría ser su destino?\n')
-                                panelLog.l(getItemJson('dest'+r.currentNumDestino))
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.clear()
+                                r.log.l('¿Cómo podría ser su destino?\n')
+                                r.log.l(getItemJson('dest'+r.currentNumDestino))
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                             }
                         }
                     }
@@ -765,7 +770,7 @@ Rectangle {
                                     anchors.centerIn: parent
                                     Keys.onReturnPressed: {
                                         if(text==='')return
-                                        //panelLog.l(getNumNomText(text))
+                                        //r.log.l(getNumNomText(text))
                                     }
                                     onTextChanged: {
                                         calcularAP()
@@ -862,10 +867,10 @@ Rectangle {
                     //                            anchors.verticalCenter: parent.verticalCenter
                     //                            onClicked: {
                     //                                if(txtDataSearchNom.text==='')return
-                    //                                panelLog.clear()
-                    //                                panelLog.l(getDataJsonNumDia())
-                    //                                panelLog.visible=true
-                    //                                panelLog.flk.contentY=0
+                    //                                r.log.clear()
+                    //                                r.log.l(getDataJsonNumDia())
+                    //                                r.log.visible=true
+                    //                                r.log.flk.contentY=0
                     //                            }
                     //                        }
                     //                    }
@@ -876,10 +881,10 @@ Rectangle {
                             text:  'Años Personales'
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                panelLog.clear()
-                                panelLog.l(mkDataList())
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.clear()
+                                r.log.l(mkDataList())
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                             }
                         }
                     }
@@ -890,14 +895,14 @@ Rectangle {
                             calc()
                             let aGetNums=JS.getNums(app.currentFecha)
                             r.currentIndexAG=aGetNums[2]
-                            panelLog.clear()
-                            panelLog.l(getTodo(checkBoxFormula.checked))
-                            panelLog.visible=true
-                            panelLog.flk.contentY=0
+                            r.log.clear()
+                            r.log.l(getTodo(checkBoxFormula.checked))
+                            r.log.visible=true
+                            r.log.flk.contentY=0
                             if(Qt.platform.os!=='android'){
-                                clipboard.setText(panelLog.text)
+                                clipboard.setText(r.log.text)
                             }else{
-                                panelLog.cp()
+                                r.log.cp()
                             }
                         }
                     }
@@ -918,14 +923,14 @@ Rectangle {
                             let nfecha=''+dia+'/'+mes+'/'+anio
                             let aGetNums=JS.getNums(nfecha)
                             r.currentIndexAG=aGetNums[2]
-                            panelLog.clear()
-                            panelLog.l(getTodo(checkBoxFormula.checked))
-                            panelLog.visible=true
-                            panelLog.flk.contentY=0
+                            r.log.clear()
+                            r.log.l(getTodo(checkBoxFormula.checked))
+                            r.log.visible=true
+                            r.log.flk.contentY=0
                             if(Qt.platform.os!=='android'){
-                                clipboard.setText(panelLog.text)
+                                clipboard.setText(r.log.text)
                             }else{
-                                panelLog.cp()
+                                r.log.cp()
                             }
                         }
                     }
@@ -958,15 +963,15 @@ Rectangle {
 
                                 unik.setFile(fn2, getTodo(false))
                                 unik.setFile(fn, getTodo(true))
-                                panelLog.clear()
-                                panelLog.l('El archivo se ha guardado en '+fn)
-                                panelLog.l('El archivo se ha guardado en '+fn2)
-                                panelLog.visible=true
-                                panelLog.flk.contentY=0
+                                r.log.clear()
+                                r.log.l('El archivo se ha guardado en '+fn)
+                                r.log.l('El archivo se ha guardado en '+fn2)
+                                r.log.visible=true
+                                r.log.flk.contentY=0
                                 if(Qt.platform.os!=='android'){
-                                    clipboard.setText(panelLog.text)
+                                    clipboard.setText(r.log.text)
                                 }else{
-                                    panelLog.cp()
+                                    r.log.cp()
                                 }
                             }
                         }
@@ -984,16 +989,16 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         Button{
                             text:  'Limpiar'
-                            onClicked: panelLog.clear()
+                            onClicked: r.log.clear()
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Button{
                             text:  'Copiar'
                             onClicked: {
                                 if(Qt.platform.os!=='android'){
-                                    clipboard.setText(panelLog.text)
+                                    clipboard.setText(r.log.text)
                                 }else{
-                                    panelLog.cp()
+                                    r.log.cp()
                                 }
                             }
                             anchors.verticalCenter: parent.verticalCenter
@@ -1005,7 +1010,7 @@ Rectangle {
     }
     Timer{
         id: tCalc
-        running: !panelLog.visible
+        running: !r.log.visible
         repeat: true
         interval: 250
         onTriggered: {
@@ -1027,6 +1032,7 @@ Rectangle {
         }
         //Component.onCompleted: visible = true
     }
+    ZoolNumPitLog{id: zoolNumPitLog; parent: capa101}
     Component.onCompleted: {
         let date = new Date(Date.now())
         txtDataSearchFechaAP.text=date.getFullYear()
@@ -1161,7 +1167,7 @@ Rectangle {
             vtc=parseInt(m0[0])+parseInt(m0[1])
             sfc+='='+vtc
         }
-        //panelLog.l('st:'+st+' vtv:'+vtv)
+        //r.log.l('st:'+st+' vtv:'+vtv)
         if(r.currentNumNombreIntM===-1){
             dataInt+=getDataNum(st, vtv)
         }else{
@@ -1169,7 +1175,7 @@ Rectangle {
         }
 
         r.currentNumNombreInt=vtv
-        //panelLog.l('st2:'+st2+' vtc: '+vtc)
+        //r.log.l('st2:'+st2+' vtc: '+vtc)
         if(r.currentNumNombreExtM===-1){
             dataExt+=getDataNum(st2, vtc)
         }else{
@@ -1271,8 +1277,8 @@ Rectangle {
         return ret
     }
     function getDataNum(t, v){
-        //panelLog.l('t:'+t)
-        //panelLog.l('v:'+v)
+        //r.log.l('t:'+t)
+        //r.log.l('v:'+v)
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
@@ -1437,10 +1443,10 @@ Rectangle {
         let vcurrentNumNacimiento=aGetNums[0]
         r.currentIndexAG=aGetNums[2]
         //log.ls('l1396: r.currentIndexAG: '+r.currentIndexAG, 500, 500)
-        panelLog.l('Número de Karma '+vcurrentNumNacimiento+'\n')
-        panelLog.l(getNumNomText(nom, checkBoxFormula.checked))
-        panelLog.l('¿Cómo es su personalidad?\n\n\n\n\n\n')
-        panelLog.l(getItemJson('per'+vcurrentNumNacimiento+genero))
+        r.log.l('Número de Karma '+vcurrentNumNacimiento+'\n')
+        r.log.l(getNumNomText(nom, checkBoxFormula.checked))
+        r.log.l('¿Cómo es su personalidad?\n\n\n\n\n\n')
+        r.log.l(getItemJson('per'+vcurrentNumNacimiento+genero))
     }
     function calcularAP(){
         r.esMaestro=false
@@ -1505,7 +1511,7 @@ Rectangle {
         let edad=a - parseInt(txtDataSearchFechaAP.text)
 
         let sp='Período: Desde el cumpleaños del día '+d+'/'+m+'/'+a+' hasta el día '+d+'/'+m+'/'+parseInt(a + 1)
-        panelLog.l('Año: '+a+' - Edad: '+edad+' - Ciclo: '+parseInt(r.currentNum +1)+'\n'+sp+'\nCálculo: '+f1.text+'\n'+aDes[r.currentNum]+'\n')
+        r.log.l('Año: '+a+' - Edad: '+edad+' - Ciclo: '+parseInt(r.currentNum +1)+'\n'+sp+'\nCálculo: '+f1.text+'\n'+aDes[r.currentNum]+'\n')
 
     }
     function calcularPersonalidad(){

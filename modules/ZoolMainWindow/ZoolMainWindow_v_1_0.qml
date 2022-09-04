@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "../js/Funcs.js" as JS
+import "../../js/Funcs.js" as JS
 
 ApplicationWindow {
     id: r
@@ -255,8 +255,8 @@ ApplicationWindow {
                 app.objInFullWin.escaped()
                 return
             }
-            if(panelLog.visible){
-                panelLog.visible=false
+            if(ncv.log.visible){
+                ncv.log.visible=false
                 return
             }
             if(log.visible){
@@ -802,7 +802,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl++'
         onActivated: {
-            if(panelLog.visible&&apps.numPanelLogFs<app.fs*2){
+            if(ncv.log.visible&&apps.numPanelLogFs<app.fs*2){
                 apps.numPanelLogFs+=app.fs*0.1
                 return
             }
@@ -812,7 +812,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+-'
         onActivated: {
-            if(panelLog.visible&&apps.numPanelLogFs>app.fs*0.5){
+            if(ncv.log.visible&&apps.numPanelLogFs>app.fs*0.5){
                 apps.numPanelLogFs-=app.fs*0.1
                 return
             }

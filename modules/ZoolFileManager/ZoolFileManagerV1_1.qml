@@ -165,6 +165,20 @@ Rectangle {
 
         }
     }
+    function showFileMaker(){
+        apps.currentSwipeViewIndex=r.itemIndex
+        sv.currentIndex=apps.currentSwipeViewIndex
+        zoolFileLoader.visible=false
+        zoolFileMaker.visible=true
+
+    }
+    function showFileLoader(){
+        apps.currentSwipeViewIndex=r.itemIndex
+        sv.currentIndex=apps.currentSwipeViewIndex
+        zoolFileMaker.visible=false
+        zoolFileLoader.visible=true
+
+    }
     function enter(){
         panelActive.enter()
     }

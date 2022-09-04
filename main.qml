@@ -12,9 +12,10 @@ import unik.Unik 1.0
 
 import "./js/Funcs.js" as JS
 import "./comps" as Comps
-import "./comps/num" as Num
 
 //Default Modules
+import ZoolMainWindow 1.0
+import ZoolTopMenuBar 1.0
 import ZoolText 1.0
 import ZoolDataBar 3.0
 import ZoolDataText 1.0
@@ -26,13 +27,17 @@ import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.0
 import ZoolRevolutionList 1.0
+import ZoolNumPit 1.0
 import ZoolMediaLive 1.0
 import ZoolDataEditor 1.0
 import ZoolVideoPlayer 1.0
 import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
-Comps.AppWin {
+
+
+
+ZoolMainWindow{
     id: app
     visible: true
     visibility: "Maximized"
@@ -401,7 +406,7 @@ Comps.AppWin {
             }
         }
     }
-    menuBar: Comps.XMenuBar {
+    menuBar: ZoolTopMenuBar {
         id: menuBar
     }
     Timer{
@@ -529,7 +534,7 @@ Comps.AppWin {
                         Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
                         Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 3}}
                         Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
-                        Comps.XPaneles{Num.NumPit{id: ncv;itemIndex: 5}}
+                        Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 5}}
                         //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
                         Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 6}}
                         //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
@@ -724,11 +729,9 @@ Comps.AppWin {
             anchors.rightMargin: app.width*0.2
         }
         ZoolBottomBar{id: xBottomBar}
-        //Item{id: xSabianos}
         ZoolInfoDataView{id: xInfoData}
         ZoolDataEditor{id: xEditor}
-        Num.PanelLog{id: panelLog}
-        //Num.NumCiclosVida{id: ncv; anchors.fill: parent}
+        //Num.PanelLog{id: panelLog}
         ZoolVideoPlayer{id: panelVideLectura;}
         Comps.VideoListEditor{id: videoListEditor}
     }
