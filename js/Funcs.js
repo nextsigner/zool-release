@@ -734,6 +734,7 @@ function loadRs(date){
 
     let ad=getADate(nDate)
     //log.ls('nDate:'+ad.toString(), 0, 500)
+    setTitleDataTo1()
     loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
 }
 function runJsonTemp(){
@@ -1117,17 +1118,18 @@ function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
 }
 
 function setTitleDataTo1(){
-    let jsonData=app.currentJson
-    let nom=jsonData.params.n.replace(/_/g, ' ')
-    let vd=jsonData.params.d
-    let vm=jsonData.params.m
-    let va=jsonData.params.a
-    let vh=jsonData.params.h
-    let vmin=jsonData.params.min
-    let vgmt=jsonData.params.gmt
-    let vlon=jsonData.params.lon
-    let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let jsonData=app.currentData
+    let json=JSON.parse(jsonData)
+    let nom=json.params.n.replace(/_/g, ' ')
+    let vd=json.params.d
+    let vm=json.params.m
+    let va=json.params.a
+    let vh=json.params.h
+    let vmin=json.params.min
+    let vgmt=json.params.gmt
+    let vlon=json.params.lon
+    let vlat=json.params.lat
+    let vCiudad=json.params.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''

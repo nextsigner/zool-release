@@ -26,7 +26,7 @@ import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.0
-import ZoolRevolutionList 1.0
+import ZoolRevolutionList 1.1
 import ZoolNumPit 1.0
 import ZoolMediaLive 1.0
 import ZoolDataEditor 1.0
@@ -229,9 +229,11 @@ ZoolMainWindow{
         let min=currentDateBack.getMinutes()
         tReloadBack.restart()
     }
-    FontLoader {name: "FontAwesome";source: "./resources/fontawesome-webfont.ttf";}
-    FontLoader {name: "ArialMdm";source: "./resources/ArialMdm.ttf";}
-    FontLoader {name: "TypeWriter";source: "./resources/typewriter.ttf";}
+
+    FontLoader {name: "fa-brands-400";source: "./fonts/fa-brands-400.ttf";}
+    FontLoader {name: "FontAwesome";source: "./fonts/fontawesome-webfont.ttf";}
+    FontLoader {name: "ArialMdm";source: "./fonts/ArialMdm.ttf";}
+    FontLoader {name: "TypeWriter";source: "./fonts/typewriter.ttf";}
     Unik{id: unik}
     Settings{
         id: apps

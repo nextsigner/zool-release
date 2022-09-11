@@ -17,6 +17,7 @@ Item {
         Text{
             id: t
             font.family: "FontAwesome"
+            //font.family: "fa-brands-400"
             font.pixelSize: parent.width*0.8
             anchors.centerIn: parent
         }
