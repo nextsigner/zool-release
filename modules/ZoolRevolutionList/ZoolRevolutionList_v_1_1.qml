@@ -106,7 +106,7 @@ Rectangle {
                         }
                     }
                     Comps.ButtonIcon{
-                        text: '<b>B</b>'
+                        text: '\uf002'
                         width: app.fs
                         height: width
                         anchors.verticalCenter: parent.verticalCenter
@@ -293,7 +293,7 @@ Rectangle {
                             }
                         }
                         Comps.ButtonIcon{
-                            text: '\uf021'
+                            text: '\uf002'
                             //text: '\uf56e'
                             width: app.fs
                             height: width
