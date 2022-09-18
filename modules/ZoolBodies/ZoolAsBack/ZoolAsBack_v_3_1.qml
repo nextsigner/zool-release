@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 
+import "../"
+
 Item{
     id: r
     //width: !selected?(planetsCircle.expand?parent.width-(r.fs*2*objData.p)-r.fs:parent.width-(r.fs*1.5*objData.p))-r.fs:parent.width//-sweg.fs*2-(r.fs*1.5*(planetsCircle.totalPosX-1))
@@ -8,6 +10,9 @@ Item{
     height: 1
     anchors.centerIn: parent
     //z: !selected?numAstro:15
+
+    property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
+
     property bool selected: numAstro === app.currentPlanetIndexBack
     property string astro
     property int is
@@ -204,7 +209,7 @@ Item{
         Image {
             id: img0
             //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
-            source: app.planetasRes[r.numAstro]?"../../resources/imgs/planetas/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
+            source: app.planetasRes[r.numAstro]?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
             width: parent.width*0.9
             height: width
             //x:!r.selected?0:r.parent.width*0.5-img0.width*0.5//+sweg.fs*2
