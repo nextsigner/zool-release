@@ -100,7 +100,7 @@ Item{
             }
             o.ns=objSignsNames.indexOf(jo.is)
             //o.ih=jo.ih
-            o.ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            o.ih=sweg.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             if(i!==10&&i!==11)o.retro=jo.retro
             o.rsg=jo.rsgdeg
             o.g=jo.gdeg
