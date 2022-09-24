@@ -60,6 +60,7 @@ ZoolMainWindow{
     property string mod: 'mi'
 
     property var objInFullWin
+    property bool capturing: false
 
     property bool showCenterLine: false
     property bool enableAn: false
@@ -306,7 +307,7 @@ ZoolMainWindow{
 
         //GUI
         property string zFocus: 'xLatIzq'
-        property bool capturing: true
+
         //property bool showLog: false
         property bool showMenuBar: false
         property bool enableBackgroundColor: false
@@ -489,7 +490,7 @@ ZoolMainWindow{
             Rectangle{
                 anchors.fill: parent
                 color: 'transparent'
-                border.width: 10
+                border.width: 1
                 border.color: 'yellow'
                 visible: app.dev
             }

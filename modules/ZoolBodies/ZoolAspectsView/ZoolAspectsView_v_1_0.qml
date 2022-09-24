@@ -54,13 +54,13 @@ Rectangle {
             anchors.leftMargin: app.fs*0.1
         }
     }
-    Rectangle{
-        anchors.fill: r
-        color: 'transparent'
-        border.width: 2
-        border.color: 'red'
-        visible: app.dev
-    }
+//    Rectangle{
+//        anchors.fill: r
+//        color: 'transparent'
+//        border.width: 2
+//        border.color: 'red'
+//        visible: app.dev
+//    }
     function clear(){
         if(!r.visible)return
         for(var i=0;i<15;i++){

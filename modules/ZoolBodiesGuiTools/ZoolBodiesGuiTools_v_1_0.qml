@@ -199,6 +199,7 @@ Rectangle {
                 text:  '<b>CAPTURA</b>'
                 fs: app.fs*0.35
                 onClicked: {
+                    app.capturing=true
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
                     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -221,8 +222,9 @@ Rectangle {
                     imgFileName+='.png'
                     //log.l('Nombre de archivo de imagen: '+imgFileName)
                     xSwe1.grabToImage(function(result) {
-                                               result.saveToFile(folder+"/"+imgFileName);
-                                           });
+                        result.saveToFile(folder+"/"+imgFileName);
+                        app.capturing=false
+                    });
 
                 }
             }
