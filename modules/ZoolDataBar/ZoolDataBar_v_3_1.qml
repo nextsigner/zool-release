@@ -8,10 +8,11 @@ Rectangle {
     width: parent.width
     height: tResizeText.running?uH:rowData.height+rowData.height*0.5
     color: apps.backgroundColor
-    border.width: 1
-    border.color: apps.fontColor
+    //border.width: 1
+    //border.color: apps.fontColor
     property string titleData//: txtCurrentData.text
     property string stringMiddleSeparator: 'VN'
+    property url uItemGrabber
     //property alias currentDateText: txtCurrentDate.text
     //property alias currentGmtText: txtCurrentGmt.text
     property bool showTimes: false
@@ -55,6 +56,10 @@ Rectangle {
                 r.fs=r.fs-1
             }else{
                 stop()
+                r.grabToImage(function(result) {
+                    //result.saveToFile(folder+"/"+imgFileName);
+                    r.uItemGrabber=result.url
+                });
             }
             //log.l('fs: '+r.fs)
         }
@@ -134,14 +139,14 @@ Rectangle {
                         color: apps.fontColor
                         //visible: modelData!=='@' && parent.width>2
                         anchors.centerIn: parent
-//                        Timer{
-//                            running: true
-//                            repeat: true
-//                            interval: 3000
-//                            onTriggered: {
-//                                log.ls('['+txtRow.text+']', 0, xApp.width*0.2)
-//                            }
-//                        }
+                        //                        Timer{
+                        //                            running: true
+                        //                            repeat: true
+                        //                            interval: 3000
+                        //                            onTriggered: {
+                        //                                log.ls('['+txtRow.text+']', 0, xApp.width*0.2)
+                        //                            }
+                        //                        }
                     }
                     //Component.onCompleted: r.height=height+height*0.2
                     Rectangle{
@@ -295,11 +300,11 @@ Rectangle {
                     repeat: true
                     interval: 250
                     onTriggered: {
-//                        if(apps.jsonsFolder+'/'+tiNom.t.text.replace(/ /g, '_')+'.json' !== apps.url){
-//                            parent.visible=true
-//                        }else{
-//                            parent.visible=false
-//                        }
+                        //                        if(apps.jsonsFolder+'/'+tiNom.t.text.replace(/ /g, '_')+'.json' !== apps.url){
+                        //                            parent.visible=true
+                        //                        }else{
+                        //                            parent.visible=false
+                        //                        }
                     }
                 }
             }

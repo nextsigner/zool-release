@@ -17,10 +17,10 @@ import "./comps" as Comps
 import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
 import ZoolText 1.0
-import ZoolDataBar 3.0
+import ZoolDataBar 3.1
 import ZoolDataText 1.0
 import ZoolLogView 1.0
-import ZoolBodies 1.1
+import ZoolBodies 1.2
 import ZoolBodiesGuiTools 1.0
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
@@ -252,6 +252,7 @@ ZoolMainWindow{
 
         property string url: ''
         property string urlBack: ''
+        property bool showLatIzq: true
         property bool showTimes: false
         property bool showLupa: false
         property bool showSWEZ: true
@@ -305,6 +306,7 @@ ZoolMainWindow{
 
         //GUI
         property string zFocus: 'xLatIzq'
+        property bool capturing: true
         //property bool showLog: false
         property bool showMenuBar: false
         property bool enableBackgroundColor: false
@@ -434,15 +436,63 @@ ZoolMainWindow{
     Item{
         id: xApp
         anchors.fill: parent
-        Item{
+        Rectangle{
             id: xSwe1
-            width: xApp.width-xLatIzq.width-xLatDer.width
+            //width: xApp.width-xLatIzq.width-xLatDer.width
+            width: sweg.width
             height: xLatIzq.height
+            color: apps.backgroundColor
             anchors.horizontalCenter: parent.horizontalCenter
+            anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width*0.5
             anchors.bottom: parent.bottom
-            clip: true
-            //SweGraphicV2{id: sweg;objectName: 'sweg'}
+            clip: xLatIzq.visible
             ZoolBodies{id: sweg;objectName: 'sweg'}
+            Image {
+                id: xDataBarUItemGrabber
+                source: xDataBar.uItemGrabber
+                width: parent.width
+                fillMode: Image.PreserveAspectCrop
+                visible: app.capturing
+            }
+            Image{
+                id: xAspsUItemGrabber
+                source: sweg.objZoolAspectsView.uItemGrabber
+                width: parent.width*0.2
+                height: parent.width*0.2
+                fillMode: Image.PreserveAspectCrop
+                anchors.bottom: parent.bottom
+                visible: app.capturing
+                Rectangle{
+                    anchors.fill: parent
+                    color: 'transparent'
+                    border.width: 1
+                    border.color: 'red'
+                    visible: app.dev
+                }
+            }
+            Image{
+                id: xAspsUItemGrabberBack
+                source: sweg.objZoolAspectsViewBack.uItemGrabber
+                width: parent.width*0.2
+                height: parent.width*0.2
+                fillMode: Image.PreserveAspectCrop
+                anchors.top: parent.top
+                visible: app.capturing && app.ev
+                Rectangle{
+                    anchors.fill: parent
+                    color: 'transparent'
+                    border.width: 1
+                    border.color: 'red'
+                    visible: app.dev
+                }
+            }
+            Rectangle{
+                anchors.fill: parent
+                color: 'transparent'
+                border.width: 10
+                border.color: 'yellow'
+                visible: app.dev
+            }
             Rectangle{
                 width: 6
                 height: xApp.height*2
@@ -489,14 +539,18 @@ ZoolMainWindow{
         id: capa101
         anchors.fill: xApp
         ZoolDataBar{id: xDataBar}
+        //ZoolDataBar{id: xDataBar;parent:xSwe1}
         Row{
             //anchors.centerIn: parent
             anchors.top: xDataBar.bottom
             anchors.bottom: xBottomBar.top
+            //anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width
             Item{
                 id: xLatIzq
                 width: xApp.width*0.2
                 height: parent.height
+                visible: apps.showLatIzq
                 //z: xMed.z+1
                 //                Rectangle{
                 //                    width: 8000
@@ -595,6 +649,7 @@ ZoolMainWindow{
                     visible: apps.zFocus==='xLatIzq'
                 }
             }
+            Item{width: xLatIzq.width;height: 1;visible: !xLatIzq.visible}
             Item{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
@@ -947,6 +1002,13 @@ ZoolMainWindow{
                 }
                 JS.loadJson(apps.url)
             }else{
+                if(app.dev){
+                    log.visible=true
+                    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
+                    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
+                    log.l('\napp.url: '+app.url)
+                    log.l('\napp.url exist: '+unik.fileExist(apps.url))
+                }
                 JS.firstRunTime()
             }
         }

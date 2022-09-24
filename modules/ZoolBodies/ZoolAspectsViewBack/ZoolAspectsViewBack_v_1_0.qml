@@ -7,6 +7,7 @@ Rectangle {
     height: cellWidth*15
     color: 'transparent'
     antialiasing: true
+    property url uItemGrabber
     property int cellWidth: app.fs*0.45
     Row{
         id: row
@@ -102,5 +103,12 @@ Rectangle {
                 }
             }
         }
+        setItemGrabber()
+    }
+    function setItemGrabber(){
+        r.grabToImage(function(result) {
+            //result.saveToFile(folder+"/"+imgFileName);
+            r.uItemGrabber=result.url
+        });
     }
 }

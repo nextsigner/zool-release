@@ -7,6 +7,9 @@ Rectangle {
     height: cellWidth*15
     color: 'transparent'
     antialiasing: true
+    //border.width: 4
+    //border.color: 'red'
+    property url uItemGrabber
     property int cellWidth: app.fs*0.45
     Row{
         id: row
@@ -50,6 +53,13 @@ Rectangle {
             anchors.left: parent.right
             anchors.leftMargin: app.fs*0.1
         }
+    }
+    Rectangle{
+        anchors.fill: r
+        color: 'transparent'
+        border.width: 2
+        border.color: 'red'
+        visible: app.dev
     }
     function clear(){
         if(!r.visible)return
@@ -107,5 +117,12 @@ Rectangle {
                 }
             }
         }
+        setItemGrabber()
+    }
+    function setItemGrabber(){
+        r.grabToImage(function(result) {
+            //result.saveToFile(folder+"/"+imgFileName);
+            r.uItemGrabber=result.url
+        });
     }
 }

@@ -572,6 +572,13 @@ ApplicationWindow {
         }
     }
 
+    //Ver/Ocultar xLatIzq
+    Shortcut{
+        sequence: 'Ctrl+Shift+Right'
+        onActivated: {
+            apps.showLatIzq=!apps.showLatIzq
+        }
+    }
     //Mostrar/Activar Show Log
     Shortcut{
         sequence: 'Ctrl+Shift+l'

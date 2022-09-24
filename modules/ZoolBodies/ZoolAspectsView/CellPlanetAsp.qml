@@ -9,7 +9,7 @@ Rectangle {
     property int indexPlanet: -1
     Image {
         id: img
-        source: "../../resources/imgs/planetas/"+app.planetasRes[r.indexPlanet]+".svg"
+        source: "../../../resources/imgs/planetas/"+app.planetasRes[r.indexPlanet]+".svg"
         width: parent.width*0.8
         height: width
         anchors.centerIn: parent
