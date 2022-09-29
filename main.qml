@@ -52,7 +52,11 @@ ZoolMainWindow{
     property string version: '0.0.-1'
 
     property string mainLocation: ''
-    property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
+    //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
+
+    property string pythonLocation: Qt.platform.os==='linux'?'python3':'"'+currentPath+'/Python/python.exe'+'"'
+
+    //'"'+currentPath+'/Python/python.exe'+'"'
     //property string pythonLocation: './Python/python.exe'
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
