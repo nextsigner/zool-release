@@ -849,7 +849,7 @@ function setNewTimeJsonFileData(date){
     j+='"ciudad":"'+vCiudad+'"'
     j+='}'
     j+='}'
-    return
+
     let json=JSON.parse(j)
     if(jsonData[app.stringRes+'zoompos']){
         json[app.stringRes+'zoompos']=jsonData[app.stringRes+'zoompos']

@@ -26,7 +26,7 @@ import ZoolFileManager 1.1
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.0
-import ZoolRevolutionList 1.1
+import ZoolRevolutionList 1.2
 import ZoolNumPit 1.0
 import ZoolMediaLive 1.0
 import ZoolDataEditor 1.0
