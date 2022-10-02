@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
+import ZoolButton 1.0
 import ZoolText 1.0
 
 Rectangle {
@@ -18,7 +19,10 @@ Rectangle {
     property string jsonFull: ''
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
+
+    property int currentAnioSelected: -1
     property int currentNumKarma: -1
+
     visible: itemIndex===sv.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
@@ -136,10 +140,52 @@ Rectangle {
                 onTriggered: parent.showTit=true
             }
         }
+        Item{
+            id: xCtrls
+            width: r.width
+            height: app.fs
+            visible: lv.count>0
+            Row{
+                spacing: app.fs*0.25
+                anchors.centerIn: parent
+                ZoolButton{
+                    text:'<'
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked:{
+                        if(lv.currentIndex>0)lv.currentIndex--
+                    }
+                }
+                ZoolText {
+                    text: parseInt(lv.currentIndex + 1)+' de '+lv.count+': '
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ZoolText {
+                    text: r.currentAnioSelected//lv.currentIndex
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ZoolButton{
+                    text:'>'
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked:{
+                        if(lv.currentIndex<lv.count-1)lv.currentIndex++
+                    }
+                }
+//                ZoolButton{
+//                    text:'Cargar'
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    onClicked:{
+//                        lv.get(lv.currentIndex).loadRs()
+//                    }
+//                }
+
+            }
+        }
         ListView{
             id: lv
             width: r.width
-            height: r.height-xTit.height
+            height: r.height-xTit.height-xCtrls.height
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
@@ -169,11 +215,25 @@ Rectangle {
             width: lv.width-r.border.width*2
             //height: index!==lv.currentIndex?app.fs*1.5:app.fs*3.5+app.fs
             height: index===lv.currentIndex?colDatos.height+app.fs*2:app.fs*3
-            color: apps.backgroundColor
-            border.width: 1
+            color: 'transparent'//apps.backgroundColor
+            border.width: 0
             border.color: apps.fontColor
+            anchors.horizontalCenter: parent.horizontalCenter
+            opacity: selected?1.0:0.6
             property int is: -1
             property var rsDate
+            property bool selected: lv.currentIndex===index
+            onSelectedChanged: {
+                if(selected){
+                    let j=JSON.parse(json)
+                    let params=j['ph']['params']
+                    let sdgmt=params.sdgmt
+                    let m0=sdgmt.split(' ')//20/6/1984 06:40
+                    let m1=m0[0].split('/')
+                    r.currentAnioSelected=parseInt(m1[2])
+                    //itemRS.rsDate=new Date(m1[2],parseInt(m1[1]-1),m1[0],m2[0],m2[1])
+                }
+            }
             onIsChanged:{
                 iconoSigno.source="../../resources/imgs/signos/"+is+".svg"
             }
@@ -204,9 +264,8 @@ Rectangle {
             }
             MouseArea{
                 anchors.fill: parent
-                onClicked: {
-                    lv.currentIndex=index
-                }
+                onClicked: lv.currentIndex=index
+                onDoubleClicked: itemRS.loadRs()
             }
             Rectangle{
                 id: bg
@@ -330,6 +389,9 @@ Rectangle {
                     }
                 }
             }
+            function loadRs(){
+                JS.loadRs(itemRS.rsDate)
+            }
             Component.onCompleted: {
                 //console.log('jjj:'+json)
 
@@ -361,6 +423,7 @@ Rectangle {
                 let aGetNums=JS.getNums(f)
                 if(index===0){
                     r.currentNumKarma=aGetNums[0]
+                    r.currentAnioSelected=parseInt(a)
                 }
                 txtData.text+='<br />N° Karma: '+r.currentNumKarma+' Año Personal: '+aGetNums[0]
             }
