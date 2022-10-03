@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
-import ZoolButton 1.0
+import ZoolButton 1.2
 import ZoolText 1.0
 
 Rectangle {
@@ -140,48 +140,54 @@ Rectangle {
                 onTriggered: parent.showTit=true
             }
         }
-        Item{
-            id: xCtrls
-            width: r.width
-            height: app.fs
-            visible: lv.count>0
+//        Item{
+//            id: xCtrls
+//            width: r.width
+//            height: app.fs
+//            visible: lv.count>0
             Row{
+                id: xCtrls
                 spacing: app.fs*0.25
-                anchors.centerIn: parent
+                height: btnLoad.height+app.fs*0.2
+                //anchors.centerIn: parent
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: lv.count>0
                 ZoolButton{
-                    text:'<'
+                    text:'\uf060'
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked:{
                         if(lv.currentIndex>0)lv.currentIndex--
                     }
                 }
-                ZoolText {
-                    text: parseInt(lv.currentIndex + 1)+' de '+lv.count+': '
-                    fs: app.fs*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                ZoolText {
-                    text: r.currentAnioSelected//lv.currentIndex
+                ZoolText{
+                    text: parseInt(lv.currentIndex + 1)+' de '+lv.count
+                    //height:fs
                     fs: app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 ZoolButton{
-                    text:'>'
+                    text:'\uf061'
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked:{
                         if(lv.currentIndex<lv.count-1)lv.currentIndex++
                     }
                 }
-//                ZoolButton{
-//                    text:'Cargar'
-//                    anchors.verticalCenter: parent.verticalCenter
-//                    onClicked:{
-//                        lv.get(lv.currentIndex).loadRs()
-//                    }
-//                }
-
+                ZoolText{
+                    text: r.currentAnioSelected//lv.currentIndex
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ZoolButton{
+                    id: btnLoad
+                    text:'Cargar'
+                    //height: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked:{
+                        lv.itemAtIndex(lv.currentIndex).loadRs()
+                    }
+                }
             }
-        }
+        //}
         ListView{
             id: lv
             width: r.width
@@ -219,7 +225,7 @@ Rectangle {
             border.width: 0
             border.color: apps.fontColor
             anchors.horizontalCenter: parent.horizontalCenter
-            opacity: selected?1.0:0.6
+            opacity: selected?1.0:0.85
             property int is: -1
             property var rsDate
             property bool selected: lv.currentIndex===index
@@ -339,7 +345,7 @@ Rectangle {
                         spacing: app.fs*0.5
                         anchors.verticalCenter: parent.verticalCenter
                         Rectangle{
-                            width: itemRS.width*0.2
+                            width: itemRS.selected?itemRS.width*0.2:itemRS.width*0.1
                             height: width
                             border.width: 2
                             radius: width*0.5
@@ -352,38 +358,35 @@ Rectangle {
                                 anchors.centerIn: parent
                             }
                         }
-                        Comps.ButtonIcon{
-                            text: '\uf002'
-                            //text: '\uf56e'
-                            width: app.fs
+                        Rectangle{
+                            width: itemRS.selected?itemRS.width*0.2:itemRS.width*0.1
                             height: width
+                            radius: width*0.5
+                            color: apps.backgroundColor
+                            border.width: app.fs*0.1
+                            border.color: apps.fontColor
                             anchors.horizontalCenter: parent.horizontalCenter
-                            visible: index===lv.currentIndex
-                            onClicked: {
-                                JS.loadRs(itemRS.rsDate)
+                            ZoolText{
+                                id: labelAnioPersonal
+                                text: '7'
+                                fs: parent.width*0.5
+                                anchors.centerIn: parent
                             }
-                        }
-                        Comps.ButtonIcon{
-                            text: '<b>E</b>'
-                            width: app.fs
-                            height: width
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            visible: false//index===lv.currentIndex
-                            onClicked: {
-                                let date=new Date(itemRS.rsDate)
-                                let d=date.getDate()
-                                let m=date.getMonth()// + 1
-                                let a=date.getFullYear()
-                                let h=date.getHours()
-                                let min=date.getMinutes()
-                                let gmt=app.currentGmt
-                                let lat=app.currentLat
-                                let lon=app.currentLon
-                                let nom=app.currentNom
-                                let ciudad=app.currentLugar
-                                let tipo='rs'//app.currentJson.params.tipo
-                                let alt=app.currentJson.params.alt?app.currentJson.params.alt:0
-                            JS.loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, false)
+                            Rectangle{
+                                width: parent.width*0.45
+                                height: width
+                                radius: width*0.5
+                                color: apps.backgroundColor
+                                border.width: app.fs*0.1
+                                border.color: apps.fontColor
+                                anchors.verticalCenter: parent.top
+                                visible: itemRS.selected
+                                ZoolText{
+                                    id: labelNumKarma
+                                    text: '7'
+                                    fs: parent.width*0.5
+                                    anchors.centerIn: parent
+                                }
                             }
                         }
                     }
@@ -393,16 +396,11 @@ Rectangle {
                 JS.loadRs(itemRS.rsDate)
             }
             Component.onCompleted: {
-                //console.log('jjj:'+json)
-
-
                 let j=JSON.parse(json)
                 let params=j['ph']['params']
                 let sd=params.sd
                 let sdgmt=params.sdgmt
                 itemRS.is=j['ph']['h1']['is']
-
-
 
                 txtData.text="GMT: "+sdgmt + "<br />UTC: "+sd
 
@@ -425,7 +423,9 @@ Rectangle {
                     r.currentNumKarma=aGetNums[0]
                     r.currentAnioSelected=parseInt(a)
                 }
-                txtData.text+='<br />N° Karma: '+r.currentNumKarma+' Año Personal: '+aGetNums[0]
+                labelAnioPersonal.text=aGetNums[0]
+                labelNumKarma.text=r.currentNumKarma
+                //txtData.text+='<br />N° Karma: '+r.currentNumKarma+' Año Personal: '+aGetNums[0]
             }
         }
     }
