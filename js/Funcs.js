@@ -356,6 +356,7 @@ function loadJson(file){
     app.setFromFile=true
     //apps.enableFullAnimation=false
     app.currentPlanetIndex=-1
+    app.currentHouseIndex=-1
     app.currentSignIndex= 0
     app.currentNom= ''
     app.currentFecha= ''
@@ -542,6 +543,7 @@ function loadJsonBack(file){
     app.setFromFile=true
     //apps.enableFullAnimation=false
     app.currentPlanetIndexBack=-1
+    app.currentHouseIndexBack=-1
     app.currentSignIndex= 0
     app.currentNomBack= ''
     app.currentFechaBack= ''
@@ -636,6 +638,7 @@ function loadJsonFromParamsBack(json){
     app.setFromFile=true
     //apps.enableFullAnimation=false
     app.currentPlanetIndexBack=-1
+    app.currentHouseIndexBack=-1
     app.currentSignIndex= 0
     app.currentNomBack= ''
     app.currentFechaBack= ''

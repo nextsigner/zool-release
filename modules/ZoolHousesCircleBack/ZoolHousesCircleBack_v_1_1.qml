@@ -8,7 +8,7 @@ Item {
 //        anchors.fill: r
 //        color: '#ff8833'
 //    }
-    property int currentHouse: -1
+    property int currentHouse: app.currentHouseIndexBack
     property int w: sweg.fs*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0

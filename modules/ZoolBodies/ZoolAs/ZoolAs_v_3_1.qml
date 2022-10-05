@@ -77,6 +77,7 @@ Item{
         if(selected){
             pointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
+            app.currentHouseIndex=objData.ih
             app.currentXAs=r
             setRot()
             setZoomAndPos()

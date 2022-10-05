@@ -151,7 +151,9 @@ let json=JSON.parse(logData)
 r.state="hide"
 sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)
 sweg.objEclipseCircle.typeEclipse='+comando[4]+''
-            sweg.objHousesCircle.currentHouse=-1
+            app.currentHouseIndex=-1
+            app.currentHouseIndexBack=-1
+            //sweg.objHousesCircle.currentHouse=-1
 
             finalCmd=''
                     +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_eclipses.py" '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+' "'+unik.currentFolderPath()+'"'

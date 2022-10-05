@@ -4,7 +4,9 @@ import "../"
 
 Item {
     id: r
-    width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
+    //width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
+    width: app.currentHouseIndex!==n?xArcs.width:xArcs.width+extraWidth
+
     height: width
     anchors.centerIn: parent
     property real wg: 0.0
@@ -18,7 +20,7 @@ Item {
     property var colors: [apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor]
     property var colors2: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
-    property bool selected: housesCircle.currentHouse===n
+    property bool selected: app.currentHouseIndex===n
     property  real op: 100.0
     property int opacitySpeed: 100
     property int extraWidth: 0

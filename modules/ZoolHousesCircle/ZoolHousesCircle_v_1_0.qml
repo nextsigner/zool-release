@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id: r
     width: signCircle.width
-    property int currentHouse: -1
+    property int currentHouse: app.currentHouseIndex
     property int w: sweg.fs*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0

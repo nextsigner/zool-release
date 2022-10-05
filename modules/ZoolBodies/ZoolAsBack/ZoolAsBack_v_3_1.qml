@@ -35,6 +35,7 @@ Item{
         if(selected){
             pointerPlanet.setPointerFs()
             housesCircleBack.currentHouse=objData.ih
+            app.currentHouseIndexBack=objData.ih
             app.currentXAsBack=r
             setRot()
             setZoomAndPos()

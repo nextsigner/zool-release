@@ -556,9 +556,12 @@ Item {
         app.ev=false
         apps.urlBack=''
         panelAspectsBack.visible=false
-        sweg.objHousesCircle.currentHouse=-1
+        app.currentHouseIndex=-1
+        app.currentHouseIndexBack=-1
+        //sweg.objHousesCircle.currentHouse=-1
         //swegz.sweg.objHousesCircle.currentHouse=-1
         app.currentPlanetIndex=-1
+        app.currentHouseIndex=-1
 
         //console.log('json: '+json)
         var j

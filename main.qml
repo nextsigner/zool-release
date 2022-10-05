@@ -89,6 +89,10 @@ ZoolMainWindow{
 
     property int currentPlanetIndex: -1
     property int currentPlanetIndexBack: -1
+
+    property int currentHouseIndex: -1
+    property int currentHouseIndexBack: -1
+
     property int currentSignIndex: 0
 
     property date currentDate
@@ -177,7 +181,10 @@ ZoolMainWindow{
 
     onCurrentPlanetIndexChanged: {
         panelDataBodies.currentIndex=currentPlanetIndex
-        if(currentPlanetIndex>=0)app.currentPlanetIndexBack=-1
+        if(currentPlanetIndex>=0){
+            app.currentPlanetIndexBack=-1
+            app.currentHouseIndexBack=-1
+        }
         if(sspEnabled){
             if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
                 app.ip.opacity=1.0
@@ -200,7 +207,10 @@ ZoolMainWindow{
     }
     onCurrentPlanetIndexBackChanged: {
         panelDataBodies.currentIndexBack=currentPlanetIndexBack
-        if(currentPlanetIndexBack>=0)app.currentPlanetIndex=-1
+        if(currentPlanetIndexBack>=0){
+            app.currentPlanetIndex=-1
+            app.currentHouseIndex=-1
+        }
     }
     onCurrentGmtChanged: {
         if(app.currentData===''||app.setFromFile)return
@@ -889,6 +899,7 @@ ZoolMainWindow{
                 app.currentPlanetIndex++
             }else{
                 app.currentPlanetIndex=-1
+                app.currentHouseIndex=-1
             }
         }
     }

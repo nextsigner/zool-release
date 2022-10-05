@@ -298,12 +298,14 @@ ApplicationWindow {
             }
             if(app.currentPlanetIndex>=0){
                 app.currentPlanetIndex=-1
+                app.currentHouseIndex=-1
                 return
             }
             if(app.currentPlanetIndexBack>=0){
                 app.currentPlanetIndexBack=-1
                 app.currentPlanetIndexBack=-1
-                sweg.objHousesCircleBack.currentHouse=-1
+                app.currentHouseIndexBack=-1
+                //sweg.objHousesCircleBack.currentHouse=-1
                 return
             }
             if(panelSabianos.view.visible){
