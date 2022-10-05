@@ -28,6 +28,10 @@ import ZoolDataBodies 3.0
 import ZoolSabianos 1.0
 import ZoolRevolutionList 1.2
 import ZoolNumPit 1.0
+
+import ZoolElements 1.2
+import ZoolElementsBack 1.0
+
 import ZoolMediaLive 1.0
 import ZoolDataEditor 1.0
 import ZoolVideoPlayer 1.0
@@ -491,6 +495,20 @@ ZoolMainWindow{
                     visible: app.dev
                 }
             }
+            Image {
+                id: xElementsUItemGrabber
+                source: panelElements.uItemGrabber
+                //width: panelElements.width
+                fillMode: Image.PreserveAspectFit
+                anchors.top: xDataBarUItemGrabber.bottom
+                anchors.right: parent.right
+                anchors.rightMargin: 0-width*0.75
+                transform: Scale {
+                    xScale: 0.25
+                    yScale: 0.25
+                }
+                visible: app.capturing
+            }
             Rectangle{
                 anchors.fill: parent
                 color: 'transparent'
@@ -659,8 +677,24 @@ ZoolMainWindow{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
                 height: parent.height
-                Comps.PanelElements{id: panelElements}
-                Comps.PanelElementsBack{id: panelElementsBack}
+                Item{
+                    id: xZoolElements
+                    width: parent.width
+                    height: parent.height
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0-width*0.75
+                    transform: Scale {
+                        id: tform
+                        xScale: 0.25
+                        yScale: 0.25
+                    }
+                    ZoolElements{
+                        id: panelElements
+                        anchors.right: parent.right
+                    }
+                    ZoolElementsBack{id: panelElementsBack}
+                }
+
                 Item{
                     id: xControlsTime
                     width: controlsTime.width

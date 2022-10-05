@@ -1,71 +1,95 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
-import "../"
-import "../js/Funcs.js" as JS
+import "../../"
+import "../../js/Funcs.js" as JS
 import ZoolText 1.0
-Item {
+
+
+Rectangle{
     id: r
     width: apps.elementsFs*3
-    height: lv.height
+    height: iCap.height
+    color: app.capturing?apps.backgroundColor:'transparent'
     anchors.top: parent.top
     anchors.topMargin: app.fs*0.1
     anchors.right: parent.right
     anchors.rightMargin: app.fs*0.1//spacing
+    property alias itemCap: iCap
     property var aPorcs: [0.0, 0.0,0.0,0.0]
     property int spacing: apps.elementsFs.fs*0.1
     property string arbolGen: '?'
 
-    Column{
-        Rectangle{
-            width: r.width
-            height: apps.elementsFs*0.35
-            color: apps.fontColor
-            visible: app.ev
-            Text {
-                text: '<b>Interior</b>'
-                font.pixelSize: parent.height*0.9
-                color: apps.backgroundColor
-                anchors.centerIn: parent
-            }
-        }
-        ListView{
-            id: lv
-            width: r.width
-            height: apps.elementsFs*0.65*4//*0.65*4+apps.elementsFs
-            delegate: comp
-            model: lm
-            boundsBehavior: ListView.StopAtBounds
-        }
-        Rectangle{
-            id: xItemNums
-            width: r.width
-            height: apps.elementsFs*0.65
-            border.width: 1
-            border.color: apps.backgroundColor
-            color: apps.fontColor
-            radius: apps.elementsFs*0.15
-            property int nd: 0
-            property string ns: '0'
-            property int ag: -1
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    ncv.currentDate=app.currentDate
-                    ncv.setCurrentDate(app.currentDate)
-                    ncv.setCurrentNombre(app.currentNom)
-                    ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
-                    ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
-                    sv.currentIndex=5
-                    //ncv.printData(app.currentNom, app.currentDate)
-                    //ncv.visible=true
+    property url uItemGrabber
+    property bool isBack: false
+    property bool showPlanets: true
+    property int maxPlanetsListWith: 0
+
+    Rectangle{
+        id: iCap
+        width: col.width
+        height: col.height
+        color: parent.color
+        border.width: app.dev?10:0
+        border.color: 'red'
+        anchors.right: parent.right
+        Column{
+            id: col
+            width: lv.width+r.maxPlanetsListWith
+            anchors.centerIn: parent
+            Rectangle{
+                width: r.width
+                height: apps.elementsFs*0.35
+                color: apps.fontColor
+                visible: app.ev && !r.isBack
+                anchors.right: parent.right
+                Text {
+                    text: '<b>Interior</b>'
+                    font.pixelSize: parent.height*0.9
+                    color: apps.backgroundColor
+                    anchors.centerIn: parent
                 }
             }
-            Row{
-                anchors.centerIn: parent
-                spacing: apps.elementsFs*0.5
-                ZoolText{text: '<b>'+xItemNums.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
-                ZoolText{text: '<b>'+xItemNums.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
-                ZoolText{text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+            ListView{
+                id: lv
+                width: r.width
+                height: apps.elementsFs*0.65*4//*0.65*4+apps.elementsFs
+                delegate: comp
+                model: lm
+                boundsBehavior: ListView.StopAtBounds
+                anchors.right: parent.right
+            }
+            Rectangle{
+                id: xItemNums
+                width: r.width
+                height: apps.elementsFs*0.65
+                border.width: 1
+                border.color: apps.backgroundColor
+                color: apps.fontColor
+                radius: apps.elementsFs*0.15
+                anchors.right: parent.right
+                property int nd: 0
+                property string ns: '0'
+                property int ag: -1
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        ncv.currentDate=app.currentDate
+                        ncv.setCurrentDate(app.currentDate)
+                        ncv.setCurrentNombre(app.currentNom)
+                        ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
+                        ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
+                        sv.currentIndex=5
+                        //ncv.printData(app.currentNom, app.currentDate)
+                        //ncv.visible=true
+                    }
+                }
+                Row{
+                    anchors.centerIn: parent
+                    spacing: apps.elementsFs*0.5
+                    ZoolText{text: '<b>'+xItemNums.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                    ZoolText{text: '<b>'+xItemNums.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                    ZoolText{text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: apps.elementsFs*0.35}
+                }
             }
         }
     }
@@ -100,14 +124,19 @@ Item {
             Row{
                 id: row
                 anchors.right: parent.left
+                opacity: r.showPlanets?1.0:0.5
+                onWidthChanged: {
+                    if(width>r.maxPlanetsListWith)r.maxPlanetsListWith=width
+                }
                 Repeater{
                     id: rep
                     Item{
                         width: xItemElement.height
                         height: width
+                        visible: modelData
                         Image{
                             id: img
-                            source: '../resources/imgs/planetas/'+app.planetasRes[modelData]+'.svg'
+                            source: modelData?'../../resources/imgs/planetas/'+app.planetasRes[modelData]+'.svg':''
                             anchors.fill: parent
                         }
                         ColorOverlay {
@@ -131,6 +160,7 @@ Item {
 
                 }
             }
+            Component.onCompleted: rep.model=arrayPlan.split('|')
         }
     }
     function load(j){
@@ -205,6 +235,13 @@ Item {
         xItemNums.ns=d[1]
         xItemNums.ag=parseInt(d[2])
         r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
+        setUImgGrabber()
+    }
+    function setUImgGrabber(){
+        r.grabToImage(function(result) {
+            //result.saveToFile(folder+"/"+imgFileName);
+            r.uItemGrabber=result.url
+        });
     }
     function updateListModel(af, v1, v2, v3, v4){
         lm.clear()

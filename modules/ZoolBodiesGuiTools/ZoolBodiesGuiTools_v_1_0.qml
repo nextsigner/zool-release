@@ -236,6 +236,8 @@ Rectangle {
                 text:  '<b>CAP. ELEM.</b>'
                 fs: app.fs*0.35
                 onClicked: {
+//                    let panelElementsSizeValue=panelElements.sizeValue
+//                    panelElements.sizeValue=panelElementsSizeValue*2
                     app.capturing=true
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
@@ -244,12 +246,15 @@ Rectangle {
                         unik.mkdir(folder)
                     }
                     let imgFileName='cap_'
-                    imgFileName+='elementos'
+                    imgFileName+='elementos111'
                     imgFileName+='.png'
                     //log.l('Nombre de archivo de imagen: '+imgFileName)
-                    xSwe1.grabToImage(function(result) {
+                    panelElements.showPlanets=true
+                    panelElements.itemCap.grabToImage(function(result) {
                         result.saveToFile(folder+"/"+imgFileName);
                         app.capturing=false
+                        panelElements.showPlanets=false
+                        //panelElements.sizeValue=panelElementsSizeValue
                     });
 
                 }
