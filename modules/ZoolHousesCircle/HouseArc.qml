@@ -178,7 +178,7 @@ Item {
         }
     }
     Canvas {
-        id:canvas
+        id: canvas
         width: r.width//-sweg.fs
         height: width
         opacity: 0.65
@@ -374,7 +374,7 @@ Item {
     }
     Timer{
         id: tc
-        running: r.selected //&& !apps.xAsShowIcon
+        running: !app.capturing?r.selected:false //&& !apps.xAsShowIcon
         repeat: true
         interval: 350
         onTriggered: {

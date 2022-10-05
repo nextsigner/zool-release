@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "../../comps"
 import "../../js/Funcs.js" as JS
+import "../../js/Capture.js" as Cap
 
 import ZoolButton 1.1
 
@@ -199,7 +200,8 @@ Rectangle {
                 text:  '<b>CAPTURA</b>'
                 fs: app.fs*0.35
                 onClicked: {
-                    app.capturing=true
+                    Cap.captureSweg()
+                    /*app.capturing=true
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
                     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -228,8 +230,7 @@ Rectangle {
                     xSwe1.grabToImage(function(result) {
                         result.saveToFile(folder+"/"+imgFileName);
                         app.capturing=false
-                    });
-
+                    });*/
                 }
             }
             ZoolButton{

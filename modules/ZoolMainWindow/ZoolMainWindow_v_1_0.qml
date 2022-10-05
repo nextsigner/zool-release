@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import "../../js/Funcs.js" as JS
+import "../../js/Capture.js" as Cap
 
 ApplicationWindow {
     id: r
@@ -604,6 +605,7 @@ ApplicationWindow {
                 }else{
                     app.currentXAs.saveZoomAndPos()
                 }
+                Cap.captureSweg()
                 return
             }
             if(app.currentPlanetIndexBack>=0&&app.currentXAsBack){
@@ -617,8 +619,9 @@ ApplicationWindow {
                 }else{
                     app.currentXAsBack.saveZoomAndPos()
                 }
+                Cap.captureSweg()
                 return
-            }
+            }            
         }
     }
     //Restaurar xAs Pointer rotation

@@ -72,6 +72,9 @@ Item {
                 SequentialAnimation on border.color {
                     running: !app.capturing
                     loops: Animation.Infinite
+                    onRunningChanged: {
+                        if(!running)rectData.border.color=apps.pointerLineColor
+                    }
                     ColorAnimation { from: apps.pointerLineColor; to: apps.fontColor; duration: 200 }
                     ColorAnimation { from: apps.fontColor; to: apps.pointerLineColor; duration: 200 }
                     ColorAnimation { from: apps.pointerLineColor; to: apps.backgroundColor; duration: 200 }

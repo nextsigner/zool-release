@@ -344,7 +344,7 @@ Item {
     }
     Timer{
         id: tc
-        running: r.selected
+        running: !app.capturing?r.selected:false
         repeat: true
         interval: 350
         onTriggered: {
