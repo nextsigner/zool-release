@@ -139,7 +139,7 @@ Rectangle {
                 }
                 CheckBox{
                     width: app.fs*0.5
-                    checked: apps.isJsonsFolderTemp
+                    checked: !apps.isJsonsFolderTemp
                     anchors.verticalCenter: parent.verticalCenter
                     onCheckedChanged:app.cmd.runCmd('temp-silent')
                 }

@@ -40,13 +40,13 @@ Rectangle{
             width: lv.width+r.maxPlanetsListWith
             anchors.centerIn: parent
             Rectangle{
-                width: r.width
+                width: xItemNums.width
                 height: xItemNums.height//apps.elementsFs*0.35
                 color: apps.fontColor
                 visible: app.ev && !r.isBack
                 anchors.right: parent.right
                 ZoolText{
-                    text: '<b>Interior</b>'
+                    text: !r.isBack?'<b>Interior</b>':'<b>Exterior</b>'
                     font.pixelSize: xItemNums.fs
                     color: apps.backgroundColor
                     anchors.centerIn: parent
@@ -70,6 +70,7 @@ Rectangle{
                 color: apps.fontColor
                 radius: apps.elementsFs*0.15
                 anchors.right: parent.right
+                visible:  lv.count>0
                 property int nd: 0
                 property string ns: '0'
                 property int ag: -1

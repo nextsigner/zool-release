@@ -224,8 +224,8 @@ Rectangle {
                             app.mod='sin'
                             JSON.parse(app.currentData).params.tipo='sin'
                         }
-                        JS.loadJsonBack(fileName)
-                        r.state='hide'
+                        JS.loadJsonBack(fileName, 'sin')
+                        //r.state='hide'
                     }
                 }
             }

@@ -465,24 +465,30 @@ Item {
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
     }
-    function loadBack(j){
+    function loadBack(j, t){
         //console.log('Ejecutando SweGraphic.load()...')
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        let vd=j.paramsBack.d
-        let vm=j.paramsBack.m
-        let va=j.paramsBack.a
-        let vh=j.paramsBack.h
-        let vmin=j.paramsBack.min
-        let vgmt=j.paramsBack.gmt
-        let vlon=j.paramsBack.lon
-        let vlat=j.paramsBack.lat
+        let params
+        if(t==='sin'){
+            params=j.params
+        }else{
+            params=j.paramsBack
+        }
+        let vd=params.d
+        let vm=params.m
+        let va=params.a
+        let vh=params.h
+        let vmin=params.min
+        let vgmt=params.gmt
+        let vlon=params.lon
+        let vlat=params.lat
         let d = new Date(Date.now())
         let ms=d.getTime()
         let hsys=apps.currentHsys
         app.currentFechaBack=vd+'/'+vm+'/'+va
-        if(j.paramsBack.hsys)hsys=j.paramsBack.hsys
+        if(params.hsys)hsys=params.hsys
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'

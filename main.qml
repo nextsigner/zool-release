@@ -54,6 +54,7 @@ ZoolMainWindow{
     //title:'sdsa'
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
+    property var j: JS
 
     property string mainLocation: ''
     //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
@@ -700,9 +701,15 @@ ZoolMainWindow{
                     }
                     ZoolElements{
                         id: panelElements
-                        anchors.right: parent.right
+
                     }
-                    ZoolElementsBack{id: panelElementsBack}
+                    ZoolElements{
+                        id: panelElementsBack
+                        isBack: true
+                        anchors.right: parent.right
+                        anchors.top: panelElements.bottom
+                    }
+                    //ZoolElementsBack{id: panelElementsBack}
                 }
 
                 Item{
@@ -1007,6 +1014,12 @@ ZoolMainWindow{
             let jft=unik.getPath(3)+'/Zool/Temp'
             unik.mkdir(jft)
             apps.jsonsFolderTemp=jft
+        }
+        if(apps.isJsonsFolderTemp){
+            let jsonF=apps.jsonsFolder
+            let jsonFT=apps.jsonsFolderTemp
+            apps.jsonsFolder=jsonFT
+            apps.jsonsFolderTemp=jsonF
         }
 
         if(app.dev){

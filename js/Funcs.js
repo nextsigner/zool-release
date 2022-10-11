@@ -129,7 +129,7 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
         return
     }
     app.currentDataBack=j
-    sweg.loadBack(JSON.parse(j))
+    sweg.loadBack(JSON.parse(j), tipo)
     //runJsonTempBack()
 }
 
@@ -538,7 +538,7 @@ function loadJson(file){
     app.setFromFile=false
     sweg.centerZoomAndPos()
 }
-function loadJsonBack(file){
+function loadJsonBack(file, tipo){
     //Global Vars Reset
     app.setFromFile=true
     //apps.enableFullAnimation=false
@@ -562,6 +562,7 @@ function loadJsonBack(file){
     let jsonFileName=fn
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
     app.fileDataBack=jsonFileData
+    log.ls('app.fileDataBack:'+app.fileDataBack, 0, 500)
     app.currentJsonBack=app.fileDataBack
     let jsonData=JSON.parse(jsonFileData)
     if(jsonData.params.tipo){
@@ -596,7 +597,7 @@ function loadJsonBack(file){
         }
         sweg.loadSign(jsonData)
     }else{
-        sweg.loadBack(jsonData)
+        sweg.loadBack(jsonData, tipo)
     }
     if(jsonData.params.fileNamePath){
         panelPronEdit.loadJson(jsonData.params.fileNamePath)
@@ -660,7 +661,7 @@ function loadJsonFromParamsBack(json){
     }else{
         app.mod='vn'
     }
-    sweg.loadBack(jsonData)
+    sweg.loadBack(jsonData, jsonData.params.tipo)
     let nom=jsonData.params.n.replace(/_/g, ' ')
     let vd=jsonData.params.d
     let vm=jsonData.params.m
@@ -812,7 +813,7 @@ function runJsonTempBack(){
 
     app.currentFechaBack=vd+'/'+vm+'/'+va
     //xDataBar.state='show'
-    sweg.loadBack(jsonData)
+    sweg.loadBack(jsonData, jsonData.paramsBack.tipo)
     //app.currentDateBack=new Date(vd, vm, va, vh, vmin)
     //swegz.sweg.load(jsonData)
 }
