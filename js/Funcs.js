@@ -65,6 +65,38 @@ function setFs() {
     }
 }
 
+function resetGlobalVars(){
+    app.currentPlanetIndex=-1
+    app.currentPlanetIndexBack=-1
+    app.currentHouseIndex=-1
+    app.currentHouseIndexBack=-1
+    app.currentSignIndex= 0
+    app.currentNom= ''
+    app.currentNomBack= ''
+    app.currentFecha= ''
+    app.currentFechaBack= ''
+    app.currentGradoSolar= -1
+    app.currentGradoSolarBack= -1
+    app.currentMinutoSolar= -1
+    app.currentMinutoSolarBack= -1
+    app.currentSegundoSolar= -1
+    app.currentSegundoSolarBack= -1
+    app.currentGmt= 0.0
+    app.currentGmtBack= 0.0
+    app.currentLon= 0.0
+    app.currentLonBack= 0.0
+    app.currentLat= 0.0
+    app.currentLatBack= 0.0
+    app.uSon=''
+    app.uSonBack=''
+    //panelControlsSign.state='hide'
+    apps.showAspPanelBack=false
+    app.ev=false
+    apps.urlBack=''
+    apps.showAspPanelBack=false
+    apps.showAspCircleBack=false
+}
+
 //Funciones de Cargar Datos Interior
 function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
     app.ev=false
@@ -355,24 +387,8 @@ function loadJson(file){
     //Global Vars Reset
     app.setFromFile=true
     //apps.enableFullAnimation=false
-    app.currentPlanetIndex=-1
-    app.currentHouseIndex=-1
-    app.currentSignIndex= 0
-    app.currentNom= ''
-    app.currentFecha= ''
-    app.currentGradoSolar= -1
-    app.currentMinutoSolar= -1
-    app.currentSegundoSolar= -1
-    app.currentGmt= 0.0
-    app.currentLon= 0.0
-    app.currentLat= 0.0
-    app.uSon=''
-    //panelControlsSign.state='hide'
-    apps.showAspPanelBack=false
-    app.ev=false
-    apps.urlBack=''
-    apps.showAspPanelBack=false
-    apps.showAspCircleBack=false
+
+    resetGlobalVars()
 
     apps.url=file
     let fn=apps.url
@@ -436,6 +452,10 @@ function loadJson(file){
         params=jsonData.params
     }
 
+    //if(params.tipo==='rs'){
+    //if(app.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
+    //}
+
     let nom=params.n.replace(/_/g, ' ')
     let vd=params.d
     let vm=params.m
@@ -449,6 +469,11 @@ function loadJson(file){
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
+    if(params.tipo==='rs'){
+        let edadRs=47
+        //stringEdad=edadRs
+        //log.l('RS params:'+params+' --->'+stringEdad, 0, log.width)
+    }
 
     //Seteando datos globales de mapa energético
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
@@ -717,6 +742,33 @@ function mkSinFile(file){
         loadJson(nFileName)
     }
 }
+function mkRsFile(file){
+    let jsonFileDataInterior=app.fileData
+    let json=JSON.parse(jsonFileDataInterior)
+    let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
+    let jsonExt=JSON.parse(jsonFileDataExt)
+    log.ls('jsonExt: '+jsonFileDataExt, 0, log.width)
+    json.params.n='Rev. Solar de '+json.params.n+' - Año '+jsonExt.paramsBack.a
+    json.params.tipo='rs'
+    json.paramsBack={}
+    json.paramsBack=jsonExt.paramsBack
+    json.paramsBack.tipo='rs'
+    json.paramsBack.n=json.params.n
+
+    let cNom=json.params.n
+    let nFileName=(apps.jsonsFolder+'/'+cNom+'.json').replace(/ /g,'_')
+    log.ls('nFileName: '+nFileName, 0, log.width)
+    let e=unik.fileExist(nFileName)
+    if(e){
+        log.l('Existe')
+        loadJson(nFileName)
+    }else{
+        log.l('No Existe')
+        unik.setFile(nFileName, JSON.stringify(json))
+        xEditor.visible=true
+        loadJson(nFileName)
+    }
+}
 function loadRs(date){
     /*let cd=date
     cd = cd.setFullYear(date.getFullYear())
@@ -739,6 +791,7 @@ function loadRs(date){
     let ad=getADate(nDate)
     //log.ls('nDate:'+ad.toString(), 0, 500)
     setTitleDataTo1()
+    xDataStatusBar.currentIndex=1
     loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
 }
 function runJsonTemp(){

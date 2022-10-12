@@ -180,7 +180,7 @@ Rectangle {
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
                     JS.loadJson(fileName)
-                    r.state='hide'
+                    //r.state='hide'
                 }
             }
             Column{
