@@ -14,6 +14,7 @@ Rectangle{
     anchors.topMargin: app.fs*0.1
     anchors.right: parent.right
     anchors.rightMargin: app.fs*0.1//spacing
+    visible: !isBack?(lv.count>0):(lv.count>0&&app.ev)
     property alias itemCap: iCap
     property var aPorcs: [0.0, 0.0,0.0,0.0]
     //property int spacing: apps.elementsFs.fs*0.1
@@ -43,7 +44,7 @@ Rectangle{
                 width: xItemNums.width
                 height: xItemNums.height//apps.elementsFs*0.35
                 color: apps.fontColor
-                visible: app.ev && !r.isBack
+                visible: app.ev// && !r.isBack
                 anchors.right: parent.right
                 ZoolText{
                     text: !r.isBack?'<b>Interior</b>':'<b>Exterior</b>'
@@ -78,9 +79,9 @@ Rectangle{
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        ncv.currentDate=app.currentDate
-                        ncv.setCurrentDate(app.currentDate)
-                        ncv.setCurrentNombre(app.currentNom)
+                        ncv.currentDate=!r.isBack?app.currentDate:app.currentDateBack
+                        ncv.setCurrentDate(!r.isBack?app.currentDate:app.currentDateBack)
+                        ncv.setCurrentNombre(!r.isBack?app.currentNom:app.currentNomBack)
                         ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
                         ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
                         sv.currentIndex=5
@@ -238,7 +239,7 @@ Rectangle{
         let af=[parseFloat(rFuego).toFixed(1), parseFloat(rTierra).toFixed(1), parseFloat(rAire).toFixed(1), parseFloat(rAgua).toFixed(1)]
         //console.log('vi:'+v1.toString())
         updateListModel(af, v1, v2, v3, v4)
-        let d = JS.getNums(app.currentFecha)
+        let d = !r.isBack?JS.getNums(app.currentFecha):JS.getNums(app.currentFechaBack)
         xItemNums.nd=d[0]
         xItemNums.ns=d[1]
         xItemNums.ag=parseInt(d[2])

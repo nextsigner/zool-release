@@ -708,6 +708,7 @@ ZoolMainWindow{
                         isBack: true
                         anchors.right: parent.right
                         anchors.top: panelElements.bottom
+                        anchors.topMargin: app.fs*0.1
                     }
                     //ZoolElementsBack{id: panelElementsBack}
                 }

@@ -39,6 +39,7 @@ Rectangle {
             onClicked: {
                 if (mouse.modifiers & Qt.ControlModifier) {
                     apps.showAspCircleBack=!apps.showAspCircleBack
+                    //if(app.dev)log.ls('apps.showAspCircleBack:'+apps.showAspCircleBack, 0, log.width)
                     return
                 }
                 apps.showAspPanelBack=!apps.showAspPanelBack

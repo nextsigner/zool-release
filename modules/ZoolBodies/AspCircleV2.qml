@@ -172,7 +172,8 @@ Rectangle {
             r.aAspStr1.push(s)
         }
         if(isBack && r.aAspStr2.indexOf(s)<0){
-            let comp=Qt.createComponent("./comps/AspShapeLine.qml")
+            //let comp=Qt.createComponent("./comps/AspShapeLine.qml")
+            let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
             let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
             r.aAspStr2.push(s)
         }

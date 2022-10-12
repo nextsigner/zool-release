@@ -793,16 +793,22 @@ function runJsonTempBack(){
         return
     }
 
-    let nom=jsonData.paramsBack.n.replace(/_/g, ' ')
-    let vd=jsonData.paramsBack.d
-    let vm=jsonData.paramsBack.m
-    let va=jsonData.paramsBack.a
-    let vh=jsonData.paramsBack.h
-    let vmin=jsonData.paramsBack.min
+    let params
+    if(jsonData.paramsBack){
+        params=jsonData.paramsBack
+    }else{
+        params=jsonData.params
+    }
+    let nom=params.n.replace(/_/g, ' ')
+    let vd=params.d
+    let vm=params.m
+    let va=params.a
+    let vh=params.h
+    let vmin=params.min
     let vgmt=app.currentGmt
-    let vlon=jsonData.paramsBack.lon
-    let vlat=jsonData.paramsBack.lat
-    let vCiudad=jsonData.paramsBack.ciudad.replace(/_/g, ' ')
+    let vlon=params.lon
+    let vlat=params.lat
+    let vCiudad=params.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -813,7 +819,7 @@ function runJsonTempBack(){
 
     app.currentFechaBack=vd+'/'+vm+'/'+va
     //xDataBar.state='show'
-    sweg.loadBack(jsonData, jsonData.paramsBack.tipo)
+    sweg.loadBack(jsonData, params.tipo)
     //app.currentDateBack=new Date(vd, vm, va, vh, vmin)
     //swegz.sweg.load(jsonData)
 }
