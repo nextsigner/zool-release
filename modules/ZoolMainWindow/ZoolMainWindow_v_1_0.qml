@@ -594,34 +594,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+r'
         onActivated: {
-            if(app.currentPlanetIndex>=0&&app.currentXAs){
-                if(app.currentPlanetIndex===16||app.currentPlanetIndex===15){
-                    if(app.currentPlanetIndex===16){
-                        app.currentXAs.saveZoomAndPos('mc')
-                    }
-                    if(app.currentPlanetIndex===15){
-                        app.currentXAs.saveZoomAndPos('asc')
-                    }
-                }else{
-                    app.currentXAs.saveZoomAndPos()
-                }
-                Cap.captureSweg()
-                return
-            }
-            if(app.currentPlanetIndexBack>=0&&app.currentXAsBack){
-                if(app.currentPlanetIndexBack===16||app.currentPlanetIndexBack===15){
-                    if(app.currentPlanetIndexBack===16){
-                        app.currentXAs.saveZoomAndPos('mcBack')
-                    }
-                    if(app.currentPlanetIndexBack===15){
-                        app.currentXAsBack.saveZoomAndPos('ascBack')
-                    }
-                }else{
-                    app.currentXAsBack.saveZoomAndPos()
-                }
-                Cap.captureSweg()
-                return
-            }            
+            app.j.saveZoomAndPos()
         }
     }
     //Restaurar xAs Pointer rotation

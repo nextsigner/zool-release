@@ -82,4 +82,8 @@ Menu {
             apps.anColorXAs=!apps.anColorXAs
         }
     }
+    Action {text: qsTr("Grabar Posición"); onTriggered: {
+            app.j.saveZoomAndPos()
+        }
+    }
 }

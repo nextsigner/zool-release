@@ -20,7 +20,7 @@ import ZoolText 1.0
 import ZoolDataBar 3.1
 import ZoolDataText 1.0
 import ZoolLogView 1.0
-import ZoolBodies 1.2
+import ZoolBodies 1.3
 import ZoolBodiesGuiTools 1.0
 import ZoolFileManager 1.1
 import ZoolFileLoader 1.0

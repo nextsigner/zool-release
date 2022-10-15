@@ -35,6 +35,7 @@ Item{
     property int uRot: 0
 
     property bool isZoomAndPosSeted: false
+    property alias objOointerPlanet: pointerPlanet
 
     state: sweg.state
     states: [
@@ -114,6 +115,11 @@ Item{
             iconoSignRot: img.rotation
             p: r.numAstro
             opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.tipo!=='pron'
+            onPointerRotChanged: {
+                r.uRot=pointerRot
+                //saveRot()
+                //setRot()
+            }
         }
         MouseArea{
             id: maSig
@@ -317,6 +323,10 @@ Item{
             json[app.stringRes+'zoompos']={}
         }
         json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
+        if(app.dev){
+            //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
+            log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
+        }
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
@@ -324,7 +334,12 @@ Item{
         let njson=JSON.stringify(json)
         app.fileData=njson
         app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
+        let jsonFilePath=apps.url.replace('file://', '')
+        if(app.dev){
+            //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
+            log.ls('jsonFilePath: '+jsonFilePath, 0, log.width)
+        }
+        unik.setFile(jsonFilePath, JSON.stringify(json))
     }
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)
