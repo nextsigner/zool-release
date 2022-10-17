@@ -442,7 +442,7 @@ Rectangle {
         unik.setFile('/home/ns/nsp/uda/nextsigner.github.io/sabianos/'+nom+'.html', htmlFinal)
     }
     function setJsonZoom(numSign, numDegree, numItem, zoom){
-        let jsonFile='./sabianosJsonZoom.json'
+        let jsonFile='../../modules/ZoolSabianos/sabianosJsonZoom.json'
         let existe=unik.fileExist(jsonFile)
         let jsonString=''
         let newJsonString=''

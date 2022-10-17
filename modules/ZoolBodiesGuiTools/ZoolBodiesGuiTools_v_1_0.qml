@@ -108,22 +108,22 @@ Rectangle {
         Row{
             spacing: app.fs*0.25
             anchors.right: parent.right
-            ButtonIcon{
-                text:  '<b>AU</b>'
-                width: apps.botSize
-                height: width
-                visible: false
-                onClicked: {
-                    tAutoMatic.running=!tAutoMatic.running
-                }
-                Text{
-                    text:'\uf06e'
-                    font.pixelSize: parent.width*0.35
-                    anchors.right:parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    visible: tAutoMatic.running
-                }
-            }
+//            ButtonIcon{
+//                text:  '<b>AU</b>'
+//                width: apps.botSize
+//                height: width
+//                visible: false
+//                onClicked: {
+//                    tAutoMatic.running=!tAutoMatic.running
+//                }
+//                Text{
+//                    text:'\uf06e'
+//                    font.pixelSize: parent.width*0.35
+//                    anchors.right:parent.right
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    visible: tAutoMatic.running
+//                }
+//            }
             ButtonIcon{
                 text:  '<b>A</b>'
                 width: apps.botSize

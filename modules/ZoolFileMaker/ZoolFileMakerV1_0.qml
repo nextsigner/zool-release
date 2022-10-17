@@ -32,17 +32,6 @@ Rectangle {
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
     }
 
-    Timer{
-        id: tF
-        running: svIndex===itemIndex
-        repeat: false
-        interval: 1500
-        onTriggered: {
-            tiNombre.t.selectAll()
-            tiNombre.t.focus=true
-        }
-    }
-    Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Settings{
         id: settings
         fileName: 'zoolFileMaker.cfg'
@@ -548,5 +537,9 @@ Rectangle {
         if(controlTimeFecha.focus){
             controlTimeFecha.toDown()
         }
+    }
+    function setInitFocus(){
+        tiNombre.t.selectAll()
+        tiNombre.t.focus=true
     }
 }

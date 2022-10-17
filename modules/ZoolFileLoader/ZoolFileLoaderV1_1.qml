@@ -33,16 +33,6 @@ Rectangle {
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
     }
-    Timer{
-        id: tF
-        running: r.visible
-        repeat: false
-        interval: 1500
-        onTriggered: {
-            txtDataSearch.focus=true
-            txtDataSearch.selectAll()
-        }
-    }
     FolderListModel{
         id: flm
         folder: 'file:'+apps.jsonsFolder
@@ -289,7 +279,12 @@ Rectangle {
             let jsonFileName=fn
             //console.log('FileName: '+jsonFileName)
 
-            let jsonFileData=unik.getFile(jsonFileName)
+            let jsonFileData
+            if(unik.fileExist(jsonFileName)){
+                jsonFileData=unik.getFile(jsonFileName)
+            }else{
+                continue
+            }
             jsonFileData=jsonFileData.replace(/\n/g, '')
             //console.log(jsonFileData)
             if(jsonFileData.indexOf(':NaN,')>=0)continue
@@ -368,8 +363,9 @@ Rectangle {
                 if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()
             } catch (e) {
-                console.log('Error Json panelFileLoader: '+jsonFileData)
-                return false;
+                console.log('Error Json panelFileLoader: ['+file+'] '+jsonFileData)
+                continue
+                //return false;
             }
         }
     }
@@ -377,5 +373,9 @@ Rectangle {
         JS.loadJson(r.currentFile)
         r.currentIndex=-1
         //r.state='hide'
+    }
+    function setInitFocus(){
+        txtDataSearch.focus=true
+        txtDataSearch.selectAll()
     }
 }

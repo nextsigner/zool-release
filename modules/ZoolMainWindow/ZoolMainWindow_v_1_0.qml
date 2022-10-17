@@ -243,6 +243,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Tab'
         onActivated: {
+
             if(apps.zFocus==='xLatIzq'){apps.zFocus='xMed';return;}
             if(apps.zFocus==='xMed'){apps.zFocus='xLatDer';return;}
             if(apps.zFocus==='xLatDer'){apps.zFocus='xLatIzq';return;}
@@ -252,6 +253,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(!xApp.focus){
+                xApp.focus=true
+                return
+            }
             if(app.objInFullWin){
                 app.objInFullWin.escaped()
                 return

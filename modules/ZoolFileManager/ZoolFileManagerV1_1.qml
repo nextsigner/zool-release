@@ -27,13 +27,13 @@ Rectangle {
     property alias tiC: zoolFileMaker.tiC
 
 
-    property real lat:-100.00
-    property real lon:-100.00
+//    property real lat:-100.00
+//    property real lon:-100.00
 
-    property real ulat:-100.00
-    property real ulon:-100.00
+//    property real ulat:-100.00
+//    property real ulon:-100.00
 
-    property string uFileNameLoaded: ''
+//    property string uFileNameLoaded: ''
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
     visible: itemIndex===sv.currentIndex
@@ -46,12 +46,11 @@ Rectangle {
     }
     Timer{
         id: tF
-        running: svIndex===itemIndex
+        running: svIndex===itemIndex && apps.zFocus==='xLatIzq'
         repeat: false
         interval: 1500
         onTriggered: {
-            tiNombre.t.selectAll()
-            tiNombre.t.focus=true
+            r.panelActive.setInitFocus()
         }
     }
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}

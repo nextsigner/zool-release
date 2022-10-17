@@ -667,8 +667,8 @@ Item {
         }
         r.txtInfo=txt
         let m0=r.txtInfo.split('<!--break-->')
-        r.txtInfoC1=m0[0]
-        r.txtInfoC2=m0[1]
+        if(r.txtInfoC1&&m0[0])r.txtInfoC1=m0[0]
+        if(r.txtInfoC2&&m0[1])r.txtInfoC2=m0[1]
         //console.log(txt)
     }
     function setBg(posSol){

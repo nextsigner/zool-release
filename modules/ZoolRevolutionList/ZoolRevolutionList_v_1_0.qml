@@ -406,7 +406,7 @@ Rectangle {
     function clear(){
         r.edadMaxima=-1
         lm.clear()
-        r.state='hide'
+        //r.state='hide'
     }
     function loadJson(json){
         lm.clear()
