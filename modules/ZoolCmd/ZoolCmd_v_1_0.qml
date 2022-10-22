@@ -144,8 +144,8 @@ Rectangle {
 
         if(comando[0]==='eclipse'){
             if(comando.length<5)return
-            c='//log.l(logData)
-//log.visible=true
+            c='log.l(logData)
+log.visible=true
 
 let json=JSON.parse(logData)
 r.state="hide"

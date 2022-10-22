@@ -15,33 +15,34 @@ Item {
     property int fs: app.fs
     property color textBackgroundColor: 'transparent'
     property int padding:  0
-    property int borderWidth: 0
+    property int borderWidth: 1
     property color borderColor: 'red'
-    property real borderRadius: 0.0
-    property alias textFormat: txt.textFormat
+    property real borderRadius: 10.0
     property alias horizontalAlignment: txt.horizontalAlignment
     property alias verticalAlignment: txt.verticalAlignment
+    signal enterPressed
     width: xText.width//txt.contentWidth
     height: xText.height
     Rectangle{
         id: xText
-        width: txt.contentWidth+r.padding*2+r.borderWidth*2//txt.width
+        width: r.parent.width-r.padding*2-r.borderWidth*2
         height: txt.contentHeight+r.padding*2+r.borderWidth*2//r.fs*1.2
         color: r.textBackgroundColor
         border.width: r.borderWidth
         border.color: r.borderColor
         radius: r.borderRadius
         anchors.centerIn: r
-        Text {
+        TextInput{
             id: txt
             font.pixelSize: r.fs
             color: 'white'
-            width: contentWidth
-            textFormat: Text.RichText
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            width: parent.width
+            wrapMode: TextInput.WordWrap
+            horizontalAlignment: TextInput.Ali.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
+            Keys.onReturnPressed: r.returnPressed
+            Keys.onEnterPressed:  r.returnPressed
         }
     }
 }
