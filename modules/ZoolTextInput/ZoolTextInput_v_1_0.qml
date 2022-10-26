@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "../"
 
+import ZoolText 1.0
+
 Item {
     id: r
     property alias text: txt.text
@@ -20,9 +22,11 @@ Item {
     property real borderRadius: 10.0
     property alias horizontalAlignment: txt.horizontalAlignment
     property alias verticalAlignment: txt.verticalAlignment
+    property string labelText: ''
+    property bool labelInTop: true
     signal enterPressed
     width: xText.width//txt.contentWidth
-    height: xText.height
+    height: !r.labelInTop?xText.height:xText.height+labelInTop.contentHeigt
     Rectangle{
         id: xText
         width: r.parent.width-r.padding*2-r.borderWidth*2
@@ -44,5 +48,15 @@ Item {
             Keys.onReturnPressed: r.returnPressed
             Keys.onEnterPressed:  r.returnPressed
         }
+    }
+    ZoolText {
+        id: labelTopTextInput
+        text: r.labelText
+        width: r.width
+        //t.wrapMode:
+        font.pixelSize: app.fs*0.5
+        color: 'white'
+        anchors.bottom: xText.top
+        visible: labelInTop
     }
 }

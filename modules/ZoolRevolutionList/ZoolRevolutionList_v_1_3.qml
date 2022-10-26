@@ -96,10 +96,10 @@ Rectangle {
                 Column{
                     id: col
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: app.fs
+                    spacing: app.fs*2
                     visible: checkBoxRetSolar.checked
                     ZoolText{
-                        text: '<b>¿Donde se esperará el retorno solar?</b>'
+                        text: '<b>¿Donde se esperará el retorno solar?</b>'//+height
                         //text: '¿Donde se esperará el retorno solar?'
                         t.width: xRetSolar.width*0.8
                         font.pixelSize: app.fs*0.65
@@ -112,18 +112,17 @@ Rectangle {
                         id: tiCiudad
                         width: xRetSolar.width-app.fs
                         t.font.pixelSize: app.fs*0.65;
+                        labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
+
                         KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                        t.maximumLength: 50
+                        t.maximumLength: 70
+                        borderWidth: 2
+                        borderColor: apps.fontColor
+                        borderRadius: app.fs*0.1
                         anchors.horizontalCenter: parent.horizontalCenter
                         onTextChanged: {
                             //tSearch.restart()
                             t.color='white'
-                        }
-                        Text {
-                            text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            anchors.bottom: parent.top
                         }
                     }
                     ZoolButton{

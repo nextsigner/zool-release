@@ -470,9 +470,16 @@ Item {
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        let params
+        let params        
         if(t==='sin'){
             params=j.params
+        }else if(t==='trans'){
+            if(j.paramsBack){
+                params=j.paramsBack
+            }else{
+                params=j.params
+            }
+
         }else{
             params=j.paramsBack
         }

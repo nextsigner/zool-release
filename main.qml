@@ -22,7 +22,7 @@ import ZoolDataText 1.0
 import ZoolLogView 1.0
 import ZoolBodies 1.3
 import ZoolBodiesGuiTools 1.0
-import ZoolFileManager 1.1
+import ZoolFileManager 1.2
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.0

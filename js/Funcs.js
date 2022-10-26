@@ -679,24 +679,31 @@ function loadJsonFromParamsBack(json){
 
     //apps.urlBack=file
     app.fileDataBack=JSON.stringify(json)
+    if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
     //app.currentJsonBack=app.fileDataBack
     let jsonData=json
-    if(jsonData.params.tipo){
-        app.mod=jsonData.params.tipo
+    let params
+    if(jsonData.paramsBack){
+        params=jsonData.paramsBack
+    }else{
+        params=jsonData.params
+    }
+    if(params.tipo){
+        app.mod=params.tipo
     }else{
         app.mod='vn'
     }
-    sweg.loadBack(jsonData, jsonData.params.tipo)
-    let nom=jsonData.params.n.replace(/_/g, ' ')
-    let vd=jsonData.params.d
-    let vm=jsonData.params.m
-    let va=jsonData.params.a
-    let vh=jsonData.params.h
-    let vmin=jsonData.params.min
-    let vgmt=jsonData.params.gmt
-    let vlon=jsonData.params.lon
-    let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    sweg.loadBack(jsonData, params.tipo)
+    let nom=params.n.replace(/_/g, ' ')
+    let vd=params.d
+    let vm=params.m
+    let va=params.a
+    let vh=params.h
+    let vmin=params.min
+    let vgmt=params.gmt
+    let vlon=params.lon
+    let vlat=params.lat
+    let vCiudad=params.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -833,14 +840,13 @@ function runJsonTempBack(){
     var jsonData
     try
     {
-        jsonData=JSON.parse(app.currentDataBack)
-    }
-    catch (e)
-    {
+        let jss=app.currentDataBack.replace(/\n/g, '')
+        jsonData=JSON.parse(jss)
+    }catch(e){
         console.log('Json Fallado: '+app.currentDataBack)
         if(app.dev){
-            log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, xApp.width)
-            log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
+            log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, log.width)
+            log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, log.width)
         }
         //unik.speak('Error in Json file')
         return
@@ -866,9 +872,6 @@ function runJsonTempBack(){
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
-
-
-
 
     app.currentFechaBack=vd+'/'+vm+'/'+va
     //xDataBar.state='show'
