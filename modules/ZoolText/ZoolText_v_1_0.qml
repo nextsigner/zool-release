@@ -4,6 +4,9 @@ import "../"
 
 Item {
     id: r
+    width: xText.width
+    height: xText.height
+    property alias w: txt.width
     property alias text: txt.text
     property alias t: txt
     property alias r: xText
@@ -21,8 +24,6 @@ Item {
     property alias textFormat: txt.textFormat
     property alias horizontalAlignment: txt.horizontalAlignment
     property alias verticalAlignment: txt.verticalAlignment
-    width: xText.width//txt.contentWidth
-    height: xText.height
     Rectangle{
         id: xText
         width: txt.contentWidth+r.padding*2+r.borderWidth*2//txt.width
@@ -39,7 +40,7 @@ Item {
             width: contentWidth
             textFormat: Text.RichText
             wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            //horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
         }

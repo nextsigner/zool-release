@@ -679,7 +679,7 @@ function loadJsonFromParamsBack(json){
 
     //apps.urlBack=file
     app.fileDataBack=JSON.stringify(json)
-    if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
+    //if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
     //app.currentJsonBack=app.fileDataBack
     let jsonData=json
     let params
@@ -942,8 +942,14 @@ function setNewTimeJsonFileDataBack(date){
     //console.log('json: '+JSON.stringify(jsonData))
     //console.log('json2: '+jsonData.params)
     let d = new Date(Date.now())
-    let ms=jsonData.params.ms
-    let nom=jsonData.params.n.replace(/_/g, ' ')
+    let params
+    if(jsonData.paramsBack){
+        params=jsonData.paramsBack
+    }else{
+        params=jsonData.params
+    }
+    let ms=params.ms
+    let nom=params.n.replace(/_/g, ' ')
 
     console.log('Date: '+date.toString())
     let vd=date.getDate()
@@ -953,9 +959,9 @@ function setNewTimeJsonFileDataBack(date){
     let vmin=date.getMinutes()
 
     let vgmt=app.currentGmtBack
-    let vlon=jsonData.params.lon
-    let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vlon=params.lon
+    let vlat=params.lat
+    let vCiudad=params.ciudad.replace(/_/g, ' ')
     let j='{'
     j+='"params":{'
     j+='"tipo":"'+app.mod+'",'

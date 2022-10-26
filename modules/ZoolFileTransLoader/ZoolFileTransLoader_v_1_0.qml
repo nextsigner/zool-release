@@ -5,6 +5,7 @@ import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
 import ZoolText 1.0
+import ZoolTextInput 1.0
 import ZoolButton 1.0
 
 Rectangle {
@@ -17,7 +18,6 @@ Rectangle {
 
     property alias xCfgItem: colXConfig
 
-    property alias tiN: tiNombre.t
     property alias tiC: tiCiudad.t
 
     property real lat:-100.00
@@ -26,7 +26,13 @@ Rectangle {
     property real ulat:-100.00
     property real ulon:-100.00
 
-    property string uFileNameLoaded: ''
+    property string uParamsLoaded: ''
+    Timer{
+        running: r.uParamsLoaded!==''
+        repeat: false
+        interval: 100
+        onTriggered: r.loadJsonFromArgsBack()
+    }
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
@@ -73,30 +79,12 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         ZoolText{
+            t.width:r.width-app.fs
             text: '<b>Crear Carta de Tránsitos</b>'
             font.pixelSize: app.fs*0.65
             color: 'white'
         }
 
-        Comps.XTextInput{
-            id: tiNombre
-            width: r.width-app.fs*0.5
-            t.font.pixelSize: app.fs*0.65
-            anchors.horizontalCenter: parent.horizontalCenter
-            KeyNavigation.tab: controlTimeFecha
-            t.maximumLength: 30
-            onPressed: {
-                controlTimeFecha.focus=true
-                controlTimeFecha.cFocus=0
-            }
-            Text {
-                text: 'Nombre'
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                //anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.top
-            }
-        }
         Row{
             spacing: app.fs*0.1
             anchors.horizontalCenter: parent.horizontalCenter
@@ -106,10 +94,12 @@ Rectangle {
                 KeyNavigation.tab: tiCiudad.t
                 setAppTime: false
                 onCurrentDateChanged: {
+                    updateUParams()
                     //log.l('PanelVN CurrenDate: '+currentDate.toString())
                     //log.visible=true
                     //log.x=xApp.width*0.2
                 }
+                onGmtChanged: updateUParams()
                 Text {
                     text: 'Fecha'
                     font.pixelSize: app.fs*0.5
@@ -118,22 +108,26 @@ Rectangle {
                 }
             }
         }
-        Item{width: 1;height: app.fs*0.25}
-        Comps.XTextInput{
+        ZoolTextInput{
             id: tiCiudad
-            width: tiNombre.width
+            width:r.width-app.fs*0.5
+            t.width: r.width-app.fs*0.25
             t.font.pixelSize: app.fs*0.65;
+            labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
+            borderWidth: 2
+            borderColor: apps.fontColor
+            borderRadius: app.fs*0.1
             KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
             t.maximumLength: 50
             onTextChanged: {
                 tSearch.restart()
                 t.color='white'
             }
-            Text {
-                text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                anchors.bottom: parent.top
+            Rectangle{
+                anchors.fill: parent
+                color: 'transparent'
+                border.width: 3
+                border.color: 'red'
             }
         }
         Row{
@@ -312,7 +306,7 @@ Rectangle {
                 id: botClear
                 text: 'Limpiar'
                 font.pixelSize: app.fs*0.5
-                opacity:  r.lat!==-100.00||r.lon!==-100.00||tiNombre.text!==''||tiCiudad.text!==''?1.0:0.0
+                opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
                 enabled: opacity===1.0
                 onClicked: {
                     clear()
@@ -322,8 +316,8 @@ Rectangle {
                 id: botCrear
                 text: 'Cargar'
                 font.pixelSize: app.fs*0.5
-                KeyNavigation.tab: tiNombre.t
-                visible: r.ulat!==-1&&r.ulon!==-1&&tiNombre.text!==''&&tiCiudad.text!==''
+                KeyNavigation.tab: tiCiudad.t
+                visible: r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!==''
                 onClicked: {
                     if(!settings.inputCoords){
                         searchGeoLoc(true)
@@ -332,63 +326,66 @@ Rectangle {
                         r.lon=parseFloat(tiLon.t.text)
                         r.ulat=r.lat
                         r.ulon=r.lon
-                        loadJsonFromArgsBack()
+                        updateUParams()
+                        //loadJsonFromArgsBack()
                         //setNewJsonFileData()
                     }
                 }
-                Timer{
-                    running: r.state==='show'
-                    repeat: true
-                    interval: 1000
-                    onTriggered: {
-                        let nom=tiNombre.t.text.replace(/ /g, '_')
-                        let fileName=apps.jsonsFolder+'/'+nom+'.json'
-                        if(unik.fileExist(fileName)){
-                            r.uFileNameLoaded=tiNombre.text
-                            let jsonFileData=unik.getFile(fileName)
-                            let j=JSON.parse(jsonFileData)
-                            let dia=''+j.params.d
-                            if(parseInt(dia)<=9){
-                                dia='0'+dia
-                            }
-                            let mes=''+j.params.m
-                            if(parseInt(mes)<=9){
-                                mes='0'+mes
-                            }
-                            let hora=''+j.params.h
-                            if(parseInt(hora)<=9){
-                                hora='0'+hora
-                            }
-                            let minuto=''+j.params.min
-                            if(parseInt(minuto)<=9){
-                                minuto='0'+minuto
-                            }
-                            let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-                            controlTimeFecha.currentDate=nt
-                            controlTimeFecha.gmt=j.params.gmt
-                            if(tiCiudad.text.replace(/ /g, '')===''){
-                                tiCiudad.text=j.params.ciudad
-                            }
-                            r.lat=j.params.lat
-                            r.lon=j.params.lon
-                            r.ulat=j.params.lat
-                            r.ulon=j.params.lon
-                            let vd=parseInt(tiFecha1.t.text)
-                            let vm=parseInt(tiFecha2.t.text)
-                            let vh=parseInt(tiHora1.t.text)
-                            let vmin=parseInt(tiHora2.t.text)
-                            let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-                            let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-                            if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-                                botCrear.text='Modificar'
-                            }else{
-                                botCrear.text='[Crear]'
-                            }
-                        }else{
-                            botCrear.text='Crear'
-                        }
-                    }
-                }
+
+                //                Timer{
+                //                    running: r.state==='show'
+                //                    repeat: true
+                //                    interval: 1000
+                //                    onTriggered: {
+                //                        let nom=tiNombre.t.text.replace(/ /g, '_')
+                //                        let fileName=apps.jsonsFolder+'/'+nom+'.json'
+                //                        if(unik.fileExist(fileName)){
+                //                            r.uFileNameLoaded=tiNombre.text
+                //                            let jsonFileData=unik.getFile(fileName)
+                //                            let j=JSON.parse(jsonFileData)
+                //                            let dia=''+j.params.d
+                //                            if(parseInt(dia)<=9){
+                //                                dia='0'+dia
+                //                            }
+                //                            let mes=''+j.params.m
+                //                            if(parseInt(mes)<=9){
+                //                                mes='0'+mes
+                //                            }
+                //                            let hora=''+j.params.h
+                //                            if(parseInt(hora)<=9){
+                //                                hora='0'+hora
+                //                            }
+                //                            let minuto=''+j.params.min
+                //                            if(parseInt(minuto)<=9){
+                //                                minuto='0'+minuto
+                //                            }
+                //                            let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
+                //                            controlTimeFecha.currentDate=nt
+                //                            controlTimeFecha.gmt=j.params.gmt
+                //                            if(tiCiudad.text.replace(/ /g, '')===''){
+                //                                tiCiudad.text=j.params.ciudad
+                //                            }
+                //                            r.lat=j.params.lat
+                //                            r.lon=j.params.lon
+                //                            r.ulat=j.params.lat
+                //                            r.ulon=j.params.lon
+                //                            let vd=parseInt(tiFecha1.t.text)
+                //                            let vm=parseInt(tiFecha2.t.text)
+                //                            let vh=parseInt(tiHora1.t.text)
+                //                            let vmin=parseInt(tiHora2.t.text)
+                //                            let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+                //                            let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                //                            if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                //                                botCrear.text='Modificar'
+                //                            }else{
+                //                                botCrear.text='[Crear]'
+                //                            }
+                //                        }else{
+                //                            botCrear.text='Crear'
+                //                        }
+                //                    }
+                //                }
+
             }
         }
     }
@@ -424,7 +421,7 @@ Rectangle {
         if(crear){
             c+='                r.lat=json.coords.lat\n'
             c+='                r.lon=json.coords.lon\n'
-            c+='                    loadJsonFromArgsBack()\n'
+            c+='                    updateUParams()//loadJsonFromArgsBack()\n'
             c+='                    //setNewJsonFileData()\n'
             c+='                    //r.state=\'hide\'\n'
         }else{
@@ -448,66 +445,83 @@ Rectangle {
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
-    function setNewJsonFileData(){
-        console.log('setNewJsonFileData...')
-        let unom=r.uFileNameLoaded.replace(/ /g, '_')
-        let fileName=apps.jsonsFolder+'/'+unom+'.json'
-        console.log('setNewJsonFileData() fileName: '+fileName)
-        if(unik.fileExist(fileName)){
-            //unik.deleteFile(fileName)
-        }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let nom=tiNombre.t.text.replace(/ /g, '_')
 
-        //let m0=tiFecha.t.text.split('/')
-        //if(m0.length!==3)return
-        //let vd=parseInt(tiFecha1.t.text)
-        //let vm=parseInt(tiFecha2.t.text)
-        //let va=parseInt(tiFecha3.t.text)
+    //    function setNewJsonFileData(){
+    //        console.log('setNewJsonFileData...')
+    //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
+    //        let fileName=apps.jsonsFolder+'/'+unom+'.json'
+    //        console.log('setNewJsonFileData() fileName: '+fileName)
+    //        if(unik.fileExist(fileName)){
+    //            //unik.deleteFile(fileName)
+    //        }
+    //        let d = new Date(Date.now())
+    //        let ms=d.getTime()
+    //        let nom=tiNombre.t.text.replace(/ /g, '_')
 
-        //m0=tiHora.t.text.split(':')
-        //let vh=parseInt(tiHora1.t.text)
-        //let vmin=parseInt(tiHora2.t.text)
+    //        //let m0=tiFecha.t.text.split('/')
+    //        //if(m0.length!==3)return
+    //        //let vd=parseInt(tiFecha1.t.text)
+    //        //let vm=parseInt(tiFecha2.t.text)
+    //        //let va=parseInt(tiFecha3.t.text)
 
+    //        //m0=tiHora.t.text.split(':')
+    //        //let vh=parseInt(tiHora1.t.text)
+    //        //let vmin=parseInt(tiHora2.t.text)
+
+    //        let vd=controlTimeFecha.dia
+    //        let vm=controlTimeFecha.mes
+    //        let va=controlTimeFecha.anio
+    //        let vh=controlTimeFecha.hora
+    //        let vmin=controlTimeFecha.minuto
+
+    //        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+    //        let vlon=r.lon
+    //        let vlat=r.lat
+    //        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+    //        let j='{'
+    //        j+='"paramsBack":{'
+    //        j+='"tipo":"vn",'
+    //        j+='"ms":'+ms+','
+    //        j+='"n":"'+nom+'",'
+    //        j+='"d":'+vd+','
+    //        j+='"m":'+vm+','
+    //        j+='"a":'+va+','
+    //        j+='"h":'+vh+','
+    //        j+='"min":'+vmin+','
+    //        j+='"gmt":'+vgmt+','
+    //        j+='"lat":'+vlat+','
+    //        j+='"lon":'+vlon+','
+    //        j+='"ciudad":"'+vCiudad+'"'
+    //        j+='}'
+    //        j+='}'
+    //        app.currentData=j
+    //        nom=tiNombre.t.text.replace(/ /g, '_')
+    //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
+    //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
+    //        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
+    //        //runJsonTemp()
+    //    }
+    function updateUParams(){
+        if(r.ulat===-100.00&&r.ulon===-100.00)return
         let vd=controlTimeFecha.dia
         let vm=controlTimeFecha.mes
         let va=controlTimeFecha.anio
         let vh=controlTimeFecha.hora
         let vmin=controlTimeFecha.minuto
 
+
         let vgmt=controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
-        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-        let j='{'
-        j+='"paramsBack":{'
-        j+='"tipo":"vn",'
-        j+='"ms":'+ms+','
-        j+='"n":"'+nom+'",'
-        j+='"d":'+vd+','
-        j+='"m":'+vm+','
-        j+='"a":'+va+','
-        j+='"h":'+vh+','
-        j+='"min":'+vmin+','
-        j+='"gmt":'+vgmt+','
-        j+='"lat":'+vlat+','
-        j+='"lon":'+vlon+','
-        j+='"ciudad":"'+vCiudad+'"'
-        j+='}'
-        j+='}'
-        app.currentData=j
-        nom=tiNombre.t.text.replace(/ /g, '_')
-        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
-        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
-        //runJsonTemp()
+        let vCiudad=tiCiudad.t.text
+        r.uParamsLoaded='params_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'
     }
     function loadJsonFromArgsBack(){
-        if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+        r.uParamsLoaded=''
         let d = new Date(Date.now())
         let ms=d.getTime()
-        let nom=tiNombre.t.text.replace(/ /g, '_')
+
 
         let vd=controlTimeFecha.dia
         let vm=controlTimeFecha.mes
@@ -515,10 +529,14 @@ Rectangle {
         let vh=controlTimeFecha.hora
         let vmin=controlTimeFecha.minuto
 
+
         let vgmt=controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
         let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+
+        let nom='Tránsito '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm+' GMT.'+vgmt+' '+tiCiudad.text
+
         let j='{'
         j+='"paramsBack":{'
         j+='"tipo":"trans",'
@@ -536,10 +554,7 @@ Rectangle {
         j+='}'
         j+='}'
         app.currentDataBack=j
-        if(app.dev){
-            log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
-        }
-        nom=tiNombre.t.text.replace(/ /g, '_')
+        //if(app.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
         app.j.loadJsonFromParamsBack(JSON.parse(app.currentDataBack))
     }
     function enter(){
@@ -583,4 +598,5 @@ Rectangle {
         tiNombre.t.selectAll()
         tiNombre.t.focus=true
     }
+
 }

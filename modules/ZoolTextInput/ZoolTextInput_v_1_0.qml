@@ -26,7 +26,7 @@ Item {
     property bool labelInTop: true
     signal enterPressed
     width: xText.width//txt.contentWidth
-    height: !r.labelInTop?xText.height:xText.height+labelInTop.contentHeigt
+    height: !r.labelInTop?xText.height:xText.height+labelTopTextInput.contentHeight
     Rectangle{
         id: xText
         width: r.parent.width-r.padding*2-r.borderWidth*2
@@ -52,8 +52,8 @@ Item {
     ZoolText {
         id: labelTopTextInput
         text: r.labelText
-        width: r.width
-        //t.wrapMode:
+        width: xText.width
+        w: xText.width
         font.pixelSize: app.fs*0.5
         color: 'white'
         anchors.bottom: xText.top
