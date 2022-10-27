@@ -7,6 +7,7 @@ import "../../js/Funcs.js" as JS
 import ZoolText 1.0
 import ZoolTextInput 1.0
 import ZoolButton 1.0
+import ZoolControlsTime 1.0
 
 Rectangle {
     id: r
@@ -88,18 +89,23 @@ Rectangle {
         Row{
             spacing: app.fs*0.1
             anchors.horizontalCenter: parent.horizontalCenter
-            Comps.ControlsTime{
+            ZoolControlsTime{
                 id: controlTimeFecha
                 gmt: 0
                 KeyNavigation.tab: tiCiudad.t
                 setAppTime: false
+                enableGMT:false
                 onCurrentDateChanged: {
-                    updateUParams()
-                    //log.l('PanelVN CurrenDate: '+currentDate.toString())
-                    //log.visible=true
-                    //log.x=xApp.width*0.2
+                    sweg.enableLoadBack=false
+                    tUpdateParams.restart()
                 }
-                onGmtChanged: updateUParams()
+                Timer{
+                    id: tUpdateParams
+                    running: false
+                    repeat: false
+                    interval: 1500
+                    onTriggered: updateUParams()
+                }
                 Text {
                     text: 'Fecha'
                     font.pixelSize: app.fs*0.5
@@ -503,6 +509,10 @@ Rectangle {
     //    }
     function updateUParams(){
         if(r.ulat===-100.00&&r.ulon===-100.00)return
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
+        sweg.enableLoadBack=true
         let vd=controlTimeFecha.dia
         let vm=controlTimeFecha.mes
         let va=controlTimeFecha.anio
@@ -515,6 +525,7 @@ Rectangle {
         let vlat=r.lat
         let vCiudad=tiCiudad.t.text
         r.uParamsLoaded='params_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'
+
     }
     function loadJsonFromArgsBack(){
         //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)

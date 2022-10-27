@@ -76,6 +76,15 @@ Rectangle{
         r.width=w
         r.x=x
     }
+    function lv(d){
+        r.visible=true
+        ls(d, r.x, r.width)
+    }
+    function lvc(d){
+        clear()
+        r.visible=true
+        ls(d, r.x, r.width)
+    }
     function clear(){
         taLog.clear()
     }

@@ -56,6 +56,9 @@ Item {
 
     property var jsonStandByForBack
 
+    property bool enableLoad: true
+    property bool enableLoadBack: true
+
     state: apps.swegMod//aStates[0]
     states: [
         State {//PS
@@ -447,6 +450,7 @@ Item {
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
+        c+='        if(!r.enableLoad)return\n'
         c+='        let json=(\'\'+logData)\n'
         c+='        //console.log(\'JSON: \'+json)\n'
         c+='        loadSweJson(json)\n'
@@ -501,6 +505,7 @@ Item {
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
+        c+='        if(!r.enableLoadBack)return\n'
         c+='        let json=(\'\'+logData)\n'
         c+='        //console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
@@ -624,6 +629,9 @@ Item {
     function loadSweJsonBack(json){
         //console.log('JSON::: '+json)
         app.currentJsonBack=JSON.parse(json)
+//        if(app.dev)
+//            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
+//            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
         let scorrJson=json.replace(/\n/g, '')
         //console.log('json: '+json)
         let j=JSON.parse(scorrJson)
