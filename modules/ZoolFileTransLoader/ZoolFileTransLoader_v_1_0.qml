@@ -80,18 +80,47 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         ZoolText{
-            t.width:r.width-app.fs
+            //t.width:r.width-app.fs
             text: '<b>Crear Carta de Tránsitos</b>'
             font.pixelSize: app.fs*0.65
             color: 'white'
         }
+        Row{
+            spacing: app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            ZoolText{
+                id: labelCbHSys
+                text: 'Sistema de Casas:'
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            ComboBox{
+                id: cbHsys
+                width: r.width-app.fs-labelCbHSys.width-parent.spacing
+                height: app.fs*0.75
+                font.pixelSize: app.fs*0.5
+                model: app.ahysNames
+                currentIndex: app.ahys.indexOf(apps.currentHsys)
+                anchors.verticalCenter: parent.verticalCenter
+                onCurrentIndexChanged: {
+                    if(currentIndex===app.ahys.indexOf(apps.currentHsys))return
+                    apps.currentHsys=app.ahys[currentIndex]
+                    updateUParams()
+                    //JS.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
+                    //sweg.load(JSON.parse(app.currentData))
+                    //JS.loadJson(apps.url)
+                }
+            }
 
+        }
         Row{
             spacing: app.fs*0.1
             anchors.horizontalCenter: parent.horizontalCenter
             ZoolControlsTime{
                 id: controlTimeFecha
                 gmt: 0
+                labelText: 'Momento de tránsitos'
                 KeyNavigation.tab: tiCiudad.t
                 setAppTime: false
                 enableGMT:false
@@ -106,11 +135,15 @@ Rectangle {
                     interval: 1500
                     onTriggered: updateUParams()
                 }
-                Text {
-                    text: 'Fecha'
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    anchors.bottom: parent.top
+            }
+        }
+        Row{
+            spacing: app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            ZoolButton{
+                text: 'Ahora'
+                onClicked:{
+                    controlTimeFecha.currentDate=new Date(Date.now())
                 }
             }
         }
@@ -128,12 +161,6 @@ Rectangle {
             onTextChanged: {
                 tSearch.restart()
                 t.color='white'
-            }
-            Rectangle{
-                anchors.fill: parent
-                color: 'transparent'
-                border.width: 3
-                border.color: 'red'
             }
         }
         Row{
@@ -524,7 +551,7 @@ Rectangle {
         let vlon=r.lon
         let vlat=r.lat
         let vCiudad=tiCiudad.t.text
-        r.uParamsLoaded='params_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'
+        r.uParamsLoaded='params_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
 
     }
     function loadJsonFromArgsBack(){

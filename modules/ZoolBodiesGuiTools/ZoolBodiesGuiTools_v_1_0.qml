@@ -461,6 +461,7 @@ Rectangle {
                 id: cbHsys
                 width: app.fs*4
                 height: app.fs*0.75
+                font.pixelSize: app.fs*0.5
                 model: app.ahysNames
                 currentIndex: app.ahys.indexOf(apps.currentHsys)
                 //anchors.bottom: parent.bottom

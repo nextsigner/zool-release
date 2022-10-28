@@ -6,7 +6,7 @@ Item {
     id: r
     width: xText.width
     height: xText.height
-    property alias w: txt.width
+    property int w//: txt.width
     property alias text: txt.text
     property alias t: txt
     property alias r: xText
@@ -37,9 +37,9 @@ Item {
             id: txt
             font.pixelSize: r.fs
             color: 'white'
-            width: contentWidth
+            width: !r.w?contentWidth:r.w
             textFormat: Text.RichText
-            wrapMode: Text.WordWrap
+            wrapMode: !r.w?Text.NoWrap:Text.WordWrap
             //horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent

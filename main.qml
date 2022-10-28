@@ -706,6 +706,7 @@ ZoolMainWindow{
                     ZoolElements{
                         id: panelElementsBack
                         isBack: true
+                        width: panelElements.width
                         anchors.right: parent.right
                         anchors.top: panelElements.bottom
                         anchors.topMargin: app.fs*0.1
