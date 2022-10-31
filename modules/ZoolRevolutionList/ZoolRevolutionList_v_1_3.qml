@@ -96,12 +96,13 @@ Rectangle {
                 Column{
                     id: col
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: app.fs*2
+                    spacing: app.fs*0.25
                     visible: checkBoxRetSolar.checked
                     ZoolText{
                         text: '<b>¿Donde se esperará el retorno solar?</b>'//+height
                         //text: '¿Donde se esperará el retorno solar?'
-                        t.width: xRetSolar.width*0.8
+                        //t.width: xRetSolar.width*0.8
+                        width: r.width-app.fs
                         font.pixelSize: app.fs*0.65
                         color: apps.fontColor
                         borderWidth:1
@@ -123,6 +124,23 @@ Rectangle {
                         onTextChanged: {
                             //tSearch.restart()
                             t.color='white'
+                        }
+                    }
+                    ZoolTextInput{
+                        id: tiGMT
+                        width: app.fs*3
+                        t.font.pixelSize: app.fs*0.65;
+                        labelText: 'GMT'
+
+                        //KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                        t.maximumLength: 4
+                        borderWidth: 2
+                        borderColor: apps.fontColor
+                        borderRadius: app.fs*0.1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onTextChanged: {
+                            //tSearch.restart()
+                            //t.color='white'
                         }
                     }
                     ZoolButton{
@@ -629,7 +647,13 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
-                onDoubleClicked: itemRS.loadRs()
+                onDoubleClicked: {
+                    if(!checkBoxRetSolar.checked){
+                        itemRS.loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
+                    }else{
+                        itemRS.loadRs(0, r.ulat, r.ulon, parseInt(tiGMT.text))
+                    }
+                }
             }
             Rectangle{
                 id: bg
@@ -750,8 +774,8 @@ Rectangle {
                     }
                 }
             }
-            function loadRs(){
-                JS.loadRs(itemRS.rsDate)
+            function loadRs(gmt, lat, lon, alt){
+                JS.loadRs(itemRS.rsDate, gmt, lat, lon, alt)
             }
             Component.onCompleted: {
                 let j=JSON.parse(json)
@@ -795,7 +819,12 @@ Rectangle {
         let cd3= new Date(app.currentDate)
         //let hsys=apps.currentHsys
         let finalCmd=''
-            +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+        //finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+        if(!checkBoxRetSolar.checked){
+            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+        }else{
+            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+        }
         let c=''
             +'  if(logData.length<=3||logData==="")return\n'
             +'  let j\n'

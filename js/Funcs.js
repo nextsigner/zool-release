@@ -152,6 +152,11 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
         xDataStatusBar.currentIndex=1
         setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
     }
+    if(tipo==='trans'){
+        xDataBar.stringMiddleSeparator='Tránsitos'
+        xDataStatusBar.currentIndex=1
+        //setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
+    }
 
     if(save){
         let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
@@ -776,7 +781,7 @@ function mkRsFile(file){
         loadJson(nFileName)
     }
 }
-function loadRs(date){
+function loadRs(date, gmt, lat, lon, alt){
     /*let cd=date
     cd = cd.setFullYear(date.getFullYear())
     let cd2=new Date(cd)
@@ -799,7 +804,8 @@ function loadRs(date){
     //log.ls('nDate:'+ad.toString(), 0, 500)
     setTitleDataTo1()
     xDataStatusBar.currentIndex=1
-    loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
+    //loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
+    loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, lat, lon, alt, app.currentNom, app.currentLugar, 'rs', false)
 }
 function runJsonTemp(){
     var jsonData
