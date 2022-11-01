@@ -24,12 +24,13 @@ Item {
     property alias verticalAlignment: txt.verticalAlignment
     property string labelText: ''
     property bool labelInTop: true
+    property int w
     signal enterPressed
     width: xText.width//txt.contentWidth
     height: !r.labelInTop?xText.height:xText.height+labelTopTextInput.contentHeight
     Rectangle{
         id: xText
-        width: r.parent.width-r.padding*2-r.borderWidth*2
+        width: !r.w?r.parent.width-r.padding*2-r.borderWidth*2:r.w-r.padding*2-r.borderWidth*2
         height: txt.contentHeight+r.padding*2+r.borderWidth*2//r.fs*1.2
         color: r.textBackgroundColor
         border.width: r.borderWidth

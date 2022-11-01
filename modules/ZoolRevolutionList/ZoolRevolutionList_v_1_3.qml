@@ -96,17 +96,13 @@ Rectangle {
                 Column{
                     id: col
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: app.fs*0.25
+                    spacing: app.fs
                     visible: checkBoxRetSolar.checked
                     ZoolText{
                         text: '<b>¿Donde se esperará el retorno solar?</b>'//+height
-                        //text: '¿Donde se esperará el retorno solar?'
-                        //t.width: xRetSolar.width*0.8
-                        width: r.width-app.fs
+                        w: r.width-app.fs
                         font.pixelSize: app.fs*0.65
                         color: apps.fontColor
-                        borderWidth:1
-                        //border
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                     ZoolTextInput{
@@ -126,28 +122,32 @@ Rectangle {
                             t.color='white'
                         }
                     }
-                    ZoolTextInput{
-                        id: tiGMT
-                        width: app.fs*3
-                        t.font.pixelSize: app.fs*0.65;
-                        labelText: 'GMT'
+                    Row{
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: app.fs*0.5
+                        ZoolTextInput{
+                            id: tiGMT
+                            w: app.fs*2
+                            t.font.pixelSize: app.fs*0.65;
+                            labelText: 'GMT'
 
-                        //KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                        t.maximumLength: 4
-                        borderWidth: 2
-                        borderColor: apps.fontColor
-                        borderRadius: app.fs*0.1
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onTextChanged: {
-                            //tSearch.restart()
-                            //t.color='white'
+                            //KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                            t.maximumLength: 4
+                            borderWidth: 2
+                            borderColor: apps.fontColor
+                            borderRadius: app.fs*0.1
+                            anchors.verticalCenter: parent.verticalCenter
+                            onTextChanged: {
+                                //tSearch.restart()
+                                //t.color='white'
+                            }
                         }
-                    }
-                    ZoolButton{
-                        text: 'Buscar Coordenadas'
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        visible:!checkBoxInsertarCoordMan.checked
-                        onClicked: searchGeoLoc(false)
+                        ZoolButton{
+                            text: 'Buscar Coordenadas'
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible:!checkBoxInsertarCoordMan.checked
+                            onClicked: searchGeoLoc(false)
+                        }
                     }
                     Row{
                         spacing: app.fs*0.5
@@ -350,59 +350,59 @@ Rectangle {
                                 }
                             }
 
-//                            Timer{
-//                                running: r.state==='show'
-//                                repeat: true
-//                                interval: 1000
-//                                onTriggered: {
-//                                    let nom=tiNombre.t.text.replace(/ /g, '_')
-//                                    let fileName=apps.jsonsFolder+'/'+nom+'.json'
-//                                    if(unik.fileExist(fileName)){
-//                                        r.uFileNameLoaded=tiNombre.text
-//                                        let jsonFileData=unik.getFile(fileName)
-//                                        let j=JSON.parse(jsonFileData)
-//                                        let dia=''+j.params.d
-//                                        if(parseInt(dia)<=9){
-//                                            dia='0'+dia
-//                                        }
-//                                        let mes=''+j.params.m
-//                                        if(parseInt(mes)<=9){
-//                                            mes='0'+mes
-//                                        }
-//                                        let hora=''+j.params.h
-//                                        if(parseInt(hora)<=9){
-//                                            hora='0'+hora
-//                                        }
-//                                        let minuto=''+j.params.min
-//                                        if(parseInt(minuto)<=9){
-//                                            minuto='0'+minuto
-//                                        }
-//                                        let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-//                                        controlTimeFecha.currentDate=nt
-//                                        controlTimeFecha.gmt=j.params.gmt
-//                                        if(tiCiudad.text.replace(/ /g, '')===''){
-//                                            tiCiudad.text=j.params.ciudad
-//                                        }
-//                                        r.lat=j.params.lat
-//                                        r.lon=j.params.lon
-//                                        r.ulat=j.params.lat
-//                                        r.ulon=j.params.lon
-//                                        let vd=parseInt(tiFecha1.t.text)
-//                                        let vm=parseInt(tiFecha2.t.text)
-//                                        let vh=parseInt(tiHora1.t.text)
-//                                        let vmin=parseInt(tiHora2.t.text)
-//                                        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-//                                        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-//                                        if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-//                                            botCrear.text='Modificar'
-//                                        }else{
-//                                            botCrear.text='[Crear]'
-//                                        }
-//                                    }else{
-//                                        botCrear.text='Crear'
-//                                    }
-//                                }
-//                            }
+                            //                            Timer{
+                            //                                running: r.state==='show'
+                            //                                repeat: true
+                            //                                interval: 1000
+                            //                                onTriggered: {
+                            //                                    let nom=tiNombre.t.text.replace(/ /g, '_')
+                            //                                    let fileName=apps.jsonsFolder+'/'+nom+'.json'
+                            //                                    if(unik.fileExist(fileName)){
+                            //                                        r.uFileNameLoaded=tiNombre.text
+                            //                                        let jsonFileData=unik.getFile(fileName)
+                            //                                        let j=JSON.parse(jsonFileData)
+                            //                                        let dia=''+j.params.d
+                            //                                        if(parseInt(dia)<=9){
+                            //                                            dia='0'+dia
+                            //                                        }
+                            //                                        let mes=''+j.params.m
+                            //                                        if(parseInt(mes)<=9){
+                            //                                            mes='0'+mes
+                            //                                        }
+                            //                                        let hora=''+j.params.h
+                            //                                        if(parseInt(hora)<=9){
+                            //                                            hora='0'+hora
+                            //                                        }
+                            //                                        let minuto=''+j.params.min
+                            //                                        if(parseInt(minuto)<=9){
+                            //                                            minuto='0'+minuto
+                            //                                        }
+                            //                                        let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
+                            //                                        controlTimeFecha.currentDate=nt
+                            //                                        controlTimeFecha.gmt=j.params.gmt
+                            //                                        if(tiCiudad.text.replace(/ /g, '')===''){
+                            //                                            tiCiudad.text=j.params.ciudad
+                            //                                        }
+                            //                                        r.lat=j.params.lat
+                            //                                        r.lon=j.params.lon
+                            //                                        r.ulat=j.params.lat
+                            //                                        r.ulon=j.params.lon
+                            //                                        let vd=parseInt(tiFecha1.t.text)
+                            //                                        let vm=parseInt(tiFecha2.t.text)
+                            //                                        let vh=parseInt(tiHora1.t.text)
+                            //                                        let vmin=parseInt(tiHora2.t.text)
+                            //                                        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+                            //                                        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                            //                                        if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                            //                                            botCrear.text='Modificar'
+                            //                                        }else{
+                            //                                            botCrear.text='[Crear]'
+                            //                                        }
+                            //                                    }else{
+                            //                                        botCrear.text='Crear'
+                            //                                    }
+                            //                                }
+                            //                            }
 
                         }
                     }
@@ -902,7 +902,7 @@ Rectangle {
         c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
         c+='        let json=JSON.parse(result)\n'
         c+='        if(json){\n'
-        //c+='            console.log(JSON.stringify(json))\n'
+        c+='            console.log(JSON.stringify(json))\n'
 
         c+='                if(r.lat===-1&&r.lon===-1){\n'
         c+='                   tiCiudad.t.color="red"\n'
@@ -912,7 +912,7 @@ Rectangle {
             c+='                r.lat=json.coords.lat\n'
             c+='                r.lon=json.coords.lon\n'
             c+='                    setNewJsonFileData()\n'
-            c+='                    r.state=\'hide\'\n'
+            c+='                    //r.state=\'hide\'\n'
         }else{
             c+='                r.ulat=json.coords.lat\n'
             c+='                r.ulon=json.coords.lon\n'
