@@ -913,6 +913,7 @@ ZoolMainWindow{
         }
     }
     Comps.MenuPlanets{id: menuPlanets}
+    Comps.MenuRuedaZodiacal{id: menuRuedaZodiacal}
     ZoolMediaLive{id: zoolMediaLive;parent: panelDataBodies}
     Comps.MinymaClient{
         id: minymaClient

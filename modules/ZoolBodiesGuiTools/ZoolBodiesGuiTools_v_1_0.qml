@@ -197,20 +197,6 @@ Rectangle {
                 }
             }
             ZoolButton{
-                text:  '<b>CAP</b>'
-                fs: app.fs*0.35
-                onClicked: {
-                    Cap.captureSweg()                    
-                }
-            }
-            ZoolButton{
-                text:  '<b>CAPBACK</b>'
-                fs: app.fs*0.35
-                onClicked: {
-                    Cap.captureSwegBack()
-                }
-            }
-            ZoolButton{
                 text:  '<b>CAP. ELEM.</b>'
                 fs: app.fs*0.35
                 onClicked: {
@@ -224,7 +210,7 @@ Rectangle {
                         unik.mkdir(folder)
                     }
                     let imgFileName='cap_'
-                    imgFileName+='elementos111'
+                    imgFileName+='elementos'
                     imgFileName+='.png'
                     //log.l('Nombre de archivo de imagen: '+imgFileName)
                     panelElements.showPlanets=true

@@ -8,6 +8,8 @@ Menu {
     property int currentIndexPlanet: -1
     property var aMI: []
     property bool isBack: false
+    property int uX: 0
+    property int uY: 0
     onOpenedChanged:  menuBar.expanded=opened
     //onCurrentIndexChanged: menuBar.uCMI=aMI[currentIndex]
     Component.onCompleted: menuBar.aMenuItems.push(this)
@@ -72,28 +74,12 @@ Menu {
         }
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
-    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]); onTriggered: {
-            xInfoData.markDown=true
-            xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
+    Action {text: qsTr("Zoom 1.0"); onTriggered: {
+                           sweg.zoomTo(1.0)
+                       }
     }
-    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(app.uSonFCMB.split('_')[1])]+' en casa '+app.uSonFCMB.split('_')[2]); onTriggered: {
-            JS.showIWFromCtxMenuBar()
-        }
-    }
-    Action {text: qsTr(apps.anColorXAs?"No Centellar":"Centellar"); onTriggered: {
-            apps.anColorXAs=!apps.anColorXAs
-        }
-    }
-    Action {text: qsTr("Grabar Posición"); onTriggered: {
-            app.j.saveZoomAndPos()
-        }
-    }
-    Action {text: qsTr("Capturar"); onTriggered: {
-            if(!r.isBack){
-                Cap.captureSweg()
-            }else{
-                Cap.captureSwegBack()
-            }
-        }
+    Action {text: qsTr("Salir"); onTriggered: {
+                           Qt.quit()
+                       }
     }
 }

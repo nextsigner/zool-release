@@ -218,8 +218,16 @@ Item {
                     }
                     MouseArea {
                         anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
                         onClicked: {
                             apps.zFocus='xMed'
+                            if (mouse.button === Qt.RightButton) {
+
+                                menuRuedaZodiacal.uX=mouseX
+                                menuRuedaZodiacal.uY=mouseY
+                                menuRuedaZodiacal.isBack=false
+                                menuRuedaZodiacal.popup()
+                            }
                         }
                         onDoubleClicked: {
                             centerZoomAndPos()
@@ -456,9 +464,9 @@ Item {
         c+='        loadSweJson(json)\n'
         c+='        //swegz.sweg.loadSweJson(json)\n'
         if((j.params.tipo==='rs' && j.paramsBack) || j.params.tipo==='sin' && j.paramsBack){
-                r.jsonStandByForBack=j.paramsBack
-                //log.ls('r.jsonStandByForBack:'+JSON.stringify(r.jsonStandByForBack), 0, 500)
-                c+='        loadBackFromStandBy()\n'
+            r.jsonStandByForBack=j.paramsBack
+            //log.ls('r.jsonStandByForBack:'+JSON.stringify(r.jsonStandByForBack), 0, 500)
+            c+='        loadBackFromStandBy()\n'
         }
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
@@ -474,7 +482,7 @@ Item {
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        let params        
+        let params
         if(t==='sin'){
             params=j.params
         }else if(t==='trans'){
@@ -611,7 +619,7 @@ Item {
         if(j.params.tipo==='sin'){
             tLoadSin.start()
         }
-        tFirtShow.start()        
+        tFirtShow.start()
         panelSabianos.numSign=app.currentJson.ph.h1.is
         panelSabianos.numDegree=parseInt(app.currentJson.ph.h1.rsgdeg - 1)
         panelSabianos.loadData()
@@ -629,9 +637,9 @@ Item {
     function loadSweJsonBack(json){
         //console.log('JSON::: '+json)
         app.currentJsonBack=JSON.parse(json)
-//        if(app.dev)
-//            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
-//            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
+        //        if(app.dev)
+        //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
+        //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
         let scorrJson=json.replace(/\n/g, '')
         //console.log('json: '+json)
         let j=JSON.parse(scorrJson)
@@ -675,6 +683,11 @@ Item {
         pinchArea.m_zoom2 = 0.5
         rect.x = 0
         rect.y = 0
+    }
+    function zoomTo(z){
+        centerZoomAndPos()
+        pinchArea.m_zoom1 = z
+        pinchArea.m_zoom2 = z
     }
     function setZoomAndPos(zp){
         r.uZp=zp
