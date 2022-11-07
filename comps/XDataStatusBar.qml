@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
-import "../js/Funcs.js" as JS
 
 Rectangle {
     id: r
@@ -14,7 +13,7 @@ Rectangle {
     anchors.top: xDataBar.bottom
     z: xDataBar.z-1
     property int currentIndex: -1
-    property var textStatus: ['Mostrando sinastría.Aún no se ha creado el archivo', 'Mostrando Rev. Solar.Aún no se ha creado el archivo']
+    property var textStatus: ['Mostrando sinastría.Aún no se ha creado el archivo', 'Mostrando Rev. Solar.Aún no se ha creado el archivo', 'Mostrando Tránsitos.Aún no se ha creado el archivo']
     onCurrentIndexChanged: setGui()
     state: currentIndex<0?'hide':'show'
     states: [
@@ -81,22 +80,36 @@ Rectangle {
             bot1.visible=true
             bot2.visible=true
         }
+        if(r.currentIndex===2){
+            bot1.text='Crear Tránsitos'
+            bot2.text='Cancelar Tránsitos'
+            bot1.visible=true
+            bot2.visible=true
+        }
     }
     function run(numBot){
         if(r.currentIndex===0){
             if(numBot===0){
-                JS.mkSinFile(apps.urlBack)
+                app.j.mkSinFile(apps.urlBack)
             }
             if(numBot===1){
-                JS.loadJson(apps.url)
+                app.j.loadJson(apps.url)
             }
         }
         if(r.currentIndex===1){
             if(numBot===0){
-                JS.mkRsFile(apps.urlBack)
+                app.j.mkRsFile(apps.urlBack)
             }
             if(numBot===1){
-                JS.loadJson(apps.url)
+                app.j.loadJson(apps.url)
+            }
+        }
+        if(r.currentIndex===2){
+            if(numBot===0){
+                app.j.mkTransFile()
+            }
+            if(numBot===1){
+                app.j.loadJson(apps.url)
             }
         }
     }

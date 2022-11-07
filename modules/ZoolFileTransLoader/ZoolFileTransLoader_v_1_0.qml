@@ -560,7 +560,6 @@ Rectangle {
         let d = new Date(Date.now())
         let ms=d.getTime()
 
-
         let vd=controlTimeFecha.dia
         let vm=controlTimeFecha.mes
         let va=controlTimeFecha.anio

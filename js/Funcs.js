@@ -154,8 +154,8 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
     }
     if(tipo==='trans'){
         xDataBar.stringMiddleSeparator='Tránsitos'
-        xDataStatusBar.currentIndex=1
-        //setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
+        xDataStatusBar.currentIndex=2
+        setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
     }
 
     if(save){
@@ -728,6 +728,7 @@ function loadJsonFromParamsBack(json){
     addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
     //xDataBar.titleData=textData
     xDataBar.state='show'
+    //if(params.tipo==='trans')xDataStatusBar.currentIndex=2
     app.setFromFile=false
 }
 
@@ -781,6 +782,38 @@ function mkRsFile(file){
         loadJson(nFileName)
     }
 }
+function mkTransFile(){
+    let jsonFileDataInterior=app.fileData
+    let json=JSON.parse(jsonFileDataInterior)
+    let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
+    let jsonExt=JSON.parse(jsonFileDataExt)
+    if(app.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
+    json.params.n=json.params.n+' - '+jsonExt.params.n
+    if(app.dev)log.lv('json.params.n: '+json.params.n)
+    json.params.tipo='trans'
+    if(json.params[app.stringRes+'zoompos']){
+        delete json.params[app.stringRes+'zoompos']
+    }
+    json.paramsBack={}
+    json.paramsBack=jsonExt.params//Back
+    json.paramsBack.tipo='trans'
+    json.paramsBack.n=json.params.n
+
+    let cNom=json.params.n
+    let nFileName=(apps.jsonsFolder+'/'+cNom+'.json').replace(/ /g,'_')
+    log.lv('nFileName: '+nFileName)
+    let e=unik.fileExist(nFileName)
+    if(e){
+        log.l('Existe')
+        loadJson(nFileName)
+    }else{
+        log.l('No Existe')
+        unik.setFile(nFileName, JSON.stringify(json))
+        xEditor.visible=true
+        loadJson(nFileName)
+    }
+}
+
 function loadRs(date, gmt, lat, lon, alt){
     /*let cd=date
     cd = cd.setFullYear(date.getFullYear())
