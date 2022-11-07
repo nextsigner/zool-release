@@ -210,7 +210,7 @@ Item{
                 }
             }
         }
-        Image {
+        Image{
             id: img0
             //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
             source: app.planetasRes[r.numAstro]?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
@@ -244,8 +244,13 @@ Item{
                 }
             }
             SequentialAnimation{
-                running: r.selected//apps.anColorXAs
+                running: r.selected && !app.capturing//apps.anColorXAs
                 loops: Animation.Infinite
+                onRunningChanged: {
+                    if(!running&&app.capturing){
+                        co.color=apps.xAsColorBack
+                    }
+                }
                 PropertyAnimation {
                     target: co
                     properties: "color"

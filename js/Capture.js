@@ -64,7 +64,7 @@ function captureSwegBack(){
     //log.l('Nombre de archivo de imagen: '+imgFileName)
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
-        app.capturing=false
+        //app.capturing=false
         app.dev=isDev
     });
 }

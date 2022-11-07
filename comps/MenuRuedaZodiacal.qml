@@ -75,11 +75,37 @@ Menu {
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
+                           sweg.zoomTo(0.5)
+                       }
+    }
+    Action {text: qsTr("Zoom 1.5"); onTriggered: {
                            sweg.zoomTo(1.0)
                        }
+    }
+    Action {
+        id: aDeleteExt
+        text: qsTr("Eliminar Exterior oculto")
+        onTriggered: {app.j.deleteJsonBackHidden()}
+
     }
     Action {text: qsTr("Salir"); onTriggered: {
                            Qt.quit()
                        }
+    }
+
+    Timer{
+        running: r.visible
+        repeat: true
+        interval: 250
+        onTriggered: {
+            let json=JSON.parse(app.fileData)
+            if(!app.ev&&json.paramsBack){
+                aDeleteExt.enabled=true
+            }else{
+                aDeleteExt.enabled=false
+            }
+            //let d = new Date(Date.now())
+            //log.lv('Menu ...'+d.getTime())
+        }
     }
 }

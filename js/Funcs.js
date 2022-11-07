@@ -1032,6 +1032,18 @@ function saveJsonAs(newUrl){
         loadJson(apps.url)
     }
 }
+function deleteJsonBackHidden(){
+    if(app.dev)log.lv('JSON.parse(app.fileData).paramsBack: '+JSON.parse(app.fileData).paramsBack)
+    let json=JSON.parse(app.fileData)
+    if(app.dev)log.lv('deleteJsonBackHidden() app.currentData: '+JSON.stringify(json.params, null, 2))
+    if(app.dev&&json.paramsBack){
+        log.lv('deleteJsonBackHidden() app.fileData: '+JSON.stringify(json.paramsBack, null, 2))
+    }
+    delete json['paramsBack'];
+    let fp=(''+apps.url).replace('file://', '')
+    unik.setFile(fp, JSON.stringify(json))
+    loadJson(apps.url)
+}
 function loadJsonNow(file){
     let fn=file
     let jsonFileName=fn

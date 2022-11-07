@@ -96,7 +96,11 @@ Item{
     Rectangle{
         id: xIcon
         //width: !selected?r.fs*0.85:r.fs*1.4
-        width: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?(!app.ev?r.fs*0.85:r.fs*0.425):(!app.ev?r.fs*2:r.fs)
+        //width: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?(!app.ev?r.fs*0.85:r.fs*0.425):(!app.ev?r.fs*2:r.fs)
+        width:
+            !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?
+                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
+                (!app.ev?r.fs*2:r.fs)
         height: width
         anchors.left: parent.left
         //anchors.leftMargin: !r.selected?0:width*0.5
