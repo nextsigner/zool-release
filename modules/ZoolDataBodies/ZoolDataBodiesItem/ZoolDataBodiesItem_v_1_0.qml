@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.0
-import "../js/Funcs.js" as JS
+//import "../js/Funcs.js" as JS
 
 Column{
     id: r
@@ -199,17 +199,20 @@ Column{
                 onClicked: {
                     if (mouse.modifiers & Qt.ControlModifier) {
                         if(index<=16){
-                            JS.showIW()
+                            app.j.showIW()
                         }
                     }else{
                         if(index>16){
                             if(!r.isBack){
+                                panelDataBodies.latFocus=0
                                 sweg.objHousesCircle.currentHouse=index-16
                             }else{
+                                panelDataBodies.latFocus=1
                                 sweg.objHousesCircleBack.currentHouse=index-16
                             }
                         }else{
                             if(!r.isBack){
+                                panelDataBodies.latFocus=0
                                 if(app.currentPlanetIndex!==index){
                                     app.currentPlanetIndex=index
                                     panelDataBodies.currentIndex=index
@@ -219,6 +222,7 @@ Column{
                                     sweg.objHousesCircle.currentHouse=-1
                                 }
                             }else{
+                                panelDataBodies.latFocus=1
                                 if(app.currentPlanetIndexBack!==index){
                                     app.currentPlanetIndexBack=index
                                     panelDataBodies.currentIndexBack=index

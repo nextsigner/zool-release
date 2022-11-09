@@ -2,7 +2,8 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 import "../../js/Funcs.js" as JS
-import "../../comps" as Comps
+
+import ZoolDataBodies.ZoolDataBodiesItem 1.0
 
 Rectangle {
     id: r
@@ -37,8 +38,8 @@ Rectangle {
     Row{
         width: parent.width-r.border.width*2
         anchors.horizontalCenter: parent.horizontalCenter
-        Comps.XBodies{id: xBodiesInt; isBack: false; isLatFocus: r.latFocus===0}
-        Comps.XBodies{id: xBodiesExt; isBack: true; isLatFocus: r.latFocus===1}
+        ZoolDataBodiesItem{id: xBodiesInt; isBack: false; isLatFocus: r.latFocus===0}
+        ZoolDataBodiesItem{id: xBodiesExt; isBack: true; isLatFocus: r.latFocus===1}
     }
     Rectangle{
         width: labelCargando.contentWidth+app.fs*0.25
