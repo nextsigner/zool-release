@@ -29,7 +29,7 @@ import ZoolSabianos 1.0
 import ZoolRevolutionList 1.3
 import ZoolNumPit 1.0
 
-import ZoolElements 1.2
+import ZoolElements 1.3
 import ZoolElementsBack 1.0
 
 import ZoolMediaLive 1.0
@@ -580,10 +580,11 @@ ZoolMainWindow{
             anchors.bottom: xBottomBar.top
             //anchors.horizontalCenter: parent.horizontalCenter
             //anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width
-            Item{
+            Rectangle{
                 id: xLatIzq
                 width: xApp.width*0.2
                 height: parent.height
+                color: apps.backgroundColor
                 visible: apps.showLatIzq
                 //z: xMed.z+1
                 //                Rectangle{
@@ -706,7 +707,7 @@ ZoolMainWindow{
                     ZoolElements{
                         id: panelElementsBack
                         isBack: true
-                        width: panelElements.width
+                        width: panelElements.sizeValue
                         anchors.right: parent.right
                         anchors.top: panelElements.bottom
                         anchors.topMargin: app.fs*0.1
