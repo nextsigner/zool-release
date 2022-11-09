@@ -67,13 +67,13 @@ Rectangle {
         anchors.topMargin: app.fs*0.25
         z: col.z+1
         onClicked:{
-            colXConfig.visible=!colXConfig.visible
+            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
         }
     }
     Column{
         id: col
         anchors.centerIn: parent
-        spacing: app.fs
+        spacing: app.fs*0.5
         Item{width: 1; height: app.fs; visible: colXConfig.visible}
         Column{
             id: colXConfig
@@ -114,7 +114,7 @@ Rectangle {
             }
 
         }
-        Row{
+        Column{
             spacing: app.fs*0.1
             anchors.horizontalCenter: parent.horizontalCenter
             ZoolControlsTime{
@@ -123,8 +123,17 @@ Rectangle {
                 labelText: 'Momento de tránsitos'
                 KeyNavigation.tab: tiCiudad.t
                 setAppTime: false
-                enableGMT:false
+                //enableGMT:false
                 onCurrentDateChanged: {
+                    let d = new Date(currentDate)
+                    if(app.currentGmt>0){
+                        d.setHours(d.getHours()+app.currentGmt)
+                    }else{
+                        d.setHours(d.getHours()-app.currentGmt)
+                    }
+                    controlTimeFechaUTC.currentDate=d
+                    controlTimeFechaUTC.gmt=0
+                    //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
                     sweg.enableLoadBack=false
                     tUpdateParams.restart()
                 }
@@ -136,6 +145,38 @@ Rectangle {
                     onTriggered: updateUParams()
                 }
             }
+            ZoolControlsTime{
+                id: controlTimeFechaUTC
+                gmt: app.currentGmt
+                labelText: 'UTC - Tiempo Universal'
+                //KeyNavigation.tab: tiCiudad.t
+                setAppTime: false
+                enableGMT:true
+                locked: true
+                onCurrentDateChanged: {
+                    //sweg.enableLoadBack=false
+                    //tUpdateParams.restart()
+                }
+            }
+        }
+        Row{
+            spacing: app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            Text{
+                text: 'Utilizar UTC'
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            CheckBox{
+                id: cbUseUtc
+                checked: false
+                anchors.verticalCenter: parent.verticalCenter
+                onCheckedChanged:{
+
+                }
+                //onCheckedChanged: settings.inputCoords=checked
+            }
         }
         Row{
             spacing: app.fs*0.5
@@ -146,18 +187,52 @@ Rectangle {
                     controlTimeFecha.currentDate=new Date(Date.now())
                 }
             }
+            ZoolButton{
+                text: 'Recargar Hora de Archivo'
+                onClicked:{
+                    let json=JSON.parse(app.currentData)
+                    let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
+                    controlTimeFecha.currentDate=d
+                    controlTimeFecha.gmt=0//json.params.gmt
+                }
+            }
+        }
+        Row{
+            spacing: app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            Text{
+                text: 'Utilizar las coordenadas\ndel esquema interior.\nLatitud: '+app.currentLat+'\nLongitud: '+app.currentLon
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            CheckBox{
+                id: cbUseIntCoords
+                checked: false
+                anchors.verticalCenter: parent.verticalCenter
+                onCheckedChanged:{
+                    if(checked){
+                        r.ulat=app.currentLat
+                        r.ulon=app.currentLon
+                        r.lat=r.uLat
+                        r.lon=r.uLon
+                    }
+                }
+                //onCheckedChanged: settings.inputCoords=checked
+            }
         }
         ZoolTextInput{
             id: tiCiudad
             width:r.width-app.fs*0.5
             t.width: r.width-app.fs*0.25
             t.font.pixelSize: app.fs*0.65;
-            labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
+            labelText: 'Lugar, ciudad, provincia,\nregión y/o país de desde donde se obsevan los tránsitos'
             borderWidth: 2
             borderColor: apps.fontColor
             borderRadius: app.fs*0.1
             KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
             t.maximumLength: 50
+            visible: !cbUseIntCoords.checked
             onTextChanged: {
                 tSearch.restart()
                 t.color='white'
@@ -166,6 +241,7 @@ Rectangle {
         Row{
             spacing: app.fs*0.5
             anchors.horizontalCenter: parent.horizontalCenter
+            visible: !cbUseIntCoords.checked
             Text{
                 text: 'Ingresar coordenadas\nmanualmente'
                 font.pixelSize: app.fs*0.5
@@ -181,7 +257,7 @@ Rectangle {
         Column{
             id: colTiLonLat
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: settings.inputCoords
+            visible: settings.inputCoords && !cbUseIntCoords.checked
 
             Row{
                 spacing: app.fs*0.5
@@ -294,7 +370,7 @@ Rectangle {
         Column{
             id: colLatLon
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: r.lat===r.ulat&&r.lon===r.ulon
+            visible: r.lat===r.ulat&&r.lon===r.ulon && !cbUseIntCoords.checked
             //height: !visible?0:app.fs*3
             Text{
                 text: 'Lat:'+r.lat
@@ -341,6 +417,7 @@ Rectangle {
                 font.pixelSize: app.fs*0.5
                 opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
                 enabled: opacity===1.0
+                visible: !cbUseIntCoords.checked
                 onClicked: {
                     clear()
                 }
@@ -350,7 +427,7 @@ Rectangle {
                 text: 'Cargar'
                 font.pixelSize: app.fs*0.5
                 KeyNavigation.tab: tiCiudad.t
-                visible: r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!==''
+                visible: !cbUseIntCoords.checked?r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!=='':true
                 onClicked: {
                     if(!settings.inputCoords){
                         searchGeoLoc(true)
@@ -568,8 +645,16 @@ Rectangle {
 
 
         let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-        let vlon=r.lon
-        let vlat=r.lat
+
+        let vlat
+        let vlon
+        if(!cbUseIntCoords.checked){
+            vlat=r.lat
+            vlon=r.lon
+        }else{
+            vlat=app.currentLat
+            vlon=app.currentLon
+        }
         let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
 
         let nom='Tránsito '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm+' GMT.'+vgmt+' '+tiCiudad.text

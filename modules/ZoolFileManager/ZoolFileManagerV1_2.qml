@@ -35,6 +35,7 @@ Rectangle {
 //    property real ulon:-100.00
 
 //    property string uFileNameLoaded: ''
+    property alias s: settings
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
     visible: itemIndex===sv.currentIndex
@@ -59,9 +60,11 @@ Rectangle {
         id: settings
         property bool showModuleVersion: false
         property bool inputCoords: false
+        property bool showConfig: false
+
     }
     Text{
-        text: 'ZoolFileManager v1.1'
+        text: 'ZoolFileManager v1.2'
         font.pixelSize: app.fs*0.5
         color: apps.fontColor
         anchors.left: parent.left
@@ -131,8 +134,8 @@ Rectangle {
         border.color: apps.fontColor
         radius: app.fs*0.25
         color: 'transparent'
-        visible: app.dev
-        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:zoolFileLoader.xCfgItem
+        visible: zoolFileManager.s.showConfig
+        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:(zoolFileLoader.visible?zoolFileLoader.xCfgItem:zoolFileTransLoader.xCfgItem)
         Column{
             id: colTextJsonFolder
             anchors.centerIn: parent

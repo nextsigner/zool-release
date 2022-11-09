@@ -9,6 +9,7 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 0
     border.color: apps.fontColor
+    property bool locked: false
     property string labelText: ''
     property bool enableGMT: true
     property bool isBack: false
@@ -114,6 +115,7 @@ Rectangle {
                     border.width: 1
                     border.color: apps.fontColor
                     MouseArea{
+                        enabled: !r.locked
                         anchors.fill: parent
                         onWheel: {
                             let d = r.currentDate
@@ -143,6 +145,7 @@ Rectangle {
                     border.width: 1
                     border.color: apps.fontColor
                     MouseArea{
+                        enabled: !r.locked
                         anchors.fill: parent
                         onWheel: {
                             let d = r.currentDate
@@ -186,6 +189,7 @@ Rectangle {
                     border.width: 1
                     border.color: apps.fontColor
                     MouseArea{
+                        enabled: !r.locked
                         anchors.fill: parent
                         onWheel: {
                             let d = r.currentDate
@@ -280,6 +284,7 @@ Rectangle {
                     border.width: 1
                     border.color: apps.fontColor
                     MouseArea{
+                        enabled: !r.locked
                         anchors.fill: parent
                         onWheel: {
                             let d = r.currentDate
@@ -310,6 +315,7 @@ Rectangle {
                     border.width: 1
                     border.color: apps.fontColor
                     MouseArea{
+                        enabled: !r.locked
                         anchors.fill: parent
                         onWheel: {
                             let d = r.currentDate

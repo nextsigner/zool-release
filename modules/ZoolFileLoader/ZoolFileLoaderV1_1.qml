@@ -54,7 +54,7 @@ Rectangle {
         anchors.topMargin: app.fs*0.25
         z: col.z+1
         onClicked:{
-            colXConfig.visible=!colXConfig.visible
+            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
         }
     }
     Column{
