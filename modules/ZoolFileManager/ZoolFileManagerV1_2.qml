@@ -7,6 +7,7 @@ import "../../js/Funcs.js" as JS
 import ZoolFileMaker 1.0
 import ZoolFileLoader 1.1
 import ZoolFileTransLoader 1.0
+import ZoolFileDirPrimLoader 1.0
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -89,6 +90,7 @@ Rectangle {
                     zoolFileMaker.visible=true
                     zoolFileLoader.visible=false
                     zoolFileTransLoader.visible=false
+                    zoolFileDirPrimLoader.visible=false
                 }
             }
             ZoolButton{
@@ -98,6 +100,7 @@ Rectangle {
                     zoolFileMaker.visible=false
                     zoolFileLoader.visible=true
                     zoolFileTransLoader.visible=false
+                    zoolFileDirPrimLoader.visible=false
                 }
             }
             ZoolButton{
@@ -107,6 +110,17 @@ Rectangle {
                     zoolFileMaker.visible=false
                     zoolFileLoader.visible=false
                     zoolFileTransLoader.visible=true
+                    zoolFileDirPrimLoader.visible=false
+                }
+            }
+            ZoolButton{
+                text:'Direcciones'
+                colorInverted: zoolFileTransLoader.visible
+                onClicked: {
+                    zoolFileMaker.visible=false
+                    zoolFileLoader.visible=false
+                    zoolFileTransLoader.visible=false
+                    zoolFileDirPrimLoader.visible=true
                 }
             }
         }
@@ -122,6 +136,11 @@ Rectangle {
         }
         ZoolFileTransLoader{
             id: zoolFileTransLoader;
+            visible: false
+            height: zoolFileMaker.height
+        }
+        ZoolFileDirPrimLoader{
+            id: zoolFileDirPrimLoader;
             visible: false
             height: zoolFileMaker.height
         }
