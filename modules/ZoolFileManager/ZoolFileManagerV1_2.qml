@@ -28,14 +28,6 @@ Rectangle {
     property alias tiN: zoolFileMaker.tiN
     property alias tiC: zoolFileMaker.tiC
 
-
-//    property real lat:-100.00
-//    property real lon:-100.00
-
-//    property real ulat:-100.00
-//    property real ulon:-100.00
-
-//    property string uFileNameLoaded: ''
     property alias s: settings
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
@@ -59,6 +51,7 @@ Rectangle {
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Settings{
         id: settings
+        property int currentIndex: 0
         property bool showModuleVersion: false
         property bool inputCoords: false
         property bool showConfig: false
@@ -91,16 +84,20 @@ Rectangle {
                     zoolFileLoader.visible=false
                     zoolFileTransLoader.visible=false
                     zoolFileDirPrimLoader.visible=false
+                    settings.currentIndex=0
                 }
             }
             ZoolButton{
                 text:'Cargar Archivo'
                 colorInverted: zoolFileLoader.visible
                 onClicked: {
+                    log.lv('0 settings.currentIndex: '+settings.currentIndex)
                     zoolFileMaker.visible=false
                     zoolFileLoader.visible=true
                     zoolFileTransLoader.visible=false
                     zoolFileDirPrimLoader.visible=false
+                    settings.currentIndex=1
+                    log.lv('1 settings.currentIndex: '+settings.currentIndex)
                 }
             }
             ZoolButton{
@@ -111,16 +108,20 @@ Rectangle {
                     zoolFileLoader.visible=false
                     zoolFileTransLoader.visible=true
                     zoolFileDirPrimLoader.visible=false
+                    settings.currentIndex=2
                 }
             }
             ZoolButton{
+                id: botDirPrim
                 text:'Direcciones'
                 colorInverted: zoolFileTransLoader.visible
+                visible: app.dev
                 onClicked: {
                     zoolFileMaker.visible=false
                     zoolFileLoader.visible=false
                     zoolFileTransLoader.visible=false
                     zoolFileDirPrimLoader.visible=true
+                    settings.currentIndex=3
                 }
             }
         }
@@ -200,6 +201,28 @@ Rectangle {
                     anchors.bottom: parent.top
                 }
             }
+
+        }
+    }
+
+    function timer() {
+        return Qt.createQmlObject("import QtQuick 2.0; Timer {}", r);
+    }
+    function mkTimer(){
+        let t = new timer();
+        t.interval = 2000;
+        t.repeat = false;
+        t.triggered.connect(function () {
+            log.visible=false
+            //log.lv("I'm triggered once every second");
+        })
+        t.start();
+    }
+    Component.onCompleted: {
+        rowBtns.children[settings.currentIndex].clicked()
+        if(app.dev){
+            zoolFileDirPrimLoader.ctFecha.gmt=-3
+            mkTimer()
 
         }
     }

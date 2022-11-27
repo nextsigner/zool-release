@@ -196,10 +196,10 @@ ApplicationWindow {
                     zoolFileManager.enter()
                     return
                 }
-//                if(apps.currentSwipeViewIndex===3){
-//                    zoolFileManager.enter()
-//                    return
-//                }
+                //                if(apps.currentSwipeViewIndex===3){
+                //                    zoolFileManager.enter()
+                //                    return
+                //                }
                 if(apps.currentSwipeViewIndex===3){
                     panelRsList.enter()
                     return
@@ -250,9 +250,16 @@ ApplicationWindow {
             apps.zFocus='xLatIzq'
         }
     }
+//    Shortcut{
+//        sequence: 'Ctrl+Shift+Esc'
+//        onActivated: {
+//            Qt.quit()
+//        }
+//    }
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(app.dev)Qt.quit()
             if(!xApp.focus){
                 xApp.focus=true
                 return
@@ -338,10 +345,10 @@ ApplicationWindow {
                 zoolFileManager.state='hide'
                 return
             }
-//            if(panelControlsSign.state==='show'){
-//                panelControlsSign.state='hide'
-//                return
-//            }
+            //            if(panelControlsSign.state==='show'){
+            //                panelControlsSign.state='hide'
+            //                return
+            //            }
             if(xInfoData.visible){
                 xInfoData.visible=false
                 return
@@ -380,14 +387,14 @@ ApplicationWindow {
                     zoolFileManager.toUp()
                     return
                 }
-//                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
-//                    if(currentSignIndex>0){
-//                        currentSignIndex--
-//                    }else{
-//                        currentSignIndex=12
-//                    }
-//                    return
-//                }
+                //                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
+                //                    if(currentSignIndex>0){
+                //                        currentSignIndex--
+                //                    }else{
+                //                        currentSignIndex=12
+                //                    }
+                //                    return
+                //                }
                 if(apps.currentSwipeViewIndex===4){
                     if(panelRsList.currentIndex>0){
                         panelRsList.currentIndex--
@@ -444,14 +451,14 @@ ApplicationWindow {
                     zoolFileManager.toDown()
                     return
                 }
-//                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
-//                    if(currentSignIndex<12){
-//                        currentSignIndex++
-//                    }else{
-//                        currentSignIndex=0
-//                    }
-//                    return
-//                }
+                //                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
+                //                    if(currentSignIndex<12){
+                //                        currentSignIndex++
+                //                    }else{
+                //                        currentSignIndex=0
+                //                    }
+                //                    return
+                //                }
                 if(apps.currentSwipeViewIndex===4){
                     if(panelRsList.currentIndex<panelRsList.listModel.count-1){
                         panelRsList.currentIndex++

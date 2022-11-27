@@ -849,8 +849,9 @@ function runJsonTemp(){
     catch (e)
     {
         console.log('Json Fallado: '+app.currentData)
-        log.ls('Ha fallado la carga del archivo '+apps.url, 0, xApp.width)
-        log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
+        log.lv('Ha fallado la carga del archivo '+apps.url)
+        log.lv('Error de Json.parse(): '+e)
+        //log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
         //unik.speak('Error in Json file')
         return
     }
@@ -877,15 +878,16 @@ function runJsonTemp(){
 }
 function runJsonTempBack(){
     var jsonData
+    //let jss=app.currentDataBack.replace(/\n/g, '')
+    let jss=app.currentData.replace(/\n/g, '')
     try
     {
-        let jss=app.currentDataBack.replace(/\n/g, '')
         jsonData=JSON.parse(jss)
     }catch(e){
         console.log('Json Fallado: '+app.currentDataBack)
         if(app.dev){
-            log.ls('Ha fallado la carga del archivo BACK '+apps.url, 0, log.width)
-            log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, log.width)
+            log.lv('Ha fallado la carga del archivo BACK '+apps.url)
+            log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
         }
         //unik.speak('Error in Json file')
         return
@@ -896,6 +898,10 @@ function runJsonTempBack(){
         params=jsonData.paramsBack
     }else{
         params=jsonData.params
+    }
+    if(params.tipo==='vn'){
+        if(app.dev)log.lv('No se carga params back porque es tipo VN.')
+        return
     }
     let nom=params.n.replace(/_/g, ' ')
     let vd=params.d
@@ -974,7 +980,7 @@ function setNewTimeJsonFileDataBack(date){
     //log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
     //log.ls('app.fileDataBack: '+app.fileDataBack, 0, 500)
     if(app.fileDataBack===''&&app.dev){
-        log.ls('app.fileDataBack is empty.', 0, 500)
+        if(app.dev)log.lv('app.fileDataBack is empty.')
         return
     }
     let jsonData=JSON.parse(app.fileDataBack)

@@ -18,6 +18,7 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
+    property alias ctFecha: controlTimeFecha
     property alias xCfgItem: colXConfig
 
     property alias tiC: tiCiudad.t
@@ -199,7 +200,9 @@ Rectangle {
                         l.lv('diffms:'+diffms)
                         let msDia=3600*1000*24
                         let msAnio=parseFloat( msDia * 325.25)
-                        let ms360=parseFloat( msDia * 325.25)
+                        let ms360=parseFloat( msDia * 325.25) //28101600000
+
+                        console.log('msAnio: '+msAnio)
                         //l.lv('msDia:'+msDia)
                         //l.lv('msAnio:'+msAnio)
 

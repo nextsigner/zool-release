@@ -142,7 +142,10 @@ Rectangle {
             delegate: compItemList
             model: lm
             clip: true
-            onCurrentIndexChanged: r.currentFile=lm.get(currentIndex).fileName
+            onCurrentIndexChanged: {
+                if(!lm.get(currentIndex) || !lm.get(currentIndex).fileName)return
+                r.currentFile=lm.get(currentIndex).fileName
+            }
         }
     }
     ListModel{
