@@ -5,6 +5,7 @@ import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
 import ZoolSabianos.ZoolSabianosView 1.0
+import ZoolButton 1.1
 import ZoolText 1.0
 
 Rectangle {
@@ -195,37 +196,166 @@ Rectangle {
                 tHideRowBtns.restart()
             }
         }
-        Button{
-            text: 'Guardar'
+        //Graba 3 archivos SAM separados
+        ZoolButton{
+            //width:app.fs*3
+            fs:app.fs
+            text: '\uf0c7'
+            anchors.verticalCenter: parent.verticalCenter
             onClicked: {
-                /*let d = '<!DOCTYPE html><html>'
-                d+='<body>'
-                d += '<h1>Simbología de los Sabianos</h1>'
-                d+='<b>'+r.signos[r.numSign]+'</b><br />'
-                d+=getData()
-                d+='<br /><h3>Fuente: Universidad Norbert Wiener - Perú</h3><br />'
-                d+='</body></html>'
-                d=d.replace(/<\/p>/g, '\n')
-                d=d.replace(/<br \/>/g, '\n')
-                d=d.replace(/<\/h1>/g, '</h1>\n')
-                d=d.replace(/<[^>]*>/g, '')
-                clipboard.setText(d)*/
+                //Ascendente
                 let d = ''
-                d+='<b>'+r.signos[r.numSign]+'</b><br />'
-                d+=getData()
+                d+='<b>Ascendente '+r.signos[app.currentJson.ph.h1.is]+'</b><br />\n\n'
+                d+=getDataSAM('ASC', parseInt(app.currentJson.ph.h1.rsgdeg - 1), app.currentJson.ph.h1.is)
                 d=d.replace(/<[^>]*>/g, '')
+                d=d.replace(/&nbsp;/g, ' ')
+                let sdel=''+app.currentJson.ph.h1.rsgdeg+'°: '
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
                 let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
                 let gAsc=''+app.currentJson.ph.h1.rsgdeg
                 if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
                 fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[app.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
-                //if(app.dev)log.lv('Sabianos: '+d)
-                unik.setFile(fileNameOutPut, d)
-                if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
-                console.log('Sabianos fileNameOutPut: '+fileNameOutPut)
+                if(app.dev)log.lv('Sabianos Asc: '+d)
+                //unik.setFile(fileNameOutPut, d)
+                //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                console.log('Sabianos Asc fileNameOutPut: '+fileNameOutPut)
+
+                //Medio Cielo
+                d = ''
+                d+='<b>Medio Cielo '+r.signos[app.currentJson.ph.h10.is]+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(app.currentJson.ph.h10.rsgdeg - 1), app.currentJson.ph.h1.is)
+                d=d.replace(/<[^>]*>/g, '')
+                d=d.replace(/&nbsp;/g, ' ')
+                sdel=''+app.currentJson.ph.h10.rsgdeg+'°: '
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
+                //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
+                let gMc=''+app.currentJson.ph.h10.rsgdeg
+                if(app.dev)log.lv('Sabianos gMc: '+gMc)
+                fileNameOutPut+='Sabianos_Medio_Cielo_en_'+r.signos[app.currentJson.ph.h10.is]+'_Grado_'+gMc+'.txt'
+                if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
+                //unik.setFile(fileNameOutPut, d)
+                //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                console.log('Sabianos Mc fileNameOutPut: '+fileNameOutPut)
+
+                //Sol
+                d = ''
+                d+='<b>Sol en el grado '+r.signos[app.currentJson.pc.c0.is]+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(app.currentJson.pc.c0.rsgdeg - 1), app.currentJson.pc.c0.is)
+                d=d.replace(/<[^>]*>/g, '')
+                d=d.replace(/&nbsp;/g, ' ')
+                sdel=''+app.currentJson.pc.c0.rsgdeg+'°: '
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
+                //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
+                let gSol=''+app.currentJson.pc.c0.rsgdeg
+                if(app.dev)log.lv('Sabianos gSol: '+gSol)
+                fileNameOutPut+='Sabianos_Sol_en_'+r.signos[app.currentJson.pc.c0.is]+'_Grado_'+gSol+'.txt'
+                if(app.dev)log.lv('Sabianos Sol: '+d)
+                //unik.setFile(fileNameOutPut, d)
+                //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                console.log('Sabianos Sol fileNameOutPut: '+fileNameOutPut)
+
                 tHideRowBtns.restart()
             }
+            ZoolText{
+                text: '<b>3</b>'
+                color: 'red'
+                fs:app.fs*0.8
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: app.fs*0.3
+                anchors.verticalCenterOffset: 0-app.fs*0.3
+            }
         }
+
+        //Graba 3 archivos SAM unidos en 1
+        ZoolButton{
+            //width:app.fs*3
+            fs:app.fs
+            text: '\uf0c7'
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                let sf=''
+
+                //Ascendente
+                let d = ''
+                d+='<b>Ascendente en '+r.signos[app.currentJson.ph.h1.is]+' en °'+app.currentJson.ph.h1.rsgdeg+'</b><br />\n\n'
+                d+=getDataSAM('ASC', parseInt(app.currentJson.ph.h1.rsgdeg - 1), app.currentJson.ph.h1.is)
+                d=d.replace(/<[^>]*>/g, '')
+                d=d.replace(/&nbsp;/g, ' ')
+                let sdel=''+app.currentJson.ph.h1.rsgdeg+'°: '
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
+                //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
+                let gAsc=''+app.currentJson.ph.h1.rsgdeg
+                if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
+                fileNameOutPut+='Sabianos_Asc_'+r.signos[app.currentJson.ph.h1.is]+'_'+gAsc
+                if(app.dev)log.lv('Sabianos Asc: '+d)
+                sf+='\n'+d
+                //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                console.log('Sabianos Asc fileNameOutPut: '+fileNameOutPut)
+
+                //Medio Cielo
+                d = ''
+                d+='<b>Medio Cielo en '+r.signos[app.currentJson.ph.h10.is]+' en °'+app.currentJson.ph.h10.rsgdeg+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(app.currentJson.ph.h10.rsgdeg - 1), app.currentJson.ph.h1.is)
+                d=d.replace(/<[^>]*>/g, '')
+                d=d.replace(/&nbsp;/g, ' ')
+                sdel=''+app.currentJson.ph.h10.rsgdeg+'°: '
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
+                let gMc=''+app.currentJson.ph.h10.rsgdeg
+                if(app.dev)log.lv('Sabianos gMc: '+gMc)
+                fileNameOutPut+='_Mc_'+r.signos[app.currentJson.ph.h10.is]+'_'+gMc
+                if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
+                sf+='\n'+d
+                //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                console.log('Sabianos Mc fileNameOutPut: '+fileNameOutPut)
+
+                //Sol
+                d = ''
+                d+='<b>Sol en '+r.signos[app.currentJson.pc.c0.is]+' en °'+app.currentJson.pc.c0.rsgdeg+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(app.currentJson.pc.c0.rsgdeg - 1), app.currentJson.pc.c0.is)
+                d=d.replace(/<[^>]*>/g, '')
+                d=d.replace(/&nbsp;/g, ' ')
+                sdel=''+app.currentJson.pc.c0.rsgdeg+'°: '
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                d=d.replace(sdel, '')
+                //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
+                let gSol=''+app.currentJson.pc.c0.rsgdeg
+                if(app.dev)log.lv('Sabianos gSol: '+gSol)
+                fileNameOutPut+='_Sol_'+r.signos[app.currentJson.pc.c0.is]+'_'+gSol+'.txt'
+                if(app.dev)log.lv('Sabianos Sol: '+d)
+                sf+='\n'+d
+                //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                console.log('Sabianos Sol fileNameOutPut: '+fileNameOutPut)
+
+                unik.setFile(fileNameOutPut, sf)
+
+                tHideRowBtns.restart()
+            }
+            ZoolText{
+                text: '<b>1</b>'
+                color: 'red'
+                fs:app.fs*0.8
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: app.fs*0.3
+                anchors.verticalCenterOffset: 0-app.fs*0.3
+            }
+        }
+
         Comps.ButtonIcon{
             text: '\uf010'
             width: apps.botSize
@@ -391,6 +521,31 @@ Rectangle {
         let rd=json['g'+df]['p1'].text
         rd+=json['g'+df]['p2'].text
         rd+=json['g'+df]['p3'].text
+        return rd
+    }
+    function getDataSAM(typeSAM, rsgdeg, is){
+        let df=rsgdeg
+        let sf=is
+        /*if(rsgdeg===-1){
+            df=29
+            rsgdeg=df
+            sf--
+            r.numSign--
+            if(r.numSign<0){
+                sf=0
+                r.numSign=11
+            }
+        }*/
+        //let fileUrl='"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
+        let fileUrl='"'+unik.currentFolderPath()+'/modules/ZoolSabianos/data/sab'+r.numSign+'.json'+'"'
+        fileUrl=fileUrl.replace(/\"/g, '')
+        let fileData=''+unik.getFile(fileUrl)
+        let json=JSON.parse(fileData.replace(/\n/g, ''))
+        let rd='Videncia 1: '+json['g'+df]['p1'].text
+        rd+='\n'
+        rd+='Videncia 2: '+json['g'+df]['p2'].text
+        rd+='\n'
+        rd+='Videncia 3 - Análisis contextual de la personalidad: '+json['g'+df]['p3'].text
         return rd
     }
     function getHtmlData(s, g, item){
