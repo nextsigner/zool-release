@@ -1,15 +1,13 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "../js/Funcs.js" as JS
-import "../js/Capture.js" as Cap
+import "../../js/Funcs.js" as JS
+import "../../js/Capture.js" as Cap
 Menu {
     id: r
     width: app.fs*8
-    property int currentIndexPlanet: -1
+    property int currentIndexHouse: -1
     property var aMI: []
     property bool isBack: false
-    property int uX: 0
-    property int uY: 0
     onOpenedChanged:  menuBar.expanded=opened
     //onCurrentIndexChanged: menuBar.uCMI=aMI[currentIndex]
     Component.onCompleted: menuBar.aMenuItems.push(this)
@@ -73,43 +71,29 @@ Menu {
             color: menuItem.highlighted ?  apps.backgroundColor : apps.fontColor
         }
     }
-    title: 'Menu '+app.planetas[r.currentIndexPlanet]
-    Action {text: qsTr("Zoom 1.0"); onTriggered: {
-                           sweg.zoomTo(0.5)
-                       }
-    }
-    Action {text: qsTr("Zoom 1.5"); onTriggered: {
-                           sweg.zoomTo(1.0)
-                       }
+    title: 'Menu Asc'//+app.planetas[r.currentIndexPlanet]
+//    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]); onTriggered: {
+//            xInfoData.markDown=true
+//            xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
+//    }
+//    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(app.uSonFCMB.split('_')[1])]+' en casa '+app.uSonFCMB.split('_')[2]); onTriggered: {
+//            JS.showIWFromCtxMenuBar()
+//        }
+//    }
+//    Action {text: qsTr(apps.anColorXAs?"No Centellar":"Centellar"); onTriggered: {
+//            apps.anColorXAs=!apps.anColorXAs
+//        }
+//    }
+    Action {text: qsTr("Grabar Posición"); onTriggered: {
+            app.j.saveZoomAndPos()
+        }
     }
     Action {text: qsTr("Capturar"); onTriggered: {
-                           Cap.captureSweg()
-                       }
-    }
-    Action {
-        id: aDeleteExt
-        text: qsTr("Eliminar Exterior oculto")
-        onTriggered: {app.j.deleteJsonBackHidden()}
-
-    }
-    Action {text: qsTr("Salir"); onTriggered: {
-                           Qt.quit()
-                       }
-    }
-
-    Timer{
-        running: r.visible
-        repeat: true
-        interval: 250
-        onTriggered: {
-            let json=JSON.parse(app.fileData)
-            if(!app.ev&&json.paramsBack){
-                aDeleteExt.enabled=true
+            if(!r.isBack){
+                Cap.captureSweg()
             }else{
-                aDeleteExt.enabled=false
+                Cap.captureSwegBack()
             }
-            //let d = new Date(Date.now())
-            //log.lv('Menu ...'+d.getTime())
         }
     }
 }

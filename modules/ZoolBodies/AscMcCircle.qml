@@ -157,9 +157,21 @@ Item {
             }
             MouseArea{
                 anchors.fill: parent
+                acceptedButtons: Qt.AllButtons;
                 onClicked: {
-                    sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==1?1:-1
+                    //Qt.quit()
+                    if (mouse.button === Qt.RightButton) {
+                        //app.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
+
+                        menuPlanetsCtxAsc.isBack=false
+                        menuPlanetsCtxAsc.currentIndexHouse=1
+                        menuPlanetsCtxAsc.popup()
+                    } else if (mouse.button === Qt.LeftButton) {
+                        sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==1?1:-1
+                        app.currentPlanetIndex=app.currentPlanetIndex!==15?15:-1
+                    }
                 }
+
             }
             Column{
                 //anchors.centerIn: co
@@ -313,8 +325,18 @@ Item {
                 anchors.centerIn: parent
                 MouseArea{
                     anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons;
                     onClicked: {
-                        sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==10?10:-1
+                        if (mouse.button === Qt.RightButton) {
+                            //app.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
+
+                            menuPlanetsCtxAsc.isBack=false
+                            menuPlanetsCtxAsc.currentIndexHouse=10
+                            menuPlanetsCtxAsc.popup()
+                        } else if (mouse.button === Qt.LeftButton) {
+                            sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==10?10:-1
+                            app.currentPlanetIndex=app.currentPlanetIndex!==16?16:-1
+                        }
                     }
                 }
             }

@@ -20,8 +20,11 @@ import ZoolText 1.0
 import ZoolDataBar 3.1
 import ZoolDataText 1.0
 import ZoolLogView 1.0
+
 import ZoolBodies 1.4
 import ZoolBodiesGuiTools 1.0
+import ZoolMenuCtxPlanetsAsc 1.0
+
 import ZoolFileManager 1.2
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
@@ -32,7 +35,7 @@ import ZoolNumPit 1.0
 import ZoolElements 1.3
 import ZoolElementsBack 1.0
 
-import ZoolMediaLive 1.0
+import ZoolMediaLive 1.1
 import ZoolDataEditor 1.0
 import ZoolVideoPlayer 1.0
 import ZoolInfoDataView 1.0
@@ -915,6 +918,7 @@ ZoolMainWindow{
     }
     Comps.MenuPlanets{id: menuPlanets}
     Comps.MenuRuedaZodiacal{id: menuRuedaZodiacal}
+    ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMediaLive{id: zoolMediaLive;parent: panelDataBodies}
     Comps.MinymaClient{
         id: minymaClient
