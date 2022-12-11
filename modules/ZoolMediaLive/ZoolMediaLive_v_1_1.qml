@@ -248,58 +248,67 @@ Rectangle{
         }
     }
     property int gmtServer: -3
-    function mkUqpPico2Wave(msg){
+    function mkUqpPico2Wave(msg, index, folderAudios){
         let d=new Date(Date.now())
         let ms=d.getTime()
-        let c='import QtQuick 2.0\n
-import unik.UnikQProcess 1.0\n
-UnikQProcess{\n
-        id: uqpPico2Wave'+ms+'\n
-        onLogDataChanged:{
-            let url=(\'file://\'+logData).replace(/\\n/g, \'\')\n
-            plau.addItem(url)\n
-            apau.play()\n
-        }
-        Component.onCompleted:{\n
-            let fp=\'/tmp/'+ms+'.wav\'\n
-            run(\'/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh \"'+msg+'\" \'+fp+\' es-ES\')\n
-        }
-    }'
+        let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='Item{\n'
+        c+='    id: iUqpPico2Wave'+ms+'\n'
+        c+='    Timer{\n'
+        c+='        id: tUqpPico2Wave'+ms+'\n'
+        c+='        running: false\n'
+        c+='        repeat: false\n'
+        c+='        interval: 3000\n'
+        c+='        property string url:""\n'
+        c+='        onTriggered:{\n'
+        c+='            //plau.addItem(url)\n'
+        c+='            //apau.play()\n'
+        c+='            iUqpPico2Wave'+ms+'.destroy(1)\n'
+        c+='        }\n'
+        c+='    }\n'
+        c+='    UnikQProcess{\n'
+        c+='        id: uqpPico2Wave'+ms+'\n'
+        c+='        onLogDataChanged:{\n'
+        c+='            r.cantAudiosMaked++\n'
+        c+='            if(r.cantAudiosMaked===19){\n'
+        c+='                updateAudioPlayList("'+folderAudios+'")\n'
+        c+='            }\n'
+        c+='            //let url=(\'file://\'+logData).replace(/\\n/g, \'\')\n'
+        c+='            //plau.addItem(url)\n'
+        c+='            //tUqpPico2Wave'+ms+'.url=url\n'
+        c+='            tUqpPico2Wave'+ms+'.start()\n'
+        c+='            //plau.moveItem(plau.count-1, '+index+')\n'
+        c+='            //apau.play()\n'
+        c+='        }\n'
+        c+='        Component.onCompleted:{\n'
+        c+='            let fp=\''+folderAudios+'/'+index+'.wav\'\n'
+        c+='            //log.lv("Fp: "+fp)\n'
+        c+='            run(\'/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh \"'+msg+'\" \'+fp+\' es-ES\')\n'
+        c+='        }'
+        c+='    }'
+        c+='}'
         //console.log(c)
         let comp=Qt.createQmlObject(c, xUqpsPicoWave, 'uqpcode')
     }
-    //import QtQuick 2.0
-
-    //import unik.UnikQProcess 1.0
-
-    /*UnikQProcess{
-
-        id: uqpPico2Wave1670713335332
-
-        onLogDataChanged:{
-            let url=('file://'+logData).replace(/\n/g, '')
-
+    property int cantAudiosMaked: 0
+    function updateAudioPlayList(f){
+        for(var i=0;i<19;i++){
+            let url=('file://'+f+'/'+i+'.wav')
             plau.addItem(url)
-
             apau.play()
-
         }
-        Component.onCompleted:{
-
-            let fp='/tmp/1670713335332.wav'
-
-            run('/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh "Estas son las posiciones de los astros, planetas y cuerpos astrológicos para Mundo" '+fp+' es-ES')
-
-        }
-    }*/
-    function speakInMp(msg){
+    }
+    function speakInMp(msg, index, folderAudios){
         //msg=msg.replace(/ /g, '%20').replace(/_/g, ' ')
         /*let d=new Date(Date.now())
         let fp='/tmp/'+d.getTime()+'.wav'
         uqpPico2Wave.run('/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh "'+msg+'" '+fp+' es-ES')*/
-        mkUqpPico2Wave(msg)
+        //log.lv('index '+index+': '+msg)
+        mkUqpPico2Wave(msg, index, folderAudios)
     }
     function loadBodiesNow(){
+        r.cantAudiosMaked=0
         sweg.centerZoomAndPos()
         let d0=new Date(Date.now())
         if(gmts[r.currentIndex]!==r.gmtServer){
@@ -343,10 +352,19 @@ UnikQProcess{\n
         if(loadAudio)plau.clear()
         let msg=''
         let urlEncoded=''
+
+        let d=new Date(Date.now())
+        let ms=d.getTime()
+        let folderAudios='/tmp/at_'+ms
+        unik.mkdir(folderAudios)
+        if(!unik.folderExist(folderAudios)){
+            if(app.ev)log.lv('Error! Folder audio not exits '+folderAudios)
+        }
+
         let voice='es-ES_LauraVoice'
         msg='Estas son las posiciones de los astros, planetas y cuerpos astrológicos para '+r.currentLugar
         //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
-        speakInMp(msg)
+        speakInMp(msg,0, folderAudios)
         for(var i=0;i<15;i++){
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
@@ -383,7 +401,7 @@ UnikQProcess{\n
                 urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
                 //log.ls('urlEncoded:'+urlEncoded, 0, 350)
                 //plau.addItem(urlEncoded)
-                speakInMp(msg)
+                speakInMp(msg, i+1, folderAudios)
             }
         }
         let o1=json.ph['h1']
@@ -394,7 +412,7 @@ UnikQProcess{\n
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg)
+            speakInMp(msg, 16, folderAudios)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice=es-ES_EnriqueVoice&download=true&accept=audio%2Fmp3'+stringIndex)
         }
 
@@ -404,14 +422,14 @@ UnikQProcess{\n
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg)
+            speakInMp(msg, 17, folderAudios)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
             voice='es-ES_LauraVoice'
             msg='Si desea apoyar este canal para que continúe creciendo, puede hacer una donación.'
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg)
+            speakInMp(msg, 18, folderAudios)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
             if(Qt.application.arguments.indexOf('-youtube')>=0){
                 msg='En la descripción de este video está el enlace para realizar su colaboración.'
@@ -421,7 +439,7 @@ UnikQProcess{\n
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg)
+            speakInMp(msg,19, folderAudios)
             plau.currentIndex=-2
             apau.play()
         }
