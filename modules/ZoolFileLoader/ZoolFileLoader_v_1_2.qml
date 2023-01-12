@@ -21,14 +21,14 @@ Rectangle {
     property string currentFile: ''
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
-//    visible: itemIndex===sv.currentIndex
-//    onSvIndexChanged: {
-//        if(svIndex===itemIndex){
-//            tF.restart()
-//        }else{
-//            tF.stop()
-//        }
-//    }
+    //    visible: itemIndex===sv.currentIndex
+    //    onSvIndexChanged: {
+    //        if(svIndex===itemIndex){
+    //            tF.restart()
+    //        }else{
+    //            tF.stop()
+    //        }
+    //    }
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
@@ -60,84 +60,91 @@ Rectangle {
     Column{
         id: col
         anchors.horizontalCenter: parent.horizontalCenter
-        Item{width: 1; height: app.fs*2; visible: colXConfig.visible}
         Column{
-            id: colXConfig
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-        Item{width: 1; height: app.fs; visible: colXConfig.visible}
-        Rectangle{
-            id:xTit
-            width: lv.width
-            height: app.fs*1.5
-            color: apps.backgroundColor
-            border.width: 2
-            border.color: apps.fontColor//txtDataSearch.focus?'red':'white'
-            anchors.horizontalCenter: parent.horizontalCenter
-            TextInput {
-                id: txtDataSearch
-                //text: 'Archivos svIndex: '+r.svIndex+' itemIndex: '+r.itemIndex+' focus:'+focus
-                text: 'Archivos'
-                font.pixelSize: app.fs*0.5
-                width: parent.width-app.fs
-                wrapMode: Text.WordWrap
-                color: apps.fontColor
-                focus: r.itemIndex===r.svIndex
-                anchors.centerIn: parent
-                Keys.onReturnPressed: {
-                    JS.loadJson(lm.get(lv.currentIndex).fileName)
-                    r.state='hide'
-                }
-                Keys.onRightPressed: {
-                    //JS.loadJsonNow(lm.get(lv.currentIndex).fileName)
-                    //r.state='hide'
-                }
-                Keys.onDownPressed: {
-                    //Qt.quit()
-                    //focus=false
-                    //xApp.focus=true
-                }
-                onTextChanged: {
-                    updateList()
-                }
-                onFocusChanged: {
-                    if(focus){
-                        apps.zFocus='xLatIzq'
-                        selectAll()
-                    }
-
-                }
-                Rectangle{
-                    width: parent.width+app.fs
-                    height: parent.height+app.fs
-                    color: 'transparent'
-                    //border.width: 2
-                    //border.color: 'white'
-                    z: parent.z-1
+            id: colTopElements
+            Item{width: 1; height: app.fs*2; visible: colXConfig.visible}
+            Column{
+                id: colXConfig
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: zoolFileManager.s.showConfig
+            }
+            Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
+            Rectangle{
+                id:xTit
+                width: lv.width
+                height: app.fs*1.5
+                color: apps.backgroundColor
+                border.width: 2
+                border.color: apps.fontColor//txtDataSearch.focus?'red':'white'
+                anchors.horizontalCenter: parent.horizontalCenter
+                TextInput {
+                    id: txtDataSearch
+                    //text: 'Archivos svIndex: '+r.svIndex+' itemIndex: '+r.itemIndex+' focus:'+focus
+                    text: 'Archivos'
+                    font.pixelSize: app.fs*0.5
+                    width: parent.width-app.fs
+                    wrapMode: Text.WordWrap
+                    color: apps.fontColor
+                    focus: r.itemIndex===r.svIndex
                     anchors.centerIn: parent
+                    maximumLength: 30
+                    Keys.onReturnPressed: {
+                        JS.loadJson(lm.get(lv.currentIndex).fileName)
+                        r.state='hide'
+                    }
+                    Keys.onRightPressed: {
+                        //JS.loadJsonNow(lm.get(lv.currentIndex).fileName)
+                        //r.state='hide'
+                    }
+                    Keys.onDownPressed: {
+                        //Qt.quit()
+                        //focus=false
+                        //xApp.focus=true
+                    }
+                    onTextChanged: {
+                        updateList()
+                    }
+                    onFocusChanged: {
+                        if(focus){
+                            apps.zFocus='xLatIzq'
+                            selectAll()
+                        }
+
+                    }
+                    Rectangle{
+                        width: parent.width+app.fs
+                        height: parent.height+app.fs
+                        color: 'transparent'
+                        //border.width: 2
+                        //border.color: 'white'
+                        z: parent.z-1
+                        anchors.centerIn: parent
+                    }
                 }
             }
-        }
-        Item{
-            id:xTitInf
-            width: lv.width
-            height: txtTitInfo.contentHeight+app.fs*0.25
-            //color: apps.backgroundColor
-            anchors.horizontalCenter: parent.horizontalCenter
-            Text {
-                id: txtTitInfo
-                //text: '<b>Cantidad Total:</b> '+flm.count+' <b>Encontrados:</b> '+lm.count+'<br><b>Carpeta: </b>'+(''+flm.folder).replace('file://', '')
-                font.pixelSize: app.fs*0.35
-                width: parent.width-app.fs
-                wrapMode: Text.WordWrap
-                color: apps.fontColor
-                anchors.centerIn: parent
+            Item{
+                id:xTitInf
+                width: lv.width
+                height: txtTitInfo.contentHeight+app.fs*0.25
+                //color: apps.backgroundColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                clip: true
+                Text {
+                    id: txtTitInfo
+                    text: '<b>Cantidad Total:</b> '+flm.count+' <b>Encontrados:</b> '+lm.count+'<br><b>Carpeta: </b>'+(''+flm.folder).replace('file://', '')
+                    font.pixelSize: app.fs*0.35
+                    width: parent.width-app.fs
+                    wrapMode: Text.WordWrap
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
             }
         }
         ListView{
             id: lv
             width: r.width
-            height: r.height-xTit.height-xTitInf.height
+            //height: r.height-xTit.height-xTitInf.height
+            height: r.height-colTopElements.height
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
