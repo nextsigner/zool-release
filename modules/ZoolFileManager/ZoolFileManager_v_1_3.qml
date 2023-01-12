@@ -6,6 +6,8 @@ import "../../js/Funcs.js" as JS
 
 import ZoolFileMaker 1.0
 import ZoolFileLoader 1.1
+import ZoolFileTransLoader 1.0
+import ZoolFileDirPrimLoader 1.0
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -17,6 +19,8 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
+    property int hp: r.parent.height-xBtns.height//-rowBtns.parent.spacing //Altura de los paneles
+
     property var panelActive: zoolFileMaker.visible?zoolFileMaker:zoolFileLoader
 
     property alias ti: zoolFileLoader.ti
@@ -26,14 +30,7 @@ Rectangle {
     property alias tiN: zoolFileMaker.tiN
     property alias tiC: zoolFileMaker.tiC
 
-
-//    property real lat:-100.00
-//    property real lon:-100.00
-
-//    property real ulat:-100.00
-//    property real ulon:-100.00
-
-//    property string uFileNameLoaded: ''
+    property alias s: settings
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
     visible: itemIndex===sv.currentIndex
@@ -56,11 +53,14 @@ Rectangle {
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Settings{
         id: settings
+        property int currentIndex: 0
         property bool showModuleVersion: false
         property bool inputCoords: false
+        property bool showConfig: false
+
     }
     Text{
-        text: 'ZoolFileManager v1.1'
+        text: 'ZoolFileManager v1.2'
         font.pixelSize: app.fs*0.5
         color: apps.fontColor
         anchors.left: parent.left
@@ -74,36 +74,89 @@ Rectangle {
         }
     }
     Column{
-        spacing: -app.fs*0.25
-        //anchors.centerIn: parent
-        Row{
-            id: rowBtns
-            ZoolButton{
-                text:'Crear Archivo'
-                colorInverted: !zoolFileMaker.visible
-                onClicked: {
-                    zoolFileMaker.visible=!zoolFileMaker.visible
-                    zoolFileLoader.visible=!zoolFileLoader.visible
+        Rectangle{
+            id: xBtns
+            width: r.width
+            height: rowBtns.height+app.fs*0.5
+            color: 'transparent'
+            border.width: 0
+            border.color: 'red'
+            Flow{
+                id: rowBtns
+                spacing: app.fs*0.25
+                width: parent.width-app.fs*0.5
+                anchors.centerIn: parent
+                ZoolButton{
+                    text:'Crear'
+                    colorInverted: zoolFileMaker.visible
+                    onClicked: {
+                        zoolFileMaker.visible=true
+                        zoolFileLoader.visible=false
+                        zoolFileTransLoader.visible=false
+                        zoolFileDirPrimLoader.visible=false
+                        settings.currentIndex=0
+                    }
                 }
-            }
-            ZoolButton{
-                text:'Cargar Archivo'
-                colorInverted: !zoolFileLoader.visible
-                onClicked: {
-                    zoolFileMaker.visible=!zoolFileMaker.visible
-                    zoolFileLoader.visible=!zoolFileLoader.visible
+                ZoolButton{
+                    text:'Buscar'
+                    colorInverted: zoolFileLoader.visible
+                    onClicked: {
+                        //log.lv('0 settings.currentIndex: '+settings.currentIndex)
+                        zoolFileMaker.visible=false
+                        zoolFileLoader.visible=true
+                        zoolFileTransLoader.visible=false
+                        zoolFileDirPrimLoader.visible=false
+                        settings.currentIndex=1
+                        //log.lv('1 settings.currentIndex: '+settings.currentIndex)
+                    }
+                }
+                ZoolButton{
+                    text:'Transitos'
+                    colorInverted: zoolFileTransLoader.visible
+                    onClicked: {
+                        zoolFileMaker.visible=false
+                        zoolFileLoader.visible=false
+                        zoolFileTransLoader.visible=true
+                        zoolFileDirPrimLoader.visible=false
+                        settings.currentIndex=2
+                    }
+                }
+                ZoolButton{
+                    id: botDirPrim
+                    text:'Direcciones'
+                    colorInverted: zoolFileTransLoader.visible
+                    //fs:8
+                    visible: app.dev
+                    onClicked: {
+                        zoolFileMaker.visible=false
+                        zoolFileLoader.visible=false
+                        zoolFileTransLoader.visible=false
+                        zoolFileDirPrimLoader.visible=true
+                        settings.currentIndex=3
+                    }
                 }
             }
         }
         ZoolFileMaker{
             id: zoolFileMaker;
             visible: true
-            height: r.parent.height-rowBtns.children[0].height-rowBtns.parent.spacing
+            //height: r.parent.height-rowBtns.children[0].height-rowBtns.parent.spacing
+            height: r.hp
         }
         ZoolFileLoader{
             id: zoolFileLoader;
             visible: false
-            height: zoolFileMaker.height
+            height: r.hp
+        }
+        ZoolFileTransLoader{
+            id: zoolFileTransLoader;
+            visible: false
+            height: r.hp
+        }
+        ZoolFileDirPrimLoader{
+            id: zoolFileDirPrimLoader;
+            visible: false
+            height: r.hp
         }
     }
     Rectangle{
@@ -114,8 +167,8 @@ Rectangle {
         border.color: apps.fontColor
         radius: app.fs*0.25
         color: 'transparent'
-        visible: app.dev
-        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:zoolFileLoader.xCfgItem
+        visible: zoolFileManager.s.showConfig
+        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:(zoolFileLoader.visible?zoolFileLoader.xCfgItem:zoolFileTransLoader.xCfgItem)
         Column{
             id: colTextJsonFolder
             anchors.centerIn: parent
@@ -161,6 +214,28 @@ Rectangle {
                     anchors.bottom: parent.top
                 }
             }
+
+        }
+    }
+
+    function timer() {
+        return Qt.createQmlObject("import QtQuick 2.0; Timer {}", r);
+    }
+    function mkTimer(){
+        let t = new timer();
+        t.interval = 2000;
+        t.repeat = false;
+        t.triggered.connect(function () {
+            log.visible=false
+            //log.lv("I'm triggered once every second");
+        })
+        t.start();
+    }
+    Component.onCompleted: {
+        rowBtns.children[settings.currentIndex].clicked()
+        if(app.dev){
+            zoolFileDirPrimLoader.ctFecha.gmt=-3
+            mkTimer()
 
         }
     }

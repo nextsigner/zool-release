@@ -1,5 +1,4 @@
 ﻿import QtQuick 2.12
-//import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.0
 import QtMultimedia 5.12
@@ -25,7 +24,7 @@ import ZoolBodies 1.4
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 
-import ZoolFileManager 1.2
+import ZoolFileManager 1.3
 import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.1

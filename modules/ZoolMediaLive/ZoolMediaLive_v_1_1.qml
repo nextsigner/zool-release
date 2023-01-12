@@ -24,6 +24,9 @@ Rectangle{
     property var longs: []//[-64.175087, -2.113293483429562]
     property var gmts: []//[0, 3]
     property string currentLugar: 'Mundo'
+
+    property int cantAudiosMaked: 0
+
     state: 'hide'
     states: [
         State {
@@ -49,14 +52,6 @@ Rectangle{
         property bool repAutomatica: true
     }
     Item{id: xUqpsPicoWave}
-    UnikQProcess{
-        id: uqpPico2Wave
-        onLogDataChanged:{
-            let url=('file://'+logData).replace(/\n/g, '')
-            plau.addItem(url)
-            apau.play()
-        }
-    }
     Item{
         anchors.fill: parent
         anchors.right: parent.right
@@ -147,6 +142,10 @@ Rectangle{
                         color: tRepAutomatic.running?'red':'gray'
                     }
                 }
+            }
+            Row{
+                spacing: app.fs*0.1
+                anchors.horizontalCenter: parent.horizontalCenter
                 Text{
                     text:'Automático:'
                     font.pixelSize: app.fs*0.35
@@ -255,18 +254,15 @@ Rectangle{
         c+='import unik.UnikQProcess 1.0\n'
         c+='Item{\n'
         c+='    id: iUqpPico2Wave'+ms+'\n'
-        c+='    Timer{\n'
-        c+='        id: tUqpPico2Wave'+ms+'\n'
-        c+='        running: false\n'
-        c+='        repeat: false\n'
-        c+='        interval: 3000\n'
-        c+='        property string url:""\n'
-        c+='        onTriggered:{\n'
-        c+='            //plau.addItem(url)\n'
-        c+='            //apau.play()\n'
-        c+='            iUqpPico2Wave'+ms+'.destroy(1)\n'
-        c+='        }\n'
-        c+='    }\n'
+//        c+='    Timer{\n'
+//        c+='        id: tUqpPico2Wave'+ms+'\n'
+//        c+='        running: false\n'
+//        c+='        repeat: false\n'
+//        c+='        interval: 1000\n'
+//        c+='        onTriggered:{\n'
+//        c+='            iUqpPico2Wave'+ms+'.destroy(1)\n'
+//        c+='        }\n'
+//        c+='    }\n'
         c+='    UnikQProcess{\n'
         c+='        id: uqpPico2Wave'+ms+'\n'
         c+='        onLogDataChanged:{\n'
@@ -274,12 +270,8 @@ Rectangle{
         c+='            if(r.cantAudiosMaked===19){\n'
         c+='                updateAudioPlayList("'+folderAudios+'")\n'
         c+='            }\n'
-        c+='            //let url=(\'file://\'+logData).replace(/\\n/g, \'\')\n'
-        c+='            //plau.addItem(url)\n'
-        c+='            //tUqpPico2Wave'+ms+'.url=url\n'
-        c+='            tUqpPico2Wave'+ms+'.start()\n'
-        c+='            //plau.moveItem(plau.count-1, '+index+')\n'
-        c+='            //apau.play()\n'
+        //c+='            tUqpPico2Wave'+ms+'.start()\n'
+        c+='              iUqpPico2Wave'+ms+'.destroy(1)\n'
         c+='        }\n'
         c+='        Component.onCompleted:{\n'
         c+='            let fp=\''+folderAudios+'/'+index+'.wav\'\n'
@@ -291,21 +283,13 @@ Rectangle{
         //console.log(c)
         let comp=Qt.createQmlObject(c, xUqpsPicoWave, 'uqpcode')
     }
-    property int cantAudiosMaked: 0
+
     function updateAudioPlayList(f){
         for(var i=0;i<19;i++){
             let url=('file://'+f+'/'+i+'.wav')
             plau.addItem(url)
             apau.play()
         }
-    }
-    function speakInMp(msg, index, folderAudios){
-        //msg=msg.replace(/ /g, '%20').replace(/_/g, ' ')
-        /*let d=new Date(Date.now())
-        let fp='/tmp/'+d.getTime()+'.wav'
-        uqpPico2Wave.run('/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh "'+msg+'" '+fp+' es-ES')*/
-        //log.lv('index '+index+': '+msg)
-        mkUqpPico2Wave(msg, index, folderAudios)
     }
     function loadBodiesNow(){
         r.cantAudiosMaked=0
@@ -364,7 +348,7 @@ Rectangle{
         let voice='es-ES_LauraVoice'
         msg='Estas son las posiciones de los astros, planetas y cuerpos astrológicos para '+r.currentLugar
         //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3')
-        speakInMp(msg,0, folderAudios)
+        mkUqpPico2Wave(msg,0, folderAudios)
         for(var i=0;i<15;i++){
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
@@ -401,7 +385,7 @@ Rectangle{
                 urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
                 //log.ls('urlEncoded:'+urlEncoded, 0, 350)
                 //plau.addItem(urlEncoded)
-                speakInMp(msg, i+1, folderAudios)
+                mkUqpPico2Wave(msg, i+1, folderAudios)
             }
         }
         let o1=json.ph['h1']
@@ -412,7 +396,7 @@ Rectangle{
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg, 16, folderAudios)
+            mkUqpPico2Wave(msg, 16, folderAudios)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice=es-ES_EnriqueVoice&download=true&accept=audio%2Fmp3'+stringIndex)
         }
 
@@ -422,14 +406,14 @@ Rectangle{
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg, 17, folderAudios)
+            mkUqpPico2Wave(msg, 17, folderAudios)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
             voice='es-ES_LauraVoice'
             msg='Si desea apoyar este canal para que continúe creciendo, puede hacer una donación.'
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg, 18, folderAudios)
+            mkUqpPico2Wave(msg, 18, folderAudios)
             //plau.addItem('https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'+stringIndex)
             if(Qt.application.arguments.indexOf('-youtube')>=0){
                 msg='En la descripción de este video está el enlace para realizar su colaboración.'
@@ -439,7 +423,7 @@ Rectangle{
             urlEncoded='https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?text='+encodeURI(msg)+'&voice='+voice+'&download=true&accept=audio%2Fmp3'
             //log.ls('urlEncoded:'+urlEncoded, 0, 350)
             //plau.addItem(urlEncoded)
-            speakInMp(msg,19, folderAudios)
+            mkUqpPico2Wave(msg,19, folderAudios)
             plau.currentIndex=-2
             apau.play()
         }
