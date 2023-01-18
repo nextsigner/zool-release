@@ -48,7 +48,7 @@ Rectangle {
         property bool inputCoords: false
     }
     ZoolText{
-        text: 'ZoolFileMaker v1.0'
+        text: 'ZoolFileDirPrimLoader v1.0'
         font.pixelSize: app.fs*0.5
         color: apps.fontColor
         anchors.left: parent.left
@@ -174,7 +174,40 @@ Rectangle {
                     //KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
                     //enableGMT:false
+                    function gp(x, y) {
+                        var FechaEntero = Math.round(x);
+                        var FechaEntero2 = Math.round(y);
+                        var resta = FechaEntero2 - FechaEntero;
+                        var div = (resta / controlTimeFechaEvento.notZero(FechaEntero));
+                        var porcentaje = controlTimeFechaEvento.percentZero(div, FechaEntero);
+                        var result = Math.round(porcentaje)
+                        return porcentaje///10
+                        //alert("FechaEntero: "+FechaEntero+"% \nFechaEntero2: "+FechaEntero2+"\nresta: "+resta+"\ndiv: "+div+"\nporcentaje: "+porcentaje+"\nresult: "+result)
+                    }
+                    function notZero(n) {
+                        n = +n;  // Coerce to number.
+                        if (!n) {  // Matches +0, -0, NaN
+                            return 0.000000000000001
+                        }
+                        return n;
+                    }
+                    function percentZero(y,n) {
+                        n = +n;  // Coerce to number.
+                        if (!n) {  // Matches +0, -0, NaN
+                            return (y/10000000000000)
+                        }
+                        return (y*100);
+                    }
+                    function getEdad(d1, d2) {
+                        let edad = d2.getFullYear() - d1.getFullYear()
+                        let diferenciaMeses = d2.getMonth() - d1.getMonth()
+                        if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && d2.getDate() < fechaNacimiento2.getDate())){
+                            edad--
+                        }
+                        return edad
+                    }
                     onCurrentDateChanged: {
+                        l.clear()
                         if(!r.visible)return
                         //l.lv('app.currentLat:'+app.currentLat)
                         r.ulat=app.currentLat
@@ -193,34 +226,72 @@ Rectangle {
                         let claveNaibodDec=0.9856481481481388
                         let da = new Date(controlTimeFecha.currentDate)
                         let db = new Date(currentDate)
+                        //let da = new Date(1980,8,8,17)
+                        //let db = new Date(1981,8,8,17)
                         l.lv('da:'+da.toString())
-                        l.lv('db:'+da.toString())
+                        l.lv('db:'+db.toString())
 
-                        let diffms=db.getTime()-da.getTime()
-                        l.lv('diffms:'+diffms)
+
+                        let msAnioInicio=da.getTime()
+                        let msAnioEvento=db.getTime()
+
+                        l.lv('Ms Año inicio:   '+msAnioInicio)
+                        l.lv('Ms Año evento:'+msAnioEvento)
+                        //l.lv('sv.currentIndex:'+sv.currentIndex)
+
                         let msDia=3600*1000*24
                         let msAnio=parseFloat( msDia * 325.25)
-                        let ms360=parseFloat( msDia * 325.25) //28101600000
+                        //let ms360=parseFloat( msDia * 325.25) //28101600000
+                        l.lv('msAnio: '+msAnio)
+                        //l.lv('ms360: '+ms360)
 
-                        console.log('msAnio: '+msAnio)
-                        //l.lv('msDia:'+msDia)
-                        //l.lv('msAnio:'+msAnio)
+                        let diffms=msAnioEvento-msAnioInicio
+                        let diffms2=msAnioEvento-diffms
+                        l.lv('diffms:   '+diffms)
+                        //let porc=diffms/da.getTime()*100
+                        //Fórmula solucionada por @sseb4
+                        //var porc= (msAnioEvento / (msAnioInicio-msAnioEvento))*100;
+                        //var porc= ((msAnioEvento - diffms)  / msAnioInicio) * msAnioEvento/// 100 * )//*100;
+                        //var porc= ((msAnioEvento - diffms)  / msAnioEvento) * msAnioInicio/// 100 * )//*100;
+                        //var porc= ((msAnioInicio / msAnioEvento)  / 100) * diffms/// 100 * )//*100;
+                        //1000
+                        //1200
+                        //200
+                        //200/1000*100
+                        let resSegA=msAnioInicio / 1000
+                        let resSegB=msAnioEvento / 1000
+                        //l.lv('resSegA Segundos: '+resSegA)
+                        //l.lv('resSegB Segundos: '+resSegB)
+                        let resMinA=resSegA / 60
+                        let resMinB=resSegB / 60
+                        l.lv('resMinA Minutos: '+resMinA)
+                        l.lv('resMinB Minutos: '+resMinB)
+                        let resHoraA=resMinA / 60
+                        let resHoraB=resMinB / 60
+                        l.lv('resHoraA Horas: '+resHoraA)
+                        l.lv('resHoraB Horas: '+resHoraB)
+                        let resDiffHoras=resHoraB-resHoraA
+                        l.lv('resDiffHoras: '+resDiffHoras)
+                        let resDias=resDiffHoras / 24
+                        l.lv('resDias: '+resDias)
+                        let resAnio= parseFloat(resDias / 365.25).toFixed(2)
+                        l.lv('resAnio: '+resAnio)
 
                         //var scorrJson=app.currentJson.replace(/\n/g, '')
                         let j=app.currentJson//JSON.parse(scorrJson)
                         let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
-                        l.lv('signCircleRot:'+signCircleRot)
+                        //l.lv('signCircleRot:'+signCircleRot)
                         let rotAnios=0
                         let anioA=controlTimeFecha.anio
                         let anioB=controlTimeFechaEvento.anio
-                        l.lv('anioA:'+anioA)
-                        l.lv('anioB:'+anioB)
-                        let diffAnio=anioB-anioA
-                        l.lv('diffAnio:'+diffAnio)
+                        //l.lv('anioA:'+anioA)
+                        //l.lv('anioB:'+anioB)
+                        let diffAnio=resAnio//anioB-anioA
+                        //l.lv('diffAnio:'+diffAnio)
 
                         //let pcRot=sweg.objPlanetsCircle.rotation
                         let pcBackRot=parseFloat(parseFloat(signCircleRot)-parseFloat(diffAnio))//sweg.objPlanetsCircleBack.rotation
-                        l.lv('pcBackRot:'+pcBackRot)
+                        //l.lv('pcBackRot:'+pcBackRot)
                         //pcBackRot++
                         //pcBackRot=pcBackRot+diffAnio
                         //sweg.objPlanetsCircleBack.rotation=pcBackRot
@@ -234,9 +305,9 @@ Rectangle {
                         //hcBackRot++
                         sweg.objHousesCircleBack.rotation=hcBackRot
                         sweg.objPlanetsCircleBack.rotation=hcBackRot
-                        l.lv('sweg.objPlanetsCircle.rotation:'+sweg.objPlanetsCircle.rotation)
-                        l.lv('sweg.objHousesCircleBack.rotation:'+sweg.objHousesCircleBack.rotation)
-                        l.lv('sweg.objPlanetsCircleBack.rotation:'+sweg.objPlanetsCircleBack.rotation)
+                        //l.lv('sweg.objPlanetsCircle.rotation:'+sweg.objPlanetsCircle.rotation)
+                        //l.lv('sweg.objHousesCircleBack.rotation:'+sweg.objHousesCircleBack.rotation)
+                        //l.lv('sweg.objPlanetsCircleBack.rotation:'+sweg.objPlanetsCircleBack.rotation)
 
                         /*if(app.currentGmt>0){
                         d.setHours(d.getHours()+app.currentGmt)
@@ -258,18 +329,6 @@ Rectangle {
                     }
                 }
                 //ZoolLogView
-                ZoolLogView{
-                    id: l
-                    width:parent.width
-                    height: 300
-                    visible: true
-                    Rectangle{
-                        anchors.fill: parent
-                        border.width: 4
-                        border.color: 'red'
-                        color: 'transparent'
-                    }
-                }
             }
             Row{
                 spacing: app.fs*0.5
@@ -638,6 +697,21 @@ Rectangle {
         onTriggered: searchGeoLoc(false)
     }
     Item{id: xuqp}
+    ZoolLogView{
+        id: l
+        width:parent.width*2
+        height: xLatIzq.height*0.35
+        parent: xLatIzq
+        anchors.left: parent.right
+        anchors.top: parent.top
+        visible: app.dev && sv.currentIndex===2
+        Rectangle{
+            anchors.fill: parent
+            border.width: 4
+            border.color: 'red'
+            color: 'transparent'
+        }
+    }
     function searchGeoLoc(crear){
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)

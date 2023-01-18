@@ -117,6 +117,18 @@ Rectangle {
                     MouseArea{
                         enabled: !r.locked
                         anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
+                        onClicked: {
+                            let d = r.currentDate
+                            let d2=new Date(d.getTime())
+                            if (mouse.button === Qt.RightButton) {
+                                d2.setFullYear(d2.getFullYear() + 1)
+                                r.currentDate = new Date(d2)
+                            }else{
+                                d2.setFullYear(d2.getFullYear() - 1)
+                                r.currentDate = new Date(d2)
+                            }
+                        }
                         onWheel: {
                             let d = r.currentDate
                             let d2=new Date(d.getTime())
@@ -147,6 +159,18 @@ Rectangle {
                     MouseArea{
                         enabled: !r.locked
                         anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
+                        onClicked: {
+                            let d = r.currentDate
+                            let d2=new Date(d.getTime())
+                            if (mouse.button === Qt.RightButton) {
+                                d2.setMonth(d2.getMonth() + 1)
+                                r.currentDate = new Date(d2)
+                            }else{
+                                d2.setMonth(d2.getMonth() - 1)
+                                r.currentDate = new Date(d2)
+                            }
+                        }
                         onWheel: {
                             let d = r.currentDate
                             let d2=new Date(d.getTime())
@@ -191,6 +215,18 @@ Rectangle {
                     MouseArea{
                         enabled: !r.locked
                         anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
+                        onClicked: {
+                            let d = r.currentDate
+                            let d2=new Date(d.getTime())
+                            if (mouse.button === Qt.RightButton) {
+                                d2.setDate(d2.getDate() + 1)
+                                r.currentDate = new Date(d2)
+                            }else{
+                                d2.setDate(d2.getDate() - 1)
+                                r.currentDate = new Date(d2)
+                            }
+                        }
                         onWheel: {
                             let d = r.currentDate
                             let d2=new Date(d.getTime())
@@ -246,7 +282,7 @@ Rectangle {
                     font.pixelSize: r.fs
                     anchors.centerIn: parent
                 }
-                MouseArea {
+                MouseArea{
                     id: maw
                     anchors.fill: parent
                     //onClicked: r.v=!r.v
@@ -254,6 +290,25 @@ Rectangle {
                     property date uDate//: app.currentDate
                     property int f: 0
                     property int uY: 0
+                    acceptedButtons: Qt.AllButtons;
+                    onClicked: {
+                        let cgmt
+                        cgmt=r.gmt
+                        if (mouse.button === Qt.RightButton) {
+                            if(cgmt<12.00){
+                                cgmt+=1.0//0.1
+                            }else{
+                                cgmt=-12.00
+                            }
+                        }else{
+                            if(cgmt>-12.00){
+                                cgmt-=1.0//0.1
+                            }else{
+                                cgmt=12.00
+                            }
+                        }
+                        r.gmt=parseFloat(cgmt).toFixed(1)
+                    }
                     onWheel: {
                         let cgmt
                         cgmt=r.gmt
@@ -286,6 +341,18 @@ Rectangle {
                     MouseArea{
                         enabled: !r.locked
                         anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
+                        onClicked: {
+                            let d = r.currentDate
+                            let d2=new Date(d.getTime())
+                            if (mouse.button === Qt.RightButton) {
+                                d2.setHours(d2.getHours() + 1)
+                                r.currentDate = new Date(d2)
+                            }else{
+                                d2.setHours(d2.getHours() - 1)
+                                r.currentDate = new Date(d2)
+                            }
+                        }
                         onWheel: {
                             let d = r.currentDate
                             let d2=new Date(d.getTime())
@@ -317,6 +384,18 @@ Rectangle {
                     MouseArea{
                         enabled: !r.locked
                         anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
+                        onClicked: {
+                            let d = r.currentDate
+                            let d2=new Date(d.getTime())
+                            if (mouse.button === Qt.RightButton) {
+                                d2.setMinutes(d2.getMinutes() + 1)
+                                r.currentDate = new Date(d2)
+                            }else{
+                                d2.setMinutes(d2.getMinutes() - 1)
+                                r.currentDate = new Date(d2)
+                            }
+                        }
                         onWheel: {
                             let d = r.currentDate
                             let d2=new Date(d.getTime())
