@@ -61,7 +61,7 @@ Rectangle {
             onClicked: settings.showModuleVersion=!settings.showModuleVersion
         }
     }
-    ZoolButton{
+    /*ZoolButton{
         text:'\uf013'
         anchors.right: parent.right
         anchors.rightMargin: app.fs*0.25
@@ -71,14 +71,15 @@ Rectangle {
         onClicked:{
             zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
         }
-    }
+    }*/
 
     Flickable{
         id: flk
-        width: r.width
+        width: r.width-app.fs
         height: r.height
         contentWidth: col.width
         contentHeight: col.height
+        anchors.horizontalCenter: parent.horizontalCenter
         Column{
             id: col
             anchors.centerIn: parent
@@ -91,27 +92,30 @@ Rectangle {
             ZoolText{
                 //t.width:r.width-app.fs
                 text: '<b>Crear Direcciones Primarias</b>'
+                w: r.width-app.fs
                 font.pixelSize: app.fs*0.65
                 color: 'white'
             }
-            Row{
-                spacing: app.fs*0.5
+            Column{
+                spacing: app.fs*0.25
                 anchors.horizontalCenter: parent.horizontalCenter
+                //width: r.width-app.fs
                 ZoolText{
                     id: labelCbHSys
                     text: 'Sistema de Casas:'
+                    //w: app.fs*3
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 ComboBox{
                     id: cbHsys
-                    width: r.width-app.fs-labelCbHSys.width-parent.spacing
+                    width: r.width-app.fs//-labelCbHSys.width-parent.spacing
                     height: app.fs*0.75
                     font.pixelSize: app.fs*0.5
                     model: app.ahysNames
                     currentIndex: app.ahys.indexOf(apps.currentHsys)
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     onCurrentIndexChanged: {
                         if(currentIndex===app.ahys.indexOf(apps.currentHsys))return
                         apps.currentHsys=app.ahys[currentIndex]
@@ -174,38 +178,6 @@ Rectangle {
                     //KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
                     //enableGMT:false
-                    function gp(x, y) {
-                        var FechaEntero = Math.round(x);
-                        var FechaEntero2 = Math.round(y);
-                        var resta = FechaEntero2 - FechaEntero;
-                        var div = (resta / controlTimeFechaEvento.notZero(FechaEntero));
-                        var porcentaje = controlTimeFechaEvento.percentZero(div, FechaEntero);
-                        var result = Math.round(porcentaje)
-                        return porcentaje///10
-                        //alert("FechaEntero: "+FechaEntero+"% \nFechaEntero2: "+FechaEntero2+"\nresta: "+resta+"\ndiv: "+div+"\nporcentaje: "+porcentaje+"\nresult: "+result)
-                    }
-                    function notZero(n) {
-                        n = +n;  // Coerce to number.
-                        if (!n) {  // Matches +0, -0, NaN
-                            return 0.000000000000001
-                        }
-                        return n;
-                    }
-                    function percentZero(y,n) {
-                        n = +n;  // Coerce to number.
-                        if (!n) {  // Matches +0, -0, NaN
-                            return (y/10000000000000)
-                        }
-                        return (y*100);
-                    }
-                    function getEdad(d1, d2) {
-                        let edad = d2.getFullYear() - d1.getFullYear()
-                        let diferenciaMeses = d2.getMonth() - d1.getMonth()
-                        if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && d2.getDate() < fechaNacimiento2.getDate())){
-                            edad--
-                        }
-                        return edad
-                    }
                     onCurrentDateChanged: {
                         l.clear()
                         if(!r.visible)return
@@ -248,34 +220,25 @@ Rectangle {
                         let diffms=msAnioEvento-msAnioInicio
                         let diffms2=msAnioEvento-diffms
                         l.lv('diffms:   '+diffms)
-                        //let porc=diffms/da.getTime()*100
-                        //Fórmula solucionada por @sseb4
-                        //var porc= (msAnioEvento / (msAnioInicio-msAnioEvento))*100;
-                        //var porc= ((msAnioEvento - diffms)  / msAnioInicio) * msAnioEvento/// 100 * )//*100;
-                        //var porc= ((msAnioEvento - diffms)  / msAnioEvento) * msAnioInicio/// 100 * )//*100;
-                        //var porc= ((msAnioInicio / msAnioEvento)  / 100) * diffms/// 100 * )//*100;
-                        //1000
-                        //1200
-                        //200
-                        //200/1000*100
+
                         let resSegA=msAnioInicio / 1000
                         let resSegB=msAnioEvento / 1000
                         //l.lv('resSegA Segundos: '+resSegA)
                         //l.lv('resSegB Segundos: '+resSegB)
                         let resMinA=resSegA / 60
                         let resMinB=resSegB / 60
-                        l.lv('resMinA Minutos: '+resMinA)
-                        l.lv('resMinB Minutos: '+resMinB)
+                        //l.lv('resMinA Minutos: '+resMinA)
+                        //l.lv('resMinB Minutos: '+resMinB)
                         let resHoraA=resMinA / 60
                         let resHoraB=resMinB / 60
-                        l.lv('resHoraA Horas: '+resHoraA)
-                        l.lv('resHoraB Horas: '+resHoraB)
+                        //l.lv('resHoraA Horas: '+resHoraA)
+                        //l.lv('resHoraB Horas: '+resHoraB)
                         let resDiffHoras=resHoraB-resHoraA
-                        l.lv('resDiffHoras: '+resDiffHoras)
+                        //l.lv('resDiffHoras: '+resDiffHoras)
                         let resDias=resDiffHoras / 24
-                        l.lv('resDias: '+resDias)
+                        //l.lv('resDias: '+resDias)
                         let resAnio= parseFloat(resDias / 365.25).toFixed(2)
-                        l.lv('resAnio: '+resAnio)
+                        //l.lv('resAnio: '+resAnio)
 
                         //var scorrJson=app.currentJson.replace(/\n/g, '')
                         let j=app.currentJson//JSON.parse(scorrJson)
