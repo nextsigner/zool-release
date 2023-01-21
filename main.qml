@@ -31,8 +31,9 @@ import ZoolSabianos 1.1
 import ZoolRevolutionList 1.3
 import ZoolNumPit 1.0
 
-import ZoolElements 1.3
+import ZoolElements 1.4
 import ZoolElementsBack 1.0
+import ZoolElementsView 1.0
 
 import ZoolMediaLive 1.1
 import ZoolDataEditor 1.0
@@ -714,9 +715,14 @@ ZoolMainWindow{
                         anchors.top: panelElements.bottom
                         anchors.topMargin: app.fs*0.1
                     }
+
                     //ZoolElementsBack{id: panelElementsBack}
                 }
 
+                ZoolElementsView{
+                    id: zoolElementsView
+                    visible: app.dev
+                }
                 Item{
                     id: xControlsTime
                     width: controlsTime.width
