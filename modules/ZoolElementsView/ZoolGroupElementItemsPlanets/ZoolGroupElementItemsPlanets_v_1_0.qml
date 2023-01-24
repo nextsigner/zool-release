@@ -1,6 +1,5 @@
 import QtQuick 2.0
-import ZoolElementsView.ZoolGroupElementItems.ZoolElementItem 1.0
-import "./ZoolElementItem"
+import ZoolElementsView.ZoolGroupElementItemsPlanets.ZoolElementItemPlanet 1.0
 
 
 Rectangle{
@@ -10,19 +9,19 @@ Rectangle{
     border.width: 0
     border.color: 'red'
     color: 'transparent'
+    anchors.right: parent.right
     property int fs: app.fs*3
     property bool isBack: false
     property bool showTitle: false
-    property int firstItemHeight: itemFuego.height
     Column{
         id: col
-        anchors.centerIn: parent
-        ZoolElementItemTitle{fs: r.fs; isBack: r.isBack; visible: r.showTitle}
-        ZoolElementItem{id: itemFuego; fs: r.fs; numElement: 0}
-        ZoolElementItem{id: itemTierra; fs: r.fs; numElement: 1}
-        ZoolElementItem{id: itemAire; fs: r.fs; numElement: 2}
-        ZoolElementItem{id: itemAgua; fs: r.fs; numElement: 3}
-        ZoolElementItemNumPit{id: numPit; fs: r.fs; isBack: r.isBack}
+        anchors.right: parent.right
+        ZoolElementItemPlanet{id: itemSpacingTitle; fs: r.fs; numElement: 0; visible: r.showTitle}
+        ZoolElementItemPlanet{id: itemSpacingTitle2; fs: r.fs; numElement: 0; visible: r.showTitle && r.isBack}
+        ZoolElementItemPlanet{id: itemFuego; fs: r.fs; numElement: 0}
+        ZoolElementItemPlanet{id: itemTierra; fs: r.fs; numElement: 1}
+        ZoolElementItemPlanet{id: itemAire; fs: r.fs; numElement: 2}
+        ZoolElementItemPlanet{id: itemAgua; fs: r.fs; numElement: 3}
     }
     function load(j){
         //r.maxPlanetsListWith=0
@@ -72,31 +71,11 @@ Rectangle{
             //let rFuego=
             cTotal++
         }
-        if(j.ph['h1'].is===0||j.ph['h1'].is===4||j.ph['h1'].is===8){
-            cFuego++
-        }
-        if(j.ph['h1'].is===1||j.ph['h1'].is===5||j.ph['h1'].is===9){
-            cTierra++
-        }
-        if(j.ph['h1'].is===2||j.ph['h1'].is===6||j.ph['h1'].is===10){
-            cAire++
-        }
-        if(j.ph['h1'].is===3||j.ph['h1'].is===7||j.ph['h1'].is===11){
-            cAgua++
-        }
-        cTotal++
-        let rFuego=cFuego/cTotal*100
-        let rTierra=cTierra/cTotal*100
-        let rAire=cAire/cTotal*100
-        let rAgua=cAgua/cTotal*100
-        let af=[parseFloat(rFuego).toFixed(1), parseFloat(rTierra).toFixed(1), parseFloat(rAire).toFixed(1), parseFloat(rAgua).toFixed(1)]
+        itemFuego.arrayPlanets=v1
+        itemTierra.arrayPlanets=v2
+        itemAire.arrayPlanets=v3
+        itemAgua.arrayPlanets=v4
 
-        itemFuego.porc=af[0]
-        itemTierra.porc=af[1]
-        itemAire.porc=af[2]
-        itemAgua.porc=af[3]
-
-        numPit.updateNumPit()
         //setUImgGrabber()
     }
 }

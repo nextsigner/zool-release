@@ -28,7 +28,8 @@ Rectangle{
             }else if(mouse.button === Qt.LeftButton  && (mouse.modifiers & Qt.ControlModifier)){
                 zoolElementsView.settings.zoom-=0.1
             }else{
-                log.lv('Elemento no sabe que hacer: ???')
+                //log.lv('Elemento no sabe que hacer: ???')
+                zoolElementsView.tooglePlanetsOpacity()
             }
         }
     }

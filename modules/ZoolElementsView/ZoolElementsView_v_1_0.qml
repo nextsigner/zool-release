@@ -1,14 +1,15 @@
 import QtQuick 2.0
 import ZoolElementsView.ZoolGroupElementItems 1.0
+import ZoolElementsView.ZoolGroupElementItemsPlanets 1.0
 import Qt.labs.settings 1.0
 
 Rectangle{
     id: r
-    width: colZoolGroupElementItems.width+app.fs
+    width: colZoolGroupElementItems.width+colZoolGroupElementItemsPlanets.width//+app.fs
     height: colZoolGroupElementItems.height+app.fs
     anchors.right: parent.right
     anchors.rightMargin: 0-width*0.75
-    border.width: 4
+    border.width: 0
     border.color:'yellow'
     color: 'transparent'
     property int fs: app.fs*2*s.zoom
@@ -25,20 +26,41 @@ Rectangle{
         property real zoom: 1.0
     }
 
-    Column{
-        id: colZoolGroupElementItems
+    Row{
         anchors.centerIn: parent
-        spacing: app.fs*0.5
-        ZoolGroupElementItems{id: groupFront; fs: r.fs; showTitle: r.showBack}
-        ZoolGroupElementItems{id: groupBack; fs: r.fs; isBack: true; visible: r.showBack; showTitle: r.showBack}
+        Column{
+            id: colZoolGroupElementItemsPlanets
+            spacing: app.fs*0.5
+            anchors.top: parent.top
+            opacity: 0.0
+            Behavior on opacity{NumberAnimation{duration:250}}
+            ZoolGroupElementItemsPlanets{id: groupFrontPlanets; fs: r.fs; showTitle: r.showBack}
+            ZoolGroupElementItemsPlanets{id: groupBackPlanets; fs: r.fs; isBack: true; visible: r.showBack; showTitle: r.showBack}
+        }
+        Column{
+            id: colZoolGroupElementItems
+            spacing: app.fs*0.5
+            anchors.verticalCenter: parent.verticalCenter
+            ZoolGroupElementItems{id: groupFront; fs: r.fs; showTitle: r.showBack}
+            ZoolGroupElementItems{id: groupBack; fs: r.fs; isBack: true; visible: r.showBack; showTitle: r.showBack}
+        }
     }
     function load(json, isBack){
         r.showBack=false
         if(!isBack){
             groupFront.load(json)
+            groupFrontPlanets.load(json)
         }else{
             groupBack.load(json)
+            groupBackPlanets.load(json)
             r.showBack=true
+        }
+    }
+    function tooglePlanetsOpacity(){
+        if(colZoolGroupElementItemsPlanets.opacity===0.0){
+           colZoolGroupElementItemsPlanets.opacity=1.0
+        }else{
+            colZoolGroupElementItemsPlanets.opacity=0.0
         }
     }
 }
