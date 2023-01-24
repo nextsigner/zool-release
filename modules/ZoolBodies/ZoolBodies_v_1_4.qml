@@ -611,6 +611,7 @@ Item {
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
         panelElements.load(j)
+        zoolElementsView.load(j, false)
         eclipseCircle.arrayWg=housesCircle.arrayWg
         eclipseCircle.isEclipse=-1
         //if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
@@ -653,6 +654,7 @@ Item {
         aspsCircle.add(j)
         if(app.mod!=='rs'){
             panelElementsBack.load(j)
+            zoolElementsView.load(j, true)
             //panelElementsBack.visible=true
             //Qt.quit()
         }else{

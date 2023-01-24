@@ -13,6 +13,7 @@ Rectangle{
     color: 'transparent'
     property int fs: app.fs*2*s.zoom
     property alias settings: s
+    property bool showBack: false
     transform: Scale {
         id: tform2
         xScale: 0.25
@@ -28,8 +29,16 @@ Rectangle{
         id: colZoolGroupElementItems
         anchors.centerIn: parent
         spacing: app.fs*0.5
-        ZoolGroupElementItems{fs: r.fs}
-        ZoolGroupElementItems{fs: r.fs}
+        ZoolGroupElementItems{id: groupFront; fs: r.fs; showTitle: r.showBack}
+        ZoolGroupElementItems{id: groupBack; fs: r.fs; isBack: true; visible: r.showBack; showTitle: r.showBack}
     }
-
+    function load(json, isBack){
+        r.showBack=false
+        if(!isBack){
+            groupFront.load(json)
+        }else{
+            groupBack.load(json)
+            r.showBack=true
+        }
+    }
 }

@@ -7,16 +7,12 @@ Rectangle{
     height: r.fs*1.5
     border.width: 1
     border.color: apps.backgroundColor
-    color: app.signColors[numElement]
+    color: apps.fontColor
     radius: r.fs*0.25
     property int fs: app.fs*6
-    property int numElement: 0
-    property var aElements: ["Fuego", "Tierra", "Aire", "Agua"]
-    property string element: aElements[numElement]
-    property int porc: 99
+    property bool isBack: false
     onWidthChanged: {
         zt1.font.pixelSize = r.width*0.15
-        zt2.font.pixelSize = r.width*0.15
     }
     MouseArea{
         enabled: !r.locked
@@ -35,9 +31,7 @@ Rectangle{
     Row{
         anchors.centerIn: parent
         spacing: r.fs*0.5
-        Text{id: zt1; text: '<b>'+r.element+'</b>'; color: r.numElement===0||r.numElement===3?'white':'black'; font.pixelSize: r.width*0.15}
-        Text{id: zt2; text: '<b>%'+r.porc+'</b>'; color: r.numElement===0||r.numElement===3?'white':'black'; font.pixelSize: r.width*0.15}
+        Text{id: zt1; text: !r.isBack?'<b>Interior</b>':'<b>Exterior</b>'; color: apps.backgroundColor; font.pixelSize: r.width*0.15}
+
     }
 }
-
-
