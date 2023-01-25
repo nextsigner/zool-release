@@ -610,7 +610,7 @@ Item {
         panelAspects.load(j)
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
-        panelElements.load(j)
+        //panelElements.load(j)
         zoolElementsView.load(j, false)
         eclipseCircle.arrayWg=housesCircle.arrayWg
         eclipseCircle.isEclipse=-1
@@ -653,7 +653,7 @@ Item {
         panelAspectsBack.load(j)
         aspsCircle.add(j)
         if(app.mod!=='rs'){
-            panelElementsBack.load(j)
+            //panelElementsBack.load(j)
             zoolElementsView.load(j, true)
             //panelElementsBack.visible=true
             //Qt.quit()

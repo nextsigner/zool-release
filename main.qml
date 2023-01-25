@@ -31,7 +31,6 @@ import ZoolSabianos 1.1
 import ZoolRevolutionList 1.3
 import ZoolNumPit 1.0
 
-import ZoolElements 1.4
 import ZoolElementsBack 1.0
 import ZoolElementsView 1.0
 
@@ -704,37 +703,7 @@ ZoolMainWindow{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
                 height: parent.height
-                Item{
-                    id: xZoolElements
-                    width: parent.width
-                    height: parent.height
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0-width*0.75
-                    transform: Scale {
-                        id: tform
-                        xScale: 0.25
-                        yScale: 0.25
-                    }
-                    ZoolElements{
-                        id: panelElements
-
-                    }
-                    ZoolElements{
-                        id: panelElementsBack
-                        isBack: true
-                        width: panelElements.sizeValue
-                        anchors.right: parent.right
-                        anchors.top: panelElements.bottom
-                        anchors.topMargin: app.fs*0.1
-                    }
-
-                    //ZoolElementsBack{id: panelElementsBack}
-                }
-
-                ZoolElementsView{
-                    id: zoolElementsView
-                    visible: app.dev
-                }
+                ZoolElementsView{id: zoolElementsView}
                 Item{
                     id: xControlsTime
                     width: controlsTime.width
