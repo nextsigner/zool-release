@@ -510,9 +510,11 @@ ZoolMainWindow{
             }
             Image {
                 id: xElementsUItemGrabber
-                source: panelElements.uItemGrabber
+                //source: panelElements.uItemGrabber
+                source: zoolElementsView.uItemGrabber
                 //width: panelElements.width
-                fillMode: Image.PreserveAspectFit
+                //fillMode: Image.PreserveAspectFit
+                fillMode: Image.PreserveAspectCrop
                 anchors.top: xDataBarUItemGrabber.bottom
                 anchors.right: parent.right
                 anchors.rightMargin: 0-width*0.75
@@ -547,7 +549,18 @@ ZoolMainWindow{
                 anchors.centerIn: parent
                 visible: app.showCenterLine
             }
+            ZoolText{
+                id: capDate
+                text: 'Imagen creada por Zool'
+                textFormat: Text.PlainText
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                visible: app.capturing
+            }
         }
+
         Rectangle{
             id: xMsgProcDatos
             width: txtPD.contentWidth+app.fs

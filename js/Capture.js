@@ -1,4 +1,13 @@
 function captureSweg(){
+    let d = new Date(Date.now())
+    let dia=d.getDate()
+    let mes=d.getMonth()+1
+    let anio=d.getFullYear()
+    let hora=d.getHours()
+    let minuto=d.getMinutes()
+    let sCapDate='Fecha de Captura\n'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto
+    capDate.text=sCapDate
+
     let isDev=app.dev
     app.dev=false
     app.capturing=true

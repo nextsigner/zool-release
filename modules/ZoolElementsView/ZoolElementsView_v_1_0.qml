@@ -15,6 +15,7 @@ Rectangle{
     property int fs: app.fs*2*s.zoom
     property alias settings: s
     property bool showBack: false
+    property url uItemGrabber
     transform: Scale {
         id: tform2
         xScale: 0.25
@@ -32,8 +33,8 @@ Rectangle{
             id: colZoolGroupElementItemsPlanets
             spacing: app.fs*0.5
             anchors.top: parent.top
-            opacity: 0.0
-            Behavior on opacity{NumberAnimation{duration:250}}
+            opacity: !app.capturing?0.0:1.0
+            Behavior on opacity{NumberAnimation{duration:!app.capturing?250:0}}
             ZoolGroupElementItemsPlanets{id: groupFrontPlanets; fs: r.fs; showTitle: r.showBack}
             ZoolGroupElementItemsPlanets{id: groupBackPlanets; fs: r.fs; isBack: true; visible: r.showBack; showTitle: r.showBack}
         }
@@ -55,6 +56,7 @@ Rectangle{
             groupBackPlanets.load(json)
             r.showBack=true
         }
+        setUImgGrabber()
     }
     function tooglePlanetsOpacity(){
         if(colZoolGroupElementItemsPlanets.opacity===0.0){
@@ -62,5 +64,11 @@ Rectangle{
         }else{
             colZoolGroupElementItemsPlanets.opacity=0.0
         }
+    }
+    function setUImgGrabber(){
+        r.grabToImage(function(result) {
+            //result.saveToFile(folder+"/"+imgFileName);
+            r.uItemGrabber=result.url
+        });
     }
 }
