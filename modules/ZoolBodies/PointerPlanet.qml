@@ -22,6 +22,9 @@ Item {
     property int pointerFs: app.fs*5.5
     property real xs: sweg.xs
     property var aMargins: [0.5, 0.3, 0.4, 0.4, 0.4, 0.5, 0.5, 0.5, 0.4, 0.3, 0.5, 0.5, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+
+    property bool isBack: false
+
     onOpacityChanged: {
         if(opacity===1.0)setPointerFs()
     }
@@ -66,7 +69,11 @@ Item {
                 border.width: 3
                 border.color: apps.pointerLineColor
                 radius: r.pointerFs*0.25
-                rotation: r.iconoSignRot-eje.rotation
+                //rotation: r.iconoSignRot-eje.rotation
+                rotation: !r.isBack?
+                              r.iconoSignRot-eje.rotation
+                            :
+                              r.iconoSignRot-eje.rotation-sweg.objPlanetsCircleBack.rotation
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
                 SequentialAnimation on border.color {
