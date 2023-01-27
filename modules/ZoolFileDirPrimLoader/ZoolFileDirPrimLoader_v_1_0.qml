@@ -181,107 +181,39 @@ Rectangle {
                     onCurrentDateChanged: {
                         l.clear()
                         if(!r.visible)return
-                        //l.lv('app.currentLat:'+app.currentLat)
                         r.ulat=app.currentLat
-                        //l.lv('app.currentLon:'+app.currentLon)
                         r.ulon=app.currentLon
                         r.lat=app.currentLat
                         r.lon=app.currentLon
 
-                        if(l.width<=0)l.ls('', 0, r.width)
-
-
-                        //El astrólogo y matemático alemán
-                        //Valentín Naibod cree perfeccionar
-                        //la clave de Ptolomeo
-                        let claveNaibodDeg=[0, 59, 8.33]
-                        let claveNaibodDec=0.9856481481481388
-                        let da = new Date(controlTimeFecha.currentDate)
-                        let db = new Date(currentDate)
-                        //let da = new Date(1980,8,8,17)
-                        //let db = new Date(1981,8,8,17)
-                        l.lv('da:'+da.toString())
-                        l.lv('db:'+db.toString())
-
-
-                        let msAnioInicio=da.getTime()
-                        let msAnioEvento=db.getTime()
-
-                        l.lv('Ms Año inicio:   '+msAnioInicio)
-                        l.lv('Ms Año evento:'+msAnioEvento)
-                        //l.lv('sv.currentIndex:'+sv.currentIndex)
-
-                        let msDia=3600*1000*24
-                        let msAnio=parseFloat( msDia * 325.25)
-                        //let ms360=parseFloat( msDia * 325.25) //28101600000
-                        l.lv('msAnio: '+msAnio)
-                        //l.lv('ms360: '+ms360)
-
-                        let diffms=msAnioEvento-msAnioInicio
-                        let diffms2=msAnioEvento-diffms
-                        l.lv('diffms:   '+diffms)
-
-                        let resSegA=msAnioInicio / 1000
-                        let resSegB=msAnioEvento / 1000
-                        //l.lv('resSegA Segundos: '+resSegA)
-                        //l.lv('resSegB Segundos: '+resSegB)
-                        let resMinA=resSegA / 60
-                        let resMinB=resSegB / 60
-                        //l.lv('resMinA Minutos: '+resMinA)
-                        //l.lv('resMinB Minutos: '+resMinB)
-                        let resHoraA=resMinA / 60
-                        let resHoraB=resMinB / 60
-                        //l.lv('resHoraA Horas: '+resHoraA)
-                        //l.lv('resHoraB Horas: '+resHoraB)
-                        let resDiffHoras=resHoraB-resHoraA
-                        //l.lv('resDiffHoras: '+resDiffHoras)
-                        let resDias=resDiffHoras / 24
-                        //l.lv('resDias: '+resDias)
-                        let resAnio= parseFloat(resDias / 365.25).toFixed(2)
-                        //l.lv('resAnio: '+resAnio)
-
-                        //var scorrJson=app.currentJson.replace(/\n/g, '')
-                        let j=app.currentJson//JSON.parse(scorrJson)
+                        let j=app.currentJson
                         let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
                         //l.lv('signCircleRot:'+signCircleRot)
-                        let rotAnios=0
-                        let anioA=controlTimeFecha.anio
-                        let anioB=controlTimeFechaEvento.anio
-                        //l.lv('anioA:'+anioA)
-                        //l.lv('anioB:'+anioB)
-                        let diffAnio=resAnio//anioB-anioA
-                        //l.lv('diffAnio:'+diffAnio)
 
-                        //let pcRot=sweg.objPlanetsCircle.rotation
-                        let pcBackRot=parseFloat(parseFloat(signCircleRot)-parseFloat(diffAnio))//sweg.objPlanetsCircleBack.rotation
-                        //l.lv('pcBackRot:'+pcBackRot)
-                        //pcBackRot++
-                        //pcBackRot=pcBackRot+diffAnio
-                        //sweg.objPlanetsCircleBack.rotation=pcBackRot
+                        //El astrólogo y matemático alemán Valentín Naibod cree perfeccionar la clave de Ptolomeo.
+                        let claveNaibodDeg=[0, 59, 8.33]
+                        let claveNaibodDec=0.9856481481481388
+                        let da = new Date(controlTimeFecha.currentDate)//Momento de inicio o nacimiento.
+                        let db = new Date(currentDate)//Momento de evento.
+                        let msAnioInicio=da.getTime()
+                        let msAnioEvento=db.getTime()
+                        let resSegA=msAnioInicio / 1000 //Cálculo de segundos de inicio.
+                        let resSegB=msAnioEvento / 1000 //Cálculo de segundos de evento.
+                        let resMinA=resSegA / 60 //Cálculo de minutos de inicio.
+                        let resMinB=resSegB / 60 //Cálculo de minutos de evento.
+                        let resHoraA=resMinA / 60 //Cálculo de horas de inicio.
+                        let resHoraB=resMinB / 60 //Cálculo de horas de evento.
+                        let resDiffHoras=resHoraB-resHoraA //Cálculo de diferencia de horas.
+                        let resDias=resDiffHoras / 24 //Cálculo de días de diferencia.
+                        let resAnio=parseFloat(resDias / 365.25).toFixed(2) //Cálc. diferencia en años entre inicio y evento.
+                        let diffAnio=resAnio*claveNaibodDec //Cálculo de diferencia de años en clave Naibod.
+                        let pcBackRot=parseFloat(parseFloat(signCircleRot)-parseFloat(diffAnio))
 
-                        let hcRot=parseFloat(parseFloat(90)-parseFloat(diffAnio))//sweg.objHousesCircle.rotation
-                        //let hcRot=parseFloat(diffAnio)-parseFloat( 360 - signCircleRot)
-                        //let hcBackRot=sweg.objHousesCircleBack.rotation
-                        //let hcBackRot=parseFloat(diffAnio)+parseFloat( 360 - signCircleRot)
-                        //let hcBackRot=parseFloat( parseFloat(diffAnio) - parseFloat(signCircleRot) )
+                        //Cálculo de rotacion del esquema exterior para el método de Direcciones Primarias.
+                        let hcRot=parseFloat(parseFloat(90)-parseFloat(diffAnio))
                         let hcBackRot=0.0-parseFloat(diffAnio)
-                        //hcBackRot++
                         sweg.objHousesCircleBack.rotation=hcBackRot
                         sweg.objPlanetsCircleBack.rotation=hcBackRot
-                        //l.lv('sweg.objPlanetsCircle.rotation:'+sweg.objPlanetsCircle.rotation)
-                        //l.lv('sweg.objHousesCircleBack.rotation:'+sweg.objHousesCircleBack.rotation)
-                        //l.lv('sweg.objPlanetsCircleBack.rotation:'+sweg.objPlanetsCircleBack.rotation)
-
-                        /*if(app.currentGmt>0){
-                        d.setHours(d.getHours()+app.currentGmt)
-                    }else{
-                        d.setHours(d.getHours()-app.currentGmt)
-                    }
-                    controlTimeFechaUTC.currentDate=d
-                    controlTimeFechaUTC.gmt=0
-                    //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
-                    sweg.enableLoadBack=false
-                    tUpdateParams.restart()*/
                     }
                     Timer{
                         id: tUpdateParamsEvento
@@ -667,7 +599,7 @@ Rectangle {
         parent: xLatIzq
         anchors.left: parent.right
         anchors.top: parent.top
-        visible: app.dev && sv.currentIndex===2
+        visible: app.dev && sv.currentIndex===2 && r.visible
         Rectangle{
             anchors.fill: parent
             border.width: 4

@@ -125,8 +125,6 @@ Rectangle {
                     id: botDirPrim
                     text:'Direcciones'
                     colorInverted: zoolFileTransLoader.visible
-                    //fs:8
-                    visible: app.dev
                     onClicked: {
                         zoolFileMaker.visible=false
                         zoolFileLoader.visible=false
