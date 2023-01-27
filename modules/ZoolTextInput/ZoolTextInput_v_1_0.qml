@@ -16,7 +16,7 @@ Item {
     property alias wrapMode: txt.wrapMode
     property int fs: app.fs
     property color textBackgroundColor: 'transparent'
-    property int padding:  0
+    property int padding:  8
     property int borderWidth: 1
     property color borderColor: 'red'
     property real borderRadius: 10.0
@@ -30,7 +30,8 @@ Item {
     height: !r.labelInTop?xText.height:xText.height+labelTopTextInput.contentHeight
     Rectangle{
         id: xText
-        width: !r.w?r.parent.width-r.padding*2-r.borderWidth*2:r.w-r.padding*2-r.borderWidth*2
+        //width: !r.w?r.parent.width-r.padding*2-r.borderWidth*2:r.w-r.padding*2-r.borderWidth*2
+        width: !r.w?r.parent.width-r.borderWidth*2:r.w-r.borderWidth*2
         height: txt.contentHeight+r.padding*2+r.borderWidth*2//r.fs*1.2
         color: r.textBackgroundColor
         border.width: r.borderWidth
@@ -41,7 +42,7 @@ Item {
             id: txt
             font.pixelSize: r.fs
             color: 'white'
-            width: parent.width
+            width: parent.width-r.padding*2
             wrapMode: TextInput.WordWrap
             horizontalAlignment: TextInput.Ali.AlignHCenter
             verticalAlignment: Text.AlignVCenter

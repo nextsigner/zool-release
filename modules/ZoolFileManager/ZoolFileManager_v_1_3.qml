@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
-import ZoolFileMaker 1.0
+import ZoolFileMaker 1.1
 import ZoolFileLoader 1.2
 import ZoolFileTransLoader 1.0
 import ZoolFileDirPrimLoader 1.0

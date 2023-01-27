@@ -87,7 +87,11 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             KeyNavigation.tab: controlTimeFecha
             t.maximumLength: 30
-            onPressed: {
+            borderColor:apps.fontColor
+            borderRadius: app.fs*0.25
+            padding: app.fs*0.25
+            horizontalAlignment: TextInput.AlignLeft
+            onEnterPressed: {
                 controlTimeFecha.focus=true
                 controlTimeFecha.cFocus=0
             }
@@ -127,6 +131,10 @@ Rectangle {
             t.font.pixelSize: app.fs*0.65;
             KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
             t.maximumLength: 50
+            borderColor:apps.fontColor
+            borderRadius: app.fs*0.25
+            padding: app.fs*0.25
+            horizontalAlignment: TextInput.AlignLeft
             onTextChanged: {
                 tSearch.restart()
                 t.color='white'
@@ -171,7 +179,11 @@ Rectangle {
                     t.validator: RegExpValidator {
                         regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
                     }
-                    property bool valid: false
+                    borderColor:apps.fontColor
+                    borderRadius: app.fs*0.25
+                    padding: app.fs*0.25
+                    horizontalAlignment: TextInput.AlignLeft
+                    property bool valid: false                    
                     Timer{
                         running: r.visible && settings.inputCoords
                         repeat: true
@@ -194,7 +206,7 @@ Rectangle {
                         border.color: 'red'
                         visible: parent.t.text===''?false:!parent.valid
                     }
-                    onPressed: {
+                    onEnterPressed: {
                         //controlTimeFecha.focus=true
                         //controlTimeFecha.cFocus=0
                     }
@@ -216,6 +228,10 @@ Rectangle {
                     t.validator: RegExpValidator {
                         regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
                     }
+                    borderColor:apps.fontColor
+                    borderRadius: app.fs*0.25
+                    padding: app.fs*0.25
+                    horizontalAlignment: TextInput.AlignLeft
                     property bool valid: false
                     Timer{
                         running: r.visible && settings.inputCoords
@@ -239,7 +255,8 @@ Rectangle {
                         border.color: 'red'
                         visible: parent.t.text===''?false:!parent.valid
                     }
-                    onPressed: {
+                    //onPressed: {
+                    onEnterPressed: {
                         //controlTimeFecha.focus=true
                         //controlTimeFecha.cFocus=0
                     }

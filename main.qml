@@ -24,6 +24,8 @@ import ZoolBodies 1.4
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 
+import ZoolControlsTime 1.0
+
 import ZoolFileManager 1.3
 //import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
@@ -739,7 +741,8 @@ ZoolMainWindow{
                             anchors.centerIn: parent
                         }
                     }
-                    Comps.ControlsTime{
+                    //Comps.ControlsTime{
+                    ZoolControlsTime{
                         id: controlsTime
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.bottom
