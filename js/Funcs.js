@@ -1166,6 +1166,7 @@ function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
     a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
     a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
     xDataBar.at=a
+    zoolDataView.setDataView('', a, [])
 }
 function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod){
     //mod 0=cn, mod 1=rs
@@ -1207,6 +1208,7 @@ function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
     a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
     a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
     xDataBar.at=a
+    zoolDataView.setDataView('', a, [])
 }
 
 function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
@@ -1245,6 +1247,18 @@ function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
     a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
     a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
     xDataBar.at=a
+    zoolDataView.setDataView(app.tipo, a, [])
+
+    let aR=[]
+    aR.push('Exterior')
+    aR.push(vd+'/'+vm+'/'+va)
+    aR.push(vh+':'+vmin+'hs')
+    aR.push('GMT '+vgmt)
+    aR.push(stringTiempo)
+    aR.push('<b> '+vCiudad+'</b>')
+    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+    zoolDataView.setDataView(app.tipo, a, aR)
 }
 
 function setTitleDataTo1(){

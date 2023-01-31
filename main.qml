@@ -17,6 +17,7 @@ import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
 import ZoolText 1.0
 import ZoolDataBar 3.1
+import ZoolDataView 1.0
 import ZoolDataText 1.0
 import ZoolLogView 1.0
 
@@ -589,6 +590,7 @@ ZoolMainWindow{
         id: capa101
         anchors.fill: xApp
         ZoolDataBar{id: xDataBar}
+        ZoolDataView{id: zoolDataView; visible: app.dev}
         //ZoolDataBar{id: xDataBar;parent:xSwe1}
         Row{
             //anchors.centerIn: parent
