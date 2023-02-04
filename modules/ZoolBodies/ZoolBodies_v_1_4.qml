@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import "../../js/Funcs.js" as JS
 
 
-import ZoolHousesCircle 1.0
+import ZoolHousesCircle 1.1
 import ZoolHousesCircleBack 1.1
 import ZoolBodies.ZoolAspectsView 1.0
 import ZoolBodies.ZoolAspectsViewBack 1.0
@@ -60,7 +60,8 @@ Item {
     property bool enableLoad: true
     property bool enableLoadBack: true
 
-    state: apps.swegMod//aStates[0]
+    //state: apps.swegMod//aStates[0]
+    state: aStates[0]
     states: [
         State {//PS
             name: aStates[0]
