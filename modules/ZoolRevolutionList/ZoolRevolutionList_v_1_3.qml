@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import "../../js/Funcs.js" as JS
+//import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
 import ZoolButton 1.2
@@ -60,524 +60,557 @@ Rectangle {
     }
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Behavior on height{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
-    Column{
-        anchors.horizontalCenter: parent.horizontalCenter
-        Rectangle{
-            id: xRetSolar
-            width: r.width-app.fs
-            height: colRetSolar.height+app.fs
+    Flickable{
+        id: flk
+        width: r.width
+        height: r.height
+        contentWidth: r.width
+        contentHeight: colCentral.height+app.fs*2
+        Column{
+            id: colCentral
             anchors.horizontalCenter: parent.horizontalCenter
-            color: 'transparent'
-            border.width: 1
-            border.color: apps.fontColor
-            radius: app.fs*0.25
-            Column{
-                id: colRetSolar
-                width: parent.width
-                anchors.centerIn: parent
-                spacing: app.fs*0.25
-                Row{
-                    spacing: app.fs*0.25
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    ZoolText{
-                        id: txtLabelRetSolar
-                        text: 'Recibir retorno solar en otro sitio'
-                        font.pixelSize: app.fs*0.5
-                        t.width: app.fs*5
-                        wrapMode: Text.WordWrap
-                        color: apps.fontColor
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    CheckBox{
-                        id: checkBoxRetSolar
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                }
+            Rectangle{
+                id: xRetSolar
+                width: r.width-app.fs
+                height: colRetSolar.height+app.fs
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: 'transparent'
+                border.width: 1
+                border.color: apps.fontColor
+                radius: app.fs*0.25
                 Column{
-                    id: col
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: app.fs
-                    visible: checkBoxRetSolar.checked
-                    ZoolText{
-                        text: '<b>¿Donde se esperará el retorno solar?</b>'//+height
-                        w: r.width-app.fs
-                        font.pixelSize: app.fs*0.65
-                        color: apps.fontColor
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    ZoolTextInput{
-                        id: tiCiudad
-                        width: xRetSolar.width-app.fs
-                        t.font.pixelSize: app.fs*0.65;
-                        labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
-
-                        KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                        t.maximumLength: 70
-                        borderWidth: 2
-                        borderColor: apps.fontColor
-                        borderRadius: app.fs*0.1
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onTextChanged: {
-                            //tSearch.restart()
-                            t.color='white'
-                        }
-                    }
+                    id: colRetSolar
+                    width: parent.width
+                    anchors.centerIn: parent
+                    spacing: app.fs*0.25
                     Row{
+                        spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: app.fs*0.5
-                        ZoolTextInput{
-                            id: tiGMT
-                            w: app.fs*2
-                            t.font.pixelSize: app.fs*0.65;
-                            labelText: 'GMT'
-
-                            //KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                            t.maximumLength: 4
-                            borderWidth: 2
-                            borderColor: apps.fontColor
-                            borderRadius: app.fs*0.1
-                            anchors.verticalCenter: parent.verticalCenter
-                            onTextChanged: {
-                                //tSearch.restart()
-                                //t.color='white'
-                            }
-                        }
-                        ZoolButton{
-                            text: 'Buscar Coordenadas'
-                            anchors.verticalCenter: parent.verticalCenter
-                            visible:!checkBoxInsertarCoordMan.checked
-                            onClicked: searchGeoLoc(false)
-                        }
-                    }
-                    Row{
-                        spacing: app.fs*0.5
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            text: 'Ingresar coordenadas\nmanualmente'
+                        ZoolText{
+                            id: txtLabelRetSolar
+                            text: 'Recibir retorno solar en otro sitio'
                             font.pixelSize: app.fs*0.5
+                            t.width: app.fs*5
+                            wrapMode: Text.WordWrap
                             color: apps.fontColor
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         CheckBox{
-                            id: checkBoxInsertarCoordMan
-                            checked: settings.inputCoords
+                            id: checkBoxRetSolar
                             anchors.verticalCenter: parent.verticalCenter
-                            onCheckedChanged: settings.inputCoords=checked
                         }
                     }
                     Column{
-                        id: colTiLonLat
+                        id: col
                         anchors.horizontalCenter: parent.horizontalCenter
-                        visible: settings.inputCoords
+                        spacing: app.fs
+                        visible: checkBoxRetSolar.checked
+                        ZoolText{
+                            text: '<b>¿Donde se esperará el retorno solar?</b>'//+height
+                            w: r.width-app.fs
+                            font.pixelSize: app.fs*0.65
+                            color: apps.fontColor
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        ZoolTextInput{
+                            id: tiCiudad
+                            width: xRetSolar.width-app.fs
+                            t.font.pixelSize: app.fs*0.65;
+                            labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
 
+                            KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                            t.maximumLength: 70
+                            borderWidth: 2
+                            borderColor: apps.fontColor
+                            borderRadius: app.fs*0.1
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            onTextChanged: {
+                                //tSearch.restart()
+                                t.color='white'
+                            }
+                        }
+                        Row{
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: app.fs*0.5
+                            ZoolTextInput{
+                                id: tiGMT
+                                w: app.fs*2
+                                t.font.pixelSize: app.fs*0.65;
+                                labelText: 'GMT'
+
+                                //KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                                t.maximumLength: 4
+                                borderWidth: 2
+                                borderColor: apps.fontColor
+                                borderRadius: app.fs*0.1
+                                anchors.verticalCenter: parent.verticalCenter
+                                onTextChanged: {
+                                    //tSearch.restart()
+                                    //t.color='white'
+                                }
+                            }
+                            ZoolButton{
+                                text: 'Buscar Coordenadas'
+                                anchors.verticalCenter: parent.verticalCenter
+                                visible:!checkBoxInsertarCoordMan.checked
+                                onClicked: searchGeoLoc(false)
+                            }
+                        }
                         Row{
                             spacing: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
-                            Comps.XTextInput{
-                                id: tiLat
-                                width: r.width*0.5-app.fs*0.5
-                                t.font.pixelSize: app.fs*0.65
+                            Text{
+                                text: 'Ingresar coordenadas\nmanualmente'
+                                font.pixelSize: app.fs*0.5
+                                color: apps.fontColor
                                 anchors.verticalCenter: parent.verticalCenter
-                                KeyNavigation.tab: tiLon.t
-                                t.maximumLength: 10
-                                t.validator: RegExpValidator {
-                                    regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                                }
-                                property bool valid: false
-                                Timer{
-                                    running: r.visible && settings.inputCoords
-                                    repeat: true
-                                    interval: 100
-                                    onTriggered: {
-                                        parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                                        if(parent.valid){
-                                            r.ulat=parseFloat(parent.t.text)
-                                        }else{
-                                            r.ulat=-1
-                                        }
-                                    }
-                                }
-                                Rectangle{
-                                    width: parent.width+border.width*2
-                                    height: parent.height+border.width*2
-                                    anchors.centerIn: parent
-                                    color: 'transparent'
-                                    border.width: 4
-                                    border.color: 'red'
-                                    visible: parent.t.text===''?false:!parent.valid
-                                }
-                                onPressed: {
-                                    //controlTimeFecha.focus=true
-                                    //controlTimeFecha.cFocus=0
-                                }
-                                Text {
-                                    text: 'Latitud'
-                                    font.pixelSize: app.fs*0.5
-                                    color: 'white'
-                                    //anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.bottom: parent.top
-                                }
                             }
-                            Comps.XTextInput{
-                                id: tiLon
-                                width: r.width*0.5-app.fs*0.5
-                                t.font.pixelSize: app.fs*0.65
+                            CheckBox{
+                                id: checkBoxInsertarCoordMan
+                                checked: settings.inputCoords
                                 anchors.verticalCenter: parent.verticalCenter
-                                KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
-                                t.maximumLength: 10
-                                t.validator: RegExpValidator {
-                                    regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                                }
-                                property bool valid: false
-                                Timer{
-                                    running: r.visible && settings.inputCoords
-                                    repeat: true
-                                    interval: 100
-                                    onTriggered: {
-                                        parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                                        if(parent.valid){
-                                            r.ulon=parseFloat(parent.t.text)
-                                        }else{
-                                            r.ulon=-1
-                                        }
-                                    }
-                                }
-                                Rectangle{
-                                    width: parent.width+border.width*2
-                                    height: parent.height+border.width*2
-                                    anchors.centerIn: parent
-                                    color: 'transparent'
-                                    border.width: 4
-                                    border.color: 'red'
-                                    visible: parent.t.text===''?false:!parent.valid
-                                }
-                                onPressed: {
-                                    //controlTimeFecha.focus=true
-                                    //controlTimeFecha.cFocus=0
-                                }
-                                Text {
-                                    text: 'Longitud'
-                                    font.pixelSize: app.fs*0.5
-                                    color: 'white'
-                                    //anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.bottom: parent.top
-                                }
+                                onCheckedChanged: settings.inputCoords=checked
                             }
                         }
-                        Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
-                        Text{
-                            text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
-                                                                        (
-                                                                            tiLat.valid && tiLon.valid?
-                                                                                'Estas coordenadas son válidas.':
-                                                                                'Las coordenadas no son correctas'
-                                                                            )
-                            font.pixelSize: app.fs*0.5
-                            color: apps.fontColor
+                        Column{
+                            id: colTiLonLat
                             anchors.horizontalCenter: parent.horizontalCenter
                             visible: settings.inputCoords
-                        }
-                    }
-                    Column{
-                        id: colLatLon
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        visible: r.lat===r.ulat&&r.lon===r.ulon
-                        //height: !visible?0:app.fs*3
-                        Text{
-                            text: 'Lat:'+r.lat
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            opacity: r.lat!==-100.00?1.0:0.0
-                        }
-                        Text{
-                            text: 'Lon:'+r.lon
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            opacity: r.lon!==-100.00?1.0:0.0
-                        }
-                    }
-                    Column{
-                        visible: !colLatLon.visible
-                        //height: !visible?0:app.fs*3
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            text: 'Error: Corregir el nombre de ubicación'
-                            font.pixelSize: app.fs*0.25
-                            color: 'white'
-                            visible: r.ulat===-1&&r.ulon===-1
-                        }
-                        Text{
-                            text: 'Lat:'+r.ulat
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            opacity: r.ulat!==-100.00?1.0:0.0
-                        }
-                        Text{
-                            text: 'Lon:'+r.ulon
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            opacity: r.ulon!==-100.00?1.0:0.0
-                        }
-                    }
-                    Row{
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: app.fs*0.25
-                        Button{
-                            id: botClear
-                            text: 'Limpiar'
-                            font.pixelSize: app.fs*0.5
-                            opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
-                            enabled: opacity===1.0
-                            onClicked: {
-                                clear()
-                            }
-                        }
-                        Button{
-                            id: botCrear
-                            text: 'Crear'
-                            font.pixelSize: app.fs*0.5
-                            KeyNavigation.tab: tiCiudad.t
-                            visible: r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!==''
-                            onClicked: {
-                                if(!settings.inputCoords){
-                                    searchGeoLoc(true)
-                                }else{
-                                    r.lat=parseFloat(tiLat.t.text)
-                                    r.lon=parseFloat(tiLon.t.text)
-                                    r.ulat=r.lat
-                                    r.ulon=r.lon
-                                    setNewJsonFileData()
+
+                            Row{
+                                spacing: app.fs*0.5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                Comps.XTextInput{
+                                    id: tiLat
+                                    width: r.width*0.5-app.fs*0.5
+                                    t.font.pixelSize: app.fs*0.65
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    KeyNavigation.tab: tiLon.t
+                                    t.maximumLength: 10
+                                    t.validator: RegExpValidator {
+                                        regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                                    }
+                                    property bool valid: false
+                                    Timer{
+                                        running: r.visible && settings.inputCoords
+                                        repeat: true
+                                        interval: 100
+                                        onTriggered: {
+                                            parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
+                                            if(parent.valid){
+                                                r.ulat=parseFloat(parent.t.text)
+                                            }else{
+                                                r.ulat=-1
+                                            }
+                                        }
+                                    }
+                                    Rectangle{
+                                        width: parent.width+border.width*2
+                                        height: parent.height+border.width*2
+                                        anchors.centerIn: parent
+                                        color: 'transparent'
+                                        border.width: 4
+                                        border.color: 'red'
+                                        visible: parent.t.text===''?false:!parent.valid
+                                    }
+                                    onPressed: {
+                                        //controlTimeFecha.focus=true
+                                        //controlTimeFecha.cFocus=0
+                                    }
+                                    Text {
+                                        text: 'Latitud'
+                                        font.pixelSize: app.fs*0.5
+                                        color: 'white'
+                                        //anchors.horizontalCenter: parent.horizontalCenter
+                                        anchors.bottom: parent.top
+                                    }
+                                }
+                                Comps.XTextInput{
+                                    id: tiLon
+                                    width: r.width*0.5-app.fs*0.5
+                                    t.font.pixelSize: app.fs*0.65
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
+                                    t.maximumLength: 10
+                                    t.validator: RegExpValidator {
+                                        regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                                    }
+                                    property bool valid: false
+                                    Timer{
+                                        running: r.visible && settings.inputCoords
+                                        repeat: true
+                                        interval: 100
+                                        onTriggered: {
+                                            parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
+                                            if(parent.valid){
+                                                r.ulon=parseFloat(parent.t.text)
+                                            }else{
+                                                r.ulon=-1
+                                            }
+                                        }
+                                    }
+                                    Rectangle{
+                                        width: parent.width+border.width*2
+                                        height: parent.height+border.width*2
+                                        anchors.centerIn: parent
+                                        color: 'transparent'
+                                        border.width: 4
+                                        border.color: 'red'
+                                        visible: parent.t.text===''?false:!parent.valid
+                                    }
+                                    onPressed: {
+                                        //controlTimeFecha.focus=true
+                                        //controlTimeFecha.cFocus=0
+                                    }
+                                    Text {
+                                        text: 'Longitud'
+                                        font.pixelSize: app.fs*0.5
+                                        color: 'white'
+                                        //anchors.horizontalCenter: parent.horizontalCenter
+                                        anchors.bottom: parent.top
+                                    }
                                 }
                             }
+                            Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
+                            Text{
+                                text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
+                                                                            (
+                                                                                tiLat.valid && tiLon.valid?
+                                                                                    'Estas coordenadas son válidas.':
+                                                                                    'Las coordenadas no son correctas'
+                                                                                )
+                                font.pixelSize: app.fs*0.5
+                                color: apps.fontColor
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                visible: settings.inputCoords
+                            }
+                        }
+                        Column{
+                            id: colLatLon
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: r.lat===r.ulat&&r.lon===r.ulon
+                            //height: !visible?0:app.fs*3
+                            Text{
+                                text: 'Lat:'+r.lat
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                                opacity: r.lat!==-100.00?1.0:0.0
+                            }
+                            Text{
+                                text: 'Lon:'+r.lon
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                                opacity: r.lon!==-100.00?1.0:0.0
+                            }
+                        }
+                        Column{
+                            visible: !colLatLon.visible
+                            //height: !visible?0:app.fs*3
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            Text{
+                                text: 'Error: Corregir el nombre de ubicación'
+                                font.pixelSize: app.fs*0.25
+                                color: 'white'
+                                visible: r.ulat===-1&&r.ulon===-1
+                            }
+                            Text{
+                                text: 'Lat:'+r.ulat
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                                opacity: r.ulat!==-100.00?1.0:0.0
+                            }
+                            Text{
+                                text: 'Lon:'+r.ulon
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                                opacity: r.ulon!==-100.00?1.0:0.0
+                            }
+                        }
+                        Row{
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: app.fs*0.25
+                            Button{
+                                id: botClear
+                                text: 'Limpiar'
+                                font.pixelSize: app.fs*0.5
+                                opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
+                                enabled: opacity===1.0
+                                onClicked: {
+                                    clear()
+                                }
+                            }
+                            Button{
+                                id: botCrear
+                                text: 'Crear'
+                                font.pixelSize: app.fs*0.5
+                                KeyNavigation.tab: tiCiudad.t
+                                visible: r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!==''
+                                onClicked: {
+                                    if(!settings.inputCoords){
+                                        searchGeoLoc(true)
+                                    }else{
+                                        r.lat=parseFloat(tiLat.t.text)
+                                        r.lon=parseFloat(tiLon.t.text)
+                                        r.ulat=r.lat
+                                        r.ulon=r.lon
+                                        setNewJsonFileData()
+                                    }
+                                }
 
-                            //                            Timer{
-                            //                                running: r.state==='show'
-                            //                                repeat: true
-                            //                                interval: 1000
-                            //                                onTriggered: {
-                            //                                    let nom=tiNombre.t.text.replace(/ /g, '_')
-                            //                                    let fileName=apps.jsonsFolder+'/'+nom+'.json'
-                            //                                    if(unik.fileExist(fileName)){
-                            //                                        r.uFileNameLoaded=tiNombre.text
-                            //                                        let jsonFileData=unik.getFile(fileName)
-                            //                                        let j=JSON.parse(jsonFileData)
-                            //                                        let dia=''+j.params.d
-                            //                                        if(parseInt(dia)<=9){
-                            //                                            dia='0'+dia
-                            //                                        }
-                            //                                        let mes=''+j.params.m
-                            //                                        if(parseInt(mes)<=9){
-                            //                                            mes='0'+mes
-                            //                                        }
-                            //                                        let hora=''+j.params.h
-                            //                                        if(parseInt(hora)<=9){
-                            //                                            hora='0'+hora
-                            //                                        }
-                            //                                        let minuto=''+j.params.min
-                            //                                        if(parseInt(minuto)<=9){
-                            //                                            minuto='0'+minuto
-                            //                                        }
-                            //                                        let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-                            //                                        controlTimeFecha.currentDate=nt
-                            //                                        controlTimeFecha.gmt=j.params.gmt
-                            //                                        if(tiCiudad.text.replace(/ /g, '')===''){
-                            //                                            tiCiudad.text=j.params.ciudad
-                            //                                        }
-                            //                                        r.lat=j.params.lat
-                            //                                        r.lon=j.params.lon
-                            //                                        r.ulat=j.params.lat
-                            //                                        r.ulon=j.params.lon
-                            //                                        let vd=parseInt(tiFecha1.t.text)
-                            //                                        let vm=parseInt(tiFecha2.t.text)
-                            //                                        let vh=parseInt(tiHora1.t.text)
-                            //                                        let vmin=parseInt(tiHora2.t.text)
-                            //                                        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-                            //                                        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-                            //                                        if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-                            //                                            botCrear.text='Modificar'
-                            //                                        }else{
-                            //                                            botCrear.text='[Crear]'
-                            //                                        }
-                            //                                    }else{
-                            //                                        botCrear.text='Crear'
-                            //                                    }
-                            //                                }
-                            //                            }
+                                //                            Timer{
+                                //                                running: r.state==='show'
+                                //                                repeat: true
+                                //                                interval: 1000
+                                //                                onTriggered: {
+                                //                                    let nom=tiNombre.t.text.replace(/ /g, '_')
+                                //                                    let fileName=apps.jsonsFolder+'/'+nom+'.json'
+                                //                                    if(unik.fileExist(fileName)){
+                                //                                        r.uFileNameLoaded=tiNombre.text
+                                //                                        let jsonFileData=unik.getFile(fileName)
+                                //                                        let j=JSON.parse(jsonFileData)
+                                //                                        let dia=''+j.params.d
+                                //                                        if(parseInt(dia)<=9){
+                                //                                            dia='0'+dia
+                                //                                        }
+                                //                                        let mes=''+j.params.m
+                                //                                        if(parseInt(mes)<=9){
+                                //                                            mes='0'+mes
+                                //                                        }
+                                //                                        let hora=''+j.params.h
+                                //                                        if(parseInt(hora)<=9){
+                                //                                            hora='0'+hora
+                                //                                        }
+                                //                                        let minuto=''+j.params.min
+                                //                                        if(parseInt(minuto)<=9){
+                                //                                            minuto='0'+minuto
+                                //                                        }
+                                //                                        let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
+                                //                                        controlTimeFecha.currentDate=nt
+                                //                                        controlTimeFecha.gmt=j.params.gmt
+                                //                                        if(tiCiudad.text.replace(/ /g, '')===''){
+                                //                                            tiCiudad.text=j.params.ciudad
+                                //                                        }
+                                //                                        r.lat=j.params.lat
+                                //                                        r.lon=j.params.lon
+                                //                                        r.ulat=j.params.lat
+                                //                                        r.ulon=j.params.lon
+                                //                                        let vd=parseInt(tiFecha1.t.text)
+                                //                                        let vm=parseInt(tiFecha2.t.text)
+                                //                                        let vh=parseInt(tiHora1.t.text)
+                                //                                        let vmin=parseInt(tiHora2.t.text)
+                                //                                        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+                                //                                        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                                //                                        if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                                //                                            botCrear.text='Modificar'
+                                //                                        }else{
+                                //                                            botCrear.text='[Crear]'
+                                //                                        }
+                                //                                    }else{
+                                //                                        botCrear.text='Crear'
+                                //                                    }
+                                //                                }
+                                //                            }
 
+                            }
                         }
                     }
                 }
-            }
-        }
-        Rectangle{
-            id:xTit
-            width: lv.width
-            height: app.fs*1.5
-            color: apps.fontColor
-            border.width: 2
-            border.color: txtLabelTit.focus?'red':'white'
-            anchors.horizontalCenter: parent.horizontalCenter
-            property bool showTit: true
-            property bool showTi: false
-            //visible: !checkBoxRetSolar.checked
-            onShowTiChanged: {
-                if(showTi){
-                    tiEdad.focus=true
-                    tiEdad.text=r.edadMaxima
-                    tiEdad.selectAll()
-                }
-            }
-            MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: {
-                    xTit.showTit=false
-                    tShowXTit.start()
-                }
-                onExited: {
-                    xTit.showTit=false
-                    tShowXTit.start()
-                }
-                onClicked: xTit.showTi=true
             }
             Rectangle{
-                color: parent.color
-                anchors.fill: parent
-                border.width: xTit.border.width
-                border.color: xTit.border.color
-                visible: xTit.showTi
-                Row{
-                    anchors.centerIn: parent
-                    spacing: app.fs*0.5
-                    ZoolText{
-                        id: label
-                        text:!checkBoxRetSolar.checked?'<b>Edad:</b>':'<b>Año:</b>'
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: apps.backgroundColor
-                        font.pixelSize: app.fs*0.5
+                id:xTit
+                width: lv.width
+                height: app.fs*1.5
+                color: apps.fontColor
+                border.width: 2
+                border.color: txtLabelTit.focus?'red':'white'
+                anchors.horizontalCenter: parent.horizontalCenter
+                property bool showTit: true
+                property bool showTi: false
+                //visible: !checkBoxRetSolar.checked
+                onShowTiChanged: {
+                    if(showTi){
+                        tiEdad.focus=true
+                        tiEdad.text=r.edadMaxima
+                        tiEdad.selectAll()
                     }
-                    Rectangle{
-                        width: app.fs*1.5
-                        height: app.fs*0.7
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: apps.fontColor
-                        border.width: 1
-                        border.color: apps.backgroundColor
-                        TextInput{
-                            id: tiEdad
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: {
+                        xTit.showTit=false
+                        tShowXTit.start()
+                    }
+                    onExited: {
+                        xTit.showTit=false
+                        tShowXTit.start()
+                    }
+                    onClicked: xTit.showTi=true
+                }
+                Rectangle{
+                    color: parent.color
+                    anchors.fill: parent
+                    border.width: xTit.border.width
+                    border.color: xTit.border.color
+                    visible: xTit.showTi
+                    Row{
+                        anchors.centerIn: parent
+                        spacing: app.fs*0.5
+                        ZoolText{
+                            id: label
+                            text:!checkBoxRetSolar.checked?'<b>Edad:</b>':'<b>Año:</b>'
+                            anchors.verticalCenter: parent.verticalCenter
                             color: apps.backgroundColor
                             font.pixelSize: app.fs*0.5
-                            width: parent.width*0.8
-                            height: parent.height
-                            anchors.centerIn: parent
-                            validator: IntValidator {bottom: 1; top: 150}
-                            onTextChanged: {
-                                if(focus)apps.zFocus='xLatIzq'
-                            }
-                            Keys.onReturnPressed: {
-                                if(!checkBoxRetSolar.checked){
-                                    xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
-                                    xTit.showTi=false
-                                }else{
-                                    xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
-                                    xTit.showTi=false
+                        }
+                        Rectangle{
+                            width: app.fs*1.5
+                            height: app.fs*0.7
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: apps.fontColor
+                            border.width: 1
+                            border.color: apps.backgroundColor
+                            TextInput{
+                                id: tiEdad
+                                color: apps.backgroundColor
+                                font.pixelSize: app.fs*0.5
+                                width: parent.width*0.8
+                                height: parent.height
+                                anchors.centerIn: parent
+                                validator: IntValidator {bottom: 1; top: 150}
+                                onTextChanged: {
+                                    if(focus)apps.zFocus='xLatIzq'
                                 }
+                                Keys.onReturnPressed: {
+                                    if(!checkBoxRetSolar.checked){
+                                        r.ulat=22.22
+                                        r.ulon=44.44
+                                        if(app.dev){
+                                            log.lv('r.ulat: '+r.ulat)
+                                            log.lv('r.ulon: '+r.ulon)
+                                        }
+                                        xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
+                                        xTit.showTi=false
+                                    }else{
 
+
+                                        xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
+                                        xTit.showTi=false
+                                    }
+
+                                }
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf002'
+                            width: app.fs
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                r.enter()
                             }
                         }
                     }
-                    Comps.ButtonIcon{
-                        text: '\uf002'
-                        width: app.fs
-                        height: width
-                        anchors.verticalCenter: parent.verticalCenter
-                        onClicked: {
-                            r.enter()
+                }
+                ZoolText{
+                    id: txtLabelTit
+                    text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
+                    font.pixelSize: app.fs*0.5
+                    width: parent.width-app.fs
+                    wrapMode: Text.WordWrap
+                    color: apps.backgroundColor
+                    //focus: true
+                    anchors.centerIn: parent
+                    visible: !xTit.showTi
+                }
+                Timer{
+                    id: tShowXTit
+                    running: false
+                    repeat: false
+                    interval: 3000
+                    onTriggered: parent.showTit=true
+                }
+            }
+            //        Item{
+            //            id: xCtrls
+            //            width: r.width
+            //            height: app.fs
+            //            visible: lv.count>0
+            Row{
+                id: xCtrls
+                spacing: app.fs*0.25
+                height: btnLoad.height+app.fs*0.2
+                //anchors.centerIn: parent
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: lv.count>0
+                ZoolButton{
+                    text:'\uf060'
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked:{
+                        if(lv.currentIndex>0)lv.currentIndex--
+                    }
+                }
+                ZoolText{
+                    text: parseInt(lv.currentIndex + 1)+' de '+lv.count
+                    //height:fs
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ZoolButton{
+                    text:'\uf061'
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked:{
+                        if(lv.currentIndex<lv.count-1)lv.currentIndex++
+                    }
+                }
+                ZoolText{
+                    text: r.currentAnioSelected//lv.currentIndex
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ZoolButton{
+                    id: btnLoad
+                    text:'Cargar'
+                    //height: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked:{
+                        if(!checkBoxRetSolar){
+                            //r.ulat=app.currentLat
+                            //r.ulon=app.currentLon
+                            if(app.dev){
+                                log.lv('r.ulat: '+r.ulat)
+                                log.lv('r.ulon: '+r.ulon)
+                            }
+                            lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
+                        }else{
+                            r.ulat=app.currentLat
+                            r.ulon=app.currentLon
+                            if(app.dev){
+                                log.lv('r.ulat: '+r.ulat)
+                                log.lv('r.ulon: '+r.ulon)
+                            }
+                            lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
                         }
+
                     }
                 }
             }
-            ZoolText{
-                id: txtLabelTit
-                text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
-                font.pixelSize: app.fs*0.5
-                width: parent.width-app.fs
-                wrapMode: Text.WordWrap
-                color: apps.backgroundColor
-                //focus: true
-                anchors.centerIn: parent
-                visible: !xTit.showTi
-            }
-            Timer{
-                id: tShowXTit
-                running: false
-                repeat: false
-                interval: 3000
-                onTriggered: parent.showTit=true
-            }
-        }
-        //        Item{
-        //            id: xCtrls
-        //            width: r.width
-        //            height: app.fs
-        //            visible: lv.count>0
-        Row{
-            id: xCtrls
-            spacing: app.fs*0.25
-            height: btnLoad.height+app.fs*0.2
-            //anchors.centerIn: parent
-            anchors.horizontalCenter: parent.horizontalCenter
-            visible: lv.count>0
-            ZoolButton{
-                text:'\uf060'
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked:{
-                    if(lv.currentIndex>0)lv.currentIndex--
-                }
-            }
-            ZoolText{
-                text: parseInt(lv.currentIndex + 1)+' de '+lv.count
-                //height:fs
-                fs: app.fs*0.5
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            ZoolButton{
-                text:'\uf061'
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked:{
-                    if(lv.currentIndex<lv.count-1)lv.currentIndex++
-                }
-            }
-            ZoolText{
-                text: r.currentAnioSelected//lv.currentIndex
-                fs: app.fs*0.5
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            ZoolButton{
-                id: btnLoad
-                text:'Cargar'
-                //height: app.fs*0.5
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked:{
-                    lv.itemAtIndex(lv.currentIndex).loadRs()
-                }
-            }
-        }
-        //}
-        ListView{
-            id: lv
-            width: r.width
-            height: r.height-xTit.height-xCtrls.height-xRetSolar.height
-            anchors.horizontalCenter: parent.horizontalCenter
-            delegate: compItemList
-            model: lm
-            cacheBuffer: 150
-            displayMarginBeginning: cacheBuffer*app.fs*3
-            clip: true
-            Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
-            onCurrentIndexChanged: {
-                if(currentIndex>=0){
-                    contentY=lv.itemAtIndex(currentIndex).y+lv.itemAtIndex(currentIndex).height-r.height*0.5
+            //}
+            ListView{
+                id: lv
+                width: r.width
+                height: r.height-xTit.height-xCtrls.height-xRetSolar.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                delegate: compItemList
+                model: lm
+                cacheBuffer: 150
+                displayMarginBeginning: cacheBuffer*app.fs*3
+                clip: true
+                Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
+                onCurrentIndexChanged: {
+                    if(currentIndex>=0){
+                        contentY=lv.itemAtIndex(currentIndex).y+lv.itemAtIndex(currentIndex).height-r.height*0.5
+                    }
                 }
             }
         }
@@ -775,7 +808,7 @@ Rectangle {
                 }
             }
             function loadRs(gmt, lat, lon, alt){
-                JS.loadRs(itemRS.rsDate, gmt, lat, lon, alt)
+                app.j.loadRs(itemRS.rsDate, gmt, lat, lon, alt)
             }
             Component.onCompleted: {
                 let j=JSON.parse(json)
@@ -800,7 +833,7 @@ Rectangle {
                 let m = itemRsGMT.getMonth() + 1
                 let a = itemRsGMT.getFullYear()
                 let f = d + '/' + m + '/' + a
-                let aGetNums=JS.getNums(f)
+                let aGetNums=app.j.getNums(f)
                 if(index===0){
                     r.currentNumKarma=aGetNums[0]
                     r.currentAnioSelected=parseInt(a)

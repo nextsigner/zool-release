@@ -4,13 +4,15 @@ import QtQuick.Controls 2.0
 Rectangle{
     id: r
     width: app.fs*20
-    height: xApp.height-(xApp.height-xBottomBar.y)-(xDataBar.state==='show'?xDataBar.height:0)
+    //height: xApp.height-(xApp.height-xBottomBar.y)-(xDataBar.state==='show'?xDataBar.height:0)
+    height: xApp.height-(xApp.height-xBottomBar.y)-(zoolDataView.state==='show'?zoolDataView.height:0)
     color: 'black'
     visible: apps.showLog
     border.width: 2
     border.color: 'white'
     clip: true
-    y: xDataBar.state==='show'?xDataBar.height:0
+    //y: xDataBar.state==='show'?xDataBar.height:0
+    y: zoolDataView.state==='show'?zoolDataView.height:0
     property bool ww: true
     MouseArea{
         anchors.fill: parent

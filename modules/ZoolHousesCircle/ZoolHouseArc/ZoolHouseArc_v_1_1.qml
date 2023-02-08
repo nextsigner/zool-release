@@ -195,6 +195,7 @@ Item {
 
             //console.log('Rad: '+rad)
             var radius = rad>0?rad:r.width;
+            if(radius<=0)return
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.w;
@@ -218,7 +219,7 @@ Item {
             var y = canvas2.height*0.5
             var rad=parseInt(canvas.width*0.5)
             var radius = rad>0?rad:r.width;
-
+            if(radius<=0)return
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.wb;

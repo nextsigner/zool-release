@@ -230,7 +230,7 @@ ZoolMainWindow{
     onCurrentDateChanged: {
         controlsTime.setTime(currentDate)
         if(app.currentData===''||app.setFromFile)return
-        xDataBar.state='show'
+        //xDataBar.state='show'
         let a=currentDate.getFullYear()
         let m=currentDate.getMonth()
         let d=currentDate.getDate()
@@ -245,7 +245,7 @@ ZoolMainWindow{
         if(app.mod==='trans'){
             JS.loadTransFromTime(app.currentDateBack)
         }
-        xDataBar.state='show'
+        //xDataBar.state='show'
         let a=currentDateBack.getFullYear()
         let m=currentDateBack.getMonth()
         let d=currentDateBack.getDate()
@@ -473,7 +473,8 @@ ZoolMainWindow{
             ZoolBodies{id: sweg;objectName: 'sweg'}
             Image {
                 id: xDataBarUItemGrabber
-                source: xDataBar.uItemGrabber
+                //source: xDataBar.uItemGrabber
+                source: zoolDataView.uItemGrabber
                 width: parent.width
                 fillMode: Image.PreserveAspectCrop
                 visible: app.capturing
@@ -589,12 +590,13 @@ ZoolMainWindow{
     Item{
         id: capa101
         anchors.fill: xApp
-        ZoolDataBar{id: xDataBar}
+        //ZoolDataBar{id: xDataBar}
         ZoolDataView{id: zoolDataView; visible: app.dev}
         //ZoolDataBar{id: xDataBar;parent:xSwe1}
         Row{
             //anchors.centerIn: parent
-            anchors.top: xDataBar.bottom
+            //anchors.top: xDataBar.bottom
+            anchors.top: zoolDataView.bottom
             anchors.bottom: xBottomBar.top
             //anchors.horizontalCenter: parent.horizontalCenter
             //anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width

@@ -10,8 +10,8 @@ Rectangle {
     border.color: apps.fontColor
     radius: app.fs*0.25
     anchors.horizontalCenter: parent.horizontalCenter
-    anchors.top: xDataBar.bottom
-    z: xDataBar.z-1
+    anchors.top: zoolDataView.bottom
+    z: zoolDataView.z-1
     property int currentIndex: -1
     property var textStatus: ['Mostrando sinastría.Aún no se ha creado el archivo', 'Mostrando Rev. Solar.Aún no se ha creado el archivo', 'Mostrando Tránsitos.Aún no se ha creado el archivo']
     onCurrentIndexChanged: setGui()

@@ -494,6 +494,9 @@ Item {
                 params=j.params
             }
 
+        }else if(t==='rs'){
+            params=j.paramsBack
+            if(app.dev)log.lv('1 sweg.loadBack(JSON.parse(j), tipo): '+JSON.stringify(j, null, 2)+'\ntipo: '+t)
         }else{
             params=j.paramsBack
         }
