@@ -21,6 +21,7 @@ import ZoolDataView 1.0
 import ZoolDataText 1.0
 import ZoolLogView 1.0
 
+import ZoolFileDataManager 1.0
 import ZoolBodies 1.4
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
@@ -437,6 +438,7 @@ ZoolMainWindow{
     menuBar: ZoolTopMenuBar {
         id: menuBar
     }
+    ZoolFileDataManager{id: zfdm}
     Timer{
         id: tReload
         running: false
@@ -1064,7 +1066,7 @@ ZoolMainWindow{
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
-                JS.loadJson(apps.url)
+                JS.loadJson(apps.url)                
             }else{
                 if(app.dev){
                     log.visible=true

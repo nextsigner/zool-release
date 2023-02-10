@@ -486,14 +486,18 @@ Item {
         }
         let params
         if(t==='sin'){
-            params=j.params
+            if(app.dev)log.lv('sweg.loadBack(): '+JSON.stringify(j, null, 2))
+            if(j.paramsBack){
+                params=j.paramsBack
+            }else{
+                params=j.params
+            }
         }else if(t==='trans'){
             if(j.paramsBack){
                 params=j.paramsBack
             }else{
                 params=j.params
             }
-
         }else if(t==='rs'){
             params=j.paramsBack
             if(app.dev)log.lv('1 sweg.loadBack(JSON.parse(j), tipo): '+JSON.stringify(j, null, 2)+'\ntipo: '+t)
