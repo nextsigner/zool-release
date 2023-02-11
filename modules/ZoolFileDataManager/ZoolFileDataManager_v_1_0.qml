@@ -71,4 +71,18 @@ Item{
         return r.ja.paramsBack
     }
     //<--Finaliza Json Abstracto.
+
+
+    //-->Administración de archivos
+    function mkFile(j){
+        let r=false
+        let s=JSON.stringify(j)
+        let f=apps.jsonsFolder+'/'+(''+j.params.n).replace(/ /g, '_')+'.json'
+        unik.setFile(f, s)
+        if(unik.fileExist(f)){
+            r=true
+        }
+        return r
+    }
+    //<--Administración de archivos
 }

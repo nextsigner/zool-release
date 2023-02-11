@@ -24,6 +24,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import ZoolBodies 1.4
 import ZoolBodiesGuiTools 1.0
+import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 
 import ZoolControlsTime 1.0
@@ -912,7 +913,7 @@ ZoolMainWindow{
         }
     }
     Comps.MenuPlanets{id: menuPlanets}
-    Comps.MenuRuedaZodiacal{id: menuRuedaZodiacal}
+    ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMediaLive{id: zoolMediaLive;parent: panelDataBodies}
     Comps.MinymaClient{

@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "../js/Funcs.js" as JS
-import "../js/Capture.js" as Cap
+import "../../js/Funcs.js" as JS
+import "../../js/Capture.js" as Cap
 Menu {
     id: r
     width: app.fs*8
