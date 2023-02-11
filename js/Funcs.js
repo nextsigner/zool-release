@@ -26,12 +26,34 @@ function firstRunTime(){
     let mes=d.getMonth()+1
     let anio=d.getFullYear()
     let nom="Primer Inicio de Zool"
-    JS.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
+    loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
+
 
     log.ls('Al parecer es la primera vez que inicia Zool en su equipo.\n\n', 0, xLatIzq.width)
     //apps.url=apps.jsonsFolder+'/Primer_Inicio_de_Zool.json'
     log.ls('Cargando el archivo '+apps.url+' creado por primera y única vez a modo de ejemplo.\n\n', 0, xLatIzq.width)
     log.l('\nZool se está ejecutando en la carpeta'+unik.currentFolderPath())
+}
+
+function loadNow(){
+    let d=new Date(Date.now())
+    let currentUserHours=d.getHours()
+    let diffHours=d.getUTCHours()
+    let currentGmtUser=0
+    if(currentUserHours>diffHours){
+        currentGmtUser=parseFloat(currentUserHours-diffHours)
+    }else{
+        currentGmtUser=parseFloat(0-(diffHours-currentUserHours)).toFixed(1)
+    }
+
+    //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
+    let dia=d.getDate()
+    let mes=d.getMonth()+1
+    let anio=d.getFullYear()
+    let hora=d.getHours()
+    let minutos=d.getMinutes()
+    let nom="Tránsitos de "+dia+'/'+mes+'/'+anio+' '+hora+':'+minutos
+    loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
 }
 function setFs() {
     let w = Screen.width
@@ -99,19 +121,18 @@ function resetGlobalVars(){
 
 //Funciones de Cargar Datos Interior
 function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
-    app.ev=false
-    apps.urlBack=''
+    //app.ev=false
+    //apps.urlBack=''
     let dataMs=new Date(Date.now())
     let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
-    let setTitleMod=1
-    if(tipo==='pron')setTitleMod=2
-    setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, setTitleMod)
+    //let setTitleMod=1
+    //if(tipo==='pron')setTitleMod=2
+    //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, setTitleMod)
 
     if(save){
-        let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
-        console.log('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
-        unik.setFile(fn, j)
-        loadJson(fn)
+        if(app.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
+        let mf=zfdm.mkFileAndLoad(JSON.parse(j))
+        if(app.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
         return
     }
     //app.currentData=j
@@ -119,7 +140,18 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
     app.currentData=j
     runJsonTemp()
 }
-
+function loadFromJson(j, save){
+    if(save){
+        if(app.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
+        let mf=zfdm.mkFileAndLoad(JSON.parse(j))
+        if(app.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
+        return
+    }
+    //app.currentData=j
+    app.fileData=j
+    app.currentData=j
+    runJsonTemp()
+}
 //Funciones de Cargar Datos Exterior
 function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
     app.ev=true
@@ -401,8 +433,209 @@ function deg_to_dms (deg) {
 
 
 //Zool
+
+//function loadJson(file){
+//    //let fileLoaded=zfdm.loadFile(apps.url)
+//    let fileLoaded=zfdm.loadFile(file)
+//    if(!fileLoaded){
+//        if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
+//        return
+//    }
+
+
+//    //Global Vars Reset
+//    app.setFromFile=true
+//    //apps.enableFullAnimation=false
+
+//    resetGlobalVars()
+
+//    let fn=file
+//    let jsonFileName=fn
+//    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
+//    app.fileData=jsonFileData
+//    app.currentData=app.fileData
+//    if(jsonFileData.length<10){
+//        log.l('Error al cargar el archivo '+file)
+//        log.l('Datos: '+jsonFileData)
+//        log.visible=true
+
+//        return
+//    }
+//    //let jsonData=JSON.parse(jsonFileData)
+//    let jsonData=zfdm.getJsonAbs()
+//    //if(jsonData.params.tipo){
+//    let p=zfdm.getJsonAbsParams(false)
+//    let pb=({})
+//    let isBack=zfdm.isAbsParamsBack()
+//    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
+//        pb=zfdm.getJsonAbsParams(true)
+//    }
+//    if(p.tipo){
+//        //app.mod=jsonData.params.tipo
+//        app.mod=p.tipo
+//    }else{
+//        if(app.dev)log.lv('Error app.j.loadFile('+file+') p.tipo no existe.')
+//        return
+//    }
+//    if(parseInt(p.ms)===0||p.tipo==='pron'){
+//        if(p.tipo==='pron'){
+//            let dd = new Date(Date.now())
+//            let ms=dd.getTime()
+//            let nom=p.n
+//            let d=p.d
+//            let m=p.m
+//            let a=p.a
+//            let h=0
+//            let min=0
+//            let lat=p.lat
+//            let lon=p.lon
+//            let gmt=p.gmt
+//            let ciudad=' '
+//            let j='{"params":{"tipo": "'+p.tipo+'", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+//            app.fileData=j
+//            //jsonData=JSON.parse(j)
+//        }else{
+//            d=new Date(Date.now())
+//            p.d=d.getDate()
+//            p.m=d.getMonth()+1
+//            p.a=d.getFullYear()
+//            p.h=d.getHours()
+//            p.min=d.getMinutes()
+//        }
+//        sweg.loadSign(jsonData)
+//    }else{
+//        //log.ww=false
+//        //log.ls('sweg.load(jsonData): '+JSON.stringify(jsonData), 0, 500)
+//        sweg.load(jsonData)
+//    }
+//    if(p.fileNamePath){
+//        panelPronEdit.loadJson(p.fileNamePath)
+//    }
+
+//    //let params
+
+//    //if((p.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack) ){
+////    let isBack=zfdm.isAbsParamsBack()
+////    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
+////        //params=jsonData.paramsBack
+////        params=zfdm.getJsonAbsParams(true)
+////    }else{
+////        //params=jsonData.params
+////        params=zfdm.getJsonAbsParams(false)
+////    }
+
+//    //if(params.tipo==='rs'){
+//    //if(app.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
+//    //}
+
+//    let nom=p.n.replace(/_/g, ' ')
+//    let vd=p.d
+//    let vm=p.m
+//    let va=p.a
+//    let vh=p.h
+//    let vmin=p.min
+//    let vgmt=p.gmt
+//    let vlon=p.lon
+//    let vlat=p.lat
+//    let vCiudad=p.ciudad.replace(/_/g, ' ')
+//    let edad=''
+//    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    let stringEdad=edad.indexOf('NaN')<0?edad:''
+//    if(p.tipo==='rs'){
+//        let edadRs=47
+//        //stringEdad=edadRs
+//        //log.l('RS params:'+params+' --->'+stringEdad, 0, log.width)
+//    }
+
+//    //Seteando datos globales de mapa energético
+//    app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+//    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
+
+//    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
+//    app.currentNom=nom
+//    app.currentFecha=vd+'/'+vm+'/'+va
+//    app.currentLugar=vCiudad
+//    app.currentGmt=vgmt
+//    app.currentLon=vlon
+//    app.currentLat=vlat
+
+
+//    if(p.tipo==='sin' && isBack){
+//        let m0NomCorr=nom.split(' - ')
+//        nom=m0NomCorr[0].replace('Sinastría ', '')
+//        vd=p.d
+//        vm=p.m
+//        va=p.a
+//        vh=p.h
+//        vmin=p.min
+//        vgmt=p.gmt
+//        vlon=p.lon
+//        vlat=p.lat
+//        vCiudad=p.ciudad.replace(/_/g, ' ')
+//        edad=''
+//        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//        stringEdad=edad.indexOf('NaN')<0?edad:''
+//        setTitleData('Interior: '+nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
+
+//        //Preparando datos para addTitle de tipo sin.
+//        nom=pb.n.replace(/_/g, ' ')
+//        if(m0NomCorr.length>1){
+//            nom=m0NomCorr[1].replace('Sinastría ', '')
+//        }
+//        vd=pb.d
+//        vm=pb.m
+//        va=pb.a
+//        vh=pb.h
+//        vmin=pb.min
+//        vgmt=pb.gmt
+//        vlon=pb.lon
+//        vlat=pb.lat
+//        vCiudad=pb.ciudad.replace(/_/g, ' ')
+//        edad=''
+//        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//        stringEdad=edad.indexOf('NaN')<0?edad:''
+
+//        app.currentNomBack=nom
+//        app.currentFechaBack=vd+'/'+vm+'/'+va
+//        app.currentLugarBack=vCiudad
+//        app.currentGmtBack=vgmt
+//        app.currentLonBack=vlon
+//        app.currentLatBack=vlat
+
+//        addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
+//    }else{
+//        setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
+//    }
+//    //    if(jsonData.params.tipo==='sin'){
+//    //        nom=pb.n.replace(/_/g, ' ')
+//    //        vd=pb.d
+//    //        vm=pb.m
+//    //        va=pb.a
+//    //        vh=pb.h
+//    //        vmin=pb.min
+//    //        vgmt=pb.gmt
+//    //        vlon=pb.lon
+//    //        vlat=pb.lat
+//    //        let valt=0
+//    //        if(pb.alt){
+//    //            valt=pb.alt
+//    //        }
+//    //        vCiudad=pb.ciudad.replace(/_/g, ' ')
+//    //        //let edad=''
+//    //        //numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    //        //let stringEdad=edad.indexOf('NaN')<0?edad:''
+
+//    //        loadFromArgsBack(vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, nom, vCiudad, 'sin', false)
+//    //        //log.l('Cargando sinastría...')
+//    //        //log.visible=true
+//    //    }
+//    xDataStatusBar.currentIndex=-1
+//    app.setFromFile=false
+//    sweg.centerZoomAndPos()
+//}
 function loadJson(file){
-    let fileLoaded=zfdm.loadFile(apps.url)
+    //let fileLoaded=zfdm.loadFile(apps.url)
+    let fileLoaded=zfdm.loadFile(file)
     if(!fileLoaded){
         if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
         return
@@ -414,85 +647,10 @@ function loadJson(file){
     //apps.enableFullAnimation=false
 
     resetGlobalVars()
-
-    let fn=file
-    let jsonFileName=fn
-    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-    app.fileData=jsonFileData
-    app.currentData=app.fileData
-    if(jsonFileData.length<10){
-        log.l('Error al cargar el archivo '+file)
-        log.l('Datos: '+jsonFileData)
-        log.visible=true
-
-        return
-    }
-    //let jsonData=JSON.parse(jsonFileData)
     let jsonData=zfdm.getJsonAbs()
-    //if(jsonData.params.tipo){
     let p=zfdm.getJsonAbsParams(false)
-    let pb=({})
-    let isBack=zfdm.isAbsParamsBack()
-    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
-        pb=zfdm.getJsonAbsParams(true)
-    }
-    if(p.tipo){
-        //app.mod=jsonData.params.tipo
-        app.mod=p.tipo
-    }else{
-        if(app.dev)log.lv('Error app.j.loadFile('+file+') p.tipo no existe.')
-        return
-    }
-    if(parseInt(p.ms)===0||p.tipo==='pron'){
-        if(p.tipo==='pron'){
-            let dd = new Date(Date.now())
-            let ms=dd.getTime()
-            let nom=p.n
-            let d=p.d
-            let m=p.m
-            let a=p.a
-            let h=0
-            let min=0
-            let lat=p.lat
-            let lon=p.lon
-            let gmt=p.gmt
-            let ciudad=' '
-            let j='{"params":{"tipo": "'+p.tipo+'", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
-            app.fileData=j
-            //jsonData=JSON.parse(j)
-        }else{
-            d=new Date(Date.now())
-            p.d=d.getDate()
-            p.m=d.getMonth()+1
-            p.a=d.getFullYear()
-            p.h=d.getHours()
-            p.min=d.getMinutes()
-        }
-        sweg.loadSign(jsonData)
-    }else{
-        //log.ww=false
-        //log.ls('sweg.load(jsonData): '+JSON.stringify(jsonData), 0, 500)
-        sweg.load(jsonData)
-    }
-    if(p.fileNamePath){
-        panelPronEdit.loadJson(p.fileNamePath)
-    }
-
-    //let params
-
-    //if((p.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack) ){
-//    let isBack=zfdm.isAbsParamsBack()
-//    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
-//        //params=jsonData.paramsBack
-//        params=zfdm.getJsonAbsParams(true)
-//    }else{
-//        //params=jsonData.params
-//        params=zfdm.getJsonAbsParams(false)
-//    }
-
-    //if(params.tipo==='rs'){
-    //if(app.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
-    //}
+    sweg.load(jsonData)
+    //loadFromJson(jsonData, false)
 
     let nom=p.n.replace(/_/g, ' ')
     let vd=p.d
@@ -507,11 +665,17 @@ function loadJson(file){
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
-    if(p.tipo==='rs'){
-        let edadRs=47
-        //stringEdad=edadRs
-        //log.l('RS params:'+params+' --->'+stringEdad, 0, log.width)
-    }
+
+    let a=[]
+    a.push('<b>'+nom+'</b>')
+    a.push(vd+'/'+vm+'/'+va)
+    a.push(vh+':'+vmin+'hs')
+    a.push('GMT '+vgmt)
+    a.push(stringEdad)
+    a.push('<b> '+vCiudad+'</b>')
+    a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+    a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+    zoolDataView.setDataView(nom, a, [])
 
     //Seteando datos globales de mapa energético
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
@@ -524,79 +688,7 @@ function loadJson(file){
     app.currentGmt=vgmt
     app.currentLon=vlon
     app.currentLat=vlat
-
-
-    if(p.tipo==='sin' && isBack){
-        let m0NomCorr=nom.split(' - ')
-        nom=m0NomCorr[0].replace('Sinastría ', '')
-        vd=p.d
-        vm=p.m
-        va=p.a
-        vh=p.h
-        vmin=p.min
-        vgmt=p.gmt
-        vlon=p.lon
-        vlat=p.lat
-        vCiudad=p.ciudad.replace(/_/g, ' ')
-        edad=''
-        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-        stringEdad=edad.indexOf('NaN')<0?edad:''
-        setTitleData('Interior: '+nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-
-        //Preparando datos para addTitle de tipo sin.
-        nom=pb.n.replace(/_/g, ' ')
-        if(m0NomCorr.length>1){
-            nom=m0NomCorr[1].replace('Sinastría ', '')
-        }
-        vd=pb.d
-        vm=pb.m
-        va=pb.a
-        vh=pb.h
-        vmin=pb.min
-        vgmt=pb.gmt
-        vlon=pb.lon
-        vlat=pb.lat
-        vCiudad=pb.ciudad.replace(/_/g, ' ')
-        edad=''
-        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-        stringEdad=edad.indexOf('NaN')<0?edad:''
-
-        app.currentNomBack=nom
-        app.currentFechaBack=vd+'/'+vm+'/'+va
-        app.currentLugarBack=vCiudad
-        app.currentGmtBack=vgmt
-        app.currentLonBack=vlon
-        app.currentLatBack=vlat
-
-        addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-    }else{
-        setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-    }
-    //    if(jsonData.params.tipo==='sin'){
-    //        nom=pb.n.replace(/_/g, ' ')
-    //        vd=pb.d
-    //        vm=pb.m
-    //        va=pb.a
-    //        vh=pb.h
-    //        vmin=pb.min
-    //        vgmt=pb.gmt
-    //        vlon=pb.lon
-    //        vlat=pb.lat
-    //        let valt=0
-    //        if(pb.alt){
-    //            valt=pb.alt
-    //        }
-    //        vCiudad=pb.ciudad.replace(/_/g, ' ')
-    //        //let edad=''
-    //        //numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    //        //let stringEdad=edad.indexOf('NaN')<0?edad:''
-
-    //        loadFromArgsBack(vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, nom, vCiudad, 'sin', false)
-    //        //log.l('Cargando sinastría...')
-    //        //log.visible=true
-    //    }
     xDataStatusBar.currentIndex=-1
-    app.setFromFile=false
     sweg.centerZoomAndPos()
 }
 function loadJsonBack(file, tipo){
@@ -901,15 +993,16 @@ function runJsonTemp(){
 function runJsonTempBack(){
     var jsonData
     //let jss=app.currentDataBack.replace(/\n/g, '')
-    let jss=app.currentData.replace(/\n/g, '')
+    let jss=app.currentDataBack.replace(/\n/g, '')
     try
     {
         jsonData=JSON.parse(jss)
     }catch(e){
-        console.log('Json Fallado: '+app.currentDataBack)
+        console.log('runJsonTempBack() Json Fallado: '+app.currentDataBack)
         if(app.dev){
             log.lv('Ha fallado la carga del archivo BACK '+apps.url)
-            log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
+            log.lv(app.currentDataBack)
+            //log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
         }
         //unik.speak('Error in Json file')
         return
@@ -1161,31 +1254,33 @@ function loadJsonNow(file){
     app.currentData=app.fileData
     app.fileData=jsonFileData
 }
-function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod){
-    //mod 0=cn, mod 1=rs
 
-    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    let stringTiempo=''
-    //console.log('Edad: '+numEdad)
-    if(mod===0){
-        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
-    }else if(mod===2){
-        stringTiempo=''
-    }else{
-        let nAnio=Math.abs(getEdadRS(vd, vm, va, vh, vmin))
-        stringTiempo='<b> Edad:</b> '+nAnio+' años '
-    }
-    let a=[]
-    a.push('<b>'+nom+'</b>')
-    a.push(vd+'/'+vm+'/'+va)
-    a.push(vh+':'+vmin+'hs')
-    a.push('GMT '+vgmt)
-    a.push(stringTiempo)
-    a.push('<b> '+vCiudad+'</b>')
-    a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-    a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-    zoolDataView.setDataView('', a, [])
-}
+//function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod){
+//    //mod 0=cn, mod 1=rs
+
+//    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    let stringTiempo=''
+//    //console.log('Edad: '+numEdad)
+//    if(mod===0){
+//        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
+//    }else if(mod===2){
+//        stringTiempo=''
+//    }else{
+//        let nAnio=Math.abs(getEdadRS(vd, vm, va, vh, vmin))
+//        stringTiempo='<b> Edad:</b> '+nAnio+' años '
+//    }
+//    let a=[]
+//    a.push('<b>'+nom+'</b>')
+//    a.push(vd+'/'+vm+'/'+va)
+//    a.push(vh+':'+vmin+'hs')
+//    a.push('GMT '+vgmt)
+//    a.push(stringTiempo)
+//    a.push('<b> '+vCiudad+'</b>')
+//    a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+//    a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+//    zoolDataView.setDataView('', a, [])
+//}
+
 function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, tipo){
     let numEdad=getEdad(vd, vm, va, vh, vmin)
     let stringTiempo=''

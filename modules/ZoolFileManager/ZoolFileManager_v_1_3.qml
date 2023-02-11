@@ -5,6 +5,7 @@ import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
 import ZoolFileMaker 1.2
+import ZoolFileExtDataManager 1.0
 import ZoolFileLoader 1.3
 import ZoolFileTransLoader 1.0
 import ZoolFileDirPrimLoader 1.0
@@ -91,10 +92,23 @@ Rectangle {
                     colorInverted: zoolFileMaker.visible
                     onClicked: {
                         zoolFileMaker.visible=true
+                        zoolFileExtDataManager.visible=false
                         zoolFileLoader.visible=false
                         zoolFileTransLoader.visible=false
                         zoolFileDirPrimLoader.visible=false
                         settings.currentIndex=0
+                    }
+                }
+                ZoolButton{
+                    text:'Administrar'
+                    colorInverted: zoolFileExtDataManager.visible
+                    onClicked: {
+                        zoolFileMaker.visible=false
+                        zoolFileExtDataManager.visible=true
+                        zoolFileLoader.visible=false
+                        zoolFileTransLoader.visible=false
+                        zoolFileDirPrimLoader.visible=false
+                        settings.currentIndex=1
                     }
                 }
                 ZoolButton{
@@ -103,10 +117,11 @@ Rectangle {
                     onClicked: {
                         //log.lv('0 settings.currentIndex: '+settings.currentIndex)
                         zoolFileMaker.visible=false
+                        zoolFileExtDataManager.visible=false
                         zoolFileLoader.visible=true
                         zoolFileTransLoader.visible=false
                         zoolFileDirPrimLoader.visible=false
-                        settings.currentIndex=1
+                        settings.currentIndex=2
                         //log.lv('1 settings.currentIndex: '+settings.currentIndex)
                     }
                 }
@@ -115,10 +130,11 @@ Rectangle {
                     colorInverted: zoolFileTransLoader.visible
                     onClicked: {
                         zoolFileMaker.visible=false
+                        zoolFileExtDataManager.visible=false
                         zoolFileLoader.visible=false
                         zoolFileTransLoader.visible=true
                         zoolFileDirPrimLoader.visible=false
-                        settings.currentIndex=2
+                        settings.currentIndex=3
                     }
                 }
                 ZoolButton{
@@ -127,10 +143,11 @@ Rectangle {
                     colorInverted: zoolFileTransLoader.visible
                     onClicked: {
                         zoolFileMaker.visible=false
+                        zoolFileExtDataManager.visible=false
                         zoolFileLoader.visible=false
                         zoolFileTransLoader.visible=false
                         zoolFileDirPrimLoader.visible=true
-                        settings.currentIndex=3
+                        settings.currentIndex=4
                     }
                 }
             }
@@ -138,6 +155,11 @@ Rectangle {
         ZoolFileMaker{
             id: zoolFileMaker;
             visible: true
+            height: r.hp
+        }
+        ZoolFileExtDataManager{
+            id: zoolFileExtDataManager;
+            visible: false
             height: r.hp
         }
         ZoolFileLoader{

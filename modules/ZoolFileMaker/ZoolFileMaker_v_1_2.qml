@@ -494,7 +494,8 @@ Rectangle {
         j+='"lat":'+vlat+','
         j+='"lon":'+vlon+','
         j+='"ciudad":"'+vCiudad+'"'
-        j+='}'
+        j+='},'
+        j+='"exts":[]'
         j+='}'
 
         if(!app.dev){
@@ -514,7 +515,7 @@ Rectangle {
             //runJsonTemp()
         }else{
             let json=JSON.parse(j)
-            if(zfdm.mkFile(json)){
+            if(zfdm.mkFileAndLoad(json)){
                 log.lv('Archivo creado: '+json.params.n)
             }else{
                 log.lv('Archivo NO creado: '+json.params.n)

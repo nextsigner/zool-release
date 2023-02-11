@@ -485,7 +485,8 @@ Item {
             xuqp.children[i].destroy(0)
         }
         let params
-        if(t==='sin'){
+        params=j.params
+        /*if(t==='sin'){
             if(app.dev)log.lv('sweg.loadBack(): '+JSON.stringify(j, null, 2))
             if(j.paramsBack){
                 params=j.paramsBack
@@ -503,7 +504,7 @@ Item {
             if(app.dev)log.lv('1 sweg.loadBack(JSON.parse(j), tipo): '+JSON.stringify(j, null, 2)+'\ntipo: '+t)
         }else{
             params=j.paramsBack
-        }
+        }*/
         let vd=params.d
         let vm=params.m
         let va=params.a
@@ -522,9 +523,10 @@ Item {
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
-        c+='        if(!r.enableLoadBack)return\n'
+        //c+='        if(!r.enableLoadBack)return\n'
         c+='        let json=(\'\'+logData)\n'
-        c+='        //console.log(\'JSON Back: \'+json)\n'
+        c+='        log.lv(\'JSON Back: \'+json)\n'
+        c+='        console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
         c+='        //swegz.sweg.loadSweJsonBack(json)\n'
         c+='        uqp'+ms+'.destroy(3000)\n'

@@ -74,6 +74,10 @@ Menu {
         }
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
+    Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
+                           app.j.loadNow()
+                       }
+    }
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
                            sweg.zoomTo(0.5)
                        }

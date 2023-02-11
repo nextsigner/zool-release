@@ -74,15 +74,45 @@ Item{
 
 
     //-->Administración de archivos
+    function mkFileAndLoad(j){
+        let r=true
+        let mf=mkFile(j)
+        if(mf[0]===true){
+            app.j.loadJson(mf[1])
+            return r
+        }else{
+            log.lv('Error al crear el archivo: '+mf[1])
+            log.lv('El archivo: '+mf[1]+' no se ha cargado.')
+            r=false
+        }
+        return r
+    }
     function mkFile(j){
         let r=false
         let s=JSON.stringify(j)
-        let f=apps.jsonsFolder+'/'+(''+j.params.n).replace(/ /g, '_')+'.json'
+        let fn=(''+app.j.quitarAcentos(j.params.n)).replace(/ /g, '_')
+        fn=fn.replace(/\//g, '_')
+        fn=fn.replace(/:/g, '_')
+        let f=apps.jsonsFolder+'/'+fn+'.json'
+
         unik.setFile(f, s)
         if(unik.fileExist(f)){
             r=true
         }
-        return r
+        return [r, f]
     }
     //<--Administración de archivos
+
+    //-->Get Json Data
+    function getParam(p){
+        return r.ja.params[''+p]
+    }
+    function getExts(){
+        return r.ja.exts
+    }
+    function getParamExt(p,i){
+        return r.ja.exts[i][''+p]
+    }
+    //<--Get Json Data
 }
+
