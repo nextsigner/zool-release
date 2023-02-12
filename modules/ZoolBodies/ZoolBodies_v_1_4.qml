@@ -479,7 +479,7 @@ Item {
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
     }
-    function loadBack(j, t){
+    function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -518,6 +518,13 @@ Item {
         let hsys=apps.currentHsys
         app.currentFechaBack=vd+'/'+vm+'/'+va
         if(params.hsys)hsys=params.hsys
+        //let extId='id_'+vd+'_'+vm+'_'+va+'_'+vh+'_'+vmin+'_'+vgmt+'_'+t
+        /*if(app.aExtsIds.indexOf(extId)>=0){
+            if(app.dev)log.lv('loadBack(...): extId '+extId+' ya existe!')
+            return
+        }else{
+            app.aExtsIds.push(extId)
+        }*/
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
@@ -525,9 +532,10 @@ Item {
         c+='    onLogDataChanged:{\n'
         //c+='        if(!r.enableLoadBack)return\n'
         c+='        let json=(\'\'+logData)\n'
-        c+='        log.lv(\'JSON Back: \'+json)\n'
+        //c+='        log.lv(\'JSON Back: \'+json)\n'
         c+='        console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
+        c+='        app.ev=true\n'
         c+='        //swegz.sweg.loadSweJsonBack(json)\n'
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'

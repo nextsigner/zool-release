@@ -110,9 +110,43 @@ Item{
     function getExts(){
         return r.ja.exts
     }
+    function isExtId(extId){
+        let ret=false
+        let o=r.ja.exts
+        for(var i=0;i<Object.keys(o).length;i++){
+            let json=o[i].params
+            if(json.extId===extId){
+                ret=true
+                break
+            }
+        }
+        return ret
+    }
+    function addExtData(json){
+        let o=r.ja.exts
+        let nIndex=Object.keys(o).length
+        o[nIndex]={}
+        o[nIndex]=json
+        if(app.dev)log.lv('adding ext data:'+JSON.stringify(r.ja, null, 2))
+    }
     function getParamExt(p,i){
         return r.ja.exts[i][''+p]
     }
+    function getExtData(extId){
+        let ret={}
+        let o=r.ja.exts
+        for(var i=0;i<Object.keys(o).length;i++){
+            let json=o[i].params
+            if(json.extId===extId){
+                ret=json
+                break
+            }
+        }
+        return ret
+    }
+//    function getParamExt(p,i){
+//        return r.ja.exts[i][''+p]
+//    }
     //<--Get Json Data
 }
 

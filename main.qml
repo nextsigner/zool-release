@@ -33,7 +33,7 @@ import ZoolFileManager 1.3
 //import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
 import ZoolSabianos 1.1
-import ZoolRevolutionList 1.3
+import ZoolRevolutionList 1.4
 import ZoolNumPit 1.0
 
 import ZoolElementsBack 1.0
@@ -67,8 +67,6 @@ ZoolMainWindow{
 
     property string pythonLocation: Qt.platform.os==='linux'?'python3':'"'+currentPath+'/Python/python.exe'+'"'
 
-    //'"'+currentPath+'/Python/python.exe'+'"'
-    //property string pythonLocation: './Python/python.exe'
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
     property string url
@@ -81,6 +79,8 @@ ZoolMainWindow{
     property bool enableAn: false
     property int msDesDuration: 500
 
+
+    property var aExtsIds: []
 
     property string fileData: ''
     property string fileDataBack: ''

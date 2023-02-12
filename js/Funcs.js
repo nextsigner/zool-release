@@ -691,6 +691,59 @@ function loadJson(file){
     xDataStatusBar.currentIndex=-1
     sweg.centerZoomAndPos()
 }
+function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys) {
+    app.ev=false
+    //let tipo='sin'
+    //let hsys=apps.currentHsys
+    let d=new Date(Date.now())
+//    let nom="PPP"
+//    let vd=8
+//    let vm=9
+//    let va=1980
+//    let vh=17
+//    let vmin=0
+//    let vgmt=-3
+//    let vlat=-34.769249
+//    let vlon=-58.6480318
+//    let valt=0
+//    let vCiudad='Catann'
+//    let edad='42'
+    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
+                        parseInt(vmin))
+    let stringEdad=edad.indexOf('NaN')<0?edad:''
+
+    let extId='id'
+    extId+='_'+vd
+    extId+='_'+vm
+    extId+='_'+va
+    extId+='_'+vh
+    extId+='_'+vmin
+    extId+='_'+vgmt
+    extId+='_'+vlat
+    extId+='_'+vlon
+    extId+='_'+valt
+    extId+='_'+tipo
+    extId+='_'+hsys
+
+    let js='{"params":{"tipo":"'+tipo+'","ms":'+d.getTime()+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+    let json=JSON.parse(js)
+
+    let extIdExist=zfdm.isExtId(extId)
+    if(app.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
+    let isExtIdInAExtsIds=app.aExtsIds.indexOf(extId)>=0?true:false
+    if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
+    if(!extIdExist && !isExtIdInAExtsIds){
+        zfdm.addExtData(json)
+        sweg.loadBack(json)
+    }else{
+        if(app.dev)log.lv('ExtId ya existe.')
+        let extJson={}
+        extJson.params=zfdm.getExtData(extId)
+        if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
+        sweg.loadBack(extJson)
+    }
+}
+
 function loadJsonBack(file, tipo){
     //Global Vars Reset
     app.setFromFile=true
@@ -1186,7 +1239,7 @@ function saveJsonAs(newUrl){
     }
 }
 function deleteJsonBackHidden(){
-    if(app.dev)log.lv('JSON.parse(app.fileData).paramsBack: '+JSON.parse(app.fileData).paramsBack)
+    //if(app.dev)log.lv('JSON.parse(app.fileData).paramsBack: '+JSON.parse(app.fileData).paramsBack)
     let json=JSON.parse(app.fileData)
     if(app.dev)log.lv('deleteJsonBackHidden() app.currentData: '+JSON.stringify(json.params, null, 2))
     if(app.dev&&json.paramsBack){
