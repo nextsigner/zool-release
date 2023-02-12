@@ -168,6 +168,29 @@ Item{
         return unik.setFile(apps.url, JSON.stringify(njson))
         //return r.ja.exts[i][''+p]
     }
+    function deleteExtToJsonFile(extId){
+        //let jsonActual=
+        let njson={}
+        njson.params={}
+        njson.params=r.ja.params
+        njson.exts=[]
+        //njson.exts=
+        let o=r.ja.exts
+        for(var i=0;i<Object.keys(o).length;i++){
+            let json=o[i].params
+            if(json.extId!==extId){
+                njson.exts[i]={}
+                njson.exts[i].params={}
+                njson.exts[i].params=o[i].params
+            }
+        }
+        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
+        let seted=unik.setFile(apps.url, JSON.stringify(njson))
+        let reLoaded=r.loadFile(apps.url)
+        //if(seted)r.getJson()
+        let allTaskReady=(seted && reLoaded)?true:false
+        return allTaskReady
+    }
     //<--Get Json Data
 }
 

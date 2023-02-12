@@ -80,6 +80,7 @@ ZoolMainWindow{
     property int msDesDuration: 500
 
 
+    property var objZoolFileExtDataManager
     property var aExtsIds: []
 
     property string fileData: ''

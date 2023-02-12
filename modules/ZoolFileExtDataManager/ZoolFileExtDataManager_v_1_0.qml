@@ -180,8 +180,7 @@ Rectangle {
                 spacing: app.fs*0.25
                 anchors.centerIn: parent
                 Text {
-                    id: txtData
-                    //text: dato
+                    id: txtDataTipo
                     font.pixelSize: app.fs*0.5
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
@@ -191,20 +190,28 @@ Rectangle {
                     //anchors.centerIn: parent
                 }
                 Text {
-                    id: txtDataExtra
+                    id: txtDataNom
+                    font.pixelSize: app.fs*0.5
+                    width: xDatos.width-app.fs
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    //anchors.centerIn: parent
+                }
+                Text {
+                    id: txtDataParams
                     font.pixelSize: app.fs*0.35
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
                     color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: xDatos.selected && !s.showToolItem
                     //anchors.centerIn: parent
                 }
                 Row{
                     spacing: app.fs*0.25
-                    anchors.right: parent.right
-                    anchors.rightMargin: app.fs*0.1
+                    anchors.horizontalCenter: parent.horizontalCenter
                     ZoolButton{
                         id: btnSave
                         text:'Guardar'
@@ -217,11 +224,25 @@ Rectangle {
                 }
                 ZoolButton{
                     id: btnLoadExt
-                    text:'Cargar como Sinastría'
-                    //visible: index===lv.currentIndex && !s.showToolItem && tipo !== 'rs'  && tipo !== 'sin'
+                    text:'Cargar'
                     colorInverted: true
                     onClicked: {
-                        loadAsSin(fileName)
+                        let t=j.tipo
+                        let hsys=j.hsys
+                        let nom=j.n
+                        let d=j.d
+                        let m=j.m
+                        let a=j.a
+                        let h=j.h
+                        let min=j.min
+                        let gmt=j.gmt
+                        let lat=j.lat
+                        let lon=j.lon
+                        let alt=j.alt
+                        let ciudad=j.ciudad
+                        let e='-1'
+                        let ms=j.ms
+                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys,ms)
                     }
                 }
             }
@@ -244,13 +265,28 @@ Rectangle {
                 }
                 MouseArea{
                     anchors.fill: parent
-                    onDoubleClicked: deleteVnData(fileName)
+                    onDoubleClicked: {
+                        if(zfdm.deleteExtToJsonFile(j.extId)){
+                            r.updateList()
+                        }
+                    }
                 }
             }
             Component.onCompleted: {
-                let nom=j.n
-                txtData.text=nom
-                //txtDataExtra.text=m0[1]
+                //let nom=j.n
+                let tipo=''
+                if(j.tipo==='sin')tipo='Sinastría'
+                if(j.tipo==='rs')tipo='Revolución Solar'
+                if(j.tipo==='trans')tipo='Tránsitos'
+                txtDataTipo.text=tipo
+                txtDataNom.text=j.n
+                let sParams='<b>Fecha:</b> '+j.d+'/'+j.m+'/'+j.a+'<br>'
+                sParams+='<b>Hora:</b> '+j.h+':'+j.min+'hs<br>'
+                sParams+='<b>Ubicación:</b> '+j.ciudad+'<br>'
+                sParams+='<b>Latitud:</b> '+j.lat+'<br>'
+                sParams+='<b>Longitud:</b> '+j.lon+'<br>'
+                sParams+='<b>Altitud:</b> '+j.alt+'<br>'
+                txtDataParams.text=sParams
             }
         }
     }
@@ -369,6 +405,9 @@ Rectangle {
         anchors.centerIn: parent
         visible: r.visible && lv.currentIndex>=0 && s.showToolItem
         parent: visible?xMed:r
+    }
+    Component.onCompleted: {
+        app.objZoolFileExtDataManager=r
     }
     function deleteVnData(fileName){
         unik.deleteFile(fileName)

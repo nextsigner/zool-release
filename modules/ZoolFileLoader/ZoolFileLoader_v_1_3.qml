@@ -396,20 +396,24 @@ Rectangle {
 //            JSON.parse(app.currentData).params.tipo='sin'
 //        }
         let jsonFileData=unik.getFile(fileName)
-        let jp=JSON.parse(jsonFileData).params
-        if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(jp, null, 2))
+        let j=JSON.parse(jsonFileData).params
+        if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
 
-        let dia=jp.d
-        let mes=jp.m-1
-        let anio=jp.a
-        let hora=jp.h
-        let minuto=jp.min
-        let date= new Date(anio, mes, dia, hora, minuto)
-        let gmt=jp.gmt
-        let lat=jp.lat
-        let lon=jp.lon
-        let alt=jp.alt?jp.alt:0
-        app.j.loadSin(date, gmt, lat, lon, alt, jp.n, jp.ciudad)
+        let t='sin'
+        let hsys=j.hsys?j.hsys:apps.currentHsys
+        let nom=j.n
+        let d=j.d
+        let m=j.m
+        let a=j.a
+        let h=j.h
+        let min=j.min
+        let gmt=j.gmt
+        let lat=j.lat
+        let lon=j.lon
+        let alt=j.alt?j.alt:0
+        let ciudad=j.ciudad
+        let e='1000'
+        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
     }
     function deleteVnData(fileName){
         unik.deleteFile(fileName)
