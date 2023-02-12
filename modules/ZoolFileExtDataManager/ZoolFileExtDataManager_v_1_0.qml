@@ -64,59 +64,33 @@ Rectangle {
                 }
             }
             //Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
-            ZoolButton{
-                visible: app.dev
-                text: 'Prueba'
-                onClicked: {
-                    app.ev=false
-                    let tipo='sin'
-                    let hsys=apps.currentHsys
-                    let d=new Date(Date.now())
-                    let nom="PPP"
-                    let vd=8
-                    let vm=9
-                    let va=1980
-                    let vh=17
-                    let vmin=0
-                    let vgmt=-3
-                    let vlat=-34.769249
-                    let vlon=-58.6480318
-                    let valt=0
-                    let vCiudad='Catann'
-                    let edad='42'
-                    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
-                                        parseInt(vmin))
-                    let stringEdad=edad.indexOf('NaN')<0?edad:''
-
-                    let extId='id'
-                    extId+='_'+vd
-                    extId+='_'+vm
-                    extId+='_'+va
-                    extId+='_'+vh
-                    extId+='_'+vmin
-                    extId+='_'+vgmt
-                    extId+='_'+vlat
-                    extId+='_'+vlon
-                    extId+='_'+valt
-                    extId+='_'+tipo
-                    extId+='_'+hsys
-
-                    let js='{"params":{"tipo":"'+tipo+'","ms":'+d.getTime()+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
-                    let json=JSON.parse(js)
-
-                    let extIdExist=zfdm.isExtId(extId)
-                    if(app.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
-                    let isExtIdInAExtsIds=app.aExtsIds.indexOf(extId)>=0?true:false
-                    if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
-                    if(!extIdExist && !isExtIdInAExtsIds){
-                        zfdm.addExtData(json)
-                        sweg.loadBack(json)
-                    }else{
-                        if(app.dev)log.lv('ExtId ya existe.')
-                        let extJson={}
-                        extJson.params=zfdm.getExtData(extId)
-                        if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
-                        sweg.loadBack(extJson)
+            Row{
+                ZoolButton{
+                    visible: app.dev
+                    text: 'Prueba'
+                    onClicked: {
+                        let t='sin'
+                        let hsys=apps.currentHsys
+                        let nom="PPP"
+                        let d=8
+                        let m=9
+                        let a=1980
+                        let h=17
+                        let min=0
+                        let gmt=-3
+                        let lat=-34.769249
+                        let lon=-58.6480318
+                        let alt=0
+                        let ciudad='Catann'
+                        let e='42'
+                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
+                    }
+                }
+                ZoolButton{
+                    visible: app.dev
+                    text: 'UpdateList'
+                    onClicked: {
+                        r.updateList()
                     }
                 }
             }
@@ -167,11 +141,9 @@ Rectangle {
     }
     ListModel{
         id: lm
-        function addItem(vFileName, vData, vTipo){
+        function addItem(json){
             return {
-                fileName: vFileName,
-                dato: vData,
-                tipo: vTipo
+                j:json
             }
         }
     }
@@ -185,6 +157,7 @@ Rectangle {
             border.width: index===lv.currentIndex?4:2
             border.color: 'white'
             property bool selected: index===lv.currentIndex
+            property bool saved: j.ms>=0
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
@@ -228,12 +201,24 @@ Rectangle {
                     visible: xDatos.selected && !s.showToolItem
                     //anchors.centerIn: parent
                 }
+                Row{
+                    spacing: app.fs*0.25
+                    anchors.right: parent.right
+                    anchors.rightMargin: app.fs*0.1
+                    ZoolButton{
+                        id: btnSave
+                        text:'Guardar'
+                        visible: !xDatos.saved
+                        colorInverted: true
+                        onClicked: {
+                            btnSave.visible=!zfdm.saveExtToJsonFile(j.extId)
+                        }
+                    }
+                }
                 ZoolButton{
                     id: btnLoadExt
                     text:'Cargar como Sinastría'
-                    anchors.right: parent.right
-                    anchors.rightMargin: app.fs*0.1
-                    visible: index===lv.currentIndex && !s.showToolItem && tipo !== 'rs'  && tipo !== 'sin'
+                    //visible: index===lv.currentIndex && !s.showToolItem && tipo !== 'rs'  && tipo !== 'sin'
                     colorInverted: true
                     onClicked: {
                         loadAsSin(fileName)
@@ -263,9 +248,9 @@ Rectangle {
                 }
             }
             Component.onCompleted: {
-                let m0=dato.split('<!-- extra -->')
-                txtData.text=m0[0]
-                txtDataExtra.text=m0[1]
+                let nom=j.n
+                txtData.text=nom
+                //txtDataExtra.text=m0[1]
             }
         }
     }
@@ -411,101 +396,10 @@ Rectangle {
         txtFileName.text=zfdm.getParam('n').replace(/_/g, ' ')
         let exts=zfdm.getExts()
         if(app.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
-        //        for(var i=0;i<flm.count;i++){
-        //            let file=apps.jsonsFolder+'/'+flm.get(i, 'fileName')
-        //            let fn=file//.replace('cap_', '').replace('.png', '')
-        //            let jsonFileName=fn
-        //            //console.log('FileName: '+jsonFileName)
-
-        //            let jsonFileData
-        //            if(unik.fileExist(jsonFileName)){
-        //                jsonFileData=unik.getFile(jsonFileName)
-        //            }else{
-        //                continue
-        //            }
-        //            jsonFileData=jsonFileData.replace(/\n/g, '')
-        //            //console.log(jsonFileData)
-        //            if(jsonFileData.indexOf(':NaN,')>=0)continue
-        //            let jsonData
-        //            try {
-        //                jsonData=JSON.parse(jsonFileData)
-        //                let nom=''+jsonData.params.n.replace(/_/g, ' ')
-        //                if((jsonData.params.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack)){
-        //                    nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
-        //                }
-        //                if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
-        //                    if(jsonData.asp){
-        //                        //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
-        //                    }
-        //                    let vd=jsonData.params.d
-        //                    let vm=jsonData.params.m
-        //                    let va=jsonData.params.a
-        //                    let vh=jsonData.params.h
-        //                    let vmin=jsonData.params.min
-        //                    let vgmt=jsonData.params.gmt
-        //                    let vlon=jsonData.params.lon
-        //                    let vlat=jsonData.params.lat
-        //                    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        //                    let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
-        //                    let stringEdad=edad.indexOf('NaN')<0?edad:''
-
-        //                    //Date of Make File
-        //                    let d=new Date(jsonData.params.ms)
-        //                    let dia=d.getDate()
-        //                    let mes=d.getMonth() + 1
-        //                    let anio=d.getFullYear()
-        //                    let hora=d.getHours()
-        //                    let minuto=d.getMinutes()
-        //                    let sMkFile='<b>Creado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
-        //                    let sModFile='<b>Modificado:</b> Nunca'
-        //                    if(jsonData.params.msmod){
-        //                        d=new Date(jsonData.params.ms)
-        //                        dia=d.getDate()
-        //                        mes=d.getMonth() + 1
-        //                        anio=d.getFullYear()
-        //                        hora=d.getHours()
-        //                        minuto=d.getMinutes()
-        //                        sModFile='<b>Modificado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
-        //                    }
-        //                    let sDataFile='<b>Tiene información:</b> No'
-        //                    if(jsonData.params.data){
-        //                        sDataFile='<b>Tiene información:</b> Si'
-        //                    }
-        //                    let stipo=''
-        //                    if(jsonData.params.tipo==='vn'){
-        //                        stipo='Carta Natal'
-        //                    }else if(jsonData.params.tipo==='sin'){
-        //                        stipo='Sinastría'
-        //                    }else if(jsonData.params.tipo==='rs'){
-        //                        stipo='Revolución Solar'
-        //                    }else if(jsonData.params.tipo==='trans'){
-        //                        stipo='Tránsitos'
-        //                    }else{
-        //                        stipo='Desconocido'
-        //                    }
-
-        //                    let textData=''
-        //                        +'<b>'+nom+'</b>'
-        //                        +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
-        //                        +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-        //                        +'<!-- extra -->'
-        //                        +'<b>Tipo: </b>'+stipo
-        //                        +'<p style="font-size:'+parseInt(app.fs*0.35)+'px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
-        //                        +sMkFile+'<br>'
-        //                        +sModFile+'<br>'
-        //                        +sDataFile+'<br>'
-        //                        +'<b>Archivo: </b>'+file
-        //                    //xNombre.nom=textData
-        //                    lm.append(lm.addItem(file,textData, jsonData.params.tipo))
-        //                }
-        //                if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
-        //                //txtDataSearch.selectAll()
-        //            } catch (e) {
-        //                console.log('Error Json panelFileLoader: ['+file+'] '+jsonFileData)
-        //                continue
-        //                //return false;
-        //            }
-        //        }
+        for(var i=0;i<Object.keys(exts).length;i++){
+            let json=exts[i].params
+            lm.append(lm.addItem(json))
+        }
     }
     function enter(){
         app.j.loadJson(r.currentFile)

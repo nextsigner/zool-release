@@ -533,7 +533,7 @@ Item {
         //c+='        if(!r.enableLoadBack)return\n'
         c+='        let json=(\'\'+logData)\n'
         //c+='        log.lv(\'JSON Back: \'+json)\n'
-        c+='        console.log(\'JSON Back: \'+json)\n'
+        //c+='        console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
         c+='        app.ev=true\n'
         c+='        //swegz.sweg.loadSweJsonBack(json)\n'

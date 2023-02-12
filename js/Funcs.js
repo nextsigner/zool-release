@@ -691,23 +691,9 @@ function loadJson(file){
     xDataStatusBar.currentIndex=-1
     sweg.centerZoomAndPos()
 }
-function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys) {
+function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms) {
     app.ev=false
-    //let tipo='sin'
-    //let hsys=apps.currentHsys
     let d=new Date(Date.now())
-//    let nom="PPP"
-//    let vd=8
-//    let vm=9
-//    let va=1980
-//    let vh=17
-//    let vmin=0
-//    let vgmt=-3
-//    let vlat=-34.769249
-//    let vlon=-58.6480318
-//    let valt=0
-//    let vCiudad='Catann'
-//    let edad='42'
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
                         parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -725,7 +711,7 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     extId+='_'+tipo
     extId+='_'+hsys
 
-    let js='{"params":{"tipo":"'+tipo+'","ms":'+d.getTime()+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+    let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
     let json=JSON.parse(js)
 
     let extIdExist=zfdm.isExtId(extId)

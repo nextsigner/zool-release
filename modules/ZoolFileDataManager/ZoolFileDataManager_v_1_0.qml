@@ -144,9 +144,30 @@ Item{
         }
         return ret
     }
-//    function getParamExt(p,i){
-//        return r.ja.exts[i][''+p]
-//    }
+    function saveExtToJsonFile(extId){
+        //let jsonActual=
+        let njson={}
+        njson.params={}
+        njson.params=r.ja.params
+        njson.exts=[]
+        //njson.exts=
+        let o=r.ja.exts
+        for(var i=0;i<Object.keys(o).length;i++){
+            let json=o[i].params
+            if(json.extId===extId || json.ms>=0){
+                njson.exts[i]={}
+                njson.exts[i].params={}
+                njson.exts[i].params=o[i].params
+            }
+            if(njson.exts[i].params.ms<0){
+                let d = new Date(Date.now())
+                njson.exts[i].params.ms=d.getTime()
+            }
+        }
+        if(app.dev)log.lv('saveExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
+        return unik.setFile(apps.url, JSON.stringify(njson))
+        //return r.ja.exts[i][''+p]
+    }
     //<--Get Json Data
 }
 
