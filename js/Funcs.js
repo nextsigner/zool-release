@@ -661,6 +661,7 @@ function loadJson(file){
     let vgmt=p.gmt
     let vlon=p.lon
     let vlat=p.lat
+    let valt=p.alt?p.alt:0
     let vCiudad=p.ciudad.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
@@ -668,13 +669,14 @@ function loadJson(file){
 
     let a=[]
     a.push('<b>'+nom+'</b>')
-    a.push(vd+'/'+vm+'/'+va)
-    a.push(vh+':'+vmin+'hs')
-    a.push('GMT '+vgmt)
-    a.push(stringEdad)
-    a.push('<b> '+vCiudad+'</b>')
-    a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-    a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+    a.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
+    a.push('<b>Hora:</b> '+vh+':'+vmin+'hs')
+    a.push('<b>GMT:</b> '+vgmt)
+    a.push('<b>Ubicación:</b> '+vCiudad)
+    a.push('<b>Latitud:</b> '+parseFloat(vlat).toFixed(2))
+    a.push('<b>Longitud:</b> '+parseFloat(vlon).toFixed(2))
+    a.push('<b>Altitud:</b> '+valt)
+
     zoolDataView.setDataView(nom, a, [])
 
     //Seteando datos globales de mapa energético
@@ -728,6 +730,21 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
         if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
         sweg.loadBack(extJson)
     }
+    let aL=zoolDataView.atLeft
+    let aR=[]
+    if(tipo==='sin')aR.push('<b>'+nom+'</b>')
+    aR.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
+    aR.push('<b>Hora:</b> '+vh+':'+vmin+'hs')
+    aR.push('<b>GMT:</b> '+vgmt)
+    aR.push('<b>Ubicación:</b> '+vCiudad)
+    aR.push('<b>Latitud:</b> '+parseFloat(vlat).toFixed(2))
+    aR.push('<b>Longitud:</b> '+parseFloat(vlon).toFixed(2))
+    aR.push('<b>Altitud:</b> '+valt)
+    let strSep=''
+    if(tipo==='sin')strSep='Sinastría'
+    if(tipo==='rs')strSep='Revolución Solar'
+    if(tipo==='trans')strSep='Tránsitos'
+    zoolDataView.setDataView(strSep, aL, aR)
 }
 
 function loadJsonBack(file, tipo){
@@ -1320,67 +1337,69 @@ function loadJsonNow(file){
 //    zoolDataView.setDataView('', a, [])
 //}
 
-function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, tipo){
-    let numEdad=getEdad(vd, vm, va, vh, vmin)
-    let stringTiempo=''
-    //console.log('Edad: '+numEdad)
-    if(mod===0){
-        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
-    }else if(mod===2){
-        stringTiempo=''
-    }else{
-        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
-        stringTiempo='<b> Edad:</b> '+nAnio+' años '
-    }
-    let a=[]
-    let aL=zoolDataView.atLeft
-    let sTipo='Sinastría'
-    if(tipo==='trans')sTipo='Tránsitos'
-    if(tipo==='rs')sTipo='Rev. Solar'
-    let aR=[]
-    aR.push(vd+'/'+vm+'/'+va)
-    aR.push(vh+':'+vmin+'hs')
-    aR.push('GMT '+vgmt)
-    aR.push(stringTiempo)
-    aR.push('<b> '+vCiudad+'</b>')
-    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-    zoolDataView.setDataView(sTipo, aL, aR)
-}
 
-function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
-    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    let stringTiempo=''
-    //console.log('Edad: '+numEdad)
-    if(mod===0){
-        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
-    }else if(mod===2){
-        stringTiempo=''
-    }else{
-        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
-        stringTiempo='<b> Edad:</b> '+nAnio+' años '
-    }
-    let aL=zoolDataView.atLeft
-    aL.push(vd+'/'+vm+'/'+va)
-    aL.push(vh+':'+vmin+'hs')
-    aL.push('GMT '+vgmt)
-    aL.push(stringTiempo)
-    aL.push('<b> '+vCiudad+'</b>')
-    aL.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-    aL.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-    //zoolDataView.setDataView(app.tipo, aL, [])
+//function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, tipo){
+//    let numEdad=getEdad(vd, vm, va, vh, vmin)
+//    let stringTiempo=''
+//    //console.log('Edad: '+numEdad)
+//    if(mod===0){
+//        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
+//    }else if(mod===2){
+//        stringTiempo=''
+//    }else{
+//        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
+//        stringTiempo='<b> Edad:</b> '+nAnio+' años '
+//    }
+//    let a=[]
+//    let aL=zoolDataView.atLeft
+//    let sTipo='Sinastría'
+//    if(tipo==='trans')sTipo='Tránsitos'
+//    if(tipo==='rs')sTipo='Rev. Solar'
+//    let aR=[]
+//    aR.push(vd+'/'+vm+'/'+va)
+//    aR.push(vh+':'+vmin+'hs')
+//    aR.push('GMT '+vgmt)
+//    aR.push(stringTiempo)
+//    aR.push('<b> '+vCiudad+'</b>')
+//    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+//    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+//    zoolDataView.setDataView(sTipo, aL, aR)
+//}
 
-    let aR=[]
-    aR.push('Exterior')
-    aR.push(vd+'/'+vm+'/'+va)
-    aR.push(vh+':'+vmin+'hs')
-    aR.push('GMT '+vgmt)
-    aR.push(stringTiempo)
-    aR.push('<b> '+vCiudad+'</b>')
-    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-    zoolDataView.setDataView(app.tipo, aL, aR)
-}
+
+//function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
+//    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    let stringTiempo=''
+//    //console.log('Edad: '+numEdad)
+//    if(mod===0){
+//        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
+//    }else if(mod===2){
+//        stringTiempo=''
+//    }else{
+//        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
+//        stringTiempo='<b> Edad:</b> '+nAnio+' años '
+//    }
+//    let aL=zoolDataView.atLeft
+//    aL.push(vd+'/'+vm+'/'+va)
+//    aL.push(vh+':'+vmin+'hs')
+//    aL.push('GMT '+vgmt)
+//    aL.push(stringTiempo)
+//    aL.push('<b> '+vCiudad+'</b>')
+//    aL.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+//    aL.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+//    //zoolDataView.setDataView(app.tipo, aL, [])
+
+//    let aR=[]
+//    aR.push('Exterior')
+//    aR.push(vd+'/'+vm+'/'+va)
+//    aR.push(vh+':'+vmin+'hs')
+//    aR.push('GMT '+vgmt)
+//    aR.push(stringTiempo)
+//    aR.push('<b> '+vCiudad+'</b>')
+//    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
+//    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
+//    zoolDataView.setDataView(app.tipo, aL, aR)
+//}
 
 function setTitleDataTo1(){
     let jsonData=app.currentData
