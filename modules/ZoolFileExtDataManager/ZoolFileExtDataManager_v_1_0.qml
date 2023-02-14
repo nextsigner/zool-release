@@ -23,9 +23,15 @@ Rectangle {
     property int svIndex: sv.currentIndex
     property int itemIndex: -1
 
+    property int fs: app.fs*s.fzoom
+
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
+    }
+    Settings{
+        id: s
+        property real fzoom: 1.0
     }
     Timer{
         id: tUpDate
@@ -48,52 +54,6 @@ Rectangle {
                 visible: zoolFileManager.s.showConfig
             }
             //Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
-            Row{
-                spacing: app.fs*0.25
-                anchors.horizontalCenter: parent.horizontalCenter
-                ZoolText{
-                    text:'Mostrar datos en el<br/>centro de la pantalla:'
-                    fs: app.fs*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    width: app.fs*0.5
-                    checked: s.showToolItem
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged: s.showToolItem=checked
-                }
-            }
-            //Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
-            Row{
-                ZoolButton{
-                    visible: app.dev
-                    text: 'Prueba'
-                    onClicked: {
-                        let t='sin'
-                        let hsys=apps.currentHsys
-                        let nom="PPP"
-                        let d=8
-                        let m=9
-                        let a=1980
-                        let h=17
-                        let min=0
-                        let gmt=-3
-                        let lat=-34.769249
-                        let lon=-58.6480318
-                        let alt=0
-                        let ciudad='Catann'
-                        let e='42'
-                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
-                    }
-                }
-                ZoolButton{
-                    visible: app.dev
-                    text: 'UpdateList'
-                    onClicked: {
-                        r.updateList()
-                    }
-                }
-            }
             Rectangle{
                 id:xTit
                 width: lv.width
@@ -122,13 +82,47 @@ Rectangle {
                         anchors.centerIn: parent
                     }
                 }
+                Row{
+                    spacing: app.fs*0.25
+                    anchors.right: parent.right
+                    visible: app.dev
+                    ZoolButton{
+                        visible: app.dev
+                        text: 'Prueba'
+                        onClicked: {
+                            let t='sin'
+                            let hsys=apps.currentHsys
+                            let nom="Nico"
+                            let d=3
+                            let m=11
+                            let a=2000
+                            let h=23
+                            let min=45
+                            let gmt=-3
+                            let lat=-34.769249
+                            let lon=-58.6480318
+                            let alt=0
+                            let ciudad='I. Casanova'
+                            let e='22'
+                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
+                        }
+                    }
+                    ZoolButton{
+                        visible: app.dev
+                        text: 'UpdateList'
+                        onClicked: {
+                            r.updateList()
+                        }
+                    }
+                }
             }
         }
         ListView{
             id: lv
-            width: r.width
+            width: r.width-app.fs*0.5
             //height: r.height-xTit.height-xTitInf.height
             height: r.height-colTopElements.height
+            spacing: app.fs*0.25
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
@@ -155,21 +149,25 @@ Rectangle {
             height: colDatos.height+app.fs
             color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
             border.width: index===lv.currentIndex?4:2
-            border.color: 'white'
+            border.color: xDatos.saved?'white':txtNotSaved.color
+            radius: app.fs*0.25
             property bool selected: index===lv.currentIndex
             property bool saved: j.ms>=0
             MouseArea{
                 anchors.fill: parent
+                acceptedButtons: Qt.AllButtons;
                 onClicked: {
-                    lv.currentIndex=index
-                    if(!s.showToolItem)return
-                    for(var i=0; i<xItemView.children.length;i++){
-                        xItemView.children[i].destroy(0)
+                    if (mouse.button === Qt.RightButton   && (mouse.modifiers & Qt.ControlModifier)) {
+
+                        if(s.fzoom>3.0)return
+                        s.fzoom+=0.05
+                    } else if (mouse.button === Qt.LeftButton   && (mouse.modifiers & Qt.ControlModifier)) {
+                        if(s.fzoom<=1.0)return
+                        s.fzoom-=0.05
+                    }else{
+                        lv.currentIndex=index
                     }
-                    let comp=compItemView.createObject(xItemView, {
-                                                           fileName: fileName,
-                                                           dato: dato,
-                                                           tipo: tipo})
+
                 }
                 onDoubleClicked: {
                     app.j.loadJson(fileName)
@@ -181,7 +179,7 @@ Rectangle {
                 anchors.centerIn: parent
                 Text {
                     id: txtDataTipo
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: r.fs*0.5
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -191,7 +189,7 @@ Rectangle {
                 }
                 Text {
                     id: txtDataNom
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: r.fs*0.5
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -201,13 +199,30 @@ Rectangle {
                 }
                 Text {
                     id: txtDataParams
-                    font.pixelSize: app.fs*0.35
+                    font.pixelSize: r.fs*0.35
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
                     color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
                     anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.centerIn: parent
+                }
+                Text {
+                    id: txtNotSaved
+                    text: 'Sin guardar'
+                    font.pixelSize: r.fs*0.5
+                    //width: xDatos.width-app.fs
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: !xDatos.saved
+                    SequentialAnimation on color {
+                        running: !xDatos.saved
+                        loops: Animation.Infinite
+                        ColorAnimation { from: 'yellow'; to: 'red'; duration: 200 }
+                        ColorAnimation { from: 'red'; to: 'white'; duration: 200 }
+                        ColorAnimation { from: 'white'; to: 'yellow'; duration: 200 }
+                    }
                 }
                 Row{
                     spacing: app.fs*0.25
@@ -218,33 +233,36 @@ Rectangle {
                         visible: !xDatos.saved
                         colorInverted: true
                         onClicked: {
-                            btnSave.visible=!zfdm.saveExtToJsonFile(j.extId)
+                            let isSaved=zfdm.saveExtToJsonFile(j.extId)
+                            xDatos.saved=isSaved
+                            btnSave.visible=!isSaved
+                        }
+                    }
+                    ZoolButton{
+                        id: btnLoadExt
+                        text:'Cargar'
+                        colorInverted: true
+                        onClicked: {
+                            let t=j.tipo
+                            let hsys=j.hsys
+                            let nom=j.n
+                            let d=j.d
+                            let m=j.m
+                            let a=j.a
+                            let h=j.h
+                            let min=j.min
+                            let gmt=j.gmt
+                            let lat=j.lat
+                            let lon=j.lon
+                            let alt=j.alt
+                            let ciudad=j.ciudad
+                            let e='-1'
+                            let ms=j.ms
+                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys,ms)
                         }
                     }
                 }
-                ZoolButton{
-                    id: btnLoadExt
-                    text:'Cargar'
-                    colorInverted: true
-                    onClicked: {
-                        let t=j.tipo
-                        let hsys=j.hsys
-                        let nom=j.n
-                        let d=j.d
-                        let m=j.m
-                        let a=j.a
-                        let h=j.h
-                        let min=j.min
-                        let gmt=j.gmt
-                        let lat=j.lat
-                        let lon=j.lon
-                        let alt=j.alt
-                        let ciudad=j.ciudad
-                        let e='-1'
-                        let ms=j.ms
-                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys,ms)
-                    }
-                }
+
             }
             Rectangle{
                 width: txtDelete.contentWidth+app.fs*0.35
@@ -259,7 +277,7 @@ Rectangle {
                 Text {
                     id: txtDelete
                     text: 'X'
-                    font.pixelSize: app.fs*0.25
+                    font.pixelSize: r.fs*0.25
                     anchors.centerIn: parent
                     color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
                 }
@@ -319,7 +337,7 @@ Rectangle {
                 Text {
                     id: txtData
                     text: dato
-                    font.pixelSize: xDatosView.fs*0.5
+                    font.pixelSize: r.fs*0.5
                     width: xDatosView.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -329,7 +347,7 @@ Rectangle {
                 }
                 Text {
                     id: txtDataExtra
-                    font.pixelSize: xDatosView.fs*0.35
+                    font.pixelSize: r.fs*0.35
                     width: xDatosView.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -376,7 +394,7 @@ Rectangle {
                 Text {
                     id: txtDelete
                     text: 'X'
-                    font.pixelSize: xDatosView.fs*0.25
+                    font.pixelSize: r.fs*0.25
                     anchors.centerIn: parent
                     color: apps.fontColor
                 }
@@ -396,15 +414,6 @@ Rectangle {
                 txtDataExtra.text=m0[1]
             }
         }
-    }
-    Rectangle{
-        id: xItemView
-        width: !visible?1:parent.width
-        height: !visible?1:parent.height
-        color: apps.backgroundColor
-        anchors.centerIn: parent
-        visible: r.visible && lv.currentIndex>=0 && s.showToolItem
-        parent: visible?xMed:r
     }
     Component.onCompleted: {
         app.objZoolFileExtDataManager=r

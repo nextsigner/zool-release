@@ -29,6 +29,7 @@ import ZoolMenuCtxPlanetsAsc 1.0
 
 import ZoolControlsTime 1.0
 
+import ZoolFileExtDataManager 1.0
 import ZoolFileManager 1.3
 //import ZoolFileLoader 1.0
 import ZoolDataBodies 3.0
@@ -625,7 +626,7 @@ ZoolMainWindow{
                         height: app.fs*0.6
                         color: apps.fontColor
                         anchors.horizontalCenter: parent.horizontalCenter
-                        property var aPanelesTits: ['Información','Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
+                        property var aPanelesTits: ['Información','Esquemas', 'Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
                         Text{
                             text: parseInt(sv.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[sv.currentIndex]
                             color: apps.backgroundColor
@@ -645,13 +646,14 @@ ZoolMainWindow{
                         height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
                         clip: true
                         Comps.XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
-                        Comps.XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 1}}
-                        Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 2}}
-                        Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 3}}
-                        Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 4}}
-                        Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 5}}
+                        Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;itemIndex: 1}}
+                        Comps.XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 2}}
+                        Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
+                        Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 4}}
+                        Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
+                        Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 6}}
                         //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
-                        Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 6}}
+                        Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
                         //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
                     }
                     Rectangle{
