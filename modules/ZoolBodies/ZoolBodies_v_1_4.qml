@@ -365,6 +365,21 @@ Item {
         border.color: 'red'
         visible: app.dev
     }
+    Rectangle{
+        width: txtMod.contentWidth+app.fs
+        height: txtMod.contentHeight+app.fs
+        color: apps.fontColor
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: app.fs*3
+        visible: app.dev
+        Text{
+            id: txtMod
+            text: app.mod
+            font.pixelSize: app.fs
+            color: apps.backgroundColor
+            anchors.centerIn: parent
+        }
+    }
     Timer{
         id: tLoadSin
         running: false
@@ -478,6 +493,8 @@ Item {
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
+        app.mod=j.params.tipo
+        app.fileData=JSON.stringify(j)
     }
     function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -486,25 +503,7 @@ Item {
         }
         let params
         params=j.params
-        /*if(t==='sin'){
-            if(app.dev)log.lv('sweg.loadBack(): '+JSON.stringify(j, null, 2))
-            if(j.paramsBack){
-                params=j.paramsBack
-            }else{
-                params=j.params
-            }
-        }else if(t==='trans'){
-            if(j.paramsBack){
-                params=j.paramsBack
-            }else{
-                params=j.params
-            }
-        }else if(t==='rs'){
-            params=j.paramsBack
-            if(app.dev)log.lv('1 sweg.loadBack(JSON.parse(j), tipo): '+JSON.stringify(j, null, 2)+'\ntipo: '+t)
-        }else{
-            params=j.paramsBack
-        }*/
+
         let vd=params.d
         let vm=params.m
         let va=params.a
@@ -518,13 +517,6 @@ Item {
         let hsys=apps.currentHsys
         app.currentFechaBack=vd+'/'+vm+'/'+va
         if(params.hsys)hsys=params.hsys
-        //let extId='id_'+vd+'_'+vm+'_'+va+'_'+vh+'_'+vmin+'_'+vgmt+'_'+t
-        /*if(app.aExtsIds.indexOf(extId)>=0){
-            if(app.dev)log.lv('loadBack(...): extId '+extId+' ya existe!')
-            return
-        }else{
-            app.aExtsIds.push(extId)
-        }*/
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
@@ -549,6 +541,8 @@ Item {
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
+        app.mod=j.params.tipo
+        app.fileDataBack=JSON.stringify(j)
     }
     function loadBackFromStandBy(){
         //console.log('Ejecutando SweGraphic.load()...')

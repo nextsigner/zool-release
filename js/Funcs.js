@@ -725,7 +725,17 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     }
     let aL=zoolDataView.atLeft
     let aR=[]
-    if(tipo==='sin')aR.push('<b>'+nom+'</b>')
+    if(tipo==='sin'){
+        aR.push('<b>'+nom+'</b>')
+        aL.reverse()
+        /*let nALeft=[]
+        for(var i=0;i<aL.length;i++){
+            if(i!==0)nALeft.push(aL[i])
+        }
+        nALeft.push(aL[0])
+        aL=nALeft*/
+    }
+    if(tipo==='rs')aR.push(edad)
     aR.push(''+vd+'/'+vm+'/'+va)
     aR.push(''+vh+':'+vmin+'hs')
     aR.push('<b>GMT:</b> '+vgmt)
@@ -734,8 +744,10 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
     aR.push('<b>Alt:</b> '+valt)
     let strSep=''
-    if(tipo==='sin')strSep='Sinastría'
-    if(tipo==='rs')strSep='Revolución Solar'
+    if(tipo==='sin'){
+        strSep='Sinastría'
+    }
+    if(tipo==='rs')strSep='Rev. Solar '+va
     if(tipo==='trans')strSep='Tránsitos'
     zoolDataView.setDataView(strSep, aL, aR)
 }

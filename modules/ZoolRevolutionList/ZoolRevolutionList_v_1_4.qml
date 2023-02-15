@@ -507,7 +507,7 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                r.enter()
+                                xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
                             }
                         }
                     }
@@ -914,21 +914,9 @@ Rectangle {
 
         let nom='Rev.Solar '+va
 
-        let aL=zoolDataView.atLeft
-        let aR=[]
-        aR.push(vd+'/'+vm+'/'+va)
-        aR.push(vh+':'+vmin+'hs')
-        aR.push('GMT '+gmt)
-        aR.push('Edad '+index+' años')
-        aR.push('<b> '+tiCiudad.text+'</b>')
-        aR.push('<b>lat:</b> '+parseFloat(lat).toFixed(2))
-        aR.push('<b>lon:</b> '+parseFloat(lon).toFixed(2))
-        aR.push('<b>alt:</b> '+alt)
-        zoolDataView.setDataView('Rev. Solar '+va, aL, aR)
-
-        let js='{"params":{"tipo":"rs","ms":'+d.getTime()+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+0+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+tiCiudad.text+'"}}'
-        let json=JSON.parse(js)
-        sweg.loadBack(json, 'sin')
+        let strEdad='Edad: '+index+' años'
+        let ubicacion=app.currentLugar
+        app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1)
     }
 
     function loadJson(json){

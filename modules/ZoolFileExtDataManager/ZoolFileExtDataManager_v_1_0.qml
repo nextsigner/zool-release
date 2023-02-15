@@ -10,7 +10,7 @@ import Qt.labs.settings 1.1
 Rectangle {
     id: r
     width: xLatIzq.width
-    height: sv.height-xPanelesTits.height-app.fs*0.5
+    height: sv.height//-xPanelesTits.height-app.fs*0.5
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
@@ -94,8 +94,8 @@ Rectangle {
                         let lon=-58.6480318
                         let alt=0
                         let ciudad='I. Casanova'
-                        let e='32'
-                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
+                        let strEdad='Edad: '+app.j.getEdad(d, m, a, h, min)+' años'
+                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys, -1)
                     }
                 }
                 ZoolButton{
@@ -245,9 +245,14 @@ Rectangle {
                             let lon=j.lon
                             let alt=j.alt
                             let ciudad=j.ciudad
-                            let e='-1'
+                            let strEdad='Edad: '+app.j.getEdad(d, m, a, h, min)+' años'
+                            if(t==='rs'){
+                                let currentAnio=new Date(app.currentDate).getFullYear()
+                                strEdad='Edad: '+parseInt(a - currentAnio)+' años'
+                                //strEdad='Edad: '+Math.abs(parseInt(currentAnio - a))+' años'
+                            }
                             let ms=j.ms
-                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys,ms)
+                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms)
                         }
                     }
                 }

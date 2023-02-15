@@ -226,7 +226,7 @@ ApplicationWindow {
                 //xEditor.enter()
                 //return
             }
-            if(apps.currentSwipeViewIndex===2&&zoolFileManager.currentIndex>=0){
+            if(apps.currentSwipeViewIndex===3&&zoolFileManager.currentIndex>=0){
                 zoolFileManager.enter()
                 return
             }
@@ -234,7 +234,7 @@ ApplicationWindow {
                 zoolFileManager.enter()
                 return
             }
-            if(apps.currentSwipeViewIndex===4){
+            if(apps.currentSwipeViewIndex===5){
                 panelRsList.enter()
                 return
             }
