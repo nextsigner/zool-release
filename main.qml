@@ -595,29 +595,16 @@ ZoolMainWindow{
     Item{
         id: capa101
         anchors.fill: xApp
-        //ZoolDataBar{id: xDataBar}
-        ZoolDataView{id: zoolDataView; visible: app.dev}
-        //ZoolDataBar{id: xDataBar;parent:xSwe1}
+        ZoolDataView{id: zoolDataView;}
         Row{
-            //anchors.centerIn: parent
-            //anchors.top: xDataBar.bottom
             anchors.top: zoolDataView.bottom
             anchors.bottom: xBottomBar.top
-            //anchors.horizontalCenter: parent.horizontalCenter
-            //anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width
             Rectangle{
                 id: xLatIzq
                 width: xApp.width*0.2
                 height: parent.height
                 color: apps.backgroundColor
                 visible: apps.showLatIzq
-                //z: xMed.z+1
-                //                Rectangle{
-                //                    width: 8000
-                //                    height: 100
-                //                    color: 'red'
-                //                    anchors.centerIn: parent
-                //                }
                 Column{
                     anchors.centerIn: parent
                     Rectangle{
@@ -839,7 +826,7 @@ ZoolMainWindow{
                 }
             }
         }
-        Comps.XDataStatusBar{id: xDataStatusBar}
+        //Comps.XDataStatusBar{id: xDataStatusBar}
         ZoolBodiesGuiTools{
             id: xTools
             anchors.bottom: parent.bottom

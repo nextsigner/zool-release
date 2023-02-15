@@ -10,7 +10,7 @@ import Qt.labs.settings 1.1
 Rectangle {
     id: r
     width: xLatIzq.width
-    height: xLatIzq.height-xPanelesTits.height-app.fs*0.5
+    height: sv.height-xPanelesTits.height-app.fs*0.5
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
@@ -45,74 +45,64 @@ Rectangle {
     Column{
         id: col
         anchors.horizontalCenter: parent.horizontalCenter
-        Column{
-            id: colTopElements
-            Item{width: 1; height: app.fs*2; visible: colXConfig.visible}
-            Column{
-                id: colXConfig
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: zoolFileManager.s.showConfig
-            }
-            //Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
-            Rectangle{
-                id:xTit
-                width: lv.width
-                height: app.fs*1.5
-                color: apps.backgroundColor
-                border.width: 2
-                border.color: apps.fontColor//txtDataSearch.focus?'red':'white'
-                anchors.horizontalCenter: parent.horizontalCenter
-                ZoolText {
-                    id: txtFileName
-                    text: '?'
-                    font.pixelSize: app.fs*0.5
-                    //width: parent.width-app.fs
-                    w: parent.width-app.fs
-                    wrapMode: Text.WordWrap
-                    color: apps.fontColor
-                    focus: r.itemIndex===r.svIndex
+        Rectangle{
+            id:xTit
+            width: lv.width
+            height: app.fs*1.5
+            color: apps.backgroundColor
+            border.width: 2
+            border.color: apps.fontColor//txtDataSearch.focus?'red':'white'
+            anchors.horizontalCenter: parent.horizontalCenter
+            ZoolText {
+                id: txtFileName
+                text: '?'
+                font.pixelSize: app.fs*0.5
+                //width: parent.width-app.fs
+                w: parent.width-app.fs
+                wrapMode: Text.WordWrap
+                color: apps.fontColor
+                focus: r.itemIndex===r.svIndex
+                anchors.centerIn: parent
+                Rectangle{
+                    width: parent.width+app.fs
+                    height: parent.height+app.fs
+                    color: 'transparent'
+                    //border.width: 2
+                    //border.color: 'white'
+                    z: parent.z-1
                     anchors.centerIn: parent
-                    Rectangle{
-                        width: parent.width+app.fs
-                        height: parent.height+app.fs
-                        color: 'transparent'
-                        //border.width: 2
-                        //border.color: 'white'
-                        z: parent.z-1
-                        anchors.centerIn: parent
+                }
+            }
+            Row{
+                spacing: app.fs*0.25
+                anchors.right: parent.right
+                visible: app.dev
+                ZoolButton{
+                    visible: app.dev
+                    text: 'Prueba'
+                    onClicked: {
+                        let t='sin'
+                        let hsys=apps.currentHsys
+                        let nom="Pablo"
+                        let d=8
+                        let m=6
+                        let a=1991
+                        let h=10
+                        let min=45
+                        let gmt=-3
+                        let lat=-34.769249
+                        let lon=-58.6480318
+                        let alt=0
+                        let ciudad='I. Casanova'
+                        let e='32'
+                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
                     }
                 }
-                Row{
-                    spacing: app.fs*0.25
-                    anchors.right: parent.right
+                ZoolButton{
                     visible: app.dev
-                    ZoolButton{
-                        visible: app.dev
-                        text: 'Prueba'
-                        onClicked: {
-                            let t='sin'
-                            let hsys=apps.currentHsys
-                            let nom="Nico"
-                            let d=3
-                            let m=11
-                            let a=2000
-                            let h=23
-                            let min=45
-                            let gmt=-3
-                            let lat=-34.769249
-                            let lon=-58.6480318
-                            let alt=0
-                            let ciudad='I. Casanova'
-                            let e='22'
-                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1)
-                        }
-                    }
-                    ZoolButton{
-                        visible: app.dev
-                        text: 'UpdateList'
-                        onClicked: {
-                            r.updateList()
-                        }
+                    text: 'UpdateList'
+                    onClicked: {
+                        r.updateList()
                     }
                 }
             }
@@ -120,8 +110,7 @@ Rectangle {
         ListView{
             id: lv
             width: r.width-app.fs*0.5
-            //height: r.height-xTit.height-xTitInf.height
-            height: r.height-colTopElements.height
+            height: r.height-xTit.height
             spacing: app.fs*0.25
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
@@ -207,13 +196,12 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.centerIn: parent
                 }
-                Text {
+                ZoolText {
                     id: txtNotSaved
                     text: 'Sin guardar'
                     font.pixelSize: r.fs*0.5
-                    //width: xDatos.width-app.fs
-                    wrapMode: Text.WordWrap
-                    textFormat: Text.RichText
+                    w: lv.width*0.5
+                    horizontalAlignment: Text.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: !xDatos.saved
                     SequentialAnimation on color {
@@ -242,6 +230,7 @@ Rectangle {
                         id: btnLoadExt
                         text:'Cargar'
                         colorInverted: true
+                        visible: index===lv.currentIndex
                         onClicked: {
                             let t=j.tipo
                             let hsys=j.hsys
@@ -298,12 +287,12 @@ Rectangle {
                 if(j.tipo==='trans')tipo='Tránsitos'
                 txtDataTipo.text=tipo
                 txtDataNom.text=j.n
-                let sParams='<b>Fecha:</b> '+j.d+'/'+j.m+'/'+j.a+'<br>'
-                sParams+='<b>Hora:</b> '+j.h+':'+j.min+'hs<br>'
+                let sParams=''+j.d+'/'+j.m+'/'+j.a+'<br>'
+                sParams+=''+j.h+':'+j.min+'hs<br>'
                 sParams+='<b>Ubicación:</b> '+j.ciudad+'<br>'
-                sParams+='<b>Latitud:</b> '+j.lat+'<br>'
-                sParams+='<b>Longitud:</b> '+j.lon+'<br>'
-                sParams+='<b>Altitud:</b> '+j.alt+'<br>'
+                sParams+='<b>Lat:</b> '+j.lat+'<br>'
+                sParams+='<b>Long:</b> '+j.lon+'<br>'
+                sParams+='<b>Alt:</b> '+j.alt+'<br>'
                 txtDataParams.text=sParams
             }
         }
@@ -368,8 +357,8 @@ Rectangle {
                         text:'Cargar como Sinastría'
                         colorInverted: true
                         fs: xDatosView.fs*0.25
+                        visible: index===lv.currentIndex
                         onClicked: {
-                            //let fromTipo='vn'
                             let tipo=JSON.parse(app.currentData).params.tipo
                             if(tipo==='vn'){
                                 //xDataBar.stringMiddleSeparator='Sinastría'

@@ -189,16 +189,16 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
         app.currentLatBack=lat
 
         //addTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, tipo)
-        xDataStatusBar.currentIndex=0
+        //xDataStatusBar.currentIndex=0
         zoolDataView.setDataView('Sinnnn', aL, aR)
     }
     if(tipo==='rs'){
-        xDataStatusBar.currentIndex=1
+        //xDataStatusBar.currentIndex=1
         //setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
         zoolDataView.setDataView('Rev. Solar '+a, aL, aR)
     }
     if(tipo==='trans'){
-        xDataStatusBar.currentIndex=2
+        //xDataStatusBar.currentIndex=2
         setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
     }
 
@@ -629,7 +629,7 @@ function deg_to_dms (deg) {
 //    //        //log.l('Cargando sinastría...')
 //    //        //log.visible=true
 //    //    }
-//    xDataStatusBar.currentIndex=-1
+//    //xDataStatusBar.currentIndex=-1
 //    app.setFromFile=false
 //    sweg.centerZoomAndPos()
 //}
@@ -669,13 +669,13 @@ function loadJson(file){
 
     let a=[]
     a.push('<b>'+nom+'</b>')
-    a.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
-    a.push('<b>Hora:</b> '+vh+':'+vmin+'hs')
+    a.push(''+vd+'/'+vm+'/'+va)
+    a.push(''+vh+':'+vmin+'hs')
     a.push('<b>GMT:</b> '+vgmt)
     a.push('<b>Ubicación:</b> '+vCiudad)
-    a.push('<b>Latitud:</b> '+parseFloat(vlat).toFixed(2))
-    a.push('<b>Longitud:</b> '+parseFloat(vlon).toFixed(2))
-    a.push('<b>Altitud:</b> '+valt)
+    a.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+    a.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+    a.push('<b>Alt:</b> '+valt)
 
     zoolDataView.setDataView(nom, a, [])
 
@@ -690,7 +690,7 @@ function loadJson(file){
     app.currentGmt=vgmt
     app.currentLon=vlon
     app.currentLat=vlat
-    xDataStatusBar.currentIndex=-1
+    //xDataStatusBar.currentIndex=-1
     sweg.centerZoomAndPos()
 }
 function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms) {
@@ -733,13 +733,13 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     let aL=zoolDataView.atLeft
     let aR=[]
     if(tipo==='sin')aR.push('<b>'+nom+'</b>')
-    aR.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
-    aR.push('<b>Hora:</b> '+vh+':'+vmin+'hs')
+    aR.push(''+vd+'/'+vm+'/'+va)
+    aR.push(''+vh+':'+vmin+'hs')
     aR.push('<b>GMT:</b> '+vgmt)
     aR.push('<b>Ubicación:</b> '+vCiudad)
-    aR.push('<b>Latitud:</b> '+parseFloat(vlat).toFixed(2))
-    aR.push('<b>Longitud:</b> '+parseFloat(vlon).toFixed(2))
-    aR.push('<b>Altitud:</b> '+valt)
+    aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+    aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+    aR.push('<b>Alt:</b> '+valt)
     let strSep=''
     if(tipo==='sin')strSep='Sinastría'
     if(tipo==='rs')strSep='Revolución Solar'
@@ -838,7 +838,7 @@ function loadJsonBack(file, tipo){
     app.currentLatBack=vlat
 
     addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
-    xDataStatusBar.currentIndex=0
+    //xDataStatusBar.currentIndex=0
     app.setFromFile=false
 }
 function loadJsonFromParamsBack(json){
@@ -1001,14 +1001,14 @@ function loadRs(date, gmt, lat, lon, alt){
     let ad=getADate(nDate)
     //log.ls('nDate:'+ad.toString(), 0, 500)
     //setTitleDataTo1()
-    xDataStatusBar.currentIndex=1
+    //xDataStatusBar.currentIndex=1
     //loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
     loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, lat, lon, alt, app.currentNom, app.currentLugar, 'rs', false)
     //loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, 10.1, 10.2, alt, app.currentNom, app.currentLugar, 'rs', false)
 }
 function loadSin(date, gmt, lat, lon, alt, nom, ciudad){
     let ad=getADate(date)
-    xDataStatusBar.currentIndex=2
+    //xDataStatusBar.currentIndex=2
     loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, lat, lon, alt, nom, ciudad, 'sin', false)
 }
 function runJsonTemp(){

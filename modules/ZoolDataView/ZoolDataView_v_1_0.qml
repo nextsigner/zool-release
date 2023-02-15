@@ -37,7 +37,25 @@ Rectangle {
         }
     }
     Row{
+        anchors.centerIn: parent
+        //anchors.horizontalCenterOffset: r.width*0.5-row.width*0.5-()
+        parent: xSep
+        z:9
+        visible: r.atRight.length>0
+        Rectangle{
+            width: r.width
+            height: r.height
+            color: apps.houseColor
+        }
+        Rectangle{
+            width: r.width
+            height: r.height
+            color: apps.houseColorBack
+        }
+    }
+    Row{
         id: row
+        width: rowDataLeft.width+xSep.width+rowDataRight.width+spacing*2
         spacing: app.fs*0.15
         anchors.centerIn: parent
         Rectangle{
@@ -64,22 +82,28 @@ Rectangle {
             spacing: app.fs*0.15
             anchors.verticalCenter: parent.verticalCenter
         }
-        Rectangle{
+        Item{
             id: xSep
             width: txtSep.contentWidth+app.fs*0.3
             height: txtSep.contentHeight+app.fs*0.3
-            color: apps.backgroundColor
-            border.width: 2
-            border.color: apps.fontColor
-            radius: app.fs*0.1
             anchors.verticalCenter: parent.verticalCenter
             visible: r.atRight.length>0
+            z:-100
+            Rectangle{
+                anchors.fill: parent
+                color: apps.fontColor
+                border.width: 2
+                border.color: apps.backgroundColor
+                radius: app.fs*0.1
+                z:10
+            }
             Text{
                 id: txtSep
                 text: '<b>'+r.stringMiddleSeparator+'<b>'
                 font.pixelSize: r.height*0.5
-                color: apps.fontColor
+                color: apps.backgroundColor
                 anchors.centerIn: parent
+                z:11
             }
         }
         Row{
@@ -87,6 +111,13 @@ Rectangle {
             spacing: app.fs*0.15
             anchors.verticalCenter: parent.verticalCenter
         }
+    }
+    Rectangle{
+        anchors.fill: row
+        border.width: 4
+        border.color: 'red'
+        color: 'transparent'
+        visible: app.dev
     }
     Component{
         id: compCellData
@@ -124,9 +155,10 @@ Rectangle {
         repeat: false
         interval: 1500
         onTriggered: {
-            if(row.width>r.width-app.fs){
+            if(row.width>app.fs*53){
                 tResizeFs.start()
             }else{
+                tResizeFs.stop()
                 row.visible=true
             }
         }
@@ -135,19 +167,15 @@ Rectangle {
         id: tResizeFs
         running: false
         repeat: true
-        interval: 100
+        interval: 50
         onTriggered: {
-            r.fs-=2
-            if(row.width<r.width-app.fs){
+            r.fs-=1
+            //if(row.width<r.width-app.fs){
+            if(row.width<app.fs*53){
                 stop()
                 row.visible=true
             }
         }
-    }
-    Component.onCompleted: {
-        let aL=['Ricardo P1', '20/06/1975', '23:04', 'GMT -3', 'Malargue Mendoza', '-69.6564', '-34.6452']
-        let aR= []//['Ricardo sdf sd fa fads a s a ', '20/06/1975', '23:04', 'GMT -3', 'sdfsa asd sda sda Malargue Mendoza', '-69.6564', '-34.6452']
-        //setDataView('Sinastría', aL, aR)
     }
     function setDataView(sep, aL, aR){
         row.visible=false
