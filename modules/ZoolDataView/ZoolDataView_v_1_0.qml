@@ -58,6 +58,7 @@ Rectangle {
         width: rowDataLeft.width+xSep.width+rowDataRight.width+spacing*2
         spacing: app.fs*0.15
         anchors.centerIn: parent
+        visible: !tResizeFs.running
         Rectangle{
             id: circuloSave
             width: app.fs*0.5
@@ -149,36 +150,36 @@ Rectangle {
             }
         }
     }
-    Timer{
-        id: tWaitUpdateData
-        running: false
-        repeat: false
-        interval: 1500
-        onTriggered: {
-            if(row.width>app.fs*53){
-                tResizeFs.start()
-            }else{
-                tResizeFs.stop()
-                row.visible=true
-            }
-        }
-    }
+//    Timer{
+//        id: tWaitUpdateData
+//        running: false
+//        repeat: false
+//        interval: 1500
+//        onTriggered: {
+//            if(row.width>app.fs*53){
+//                //tResizeFs.start()
+//            }else{
+//                //tResizeFs.stop()
+//                //row.visible=true
+//            }
+//        }
+//    }
     Timer{
         id: tResizeFs
-        running: false
+        running: row.width>xApp.width
         repeat: true
         interval: 50
         onTriggered: {
             r.fs-=1
-            //if(row.width<r.width-app.fs){
-            if(row.width<app.fs*53){
-                stop()
-                row.visible=true
-            }
+//            //if(row.width<r.width-app.fs){
+//            if(row.width<app.fs*53){
+//                //stop()
+//                row.visible=true
+//            }
         }
     }
     function setDataView(sep, aL, aR){
-        row.visible=false
+        //row.visible=false
         r.fs=r.height*0.5
         r.stringMiddleSeparator=sep
         r.atLeft=aL
@@ -200,7 +201,7 @@ Rectangle {
         for(i=0; i < aR.length;i++){
             obj=compCellData.createObject(rowDataRight, {txtData:aR[i]})
         }
-        tWaitUpdateData.start()
+        //tWaitUpdateData.start()
     }
 
 }

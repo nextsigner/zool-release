@@ -163,11 +163,8 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
 
     let dataMs=new Date(Date.now())
     let j='{"paramsBack":{"tipo":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "ciudad":"'+ciudad+'"}}'
-    //let j='{"paramsBack":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+', "m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+nGmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
-
     app.mod=tipo
     j=j.replace('/, "/g', ',"')
-    //unik.setFile('/home/ns/json.txt', j)
 
     let aL=zoolDataView.atLeft
     let aR=[]
@@ -176,30 +173,26 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
     aR.push(h+':'+min+'hs')
     aR.push('GMT '+nGmt)
     aR.push('<b> '+ciudad+'</b>')
-    aR.push('<b>lat:</b> '+lat)
-    aR.push('<b>lon:</b> '+lon)
+    aR.push('<b>Lat:</b> '+lat)
+    aR.push('<b>Lon:</b> '+lon)
+    aR.push('<b>Alt:</b> '+alt)
 
-    //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, 1)
+    app.currentNomBack=nom
+    app.currentFechaBack=d+'/'+m+'/'+a
+    app.currentLugarBack=ciudad
+    app.currentGmtBack=gmt
+    app.currentLonBack=lon
+    app.currentLatBack=lat
+
     if(tipo==='sin'){
-        app.currentNomBack=nom
-        app.currentFechaBack=d+'/'+m+'/'+a
-        app.currentLugarBack=ciudad
-        app.currentGmtBack=gmt
-        app.currentLonBack=lon
-        app.currentLatBack=lat
 
-        //addTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, tipo)
-        //xDataStatusBar.currentIndex=0
-        zoolDataView.setDataView('Sinnnn', aL, aR)
+        zoolDataView.setDataView('Sinastría', aL, aR)
     }
     if(tipo==='rs'){
-        //xDataStatusBar.currentIndex=1
-        //setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
         zoolDataView.setDataView('Rev. Solar '+a, aL, aR)
     }
     if(tipo==='trans'){
-        //xDataStatusBar.currentIndex=2
-        setTitleDataRs(nom, d, m, a, h, min, gmt, ciudad, lat, lon)
+        zoolDataView.setDataView('Tránsitos'+a, aL, aR)
     }
 
     if(save){
@@ -999,12 +992,7 @@ function loadRs(date, gmt, lat, lon, alt){
 
 
     let ad=getADate(nDate)
-    //log.ls('nDate:'+ad.toString(), 0, 500)
-    //setTitleDataTo1()
-    //xDataStatusBar.currentIndex=1
-    //loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], app.currentGmt, app.currentLat, app.currentLon, app.currentAlt, app.currentNom, app.currentLugar, 'rs', false)
     loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, lat, lon, alt, app.currentNom, app.currentLugar, 'rs', false)
-    //loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, 10.1, 10.2, alt, app.currentNom, app.currentLugar, 'rs', false)
 }
 function loadSin(date, gmt, lat, lon, alt, nom, ciudad){
     let ad=getADate(date)
