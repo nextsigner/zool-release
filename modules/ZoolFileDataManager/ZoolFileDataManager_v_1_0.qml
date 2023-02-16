@@ -78,6 +78,7 @@ Item{
         let r=true
         let mf=mkFile(j)
         if(mf[0]===true){
+            if(app.dev)log.lv('mkFileAndLoad(...) app.j.loadJson( '+mf[1]+')')
             app.j.loadJson(mf[1])
             return r
         }else{

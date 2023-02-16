@@ -636,12 +636,13 @@ function loadJson(file){
 
 
     //Global Vars Reset
-    app.setFromFile=true
+    //app.setFromFile=true
     //apps.enableFullAnimation=false
 
     resetGlobalVars()
     let jsonData=zfdm.getJsonAbs()
     let p=zfdm.getJsonAbsParams(false)
+    if(app.dev)log.lv('loadFile( '+file+' ):\n'+JSON.stringify(jsonData, null, 2))
     sweg.load(jsonData)
     //loadFromJson(jsonData, false)
 
@@ -673,6 +674,7 @@ function loadJson(file){
     zoolDataView.setDataView(nom, a, [])
 
     //Seteando datos globales de mapa energético
+    apps.url=file
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
     //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
 

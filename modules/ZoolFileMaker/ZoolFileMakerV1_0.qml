@@ -24,9 +24,11 @@ Rectangle {
 
     property real lat:-100.00
     property real lon:-100.00
+    property int alt:0
 
     property real ulat:-100.00
     property real ulon:-100.00
+    property real ualt:-100.00
 
     property string uFileNameLoaded: ''
     MouseArea{
@@ -458,7 +460,7 @@ Rectangle {
         }
         let d = new Date(Date.now())
         let ms=d.getTime()
-        let nom=tiNombre.t.text.replace(/ /g, '_')
+        let nom=tiNombre.t.text//.replace(/ /g, '_')
 
         //let m0=tiFecha.t.text.split('/')
         //if(m0.length!==3)return
@@ -479,7 +481,25 @@ Rectangle {
         let vgmt=controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
+        let valt=r.alt
         let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+
+        let hsys=apps.currentHsys
+
+        let extId='id'
+        extId+='_'+vd
+        extId+='_'+vm
+        extId+='_'+va
+        extId+='_'+vh
+        extId+='_'+vmin
+        extId+='_'+vgmt
+        extId+='_'+vlat
+        extId+='_'+vlon
+        extId+='_'+valt
+        extId+='_'+tipo
+        extId+='_'+hsys
+
+
         let j='{'
         j+='"params":{'
         j+='"tipo":"vn",'
@@ -493,9 +513,18 @@ Rectangle {
         j+='"gmt":'+vgmt+','
         j+='"lat":'+vlat+','
         j+='"lon":'+vlon+','
-        j+='"ciudad":"'+vCiudad+'"'
+        j+='"alt":'+valt+','
+        j+='"ciudad":"'+vCiudad+'",'
+        j+=', "hsys":"'+hsys+'",'
+        j+='"extId":"'+extId+'"'
+        j+='},'
+        j+='"exts":[]'
         j+='}'
-        j+='}'
+
+        /*
+        */
+
+
         app.currentData=j
         nom=tiNombre.t.text.replace(/ /g, '_')
         unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)

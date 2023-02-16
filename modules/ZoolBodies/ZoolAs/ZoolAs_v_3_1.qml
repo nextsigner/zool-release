@@ -16,7 +16,8 @@ Item{
 
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
 
-    property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
+    //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
+    property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
     property int widthRestDec:apps.showDec?sweg.objSignsCircle.w*2:0
     property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
     property string astro

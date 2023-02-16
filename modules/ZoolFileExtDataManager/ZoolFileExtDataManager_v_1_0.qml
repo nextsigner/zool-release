@@ -15,6 +15,8 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
+    visible: itemIndex===sv.currentIndex
+
     property string uFileLoaded: ''
 
     property alias currentIndex: lv.currentIndex

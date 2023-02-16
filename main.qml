@@ -22,7 +22,7 @@ import ZoolDataText 1.0
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
-import ZoolBodies 1.4
+import ZoolBodies 1.5
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
@@ -32,7 +32,7 @@ import ZoolControlsTime 1.0
 import ZoolFileExtDataManager 1.0
 import ZoolFileManager 1.3
 //import ZoolFileLoader 1.0
-import ZoolDataBodies 3.0
+import ZoolDataBodies 3.1
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.4
 import ZoolNumPit 1.0
@@ -233,7 +233,7 @@ ZoolMainWindow{
     }
     onCurrentDateChanged: {
         controlsTime.setTime(currentDate)
-        if(app.currentData===''||app.setFromFile)return
+        //if(app.currentData===''||app.setFromFile)return
         //xDataBar.state='show'
         let a=currentDate.getFullYear()
         let m=currentDate.getMonth()

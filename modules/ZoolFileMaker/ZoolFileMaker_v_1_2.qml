@@ -24,6 +24,7 @@ Rectangle {
 
     property real lat:-100.00
     property real lon:-100.00
+    property int alt:0
 
     property real ulat:-100.00
     property real ulon:-100.00
@@ -466,6 +467,9 @@ Rectangle {
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
     function setNewJsonFileData(){
+
+        let vtipo='vn' //Esto luego lo programaré para EVENTOS tipo='even'
+
         let d = new Date(Date.now())
         let ms=d.getTime()
         let nom=tiNombre.t.text.replace(/ /g, '_')
@@ -479,10 +483,27 @@ Rectangle {
         let vgmt=controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
+        let valt=r.alt
         let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+
+        let vhsys=apps.currentHsys
+
+        let extId='id'
+        extId+='_'+vd
+        extId+='_'+vm
+        extId+='_'+va
+        extId+='_'+vh
+        extId+='_'+vmin
+        extId+='_'+vgmt
+        extId+='_'+vlat
+        extId+='_'+vlon
+        extId+='_'+valt
+        extId+='_'+vtipo
+        extId+='_'+vhsys
+
         let j='{'
         j+='"params":{'
-        j+='"tipo":"vn",'
+        j+='"tipo":"'+vtipo+'",'
         j+='"ms":'+ms+','
         j+='"n":"'+nom+'",'
         j+='"d":'+vd+','
@@ -493,7 +514,10 @@ Rectangle {
         j+='"gmt":'+vgmt+','
         j+='"lat":'+vlat+','
         j+='"lon":'+vlon+','
-        j+='"ciudad":"'+vCiudad+'"'
+        j+='"alt":'+valt+','
+        j+='"ciudad":"'+vCiudad+'",'
+        j+='"hsys":"'+vhsys+'",'
+        j+='"extId":"'+extId+'"'
         j+='},'
         j+='"exts":[]'
         j+='}'
@@ -520,7 +544,6 @@ Rectangle {
             }else{
                 log.lv('Archivo NO creado: '+json.params.n)
             }
-
         }
     }
     function enter(){

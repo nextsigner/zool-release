@@ -7,7 +7,7 @@ Rectangle{
     border.width: selected?4:0
     border.color: 'red'
     visible: isPron
-    property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
+    property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
     property int c: -1
     property bool selected: aHouses.indexOf(sweg.objHousesCircle.currentHouse)>=0
     property var aHouses: []
