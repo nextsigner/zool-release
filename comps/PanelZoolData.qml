@@ -512,8 +512,7 @@ Rectangle{
         }
     }
     Component.onCompleted: {
-        //sv.currentIndex=9
-        //log.ls('Folder TAV: '+apps.repAudioTAVCurrentFolder, 0, 500)
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
         let f=(''+apps.repAudioTAVCurrentFolder).replace('file://', '')
         if(!unik.folderExist(documentsPath)){
             unik.mkdir(documentsPath)

@@ -230,7 +230,7 @@ Rectangle {
         t.start();
     }
     Component.onCompleted: {
-        //rowBtns.children[settings.currentIndex].clicked()
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
         if(app.dev){
             zoolFileDirPrimLoader.ctFecha.gmt=-3
             //mkTimer()

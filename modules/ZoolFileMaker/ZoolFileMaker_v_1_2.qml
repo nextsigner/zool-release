@@ -522,28 +522,11 @@ Rectangle {
         j+='"exts":[]'
         j+='}'
 
-        if(!app.dev){
-            console.log('setNewJsonFileData...')
-            let unom=r.uFileNameLoaded.replace(/ /g, '_')
-            let fileName=apps.jsonsFolder+'/'+unom+'.json'
-            console.log('setNewJsonFileData() fileName: '+fileName)
-            if(unik.fileExist(fileName)){
-                //unik.deleteFile(fileName)
-            }
-
-            app.currentData=j
-            nom=tiNombre.t.text.replace(/ /g, '_')
-            unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
-            //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-            app.j.loadJson(apps.jsonsFolder+'/'+nom+'.json')
-            //runJsonTemp()
+        let json=JSON.parse(j)
+        if(zfdm.mkFileAndLoad(json)){
+            log.lv('Archivo creado: '+json.params.n)
         }else{
-            let json=JSON.parse(j)
-            if(zfdm.mkFileAndLoad(json)){
-                log.lv('Archivo creado: '+json.params.n)
-            }else{
-                log.lv('Archivo NO creado: '+json.params.n)
-            }
+            log.lv('Archivo NO creado: '+json.params.n)
         }
     }
     function enter(){

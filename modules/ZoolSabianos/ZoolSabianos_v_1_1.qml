@@ -400,6 +400,7 @@ Rectangle {
         parent: capa101
         //Component.onCompleted: xSabianos=sabianosView
     }
+    Component.onCompleted: zsm.aPanelsIds.push(app.j.qmltypeof(r))
     function ctrlDown(){
         if(r.numSign<11){
             r.numSign++

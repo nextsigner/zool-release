@@ -507,7 +507,8 @@ Item {
         var scorrJson=json.replace(/\n/g, '')
         //app.currentJson=JSON.parse(scorrJson)
         aspsCircle.clear()
-        panelRsList.clear()
+        zsm.getPanel('ZoolRevolutionList').clear()
+        //panelRsList.clear()
         //planetsCircleBack.visible=false
         app.ev=false
         apps.urlBack=''

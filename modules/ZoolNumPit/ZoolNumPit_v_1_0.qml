@@ -1034,6 +1034,7 @@ Rectangle {
     }
     ZoolNumPitLog{id: zoolNumPitLog; parent: capa101}
     Component.onCompleted: {
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
         let date = new Date(Date.now())
         txtDataSearchFechaAP.text=date.getFullYear()
         let a =[]

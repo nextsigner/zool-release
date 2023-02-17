@@ -846,7 +846,9 @@ Rectangle {
             }
         }
     }
+    Component.onCompleted: zsm.aPanelsIds.push(app.j.qmltypeof(r))
     //Item{id: xuqp}
+
     function setRsList(edad){
         r.jsonFull=''
         r.edadMaxima=edad-1
@@ -918,7 +920,6 @@ Rectangle {
         let ubicacion=app.currentLugar
         app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1)
     }
-
     function loadJson(json){
         lm.clear()
         for(var i=0;i<Object.keys(json).length;i++){

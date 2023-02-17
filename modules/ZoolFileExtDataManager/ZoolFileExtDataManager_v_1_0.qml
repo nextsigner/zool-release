@@ -412,6 +412,7 @@ Rectangle {
         }
     }
     Component.onCompleted: {
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
         app.objZoolFileExtDataManager=r
     }
     function deleteVnData(fileName){

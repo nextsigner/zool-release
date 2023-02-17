@@ -18,7 +18,6 @@ import ZoolTopMenuBar 1.0
 import ZoolText 1.0
 import ZoolDataBar 3.1
 import ZoolDataView 1.0
-import ZoolDataText 1.0
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
@@ -29,14 +28,9 @@ import ZoolMenuCtxPlanetsAsc 1.0
 
 import ZoolControlsTime 1.0
 
-import ZoolFileExtDataManager 1.0
-import ZoolFileManager 1.3
-//import ZoolFileLoader 1.0
-import ZoolDataBodies 3.1
-import ZoolSabianos 1.1
-import ZoolRevolutionList 1.4
-import ZoolNumPit 1.0
+import ZoolSectionsManager 1.0
 
+import ZoolDataBodies 3.1
 import ZoolElementsBack 1.0
 import ZoolElementsView 1.0
 
@@ -621,28 +615,30 @@ ZoolMainWindow{
                             anchors.centerIn: parent
                         }
                     }
-                    Item{
-                        id: sv
-                        property int currentIndex: apps.currentSwipeViewIndex
-                        property int count: indicatorSV.count
-                        onCurrentIndexChanged:{
-                            apps.currentSwipeViewIndex=currentIndex
-                            panelRsList.desactivar()
-                        }
-                        width: xApp.width*0.5
-                        height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
-                        clip: true
-                        Comps.XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
-                        Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;itemIndex: 1}}
-                        Comps.XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 2}}
-                        Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
-                        Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 4}}
-                        Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
-                        Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 6}}
-                        //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
-                        Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
-                        //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
-                    }
+                    ZoolSectionsManager{id: zsm}
+//                    Item{
+//                        id: sv
+//                        property int currentIndex: apps.currentSwipeViewIndex
+//                        property int count: indicatorSV.count
+//                        onCurrentIndexChanged:{
+//                            apps.currentSwipeViewIndex=currentIndex
+//                            panelRsList.desactivar()
+//                        }
+//                        width: xApp.width*0.5
+//                        height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
+//                        clip: true
+//                        Comps.XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
+//                        Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;itemIndex: 1}}
+//                        Comps.XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 2}}
+//                        Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
+//                        Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 4}}
+//                        Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
+//                        Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 6}}
+//                        //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
+//                        Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
+//                        //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
+//                    }
+
                     Rectangle{
                         width: xLatIzq.width
                         height: indicatorSV.height

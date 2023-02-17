@@ -182,6 +182,7 @@ Rectangle{
     //        color: 'red'
     //    }
     Component.onCompleted: {
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
         let currentFileZoolText='./resources/zooltext.txt'
         let appArgs=Qt.application.arguments
         let arg=''
