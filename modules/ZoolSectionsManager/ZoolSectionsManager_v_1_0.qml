@@ -31,12 +31,23 @@ Item{
     //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
     Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
     //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
-    function getPanel(typeOfPanel){
+    function getPanel(typeOfSection){
 //        if(app.dev)log.lv('getPanel( '+typeOfPanel+' ): ')
 //        for(var i=0;i<sv.aPanelsIds.length;i++){
 //            if(app.dev)log.lv('aPanelsIds['+i+']='+sv.aPanelsIds[i])
 //        }
-        return sv.children[getPanelIndex(typeOfPanel)].children[0]
+        let obj
+        for(var i=0;i<sv.children.length;i++){
+            let o=sv.children[i].children[0]
+            if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+
+            if(''+app.j.qmltypeof(o)===''+typeOfSection){
+                obj=o
+                break
+            }
+
+        }
+        return obj
     }
     function getPanelIndex(typeOfPanel){
         let a=sv.aPanelsIds.reverse()

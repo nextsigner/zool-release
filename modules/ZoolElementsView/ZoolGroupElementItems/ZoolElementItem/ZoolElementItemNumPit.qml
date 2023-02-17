@@ -39,12 +39,12 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            ncv.currentDate=!r.isBack?app.currentDate:app.currentDateBack
-            ncv.setCurrentDate(!r.isBack?app.currentDate:app.currentDateBack)
-            ncv.setCurrentNombre(!r.isBack?app.currentNom:app.currentNomBack)
-            ncv.currentAG=app.arbolGenealogico[r.ag]
-            ncv.currentCargaAG=ncv.aCargasAG[r.ag]
-            sv.currentIndex=5
+            zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?app.currentDate:app.currentDateBack
+            zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?app.currentDate:app.currentDateBack)
+            zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?app.currentNom:app.currentNomBack)
+            zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
+            zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
+            zsm.currentIndex=6
         }
     }
     Row{
