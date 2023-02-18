@@ -20,7 +20,7 @@ Rectangle {
     clip: r.playMaximized
     onXChanged: apps.repLectX=x
     onYChanged: apps.repLectY=y
-    visible: sv.currentIndex===0&&apps.repLectVisible
+    visible: zsm.currentIndex===0&&apps.repLectVisible
     property alias pl: playList
     property alias vo: videoPlayerOutPut
     property alias vp: videoPlayer

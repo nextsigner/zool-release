@@ -440,7 +440,8 @@ Rectangle {
         lm.clear()
         txtFileName.text=zfdm.getParam('n').replace(/_/g, ' ')
         let exts=zfdm.getExts()
-        if(app.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
+        if(!exts)return
+        //if(app.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
         for(var i=0;i<Object.keys(exts).length;i++){
             let json=exts[i].params
             lm.append(lm.addItem(json))

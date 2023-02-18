@@ -216,9 +216,9 @@ Rectangle {
                 let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
                 let gAsc=''+app.currentJson.ph.h1.rsgdeg
-                if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
+                //if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
                 fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[app.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
-                if(app.dev)log.lv('Sabianos Asc: '+d)
+                //if(app.dev)log.lv('Sabianos Asc: '+d)
                 //unik.setFile(fileNameOutPut, d)
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Asc fileNameOutPut: '+fileNameOutPut)
@@ -236,9 +236,9 @@ Rectangle {
                 fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
                 let gMc=''+app.currentJson.ph.h10.rsgdeg
-                if(app.dev)log.lv('Sabianos gMc: '+gMc)
+                //if(app.dev)log.lv('Sabianos gMc: '+gMc)
                 fileNameOutPut+='Sabianos_Medio_Cielo_en_'+r.signos[app.currentJson.ph.h10.is]+'_Grado_'+gMc+'.txt'
-                if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
+                //if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
                 //unik.setFile(fileNameOutPut, d)
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Mc fileNameOutPut: '+fileNameOutPut)
@@ -256,9 +256,9 @@ Rectangle {
                 fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
                 let gSol=''+app.currentJson.pc.c0.rsgdeg
-                if(app.dev)log.lv('Sabianos gSol: '+gSol)
+                //if(app.dev)log.lv('Sabianos gSol: '+gSol)
                 fileNameOutPut+='Sabianos_Sol_en_'+r.signos[app.currentJson.pc.c0.is]+'_Grado_'+gSol+'.txt'
-                if(app.dev)log.lv('Sabianos Sol: '+d)
+                //if(app.dev)log.lv('Sabianos Sol: '+d)
                 //unik.setFile(fileNameOutPut, d)
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Sol fileNameOutPut: '+fileNameOutPut)
@@ -297,9 +297,9 @@ Rectangle {
                 let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
                 let gAsc=''+app.currentJson.ph.h1.rsgdeg
-                if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
+                //if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
                 fileNameOutPut+='Sabianos_Asc_'+r.signos[app.currentJson.ph.h1.is]+'_'+gAsc
-                if(app.dev)log.lv('Sabianos Asc: '+d)
+                //if(app.dev)log.lv('Sabianos Asc: '+d)
                 sf+='\n'+d
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Asc fileNameOutPut: '+fileNameOutPut)
@@ -316,9 +316,9 @@ Rectangle {
                 d=d.replace(sdel, '')
                 //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
                 let gMc=''+app.currentJson.ph.h10.rsgdeg
-                if(app.dev)log.lv('Sabianos gMc: '+gMc)
+                //if(app.dev)log.lv('Sabianos gMc: '+gMc)
                 fileNameOutPut+='_Mc_'+r.signos[app.currentJson.ph.h10.is]+'_'+gMc
-                if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
+                //if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
                 sf+='\n'+d
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Mc fileNameOutPut: '+fileNameOutPut)
@@ -335,9 +335,9 @@ Rectangle {
                 d=d.replace(sdel, '')
                 //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
                 let gSol=''+app.currentJson.pc.c0.rsgdeg
-                if(app.dev)log.lv('Sabianos gSol: '+gSol)
+                //if(app.dev)log.lv('Sabianos gSol: '+gSol)
                 fileNameOutPut+='_Sol_'+r.signos[app.currentJson.pc.c0.is]+'_'+gSol+'.txt'
-                if(app.dev)log.lv('Sabianos Sol: '+d)
+                //if(app.dev)log.lv('Sabianos Sol: '+d)
                 sf+='\n'+d
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Sol fileNameOutPut: '+fileNameOutPut)

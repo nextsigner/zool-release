@@ -114,6 +114,7 @@ Item{
     function isExtId(extId){
         let ret=false
         let o=r.ja.exts
+        if(!o)return ret
         for(var i=0;i<Object.keys(o).length;i++){
             let json=o[i].params
             if(json.extId===extId){
@@ -125,6 +126,7 @@ Item{
     }
     function addExtData(json){
         let o=r.ja.exts
+        if(!o)return
         let nIndex=Object.keys(o).length
         o[nIndex]={}
         o[nIndex]=json

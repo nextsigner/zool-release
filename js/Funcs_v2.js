@@ -430,225 +430,19 @@ function qmltypeof(obj) {
 }
 
 //Zool
-
-//function loadJson(file){
-//    //let fileLoaded=zfdm.loadFile(apps.url)
-//    let fileLoaded=zfdm.loadFile(file)
-//    if(!fileLoaded){
-//        if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
-//        return
-//    }
-
-
-//    //Global Vars Reset
-//    app.setFromFile=true
-//    //apps.enableFullAnimation=false
-
-//    resetGlobalVars()
-
-//    let fn=file
-//    let jsonFileName=fn
-//    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-//    app.fileData=jsonFileData
-//    app.currentData=app.fileData
-//    if(jsonFileData.length<10){
-//        log.l('Error al cargar el archivo '+file)
-//        log.l('Datos: '+jsonFileData)
-//        log.visible=true
-
-//        return
-//    }
-//    //let jsonData=JSON.parse(jsonFileData)
-//    let jsonData=zfdm.getJsonAbs()
-//    //if(jsonData.params.tipo){
-//    let p=zfdm.getJsonAbsParams(false)
-//    let pb=({})
-//    let isBack=zfdm.isAbsParamsBack()
-//    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
-//        pb=zfdm.getJsonAbsParams(true)
-//    }
-//    if(p.tipo){
-//        //app.mod=jsonData.params.tipo
-//        app.mod=p.tipo
-//    }else{
-//        if(app.dev)log.lv('Error app.j.loadFile('+file+') p.tipo no existe.')
-//        return
-//    }
-//    if(parseInt(p.ms)===0||p.tipo==='pron'){
-//        if(p.tipo==='pron'){
-//            let dd = new Date(Date.now())
-//            let ms=dd.getTime()
-//            let nom=p.n
-//            let d=p.d
-//            let m=p.m
-//            let a=p.a
-//            let h=0
-//            let min=0
-//            let lat=p.lat
-//            let lon=p.lon
-//            let gmt=p.gmt
-//            let ciudad=' '
-//            let j='{"params":{"tipo": "'+p.tipo+'", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
-//            app.fileData=j
-//            //jsonData=JSON.parse(j)
-//        }else{
-//            d=new Date(Date.now())
-//            p.d=d.getDate()
-//            p.m=d.getMonth()+1
-//            p.a=d.getFullYear()
-//            p.h=d.getHours()
-//            p.min=d.getMinutes()
-//        }
-//        sweg.loadSign(jsonData)
-//    }else{
-//        //log.ww=false
-//        //log.ls('sweg.load(jsonData): '+JSON.stringify(jsonData), 0, 500)
-//        sweg.load(jsonData)
-//    }
-//    if(p.fileNamePath){
-//        panelPronEdit.loadJson(p.fileNamePath)
-//    }
-
-//    //let params
-
-//    //if((p.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack) ){
-////    let isBack=zfdm.isAbsParamsBack()
-////    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
-////        //params=jsonData.paramsBack
-////        params=zfdm.getJsonAbsParams(true)
-////    }else{
-////        //params=jsonData.params
-////        params=zfdm.getJsonAbsParams(false)
-////    }
-
-//    //if(params.tipo==='rs'){
-//    //if(app.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
-//    //}
-
-//    let nom=p.n.replace(/_/g, ' ')
-//    let vd=p.d
-//    let vm=p.m
-//    let va=p.a
-//    let vh=p.h
-//    let vmin=p.min
-//    let vgmt=p.gmt
-//    let vlon=p.lon
-//    let vlat=p.lat
-//    let vCiudad=p.ciudad.replace(/_/g, ' ')
-//    let edad=''
-//    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//    let stringEdad=edad.indexOf('NaN')<0?edad:''
-//    if(p.tipo==='rs'){
-//        let edadRs=47
-//        //stringEdad=edadRs
-//        //log.l('RS params:'+params+' --->'+stringEdad, 0, log.width)
-//    }
-
-//    //Seteando datos globales de mapa energético
-//    app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
-//    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
-
-//    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
-//    app.currentNom=nom
-//    app.currentFecha=vd+'/'+vm+'/'+va
-//    app.currentLugar=vCiudad
-//    app.currentGmt=vgmt
-//    app.currentLon=vlon
-//    app.currentLat=vlat
-
-
-//    if(p.tipo==='sin' && isBack){
-//        let m0NomCorr=nom.split(' - ')
-//        nom=m0NomCorr[0].replace('Sinastría ', '')
-//        vd=p.d
-//        vm=p.m
-//        va=p.a
-//        vh=p.h
-//        vmin=p.min
-//        vgmt=p.gmt
-//        vlon=p.lon
-//        vlat=p.lat
-//        vCiudad=p.ciudad.replace(/_/g, ' ')
-//        edad=''
-//        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//        stringEdad=edad.indexOf('NaN')<0?edad:''
-//        setTitleData('Interior: '+nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-
-//        //Preparando datos para addTitle de tipo sin.
-//        nom=pb.n.replace(/_/g, ' ')
-//        if(m0NomCorr.length>1){
-//            nom=m0NomCorr[1].replace('Sinastría ', '')
-//        }
-//        vd=pb.d
-//        vm=pb.m
-//        va=pb.a
-//        vh=pb.h
-//        vmin=pb.min
-//        vgmt=pb.gmt
-//        vlon=pb.lon
-//        vlat=pb.lat
-//        vCiudad=pb.ciudad.replace(/_/g, ' ')
-//        edad=''
-//        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//        stringEdad=edad.indexOf('NaN')<0?edad:''
-
-//        app.currentNomBack=nom
-//        app.currentFechaBack=vd+'/'+vm+'/'+va
-//        app.currentLugarBack=vCiudad
-//        app.currentGmtBack=vgmt
-//        app.currentLonBack=vlon
-//        app.currentLatBack=vlat
-
-//        addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-//    }else{
-//        setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-//    }
-//    //    if(jsonData.params.tipo==='sin'){
-//    //        nom=pb.n.replace(/_/g, ' ')
-//    //        vd=pb.d
-//    //        vm=pb.m
-//    //        va=pb.a
-//    //        vh=pb.h
-//    //        vmin=pb.min
-//    //        vgmt=pb.gmt
-//    //        vlon=pb.lon
-//    //        vlat=pb.lat
-//    //        let valt=0
-//    //        if(pb.alt){
-//    //            valt=pb.alt
-//    //        }
-//    //        vCiudad=pb.ciudad.replace(/_/g, ' ')
-//    //        //let edad=''
-//    //        //numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//    //        //let stringEdad=edad.indexOf('NaN')<0?edad:''
-
-//    //        loadFromArgsBack(vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, nom, vCiudad, 'sin', false)
-//    //        //log.l('Cargando sinastría...')
-//    //        //log.visible=true
-//    //    }
-//    //xDataStatusBar.currentIndex=-1
-//    app.setFromFile=false
-//    sweg.centerZoomAndPos()
-//}
 function loadJson(file){
-    //let fileLoaded=zfdm.loadFile(apps.url)
     let fileLoaded=zfdm.loadFile(file)
     if(!fileLoaded){
         if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
         return
     }
 
-
     //Global Vars Reset
-    //app.setFromFile=true
-    //apps.enableFullAnimation=false
-
     resetGlobalVars()
+
     let jsonData=zfdm.getJsonAbs()
     let p=zfdm.getJsonAbsParams(false)
-    //if(app.dev)log.lv('loadFile( '+file+' ):\n'+JSON.stringify(jsonData, null, 2))
     sweg.load(jsonData)
-    //loadFromJson(jsonData, false)
 
     let nom=p.n.replace(/_/g, ' ')
     let vd=p.d
@@ -679,17 +473,15 @@ function loadJson(file){
 
     //Seteando datos globales de mapa energético
     apps.url=file
-    app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
-    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
-
-    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
     app.currentNom=nom
     app.currentFecha=vd+'/'+vm+'/'+va
     app.currentLugar=vCiudad
     app.currentGmt=vgmt
     app.currentLon=vlon
     app.currentLat=vlat
-    //xDataStatusBar.currentIndex=-1
+    app.currentAlt=valt
+    app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+
     sweg.centerZoomAndPos()
 }
 function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms) {
@@ -733,13 +525,7 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     let aR=[]
     if(tipo==='sin'){
         aR.push('<b>'+nom+'</b>')
-        aL.reverse()
-        /*let nALeft=[]
-        for(var i=0;i<aL.length;i++){
-            if(i!==0)nALeft.push(aL[i])
-        }
-        nALeft.push(aL[0])
-        aL=nALeft*/
+        aL.reverse()        
     }
     if(tipo==='rs')aR.push(edad)
     aR.push(''+vd+'/'+vm+'/'+va)
@@ -758,164 +544,165 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     zoolDataView.setDataView(strSep, aL, aR)
 }
 
-function loadJsonBack(file, tipo){
-    //Global Vars Reset
-    app.setFromFile=true
-    //apps.enableFullAnimation=false
-    app.currentPlanetIndexBack=-1
-    app.currentHouseIndexBack=-1
-    app.currentSignIndex= 0
-    app.currentNomBack= ''
-    app.currentFechaBack= ''
-    app.currentGradoSolarBack= -1
-    app.currentMinutoSolarBack= -1
-    app.currentSegundoSolarBack= -1
-    app.currentGmtBack= 0.0
-    app.currentLonBack= 0.0
-    app.currentLatBack= 0.0
-    app.uSonBack=''
-    //panelControlsSign.state='hide'
-    app.ev=true
 
-    apps.urlBack=file
-    let fn=apps.urlBack
-    let jsonFileName=fn
-    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-    app.fileDataBack=jsonFileData
-    //if(app.dev)log.lv('app.fileDataBack:'+app.fileDataBack)
-    app.currentJsonBack=app.fileDataBack
-    let jsonData=JSON.parse(jsonFileData)
-    if(jsonData.params.tipo){
-        app.mod=jsonData.params.tipo
-    }else{
-        app.mod='vn'
-    }
-    if(parseInt(jsonData.params.ms)===0||jsonData.params.tipo==='pron'){
-        if(jsonData.params.tipo==='pron'){
-            let dd = new Date(Date.now())
-            let ms=dd.getTime()
-            let nom=jsonData.params.n
-            let d=jsonData.params.d
-            let m=jsonData.params.m
-            let a=jsonData.params.a
-            let h=0
-            let min=0
-            let lat=jsonData.params.lat
-            let lon=jsonData.params.lon
-            let gmt=jsonData.params.gmt
-            let ciudad=' '
-            let j='{"params":{"tipo": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
-            app.fileDataBack=j
-            jsonData=JSON.parse(j)
-        }else{
-            d=new Date(Date.now())
-            jsonData.params.d=d.getDate()
-            jsonData.params.m=d.getMonth()+1
-            jsonData.params.a=d.getFullYear()
-            jsonData.params.h=d.getHours()
-            jsonData.params.min=d.getMinutes()
-        }
-        sweg.loadSign(jsonData)
-    }else{
-        sweg.loadBack(jsonData, tipo)
-    }
-    if(jsonData.params.fileNamePath){
-        panelPronEdit.loadJson(jsonData.params.fileNamePath)
-    }
-    let nom=jsonData.params.n.replace(/_/g, ' ')
-    let vd=jsonData.params.d
-    let vm=jsonData.params.m
-    let va=jsonData.params.a
-    let vh=jsonData.params.h
-    let vmin=jsonData.params.min
-    let vgmt=jsonData.params.gmt
-    let vlon=jsonData.params.lon
-    let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-    let edad=''
-    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    let stringEdad=edad.indexOf('NaN')<0?edad:''
+//function loadJsonBack(file, tipo){
+//    //Global Vars Reset
+//    app.setFromFile=true
+//    app.currentPlanetIndexBack=-1
+//    app.currentHouseIndexBack=-1
+//    app.currentSignIndex= 0
+//    app.currentNomBack= ''
+//    app.currentFechaBack= ''
+//    app.currentGradoSolarBack= -1
+//    app.currentMinutoSolarBack= -1
+//    app.currentSegundoSolarBack= -1
+//    app.currentGmtBack= 0.0
+//    app.currentLonBack= 0.0
+//    app.currentLatBack= 0.0
+//    app.uSonBack=''
+//    //panelControlsSign.state='hide'
+//    app.ev=true
 
-    //Seteando datos globales de mapa energético
-    app.currentDateBack= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
-    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
+//    apps.urlBack=file
+//    let fn=apps.urlBack
+//    let jsonFileName=fn
+//    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
+//    app.fileDataBack=jsonFileData
+//    //if(app.dev)log.lv('app.fileDataBack:'+app.fileDataBack)
+//    app.currentJsonBack=app.fileDataBack
+//    let jsonData=JSON.parse(jsonFileData)
+//    if(jsonData.params.tipo){
+//        app.mod=jsonData.params.tipo
+//    }else{
+//        app.mod='vn'
+//    }
+//    if(parseInt(jsonData.params.ms)===0||jsonData.params.tipo==='pron'){
+//        if(jsonData.params.tipo==='pron'){
+//            let dd = new Date(Date.now())
+//            let ms=dd.getTime()
+//            let nom=jsonData.params.n
+//            let d=jsonData.params.d
+//            let m=jsonData.params.m
+//            let a=jsonData.params.a
+//            let h=0
+//            let min=0
+//            let lat=jsonData.params.lat
+//            let lon=jsonData.params.lon
+//            let gmt=jsonData.params.gmt
+//            let ciudad=' '
+//            let j='{"params":{"tipo": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+//            app.fileDataBack=j
+//            jsonData=JSON.parse(j)
+//        }else{
+//            d=new Date(Date.now())
+//            jsonData.params.d=d.getDate()
+//            jsonData.params.m=d.getMonth()+1
+//            jsonData.params.a=d.getFullYear()
+//            jsonData.params.h=d.getHours()
+//            jsonData.params.min=d.getMinutes()
+//        }
+//        sweg.loadSign(jsonData)
+//    }else{
+//        sweg.loadBack(jsonData, tipo)
+//    }
+//    if(jsonData.params.fileNamePath){
+//        panelPronEdit.loadJson(jsonData.params.fileNamePath)
+//    }
+//    let nom=jsonData.params.n.replace(/_/g, ' ')
+//    let vd=jsonData.params.d
+//    let vm=jsonData.params.m
+//    let va=jsonData.params.a
+//    let vh=jsonData.params.h
+//    let vmin=jsonData.params.min
+//    let vgmt=jsonData.params.gmt
+//    let vlon=jsonData.params.lon
+//    let vlat=jsonData.params.lat
+//    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+//    let edad=''
+//    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    let stringEdad=edad.indexOf('NaN')<0?edad:''
 
-    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
-    app.currentNomBack=nom
-    app.currentFechaBack=vd+'/'+vm+'/'+va
-    app.currentLugarBack=vCiudad
-    app.currentGmtBack=vgmt
-    app.currentLonBack=vlon
-    app.currentLatBack=vlat
+//    //Seteando datos globales de mapa energético
+//    app.currentDateBack= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+//    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
 
-    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
-    //xDataStatusBar.currentIndex=0
-    app.setFromFile=false
-}
-function loadJsonFromParamsBack(json){
-    //Global Vars Reset
-    app.setFromFile=true
-    //apps.enableFullAnimation=false
-    app.currentPlanetIndexBack=-1
-    app.currentHouseIndexBack=-1
-    app.currentSignIndex= 0
-    app.currentNomBack= ''
-    app.currentFechaBack= ''
-    app.currentGradoSolarBack= -1
-    app.currentMinutoSolarBack= -1
-    app.currentSegundoSolarBack= -1
-    app.currentGmtBack= 0.0
-    app.currentLonBack= 0.0
-    app.currentLatBack= 0.0
-    app.uSonBack=''
-    //panelControlsSign.state='hide'
+//    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
+//    app.currentNomBack=nom
+//    app.currentFechaBack=vd+'/'+vm+'/'+va
+//    app.currentLugarBack=vCiudad
+//    app.currentGmtBack=vgmt
+//    app.currentLonBack=vlon
+//    app.currentLatBack=vlat
 
-    //apps.urlBack=file
-    app.fileDataBack=JSON.stringify(json)
-    //if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
-    //app.currentJsonBack=app.fileDataBack
-    let jsonData=json
-    let params
-    if(jsonData.paramsBack){
-        params=jsonData.paramsBack
-    }else{
-        params=jsonData.params
-    }
-    if(params.tipo){
-        app.mod=params.tipo
-    }else{
-        app.mod='vn'
-    }
-    sweg.loadBack(jsonData, params.tipo)
-    let nom=params.n.replace(/_/g, ' ')
-    let vd=params.d
-    let vm=params.m
-    let va=params.a
-    let vh=params.h
-    let vmin=params.min
-    let vgmt=params.gmt
-    let vlon=params.lon
-    let vlat=params.lat
-    let vCiudad=params.ciudad.replace(/_/g, ' ')
-    let edad=''
-    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    let stringEdad=edad.indexOf('NaN')<0?edad:''
+//    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
+//    //xDataStatusBar.currentIndex=0
+//    app.setFromFile=false
+//}
 
-    //Seteando datos globales de mapa energético
-    app.currentDateBack= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
-    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
+//function loadJsonFromParamsBack(json){
+//    //Global Vars Reset
+//    app.setFromFile=true
+//    //apps.enableFullAnimation=false
+//    app.currentPlanetIndexBack=-1
+//    app.currentHouseIndexBack=-1
+//    app.currentSignIndex= 0
+//    app.currentNomBack= ''
+//    app.currentFechaBack= ''
+//    app.currentGradoSolarBack= -1
+//    app.currentMinutoSolarBack= -1
+//    app.currentSegundoSolarBack= -1
+//    app.currentGmtBack= 0.0
+//    app.currentLonBack= 0.0
+//    app.currentLatBack= 0.0
+//    app.uSonBack=''
+//    //panelControlsSign.state='hide'
 
-    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
-    app.currentNomBack=nom
-    app.currentFechaBack=vd+'/'+vm+'/'+va
-    app.currentLugarBack=vCiudad
-    app.currentGmtBack=vgmt
-    app.currentLonBack=vlon
-    app.currentLatBack=vlat
+//    //apps.urlBack=file
+//    app.fileDataBack=JSON.stringify(json)
+//    //if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
+//    //app.currentJsonBack=app.fileDataBack
+//    let jsonData=json
+//    let params
+//    if(jsonData.paramsBack){
+//        params=jsonData.paramsBack
+//    }else{
+//        params=jsonData.params
+//    }
+//    if(params.tipo){
+//        app.mod=params.tipo
+//    }else{
+//        app.mod='vn'
+//    }
+//    sweg.loadBack(jsonData, params.tipo)
+//    let nom=params.n.replace(/_/g, ' ')
+//    let vd=params.d
+//    let vm=params.m
+//    let va=params.a
+//    let vh=params.h
+//    let vmin=params.min
+//    let vgmt=params.gmt
+//    let vlon=params.lon
+//    let vlat=params.lat
+//    let vCiudad=params.ciudad.replace(/_/g, ' ')
+//    let edad=''
+//    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    let stringEdad=edad.indexOf('NaN')<0?edad:''
 
-    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
-    app.setFromFile=false
-}
+//    //Seteando datos globales de mapa energético
+//    app.currentDateBack= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+//    //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
+
+//    //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
+//    app.currentNomBack=nom
+//    app.currentFechaBack=vd+'/'+vm+'/'+va
+//    app.currentLugarBack=vCiudad
+//    app.currentGmtBack=vgmt
+//    app.currentLonBack=vlon
+//    app.currentLatBack=vlat
+
+//    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
+//    app.setFromFile=false
+//}
 
 function mkSinFile(file){
     let jsonFileDataInterior=app.fileData
@@ -1237,28 +1024,7 @@ function saveJsonBack(){
     unik.setFile(jsonFileName, JSON.stringify(json))
     //loadJson(apps.url)
 }
-function saveJsonAs(newUrl){
-    app.fileData=app.currentData
-    let jsonFileName=newUrl
-    unik.setFile(jsonFileName, app.currentData)
-    if(unik.fileExist(jsonFileName)){
-        unik.deleteFile(apps.url)
-        apps.url=newUrl
-        loadJson(apps.url)
-    }
-}
-function deleteJsonBackHidden(){
-    //if(app.dev)log.lv('JSON.parse(app.fileData).paramsBack: '+JSON.parse(app.fileData).paramsBack)
-    let json=JSON.parse(app.fileData)
-    if(app.dev)log.lv('deleteJsonBackHidden() app.currentData: '+JSON.stringify(json.params, null, 2))
-    if(app.dev&&json.paramsBack){
-        log.lv('deleteJsonBackHidden() app.fileData: '+JSON.stringify(json.paramsBack, null, 2))
-    }
-    delete json['paramsBack'];
-    let fp=(''+apps.url).replace('file://', '')
-    unik.setFile(fp, JSON.stringify(json))
-    loadJson(apps.url)
-}
+
 function loadJsonNow(file){
     let fn=file
     let jsonFileName=fn
@@ -1317,114 +1083,26 @@ function loadJsonNow(file){
     app.fileData=jsonFileData
 }
 
-//function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod){
-//    //mod 0=cn, mod 1=rs
-
-//    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//    let stringTiempo=''
-//    //console.log('Edad: '+numEdad)
-//    if(mod===0){
-//        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
-//    }else if(mod===2){
-//        stringTiempo=''
-//    }else{
-//        let nAnio=Math.abs(getEdadRS(vd, vm, va, vh, vmin))
-//        stringTiempo='<b> Edad:</b> '+nAnio+' años '
-//    }
-//    let a=[]
-//    a.push('<b>'+nom+'</b>')
-//    a.push(vd+'/'+vm+'/'+va)
-//    a.push(vh+':'+vmin+'hs')
-//    a.push('GMT '+vgmt)
-//    a.push(stringTiempo)
-//    a.push('<b> '+vCiudad+'</b>')
-//    a.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-//    a.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-//    zoolDataView.setDataView('', a, [])
+//function setTitleDataTo1(){
+//    let jsonData=app.currentData
+//    let json=JSON.parse(jsonData)
+//    let nom=json.params.n.replace(/_/g, ' ')
+//    let vd=json.params.d
+//    let vm=json.params.m
+//    let va=json.params.a
+//    let vh=json.params.h
+//    let vmin=json.params.min
+//    let vgmt=json.params.gmt
+//    let vlon=json.params.lon
+//    let vlat=json.params.lat
+//    let vCiudad=json.params.ciudad.replace(/_/g, ' ')
+//    let edad=''
+//    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+//    let stringEdad=edad.indexOf('NaN')<0?edad:''
+//    setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
 //}
 
 
-//function addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, tipo){
-//    let numEdad=getEdad(vd, vm, va, vh, vmin)
-//    let stringTiempo=''
-//    //console.log('Edad: '+numEdad)
-//    if(mod===0){
-//        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
-//    }else if(mod===2){
-//        stringTiempo=''
-//    }else{
-//        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
-//        stringTiempo='<b> Edad:</b> '+nAnio+' años '
-//    }
-//    let a=[]
-//    let aL=zoolDataView.atLeft
-//    let sTipo='Sinastría'
-//    if(tipo==='trans')sTipo='Tránsitos'
-//    if(tipo==='rs')sTipo='Rev. Solar'
-//    let aR=[]
-//    aR.push(vd+'/'+vm+'/'+va)
-//    aR.push(vh+':'+vmin+'hs')
-//    aR.push('GMT '+vgmt)
-//    aR.push(stringTiempo)
-//    aR.push('<b> '+vCiudad+'</b>')
-//    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-//    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-//    zoolDataView.setDataView(sTipo, aL, aR)
-//}
-
-
-//function setTitleDataRs(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
-//    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//    let stringTiempo=''
-//    //console.log('Edad: '+numEdad)
-//    if(mod===0){
-//        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm - 1, va, vh, vmin)+' '
-//    }else if(mod===2){
-//        stringTiempo=''
-//    }else{
-//        let nAnio=Math.abs(getEdadRS(vd, vm - 1, va, vh, vmin))
-//        stringTiempo='<b> Edad:</b> '+nAnio+' años '
-//    }
-//    let aL=zoolDataView.atLeft
-//    aL.push(vd+'/'+vm+'/'+va)
-//    aL.push(vh+':'+vmin+'hs')
-//    aL.push('GMT '+vgmt)
-//    aL.push(stringTiempo)
-//    aL.push('<b> '+vCiudad+'</b>')
-//    aL.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-//    aL.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-//    //zoolDataView.setDataView(app.tipo, aL, [])
-
-//    let aR=[]
-//    aR.push('Exterior')
-//    aR.push(vd+'/'+vm+'/'+va)
-//    aR.push(vh+':'+vmin+'hs')
-//    aR.push('GMT '+vgmt)
-//    aR.push(stringTiempo)
-//    aR.push('<b> '+vCiudad+'</b>')
-//    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
-//    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-//    zoolDataView.setDataView(app.tipo, aL, aR)
-//}
-
-function setTitleDataTo1(){
-    let jsonData=app.currentData
-    let json=JSON.parse(jsonData)
-    let nom=json.params.n.replace(/_/g, ' ')
-    let vd=json.params.d
-    let vm=json.params.m
-    let va=json.params.a
-    let vh=json.params.h
-    let vmin=json.params.min
-    let vgmt=json.params.gmt
-    let vlon=json.params.lon
-    let vlat=json.params.lat
-    let vCiudad=json.params.ciudad.replace(/_/g, ' ')
-    let edad=''
-    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    let stringEdad=edad.indexOf('NaN')<0?edad:''
-    setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-}
 //Funciones de Internet
 function getRD(url, item){//Remote Data
     var request = new XMLHttpRequest()

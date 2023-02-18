@@ -142,11 +142,12 @@ Rectangle {
                 //color: apps.backgroundColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 clip: true
-                Text {
+                ZoolText {
                     id: txtTitInfo
-                    text: '<b>Cantidad Total:</b> '+flm.count+' <b>Encontrados:</b> '+lm.count+'<br><b>Carpeta: </b>'+(''+flm.folder).replace('file://', '')
+                    text: '<b>Cantidad Total:</b> '+flm.count+' <b>Encontrados:</b> '+lm.count+'<br/><b>Carpeta: </b>'+(''+flm.folder).replace('file://', '')
                     font.pixelSize: app.fs*0.35
-                    width: parent.width-app.fs
+                    //width: parent.width-app.fs
+                    w: parent.width-app.fs
                     wrapMode: Text.WordWrap
                     color: apps.fontColor
                     anchors.centerIn: parent
@@ -397,7 +398,7 @@ Rectangle {
 //        }
         let jsonFileData=unik.getFile(fileName)
         let j=JSON.parse(jsonFileData).params
-        if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
+        //if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
 
         let t='sin'
         let hsys=j.hsys?j.hsys:apps.currentHsys

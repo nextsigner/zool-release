@@ -8,7 +8,7 @@ import ZoolFileMaker 1.2
 import ZoolFileExtDataManager 1.0
 import ZoolFileLoader 1.3
 import ZoolFileTransLoader 1.0
-import ZoolFileDirPrimLoader 1.0
+import ZoolFileDirPrimLoader 1.1
 import ZoolButton 1.0
 import ZoolText 1.0
 

@@ -527,45 +527,27 @@ Item {
         //log.l(scorrJson)
         //log.visible=true
         //log.width=xApp.width*0.4
-        if(app.dev)log.lv('Running line 529..')
         j=JSON.parse(scorrJson)
-        //if(app.dev)log.lv('Running line 531..')
 
         app.currentJson=j
-        //signCircle.rot=parseInt(j.ph.h1.gdec)
-        if(app.dev)log.lv('Running line prev a signCircle.rot=')
         signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
-        //r.earth.rotation=0-(signCircle.rot+parseFloat(j.pc.c0.gdec).toFixed(2))
-        //r.earth.rotation=(0-120)-(signCircle.rot)+parseFloat(j.pc.c0.gdec).toFixed(2)
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
-        if(app.dev)log.lv('Running line prev a panelAspects.load(j)')
-        //planetsCircleBack.loadJson(j)
         panelAspects.load(j)
-        if(app.dev)log.lv('Running line prev a panelDataBodies.loadJson(j)')
         panelDataBodies.loadJson(j)
-        if(app.dev)log.lv('Running line prev a aspsCircle.load(j)')
         aspsCircle.load(j)
-        //panelElements.load(j)
-        if(app.dev)log.lv('Running line prev a zoolElementsView.load(j, false)')
         zoolElementsView.load(j, false)
         eclipseCircle.arrayWg=housesCircle.arrayWg
         eclipseCircle.isEclipse=-1
-        //if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
         r.v=true
-        //apps.enableFullAnimation=true
-        //let j=JSON.parse(app.fileData)
-        //        if(j.params.tipo==='sin'){
-        //            tLoadSin.start()
-        //        }
-        //        tFirtShow.start()
-        panelSabianos.numSign=app.currentJson.ph.h1.is
-        panelSabianos.numDegree=parseInt(app.currentJson.ph.h1.rsgdeg - 1)
-        panelSabianos.loadData()
+        let sabianos=zsm.getPanel('ZoolSabianos')
+        sabianos.numSign=app.currentJson.ph.h1.is
+        sabianos.numDegree=parseInt(app.currentJson.ph.h1.rsgdeg - 1)
+        sabianos.loadData()
         if(apps.sabianosAutoShow){
             //panelSabianos.state='show'
-            sv.currentIndex=1
+            zsm.currentIndex=1
         }     }
     function loadSweJsonBack(json){
         //console.log('JSON::: '+json)
@@ -592,6 +574,8 @@ Item {
             //panelElementsBack.visible=false
         }
         housesCircleBack.loadHouses(j)
+        if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
+        //if(JSON.parse(app))
         planetsCircleBack.loadJson(j)
         panelDataBodies.loadJsonBack(j)
         //panelDataBodiesV2.loadJson(j)

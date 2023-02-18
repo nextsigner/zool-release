@@ -328,7 +328,8 @@ Item {
         id: comp
         Rectangle{
             id: xPanel
-            width: panelZoolModules.width-app.fs*0.25
+            //width: zsm.getPanel('ZoolModulesManager').width-app.fs*0.25
+            width: xLatIzq.width-app.fs*0.25
             height: col.height+app.fs
             color: apps.backgroundColor
             border.width: 1
@@ -564,7 +565,7 @@ Item {
     property int uIH: -1
     property int uGS: -1
     Component.onCompleted: {
-        let obj=comp.createObject(panelZoolModules.c, {})
+        let obj=comp.createObject(zsm.getPanel('ZoolModulesManager').c, {})
         let obj2=compInfo.createObject(xLatDer, {})
         setBgPosSol()
     }

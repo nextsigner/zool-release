@@ -9,7 +9,7 @@ import unik.UnikQProcess 1.0
 import unik.Unik 1.0
 
 
-import "./js/Funcs.js" as JS
+import "./js/Funcs_v2.js" as JS
 import "./comps" as Comps
 
 //Default Modules
@@ -418,7 +418,7 @@ ZoolMainWindow{
                 //zoolFileManager.ti.focus=false
                 //panelRsList.desactivar()
             }else{
-                if(sv.currentIndex===2){
+                if(zsm.currentIndex===2){
                     //zoolFileManager.ti.focus=true
                 }
             }
@@ -609,7 +609,7 @@ ZoolMainWindow{
                         anchors.horizontalCenter: parent.horizontalCenter
                         property var aPanelesTits: ['Información','Esquemas', 'Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
                         Text{
-                            text: parseInt(sv.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[sv.currentIndex]
+                            text: parseInt(zsm.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[zsm.currentIndex]
                             color: apps.backgroundColor
                             font.pixelSize: app.fs*0.5
                             anchors.centerIn: parent
@@ -630,10 +630,10 @@ ZoolMainWindow{
                         PageIndicator {
                             id: indicatorSV
                             interactive: true
-                            count: sv.children.length
-                            currentIndex: sv.currentIndex
+                            count: 0//zsm.aPanelsIds.length
+                            currentIndex: zsm.currentIndex
                             anchors.centerIn: parent
-                            onCurrentIndexChanged: sv.currentIndex=currentIndex
+                            onCurrentIndexChanged: zsm.currentIndex=currentIndex
                             delegate: Rectangle{
                                 width: app.fs*0.5
                                 height: width
@@ -651,12 +651,18 @@ ZoolMainWindow{
                                 MouseArea{
                                     anchors.fill: parent
                                     onClicked: {
-                                        sv.currentIndex=index
+                                        zsm.currentIndex=index
                                         if (mouse.modifiers) {
                                             apps.repLectVisible=!apps.repLectVisible
                                         }
                                     }
                                 }
+                            }
+                            Timer{
+                                running: parent.count===0
+                                repeat: true
+                                interval: 1000
+                                onTriggered: parent.count=zsm.aPanelsIds.length
                             }
                         }
                     }
@@ -813,13 +819,13 @@ ZoolMainWindow{
         ZoolVideoPlayer{id: panelVideLectura;}
         Comps.VideoListEditor{id: videoListEditor}
     }
-    //Init{longAppName: 'Zool'; folderName: 'zool'}
     Comps.XSelectColor{
         id: xSelectColor
         width: app.fs*8
         height: app.fs*8
         c: 'backgroundColor'
     }
+    ZoolLogView{id: log}
     QtObject{
         id: setHost
         function setData(data, isData){
@@ -849,7 +855,6 @@ ZoolMainWindow{
             }
         }
     }
-    ZoolLogView{id: log}
 
     //    Text{
     //        text: '->'+menuBar.expanded

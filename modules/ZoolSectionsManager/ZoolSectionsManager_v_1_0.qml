@@ -7,16 +7,19 @@ import ZoolFileManager 1.3
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.4
 import ZoolNumPit 1.0
-
+import ZoolModulesManager 1.0
 
 Item{
     id: sv
     property int currentIndex: apps.currentSwipeViewIndex
     property int count: indicatorSV.count
     property var aPanelsIds: []
+    onAPanelsIdsChanged: {
+        indicatorSV.count=aPanelsIds.length
+    }
     onCurrentIndexChanged:{
         apps.currentSwipeViewIndex=currentIndex
-        panelRsList.desactivar()
+        zsm.getPanel('ZoolRevolutionList').desactivar()
     }
     width: xApp.width*0.5
     height: xLatIzq.height-indicatorSV.height-xPanelesTits.height
@@ -27,30 +30,21 @@ Item{
     Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
     Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 4}}
     //Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
+    Comps.XPaneles{ZoolModulesManager{}}
     Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 6}}
     //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
     Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
     //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
     function getPanel(typeOfSection){
-//        if(app.dev)log.lv('getPanel( '+typeOfPanel+' ): ')
-//        for(var i=0;i<sv.aPanelsIds.length;i++){
-//            if(app.dev)log.lv('aPanelsIds['+i+']='+sv.aPanelsIds[i])
-//        }
         let obj
         for(var i=0;i<sv.children.length;i++){
             let o=sv.children[i].children[0]
-            if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
-
+            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 obj=o
                 break
             }
-
         }
         return obj
-    }
-    function getPanelIndex(typeOfPanel){
-        let a=sv.aPanelsIds.reverse()
-        return a.indexOf(typeOfPanel)
     }
 }
