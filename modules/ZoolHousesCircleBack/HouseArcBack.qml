@@ -283,7 +283,8 @@ Item {
                 //color: circleBot.border.color
                 anchors.centerIn: parent
                 //rotation: 45-r.rotation-housesCircleBack.rotation-signCircle.rot-planetsCircleBack.rotation
-                rotation:0-r.rotation-r.parent.rotation
+                //rotation:0-r.rotation-r.parent.rotation
+                rotation:app.mod!=='dirprim'?0-r.rotation-r.parent.rotation:0-r.rotation-r.parent.rotation-sweg.objHousesCircleBack.rotation
                 Rectangle{
                     width: esteTxt.contentWidth+sweg.fs*0.25
                     height: esteTxt.contentHeight+sweg.fs*0.25

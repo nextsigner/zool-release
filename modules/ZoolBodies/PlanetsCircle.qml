@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import "../../js/Funcs.js" as JS
 
-import ZoolBodies.ZoolAs 3.1
+import ZoolBodies.ZoolAs 3.2
 
 Item{
     id: r

@@ -93,8 +93,8 @@ MenuBar{
     }
     XMenu {
         title: qsTr("&Archivo")
-        Action {text: qsTr("&Nuevo"); onTriggered: zsm.getPanel('ZoolFileManager').showFileMaker()}
-        Action { text: qsTr("&Abrir"); onTriggered: zsm.getPanel('ZoolFileManager').showFileLoader() }
+        Action {text: qsTr("&Nuevo"); onTriggered: zsm.getPanel('ZoolFileManager').showSection('ZoolFileMaker')}
+        Action { text: qsTr("&Abrir"); onTriggered: zsm.getPanel('ZoolFileManager').showSection('ZoolFileLoader') }
         Action {enabled: app.fileData!==app.currentData; text: qsTr("&Guardar"); onTriggered: JS.saveJson() }
         //Action { text: qsTr("Save &As...") }
         MenuSeparator { }

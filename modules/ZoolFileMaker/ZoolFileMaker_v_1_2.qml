@@ -12,7 +12,8 @@ import ZoolButton 1.0
 Rectangle {
     id: r
     width: xLatIzq.width
-    height: xLatIzq.height-xPanelesTits.height-app.fs*0.5
+    height: zsm.getPanel('ZoolFileManager').hp
+    visible: false
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor

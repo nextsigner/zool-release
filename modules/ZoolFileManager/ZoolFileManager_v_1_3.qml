@@ -54,7 +54,7 @@ Rectangle {
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Settings{
         id: settings
-        property int currentIndex: 0
+        property string currentQmlTypeShowed: 'ZoolFileMaker'
         property bool showModuleVersion: false
         property bool inputCoords: false
         property bool showConfig: false
@@ -91,70 +91,45 @@ Rectangle {
                     text:'Crear'
                     colorInverted: zoolFileMaker.visible
                     onClicked: {
-                        zoolFileMaker.visible=true
-                        zoolFileLoader.visible=false
-                        zoolFileTransLoader.visible=false
-                        zoolFileDirPrimLoader.visible=false
-                        settings.currentIndex=0
+                        showSection('ZoolFileMaker')
                     }
                 }
                 ZoolButton{
                     text:'Buscar'
                     colorInverted: zoolFileLoader.visible
                     onClicked: {
-                        //log.lv('0 settings.currentIndex: '+settings.currentIndex)
-                        zoolFileMaker.visible=false
-                        zoolFileLoader.visible=true
-                        zoolFileTransLoader.visible=false
-                        zoolFileDirPrimLoader.visible=false
-                        settings.currentIndex=2
-                        //log.lv('1 settings.currentIndex: '+settings.currentIndex)
+                        showSection('ZoolFileLoader')
                     }
                 }
                 ZoolButton{
                     text:'Transitos'
                     colorInverted: zoolFileTransLoader.visible
                     onClicked: {
-                        zoolFileMaker.visible=false
-                        zoolFileLoader.visible=false
-                        zoolFileTransLoader.visible=true
-                        zoolFileDirPrimLoader.visible=false
-                        settings.currentIndex=3
+                        showSection('ZoolFileTransLoader')
                     }
                 }
                 ZoolButton{
                     id: botDirPrim
                     text:'Direcciones'
-                    colorInverted: zoolFileTransLoader.visible
+                    colorInverted: zoolFileDirPrimLoader.visible
                     onClicked: {
-                        zoolFileMaker.visible=false
-                        zoolFileLoader.visible=false
-                        zoolFileTransLoader.visible=false
-                        zoolFileDirPrimLoader.visible=true
-                        settings.currentIndex=4
+                        showSection('ZoolFileDirPrimLoader')
                     }
                 }
             }
         }
-        ZoolFileMaker{
-            id: zoolFileMaker;
-            visible: true
+        Item{
+            id: xSections
+            width: r.width
             height: r.hp
-        }
-        ZoolFileLoader{
-            id: zoolFileLoader;
-            visible: false
-            height: r.hp
-        }
-        ZoolFileTransLoader{
-            id: zoolFileTransLoader;
-            visible: false
-            height: r.hp
-        }
-        ZoolFileDirPrimLoader{
-            id: zoolFileDirPrimLoader;
-            visible: false
-            height: r.hp
+            ZoolFileMaker{
+                id: zoolFileMaker;
+                visible: true
+                height: r.hp
+            }
+            ZoolFileLoader{id: zoolFileLoader}
+            ZoolFileTransLoader{id: zoolFileTransLoader}
+            ZoolFileDirPrimLoader{id: zoolFileDirPrimLoader}
         }
     }
     Rectangle{
@@ -231,26 +206,30 @@ Rectangle {
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
-        if(app.dev){
-            zoolFileDirPrimLoader.ctFecha.gmt=-3
-            //mkTimer()
+        showSection(s.currentQmlTypeShowed)
+        //        if(app.dev){
+//            zoolFileDirPrimLoader.ctFecha.gmt=-3
+//            //mkTimer()
 
+//        }
+    }
+
+    function showSection(qmltype){
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]
+            o.visible=false
         }
+        for(i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]
+            if(app.j.qmltypeof(o)!==qmltype){
+                o.visible=false
+            }else{
+                o.visible=true
+            }
+        }
+        s.currentQmlTypeShowed=qmltype
     }
-    function showFileMaker(){
-        apps.currentSwipeViewIndex=r.itemIndex
-        zsm.currentIndex=apps.currentSwipeViewIndex
-        zoolFileLoader.visible=false
-        zoolFileMaker.visible=true
 
-    }
-    function showFileLoader(){
-        apps.currentSwipeViewIndex=r.itemIndex
-        zsm.currentIndex=apps.currentSwipeViewIndex
-        zoolFileMaker.visible=false
-        zoolFileLoader.visible=true
-
-    }
     function enter(){
         panelActive.enter()
     }
