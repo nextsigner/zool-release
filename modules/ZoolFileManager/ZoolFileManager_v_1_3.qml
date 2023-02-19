@@ -8,7 +8,7 @@ import ZoolFileMaker 1.2
 import ZoolFileExtDataManager 1.0
 import ZoolFileLoader 1.3
 import ZoolFileTransLoader 1.0
-import ZoolFileDirPrimLoader 1.1
+import ZoolFileDirPrimLoader 1.2
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -32,9 +32,9 @@ Rectangle {
     property alias tiC: zoolFileMaker.tiC
 
     property alias s: settings
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             tF.restart()
@@ -239,14 +239,14 @@ Rectangle {
     }
     function showFileMaker(){
         apps.currentSwipeViewIndex=r.itemIndex
-        sv.currentIndex=apps.currentSwipeViewIndex
+        zsm.currentIndex=apps.currentSwipeViewIndex
         zoolFileLoader.visible=false
         zoolFileMaker.visible=true
 
     }
     function showFileLoader(){
         apps.currentSwipeViewIndex=r.itemIndex
-        sv.currentIndex=apps.currentSwipeViewIndex
+        zsm.currentIndex=apps.currentSwipeViewIndex
         zoolFileMaker.visible=false
         zoolFileLoader.visible=true
 

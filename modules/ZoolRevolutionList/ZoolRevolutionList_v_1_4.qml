@@ -19,7 +19,7 @@ Rectangle {
     property alias listModel: lm
     property int edadMaxima: 0
     property string jsonFull: ''
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
 
     property int currentAnioSelected: -1
@@ -32,7 +32,7 @@ Rectangle {
     property real ulon:-100.00
 
 
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             if(edadMaxima<=0)xTit.showTi=true

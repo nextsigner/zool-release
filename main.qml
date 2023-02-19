@@ -599,75 +599,7 @@ ZoolMainWindow{
                 height: parent.height
                 color: apps.backgroundColor
                 visible: apps.showLatIzq
-                Column{
-                    anchors.centerIn: parent
-                    Rectangle{
-                        id: xPanelesTits
-                        width: xLatIzq.width
-                        height: app.fs*0.6
-                        color: apps.fontColor
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        property var aPanelesTits: ['Información','Esquemas', 'Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
-                        Text{
-                            text: parseInt(zsm.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[zsm.currentIndex]
-                            color: apps.backgroundColor
-                            font.pixelSize: app.fs*0.5
-                            anchors.centerIn: parent
-                        }
-                    }
-                    ZoolSectionsManager{id: zsm}
-                    Rectangle{
-                        width: xLatIzq.width
-                        height: indicatorSV.height
-                        color: 'transparent'
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                apps.zFocus='xLatIzq'
-                            }
-                        }
-                        PageIndicator {
-                            id: indicatorSV
-                            interactive: true
-                            count: 0//zsm.aPanelsIds.length
-                            currentIndex: zsm.currentIndex
-                            anchors.centerIn: parent
-                            onCurrentIndexChanged: zsm.currentIndex=currentIndex
-                            delegate: Rectangle{
-                                width: app.fs*0.5
-                                height: width
-                                radius: width / 2
-                                color: apps.fontColor
-                                opacity: index === indicatorSV.currentIndex?0.95: pressed ? 0.7: 0.45
-                                Text{
-                                    text:'\uf26c'
-                                    font.family: "FontAwesome"
-                                    font.pixelSize: parent.width*0.6
-                                    color: apps.backgroundColor
-                                    anchors.centerIn: parent
-                                    visible: index===0&&apps.repLectVisible
-                                }
-                                MouseArea{
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        zsm.currentIndex=index
-                                        if (mouse.modifiers) {
-                                            apps.repLectVisible=!apps.repLectVisible
-                                        }
-                                    }
-                                }
-                            }
-                            Timer{
-                                running: parent.count===0
-                                repeat: true
-                                interval: 1000
-                                onTriggered: parent.count=zsm.aPanelsIds.length
-                            }
-                        }
-                    }
-                }
-
+                ZoolSectionsManager{id: zsm}
                 Rectangle{
                     width: parent.width
                     height: 3

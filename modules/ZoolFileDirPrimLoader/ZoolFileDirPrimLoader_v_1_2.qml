@@ -799,7 +799,7 @@ Rectangle {
         j+='}'
         app.currentDataBack=j
         app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '101', vtipo, vhsys, -1)
-        sweg.objHousesCircleBack.rotation=90//sweg.objHousesCircleBack.rotation-30
+        //sweg.objHousesCircleBack.rotation=0//sweg.objHousesCircleBack.rotation-30
         //if(app.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
         //let json=JSON.parse(j)
         //app.j.loadBack(json)

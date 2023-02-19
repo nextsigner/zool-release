@@ -84,7 +84,7 @@ Rectangle {
 
 
     property int itemIndex: -1
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
     onCurrentNumNacimientoChanged: {
         calcularPersonalidad()
     }

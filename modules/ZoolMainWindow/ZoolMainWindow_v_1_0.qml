@@ -60,7 +60,7 @@ ApplicationWindow {
         sequence: 'Space'
         onActivated: {
             if(apps.zFocus==='xLatIzq'){
-                if(sv.currentIndex===9){
+                if(zsm.currentIndex===9){
                     panelZoolData.tooglePlayPause()
                 }
             }
@@ -510,7 +510,7 @@ ApplicationWindow {
                     panelSabianos.view.toleft()
                     return
                 }
-                if(sv.currentIndex===2){
+                if(zsm.currentIndex===2){
                     zoolFileManager.toLeft()
                     return
                 }
@@ -543,7 +543,7 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                if(sv.currentIndex===2){
+                if(zsm.currentIndex===2){
                     zoolFileManager.toRight()
                     return
                 }
@@ -569,20 +569,20 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Left'
         onActivated: {
-            if(sv.currentIndex>0){
-                sv.currentIndex--
+            if(zsm.currentIndex>0){
+                zsm.currentIndex--
             }else{
-                sv.currentIndex=sv.count-1
+                zsm.currentIndex=zsm.count-1
             }
         }
     }
     Shortcut{
         sequence: 'Ctrl+Right'
         onActivated: {
-            if(sv.currentIndex<sv.count-1){
-                sv.currentIndex++
+            if(zsm.currentIndex<zsm.count-1){
+                zsm.currentIndex++
             }else{
-                sv.currentIndex=0
+                zsm.currentIndex=0
             }
         }
     }
@@ -719,7 +719,7 @@ ApplicationWindow {
         onActivated: {
             //panelRsList.state=panelRsList.state==='show'?'hide':'show'
             apps.zFocus='xMed'
-            sv.currentIndex=4
+            zsm.currentIndex=4
         }
     }
     //Mostrar Panel de Aspectos en Transito

@@ -9,20 +9,20 @@ import Qt.labs.settings 1.1
 
 Rectangle {
     id: r
-    width: xLatIzq.width
-    height: sv.height//-xPanelesTits.height-app.fs*0.5
+    width: parent.width
+    height: parent.height
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
 
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
 
     property string uFileLoaded: ''
 
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
 
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
 
     property int fs: app.fs*s.fzoom

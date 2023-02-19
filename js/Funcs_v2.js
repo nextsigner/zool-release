@@ -1083,26 +1083,6 @@ function loadJsonNow(file){
     app.fileData=jsonFileData
 }
 
-//function setTitleDataTo1(){
-//    let jsonData=app.currentData
-//    let json=JSON.parse(jsonData)
-//    let nom=json.params.n.replace(/_/g, ' ')
-//    let vd=json.params.d
-//    let vm=json.params.m
-//    let va=json.params.a
-//    let vh=json.params.h
-//    let vmin=json.params.min
-//    let vgmt=json.params.gmt
-//    let vlon=json.params.lon
-//    let vlat=json.params.lat
-//    let vCiudad=json.params.ciudad.replace(/_/g, ' ')
-//    let edad=''
-//    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-//    let stringEdad=edad.indexOf('NaN')<0?edad:''
-//    setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
-//}
-
-
 //Funciones de Internet
 function getRD(url, item){//Remote Data
     var request = new XMLHttpRequest()
@@ -1133,6 +1113,8 @@ function parseRetRed(d){
         return d
     }
 }
+
+//Funciones varias
 function getADate(date){
     let d=date.getDate()
     let m=date.getMonth() + 1
@@ -1141,6 +1123,7 @@ function getADate(date){
     let min=date.getMinutes()
     return [d, m, a, h, min]
 }
+
 //Funciones de GUI
 function showMsgDialog(title, text, itext){
     let c='import QtQuick 2.0\n'

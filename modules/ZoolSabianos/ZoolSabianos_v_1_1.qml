@@ -12,7 +12,7 @@ Rectangle {
     id: r
     color: 'white'
     width: parent.width
-    height: parent.height//panelRemoto.state==='hide'?parent.height:parent.height-panelRemoto.height
+    height: parent.height
     clip: true
 
     property alias view: sabianosView
@@ -34,7 +34,7 @@ Rectangle {
 
     property string prevZFocus: ''
 
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
 
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Flickable{

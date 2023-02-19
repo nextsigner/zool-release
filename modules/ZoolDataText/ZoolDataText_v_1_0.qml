@@ -7,7 +7,7 @@ Rectangle{
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property bool noFoundFileExistNofify: false
     property bool fileInitLoaded: false
@@ -99,7 +99,7 @@ Rectangle{
                 }
                 Timer{
                     id: tTxtAboutZool
-                    running: sv.currentIndex===0 && aTimes.length>0
+                    running: zsm.currentIndex===0 && aTimes.length>0
                     repeat: true
                     interval: aTimes[0]
                     property int v: 0

@@ -11,9 +11,9 @@ Rectangle{
     border.width: 2
     border.color: apps.fontColor
     property alias c: col
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             //tF.restart()

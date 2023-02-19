@@ -20,7 +20,7 @@ Rectangle {
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
     property string currentFile: ''
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     Settings{
         id: s

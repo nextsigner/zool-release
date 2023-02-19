@@ -77,7 +77,7 @@ Menu {
     Action {enabled: app.mod==='rs'; text: qsTr("Guardar Revolución"); onTriggered: {
                            //if(app.dev)log.lv('MenuBack: '+JSON.stringify(JSON.parse(app.fileDataBack, null, 2)))                       }
             zfdm.addExtData(JSON.parse(app.fileDataBack))
-            sv.currentIndex=1
+            zsm.currentIndex=1
         }
     }
     Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {

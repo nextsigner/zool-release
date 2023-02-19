@@ -10,7 +10,7 @@ Rectangle{
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
-    property int svIndex: sv.currentIndex
+    property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property string currentPSH: ''+currentP+'_'+currentS+'_'+currentH
     property int currentP: -1
@@ -18,7 +18,7 @@ Rectangle{
     property int currentH: -1
     property int currentCmdCompleted: -1
     property int uCurrentPlayListIndex: -1
-    visible: itemIndex===sv.currentIndex
+    visible: itemIndex===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             //tF.restart()
