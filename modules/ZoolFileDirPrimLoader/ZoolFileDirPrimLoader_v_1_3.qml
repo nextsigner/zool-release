@@ -21,8 +21,6 @@ Rectangle {
     property alias ctFecha: controlTimeFecha
     property alias xCfgItem: colXConfig
 
-    property alias tiC: tiCiudad.t
-
     property real lat:-100.00
     property real lon:-100.00
 
@@ -132,45 +130,31 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 ZoolControlsTime{
                     id: controlTimeFecha
-                    //gmt: 0
                     labelText: 'Momento de tránsitos'
-                    KeyNavigation.tab: tiCiudad.t
-                    setAppTime: false
-                    //enableGMT:false
-                    onCurrentDateChanged: {
-                        let d = new Date(currentDate)
-                        if(app.currentGmt>0){
-                            d.setHours(d.getHours()+app.currentGmt)
-                        }else{
-                            d.setHours(d.getHours()-app.currentGmt)
-                        }
-                        controlTimeFechaUTC.currentDate=d
-                        controlTimeFechaUTC.gmt=0
-                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
-                        sweg.enableLoadBack=false
-                        tUpdateParams.restart()
-                    }
-                    Timer{
-                        id: tUpdateParams
-                        running: false
-                        repeat: false
-                        interval: 1500
-                        onTriggered: updateUParams()
-                    }
-                }
-                ZoolControlsTime{
-                    id: controlTimeFechaUTC
-                    gmt: app.currentGmt
-                    labelText: 'UTC - Tiempo Universal'
                     //KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
-                    enableGMT:true
-                    locked: true
+                    enableGMT:false
                     visible: false
-                    onCurrentDateChanged: {
-                        //sweg.enableLoadBack=false
-                        //tUpdateParams.restart()
-                    }
+//                    onCurrentDateChanged: {
+//                        let d = new Date(currentDate)
+//                        if(app.currentGmt>0){
+//                            d.setHours(d.getHours()+app.currentGmt)
+//                        }else{
+//                            d.setHours(d.getHours()-app.currentGmt)
+//                        }
+//                        controlTimeFechaUTC.currentDate=d
+//                        controlTimeFechaUTC.gmt=0
+//                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
+//                        sweg.enableLoadBack=false
+//                        tUpdateParams.restart()
+//                    }
+//                    Timer{
+//                        id: tUpdateParams
+//                        running: false
+//                        repeat: false
+//                        interval: 1500
+//                        onTriggered: updateUParams()
+//                    }
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaEvento
@@ -178,7 +162,7 @@ Rectangle {
                     labelText: 'Momento del evento'
                     //KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
-                    //enableGMT:false
+                    enableGMT:false
                     onCurrentDateChanged: {
                         if(!r.visible)return
                         //setDirPrimRotation()
@@ -191,6 +175,7 @@ Rectangle {
                         r.lon=app.currentLon
 
                         let j=app.currentJson
+                        if(!j)return
                         let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
                         //l.lv('signCircleRot:'+signCircleRot)
 
@@ -218,128 +203,18 @@ Rectangle {
                         let hcBackRot=0.0-parseFloat(diffAnio)
                         sweg.objHousesCircleBack.rotation=hcBackRot
                         sweg.objPlanetsCircleBack.rotation=hcBackRot
+                        if(app.ev&&app.mod==='dirprim')return
+                        tUpdateParamsEvento.restart()
                     }
                     Timer{
                         id: tUpdateParamsEvento
                         running: false
                         repeat: false
                         interval: 1500
-                        //onTriggered: updateUParams()
+                        onTriggered: updateUParams()
                     }
                 }
                 //ZoolLogView
-            }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: false
-                Text{
-                    text: 'Utilizar UTC'
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    id: cbUseUtc
-                    checked: false
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged:{
-
-                    }
-                    //onCheckedChanged: settings.inputCoords=checked
-                }
-            }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: false
-                ZoolButton{
-                    text: 'Ahora'
-                    onClicked:{
-                        controlTimeFecha.currentDate=new Date(Date.now())
-                    }
-                }
-                ZoolButton{
-                    text: 'Recargar Hora de Archivo'
-                    onClicked:{
-                        let json=JSON.parse(app.currentData)
-                        let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
-                        controlTimeFecha.currentDate=d
-                        controlTimeFecha.gmt=0//json.params.gmt
-                    }
-                }
-            }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: false
-                Text{
-                    text: 'Utilizar las coordenadas\ndel esquema interior.\nLatitud: '+app.currentLat+'\nLongitud: '+app.currentLon
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    id: cbUseIntCoords
-                    checked: true
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged:{
-                        if(checked){
-                            r.ulat=app.currentLat
-                            r.ulon=app.currentLon
-                            r.lat=r.uLat
-                            r.lon=r.uLon
-                        }
-                    }
-                    //onCheckedChanged: settings.inputCoords=checked
-                    Timer{
-                        running: parent.checked && r.visible && app.currentLat && app.currentLon
-                        repeat: true
-                        interval: 500
-                        onTriggered: {
-                            if(!app.currentLat || app.currentLon)return
-                            if(cbUseIntCoords.checked && r.visible){
-                                r.ulat=app.currentLat
-                                r.ulon=app.currentLon
-                                r.lat=r.uLat
-                                r.lon=r.uLon
-                            }
-                        }
-                    }
-                }
-            }
-            ZoolTextInput{
-                id: tiCiudad
-                width:r.width-app.fs*0.5
-                t.width: r.width-app.fs*0.25
-                t.font.pixelSize: app.fs*0.65;
-                labelText: 'Lugar, ciudad, provincia,\nregión y/o país de desde donde se obsevan los tránsitos'
-                borderWidth: 2
-                borderColor: apps.fontColor
-                borderRadius: app.fs*0.1
-                KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                t.maximumLength: 50
-                visible: !cbUseIntCoords.checked
-                onTextChanged: {
-                    tSearch.restart()
-                    t.color='white'
-                }
-            }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: !cbUseIntCoords.checked
-                Text{
-                    text: 'Ingresar coordenadas\nmanualmente'
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    checked: settings.inputCoords
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged: settings.inputCoords=checked
-                }
             }
             Column{
                 id: colTiLonLat
@@ -399,7 +274,7 @@ Rectangle {
                         width: r.width*0.5-app.fs*0.5
                         t.font.pixelSize: app.fs*0.65
                         anchors.verticalCenter: parent.verticalCenter
-                        KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
+
                         t.maximumLength: 10
                         t.validator: RegExpValidator {
                             regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
@@ -454,164 +329,9 @@ Rectangle {
                     visible: settings.inputCoords
                 }
             }
-            Column{
-                id: colLatLon
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: r.lat===r.ulat&&r.lon===r.ulon && !cbUseIntCoords.checked
-                //height: !visible?0:app.fs*3
-                Text{
-                    text: 'Lat:'+r.lat
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.lat!==-100.00?1.0:0.0
-                }
-                Text{
-                    text: 'Lon:'+r.lon
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.lon!==-100.00?1.0:0.0
-                }
-            }
-            Column{
-                visible: !colLatLon.visible
-                //height: !visible?0:app.fs*3
-                anchors.horizontalCenter: parent.horizontalCenter
-                Text{
-                    text: 'Error: Corregir el nombre de ubicación'
-                    font.pixelSize: app.fs*0.25
-                    color: 'white'
-                    visible: r.ulat===-1&&r.ulon===-1
-                }
-                Text{
-                    text: 'Lat:'+r.ulat
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.ulat!==-100.00?1.0:0.0
-                }
-                Text{
-                    text: 'Lon:'+r.ulon
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.ulon!==-100.00?1.0:0.0
-                }
-            }
-
-            Row{
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: app.fs*0.25
-                Button{
-                    id: botClear
-                    text: 'Limpiar'
-                    font.pixelSize: app.fs*0.5
-                    opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
-                    enabled: opacity===1.0
-                    visible: !cbUseIntCoords.checked
-                    onClicked: {
-                        clear()
-                    }
-                }
-                Button{
-                    id: botCrear
-                    text: 'Cargar'
-                    font.pixelSize: app.fs*0.5
-                    KeyNavigation.tab: tiCiudad.t
-                    visible: !cbUseIntCoords.checked?r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!=='':true
-                    onClicked: {
-                        searchGeoLoc(true)
-                        /*if(!settings.inputCoords){
-                            searchGeoLoc(true)
-                        }else{
-                            r.lat=parseFloat(tiLat.t.text)
-                            r.lon=parseFloat(tiLon.t.text)
-                            r.ulat=r.lat
-                            r.ulon=r.lon
-                            updateUParams()
-                            //loadJsonFromArgsBack()
-                            //setNewJsonFileData()
-                        }*/
-                    }
-
-                    //                Timer{
-                    //                    running: r.state==='show'
-                    //                    repeat: true
-                    //                    interval: 1000
-                    //                    onTriggered: {
-                    //                        let nom=tiNombre.t.text.replace(/ /g, '_')
-                    //                        let fileName=apps.jsonsFolder+'/'+nom+'.json'
-                    //                        if(unik.fileExist(fileName)){
-                    //                            r.uFileNameLoaded=tiNombre.text
-                    //                            let jsonFileData=unik.getFile(fileName)
-                    //                            let j=JSON.parse(jsonFileData)
-                    //                            let dia=''+j.params.d
-                    //                            if(parseInt(dia)<=9){
-                    //                                dia='0'+dia
-                    //                            }
-                    //                            let mes=''+j.params.m
-                    //                            if(parseInt(mes)<=9){
-                    //                                mes='0'+mes
-                    //                            }
-                    //                            let hora=''+j.params.h
-                    //                            if(parseInt(hora)<=9){
-                    //                                hora='0'+hora
-                    //                            }
-                    //                            let minuto=''+j.params.min
-                    //                            if(parseInt(minuto)<=9){
-                    //                                minuto='0'+minuto
-                    //                            }
-                    //                            let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-                    //                            controlTimeFecha.currentDate=nt
-                    //                            controlTimeFecha.gmt=j.params.gmt
-                    //                            if(tiCiudad.text.replace(/ /g, '')===''){
-                    //                                tiCiudad.text=j.params.ciudad
-                    //                            }
-                    //                            r.lat=j.params.lat
-                    //                            r.lon=j.params.lon
-                    //                            r.ulat=j.params.lat
-                    //                            r.ulon=j.params.lon
-                    //                            let vd=parseInt(tiFecha1.t.text)
-                    //                            let vm=parseInt(tiFecha2.t.text)
-                    //                            let vh=parseInt(tiHora1.t.text)
-                    //                            let vmin=parseInt(tiHora2.t.text)
-                    //                            let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-                    //                            let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-                    //                            if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-                    //                                botCrear.text='Modificar'
-                    //                            }else{
-                    //                                botCrear.text='[Crear]'
-                    //                            }
-                    //                        }else{
-                    //                            botCrear.text='Crear'
-                    //                        }
-                    //                    }
-                    //                }
-
-                }
-            }
         }
-    }
-    Timer{
-        id: tSearch
-        running: false
-        repeat: false
-        interval: 2000
-        onTriggered: searchGeoLoc(false)
     }
     Item{id: xuqp}
-    ZoolLogView{
-        id: l
-        width:parent.width*2
-        height: xLatIzq.height*0.35
-        parent: xLatIzq
-        anchors.left: parent.right
-        anchors.top: parent.top
-        visible: app.dev && zsm.currentIndex===2 && r.visible
-        Rectangle{
-            anchors.fill: parent
-            border.width: 4
-            border.color: 'red'
-            color: 'transparent'
-        }
-    }
     function searchGeoLoc(crear){
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -735,7 +455,7 @@ Rectangle {
         let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
-        let vCiudad=tiCiudad.t.text
+        let vCiudad=app.currentLugar
         r.uParamsLoaded='params_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
 
     }
@@ -800,16 +520,13 @@ Rectangle {
         let vlat
         let vlon
         let valt=0
-        if(!cbUseIntCoords.checked){
-            vlat=r.lat
-            vlon=r.lon
-        }else{
-            vlat=app.currentLat
-            vlon=app.currentLon
-        }
-        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
 
-        let nom='Tránsito '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm+' GMT.'+vgmt+' '+tiCiudad.text
+        vlat=app.currentLat
+        vlon=app.currentLon
+
+        let vCiudad=app.currentLugar.replace(/_/g, ' ')
+
+        let nom='Tránsito '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm+' GMT.'+vgmt+' '+app.currentLugar
 
         let vhsys=apps.currentHsys
 

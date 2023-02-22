@@ -97,7 +97,8 @@ Rectangle {
                         let alt=0
                         let ciudad='I. Casanova'
                         let strEdad='Edad: '+app.j.getEdad(d, m, a, h, min)+' años'
-                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys, -1)
+                        let aR=[]
+                        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys, -1, aR)
                     }
                 }
                 ZoolButton{
@@ -254,7 +255,8 @@ Rectangle {
                                 //strEdad='Edad: '+Math.abs(parseInt(currentAnio - a))+' años'
                             }
                             let ms=j.ms
-                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms)
+                            let aR=[]
+                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
                         }
                     }
                 }

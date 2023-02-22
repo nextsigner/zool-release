@@ -399,6 +399,19 @@ function getEdadRS(d, m, a, h, min) {
     }
     return edad
 }
+function getEdadDosFechas(dateAnterior, datePosterior) {
+    let hoy = new Date(dateAnterior)
+    let fechaNacimiento = new Date(datePosterior)
+    fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
+    let fechaNacimiento2 = new Date(fechaNacimiento)
+    let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
+    let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
+    if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
+        edad--
+    }
+    return edad
+}
+
 function runCmd(){
     let c='import unik.UnikQProcess 1.0\n'
         +'UnikQProcess{\n'
@@ -424,9 +437,9 @@ function deg_to_dms (deg) {
     return [d, m, s]
 }
 function qmltypeof(obj) {
-  let str = obj.toString();
-  let m0=str.split('_')
-  return m0[0]
+    let str = obj.toString();
+    let m0=str.split('_')
+    return m0[0]
 }
 
 //Zool
@@ -484,7 +497,7 @@ function loadJson(file){
 
     sweg.centerZoomAndPos()
 }
-function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms) {
+function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
     app.ev=false
     let d=new Date(Date.now())
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
@@ -522,25 +535,28 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
         sweg.loadBack(extJson)
     }
     let aL=zoolDataView.atLeft
-    let aR=[]
-    if(tipo==='sin'){
-        aR.push('<b>'+nom+'</b>')
-        aL.reverse()        
+    let aR=vAtRigth
+    if(vAtRigth===[]){
+        if(tipo==='sin'){
+            aR.push('<b>'+nom+'</b>')
+            aL.reverse()
+        }
+        if(tipo==='rs')aR.push(edad)
+        aR.push(''+vd+'/'+vm+'/'+va)
+        aR.push(''+vh+':'+vmin+'hs')
+        aR.push('<b>GMT:</b> '+vgmt)
+        aR.push('<b>Ubicación:</b> '+vCiudad)
+        aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+        aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+        aR.push('<b>Alt:</b> '+valt)
     }
-    if(tipo==='rs')aR.push(edad)
-    aR.push(''+vd+'/'+vm+'/'+va)
-    aR.push(''+vh+':'+vmin+'hs')
-    aR.push('<b>GMT:</b> '+vgmt)
-    aR.push('<b>Ubicación:</b> '+vCiudad)
-    aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
-    aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
-    aR.push('<b>Alt:</b> '+valt)
     let strSep=''
     if(tipo==='sin'){
         strSep='Sinastría'
     }
     if(tipo==='rs')strSep='Rev. Solar '+va
     if(tipo==='trans')strSep='Tránsitos'
+    if(tipo==='dirprim')strSep='Dir. Primarias'
     zoolDataView.setDataView(strSep, aL, aR)
 }
 
