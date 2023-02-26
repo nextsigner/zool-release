@@ -399,17 +399,85 @@ function getEdadRS(d, m, a, h, min) {
     }
     return edad
 }
+//function getEdadDosFechas(dateAnterior, datePosterior) {
+//    let hoy = new Date(dateAnterior)
+//    let fechaNacimiento = new Date(datePosterior)
+//    fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
+//    let fechaNacimiento2 = new Date(fechaNacimiento)
+//    let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
+//    let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
+//    if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
+//        edad--
+//    }
+//    return Math.abs(edad)
+//}
 function getEdadDosFechas(dateAnterior, datePosterior) {
-    let hoy = new Date(dateAnterior)
-    let fechaNacimiento = new Date(datePosterior)
-    fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
-    let fechaNacimiento2 = new Date(fechaNacimiento)
-    let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
-    let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
-    if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
-        edad--
+    let dA= new Date(dateAnterior)
+    let dB = new Date(datePosterior)
+    let edad = dB.getFullYear() - dA.getFullYear()
+    if(app.dev)log.lv('getEdadDosFechas( ... ): \n'+dA.toString()+'\n'+dB.toString())
+
+    let vANac=dA.getFullYear()
+    let vMNac=dA.getMonth()
+    let vDNac=dA.getDate()
+    let vHNac=dA.getHours()
+    let vMinNac=dA.getMinutes()
+
+    let vAMom=dB.getFullYear()
+    let vMMom=dB.getMonth()
+    let vDMom=dB.getDate()
+    let vHMom=dB.getHours()
+    let vMinMom=dB.getMinutes()
+    //if(vANac === vAMom){
+
+    //Si año es menor
+    if(vAMom < vANac){
+        return 0
     }
-    return edad
+
+    //Si año es igual
+    if(vAMom === vANac && vMMom < vMNac){
+        return 0
+    }
+    if(vAMom === vANac && vMMom === vMNac && vDMom < vDNac){
+        return 0
+    }
+    if(vAMom === vANac && vMMom === vMNac && vDMom === vDNac && vHMom < vHNac){
+        return 0
+    }
+    if(vAMom === vANac && vMMom === vMNac && vDMom === vDNac && vHMom === vHNac && vMinMom < vMinNac){
+        return 0
+    }
+
+    //Si año es mayor
+    if(vAMom > vANac){
+        if(vMMom === vMNac && vDMom === vDNac && vHMom === vHNac && vMinMom === vMinNac){
+            return edad-1
+        }
+
+        return edad
+    }
+
+//    if(vAMom >= vANac && vMNac < vMMom){
+//        edad--
+//        return Math.abs(edad)
+//    }
+//    if(vAMom >= vANac && vMMom >= vMNac && vDMom < vDNac){
+//        edad--
+//        return Math.abs(edad)
+//    }
+//    if(vAMom >= vANac && vMMom >= vMNac && vDMom >= vDNac && vHMom < vHNac){
+//        edad--
+//        return Math.abs(edad)
+//    }
+//    if(vAMom >= vANac && vMMom >= vMNac && vDMom >= vDNac && vHMom >= vHNac && vMinMom < vMinNac){
+//        edad--
+//        return Math.abs(edad)
+//    }
+
+
+
+    return Math.abs(edad)
 }
 
 function runCmd(){

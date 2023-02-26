@@ -36,7 +36,7 @@ Rectangle{
             opacity: !app.capturing?0.0:1.0
             Behavior on opacity{NumberAnimation{duration:!app.capturing?250:0}}
             ZoolGroupElementItemsPlanets{id: groupFrontPlanets; fs: r.fs; showTitle: r.showBack}
-            ZoolGroupElementItemsPlanets{id: groupBackPlanets; fs: r.fs; isBack: true; visible: r.showBack; showTitle: r.showBack}
+            ZoolGroupElementItemsPlanets{id: groupBackPlanets; fs: r.fs; isBack: true; showTitle: r.showBack; visible: r.showBack}
         }
         Column{
             id: colZoolGroupElementItems
@@ -54,7 +54,11 @@ Rectangle{
         }else{
             groupBack.load(json)
             groupBackPlanets.load(json)
-            r.showBack=true
+            if(app.mod==='vn' || app.mod==='dirprim'){
+                r.showBack=false
+            }else{
+                r.showBack=true
+            }
         }
         setUImgGrabber()
     }

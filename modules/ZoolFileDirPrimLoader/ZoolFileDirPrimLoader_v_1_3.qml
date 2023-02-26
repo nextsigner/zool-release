@@ -203,6 +203,19 @@ Rectangle {
                         let hcBackRot=0.0-parseFloat(diffAnio)
                         sweg.objHousesCircleBack.rotation=hcBackRot
                         sweg.objPlanetsCircleBack.rotation=hcBackRot
+
+                        let vdEvento=controlTimeFechaEvento.dia
+                        let vmEvento=controlTimeFechaEvento.mes
+                        let vaEvento=controlTimeFechaEvento.anio
+                        let vhEvento=controlTimeFechaEvento.hora
+                        let vminEvento=controlTimeFechaEvento.minuto
+
+                        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento, vdEvento, vhEvento, vminEvento))
+                        let aR=[]
+                        aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
+                        aR.push('<b>Edad:</b> '+edad+' años')
+                        zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
+
                         if(app.ev&&app.mod==='dirprim')return
                         tUpdateParamsEvento.restart()
                     }
@@ -451,12 +464,23 @@ Rectangle {
         let vh=controlTimeFecha.hora
         let vmin=controlTimeFecha.minuto
 
+        let vdEvento=controlTimeFechaEvento.dia
+        let vmEvento=controlTimeFechaEvento.mes
+        let vaEvento=controlTimeFechaEvento.anio
+        let vhEvento=controlTimeFechaEvento.hora
+        let vminEvento=controlTimeFechaEvento.minuto
 
         let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
         let vCiudad=app.currentLugar
-        r.uParamsLoaded='params_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
+        r.uParamsLoaded='params_fecha_inicio_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'_fecha_evento_'+vdEvento+'.'+vmEvento+'.'+vaEvento+'.'+vhEvento+'.'+vminEvento+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
+
+        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+        let aR=[]
+        aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
+        aR.push('<b>Edad:</b> '+edad+' años')
+        zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
 
     }
     function setDirPrimRotation(){
@@ -494,6 +518,7 @@ Rectangle {
         let hcBackRot=0.0-parseFloat(diffAnio)
         sweg.objHousesCircleBack.rotation=hcBackRot
         sweg.objPlanetsCircleBack.rotation=hcBackRot
+        //updateUParams()
     }
 
 
@@ -563,7 +588,12 @@ Rectangle {
         j+='"exts":[]'
         j+='}'
         app.currentDataBack=j
-        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '101', vtipo, vhsys, -1)
+
+        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(va, vm-1, vd, vh, vmin))
+        let aR=[]
+        aR.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
+        aR.push('<b>Edad:</b> '+edad+' años')
+        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ''+edad, vtipo, vhsys, -1, aR)
     }
     function enter(){
         if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){

@@ -184,6 +184,7 @@ Rectangle {
         r.stringMiddleSeparator=sep
         r.atLeft=aL
         r.atRight=aR
+        //if(app.dev)log.lv('zoolDataView.setDataView(sep, aL, aR): '+aL.toString()+' \n'+aR.toString())
         updateDataView()
     }
     function updateDataView(){
