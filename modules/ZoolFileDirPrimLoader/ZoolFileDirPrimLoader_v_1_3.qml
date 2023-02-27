@@ -29,10 +29,11 @@ Rectangle {
 
     property string uParamsLoaded: ''
     Timer{
-        running: r.uParamsLoaded!==''
+        id: tWaitLoadExterior
+        running: false
         repeat: false
-        interval: 100
-        onTriggered: r.loadJsonFromArgsBack()
+        interval: 3000
+        onTriggered: r.setDirPrimRotation()
     }
     MouseArea{
         anchors.fill: parent
@@ -135,26 +136,38 @@ Rectangle {
                     setAppTime: false
                     enableGMT:false
                     visible: false
-//                    onCurrentDateChanged: {
-//                        let d = new Date(currentDate)
-//                        if(app.currentGmt>0){
-//                            d.setHours(d.getHours()+app.currentGmt)
-//                        }else{
-//                            d.setHours(d.getHours()-app.currentGmt)
-//                        }
-//                        controlTimeFechaUTC.currentDate=d
-//                        controlTimeFechaUTC.gmt=0
-//                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
-//                        sweg.enableLoadBack=false
-//                        tUpdateParams.restart()
-//                    }
-//                    Timer{
-//                        id: tUpdateParams
-//                        running: false
-//                        repeat: false
-//                        interval: 1500
-//                        onTriggered: updateUParams()
-//                    }
+                    //                    onCurrentDateChanged: {
+                    //                        let d = new Date(currentDate)
+                    //                        if(app.currentGmt>0){
+                    //                            d.setHours(d.getHours()+app.currentGmt)
+                    //                        }else{
+                    //                            d.setHours(d.getHours()-app.currentGmt)
+                    //                        }
+                    //                        controlTimeFechaUTC.currentDate=d
+                    //                        controlTimeFechaUTC.gmt=0
+                    //                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
+                    //                        sweg.enableLoadBack=false
+                    //                        tUpdateParams.restart()
+                    //                    }
+                    //                    Timer{
+                    //                        id: tUpdateParams
+                    //                        running: false
+                    //                        repeat: false
+                    //                        interval: 1500
+                    //                        onTriggered: updateUParams()
+                    //                    }
+                }
+                ZoolButton{
+                    text:!app.ev?'Cargar Exterior':'Recargar Exterior'
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked:{
+                        if(app.ev){
+                            controlTimeFechaEvento.visible=false
+                            controlTimeFechaEvento.currentDate=app.currentDate
+                        }
+
+                        r.loadJsonFromArgsBack()
+                    }
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaEvento
@@ -163,61 +176,16 @@ Rectangle {
                     //KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
                     enableGMT:false
+                    visible: false
                     onCurrentDateChanged: {
+                        if(!visible)return
                         if(!r.visible)return
-                        //setDirPrimRotation()
-                        //return
-                        //l.clear()
-
-                        r.ulat=app.currentLat
-                        r.ulon=app.currentLon
-                        r.lat=app.currentLat
-                        r.lon=app.currentLon
-
-                        let j=app.currentJson
-                        if(!j)return
-                        let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
-                        //l.lv('signCircleRot:'+signCircleRot)
-
-                        //El astrólogo y matemático alemán Valentín Naibod cree perfeccionar la clave de Ptolomeo.
-                        let claveNaibodDeg=[0, 59, 8.33]
-                        let claveNaibodDec=0.9856481481481388
-                        let da = new Date(controlTimeFecha.currentDate)//Momento de inicio o nacimiento.
-                        let db = new Date(currentDate)//Momento de evento.
-                        let msAnioInicio=da.getTime()
-                        let msAnioEvento=db.getTime()
-                        let resSegA=msAnioInicio / 1000 //Cálculo de segundos de inicio.
-                        let resSegB=msAnioEvento / 1000 //Cálculo de segundos de evento.
-                        let resMinA=resSegA / 60 //Cálculo de minutos de inicio.
-                        let resMinB=resSegB / 60 //Cálculo de minutos de evento.
-                        let resHoraA=resMinA / 60 //Cálculo de horas de inicio.
-                        let resHoraB=resMinB / 60 //Cálculo de horas de evento.
-                        let resDiffHoras=resHoraB-resHoraA //Cálculo de diferencia de horas.
-                        let resDias=resDiffHoras / 24 //Cálculo de días de diferencia.
-                        let resAnio=parseFloat(resDias / 365.25).toFixed(2) //Cálc. diferencia en años entre inicio y evento.
-                        let diffAnio=resAnio*claveNaibodDec //Cálculo de diferencia de años en clave Naibod.
-                        let pcBackRot=parseFloat(parseFloat(signCircleRot)-parseFloat(diffAnio))
-
-                        //Cálculo de rotacion del esquema exterior para el método de Direcciones Primarias.
-                        let hcRot=parseFloat(parseFloat(90)-parseFloat(diffAnio))
-                        let hcBackRot=0.0-parseFloat(diffAnio)
-                        sweg.objHousesCircleBack.rotation=hcBackRot
-                        sweg.objPlanetsCircleBack.rotation=hcBackRot
-
-                        let vdEvento=controlTimeFechaEvento.dia
-                        let vmEvento=controlTimeFechaEvento.mes
-                        let vaEvento=controlTimeFechaEvento.anio
-                        let vhEvento=controlTimeFechaEvento.hora
-                        let vminEvento=controlTimeFechaEvento.minuto
-
-                        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento, vdEvento, vhEvento, vminEvento))
-                        let aR=[]
-                        aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
-                        aR.push('<b>Edad:</b> '+edad+' años')
-                        zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
-
-                        if(app.ev&&app.mod==='dirprim')return
-                        tUpdateParamsEvento.restart()
+                        if(!app.ev){
+                            r.loadJsonFromArgsBack()
+                            tWaitLoadExterior.start()
+                        }else{
+                            setDirPrimRotation()
+                        }
                     }
                     Timer{
                         id: tUpdateParamsEvento
@@ -227,6 +195,7 @@ Rectangle {
                         onTriggered: updateUParams()
                     }
                 }
+
                 //ZoolLogView
             }
             Column{
@@ -345,111 +314,7 @@ Rectangle {
         }
     }
     Item{id: xuqp}
-    function searchGeoLoc(crear){
-        for(var i=0;i<xuqp.children.length;i++){
-            xuqp.children[i].destroy(0)
-        }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        c+='            console.log(logData)\n'
-        c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
-        c+='        let json=JSON.parse(result)\n'
-        c+='        if(json){\n'
-        //c+='            console.log(JSON.stringify(json))\n'
 
-        c+='                if(r.lat===-1&&r.lon===-1){\n'
-        c+='                   tiCiudad.t.color="red"\n'
-        c+='                }else{\n'
-        c+='                   tiCiudad.t.color=apps.fontColor\n'
-        if(crear){
-            c+='                r.lat=json.coords.lat\n'
-            c+='                r.lon=json.coords.lon\n'
-            c+='                    updateUParams()//loadJsonFromArgsBack()\n'
-            c+='                    //setNewJsonFileData()\n'
-            c+='                    //r.state=\'hide\'\n'
-        }else{
-            c+='                r.ulat=json.coords.lat\n'
-            c+='                r.ulon=json.coords.lon\n'
-            c+='                setDirPrimRotation()\n'
-            //c+='                    setNewJsonFileData()\n'
-            //c+='                if(tiGMT.t.text===""){\n'
-            //c+='                    tiGMT.t.text=parseFloat(r.ulat / 10).toFixed(1)\n'
-            //c+='                }\n'
-        }
-        c+='                }\n'
-        c+='        }else{\n'
-        c+='            console.log(\'No se encontraron las cordenadas.\')\n'
-        c+='        }\n'
-        c+='        uqp'+ms+'.destroy(0)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        //c+='        console.log(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
-        c+='    }\n'
-        c+='}\n'
-        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
-    }
-
-    //    function setNewJsonFileData(){
-    //        console.log('setNewJsonFileData...')
-    //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
-    //        let fileName=apps.jsonsFolder+'/'+unom+'.json'
-    //        console.log('setNewJsonFileData() fileName: '+fileName)
-    //        if(unik.fileExist(fileName)){
-    //            //unik.deleteFile(fileName)
-    //        }
-    //        let d = new Date(Date.now())
-    //        let ms=d.getTime()
-    //        let nom=tiNombre.t.text.replace(/ /g, '_')
-
-    //        //let m0=tiFecha.t.text.split('/')
-    //        //if(m0.length!==3)return
-    //        //let vd=parseInt(tiFecha1.t.text)
-    //        //let vm=parseInt(tiFecha2.t.text)
-    //        //let va=parseInt(tiFecha3.t.text)
-
-    //        //m0=tiHora.t.text.split(':')
-    //        //let vh=parseInt(tiHora1.t.text)
-    //        //let vmin=parseInt(tiHora2.t.text)
-
-    //        let vd=controlTimeFecha.dia
-    //        let vm=controlTimeFecha.mes
-    //        let va=controlTimeFecha.anio
-    //        let vh=controlTimeFecha.hora
-    //        let vmin=controlTimeFecha.minuto
-
-    //        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-    //        let vlon=r.lon
-    //        let vlat=r.lat
-    //        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-    //        let j='{'
-    //        j+='"paramsBack":{'
-    //        j+='"tipo":"vn",'
-    //        j+='"ms":'+ms+','
-    //        j+='"n":"'+nom+'",'
-    //        j+='"d":'+vd+','
-    //        j+='"m":'+vm+','
-    //        j+='"a":'+va+','
-    //        j+='"h":'+vh+','
-    //        j+='"min":'+vmin+','
-    //        j+='"gmt":'+vgmt+','
-    //        j+='"lat":'+vlat+','
-    //        j+='"lon":'+vlon+','
-    //        j+='"ciudad":"'+vCiudad+'"'
-    //        j+='}'
-    //        j+='}'
-    //        app.currentData=j
-    //        nom=tiNombre.t.text.replace(/ /g, '_')
-    //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
-    //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-    //        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
-    //        //runJsonTemp()
-    //    }
     function updateUParams(){
         controlTimeFecha.gmt=app.currentGmt
         controlTimeFechaEvento.gmt=app.currentGmt
@@ -474,13 +339,15 @@ Rectangle {
         let vlon=r.lon
         let vlat=r.lat
         let vCiudad=app.currentLugar
-        r.uParamsLoaded='params_fecha_inicio_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'_fecha_evento_'+vdEvento+'.'+vmEvento+'.'+vaEvento+'.'+vhEvento+'.'+vminEvento+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
+        //r.uParamsLoaded='params_fecha_inicio_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'_fecha_evento_'+vdEvento+'.'+vmEvento+'.'+vaEvento+'.'+vhEvento+'.'+vminEvento+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
 
-        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+        r.uParamsLoaded='params_fecha_inicio_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
+
+        /*let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
         aR.push('<b>Edad:</b> '+edad+' años')
-        zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
+        zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)*/
 
     }
     function setDirPrimRotation(){
@@ -491,6 +358,7 @@ Rectangle {
         r.lon=app.currentLon
 
         let j=app.currentJson
+        if(!j)return
         let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
         //l.lv('signCircleRot:'+signCircleRot)
 
@@ -498,7 +366,7 @@ Rectangle {
         let claveNaibodDeg=[0, 59, 8.33]
         let claveNaibodDec=0.9856481481481388
         let da = new Date(controlTimeFecha.currentDate)//Momento de inicio o nacimiento.
-        let db = new Date(currentDate)//Momento de evento.
+        let db = new Date(controlTimeFechaEvento.currentDate)//Momento de evento.
         let msAnioInicio=da.getTime()
         let msAnioEvento=db.getTime()
         let resSegA=msAnioInicio / 1000 //Cálculo de segundos de inicio.
@@ -518,7 +386,22 @@ Rectangle {
         let hcBackRot=0.0-parseFloat(diffAnio)
         sweg.objHousesCircleBack.rotation=hcBackRot
         sweg.objPlanetsCircleBack.rotation=hcBackRot
-        //updateUParams()
+
+        let vdEvento=controlTimeFechaEvento.dia
+        let vmEvento=controlTimeFechaEvento.mes
+        let vaEvento=controlTimeFechaEvento.anio
+        let vhEvento=controlTimeFechaEvento.hora
+        let vminEvento=controlTimeFechaEvento.minuto
+
+        //if(app.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
+        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+        let aR=[]
+        aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
+        aR.push('<b>Edad:</b> '+edad+' años')
+        zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
+
+        if(app.ev&&app.mod==='dirprim')return
+        tUpdateParamsEvento.restart()
     }
 
 
@@ -539,6 +422,11 @@ Rectangle {
         let vh=controlTimeFecha.hora
         let vmin=controlTimeFecha.minuto
 
+        let vdEvento=controlTimeFechaEvento.dia
+        let vmEvento=controlTimeFechaEvento.mes
+        let vaEvento=controlTimeFechaEvento.anio
+        let vhEvento=controlTimeFechaEvento.hora
+        let vminEvento=controlTimeFechaEvento.minuto
 
         let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
 
@@ -589,15 +477,26 @@ Rectangle {
         j+='}'
         app.currentDataBack=j
 
-        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(va, vm-1, vd, vh, vmin))
+        /*if(app.dev)log.lv('loadJsonFromArgsBack()...')
+        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
-        aR.push('<b>Edad:</b> '+edad+' años')
-        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ''+edad, vtipo, vhsys, -1, aR)
+        aR.push('<b>Edad:</b> '+edad+' años')*/
+        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '0', vtipo, vhsys, -1, [])
+
+        //if(app.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
+        //let json=JSON.parse(app.currentJsonData)
+        //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
+        let rotSignCircle=sweg.objSignsCircle.rot
+        let rotPlanetsCircle=rotSignCircle
+        let rotHousesCircle=360-rotSignCircle//360-json.ph.h1.gdec+rotPlanetsCircle
+        sweg.objPlanetsCircleBack.rotation=rotPlanetsCircle
+        sweg.objHousesCircleBack.rotation=rotHousesCircle
+        controlTimeFechaEvento.visible=true
     }
     function enter(){
         if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){
-            searchGeoLoc(true)
+            //searchGeoLoc(true)
         }
     }
     function clear(){

@@ -415,7 +415,7 @@ function getEdadDosFechas(dateAnterior, datePosterior) {
     let dA= new Date(dateAnterior)
     let dB = new Date(datePosterior)
     let edad = dB.getFullYear() - dA.getFullYear()
-    if(app.dev)log.lv('getEdadDosFechas( ... ): \n'+dA.toString()+'\n'+dB.toString())
+    //if(app.dev)log.lv('getEdadDosFechas( ... ): \n'+dA.toString()+'\n'+dB.toString())
 
     let vANac=dA.getFullYear()
     let vMNac=dA.getMonth()
@@ -452,6 +452,18 @@ function getEdadDosFechas(dateAnterior, datePosterior) {
     //Si año es mayor
     if(vAMom > vANac){
         if(vMMom === vMNac && vDMom === vDNac && vHMom === vHNac && vMinMom === vMinNac){
+            return edad
+        }
+        if(vMMom === vMNac && vDMom === vDNac && vHMom === vHNac && vMinMom < vMinNac){
+            return edad-1
+        }
+        if(vMMom === vMNac && vDMom === vDNac && vHMom < vHNac && vMinMom === vMinNac){
+            return edad-1
+        }
+        if(vMMom === vMNac && vDMom < vDNac && vHMom === vHNac && vMinMom === vMinNac){
+            return edad-1
+        }
+        if(vMMom < vMNac && vDMom === vDNac && vHMom == vHNac && vMinMom === vMinNac){
             return edad-1
         }
 
