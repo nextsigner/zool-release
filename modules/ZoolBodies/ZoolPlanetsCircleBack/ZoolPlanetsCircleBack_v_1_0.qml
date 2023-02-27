@@ -1,7 +1,6 @@
 import QtQuick 2.0
-import "../../js/Funcs.js" as JS
 
-import ZoolBodies.ZoolAs 3.2
+import ZoolBodies.ZoolAsBack 3.3
 
 Item{
     id: r
@@ -43,30 +42,40 @@ Item{
     ]
     Repeater{
         model: app.planetasRes
-        ZoolAs{fs:r.planetSize;astro:modelData;numAstro: index}
+        ZoolAsBack{fs:r.planetSize;astro:modelData;numAstro: index}
     }
     function pressed(o){
-        if(app.currentPlanetIndex!==o.numAstro){
-            app.currentPlanetIndex=o.numAstro
+        if(app.currentPlanetIndexBack!==o.numAstro){
+            app.currentPlanetIndexBack=o.numAstro
         }else{
-            app.currentPlanetIndex=-1
+            app.currentPlanetIndexBack=-1
+            sweg.objHousesCircleBack.currentHouse=-1
         }
-        //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
     function doublePressed(o){
 
     }
-
     function loadJson(json){
+        housesCircleBack.extraWidth=0
+
         r.totalPosX=-1
         r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
-        var houseSun=-1
+        var pMax=0
+        var adeg=[]
         for(var i=0;i<15;i++){
             var objAs=r.children[i]
             jo=json.pc['c'+i]
             let degRed=0.0
+            let npMax=0
+            for(var i2=0;i2<adeg.length;i2++){
+                if(jo.gdeg<=adeg[i2]+5&&jo.gdeg>=adeg[i2]-5){
+                    pMax++
+                    npMax++
+                }
+            }
+            adeg.push(jo.gdeg)
             if(jo.mdeg>=10&&jo.mdeg<=20){
                 degRed=0.2
             }
@@ -82,27 +91,22 @@ Item{
             if(jo.mdeg>=50){
                 degRed=1.0
             }
-            objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
-            if(i===0)app.currentRotationxAsSol=objAs.rotation
+            objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)+degRed
             o={}
-            o.p=objSigns[jo.is]
+            o.p=npMax
+            //o.p=objSigns[jo.is]
+            //if(o.p>pMax)pMax=o.p
             if(r.totalPosX<o.p){
                 r.totalPosX=o.p
             }
             o.ns=objSignsNames.indexOf(jo.is)
-            /*if(i===0||i===1){
-                o.ih=getHouseIndex(jo.gdec, json.ph.h1.gdec, i)//jo.ih
-            }else{
-                o.ih=jo.ih
-            }*/
-            o.ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)//jo.ih
-
+            //o.ih=jo.ih
+            o.ih=sweg.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            if(i!==10&&i!==11)o.retro=jo.retro
             o.rsg=jo.rsgdeg
             o.g=jo.gdeg
             o.m=jo.mdeg
-            //o.h=jo.h
-            o.ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
-            if(i!==10&&i!==11)o.retro=jo.retro
+            o.h=jo.h
             objAs.is=jo.is
             objAs.objData=o
             objSigns[jo.is]++
@@ -111,54 +115,69 @@ Item{
                 app.currentGradoSolar=jo.gdeg
                 app.currentMinutoSolar=jo.mdeg
                 app.currentSegundoSolar=jo.sdeg
-                houseSun=jo.ih
+                //houseSun=jo.ih
             }
+
         }
 
-        //Fortuna
-        //        let joHouses=json.ph['h1']
-        //        let joSol=json.pc['c0']
-        //        let joLuna=json.pc['c1']
-        //        objAs=r.children[15]
-        //        var gf
-        //        if(houseSun>=6){
-        //            //Fortuna en Carta Diurna
-        //            //Calculo para Fortuna Diurna Asc + Luna - Sol
-        //            gf=joHouses.gdec+joLuna.gdec - joSol.gdec
-        //            if(gf>=360)gf=gf-360
-        //            objAs.rotation=signCircle.rot-gf
-        //        }else{
-        //            //Fortuna en Carta Nocturna
-        //            //Calculo para Fortuna Nocturna Asc + Sol - Luna
-        //            gf=joHouses.gdec+joSol.gdec - joLuna.gdec
-        //            if(gf>=360)gf=gf-360
-        //            objAs.rotation=signCircle.rot-gf
-        //        }
-        //        //console.log('gf: '+JS.deg_to_dms(gf))
-        //        var arrayDMS=JS.deg_to_dms(gf)
-        //        o={}
-        //        o.g=arrayDMS[0]
-        //        o.m=arrayDMS[1]
-        //        var rsDegSign=gf
-        //        for(var i2=1;i2<13;i2++){
-        //            if(i2*30<gf){
-        //                objAs.is=i2
-        //                rsDegSign-=30
-        //                o.p=objSigns[i2]
-        //            }
+//        if(pMax>3){
+//            r.planetSize-=0.5
+//        }
+        let espacio=sweg.width*0.1
+        let rp=espacio/pMax
+        if(rp*2<sweg.fs*0.75){
+            rp=rp*2
+        }else{
+            rp=sweg.fs*0.75
+        }
+        r.planetSize=rp
 
-        //            if(json.ph['h'+i2].gdec<gf){
-        //                o.h=i2
-        //                o.ih=i2
-        //            }
-        //        }
-        //        if(r.totalPosX<o.p){
-        //            r.totalPosX=o.p
-        //        }
-        //        o.ns=objSignsNames.indexOf(o.is)
-        //        o.rsg=rsDegSign
-        //        objAs.objData=o
-        //        objSigns[o.is]++
+        housesCircleBack.extraWidth=rp*0.25*pMax+r.planetSize
+
+        //Fortuna
+//        let joHouses=json.ph['h1']
+//        let joSol=json.pc['c0']
+//        let joLuna=json.pc['c1']
+//        objAs=r.children[15]
+//        var gf
+//        if(houseSun>=6){
+//            //Fortuna en Carta Diurna
+//            //Calculo para Fortuna Diurna Asc + Luna - Sol
+//            gf=joHouses.gdec+joLuna.gdec - joSol.gdec
+//            if(gf>=360)gf=gf-360
+//            objAs.rotation=signCircle.rot-gf
+//        }else{
+//            //Fortuna en Carta Nocturna
+//            //Calculo para Fortuna Nocturna Asc + Sol - Luna
+//            gf=joHouses.gdec+joSol.gdec - joLuna.gdec
+//            if(gf>=360)gf=gf-360
+//            objAs.rotation=signCircle.rot-gf
+//        }
+//        //console.log('gf: '+app.j.deg_to_dms(gf))
+//        var arrayDMS=app.j.deg_to_dms(gf)
+//        o={}
+//        o.g=arrayDMS[0]
+//        o.m=arrayDMS[1]
+//        var rsDegSign=gf
+//        for(var i2=1;i2<13;i2++){
+//            if(i2*30<gf){
+//                objAs.is=i2
+//                rsDegSign-=30
+//                o.p=objSigns[i2]
+//            }
+
+//            if(json.ph['h'+i2].gdec<gf){
+//                o.h=i2
+//                o.ih=i2
+//            }
+//        }
+//        if(r.totalPosX<o.p){
+//            r.totalPosX=o.p
+//        }
+//        o.ns=objSignsNames.indexOf(o.is)
+//        o.rsg=rsDegSign
+//        objAs.objData=o
+//        objSigns[o.is]++
 
         /*
         //Infortunio
@@ -184,7 +203,7 @@ Item{
             if(gf<0)gf=360-gf
             objAs.rotation=signCircle.rot-gf
         }
-        arrayDMS=JS.deg_to_dms(gf)
+        arrayDMS=app.j.deg_to_dms(gf)
         o={}
         o.g=arrayDMS[0]
         o.m=arrayDMS[1]
@@ -209,5 +228,4 @@ Item{
         objAs.objData=o
         objSigns[o.is]++*/
     }
-
 }

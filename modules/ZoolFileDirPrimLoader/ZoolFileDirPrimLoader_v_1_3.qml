@@ -490,8 +490,10 @@ Rectangle {
         let rotSignCircle=sweg.objSignsCircle.rot
         let rotPlanetsCircle=rotSignCircle
         let rotHousesCircle=360-rotSignCircle//360-json.ph.h1.gdec+rotPlanetsCircle
-        sweg.objPlanetsCircleBack.rotation=rotPlanetsCircle
+        //sweg.objPlanetsCircleBack.rotation=rotPlanetsCircle
+        //sweg.objHousesCircleBack.rotation=rotHousesCircle
         sweg.objHousesCircleBack.rotation=rotHousesCircle
+        //sweg.objPlanetsCircleBack.rotation=rotHousesCircle
         controlTimeFechaEvento.visible=true
     }
     function enter(){

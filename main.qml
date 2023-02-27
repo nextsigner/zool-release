@@ -21,7 +21,7 @@ import ZoolDataView 1.0
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
-import ZoolBodies 1.5
+import ZoolBodies 1.6
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
