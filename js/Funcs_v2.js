@@ -492,6 +492,12 @@ function getEdadDosFechas(dateAnterior, datePosterior) {
     return Math.abs(edad)
 }
 
+function eventoEsMenorAInicio(dateInicio, dateEvento){
+    let msInicio= new Date(dateInicio).getTime()
+    let msEvento= new Date(dateEvento).getTime()
+    return msEvento < msInicio
+}
+
 function runCmd(){
     let c='import unik.UnikQProcess 1.0\n'
         +'UnikQProcess{\n'

@@ -180,6 +180,10 @@ Rectangle {
                     onCurrentDateChanged: {
                         if(!visible)return
                         if(!r.visible)return
+                        if(app.j.eventoEsMenorAInicio(app.currentDate, currentDate)){
+                            currentDate=app.currentDate
+                            return
+                        }
                         if(!app.ev){
                             r.loadJsonFromArgsBack()
                             tWaitLoadExterior.start()
@@ -477,11 +481,6 @@ Rectangle {
         j+='}'
         app.currentDataBack=j
 
-        /*if(app.dev)log.lv('loadJsonFromArgsBack()...')
-        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
-        let aR=[]
-        aR.push('<b>Fecha:</b> '+vd+'/'+vm+'/'+va)
-        aR.push('<b>Edad:</b> '+edad+' años')*/
         app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '0', vtipo, vhsys, -1, [])
 
         //if(app.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
