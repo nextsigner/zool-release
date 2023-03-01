@@ -51,6 +51,10 @@ Item{
     }
     //-->Comienza Json Abstracto.
     function setJsonAbs(j){
+        let exts=j.exts
+        if(!exts){
+            j.exts=[]
+        }
         r.ja=j
     }
     function getJsonAbs(){
@@ -125,7 +129,9 @@ Item{
         return ret
     }
     function addExtData(json){
+        if(app.dev)log.lv('zfdm.addExtData( '+JSON.stringify(json, null, 2)+' )')
         let o=r.ja.exts
+        if(app.dev)log.lv('r.ja.exts= '+JSON.stringify(o, null, 2)+'')
         if(!o)return
         let nIndex=Object.keys(o).length
         o[nIndex]={}

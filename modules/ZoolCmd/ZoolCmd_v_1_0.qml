@@ -193,7 +193,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             if(parseInt(comando[1])>=1){
                 panelRsList.setRsList(parseInt(comando[1])+ 1)
                 //panelRsList.state='show'
-                sv.currentIndex=4
+                zsm.currentIndex=4
             }
         }
 

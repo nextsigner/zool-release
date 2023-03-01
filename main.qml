@@ -65,7 +65,7 @@ ZoolMainWindow{
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
     property string url
-    property string mod: 'mi'
+    property string mod: 'vn'
 
     property var objInFullWin
     property bool capturing: false
@@ -73,7 +73,6 @@ ZoolMainWindow{
     property bool showCenterLine: false
     property bool enableAn: false
     property int msDesDuration: 500
-
 
     property var objZoolFileExtDataManager
     property var aExtsIds: []

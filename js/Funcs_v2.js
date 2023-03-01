@@ -194,7 +194,9 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
     if(tipo==='trans'){
         zoolDataView.setDataView('Tránsitos'+a, aL, aR)
     }
-
+    if(tipo==='dirprim'){
+        zoolDataView.setDataView('Dir. Prim. '+a+'/'+m+'/'+d, aL, aR)
+    }
     if(save){
         let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
         //if(app.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
@@ -588,7 +590,7 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     let d=new Date(Date.now())
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
                         parseInt(vmin))
-    let stringEdad=edad.indexOf('NaN')<0?edad:''
+    let stringEdad=(''+edad).indexOf('NaN')<0?edad:''
 
     let extId='id'
     extId+='_'+vd
@@ -604,6 +606,10 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     extId+='_'+hsys
 
     let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+    //if(app.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
+
+    //if(app.dev)log.lv('Json fallado: loadBack(...) json: '+js)
+
     let json=JSON.parse(js)
 
     let extIdExist=zfdm.isExtId(extId)

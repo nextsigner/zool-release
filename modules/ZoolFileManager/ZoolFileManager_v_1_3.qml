@@ -5,10 +5,10 @@ import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
 import ZoolFileMaker 1.2
-import ZoolFileExtDataManager 1.0
+import ZoolFileExtDataManager 1.1
 import ZoolFileLoader 1.3
 import ZoolFileTransLoader 1.0
-import ZoolFileDirPrimLoader 1.3
+import ZoolFileDirPrimLoader 1.4
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -206,7 +206,7 @@ Rectangle {
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
-        showSection(s.currentQmlTypeShowed)
+        //showSection(s.currentQmlTypeShowed)
         //        if(app.dev){
 //            zoolFileDirPrimLoader.ctFecha.gmt=-3
 //            //mkTimer()
@@ -229,7 +229,18 @@ Rectangle {
         }
         s.currentQmlTypeShowed=qmltype
     }
-
+    function getSection(typeOfSection){
+        let obj
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]//.children[0]
+            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(''+app.j.qmltypeof(o)===''+typeOfSection){
+                obj=o
+                break
+            }
+        }
+        return obj
+    }
     function enter(){
         panelActive.enter()
     }

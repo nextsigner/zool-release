@@ -256,7 +256,19 @@ Rectangle {
                             }
                             let ms=j.ms
                             let aR=[]
-                            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
+
+                            if(t==='dirprim'){
+                                let vDirPrimA=j.dirprimA
+                                let vDirPrimM=j.dirprimM
+                                let vDirPrimD=j.dirprimD
+                                let vDirPrimH=j.dirprimH
+                                let vDirPrimMin=j.dirprimMin
+                                let dateEvento=new Date(1976, 5,20,23,4)
+                                let section=zsm.getPanel('ZoolFileManager').getSection('ZoolFileDirPrimLoader')
+                                section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
+                            }else{
+                                app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
+                            }
                         }
                     }
                 }
