@@ -35,7 +35,7 @@ Rectangle{
             w: t.contentWidth
             r.width: w+padding*2
             //text:'°'+r.g+' \''+r.m+' \'\''+r.s+'\n'+sweg.getDDToDMS(r.gdec).deg
-            text:'°'+parseInt(sweg.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+sweg.getDDToDMS(r.gdec).min+' \'\''+sweg.getDDToDMS(r.gdec).sec+' ih: '+r.is
+            text:''+app.signos[r.is]+' Casa '+r.ih+'\n°'+parseInt(sweg.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+sweg.getDDToDMS(r.gdec).min+' \'\''+sweg.getDDToDMS(r.gdec).sec
             wrapMode: Text.NoWrap
             textFormat: Text.PlainText
             fs: img0.width*0.25

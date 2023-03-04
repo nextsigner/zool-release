@@ -127,6 +127,10 @@ Item{
             o.s=jo.sdeg
             o.ih=sweg.objHousesCircle.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
             o.is=jo.is
+            if(app.mod==='dirprim'){
+                o.is=sweg.getIndexSign(o.gdec)
+            }
+
             if(i!==10&&i!==11)o.retro=jo.retro
             objAs.is=jo.is
             objAs.objData=o

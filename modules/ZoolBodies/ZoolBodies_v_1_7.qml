@@ -643,6 +643,18 @@ Item {
         a.push(parseInt(app.currentXAs.uRot))
         return a
     }
+    function getIndexSign(gdec){
+        let index=0
+        let g=0.0
+        for(var i=0;i<12;i++){
+            g = g + 30.00
+            if (g > parseFloat(gdec)){
+                break
+            }
+            index = index + 1
+        }
+        return index
+    }
     function convertDDToDMS(D, lng) {
       return {
         dir: D < 0 ? (lng ? "W" : "S") : lng ? "E" : "N",
