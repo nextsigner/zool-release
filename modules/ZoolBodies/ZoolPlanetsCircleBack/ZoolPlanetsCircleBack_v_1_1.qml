@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-import ZoolBodies.ZoolAsBack 3.3
+import ZoolBodies.ZoolAsBack 3.4
 
 Item{
     id: r
@@ -119,6 +119,7 @@ Item{
             o.rsg=jo.rsgdeg
             o.g=jo.gdeg
             o.m=jo.mdeg
+            o.s=jo.sdeg
             //o.h=jo.h
             o.ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             if(i!==10&&i!==11)o.retro=jo.retro
