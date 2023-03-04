@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import ZoolText 1.1
 
+import ZoolBodies.ZoolAsCotaDeg 1.0
+
 import "../"
 
 Item{
@@ -287,49 +289,18 @@ Item{
             }
         }
     }
-    Rectangle{
+    ZoolAsCotaDeg{
         id: xDegData
         width: xIcon.width*2
-        height: 20
-        rotation: -270
-        color: 'transparent'
         anchors.centerIn: xIcon
         z: xIcon.z-1
-
-        property int distancia: img0.width
-
-        Item{
-            width: xDegData.distancia
-            height: 1
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.horizontalCenterOffset: xDegData.distancia
-            Rectangle{
-                id: cotaBg
-                anchors.fill: parent
-                color: xIconPlanetSmall.color
-                opacity: xIconPlanetSmall.opacity
-            }
-            ZoolText{
-                id: degData
-                w: t.contentWidth
-                r.width: w+padding*2
-                text:'°'+objData.rsg+' \''+objData.m+' \'\''+objData.s
-                wrapMode: Text.NoWrap
-                textFormat: Text.PlainText
-                fs: img0.width*0.25
-                padding: fs*0.5
-                color: apps.fontColor
-                textBackgroundColor: apps.backgroundColor
-                textBackgroundOpacity: 0.5
-                borderWidth: 1
-                borderColor: apps.fontColor
-                borderRadius: fs*0.5
-                rotation: img0.rotation+270
-                anchors.centerIn: parent
-                anchors.horizontalCenterOffset: xDegData.distancia*0.5+height*0.5
-            }
-        }
+        distancia: img0.width
+        g: objData.rsg
+        m:objData.m
+        s:objData.s
+        cotaColor: xIconPlanetSmall.color
+        cotaOpacity: xIconPlanetSmall.opacity
+        //rot: -270
     }
 
     function rot(d){
