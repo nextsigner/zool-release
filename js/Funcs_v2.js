@@ -1301,6 +1301,7 @@ function getNums(fecha){
     let f=fecha
     let m0=f.split('/')
     let m1=m0[0].split('')
+    if(m1.length<=0)return [-1, -1, -1]
     let m2=m0[1].split('')
     let m3=m0[2].split('')
     nf+=parseInt(m1[0])

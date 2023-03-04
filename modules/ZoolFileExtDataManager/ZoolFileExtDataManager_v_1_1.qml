@@ -258,12 +258,13 @@ Rectangle {
                             let aR=[]
 
                             if(t==='dirprim'){
-                                let vDirPrimA=j.dirprimA
-                                let vDirPrimM=j.dirprimM
-                                let vDirPrimD=j.dirprimD
-                                let vDirPrimH=j.dirprimH
-                                let vDirPrimMin=j.dirprimMin
-                                let dateEvento=new Date(1976, 5,20,23,4)
+//                                let vDirPrimA=j.dirprimA
+//                                let vDirPrimM=j.dirprimM
+//                                let vDirPrimD=j.dirprimD
+//                                let vDirPrimH=j.dirprimH
+//                                let vDirPrimMin=j.dirprimMin
+//                                let dateEvento=new Date(1976, 5,20,23,4)
+                                let dateEvento=new Date(a, m, d, h,min)
                                 let section=zsm.getPanel('ZoolFileManager').getSection('ZoolFileDirPrimLoader')
                                 section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
                             }else{
@@ -273,7 +274,7 @@ Rectangle {
                     }
                 }
 
-            }
+            }            
             Rectangle{
                 width: txtDelete.contentWidth+app.fs*0.35
                 height: width

@@ -77,6 +77,9 @@ Item {
     function loadHouses(jsonData) {
         r.arrayWg=[]
         xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
+        if(app.mod==='dirprim'){
+            xArcsBack.rotation-=sweg.dirPrimRot
+        }
         var h
         let aDegs=[]
         let resta=0.000000

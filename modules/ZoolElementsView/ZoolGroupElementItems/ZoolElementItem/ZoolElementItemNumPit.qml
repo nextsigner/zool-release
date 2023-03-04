@@ -56,6 +56,7 @@ Rectangle{
     }
     function updateNumPit(){
         let d = !r.isBack?app.j.getNums(app.currentFecha):app.j.getNums(app.currentFechaBack)
+        if(d[0]===-1 && d[1]===-1 && d[2]===-1)return
         r.nd=d[0]
         r.ns=d[1]
         r.ag=parseInt(d[2])

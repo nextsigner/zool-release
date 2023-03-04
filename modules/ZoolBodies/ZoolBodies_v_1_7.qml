@@ -61,6 +61,8 @@ Item {
     property bool enableLoad: true
     property bool enableLoadBack: true
 
+    property real dirPrimRot: 0.00
+
     //state: apps.swegMod//aStates[0]
     state: aStates[0]
     states: [
@@ -253,7 +255,7 @@ Item {
                 }
                 BackgroundImages{id: backgroundImages}
                 ZoolHousesCircleBack{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
-                    id:housesCircleBack
+                    id: housesCircleBack
                     height: width
                     anchors.centerIn: signCircle
                     w: r.fs
