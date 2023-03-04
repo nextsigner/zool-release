@@ -21,7 +21,7 @@ Item{
     property int is
     property int fs:planetsCircleBack.planetSize
     //property var objData: ({g:0, m:0,ih:0,rsgdeg:0,rsg:0})
-    property var objData: ({g:0, m:0,s:0,ih:0,rsgdeg:0,rsg:0})
+    property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
     property int pos: 1
     property int g: -1
     property int m: -1
@@ -295,9 +295,12 @@ Item{
         anchors.centerIn: xIcon
         z: xIcon.z-1
         distancia: img0.width
+        gdec: objData.gdec
         g: objData.rsg
         m:objData.m
         s:objData.s
+        ih:objData.ih
+        is:objData.is
         cotaColor: xIconPlanetSmall.color
         cotaOpacity: xIconPlanetSmall.opacity
         //rot: -270

@@ -10,9 +10,12 @@ Rectangle{
 
     property int distancia: app.fs
     property int rot: -270
+    property real gdec: 0.000
     property int g: -1
     property int m: -1
     property int s: -1
+    property int ih: -1
+    property int is: -1
 
     property alias cotaColor: cotaBg.color
     property alias cotaOpacity: cotaBg.opacity
@@ -31,7 +34,8 @@ Rectangle{
             id: degData
             w: t.contentWidth
             r.width: w+padding*2
-            text:'°'+r.g+' \''+r.m+' \'\''+r.s
+            //text:'°'+r.g+' \''+r.m+' \'\''+r.s+'\n'+sweg.getDDToDMS(r.gdec).deg
+            text:'°'+parseInt(sweg.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+sweg.getDDToDMS(r.gdec).min+' \'\''+sweg.getDDToDMS(r.gdec).sec+' ih: '+r.is
             wrapMode: Text.NoWrap
             textFormat: Text.PlainText
             fs: img0.width*0.25

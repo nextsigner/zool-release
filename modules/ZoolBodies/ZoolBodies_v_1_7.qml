@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import "../../js/Funcs.js" as JS
 
 
-import ZoolBodies.ZoolPlanetsCircleBack 1.1
+import ZoolBodies.ZoolPlanetsCircleBack 1.2
 import ZoolHousesCircle 1.1
 import ZoolHousesCircleBack 1.2
 import ZoolBodies.ZoolAspectsView 1.0
@@ -642,5 +642,20 @@ Item {
         a.push(parseInt(rect.y))
         a.push(parseInt(app.currentXAs.uRot))
         return a
+    }
+    function convertDDToDMS(D, lng) {
+      return {
+        dir: D < 0 ? (lng ? "W" : "S") : lng ? "E" : "N",
+        deg: 0 | (D < 0 ? (D = -D) : D),
+        min: 0 | (((D += 1e-9) % 1) * 60),
+        sec: (0 | (((D * 60) % 1) * 6000)) / 100,
+      };
+    }
+    function getDDToDMS(D) {
+      return {
+        deg: 0 | (D < 0 ? (D = -D) : D),
+        min: 0 | (((D += 1e-9) % 1) * 60),
+        sec: (0 | (((D * 60) % 1) * 6000)) / 100,
+      };
     }
 }
