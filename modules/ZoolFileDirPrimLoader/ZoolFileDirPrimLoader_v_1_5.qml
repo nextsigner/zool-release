@@ -18,6 +18,8 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
+    property bool claveNaibodEnabled: true
+
     property bool moduleEnabled: false
 
     property alias ctFecha: controlTimeFecha
@@ -33,6 +35,11 @@ Rectangle {
 
     property bool loadingFromExternal: false
     property string folderImg: '../../modules/ZoolBodies/ZoolAs/imgs_v1'
+
+    onVisibleChanged: {
+        //r.moduleEnabled=visible
+        if(!visible)r.moduleEnabled=false
+    }
 
     Timer{
         id: tWaitLoadExterior
@@ -123,6 +130,39 @@ Rectangle {
                     setAppTime: false
                     enableGMT:false
                     visible: false
+                }
+                Row{
+                    spacing: app.fs*0.1
+                    visible: r.moduleEnabled
+                    ZoolText{
+                        text:'Naibod'
+                        fs: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    RadioButton {
+                        id: rbClave1
+                        checked: true//r.claveNaibodEnabled
+                        anchors.verticalCenter: parent.verticalCenter
+                        onCheckedChanged: {
+                            if(checked)r.claveNaibodEnabled=checked
+                        }
+                    }
+                    Item{width: app.fs*0.25; height: 1}
+                    ZoolText{
+                        text:'Ptolomeo'
+                        fs: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    RadioButton {
+                        id: rbClave2
+                        checked: false//!r.claveNaibodEnabled
+                        anchors.verticalCenter: parent.verticalCenter
+                        onCheckedChanged: {
+                            if(checked)r.claveNaibodEnabled=false
+                        }
+                    }
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaEvento
@@ -503,7 +543,11 @@ Rectangle {
         let resDiffHoras=resHoraB-resHoraA //Cálculo de diferencia de horas.
         let resDias=resDiffHoras / 24 //Cálculo de días de diferencia.
         let resAnio=parseFloat(resDias / 365.25).toFixed(2) //Cálc. diferencia en años entre inicio y evento.
-        let diffAnio=resAnio*claveNaibodDec //Cálculo de diferencia de años en clave Naibod.
+        let diffAnio=resAnio
+        if(r.claveNaibodEnabled){
+            //Cálculo de diferencia de años en clave Naibod.
+            diffAnio=resAnio*claveNaibodDec
+        }
         let pcBackRot=parseFloat(parseFloat(signCircleRot)-parseFloat(diffAnio))
 
         //Cálculo de rotacion del esquema exterior para el método de Direcciones Primarias.
