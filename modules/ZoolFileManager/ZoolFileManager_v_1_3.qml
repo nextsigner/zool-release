@@ -124,7 +124,7 @@ Rectangle {
             height: r.hp
             ZoolFileMaker{
                 id: zoolFileMaker;
-                visible: true
+                //visible: true
                 height: r.hp
             }
             ZoolFileLoader{id: zoolFileLoader}

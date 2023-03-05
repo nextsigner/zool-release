@@ -18,6 +18,8 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
+    property bool moduleEnabled: false
+
     property alias ctFecha: controlTimeFecha
     property alias xCfgItem: colXConfig
 
@@ -107,6 +109,13 @@ Rectangle {
             Column{
                 spacing: app.fs*0.25
                 anchors.horizontalCenter: parent.horizontalCenter
+                ZoolButton{
+                    text: r.moduleEnabled?'Desactivar Modulo':'Activar Modulo'
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked:{
+                        r.moduleEnabled=!r.moduleEnabled
+                    }
+                }
                 ZoolControlsTime{
                     id: controlTimeFecha
                     labelText: 'Momento de tránsitos'
@@ -114,26 +123,6 @@ Rectangle {
                     setAppTime: false
                     enableGMT:false
                     visible: false
-                    //                    onCurrentDateChanged: {
-                    //                        let d = new Date(currentDate)
-                    //                        if(app.currentGmt>0){
-                    //                            d.setHours(d.getHours()+app.currentGmt)
-                    //                        }else{
-                    //                            d.setHours(d.getHours()-app.currentGmt)
-                    //                        }
-                    //                        controlTimeFechaUTC.currentDate=d
-                    //                        controlTimeFechaUTC.gmt=0
-                    //                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
-                    //                        sweg.enableLoadBack=false
-                    //                        tUpdateParams.restart()
-                    //                    }
-                    //                    Timer{
-                    //                        id: tUpdateParams
-                    //                        running: false
-                    //                        repeat: false
-                    //                        interval: 1500
-                    //                        onTriggered: updateUParams()
-                    //                    }
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaEvento
@@ -142,10 +131,11 @@ Rectangle {
                     //KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
                     enableGMT:false
-                    //visible: false
+                    visible: r.moduleEnabled
                     onCurrentDateChanged: {
 
                         //if(!visible || !r.loadingFromExternal)return
+                        if(!r.moduleEnabled)return
                         if(!r.visible && !r.loadingFromExternal)return
                         tLoad.restart()
                         if(app.j.eventoEsMenorAInicio(app.currentDate, currentDate)){
@@ -173,6 +163,7 @@ Rectangle {
                 Row{
                     spacing: app.fs*0.1
                     anchors.horizontalCenter: parent.horizontalCenter
+                    visible: r.moduleEnabled
                     ZoolButton{
                         text:'Restablecer'
                         anchors.verticalCenter: parent.verticalCenter
@@ -338,6 +329,7 @@ Rectangle {
                 border.width: 1
                 border.color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
+                visible: r.moduleEnabled
                 property bool forBack: true
                 Column{
                     id: col2
