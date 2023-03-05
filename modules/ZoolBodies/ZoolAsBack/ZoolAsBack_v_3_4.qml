@@ -16,8 +16,11 @@ Item{
 
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
 
-    property bool selected: numAstro === app.currentPlanetIndexBack
+    property int numAstro: 0
     property string astro
+
+    property bool selected: numAstro === app.currentPlanetIndexBack
+
     property int is
     property int fs:planetsCircleBack.planetSize
     //property var objData: ({g:0, m:0,ih:0,rsgdeg:0,rsg:0})
@@ -25,7 +28,8 @@ Item{
     property int pos: 1
     property int g: -1
     property int m: -1
-    property int numAstro: 0
+
+
 
     property color colorCuerpo: '#ff3300'
 
@@ -304,6 +308,15 @@ Item{
         cotaColor: xIconPlanetSmall.color
         cotaOpacity: xIconPlanetSmall.opacity
         //rot: -270
+        visible: sweg.listCotasShowing.indexOf(r.numAstro)>=0
+        Timer{
+            running: true
+            repeat: true
+            interval: 250
+            onTriggered: {
+                parent.visible=sweg.listCotasShowing.indexOf(r.numAstro)>=0
+            }
+        }
     }
 
     function rot(d){

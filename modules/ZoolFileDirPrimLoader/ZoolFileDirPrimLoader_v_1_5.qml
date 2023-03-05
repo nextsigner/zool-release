@@ -30,6 +30,7 @@ Rectangle {
     property string uParamsLoaded: ''
 
     property bool loadingFromExternal: false
+    property string folderImg: '../../modules/ZoolBodies/ZoolAs/imgs_v1'
 
     Timer{
         id: tWaitLoadExterior
@@ -50,6 +51,7 @@ Rectangle {
     Settings{
         id: settings
         fileName: 'zoolFileDirPrimLoader.cfg'
+
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
@@ -371,6 +373,71 @@ Rectangle {
                     visible: settings.inputCoords
                 }
             }
+            Rectangle{
+                width: gribBtns.width+app.fs*0.5
+                height: col2.height+app.fs*0.5
+                color: 'transparent'
+                border.width: 1
+                border.color: apps.fontColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                Column{
+                    id: col2
+                    spacing: app.fs*0.25
+                    anchors.centerIn: parent
+                    ZoolText{
+                        text:'Mostrar Cotas de Grados<br />en los cuerpos exteriores'
+                        fs: app.fs*0.5
+                        color: apps.fontColor
+                    }
+                    Grid{
+                        id: gribBtns
+                        columns: 6
+                        spacing: app.fs*0.1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Repeater{
+                            model:15
+                            Rectangle{
+                                id: xBtn
+                                width: r.width*0.12
+                                height: width
+                                opacity: selected?1.0:0.5
+                                property bool selected: sweg.listCotasShowing.indexOf(index)>=0
+                                Timer{
+                                    running: r.visible
+                                    repeat: true
+                                    interval: 250
+                                    onTriggered: {
+                                        xBtn.selected=sweg.listCotasShowing.indexOf(index)>=0
+                                    }
+                                }
+                                MouseArea{
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        if(sweg.listCotasShowing.indexOf(index)>=0){
+                                            sweg.listCotasShowing.splice(index, 1)
+                                        }else{
+                                            sweg.listCotasShowing.push(index)
+                                        }
+                                    }
+                                }
+                                //                            Text{
+                                //                                text:xBtn.selected?'<b>'+app.planetasResAS[index]+'</b>':app.planetasResAS[index]
+                                //                                font.pixelSize: parent.width*0.1
+                                //                                anchors.centerIn: parent
+                                //                            }
+                                Image{
+                                    id: img0
+                                    source: r.folderImg+"/"+app.planetasRes[index]+".svg"
+                                    width: parent.width*0.9
+                                    height: width
+                                    anchors.centerIn: parent
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     Item{id: xuqp}
@@ -485,99 +552,99 @@ Rectangle {
 
 
 
-//    function loadJsonFromArgsBack(){
-//        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+    //    function loadJsonFromArgsBack(){
+    //        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
 
-//        //return en v1.5
-//        return
+    //        //return en v1.5
+    //        return
 
-//        if(!r.visible && !r.loadingFromExternal)return
-//        r.uParamsLoaded=''
+    //        if(!r.visible && !r.loadingFromExternal)return
+    //        r.uParamsLoaded=''
 
-//        let vtipo='dirprim'
+    //        let vtipo='dirprim'
 
-//        let d = new Date(Date.now())
-//        let ms=d.getTime()
+    //        let d = new Date(Date.now())
+    //        let ms=d.getTime()
 
-//        let vd=controlTimeFecha.dia
-//        let vm=controlTimeFecha.mes
-//        let va=controlTimeFecha.anio
-//        let vh=controlTimeFecha.hora
-//        let vmin=controlTimeFecha.minuto
+    //        let vd=controlTimeFecha.dia
+    //        let vm=controlTimeFecha.mes
+    //        let va=controlTimeFecha.anio
+    //        let vh=controlTimeFecha.hora
+    //        let vmin=controlTimeFecha.minuto
 
-//        let vdEvento=controlTimeFechaEvento.dia
-//        let vmEvento=controlTimeFechaEvento.mes
-//        let vaEvento=controlTimeFechaEvento.anio
-//        let vhEvento=controlTimeFechaEvento.hora
-//        let vminEvento=controlTimeFechaEvento.minuto
+    //        let vdEvento=controlTimeFechaEvento.dia
+    //        let vmEvento=controlTimeFechaEvento.mes
+    //        let vaEvento=controlTimeFechaEvento.anio
+    //        let vhEvento=controlTimeFechaEvento.hora
+    //        let vminEvento=controlTimeFechaEvento.minuto
 
-//        let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
+    //        let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
 
-//        let vlat
-//        let vlon
-//        let valt=0
+    //        let vlat
+    //        let vlon
+    //        let valt=0
 
-//        vlat=app.currentLat
-//        vlon=app.currentLon
+    //        vlat=app.currentLat
+    //        vlon=app.currentLon
 
-//        let vCiudad=app.currentLugar.replace(/_/g, ' ')
+    //        let vCiudad=app.currentLugar.replace(/_/g, ' ')
 
-//        let nom='Direcciones Primarias '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm
+    //        let nom='Direcciones Primarias '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm
 
-//        let vhsys=apps.currentHsys
+    //        let vhsys=apps.currentHsys
 
-//        let extId='id'
-//        extId+='_'+vd
-//        extId+='_'+vm
-//        extId+='_'+va
-//        extId+='_'+vh
-//        extId+='_'+vmin
-//        extId+='_'+vgmt
-//        extId+='_'+vlat
-//        extId+='_'+vlon
-//        extId+='_'+valt
-//        extId+='_'+vtipo
-//        extId+='_'+vhsys
+    //        let extId='id'
+    //        extId+='_'+vd
+    //        extId+='_'+vm
+    //        extId+='_'+va
+    //        extId+='_'+vh
+    //        extId+='_'+vmin
+    //        extId+='_'+vgmt
+    //        extId+='_'+vlat
+    //        extId+='_'+vlon
+    //        extId+='_'+valt
+    //        extId+='_'+vtipo
+    //        extId+='_'+vhsys
 
-//        let j='{'
-//        j+='"paramsBack":{'
-//        j+='"tipo":"trans",'
-//        j+='"ms":'+ms+','
-//        j+='"n":"'+nom+'",'
-//        j+='"d":'+vd+','
-//        j+='"m":'+vm+','
-//        j+='"a":'+va+','
-//        j+='"h":'+vh+','
-//        j+='"min":'+vmin+','
-//        j+='"gmt":'+vgmt+','
-//        j+='"lat":'+vlat+','
-//        j+='"lon":'+vlon+','
-//        j+='"ciudad":"'+vCiudad+'",'
-//        j+='"hsys":"'+vhsys+'",'
-//        j+='"extId":"'+extId+'"'
-//        j+='},'
-//        j+='"exts":[]'
-//        j+='}'
-//        app.currentDataBack=j
+    //        let j='{'
+    //        j+='"paramsBack":{'
+    //        j+='"tipo":"trans",'
+    //        j+='"ms":'+ms+','
+    //        j+='"n":"'+nom+'",'
+    //        j+='"d":'+vd+','
+    //        j+='"m":'+vm+','
+    //        j+='"a":'+va+','
+    //        j+='"h":'+vh+','
+    //        j+='"min":'+vmin+','
+    //        j+='"gmt":'+vgmt+','
+    //        j+='"lat":'+vlat+','
+    //        j+='"lon":'+vlon+','
+    //        j+='"ciudad":"'+vCiudad+'",'
+    //        j+='"hsys":"'+vhsys+'",'
+    //        j+='"extId":"'+extId+'"'
+    //        j+='},'
+    //        j+='"exts":[]'
+    //        j+='}'
+    //        app.currentDataBack=j
 
-//        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '0', vtipo, vhsys, -1, [])
+    //        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '0', vtipo, vhsys, -1, [])
 
-//        //if(app.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
-//        //let json=JSON.parse(app.currentJsonData)
-//        //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
-//        let rotSignCircle=sweg.objSignsCircle.rot
-//        let rotPlanetsCircle=rotSignCircle
-//        let rotHousesCircle=360-rotSignCircle//360-json.ph.h1.gdec+rotPlanetsCircle
+    //        //if(app.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
+    //        //let json=JSON.parse(app.currentJsonData)
+    //        //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
+    //        let rotSignCircle=sweg.objSignsCircle.rot
+    //        let rotPlanetsCircle=rotSignCircle
+    //        let rotHousesCircle=360-rotSignCircle//360-json.ph.h1.gdec+rotPlanetsCircle
 
-//        //rotation comentado en v1.5
-//        //sweg.objHousesCircleBack.rotation=rotHousesCircle
+    //        //rotation comentado en v1.5
+    //        //sweg.objHousesCircleBack.rotation=rotHousesCircle
 
-//        controlTimeFechaEvento.visible=true
-//        if(r.loadingFromExternal){
-//            tWaitLoadExterior.restart()
-//        }
-//        r.loadingFromExternal=false
-//    }
+    //        controlTimeFechaEvento.visible=true
+    //        if(r.loadingFromExternal){
+    //            tWaitLoadExterior.restart()
+    //        }
+    //        r.loadingFromExternal=false
+    //    }
 
     function cloneIntToBackAndRot(deg){
         let json=app.currentJson

@@ -56,7 +56,7 @@ Item {
 
     property bool enableAnZoomAndPos: true
 
-    property var jsonStandByForBack
+    property var listCotasShowing: []
 
     property bool enableLoad: true
     property bool enableLoadBack: true
