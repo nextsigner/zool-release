@@ -8,6 +8,8 @@ Rectangle{
     rotation: r.rot
     color: 'transparent'
 
+    property bool isBack: false
+
     property int distancia: app.fs
     property int rot: -270
     property real gdec: 0.000
@@ -38,7 +40,7 @@ Rectangle{
             text:''+app.signos[r.is]+' Casa '+r.ih+'\n°'+parseInt(sweg.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+sweg.getDDToDMS(r.gdec).min+' \'\''+sweg.getDDToDMS(r.gdec).sec
             wrapMode: Text.NoWrap
             textFormat: Text.PlainText
-            fs: img0.width*0.25
+            fs: !r.isBack?img.width*0.25:img0.width*0.25
             padding: fs*0.5
             color: apps.fontColor
             textBackgroundColor: apps.backgroundColor
@@ -46,7 +48,7 @@ Rectangle{
             borderWidth: 1
             borderColor: apps.fontColor
             borderRadius: fs*0.5
-            rotation: img0.rotation+Math.abs(r.rot)
+            rotation: !r.isBack?img.rotation+Math.abs(r.rot):img0.rotation+Math.abs(r.rot)
             anchors.centerIn: parent
             anchors.horizontalCenterOffset: r.distancia*0.5+height*0.5
         }

@@ -107,37 +107,6 @@ Rectangle {
             Column{
                 spacing: app.fs*0.25
                 anchors.horizontalCenter: parent.horizontalCenter
-                //width: r.width-app.fs
-                ZoolText{
-                    id: labelCbHSys
-                    text: 'Sistema de Casas:'
-                    //w: app.fs*3
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-                ComboBox{
-                    id: cbHsys
-                    width: r.width-app.fs//-labelCbHSys.width-parent.spacing
-                    height: app.fs*0.75
-                    font.pixelSize: app.fs*0.5
-                    model: app.ahysNames
-                    currentIndex: app.ahys.indexOf(apps.currentHsys)
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onCurrentIndexChanged: {
-                        if(currentIndex===app.ahys.indexOf(apps.currentHsys))return
-                        apps.currentHsys=app.ahys[currentIndex]
-                        updateUParams()
-                        //JS.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
-                        //sweg.load(JSON.parse(app.currentData))
-                        //JS.loadJson(apps.url)
-                    }
-                }
-
-            }
-            Column{
-                spacing: app.fs*0.1
-                anchors.horizontalCenter: parent.horizontalCenter
                 ZoolControlsTime{
                     id: controlTimeFecha
                     labelText: 'Momento de tránsitos'
@@ -165,27 +134,6 @@ Rectangle {
                     //                        interval: 1500
                     //                        onTriggered: updateUParams()
                     //                    }
-                }
-                ZoolButton{
-                    visible: app.dev
-                    text:'Prueba'
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked:{
-
-                        setDirPrimRotation()
-                    }
-                }
-                ZoolButton{
-                    text:!app.ev?'Cargar Exterior':'Recargar Exterior'
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked:{
-                        if(app.ev){
-                            controlTimeFechaEvento.visible=false
-                            controlTimeFechaEvento.currentDate=app.currentDate
-                        }
-
-                        r.loadJsonFromArgsBack()
-                    }
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaEvento
@@ -222,43 +170,52 @@ Rectangle {
                         onTriggered: updateUParams()
                     }
                 }
-
-                ZoolButton{
-                    text:'Guardar'
+                Row{
+                    spacing: app.fs*0.1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked:{
-                        //app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth)
+                    ZoolButton{
+                        text:'Restablecer'
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked:{
+                            controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
+                        }
+                    }
+                    ZoolButton{
+                        text:'Guardar'
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked:{
+                            //app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth)
 
-                        let vd=controlTimeFecha.dia
-                        let vm=controlTimeFecha.mes
-                        let va=controlTimeFecha.anio
-                        let vh=controlTimeFecha.hora
-                        let vmin=controlTimeFecha.minuto
+                            let vd=controlTimeFecha.dia
+                            let vm=controlTimeFecha.mes
+                            let va=controlTimeFecha.anio
+                            let vh=controlTimeFecha.hora
+                            let vmin=controlTimeFecha.minuto
 
-                        let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
-                        let vlon=app.currentLon
-                        let vlat=app.currentLat
-                        let valt=app.currentAlt
-                        let vCiudad=app.currentLugar
-                        let vhsys=apps.currentHsys
+                            let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
+                            let vlon=app.currentLon
+                            let vlat=app.currentLat
+                            let valt=app.currentAlt
+                            let vCiudad=app.currentLugar
+                            let vhsys=apps.currentHsys
 
-                        let vdEvento=controlTimeFechaEvento.dia
-                        let vmEvento=controlTimeFechaEvento.mes
-                        let vaEvento=controlTimeFechaEvento.anio
-                        let vhEvento=controlTimeFechaEvento.hora
-                        let vminEvento=controlTimeFechaEvento.minuto
-                        let vgmtEvento=app.currentGmt
+                            let vdEvento=controlTimeFechaEvento.dia
+                            let vmEvento=controlTimeFechaEvento.mes
+                            let vaEvento=controlTimeFechaEvento.anio
+                            let vhEvento=controlTimeFechaEvento.hora
+                            let vminEvento=controlTimeFechaEvento.minuto
+                            let vgmtEvento=app.currentGmt
 
-                        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+                            let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
 
-                        let nom='Dir. Prim de '+app.currentNom+' '+vaEvento+'/'+vmEvento+'/'+vdEvento
-                        let aR=[]
-                        aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
-                        aR.push('<b>Edad:</b> '+edad+' años')
-                        app.j.loadBack(nom, vdEvento, vmEvento, vaEvento, vhEvento, vminEvento, vgmtEvento, vlat, vlon, valt, vCiudad, edad, 'dirprim', vhsys, -1, aR)
+                            let nom='Dir. Prim de '+app.currentNom+' '+vaEvento+'/'+vmEvento+'/'+vdEvento
+                            let aR=[]
+                            aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
+                            aR.push('<b>Edad:</b> '+edad+' años')
+                            app.j.loadBack(nom, vdEvento, vmEvento, vaEvento, vhEvento, vminEvento, vgmtEvento, vlat, vlon, valt, vCiudad, edad, 'dirprim', vhsys, -1, aR)
+                        }
                     }
                 }
-                //ZoolLogView
             }
             Column{
                 id: colTiLonLat
@@ -374,20 +331,54 @@ Rectangle {
                 }
             }
             Rectangle{
+                id: xBtns
                 width: gribBtns.width+app.fs*0.5
                 height: col2.height+app.fs*0.5
                 color: 'transparent'
                 border.width: 1
                 border.color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
+                property bool forBack: true
                 Column{
                     id: col2
                     spacing: app.fs*0.25
                     anchors.centerIn: parent
                     ZoolText{
-                        text:'Mostrar Cotas de Grados<br />en los cuerpos exteriores'
+                        text:'Mostrar Cotas de Grados<br />en los cuerpos '+(xBtns.forBack?'exteriores.':'interiores.')
                         fs: app.fs*0.5
                         color: apps.fontColor
+                    }
+                    Row{
+                        spacing: app.fs*0.1
+                        ZoolText{
+                            text:'Interior'
+                            fs: app.fs*0.5
+                            color: apps.fontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        RadioButton {
+                            id: rb1
+                            checked: !xBtns.forBack
+                            anchors.verticalCenter: parent.verticalCenter
+                            onCheckedChanged: {
+                                xBtns.forBack=!checked
+                            }
+                        }
+                        Item{width: app.fs*0.25; height: 1}
+                        ZoolText{
+                            text:'Exterior'
+                            fs: app.fs*0.5
+                            color: apps.fontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        RadioButton {
+                            id: rb2
+                            checked: xBtns.forBack
+                            anchors.verticalCenter: parent.verticalCenter
+                            onCheckedChanged: {
+                                xBtns.forBack=checked
+                            }
+                        }
                     }
                     Grid{
                         id: gribBtns
@@ -401,23 +392,37 @@ Rectangle {
                                 width: r.width*0.12
                                 height: width
                                 opacity: selected?1.0:0.5
-                                property bool selected: sweg.listCotasShowing.indexOf(index)>=0
+                                property bool selected: sweg.listCotasShowingBack.indexOf(index)>=0
                                 Timer{
                                     running: r.visible
                                     repeat: true
                                     interval: 250
                                     onTriggered: {
-                                        xBtn.selected=sweg.listCotasShowing.indexOf(index)>=0
+                                        if(!xBtns.forBack){
+                                            xBtn.selected=sweg.listCotasShowing.indexOf(index)>=0
+                                        }else{
+                                            xBtn.selected=sweg.listCotasShowingBack.indexOf(index)>=0
+                                        }
+
                                     }
                                 }
                                 MouseArea{
                                     anchors.fill: parent
                                     onClicked: {
-                                        if(sweg.listCotasShowing.indexOf(index)>=0){
-                                            sweg.listCotasShowing.splice(index, 1)
+                                        if(!xBtns.forBack){
+                                            if(sweg.listCotasShowing.indexOf(index)>=0){
+                                                sweg.listCotasShowing.splice(index, 1)
+                                            }else{
+                                                sweg.listCotasShowing.push(index)
+                                            }
                                         }else{
-                                            sweg.listCotasShowing.push(index)
+                                            if(sweg.listCotasShowingBack.indexOf(index)>=0){
+                                                sweg.listCotasShowingBack.splice(index, 1)
+                                            }else{
+                                                sweg.listCotasShowingBack.push(index)
+                                            }
                                         }
+
                                     }
                                 }
                                 //                            Text{

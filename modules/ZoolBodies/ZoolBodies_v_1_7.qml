@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import "../../js/Funcs.js" as JS
 
 
+import ZoolBodies.ZoolPlanetsCircle 1.0
 import ZoolBodies.ZoolPlanetsCircleBack 1.2
 import ZoolHousesCircle 1.1
 import ZoolHousesCircleBack 1.2
@@ -57,6 +58,7 @@ Item {
     property bool enableAnZoomAndPos: true
 
     property var listCotasShowing: []
+    property var listCotasShowingBack: []
 
     property bool enableLoad: true
     property bool enableLoadBack: true
@@ -288,7 +290,7 @@ Item {
                     rotation: signCircle.rot - 90// + 1
                 }
                 AscMcCircle{id: ascMcCircle}
-                PlanetsCircle{
+                ZoolPlanetsCircle{
                     id:planetsCircle
                     height: width
                     anchors.centerIn: parent

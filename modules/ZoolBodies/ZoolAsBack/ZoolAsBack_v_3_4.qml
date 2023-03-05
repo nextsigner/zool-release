@@ -23,7 +23,6 @@ Item{
 
     property int is
     property int fs:planetsCircleBack.planetSize
-    //property var objData: ({g:0, m:0,ih:0,rsgdeg:0,rsg:0})
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
     property int pos: 1
     property int g: -1
@@ -298,6 +297,7 @@ Item{
         width: xIcon.width*2
         anchors.centerIn: xIcon
         z: xIcon.z-1
+        isBack: true
         distancia: img0.width
         gdec: objData.gdec
         g: objData.rsg
@@ -308,13 +308,13 @@ Item{
         cotaColor: xIconPlanetSmall.color
         cotaOpacity: xIconPlanetSmall.opacity
         //rot: -270
-        visible: sweg.listCotasShowing.indexOf(r.numAstro)>=0
+        visible: sweg.listCotasShowingBack.indexOf(r.numAstro)>=0
         Timer{
             running: true
             repeat: true
             interval: 250
             onTriggered: {
-                parent.visible=sweg.listCotasShowing.indexOf(r.numAstro)>=0
+                parent.visible=sweg.listCotasShowingBack.indexOf(r.numAstro)>=0
             }
         }
     }
