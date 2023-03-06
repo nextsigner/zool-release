@@ -10,6 +10,16 @@ import ZoolButton 1.0
 import ZoolControlsTime 1.0
 import ZoolLogView 1.0
 
+/*
+    Naibod 0° 59´8.33” = 0.9856481481481388
+    Ptolomeo 1° = 1.0000
+    Subduodenaria 0° 12´30” = 0.20833333333333
+    Narónica 0° 36´ = 0.6
+    Duodenaria 2° 30’ = 2.5
+    Navamsa 3° 20’ = 3.3333333333333
+    Septenaria 4° 17’ = 4.2833333333333
+*/
+
 Rectangle {
     id: r
     width: xLatIzq.width
@@ -18,7 +28,9 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
-    property bool claveNaibodEnabled: true
+
+    property var aClavesNames: ["Naibod 0° 59\' 8.33\"", "Ptolomeo 1°", "Subduodenaria 0° 12\' 30\"", "Narónica 0° 36´", "Duodenaria 2° 30\'", "Navamsa 3° 20’", "Septenaria 4° 17\'"]
+    property var aClavesValuesDec: [0.9856481481481388, 1.0, 0.20833333333333, 0.6, 2.5, 3.3333333333333, 4.2833333333333]
 
     property bool moduleEnabled: false
 
@@ -63,6 +75,7 @@ Rectangle {
 
         property bool showModuleVersion: false
         property bool inputCoords: false
+        property int cbClavesCurrentIndex: 0
     }
     ZoolText{
         text: 'ZoolFileDirPrimLoader v1.0'
@@ -132,48 +145,21 @@ Rectangle {
                     visible: false
                 }
 
-                /*
-                    Naibod 0° 59´8.33”
-                    Ptolomeo 1°
-                    Subduodenaria 0° 12´30”
-                    Narónica 0° 36´
-                    Duodenaria 2° 30’
-                    Navamsa 3° 20’
-                    Septenaria 4° 17’
-                */
 
-                Row{
-                    spacing: app.fs*0.1
+
+                ComboBox{
+                    id: cbClaves
+                    width: r.width-app.fs
+                    font.pixelSize: app.fs*0.5
+                    model: r.aClavesNames
+                    currentIndex: settings.cbClavesCurrentIndex
                     visible: r.moduleEnabled
-                    ZoolText{
-                        text:'Naibod'
-                        fs: app.fs*0.5
-                        color: apps.fontColor
-                        anchors.verticalCenter: parent.verticalCenter
+                    onCurrentIndexChanged: {
+                        if(!visible)return
+                        settings.cbClavesCurrentIndex=currentIndex
+                        setDirPrimRotation()
                     }
-                    RadioButton {
-                        id: rbClave1
-                        checked: true//r.claveNaibodEnabled
-                        anchors.verticalCenter: parent.verticalCenter
-                        onCheckedChanged: {
-                            if(checked)r.claveNaibodEnabled=checked
-                        }
-                    }
-                    Item{width: app.fs*0.25; height: 1}
-                    ZoolText{
-                        text:'Ptolomeo'
-                        fs: app.fs*0.5
-                        color: apps.fontColor
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    RadioButton {
-                        id: rbClave2
-                        checked: false//!r.claveNaibodEnabled
-                        anchors.verticalCenter: parent.verticalCenter
-                        onCheckedChanged: {
-                            if(checked)r.claveNaibodEnabled=false
-                        }
-                    }
+
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaEvento
@@ -198,7 +184,7 @@ Rectangle {
                         id: tLoad
                         running: false
                         repeat: false
-                        interval: 1500
+                        interval: 500
                         onTriggered: {
                             setDirPrimRotation()
                         }
@@ -257,119 +243,6 @@ Rectangle {
                             app.j.loadBack(nom, vdEvento, vmEvento, vaEvento, vhEvento, vminEvento, vgmtEvento, vlat, vlon, valt, vCiudad, edad, 'dirprim', vhsys, -1, aR)
                         }
                     }
-                }
-            }
-            Column{
-                id: colTiLonLat
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: settings.inputCoords && !cbUseIntCoords.checked
-
-                Row{
-                    spacing: app.fs*0.5
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Comps.XTextInput{
-                        id: tiLat
-                        width: r.width*0.5-app.fs*0.5
-                        t.font.pixelSize: app.fs*0.65
-                        anchors.verticalCenter: parent.verticalCenter
-                        KeyNavigation.tab: tiLon.t
-                        t.maximumLength: 10
-                        t.validator: RegExpValidator {
-                            regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                        }
-                        property bool valid: false
-                        Timer{
-                            running: r.visible && settings.inputCoords
-                            repeat: true
-                            interval: 100
-                            onTriggered: {
-                                parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                                if(parent.valid){
-                                    r.ulat=parseFloat(parent.t.text)
-                                }else{
-                                    r.ulat=-1
-                                }
-                            }
-                        }
-                        Rectangle{
-                            width: parent.width+border.width*2
-                            height: parent.height+border.width*2
-                            anchors.centerIn: parent
-                            color: 'transparent'
-                            border.width: 4
-                            border.color: 'red'
-                            visible: parent.t.text===''?false:!parent.valid
-                        }
-                        onPressed: {
-                            //controlTimeFecha.focus=true
-                            //controlTimeFecha.cFocus=0
-                        }
-                        Text {
-                            text: 'Latitud'
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            //anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.top
-                        }
-                    }
-                    Comps.XTextInput{
-                        id: tiLon
-                        width: r.width*0.5-app.fs*0.5
-                        t.font.pixelSize: app.fs*0.65
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        t.maximumLength: 10
-                        t.validator: RegExpValidator {
-                            regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                        }
-                        property bool valid: false
-                        Timer{
-                            running: r.visible && settings.inputCoords
-                            repeat: true
-                            interval: 100
-                            onTriggered: {
-                                parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                                if(parent.valid){
-                                    r.ulon=parseFloat(parent.t.text)
-                                }else{
-                                    r.ulon=-1
-                                }
-                            }
-                        }
-                        Rectangle{
-                            width: parent.width+border.width*2
-                            height: parent.height+border.width*2
-                            anchors.centerIn: parent
-                            color: 'transparent'
-                            border.width: 4
-                            border.color: 'red'
-                            visible: parent.t.text===''?false:!parent.valid
-                        }
-                        onPressed: {
-                            //controlTimeFecha.focus=true
-                            //controlTimeFecha.cFocus=0
-                        }
-                        Text {
-                            text: 'Longitud'
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            //anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.top
-                        }
-                    }
-                }
-                Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
-                Text{
-                    text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
-                                                                (
-                                                                    tiLat.valid && tiLon.valid?
-                                                                        'Estas coordenadas son válidas.':
-                                                                        'Las coordenadas no son correctas'
-                                                                    )
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: settings.inputCoords
                 }
             }
             Rectangle{
@@ -540,7 +413,10 @@ Rectangle {
 
         //El astrólogo y matemático alemán Valentín Naibod cree perfeccionar la clave de Ptolomeo.
         let claveNaibodDeg=[0, 59, 8.33]
-        let claveNaibodDec=0.9856481481481388
+
+        //let claveNaibodDec=0.9856481481481388
+        let claveDec=r.aClavesValuesDec[cbClaves.currentIndex]
+
         let da = new Date(controlTimeFecha.currentDate)//Momento de inicio o nacimiento.
         let db = new Date(controlTimeFechaEvento.currentDate)//Momento de evento.
         let msAnioInicio=da.getTime()
@@ -554,11 +430,7 @@ Rectangle {
         let resDiffHoras=resHoraB-resHoraA //Cálculo de diferencia de horas.
         let resDias=resDiffHoras / 24 //Cálculo de días de diferencia.
         let resAnio=parseFloat(resDias / 365.25).toFixed(2) //Cálc. diferencia en años entre inicio y evento.
-        let diffAnio=resAnio
-        if(r.claveNaibodEnabled){
-            //Cálculo de diferencia de años en clave Naibod.
-            diffAnio=resAnio*claveNaibodDec
-        }
+        let diffAnio=resAnio*claveDec
         let pcBackRot=parseFloat(parseFloat(signCircleRot)-parseFloat(diffAnio))
 
         //Cálculo de rotacion del esquema exterior para el método de Direcciones Primarias.
