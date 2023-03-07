@@ -7,7 +7,7 @@ import "../../js/Funcs.js" as JS
 import ZoolFileMaker 1.2
 import ZoolFileExtDataManager 1.1
 import ZoolFileLoader 1.3
-import ZoolFileTransLoader 1.0
+import ZoolFileTransLoader 1.1
 import ZoolFileDirPrimLoader 1.6
 import ZoolButton 1.0
 import ZoolText 1.0

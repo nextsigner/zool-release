@@ -80,6 +80,10 @@ Menu {
             zsm.currentIndex=1
         }
     }
+    Action {enabled: app.dev; text: qsTr("Cargar Ricardo"); onTriggered: {
+                           app.j.loadJson('/home/ns/gd/Zool/Ricardo.json')
+                       }
+    }
     Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
                            app.j.loadNow()
                        }
