@@ -1,8 +1,7 @@
 import QtQuick 2.0
 
 
-import ZoolBodies.ZoolAs 3.3
-
+import ZoolBodies.ZoolAs 3.4
 Item{
     id: r
     property bool expand: false
@@ -48,8 +47,10 @@ Item{
     function pressed(o){
         if(app.currentPlanetIndex!==o.numAstro){
             app.currentPlanetIndex=o.numAstro
+            app.currentHouseIndex=o.objData.ih
         }else{
             app.currentPlanetIndex=-1
+            app.currentHouseIndex=-1
         }
         //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
@@ -109,6 +110,7 @@ Item{
 
             if(i!==10&&i!==11)o.retro=jo.retro
             objAs.is=jo.is
+            objAs.ih=o.ih
             objAs.objData=o
             objSigns[jo.is]++
             if(i===0){
