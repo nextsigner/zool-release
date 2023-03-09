@@ -47,7 +47,7 @@ Item{
     function pressed(o){
         if(app.currentPlanetIndex!==o.numAstro){
             app.currentPlanetIndex=o.numAstro
-            app.currentHouseIndex=o.objData.ih
+            app.currentHouseIndex=o.ih
         }else{
             app.currentPlanetIndex=-1
             app.currentHouseIndex=-1

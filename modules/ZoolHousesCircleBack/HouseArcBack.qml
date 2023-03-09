@@ -274,6 +274,7 @@ Item {
                 }
             }
             ZoolText{
+                id: txtNumHouse
                 text: '<b>'+r.n+'</b>'
                 font.pixelSize: parent.width*0.6
                 width: contentWidth
@@ -282,36 +283,35 @@ Item {
                 color: apps.fontColor
                 //color: circleBot.border.color
                 anchors.centerIn: parent
-                //rotation: 45-r.rotation-housesCircleBack.rotation-signCircle.rot-planetsCircleBack.rotation
-                //rotation:0-r.rotation-r.parent.rotation
                 rotation:app.mod!=='dirprim'?0-r.rotation-r.parent.rotation:0-r.rotation-r.parent.rotation-sweg.objHousesCircleBack.rotation
-                Rectangle{
-                    width: esteTxt.contentWidth+sweg.fs*0.25
-                    height: esteTxt.contentHeight+sweg.fs*0.25
-                    radius: sweg.fs*0.1
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.left
-                    anchors.rightMargin: line1.width
-                    visible: r.c===0
-                    z:parent.z-1
-                    Rectangle{
-                        id: line1
-                        width: sweg.fs*0.5
-                        height: 1
-                        color: apps.houseLineColorBack
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.right
-                    }
-                    Text{
-                        id: esteTxt
-                        text: 'Asc'
-                        wrapMode: Text.WordWrap
-                        color: apps.backgroundColor
-                        font.pixelSize: sweg.fs*0.25
-                        anchors.centerIn: parent
-                    }
-                }
+           }
+        }
+        Rectangle{
+            width: circleBot.width*1.5
+            height: width
+            radius: width*0.5
+            color: apps.backgroundColor
+            border.width: 1
+            border.color: apps.fontColor
+            anchors.centerIn: circleBot
+            anchors.horizontalCenterOffset: 0-circleBot.width*2
+            visible: r.c===0 || r.c===6
+            z:parent.z-1
+            Rectangle{
+                id: line1
+                width: parent.width//sweg.fs*0.5
+                height: 1
+                color: apps.houseLineColorBack
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.right
+            }
+            Text{
+                id: esteTxt
+                text: r.c===0?'<b>Asc</b>':'<b>Desc</b>'
+                color: apps.fontColor
+                font.pixelSize: parent.width*0.35
+                anchors.centerIn: parent
+                rotation: txtNumHouse.rotation
             }
         }
     }

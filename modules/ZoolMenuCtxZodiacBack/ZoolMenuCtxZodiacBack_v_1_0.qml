@@ -107,6 +107,10 @@ Menu {
         onTriggered: {app.j.deleteJsonBackHidden()}
 
     }
+    Action {
+        text: qsTr(apps.showNumberLines?"Ocultar grados":"Mostrar grados")
+        onTriggered: {apps.showNumberLines=!apps.showNumberLines}
+    }
     Action {text: qsTr("Salir"); onTriggered: {
                            Qt.quit()
                        }
