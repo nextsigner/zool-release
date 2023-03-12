@@ -233,15 +233,26 @@ Rectangle {
                     visible: xDatos.selected && !s.showToolItem
                     //anchors.centerIn: parent
                 }
-                ZoolButton{
-                    id: btnLoadExt
-                    text:'Cargar como Sinastría'
-                    anchors.right: parent.right
-                    anchors.rightMargin: app.fs*0.1
-                    visible: index===lv.currentIndex && !s.showToolItem && tipo !== 'rs'  && tipo !== 'sin'
-                    colorInverted: true
-                    onClicked: {
-                        loadAsSin(fileName)
+                Row{
+                    spacing: app.fs*0.25
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    ZoolButton{
+                        id: btnLoad
+                        text:'Cargar'
+                        visible: index===lv.currentIndex && !s.showToolItem// && tipo !== 'rs'  && tipo !== 'sin'
+                        colorInverted: true
+                        onClicked: {
+                            app.j.loadJson(fileName)
+                        }
+                    }
+                    ZoolButton{
+                        id: btnLoadExt
+                        text:'Cargar como Sinastría'
+                        visible: index===lv.currentIndex && !s.showToolItem && tipo !== 'rs'  && tipo !== 'sin'
+                        colorInverted: true
+                        onClicked: {
+                            loadAsSin(fileName)
+                        }
                     }
                 }
             }

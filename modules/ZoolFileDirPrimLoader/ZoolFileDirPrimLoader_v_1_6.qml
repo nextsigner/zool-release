@@ -169,6 +169,7 @@ Rectangle {
                     setAppTime: false
                     enableGMT:false
                     visible: r.moduleEnabled
+                    anchors.horizontalCenter: parent.horizontalCenter
                     onCurrentDateChanged: {
 
                         //if(!visible || !r.loadingFromExternal)return
@@ -308,18 +309,19 @@ Rectangle {
                                 width: r.width*0.12
                                 height: width
                                 opacity: selected?1.0:0.5
-                                property bool selected: sweg.listCotasShowingBack.indexOf(index)>=0
+                                property bool selected: !xBtns.forBack?sweg.listCotasShowingBack.indexOf(index)>=0:sweg.listCotasShowing.indexOf(index)>=0
                                 Timer{
                                     running: r.visible
                                     repeat: true
                                     interval: 250
                                     onTriggered: {
+                                        txtinfo1.text='a1'+sweg.listCotasShowing.toString()
+                                        txtinfo2.text='a2'+sweg.listCotasShowingBack.toString()
                                         if(!xBtns.forBack){
                                             xBtn.selected=sweg.listCotasShowing.indexOf(index)>=0
                                         }else{
                                             xBtn.selected=sweg.listCotasShowingBack.indexOf(index)>=0
                                         }
-
                                     }
                                 }
                                 MouseArea{
@@ -327,13 +329,15 @@ Rectangle {
                                     onClicked: {
                                         if(!xBtns.forBack){
                                             if(sweg.listCotasShowing.indexOf(index)>=0){
-                                                sweg.listCotasShowing.splice(index, 1)
+                                                //sweg.listCotasShowing.splice(index, 1)
+                                                sweg.listCotasShowing=app.j.removeItemAll(sweg.listCotasShowing, index)
                                             }else{
                                                 sweg.listCotasShowing.push(index)
                                             }
                                         }else{
                                             if(sweg.listCotasShowingBack.indexOf(index)>=0){
-                                                sweg.listCotasShowingBack.splice(index, 1)
+                                                //sweg.listCotasShowingBack.splice(index, 1)
+                                                sweg.listCotasShowingBack=app.j.removeItemAll(sweg.listCotasShowingBack, index)
                                             }else{
                                                 sweg.listCotasShowingBack.push(index)
                                             }
@@ -356,6 +360,20 @@ Rectangle {
 
                             }
                         }
+                    }
+                    Text{
+                        id: txtinfo1
+                        text: 'a1: '+sweg.listCotasShowing.toString()
+                        font.pixelSize: app.fs*0.5
+                        color: 'red'
+                        visible: app.dev
+                    }
+                    Text{
+                        id: txtinfo2
+                        text: 'a2: '+sweg.listCotasShowingBack.toString()
+                        font.pixelSize: app.fs*0.5
+                        color: 'red'
+                        visible: app.dev
                     }
                 }
             }

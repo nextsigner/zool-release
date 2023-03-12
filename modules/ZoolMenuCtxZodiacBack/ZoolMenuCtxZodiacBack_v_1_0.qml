@@ -88,6 +88,10 @@ Menu {
                            app.j.loadNow()
                        }
     }
+    Action {enabled: app.ev; text: qsTr("Descartar exterior"); onTriggered: {
+                           app.j.loadJson(apps.url)
+                       }
+    }
 
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
                            sweg.zoomTo(0.5)

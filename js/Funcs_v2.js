@@ -1231,7 +1231,17 @@ function getADate(date){
     let min=date.getMinutes()
     return [d, m, a, h, min]
 }
-
+function removeItemAll(arr, value) {
+  var i = 0;
+  while (i < arr.length) {
+    if (arr[i] === value) {
+      arr.splice(i, 1);
+    } else {
+      ++i;
+    }
+  }
+  return arr;
+}
 //Funciones de GUI
 function showMsgDialog(title, text, itext){
     let c='import QtQuick 2.0\n'
