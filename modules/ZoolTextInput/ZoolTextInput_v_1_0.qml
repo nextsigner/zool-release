@@ -28,6 +28,7 @@ Item {
     signal enterPressed
     width: xText.width//txt.contentWidth
     height: !r.labelInTop?xText.height:xText.height+labelTopTextInput.contentHeight
+
     Rectangle{
         id: xText
         //width: !r.w?r.parent.width-r.padding*2-r.borderWidth*2:r.w-r.padding*2-r.borderWidth*2
@@ -38,6 +39,7 @@ Item {
         border.color: r.borderColor
         radius: r.borderRadius
         anchors.centerIn: r
+        clip: true
         TextInput{
             id: txt
             font.pixelSize: r.fs
