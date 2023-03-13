@@ -32,7 +32,7 @@ Rectangle {
     property real ulon:-100.00
 
 
-    visible: itemIndex===zsm.currentIndex
+    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             if(edadMaxima<=0)xTit.showTi=true

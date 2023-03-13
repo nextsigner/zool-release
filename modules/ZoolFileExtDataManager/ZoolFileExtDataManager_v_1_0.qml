@@ -15,7 +15,7 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
-    visible: itemIndex===zsm.currentIndex
+    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
 
     property string uFileLoaded: ''
 

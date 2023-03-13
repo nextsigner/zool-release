@@ -524,6 +524,8 @@ Item {
         app.ev=false
         apps.urlBack=''
         panelAspectsBack.visible=false
+        app.currentPlanetIndex=-1
+        app.currentPlanetIndexBack=-1
         app.currentHouseIndex=-1
         app.currentHouseIndexBack=-1
         //sweg.objHousesCircle.currentHouse=-1

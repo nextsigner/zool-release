@@ -21,7 +21,7 @@ Item {
     property  real op: 100.0
     property int opacitySpeed: 100
     property int extraWidth: 0
-    property alias showEjeCentro: ejeCentro.visible
+    //property alias showEjeCentro: ejeCentro.visible
 
     //Behavior on w{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500}}
     //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration:500}}
@@ -315,34 +315,37 @@ Item {
             }
         }
     }
-    Rectangle{
-        id: ejeCentro
-        width: canvas.width
-        height: 4
-        color: 'blue'//'transparent'
-        anchors.centerIn: r
-        rotation: 0-r.wg/2
-        visible:false
-        Rectangle{
-            width: sweg.fs
-            height: width
-            //x:(r.w-width)/2
-            border.width: 2
-            border.color: 'white'
-            radius: width*0.5
-            color: 'red'//r.colors[r.c]
-            anchors.verticalCenter: parent.verticalCenter
-            rotation: 90-r.rotation-parent.rotation
-            antialiasing: true
-            ZoolText {
-                text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
-                font.pixelSize: parent.width*0.3
-                anchors.centerIn: parent
-                color: 'white'
-                rotation: 270+ejeCentro.rotation
-            }
-        }
-    }
+
+//    Rectangle{
+//        id: ejeCentro
+//        width: canvas.width
+//        height: 4
+//        color: 'blue'//'transparent'
+//        anchors.centerI
+//        n: r
+//        rotation: 0-r.wg/2
+//        visible:false
+//        Rectangle{
+//            width: sweg.fs
+//            height: width
+//            //x:(r.w-width)/2
+//            border.width: 2
+//            border.color: 'white'
+//            radius: width*0.5
+//            color: 'red'//r.colors[r.c]
+//            anchors.verticalCenter: parent.verticalCenter
+//            rotation: 90-r.rotation-parent.rotation
+//            antialiasing: true
+//            ZoolText {
+//                text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
+//                font.pixelSize: parent.width*0.3
+//                anchors.centerIn: parent
+//                color: 'white'
+//                rotation: 270+ejeCentro.rotation
+//            }
+//        }
+//    }
+
     Timer{
         id: tc
         running: !app.capturing?r.selected:false

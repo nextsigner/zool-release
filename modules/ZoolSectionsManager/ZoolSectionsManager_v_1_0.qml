@@ -10,12 +10,14 @@ import ZoolRevolutionList 1.4
 import ZoolNumPit 1.0
 import ZoolModulesManager 1.0
 
+import ZoolButton 1.2
+
 Item{
     id: r
     width: xLatIzq.width
     height: xLatIzq.height//-indicatorSV.height-xPanelesTits.height
     clip: true
-    property int currentIndex: apps.currentSwipeViewIndex
+    property int currentIndex: count-1//apps.currentSwipeViewIndex
     property int count: indicatorSV.count
     property var aPanelsIds: []
     onAPanelsIdsChanged: {
@@ -23,6 +25,7 @@ Item{
     }
     onCurrentIndexChanged:{
         apps.currentSwipeViewIndex=currentIndex
+        r.showPanel(r.aPanelsIds[zsm.currentIndex])
         zsm.getPanel('ZoolRevolutionList').desactivar()
     }
     Column{
@@ -47,17 +50,34 @@ Item{
             id: xPanels
             width: r.width
             height: r.height-xPanelesTits.height-xIndicadorSV.height
-            Comps.XPaneles{ZoolDataText{id: panelZoolText;itemIndex: 0}}
-            Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;itemIndex: 1}}
-            Comps.XPaneles{ZoolSabianos{id: panelSabianos;itemIndex: 2}}
-            Comps.XPaneles{ZoolFileManager{id: zoolFileManager;itemIndex: 3}}
-            Comps.XPaneles{ZoolRevolutionList{id: panelRsList;itemIndex: 4}}
+
             //Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
-            Comps.XPaneles{ZoolModulesManager{}}
-            Comps.XPaneles{ZoolNumPit{id: ncv;itemIndex: 6}}
             //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
-            Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData;itemIndex: 7}}
             //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
+
+            //8
+            Comps.XPaneles{ZoolDataText{id: panelZoolText;}}
+
+            //7
+            Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData}}
+
+            //6
+            Comps.XPaneles{ZoolModulesManager{}}
+
+            //5
+            Comps.XPaneles{ZoolSabianos{id: panelSabianos}}
+
+            //4
+            Comps.XPaneles{ZoolNumPit{id: ncv}}
+
+            //3
+            Comps.XPaneles{ZoolRevolutionList{id: panelRsList}}
+
+            //2
+            Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;}}
+
+            //1
+            Comps.XPaneles{ZoolFileManager{id: zoolFileManager}}
         }
         Rectangle{
             id: xIndicadorSV
@@ -75,7 +95,7 @@ Item{
                 id: indicatorSV
                 interactive: true
                 count: 0//zsm.aPanelsIds.length
-                currentIndex: zsm.currentIndex
+                currentIndex: apps.currentSwipeViewIndex//zsm.currentIndex
                 anchors.centerIn: parent
                 onCurrentIndexChanged: zsm.currentIndex=currentIndex
                 delegate: Rectangle{
@@ -95,7 +115,7 @@ Item{
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            zsm.currentIndex=index
+                            zsm.currentIndex=index                            
                             if (mouse.modifiers) {
                                 apps.repLectVisible=!apps.repLectVisible
                             }
@@ -109,6 +129,44 @@ Item{
                     onTriggered: parent.count=zsm.aPanelsIds.length
                 }
             }
+            ZoolButton{
+                text:'\uf0ab'
+                width: parent.height-4
+                height: width
+                rotation: 90
+                borderWidth: 0
+                borderColor: 'transparent'
+                colorInverted: true
+                anchors.verticalCenter: xIndicadorSV.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 2
+                onClicked: {
+                    if(r.currentIndex>0)r.currentIndex--
+                }
+            }
+            ZoolButton{
+                text:'\uf0ab'
+                width: parent.height-4
+                height: width
+                rotation: -90
+                colorInverted: true
+                anchors.verticalCenter: xIndicadorSV.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 2
+                onClicked: {
+                    if(r.currentIndex<r.count)r.currentIndex++
+                }
+            }
+        }
+
+    }
+    Timer{
+        running: true
+        repeat: false
+        interval: 2000
+        onTriggered: {
+            showPanel(r.aPanelsIds[apps.currentSwipeViewIndex])
+            //r.currentIndex=apps.currentSwipeViewIndex
         }
     }
     function getPanel(typeOfSection){
@@ -119,6 +177,21 @@ Item{
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 obj=o
                 break
+            }
+        }
+        return obj
+    }
+    function showPanel(typeOfSection){
+        let obj
+        for(var i=0;i<xPanels.children.length;i++){
+            let o=xPanels.children[i].children[0]
+            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(''+app.j.qmltypeof(o)===''+typeOfSection){
+                o.visible=true
+                //obj=o
+                //break
+            }else{
+                o.visible=false
             }
         }
         return obj

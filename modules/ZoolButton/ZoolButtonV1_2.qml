@@ -11,6 +11,8 @@ Item{
     property bool colorInverted: false
     signal clicked
     property bool pressed: false
+    property alias borderWidth: bg.border.width
+    property alias borderColor: bg.border.color
     Timer{
         id: tP
         running: r.pressed

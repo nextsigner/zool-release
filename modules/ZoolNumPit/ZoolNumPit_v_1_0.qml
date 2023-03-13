@@ -84,7 +84,7 @@ Rectangle {
 
 
     property int itemIndex: -1
-    visible: itemIndex===zsm.currentIndex
+    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onCurrentNumNacimientoChanged: {
         calcularPersonalidad()
     }

@@ -34,7 +34,7 @@ Rectangle {
 
     property string prevZFocus: ''
 
-    visible: itemIndex===zsm.currentIndex
+    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
 
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Flickable{

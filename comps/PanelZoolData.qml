@@ -18,7 +18,7 @@ Rectangle{
     property int currentH: -1
     property int currentCmdCompleted: -1
     property int uCurrentPlayListIndex: -1
-    visible: itemIndex===zsm.currentIndex
+    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             //tF.restart()

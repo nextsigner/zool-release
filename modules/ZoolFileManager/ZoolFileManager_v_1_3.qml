@@ -34,7 +34,7 @@ Rectangle {
     property alias s: settings
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
-    visible: itemIndex===zsm.currentIndex
+    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
         if(svIndex===itemIndex){
             tF.restart()
