@@ -46,7 +46,7 @@ Rectangle{
     Settings{
         id: s
         fileName: 'zoolMediaLive.cfg'
-        property bool repAutomatica: true
+        property bool repAutomatica: false
     }
     Item{
         anchors.fill: parent
@@ -209,6 +209,7 @@ Rectangle{
         }
     }
     Component.onCompleted: {
+        s.repAutomatica=false
         loadLocations()
     }
     function run(index, row){

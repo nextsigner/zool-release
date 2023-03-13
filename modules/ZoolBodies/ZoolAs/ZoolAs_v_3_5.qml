@@ -3,6 +3,8 @@ import QtGraphicalEffects 1.0
 import "../"
 import "../../../comps" as Comps
 
+import ZoolBodies.ZoolAsCotaDeg 1.0
+
 Item{
     id: r
     width: apps.xAsShowIcon?
@@ -21,12 +23,13 @@ Item{
     property int widthRestDec:apps.showDec?sweg.objSignsCircle.w*2:0
     property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
     property string astro
-    property int is
     property int fs
-    property var objData: ({g:0, m:0,ih:0,rsgdeg:0,rsg:0, retro:0})
+    property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
     property int pos: 1
     property int g: -1
     property int m: -1
+    property int ih: -1
+    property int is: -1
     property int numAstro: 0
 
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12]
@@ -251,6 +254,32 @@ Item{
         //            }
         //        }
     }
+    ZoolAsCotaDeg{
+        id: xDegData
+        width: xIcon.width*2
+        anchors.centerIn: xIcon
+        z: xIcon.z-1
+        isBack: false
+        distancia: img.width
+        gdec: objData.gdec
+        g: objData.rsg
+        m:objData.m
+        s:objData.s
+        ih:objData.ih
+        is:objData.is
+        cotaColor: apps.fontColor
+        cotaOpacity: 1.0//xIconPlanetSmall.opacity
+        //rot: -270
+        visible: sweg.listCotasShowing.indexOf(r.numAstro)>=0
+        Timer{
+            running: true
+            repeat: true
+            interval: 250
+            onTriggered: {
+                parent.visible=sweg.listCotasShowing.indexOf(r.numAstro)>=0
+            }
+        }
+    }
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
@@ -300,7 +329,7 @@ Item{
         saveRot(parseInt(pointerPlanet.pointerRot))
     }
     function saveRot(rot){
-        let json=JSON.parse(app.fileData)
+        let json=zfdm.getJson()
         if(!json.rots){
             json.rots={}
         }
@@ -309,10 +338,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
-        let njson=JSON.stringify(json)
-        app.fileData=njson
-        app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
+        zfdm.saveJson(json)
     }
 
     //Rot
@@ -333,7 +359,7 @@ Item{
 
     //Zoom And Pos
     function saveZoomAndPos(){
-        let json=JSON.parse(app.fileData)
+        let json=zfdm.getJson()
         if(!json[app.stringRes+'zoompos']){
             json[app.stringRes+'zoompos']={}
         }
@@ -346,15 +372,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
-        let njson=JSON.stringify(json)
-        app.fileData=njson
-        app.currentData=app.fileData
-        let jsonFilePath=apps.url.replace('file://', '')
-        if(app.dev){
-            //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
-            log.ls('jsonFilePath: '+jsonFilePath, 0, log.width)
-        }
-        unik.setFile(jsonFilePath, JSON.stringify(json))
+        zfdm.saveJson(json)
     }
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)

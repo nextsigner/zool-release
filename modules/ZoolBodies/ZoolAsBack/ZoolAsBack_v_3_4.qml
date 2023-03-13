@@ -328,7 +328,7 @@ Item{
         saveRot(parseInt(pointerPlanet.pointerRot))
     }
     function saveRot(rot){
-        let json=JSON.parse(app.fileData)
+        let json=zfdm.getJson()
         if(!json.rots){
             json.rots={}
         }
@@ -337,15 +337,12 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
-        let njson=JSON.stringify(json)
-        app.fileData=njson
-        app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
+        zfdm.saveJson(json)
     }
 
     //Rot
     function setRot(){
-        let json=JSON.parse(app.fileData)
+        let json=zfdm.getJson()
         if(json.rots&&json.rots['rcBack'+r.numAstro]){
             r.uRot=json.rots['rcBack'+r.numAstro]
             pointerPlanet.pointerRot=r.uRot
@@ -366,10 +363,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
-        let njson=JSON.stringify(json)
-        app.fileData=njson
-        app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), JSON.stringify(json))
+        zfdm.saveJson(json)
     }
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)

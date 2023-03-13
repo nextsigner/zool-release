@@ -109,6 +109,19 @@ Item{
     //<--Administración de archivos
 
     //-->Get Json Data
+//    function getJson(){
+//        return r.ja
+//    }
+    function saveJson(json){
+        r.ja=json
+        let saved = unik.setFile(apps.url, JSON.stringify(r.ja))
+        if(saved){
+            let njson=JSON.stringify(json)
+            app.fileData=njson
+            return true
+        }
+        return false
+    }
     function getParam(p){
         return r.ja.params[''+p]
     }
