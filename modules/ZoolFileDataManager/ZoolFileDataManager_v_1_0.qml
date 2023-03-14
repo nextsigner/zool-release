@@ -200,14 +200,21 @@ Item{
         njson.exts=[]
         //njson.exts=
         let o=r.ja.exts
+        if(app.dev)log.lv('o:'+o.toString())
+        o=o.filter(Boolean)
+        if(app.dev)log.lv('o2:'+o.toString())
+
         for(var i=0;i<Object.keys(o).length;i++){
             let json=o[i].params
+            if(o[i]){
             if(json.extId!==extId){
                 njson.exts[i]={}
                 njson.exts[i].params={}
                 njson.exts[i].params=o[i].params
             }
+            }
         }
+        njson.exts=njson.exts.filter(Boolean)
         if(app.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
         let seted=unik.setFile(apps.url, JSON.stringify(njson))
         let reLoaded=r.loadFile(apps.url)

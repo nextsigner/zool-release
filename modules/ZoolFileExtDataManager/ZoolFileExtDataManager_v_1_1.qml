@@ -461,12 +461,16 @@ Rectangle {
         lv.currentIndex=-1
         lm.clear()
         txtFileName.text=zfdm.getParam('n').replace(/_/g, ' ')
-        let exts=zfdm.getExts()
+        //Filtrado de los valores null
+        let exts=zfdm.getExts().filter(Boolean);
         if(!exts)return
+        //exts=exts.filter(Object)
         //if(app.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
         for(var i=0;i<Object.keys(exts).length;i++){
-            let json=exts[i].params
-            lm.append(lm.addItem(json))
+            if(exts[i]){
+                let json=exts[i].params
+                lm.append(lm.addItem(json))
+            }
         }
     }
     function enter(){
