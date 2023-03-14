@@ -268,6 +268,7 @@ Rectangle {
                                 let section=zsm.getPanel('ZoolFileManager').getSection('ZoolFileDirPrimLoader')
                                 section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
                             }else{
+                                if(app.dev)log.lv('ZoolFileExtDataManager Boton Cargar... gmt: '+gmt)
                                 app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
                             }
                         }
@@ -312,6 +313,7 @@ Rectangle {
                 let sParams=''+j.d+'/'+j.m+'/'+j.a+'<br>'
                 sParams+=''+j.h+':'+j.min+'hs<br>'
                 sParams+='<b>Ubicación:</b> '+j.ciudad+'<br>'
+                sParams+='<b>Gmt:</b> '+j.gmt+'<br>'
                 sParams+='<b>Lat:</b> '+j.lat+'<br>'
                 sParams+='<b>Long:</b> '+j.lon+'<br>'
                 sParams+='<b>Alt:</b> '+j.alt+'<br>'

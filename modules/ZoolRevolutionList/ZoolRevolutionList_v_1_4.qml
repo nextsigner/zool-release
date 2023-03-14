@@ -574,26 +574,7 @@ Rectangle {
                     //height: app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked:{
-                        if(!checkBoxRetSolar){
-                            //r.ulat=app.currentLat
-                            //r.ulon=app.currentLon
-                            if(app.dev){
-                                log.lv('r.ulat: '+r.ulat)
-                                log.lv('r.ulon: '+r.ulon)
-                            }
-                            //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
-                            lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
-                        }else{
-                            r.ulat=app.currentLat
-                            r.ulon=app.currentLon
-                            if(app.dev){
-                                log.lv('r.ulat: '+r.ulat)
-                                log.lv('r.ulon: '+r.ulon)
-                            }
-                            lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
-                            //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
-                        }
-
+                        r.prepareLoad()
                     }
                 }
             }
@@ -683,13 +664,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    if(!checkBoxRetSolar.checked){
-                        //itemRS.loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
-                            loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
-                    }else{
-                        //itemRS.loadRs(0, r.ulat, r.ulon, parseInt(tiGMT.text))
-                        loadRs(0, lat, lon, alt)
-                    }
+                    r.prepareLoad()
                 }
             }
             Rectangle{
@@ -905,7 +880,29 @@ Rectangle {
         lm.clear()
         r.state='hide'
     }
+    function prepareLoad(){
+        if(!checkBoxRetSolar){
+            //r.ulat=app.currentLat
+            //r.ulon=app.currentLon
+            if(app.dev){
+                log.lv('r.ulat: '+r.ulat)
+                log.lv('r.ulon: '+r.ulon)
+            }
+            //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
+            lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
+        }else{
+            r.ulat=app.currentLat
+            r.ulon=app.currentLon
+            if(app.dev){
+                log.lv('r.ulat: '+r.ulat)
+                log.lv('r.ulon: '+r.ulon)
+            }
+            lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
+            //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
+        }
+    }
     function loadRs(date, index, gmt, lat, lon, alt){
+        //if(app.dev)log.lv('1 loadRs()... gmt: '+gmt)
         let d = new Date(date)
         let ms=new Date(Date.now()).getTime()
 
