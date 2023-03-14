@@ -920,6 +920,13 @@ Rectangle {
         let strEdad='Edad: '+index+' años'
         let ubicacion=app.currentLugar
         let aR=[]
+        aR.push(''+va+'/'+vm+'/'+vd)
+        aR.push(''+vh+':'+vmin)
+        aR.push(ubicacion)
+        aR.push('<b>GMT:</b>'+gmt)
+        aR.push('<b>Lat:</b>'+lat)
+        aR.push('<b>Lon:</b>'+lon)
+        aR.push('<b>Alt:</b>'+alt)
         app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
     }
     function loadJson(json){

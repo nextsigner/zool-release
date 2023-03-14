@@ -17,7 +17,7 @@ import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
 import ZoolText 1.0
 import ZoolDataBar 3.1
-import ZoolDataView 1.0
+import ZoolDataView 1.1
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
@@ -66,6 +66,8 @@ ZoolMainWindow{
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
     property string url
     property string mod: 'vn'
+
+    property bool backIsSaved: false
 
     property var objInFullWin
     property bool capturing: false
@@ -607,12 +609,26 @@ ZoolMainWindow{
                     visible: apps.zFocus==='xLatIzq'
                 }
             }
-            Item{width: xLatIzq.width;height: 1;visible: !xLatIzq.visible}
+            Item{
+                width: xLatIzq.width;
+                height: 1;
+                visible: !xLatIzq.visible
+
+
+            }
             Item{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
                 height: parent.height
                 ZoolElementsView{id: zoolElementsView}
+                //ExtId
+                Text{
+                    text: '<b>uExtId: '+zoolDataView.uExtIdLoaded+'</b>'
+                    font.pixelSize: app.fs*0.5
+                    color: apps.fontColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: app.dev
+                }
                 Item{
                     id: xControlsTime
                     width: controlsTime.width

@@ -153,62 +153,63 @@ function loadFromJson(j, save){
     runJsonTemp()
 }
 //Funciones de Cargar Datos Exterior
-function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
-    app.ev=true
 
-    let nGmt=gmt
-    //IMPORTANTE
-    //GMT A 0 SI ES RS
-    if(tipo==='rs')nGmt=0
+//function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
+//    app.ev=true
 
-    let dataMs=new Date(Date.now())
-    let j='{"paramsBack":{"tipo":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "ciudad":"'+ciudad+'"}}'
-    app.mod=tipo
-    j=j.replace('/, "/g', ',"')
+//    let nGmt=gmt
+//    //IMPORTANTE
+//    //GMT A 0 SI ES RS
+//    if(tipo==='rs')nGmt=0
 
-    let aL=zoolDataView.atLeft
-    let aR=[]
-    aR.push('<b>'+nom+'</b>')
-    aR.push(d+'/'+m+'/'+a)
-    aR.push(h+':'+min+'hs')
-    aR.push('GMT '+nGmt)
-    aR.push('<b> '+ciudad+'</b>')
-    aR.push('<b>Lat:</b> '+lat)
-    aR.push('<b>Lon:</b> '+lon)
-    aR.push('<b>Alt:</b> '+alt)
+//    let dataMs=new Date(Date.now())
+//    let j='{"paramsBack":{"tipo":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "ciudad":"'+ciudad+'"}}'
+//    app.mod=tipo
+//    j=j.replace('/, "/g', ',"')
 
-    app.currentNomBack=nom
-    app.currentFechaBack=d+'/'+m+'/'+a
-    app.currentLugarBack=ciudad
-    app.currentGmtBack=gmt
-    app.currentLonBack=lon
-    app.currentLatBack=lat
+//    let aL=zoolDataView.atLeft
+//    let aR=[]
+//    aR.push('<b>'+nom+'</b>')
+//    aR.push(d+'/'+m+'/'+a)
+//    aR.push(h+':'+min+'hs')
+//    aR.push('GMT '+nGmt)
+//    aR.push('<b> '+ciudad+'</b>')
+//    aR.push('<b>Lat:</b> '+lat)
+//    aR.push('<b>Lon:</b> '+lon)
+//    aR.push('<b>Alt:</b> '+alt)
 
-    if(tipo==='sin'){
+//    app.currentNomBack=nom
+//    app.currentFechaBack=d+'/'+m+'/'+a
+//    app.currentLugarBack=ciudad
+//    app.currentGmtBack=gmt
+//    app.currentLonBack=lon
+//    app.currentLatBack=lat
 
-        zoolDataView.setDataView('Sinastría', aL, aR)
-    }
-    if(tipo==='rs'){
-        zoolDataView.setDataView('Rev. Solar '+a, aL, aR)
-    }
-    if(tipo==='trans'){
-        zoolDataView.setDataView('Tránsitos'+a, aL, aR)
-    }
-    if(tipo==='dirprim'){
-        zoolDataView.setDataView('Dir. Prim. '+a+'/'+m+'/'+d, aL, aR)
-    }
-    if(save){
-        let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
-        //if(app.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
-        unik.setFile(fn, j)
-        loadJsonBack(fn)
-        return
-    }
-    app.currentDataBack=j
-    //if(app.dev)log.lv('sweg.loadBack(JSON.parse(j), tipo): '+j+'\ntipo: '+tipo)
-    sweg.loadBack(JSON.parse(j), tipo)
-    //runJsonTempBack()
-}
+//    if(tipo==='sin'){
+
+//        zoolDataView.setDataView('Sinastría', aL, aR)
+//    }
+//    if(tipo==='rs'){
+//        zoolDataView.setDataView('Rev. Solar '+a, aL, aR)
+//    }
+//    if(tipo==='trans'){
+//        zoolDataView.setDataView('Tránsitos'+a, aL, aR)
+//    }
+//    if(tipo==='dirprim'){
+//        zoolDataView.setDataView('Dir. Prim. '+a+'/'+m+'/'+d, aL, aR)
+//    }
+//    if(save){
+//        let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
+//        //if(app.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
+//        unik.setFile(fn, j)
+//        loadJsonBack(fn)
+//        return
+//    }
+//    app.currentDataBack=j
+//    //if(app.dev)log.lv('sweg.loadBack(JSON.parse(j), tipo): '+j+'\ntipo: '+tipo)
+//    sweg.loadBack(JSON.parse(j), tipo)
+//    //runJsonTempBack()
+//}
 
 function loadTransFromTime(date){
     let j=JSON.parse(app.currentData)
@@ -650,6 +651,7 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     if(tipo==='trans')strSep='Tránsitos'
     if(tipo==='dirprim')strSep='Dir. Primarias'
     zoolDataView.setDataView(strSep, aL, aR)
+    zoolDataView.uExtIdLoaded=extId
 }
 
 

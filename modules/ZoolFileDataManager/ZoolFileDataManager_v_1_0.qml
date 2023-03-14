@@ -118,6 +118,7 @@ Item{
         if(saved){
             let njson=JSON.stringify(json)
             app.fileData=njson
+            zsm.getPanel('ZoolFileExtDataManager').updateList()
             return true
         }
         return false
@@ -187,8 +188,9 @@ Item{
             }
         }
         if(app.dev)log.lv('saveExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
-        return unik.setFile(apps.url, JSON.stringify(njson))
-        //return r.ja.exts[i][''+p]
+        let isSaved=unik.setFile(apps.url, JSON.stringify(njson))
+        if(isSaved)zsm.getPanel('ZoolFileExtDataManager').updateList()
+        return isSaved
     }
     function deleteExtToJsonFile(extId){
         //let jsonActual=
