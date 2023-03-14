@@ -581,6 +581,7 @@ Rectangle {
                                 log.lv('r.ulat: '+r.ulat)
                                 log.lv('r.ulon: '+r.ulon)
                             }
+                            //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
                             lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
                         }else{
                             r.ulat=app.currentLat
@@ -589,7 +590,8 @@ Rectangle {
                                 log.lv('r.ulat: '+r.ulat)
                                 log.lv('r.ulon: '+r.ulon)
                             }
-                            lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
+                            lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
+                            //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
                         }
 
                     }
@@ -906,7 +908,6 @@ Rectangle {
     function loadRs(date, index, gmt, lat, lon, alt){
         let d = new Date(date)
         let ms=new Date(Date.now()).getTime()
-
 
         let vd=d.getDate()
         let vm=d.getMonth()+1

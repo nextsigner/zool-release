@@ -186,14 +186,16 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         }
         if(comando[0]==='rsl'){
             if(cmd===r.uCmd){
-                panelRsList.state=panelRsList.state==='show'?'hide':'show'
+                //panelRsList.state=panelRsList.state==='show'?'hide':'show'
+                zsm.getPanel('ZoolRevolutionList').state=zsm.getPanel('ZoolRevolutionList').state==='show'?'hide':'show'
                 return
             }
             if(comando.length<1)return
             if(parseInt(comando[1])>=1){
-                panelRsList.setRsList(parseInt(comando[1])+ 1)
+                //panelRsList.setRsList(parseInt(comando[1])+ 1)
+                zsm.getPanel('ZoolRevolutionList').setRsList(parseInt(comando[1])+ 1)
                 //panelRsList.state='show'
-                zsm.currentIndex=4
+                //zsm.currentIndex=4
             }
         }
 
