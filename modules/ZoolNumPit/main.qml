@@ -120,6 +120,6 @@ ApplicationWindow {
     }
     Shortcut{
         sequence: 'Esc'
-        onActivated: Qt.quit()
+        onActivated: app.close()//Qt.quit()
     }
 }

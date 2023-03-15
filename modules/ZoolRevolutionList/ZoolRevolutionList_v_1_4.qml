@@ -34,13 +34,13 @@ Rectangle {
 
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
-        if(svIndex===itemIndex){
-            if(edadMaxima<=0)xTit.showTi=true
-            tF.restart()
-        }else{
-            tF.stop()
-            tiEdad.focus=false
-        }
+//        if(svIndex===itemIndex){
+//            if(edadMaxima<=0)xTit.showTi=true
+//            tF.restart()
+//        }else{
+//            tF.stop()
+//            tiEdad.focus=false
+//        }
     }
     Item{id:xuqp}
     Settings{
@@ -55,7 +55,7 @@ Rectangle {
         repeat: false
         interval: 1500
         onTriggered: {
-            tiEdad.focus=true
+            //tiEdad.focus=true
         }
     }
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
@@ -482,7 +482,10 @@ Rectangle {
                                     if(focus)apps.zFocus='xLatIzq'
                                 }
                                 Keys.onReturnPressed: {
-                                    if(!checkBoxRetSolar.checked){
+                                    //focus=false
+                                    //xApp.focus=true
+                                    r.enter()
+                                    /*if(!checkBoxRetSolar.checked){
                                         r.ulat=22.22
                                         r.ulon=44.44
                                         if(app.dev){
@@ -496,7 +499,7 @@ Rectangle {
 
                                         xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
                                         xTit.showTi=false
-                                    }
+                                    }*/
 
                                 }
                             }
@@ -787,6 +790,7 @@ Rectangle {
                 }
             }
             function loadRs(gmt, lat, lon, alt){
+                if(app.dev)log.lv('itemRs.loadRs()... gmt: '+gmt+' lat:'+lat+' lon: '+lon+' alt: '+alt)
                 r.loadRs(itemRS.rsDate, index, gmt, lat, lon, alt)
             }
             Component.onCompleted: {
@@ -881,9 +885,10 @@ Rectangle {
         r.state='hide'
     }
     function prepareLoad(){
+        //tiEdad.focus=false
         if(!checkBoxRetSolar){
-            //r.ulat=app.currentLat
-            //r.ulon=app.currentLon
+            r.ulat=app.currentLat
+            r.ulon=app.currentLon
             if(app.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
@@ -934,15 +939,22 @@ Rectangle {
         }
     }
     function enter(){
-        //Qt.quit()
-        if(xTit.showTi){
+        if(app.dev)log.lv('ZoolRevolutionList.enter()... lv.currentIndex: '+lv.currentIndex)
+        if(xTit.showTi && lv.currentIndex<=0 && lv.count<1){
+            log.lv('0 ZoolRevolutionList enter()...')
             xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
             xTit.showTi=false
             return
+        }else{
+            log.lv('1 ZoolRevolutionList enter()...')
+            r.prepareLoad()
         }
-        if(lv.count>=1){
-            xBottomBar.objPanelCmd.makeRSBack(lv.itemAtIndex(lv.currentIndex).rsDate)
-        }
+    }
+    function up(){
+        if(lv.currentIndex>0)lv.currentIndex--
+    }
+    function down(){
+        if(lv.currentIndex<lv.count)lv.currentIndex++
     }
     function desactivar(){
         tiEdad.focus=false

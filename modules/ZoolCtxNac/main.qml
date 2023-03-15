@@ -77,6 +77,6 @@ ApplicationWindow{
     ModuleMain{}
     Shortcut{
         sequence: 'Esc'
-        onActivated: Qt.quit()
+        //onActivated: Qt.quit()
     }
 }

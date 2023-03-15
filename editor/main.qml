@@ -47,7 +47,8 @@ ApplicationWindow {
     Shortcut {
         sequence: "Esc"
         onActivated: {
-            Qt.quit()
+            r.close()
+            //Qt.quit()
         }
     }
     Component.onCompleted: {

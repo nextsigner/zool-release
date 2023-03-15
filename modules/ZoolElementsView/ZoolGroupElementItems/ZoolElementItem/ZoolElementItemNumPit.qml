@@ -44,7 +44,7 @@ Rectangle{
             zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?app.currentNom:app.currentNomBack)
             zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
             zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
-            zsm.currentIndex=6
+            zsm.showPanel('ZoolNumPit')//currentIndex=6
         }
     }
     Row{

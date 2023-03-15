@@ -222,10 +222,15 @@ ApplicationWindow {
                 panelDataBodies.toEnter()
                 return
             }
+            if(apps.zFocus==='xLatIzq'){
+                zsm.currentSectionFocused.enter()
+                return
+            }
             if(xEditor.visible){
                 //xEditor.enter()
                 //return
             }
+            /*
             if(apps.currentSwipeViewIndex===3&&zoolFileManager.currentIndex>=0){
                 zoolFileManager.enter()
                 return
@@ -237,7 +242,7 @@ ApplicationWindow {
             if(apps.currentSwipeViewIndex===5){
                 panelRsList.enter()
                 return
-            }
+            }*/
         }
     }
     Shortcut{
@@ -259,23 +264,30 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
-            if(app.dev)Qt.quit()
+            if(log.visible){
+                log.visible=false
+                return
+            }
+            if(app.dev && !log.visible){
+                Qt.quit()
+                return
+            }
             if(!xApp.focus){
                 xApp.focus=true
                 return
             }
             if(app.objInFullWin){
-                app.objInFullWin.escaped()
+                //app.objInFullWin.escaped()
                 return
             }
             if(ncv.log.visible){
                 ncv.log.visible=false
                 return
             }
-            if(log.visible){
-                log.visible=false
-                return
-            }
+//            if(log.visible){
+//                log.visible=false
+//                return
+//            }
             if(videoListEditor.visible){
                 videoListEditor.visible=false
                 return
@@ -369,6 +381,10 @@ ApplicationWindow {
                 menuBar.u()
                 return
             }
+            if(apps.zFocus==='xLatIzq'){
+                zsm.currentSectionFocused.up()
+                return
+            }
             if(panelSabianos.view.visible){
                 panelSabianos.view.toup()
                 return
@@ -432,6 +448,10 @@ ApplicationWindow {
         onActivated: {
             if(menuBar.expanded){
                 menuBar.d()
+                return
+            }
+            if(apps.zFocus==='xLatIzq'){
+                zsm.currentSectionFocused.down()
                 return
             }
             if(panelSabianos.view.visible){

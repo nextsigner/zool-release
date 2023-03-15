@@ -28,7 +28,7 @@ import ZoolMenuCtxPlanetsAsc 1.0
 
 import ZoolControlsTime 1.0
 
-import ZoolSectionsManager 1.0
+import ZoolSectionsManager 1.1
 
 import ZoolDataBodies 3.1
 import ZoolElementsBack 1.0
@@ -905,7 +905,6 @@ ZoolMainWindow{
     //        onTriggered: JS.loadModules()
     //    }
     Component.onCompleted: {
-
         JS.setFs()
 
         //Check is dev with the arg -dev
@@ -996,5 +995,7 @@ ZoolMainWindow{
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)
         JS.loadModules()
+        app.requestActivate()
+        //log.focus=true
     }
 }
