@@ -5,7 +5,7 @@ import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
 import ZoolFileMaker 1.3
-import ZoolFileExtDataManager 1.1
+//import ZoolFileExtDataManager 1.2
 import ZoolFileLoader 1.3
 import ZoolFileTransLoader 1.1
 import ZoolFileDirPrimLoader 1.6

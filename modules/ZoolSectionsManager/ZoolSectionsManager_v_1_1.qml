@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import '../../comps' as Comps
 
 import ZoolDataText 1.0
-import ZoolFileExtDataManager 1.1
+import ZoolFileExtDataManager 1.2
 import ZoolFileManager 1.3
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.4

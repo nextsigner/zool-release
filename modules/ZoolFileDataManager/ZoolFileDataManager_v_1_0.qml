@@ -193,17 +193,14 @@ Item{
         return isSaved
     }
     function deleteExtToJsonFile(extId){
-        //let jsonActual=
         let njson={}
         njson.params={}
         njson.params=r.ja.params
         njson.exts=[]
-        //njson.exts=
         let o=r.ja.exts
         if(app.dev)log.lv('o:'+o.toString())
         o=o.filter(Boolean)
         if(app.dev)log.lv('o2:'+o.toString())
-
         for(var i=0;i<Object.keys(o).length;i++){
             let json=o[i].params
             if(o[i]){
@@ -217,8 +214,12 @@ Item{
         njson.exts=njson.exts.filter(Boolean)
         if(app.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
         let seted=unik.setFile(apps.url, JSON.stringify(njson))
-        let reLoaded=r.loadFile(apps.url)
-        //if(seted)r.getJson()
+        if(seted)r.ja=njson
+        let forReload=extId===zoolDataView.uExtIdLoaded
+        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+' )\nzoolDataView.uExtIdLoaded: '+zoolDataView.uExtIdLoaded+'\nforReload: '+forReload)
+
+        let reLoaded=forReload?r.loadFile(apps.url):true
+        if(forReload)app.j.loadJson(apps.url)
         let allTaskReady=(seted && reLoaded)?true:false
         return allTaskReady
     }
