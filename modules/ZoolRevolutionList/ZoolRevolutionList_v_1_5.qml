@@ -42,6 +42,10 @@ Rectangle {
 //            tiEdad.focus=false
 //        }
     }
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para crear revoluciones solares.')
+    }
     Item{id:xuqp}
     Settings{
         id: settings
@@ -422,7 +426,7 @@ Rectangle {
                 height: app.fs*1.5
                 color: apps.fontColor
                 border.width: 2
-                border.color: txtLabelTit.focus?'red':'white'
+                border.color: 'white'//txtLabelTit.focus?'red':'white'
                 anchors.horizontalCenter: parent.horizontalCenter
                 property bool showTit: false
                 property bool showTi: false
@@ -483,25 +487,10 @@ Rectangle {
                                     if(focus)apps.zFocus='xLatIzq'
                                 }
                                 Keys.onReturnPressed: {
-                                    //focus=false
-                                    //xApp.focus=true
                                     r.enter()
-                                    /*if(!checkBoxRetSolar.checked){
-                                        r.ulat=22.22
-                                        r.ulon=44.44
-                                        if(app.dev){
-                                            log.lv('r.ulat: '+r.ulat)
-                                            log.lv('r.ulon: '+r.ulon)
-                                        }
-                                        xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
-                                        xTit.showTi=false
-                                    }else{
-
-
-                                        xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
-                                        xTit.showTi=false
-                                    }*/
-
+                                }
+                                Keys.onEnterPressed: {
+                                    r.enter()
                                 }
                             }
                         }

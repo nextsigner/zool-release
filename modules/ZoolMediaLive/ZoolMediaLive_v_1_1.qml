@@ -25,9 +25,11 @@ Rectangle{
     property var gmts: []//[0, 3]
     property string currentLugar: 'Mundo'
 
+    property alias settings: s
+
     property int cantAudiosMaked: 0
 
-    state: 'hide'
+    state: s.stateShowOrHide
     states: [
         State {
             name: "show"
@@ -50,6 +52,7 @@ Rectangle{
         id: s
         fileName: 'zoolMediaLive.cfg'
         property bool repAutomatica: true
+        property string stateShowOrHide: 'hide'
     }
     Item{id: xUqpsPicoWave}
     Item{
@@ -69,7 +72,7 @@ Rectangle{
         MouseArea{
             anchors.fill: parent
             hoverEnabled: true
-            onEntered: r.state='show'
+            //onEntered: r.state='show'
         }
     }
     Column{

@@ -202,6 +202,13 @@ Item{
                 interval: 500
                 onTriggered: {
                     if(maSig.vClick<=1){
+                        if(!r.selected){
+
+                            let msg='Mostrando '+app.planetasReferencia[r.numAstro]
+                            msg+=' en el signo '+app.signos[r.is]
+                            msg+=' en el grado '+r.objData.rsg+' '+r.objData.m+' minutos '+r.objData.s+' segundos. Casa '+r.ih
+                            zoolVoicePlayer.speak(msg)
+                        }
                         r.parent.pressed(r)
                     }else{
                         r.parent.doublePressed(r)

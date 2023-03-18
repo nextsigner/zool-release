@@ -26,6 +26,10 @@ Rectangle{
             //tF.stop()
         }
     }
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección de datos.')
+    }
     onCurrentPChanged: {
         tLoadPSH.restart()
     }

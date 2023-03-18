@@ -21,6 +21,10 @@ Rectangle{
             //tF.stop()
         }
     }
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección de gestión de modulos.')
+    }
     Flickable{
         id: flk
         width: r.width

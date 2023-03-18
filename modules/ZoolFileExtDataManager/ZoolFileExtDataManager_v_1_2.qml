@@ -27,6 +27,11 @@ Rectangle {
 
     property int fs: app.fs*s.fzoom
 
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para gestionar mapas externos.')
+    }
+
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible

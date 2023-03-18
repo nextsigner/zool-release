@@ -192,12 +192,12 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                if(apps.currentSwipeViewIndex===2&&zoolFileManager.currentIndex>=0){
-                    zoolFileManager.enter()
+                if(apps.currentSwipeViewIndex===2&&zsm.getPanel('ZoolFileManager').currentIndex>=0){
+                    zsm.getPanel('ZoolFileManager').enter()
                     return
                 }
                 //                if(apps.currentSwipeViewIndex===3){
-                //                    zoolFileManager.enter()
+                //                    zsm.getPanel('ZoolFileManager').enter()
                 //                    return
                 //                }
                 if(apps.currentSwipeViewIndex===3){
@@ -212,6 +212,7 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        //sequence: 'Enter'
         sequence: 'Enter'
         onActivated: {
             if(menuBar.expanded){
@@ -231,12 +232,12 @@ ApplicationWindow {
                 //return
             }
             /*
-            if(apps.currentSwipeViewIndex===3&&zoolFileManager.currentIndex>=0){
-                zoolFileManager.enter()
+            if(apps.currentSwipeViewIndex===3&&zsm.getPanel('ZoolFileManager').currentIndex>=0){
+                zsm.getPanel('ZoolFileManager').enter()
                 return
             }
             if(apps.currentSwipeViewIndex===3){
-                zoolFileManager.enter()
+                zsm.getPanel('ZoolFileManager').enter()
                 return
             }
             if(apps.currentSwipeViewIndex===5){
@@ -255,12 +256,12 @@ ApplicationWindow {
             apps.zFocus='xLatIzq'
         }
     }
-//    Shortcut{
-//        sequence: 'Ctrl+Shift+Esc'
-//        onActivated: {
-//            Qt.quit()
-//        }
-//    }
+    //    Shortcut{
+    //        sequence: 'Ctrl+Shift+Esc'
+    //        onActivated: {
+    //            Qt.quit()
+    //        }
+    //    }
     Shortcut{
         sequence: 'Esc'
         onActivated: {
@@ -284,25 +285,25 @@ ApplicationWindow {
                 ncv.log.visible=false
                 return
             }
-//            if(log.visible){
-//                log.visible=false
-//                return
-//            }
+            //            if(log.visible){
+            //                log.visible=false
+            //                return
+            //            }
             if(videoListEditor.visible){
                 videoListEditor.visible=false
                 return
             }
             //Efecto sobre los paneles
-            if(zoolFileManager.visible&&zoolFileManager.ti.focus){
-                zoolFileManager.ti.focus=false
+            if(zsm.getPanel('ZoolFileManager').visible&&zsm.getPanel('ZoolFileManager').ti.focus){
+                zsm.getPanel('ZoolFileManager').ti.focus=false
                 return
             }
-            if(zoolFileManager.visible&&(zoolFileManager.tiN.focus||zoolFileManager.tiC.focus)){
-                if(zoolFileManager.tiN.focus){
-                    zoolFileManager.tiN.focus=false
+            if(zsm.getPanel('ZoolFileManager').visible&&(zsm.getPanel('ZoolFileManager').tiN.focus||zsm.getPanel('ZoolFileManager').tiC.focus)){
+                if(zsm.getPanel('ZoolFileManager').tiN.focus){
+                    zsm.getPanel('ZoolFileManager').tiN.focus=false
                 }
-                if(zoolFileManager.tiC.focus){
-                    zoolFileManager.tiC.focus=false
+                if(zsm.getPanel('ZoolFileManager').tiC.focus){
+                    zsm.getPanel('ZoolFileManager').tiC.focus=false
                 }
                 return
             }
@@ -345,16 +346,16 @@ ApplicationWindow {
             //                panelRsList.state='hide'
             //                return
             //            }
-            if(zoolFileManager.state==='show'){
-                zoolFileManager.state='hide'
+            if(zsm.getPanel('ZoolFileManager').state==='show'){
+                zsm.getPanel('ZoolFileManager').state='hide'
                 return
             }
             if(panelDataBodies.state==='show'){
                 panelDataBodies.state='hide'
                 return
             }
-            if(zoolFileManager.state==='show'){
-                zoolFileManager.state='hide'
+            if(zsm.getPanel('ZoolFileManager').state==='show'){
+                zsm.getPanel('ZoolFileManager').state='hide'
                 return
             }
             //            if(panelControlsSign.state==='show'){
@@ -392,15 +393,15 @@ ApplicationWindow {
 
             if(apps.zFocus==='xLatIzq'){
                 if(apps.currentSwipeViewIndex===2){
-                    if(zoolFileManager.currentIndex>0){
-                        zoolFileManager.currentIndex--
+                    if(zsm.getPanel('ZoolFileManager').currentIndex>0){
+                        zsm.getPanel('ZoolFileManager').currentIndex--
                     }else{
-                        zoolFileManager.currentIndex=zoolFileManager.listModel.count-1
+                        zsm.getPanel('ZoolFileManager').currentIndex=zsm.getPanel('ZoolFileManager').listModel.count-1
                     }
                     return
                 }
                 if(apps.currentSwipeViewIndex===3){
-                    zoolFileManager.toUp()
+                    zsm.getPanel('ZoolFileManager').toUp()
                     return
                 }
                 //                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
@@ -460,15 +461,15 @@ ApplicationWindow {
             }
             if(apps.zFocus==='xLatIzq'){
                 if(apps.currentSwipeViewIndex===2){
-                    if(zoolFileManager.currentIndex<zoolFileManager.listModel.count){
-                        zoolFileManager.currentIndex++
+                    if(zsm.getPanel('ZoolFileManager').currentIndex<zsm.getPanel('ZoolFileManager').listModel.count){
+                        zsm.getPanel('ZoolFileManager').currentIndex++
                     }else{
-                        zoolFileManager.currentIndex=0
+                        zsm.getPanel('ZoolFileManager').currentIndex=0
                     }
                     return
                 }
                 if(apps.currentSwipeViewIndex===3){
-                    zoolFileManager.toDown()
+                    zsm.getPanel('ZoolFileManager').toDown()
                     return
                 }
                 //                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
@@ -518,9 +519,9 @@ ApplicationWindow {
         }
     }
     Shortcut{
-        sequence: 'Left'
+        sequence: 'Ctrl+Left'
         onActivated: {
-            //if(zoolFileManager.state==='show'){
+            //if(zsm.getPanel('ZoolFileManager').state==='show'){
             if(apps.zFocus==='xLatDer'){
                 panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
                 return
@@ -531,7 +532,7 @@ ApplicationWindow {
                     return
                 }
                 if(zsm.currentIndex===2){
-                    zoolFileManager.toLeft()
+                    zsm.getPanel('ZoolFileManager').toLeft()
                     return
                 }
             }
@@ -552,7 +553,7 @@ ApplicationWindow {
         }
     }
     Shortcut{
-        sequence: 'Right'
+        sequence: 'Ctrl+Right'
         onActivated: {
             if(apps.zFocus==='xLatDer'){
                 panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
@@ -564,7 +565,7 @@ ApplicationWindow {
             }
             if(apps.zFocus==='xLatIzq'){
                 if(zsm.currentIndex===2){
-                    zoolFileManager.toRight()
+                    zsm.getPanel('ZoolFileManager').toRight()
                     return
                 }
                 if(panelSabianos.view.visible){
@@ -587,22 +588,26 @@ ApplicationWindow {
         }
     }
     Shortcut{
-        sequence: 'Ctrl+Left'
+        sequence: 'Left'
         onActivated: {
-            if(zsm.currentIndex>0){
-                zsm.currentIndex--
-            }else{
-                zsm.currentIndex=zsm.count-1
+            if(apps.zFocus==='xLatIzq'){
+                if(zsm.currentIndex>0){
+                    zsm.currentIndex--
+                }else{
+                    zsm.currentIndex=zsm.count-1
+                }
             }
         }
     }
     Shortcut{
-        sequence: 'Ctrl+Right'
+        sequence: 'Right'
         onActivated: {
-            if(zsm.currentIndex<zsm.count-1){
-                zsm.currentIndex++
-            }else{
-                zsm.currentIndex=0
+            if(apps.zFocus==='xLatIzq'){
+                if(zsm.currentIndex<zsm.count-1){
+                    zsm.currentIndex++
+                }else{
+                    zsm.currentIndex=0
+                }
             }
         }
     }
@@ -719,6 +724,30 @@ ApplicationWindow {
             xBottomBar.objPanelCmd.state=xBottomBar.objPanelCmd.state==='show'?'hide':'show'
         }
     }
+    //Mostrar/Ocultar ZoolMediaLive
+    Shortcut{
+        sequence: 'Ctrl+l'
+        onActivated: {
+            if(zoolMediaLive.settings.stateShowOrHide==='hide'){
+                zoolMediaLive.settings.stateShowOrHide='show'
+            }else{
+                zoolMediaLive.settings.stateShowOrHide='hide'
+            }
+
+        }
+    }
+    //Mostrar/Ocultar ZoolVoicePlayer
+    Shortcut{
+        sequence: 'Ctrl+p'
+        onActivated: {
+            if(zoolVoicePlayer.settings.stateShowOrHide==='hide'){
+                zoolVoicePlayer.settings.stateShowOrHide='show'
+            }else{
+                zoolVoicePlayer.settings.stateShowOrHide='hide'
+            }
+
+        }
+    }
     //Insertar
     Shortcut{
         sequence: 'Ctrl+i'
@@ -734,7 +763,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
-            zoolFileManager.state=zoolFileManager.state==='show'?'hide':'show'
+            zsm.getPanel('ZoolFileManager').state=zsm.getPanel('ZoolFileManager').state==='show'?'hide':'show'
         }
     }
     //Mostrar Panel de Revoluciones Solares

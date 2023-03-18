@@ -14,7 +14,7 @@ Rectangle{
         anchors.centerIn: parent
         spacing: app.fs*0.25
         ZoolText{
-            text: '<b>State:</b> '+panelDataBodies.state
+            text: '<b>State:</b> '+zoolDataBodies.state
             font.pixelSize: r.height*0.25
             color: 'white'
         }

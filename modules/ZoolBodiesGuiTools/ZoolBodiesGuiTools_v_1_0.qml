@@ -251,14 +251,14 @@ Rectangle {
                     apps.xAsShowIcon=!apps.xAsShowIcon
                 }
             }
-//            ButtonIcon{
-//                text:  'NL'
-//                width: apps.botSize
-//                height: width
-//                onClicked: {
-//                    apps.showNumberLines=!apps.showNumberLines
-//                }
-//            }
+            ButtonIcon{
+                text:  apps.speakEnabled?'Sp!':'Sp'
+                width: apps.botSize
+                height: width
+                onClicked: {
+                    apps.speakEnabled=!apps.speakEnabled
+                }
+            }
         }
 
         //Botones SAM

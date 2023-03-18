@@ -31,6 +31,10 @@ Rectangle {
     property real ulon:-100.00
 
     property string uFileNameLoaded: ''
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para crear archivos.')
+    }
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible

@@ -38,7 +38,8 @@ Item{
             height: app.fs*0.6
             color: apps.fontColor
             anchors.horizontalCenter: parent.horizontalCenter
-            property var aPanelesTits: ['Información','Esquemas', 'Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
+            //property var aPanelesTits: ['Información','Esquemas', 'Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
+            property var aPanelesTits: ['Archivos','Esquemas', 'Rev. Solares', 'Numerología', 'Sabianos', 'Datos', 'Información', 'Funciones', 'Opciones', 'Texto a voz']
             Text{
                 text: parseInt(zsm.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[zsm.currentIndex]
                 color: apps.backgroundColor

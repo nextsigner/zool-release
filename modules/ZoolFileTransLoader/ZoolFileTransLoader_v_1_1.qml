@@ -29,6 +29,10 @@ Rectangle {
     property real ulon:-100.00
 
     property string uParamsLoaded: ''
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.')
+    }
     Timer{
         running: r.uParamsLoaded!==''
         repeat: false

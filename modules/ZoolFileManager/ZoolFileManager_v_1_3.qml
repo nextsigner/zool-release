@@ -42,6 +42,10 @@ Rectangle {
             tF.stop()
         }
     }
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para administrar archivos.')
+    }
     Timer{
         id: tF
         running: svIndex===itemIndex && apps.zFocus==='xLatIzq'

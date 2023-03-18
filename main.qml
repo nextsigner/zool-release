@@ -35,6 +35,7 @@ import ZoolElementsBack 1.0
 import ZoolElementsView 1.0
 
 import ZoolMediaLive 1.1
+import ZoolVoicePlayer 1.0
 import ZoolDataEditor 1.0
 import ZoolVideoPlayer 1.0
 import ZoolInfoDataView 1.0
@@ -136,6 +137,7 @@ ZoolMainWindow{
     property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     property var planetas: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith']
     property var planetasArchivos: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'asc', 'mc']
+    property var planetasReferencia: ['el sol', 'la luna', 'el planeta mercurio', 'el planeta venus', 'el planeta marte', 'el planeta jupiter', 'el planeta saturno', 'el planeta urano', 'el planeta neptuno', 'pluton', 'el nodo norte', 'el nodo sur', 'el asteroide quiron', 'la luna blanca selena', 'la luna negra lilith', 'el ascendente', 'el medio cielo']
     property var planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property var signColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
@@ -184,7 +186,7 @@ ZoolMainWindow{
     property bool sspEnabled: false
 
     onCurrentPlanetIndexChanged: {
-        panelDataBodies.currentIndex=currentPlanetIndex
+        zoolDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>=0){
             app.currentPlanetIndexBack=-1
             app.currentHouseIndexBack=-1
@@ -197,7 +199,7 @@ ZoolMainWindow{
                 app.ip.opacity=0.0
             }
         }
-        //panelDataBodies.currentIndex=currentPlanetIndex
+        //zoolDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>14){
             /*if(currentPlanetIndex===15){
                 sweg.objHousesCircle.currentHouse=1
@@ -210,7 +212,7 @@ ZoolMainWindow{
         }
     }
     onCurrentPlanetIndexBackChanged: {
-        panelDataBodies.currentIndexBack=currentPlanetIndexBack
+        zoolDataBodies.currentIndexBack=currentPlanetIndexBack
         if(currentPlanetIndexBack>=0){
             app.currentPlanetIndex=-1
             app.currentHouseIndex=-1
@@ -329,6 +331,7 @@ ZoolMainWindow{
 
         //GUI
         property string zFocus: 'xLatIzq'
+        property bool speakEnabled: false
 
         //property bool showLog: false
         property bool showMenuBar: false
@@ -741,8 +744,9 @@ ZoolMainWindow{
 
                 //Chat{id: chat; z: onTop?panelPronEdit.z+1:panelControlsSign.z-1}
                 //PanelControlsSign{id: panelControlsSign}
-                ZoolDataBodies{id: panelDataBodies}
+                ZoolDataBodies{id: zoolDataBodies}
                 //PanelPronEdit{id: panelPronEdit;}
+                ZoolVoicePlayer{id: zoolVoicePlayer}
                 Rectangle{
                     width: parent.width
                     height: 3
@@ -830,7 +834,7 @@ ZoolMainWindow{
     Comps.MenuPlanets{id: menuPlanets}
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
-    ZoolMediaLive{id: zoolMediaLive;parent: panelDataBodies}
+    ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
     Comps.MinymaClient{
         id: minymaClient
         loginUserName: 'zool'+(app.dev?'-dev':'')

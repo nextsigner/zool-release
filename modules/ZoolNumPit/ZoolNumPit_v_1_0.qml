@@ -85,6 +85,10 @@ Rectangle {
 
     property int itemIndex: -1
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
+    onVisibleChanged: {
+        if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección de numerología.')
+    }
     onCurrentNumNacimientoChanged: {
         calcularPersonalidad()
     }

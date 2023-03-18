@@ -4,7 +4,7 @@ import "../../js/Funcs.js" as JS
 
 
 import ZoolBodies.ZoolPlanetsCircle 1.0
-import ZoolBodies.ZoolPlanetsCircleBack 1.2
+import ZoolBodies.ZoolPlanetsCircleBack 1.3
 import ZoolHousesCircle 1.1
 import ZoolHousesCircleBack 1.2
 import ZoolBodies.ZoolAspectsView 1.0
@@ -548,7 +548,7 @@ Item {
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         panelAspects.load(j)
-        panelDataBodies.loadJson(j)
+        zoolDataBodies.loadJson(j)
         aspsCircle.load(j)
         zoolElementsView.load(j, false)
         eclipseCircle.arrayWg=housesCircle.arrayWg
@@ -590,7 +590,7 @@ Item {
         //if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
         //if(JSON.parse(app))
         planetsCircleBack.loadJson(j)
-        panelDataBodies.loadJsonBack(j)
+        zoolDataBodies.loadJsonBack(j)
         //panelDataBodiesV2.loadJson(j)
         let isSaved=JSON.parse(app.fileDataBack).ms>=0
         app.backIsSaved=isSaved

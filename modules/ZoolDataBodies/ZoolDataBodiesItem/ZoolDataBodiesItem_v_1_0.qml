@@ -8,7 +8,7 @@ Column{
     opacity: 0.0
     property bool isBack: false
     property bool isLatFocus: false
-    property int currentIndex: !isBack?panelDataBodies.currentIndex:panelDataBodies.currentIndexBack
+    property int currentIndex: !isBack?zoolDataBodies.currentIndex:zoolDataBodies.currentIndexBack
     Behavior on opacity{NumberAnimation{id:numAn1;duration:10}}
     Rectangle{
         id: headerLv
@@ -21,6 +21,16 @@ Column{
             width: r.width
             height: txtTit.contentHeight
             anchors.centerIn: parent
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    if(!r.isBack){
+                        zoolDataBodies.latFocus=0
+                    }else{
+                        zoolDataBodies.latFocus=1
+                    }
+                }
+            }
             Text {
                 id: txtTit
                 text: 'Lista de Cuerpos'
@@ -67,13 +77,13 @@ Column{
             width: lv.width
             height: !app.ev?
                         //Mostrando 1 columna de datos.
-                        (index===panelDataBodies.currentIndex?(colTxtSelected.height+app.fs*0.1):
+                        (index===zoolDataBodies.currentIndex?(colTxtSelected.height+app.fs*0.1):
                                                                (txtData.contentHeight+app.fs*0.1)):
 
                         //Mostrando 2 columas de Datos
                         (colTxtEV.height+app.fs*0.1)
 
-            color: !r.isBack?(index===panelDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.fontColor:apps.backgroundColor):(index===panelDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.fontColor:apps.backgroundColor)
+            color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.fontColor:apps.backgroundColor)
             border.width: 1
             border.color: !r.isBack?apps.houseColor:apps.houseColorBack
             visible: !app.ev?txtData.width<xItem.width:true
@@ -91,10 +101,10 @@ Column{
                 //text: sd
                 font.pixelSize: app.fs
                 textFormat: Text.RichText
-                color: !r.isBack?(index===panelDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===panelDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
+                color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: parent
-                visible: !app.ev && index!==panelDataBodies.currentIndex
+                visible: !app.ev && index!==zoolDataBodies.currentIndex
                 onVisibleChanged: {
                     if(!visible){
                         //font.pixelSize=app.fs
@@ -113,12 +123,12 @@ Column{
             Column{
                 id: colTxtSelected
                 anchors.centerIn: parent
-                visible: !app.ev && index===panelDataBodies.currentIndex
+                visible: !app.ev && index===zoolDataBodies.currentIndex
                 Text {
                     id: txtDataSelected1
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===panelDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===panelDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: !app.ev
@@ -136,7 +146,7 @@ Column{
                     id: txtDataSelected2
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===panelDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===panelDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: !app.ev
@@ -158,7 +168,7 @@ Column{
                     id: txtDataEV
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===panelDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===panelDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: app.ev
@@ -177,7 +187,7 @@ Column{
                     id: txtDataEV2
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===panelDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===panelDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>16&&sweg.objHousesCircle.currentHouse===index-16)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>16&&sweg.objHousesCircleBack.currentHouse===index-16)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: app.ev
@@ -204,31 +214,31 @@ Column{
                     }else{
                         if(index>16){
                             if(!r.isBack){
-                                panelDataBodies.latFocus=0
+                                zoolDataBodies.latFocus=0
                                 sweg.objHousesCircle.currentHouse=index-16
                             }else{
-                                panelDataBodies.latFocus=1
+                                zoolDataBodies.latFocus=1
                                 sweg.objHousesCircleBack.currentHouse=index-16
                             }
                         }else{
                             if(!r.isBack){
-                                panelDataBodies.latFocus=0
+                                zoolDataBodies.latFocus=0
                                 if(app.currentPlanetIndex!==index){
                                     app.currentPlanetIndex=index
-                                    panelDataBodies.currentIndex=index
+                                    zoolDataBodies.currentIndex=index
                                 }else{
                                     app.currentPlanetIndex=-1
-                                    panelDataBodies.currentIndex=-1
+                                    zoolDataBodies.currentIndex=-1
                                     sweg.objHousesCircle.currentHouse=-1
                                 }
                             }else{
-                                panelDataBodies.latFocus=1
+                                zoolDataBodies.latFocus=1
                                 if(app.currentPlanetIndexBack!==index){
                                     app.currentPlanetIndexBack=index
-                                    panelDataBodies.currentIndexBack=index
+                                    zoolDataBodies.currentIndexBack=index
                                 }else{
                                     app.currentPlanetIndexBack=-1
-                                    panelDataBodies.currentIndexBack=-1
+                                    zoolDataBodies.currentIndexBack=-1
                                     sweg.objHousesCircleBack.currentHouse=-1
                                 }
                             }
@@ -278,7 +288,11 @@ Column{
         for(var i=0;i<15;i++){
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
-            ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            if(!r.isBack){
+                ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            }else{
+                ih=sweg.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            }
             var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' <b>Casa:</b> ' +ih
             if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'
             //console.log('--->'+s)
