@@ -972,6 +972,9 @@ Rectangle {
             r.prepareLoad()
         }
     }
+    function insert(){
+        tiEdad.focus=true
+    }
     function up(){
         if(lv.currentIndex>0)lv.currentIndex--
     }

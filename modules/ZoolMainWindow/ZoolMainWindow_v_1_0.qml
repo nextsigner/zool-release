@@ -719,11 +719,15 @@ ApplicationWindow {
             xBottomBar.objPanelCmd.state=xBottomBar.objPanelCmd.state==='show'?'hide':'show'
         }
     }
-    //Mostrar Panel de Cuerpos
+    //Insertar
     Shortcut{
         sequence: 'Ctrl+i'
         onActivated: {
-            panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'
+            if(apps.zFocus==='xLatIzq'){
+                zsm.currentSectionFocused.insert()
+                return
+            }
+            //panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'
         }
     }
     //Mostrar Panel para Crear Nuevo VN
