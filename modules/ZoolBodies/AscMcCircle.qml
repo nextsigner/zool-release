@@ -71,7 +71,7 @@ Item {
         antialiasing: true
         Rectangle{
             id: xIconAsc
-            property bool selected: app.currentPlanetIndex===15
+            property bool selected: app.currentPlanetIndex===20
             width: sweg.fs
             height: width
             radius: width*0.5
@@ -168,7 +168,7 @@ Item {
                         menuPlanetsCtxAsc.popup()
                     } else if (mouse.button === Qt.LeftButton) {
                         sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==1?1:-1
-                        app.currentPlanetIndex=app.currentPlanetIndex!==15?15:-1
+                        app.currentPlanetIndex=app.currentPlanetIndex!==20?20:-1
                     }
                 }
 
@@ -249,7 +249,7 @@ Item {
         antialiasing: true
         Rectangle{
             id: xIconMC
-            property bool selected: app.currentPlanetIndex===16
+            property bool selected: app.currentPlanetIndex===21
             width: sweg.fs
             height: width
             radius: width*0.5
@@ -335,7 +335,7 @@ Item {
                             menuPlanetsCtxAsc.popup()
                         } else if (mouse.button === Qt.LeftButton) {
                             sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==10?10:-1
-                            app.currentPlanetIndex=app.currentPlanetIndex!==16?16:-1
+                            app.currentPlanetIndex=app.currentPlanetIndex!==21?21:-1
                         }
                     }
                 }

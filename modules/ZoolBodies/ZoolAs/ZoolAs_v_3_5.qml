@@ -32,7 +32,7 @@ Item{
     property int is: -1
     property int numAstro: 0
 
-    property var aIcons: [0,1,2,3,4,5,6,7,8,9,12]
+    property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17]
 
     property color colorCuerpo: '#ff3300'
 

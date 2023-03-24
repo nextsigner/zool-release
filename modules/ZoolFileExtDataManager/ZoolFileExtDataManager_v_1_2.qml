@@ -281,7 +281,7 @@ Rectangle {
 //                                let vDirPrimH=j.dirprimH
 //                                let vDirPrimMin=j.dirprimMin
 //                                let dateEvento=new Date(1976, 5,20,23,4)
-                                let dateEvento=new Date(a, m, d, h,minargar)
+                                let dateEvento=new Date(a, m, d, h,min)
                                 let section=zsm.getPanel('ZoolFileManager').getSection('ZoolFileDirPrimLoader')
                                 section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
                             }else{

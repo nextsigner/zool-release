@@ -10,7 +10,8 @@ Item {
     Column{
         id: colCellsPlanets
         Repeater{
-            model:15
+            //model:15
+            model:20
             CellPlanetAsp{
                 width: r.cellWidth
                 indexPlanet: r.planet
@@ -21,7 +22,8 @@ Item {
     Column{
         id: colCells
         Repeater{
-            model:15
+            //model:15
+            model:20
             CellAsp{
                 objectName: 'cellAsp_'+index
                 width: r.cellWidth

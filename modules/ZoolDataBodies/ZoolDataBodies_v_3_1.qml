@@ -71,14 +71,14 @@ Rectangle {
             if(currentIndex>-1){
                 currentIndex--
             }else{
-                currentIndex=16
+                currentIndex=21
             }
         }
         if(panelDataBodies.latFocus===1){
             if(currentIndexBack>-1){
                 currentIndexBack--
             }else{
-                currentIndexBack=16
+                currentIndexBack=21
             }
         }
     }

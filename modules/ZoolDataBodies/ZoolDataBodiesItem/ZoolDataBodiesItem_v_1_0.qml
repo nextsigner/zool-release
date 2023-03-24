@@ -208,7 +208,7 @@ Column{
                 anchors.fill: parent
                 onClicked: {
                     if (mouse.modifiers & Qt.ControlModifier) {
-                        if(index<=16){
+                        if(index<=21){
                             app.j.showIW()
                         }
                     }else{
@@ -285,7 +285,8 @@ Column{
         let jo
         let o
         var ih
-        for(var i=0;i<15;i++){
+        //for(var i=0;i<15;i++){
+        for(var i=0;i<20;i++){
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
             if(!r.isBack){

@@ -58,7 +58,7 @@ Item {
         //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500; easing.type: Easing.InOutQuad}}
         Rectangle{
             id: xIconEclipse
-            property bool selected: app.currentPlanetIndex===15
+            property bool selected: app.currentPlanetIndex===20
             width: selected?app.fs*2:app.fs
             height: width
             radius: width*0.5

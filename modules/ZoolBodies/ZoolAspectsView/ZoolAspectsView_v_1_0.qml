@@ -3,8 +3,10 @@ import QtQuick.Controls 2.0
 
 Rectangle {
     id: r
-    width: cellWidth*15
-    height: cellWidth*15
+    //width: cellWidth*15
+    width: cellWidth*20
+    //height: cellWidth*15
+    height: cellWidth*20
     color: 'transparent'
     antialiasing: true
     //border.width: 4
@@ -15,7 +17,8 @@ Rectangle {
         id: row
         visible: apps.showAspPanel
         Repeater{
-            model: r.visible?15:0
+            //model: r.visible?15:0
+            model: r.visible?20:0
             CellColumnAsp{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}
         }
     }
@@ -63,13 +66,16 @@ Rectangle {
 //    }
     function clear(){
         if(!r.visible)return
-        for(var i=0;i<15;i++){
+        //for(var i=0;i<15;i++){
+        for(var i=0;i<20;i++){
             let column=row.children[i]
             column.clear()
         }
     }
     function setAsp2(c1, c2, ia, iPosAsp){
+        //return
         if(!r.visible)return
+        if(!row.children[c2])return
         let column=row.children[c2]
         let cellRow=column.col.children[c1]
         cellRow.indexAsp=ia

@@ -211,7 +211,7 @@ Rectangle{
             id: plau
             onCurrentIndexChanged: {
                 if(plau.currentIndex<0)return
-                if(currentIndex<=15){
+                if(currentIndex<=20){
                     app.currentPlanetIndex=plau.currentIndex-1
                 }else{
                     app.currentPlanetIndex=-1

@@ -170,14 +170,14 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+*'
         onActivated: {
-            app.currentPlanetIndex=15
+            app.currentPlanetIndex=20
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+/'
         onActivated: {
-            app.currentPlanetIndex=16
+            app.currentPlanetIndex=21
         }
     }
     Shortcut{

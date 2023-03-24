@@ -8,6 +8,7 @@ Item {
     anchors.centerIn: parent
     z:r.parent.z-1
     rotation: 0-signCircle.rotation
+    property string folderImg: '../../modules/ZoolBodies/ZoolAs/imgs_v1'
     property int iconoSignRot: 0
     property int is: -1
     property int gdeg: -1
@@ -104,7 +105,8 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img0
-                                source: "../../resources/imgs/planetas/"+app.planetasRes[r.p]+".svg"
+                                //source: "../../resources/imgs/planetas/"+app.planetasRes[r.p]+".svg"
+                                source: r.folderImg+"/"+app.planetasRes[r.p]+".svg"
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent
@@ -134,7 +136,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img1
-                                source: "../../resources/imgs/signos/"+r.is+".svg"
+                                source: r.is>=0?"../../resources/imgs/signos/"+r.is+".svg":""
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent
