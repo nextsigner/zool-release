@@ -28,8 +28,8 @@ Rectangle {
     property int fs: app.fs*s.fzoom
 
     onVisibleChanged: {
-        if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para gestionar mapas externos.')
+        //if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para gestionar mapas externos.', true)
     }
 
     MouseArea{

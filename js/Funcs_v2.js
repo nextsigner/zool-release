@@ -536,7 +536,7 @@ function loadJson(file){
     let fileLoaded=zfdm.loadFile(file)
     let fileNameMat0=file.split('/')
     let fileName=fileNameMat0[fileNameMat0.length-1].replace(/_/g, ' ').replace('.json', '')
-    zoolVoicePlayer.speak('Cargando el archivo '+fileName)
+    zoolVoicePlayer.speak('Cargando el archivo '+fileName, false)
     if(!fileLoaded){
         if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
         return

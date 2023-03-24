@@ -24,8 +24,8 @@ Rectangle {
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     onVisibleChanged: {
-        if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para buscar y cargar archivos.')
+        //if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para buscar y cargar archivos.', true)
     }
     Settings{
         id: s

@@ -43,8 +43,8 @@ Rectangle {
 //        }
     }
     onVisibleChanged: {
-        if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para crear revoluciones solares.')
+        //if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para crear revoluciones solares.', true)
     }
     Item{id:xuqp}
     Settings{

@@ -30,8 +30,8 @@ Rectangle {
 
     property string uParamsLoaded: ''
     onVisibleChanged: {
-        if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.')
+        //if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
     }
     Timer{
         running: r.uParamsLoaded!==''

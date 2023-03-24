@@ -207,7 +207,7 @@ Item{
                             let msg='Mostrando '+app.planetasReferencia[r.numAstro]
                             msg+=' en el signo '+app.signos[r.is]
                             msg+=' en el grado '+r.objData.rsg+' '+r.objData.m+' minutos '+r.objData.s+' segundos. Casa '+r.ih
-                            zoolVoicePlayer.speak(msg)
+                            zoolVoicePlayer.speak(msg, true)
                         }
                         r.parent.pressed(r)
                     }else{

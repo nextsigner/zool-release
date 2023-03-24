@@ -50,8 +50,8 @@ Rectangle {
 
     onVisibleChanged: {
         //r.moduleEnabled=visible
-        if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para crear Direcciones Primarias')
+        //if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección para crear Direcciones Primarias', true)
         if(!visible)r.moduleEnabled=false
     }
     Timer{

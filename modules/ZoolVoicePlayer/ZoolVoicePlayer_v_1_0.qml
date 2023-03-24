@@ -15,6 +15,7 @@ Rectangle{
     radius: app.fs*0.25
     anchors.bottom: parent.bottom
     property var audioPlayer
+    property var audioPlayerTemp
     property int currentIndex: 0
     property var lugares: []//["Córdoba Argentina", "United Kingston England"]
 
@@ -48,6 +49,22 @@ Rectangle{
         property bool repAutomatica: true
         property string stateShowOrHide: 'hide'
     }
+    Audio{
+        id: apt
+        autoPlay: true
+        onPlaybackStateChanged: {
+            if(r.audioPlayer && playbackState===Audio.StoppedState){
+                if(r.audioPlayer.duration>r.audioPlayer.position){
+                    r.audioPlayer.seek(0)
+                    r.audioPlayer.play()
+                }
+
+            }
+            if(r.audioPlayer && playbackState===Audio.PlayingState){
+                r.audioPlayer.pause()
+            }
+        }
+    }
     Item{id: xUqpsPicoWave}
     Item{id: xAudioPlayers}
     Timer{
@@ -57,7 +74,7 @@ Rectangle{
         interval: 1000
         onTriggered: {
             //mkAudio(lm.get(0).texto)
-            mkUqpPico2Wave(lm.get(0).texto, lm.get(0).url)
+            mkUqpPico2Wave(lm.get(0).texto, lm.get(0).url, false)
         }
     }
     Column{
@@ -70,14 +87,14 @@ Rectangle{
             color: apps.fontColor
             anchors.horizontalCenter: parent.horizontalCenter
         }
-    ListView{
-        id: lv
-        width: r.width
-        height: r.height-tit.contentHeight-app.fs
-        model:lm
-        delegate: compAudioItem
-        spacing: app.fs*0.1
-    }
+        ListView{
+            id: lv
+            width: r.width
+            height: r.height-tit.contentHeight-app.fs
+            model:lm
+            delegate: compAudioItem
+            spacing: app.fs*0.1
+        }
     }
     ListModel{
         id: lm
@@ -112,14 +129,18 @@ Rectangle{
             }
         }
     }
-    function speak(t){
+    function speak(t, isTemp){
         if(Qt.platform.os==='windows' || !apps.speakEnabled)return
         let d=new Date(Date.now())
         let ms=d.getTime()
         let fileName='audio_'+ms+'.wav'
-        lm.append(lm.addItem(fileName, '/tmp/'+fileName, t))
+        if(!isTemp){
+            lm.append(lm.addItem(fileName, '/tmp/'+fileName, t))
+        }else{
+            mkUqpPico2Wave(t, '/tmp/'+fileName, true)
+        }
     }
-    function mkUqpPico2Wave(msg, filePath){
+    function mkUqpPico2Wave(msg, filePath, isTemp){
         let d=new Date(Date.now())
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
@@ -129,27 +150,27 @@ Rectangle{
         c+='    UnikQProcess{\n'
         c+='        id: uqpPico2Wave'+ms+'\n'
         c+='        onLogDataChanged:{\n'
-        //c+='            r.cantAudiosMaked++\n'
         c+='            //if(app.dev)log.lv(\'Audio: '+filePath+'\')\n'
-        //c+='            if(r.cantAudiosMaked===19){\n'
-        //c+='                updateAudioPlayList("'+folderAudios+'")\n'
-        c+='                mkAudio("'+filePath+'")\n'
-        //c+='            }\n'
-        //c+='            tUqpPico2Wave'+ms+'.start()\n'
-        c+='              iUqpPico2Wave'+ms+'.destroy(1)\n'
+        if(!isTemp){
+            c+='                    mkAudio("'+filePath+'")\n'
+        }else{
+            c+='                    loadAudioTemp("'+filePath+'")\n'
+        }
+        c+='              uqpPico2Wave'+ms+'.upkill()\n'
+        c+='              iUqpPico2Wave'+ms+'.destroy(500)\n'
         c+='        }\n'
         c+='        Component.onCompleted:{\n'
         //c+='            let fp=\''+folderAudios+'/'+index+'.wav\'\n'
         c+='            let fp=\''+filePath+'\'\n'
         c+='            //log.lv("Fp: "+fp)\n'
-        c+='            run(\'/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh \"'+msg+'\" \'+fp+\' es-ES\')\n'
+        //c+='            run(\'/home/ns/nsp/zool-release/modules/ZoolMediaLive/textoAWav.sh \"'+msg+'\" \'+fp+\' es-ES\')\n'
+        c+='            run(\''+unik.getPath(5)+'/modules/ZoolMediaLive/textoAWav.sh \"'+msg+'\" \'+fp+\' es-ES\')\n'
         c+='        }'
         c+='    }'
         c+='}'
         //console.log(c)
         let comp=Qt.createQmlObject(c, xUqpsPicoWave, 'uqpcode')
     }
-
     function mkAudio(filePath){
         let d = new Date(Date.now())
         let ms=d.getTime()
@@ -179,6 +200,9 @@ Rectangle{
         c+='}\n'
         c+='\n'
         let obj=Qt.createQmlObject(c, xAudioPlayers, 'audiocode')
+    }
+    function loadAudioTemp(filePath){
+        apt.source='file://'+filePath
     }
     function play(){
         if(audioPlayer)audioPlayer.play()

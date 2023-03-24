@@ -592,7 +592,10 @@ Item {
         planetsCircleBack.loadJson(j)
         zoolDataBodies.loadJsonBack(j)
         //panelDataBodiesV2.loadJson(j)
-        let isSaved=JSON.parse(app.fileDataBack).ms>=0
+        let isSaved=false
+        if(app.fileDataBack){
+            isSaved=JSON.parse(app.fileDataBack).ms>=0
+        }
         app.backIsSaved=isSaved
         if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         app.ev=true

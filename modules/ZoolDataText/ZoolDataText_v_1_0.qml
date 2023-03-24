@@ -19,7 +19,8 @@ Rectangle{
     property string uData: ''
     property alias areaCamera: cameraArea
     onVisibleChanged: {
-        if(visible)zoolVoicePlayer.speak('Sección de Información')
+        //if(visible)zoolVoicePlayer.stop()
+        if(visible)zoolVoicePlayer.speak('Sección de Información', true)
     }
     Column{
         id: col0

@@ -28,7 +28,7 @@ Rectangle{
     }
     onVisibleChanged: {
         if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección de datos.')
+        if(visible)zoolVoicePlayer.speak('Sección de datos.', true)
     }
     onCurrentPChanged: {
         tLoadPSH.restart()
