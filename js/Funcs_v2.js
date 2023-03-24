@@ -1283,7 +1283,7 @@ function saveZoomAndPos(){
             if(app.currentPlanetIndex===16){
                 app.currentXAs.saveZoomAndPos('mc')
             }
-            if(app.currentPlanetIndex===15){
+            if(app.currentPlanetIndex===20){
                 app.currentXAs.saveZoomAndPos('asc')
             }
         }else{
@@ -1293,11 +1293,11 @@ function saveZoomAndPos(){
         return
     }
     if(app.currentPlanetIndexBack>=0&&app.currentXAsBack){
-        if(app.currentPlanetIndexBack===16||app.currentPlanetIndexBack===15){
-            if(app.currentPlanetIndexBack===16){
+        if(app.currentPlanetIndexBack===21||app.currentPlanetIndexBack===20){
+            if(app.currentPlanetIndexBack===21){
                 app.currentXAs.saveZoomAndPos('mcBack')
             }
-            if(app.currentPlanetIndexBack===15){
+            if(app.currentPlanetIndexBack===20){
                 app.currentXAsBack.saveZoomAndPos('ascBack')
             }
         }else{

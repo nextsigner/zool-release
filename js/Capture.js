@@ -18,7 +18,7 @@ function captureSweg(){
         unik.mkdir(folder)
     }
     let imgFileName='cap_'
-    if(app.currentPlanetIndex>=0&&app.currentPlanetIndex<15){
+    if(app.currentPlanetIndex>=0&&app.currentPlanetIndex<20){
         let json=app.currentJson
         let p=app.planetas[app.currentPlanetIndex]
         let s=json.pc['c'+app.currentPlanetIndex].is
@@ -27,7 +27,7 @@ function captureSweg(){
         imgFileName+=p+'_en_'
         imgFileName+='_'+app.signos[s]
         imgFileName+='_en_casa_'+parseInt(h + 1)
-    }else if(app.currentPlanetIndex===15){
+    }else if(app.currentPlanetIndex===20){
         imgFileName+='_ascendente'
     }else if(app.currentPlanetIndex===16){
         imgFileName+='_medio_cielo'
@@ -53,7 +53,7 @@ function captureSwegBack(){
         unik.mkdir(folder)
     }
     let imgFileName='cap_'+app.mod+'_'
-    if(app.currentPlanetIndexBack>=0&&app.currentPlanetIndexBack<15){
+    if(app.currentPlanetIndexBack>=0&&app.currentPlanetIndexBack<20){
         let json=app.currentJson
         let p=app.planetas[app.currentPlanetIndexBack]
         let s=json.pc['c'+app.currentPlanetIndexBack].is
@@ -62,7 +62,7 @@ function captureSwegBack(){
         imgFileName+=p+'_en_'
         imgFileName+='_'+app.signos[s]
         imgFileName+='_en_casa_'+parseInt(h + 1)
-    }else if(app.currentPlanetIndex===15){
+    }else if(app.currentPlanetIndex===20){
         imgFileName+='_ascendente'
     }else if(app.currentPlanetIndex===16){
         imgFileName+='_medio_cielo'

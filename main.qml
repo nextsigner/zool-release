@@ -204,7 +204,7 @@ ZoolMainWindow{
         }
         //zoolDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>14){
-            /*if(currentPlanetIndex===15){
+            /*if(currentPlanetIndex===20){
                 sweg.objHousesCircle.currentHouse=1
                 swegz.sweg.objHousesCircle.currentHouse=1
             }
