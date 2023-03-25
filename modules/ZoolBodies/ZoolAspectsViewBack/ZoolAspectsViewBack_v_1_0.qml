@@ -13,7 +13,7 @@ Rectangle {
         id: row
         visible: apps.showAspPanelBack
         Repeater{
-            model: r.visible?15:0
+            model: r.visible?20:0
             CellColumnAspBack{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}
         }
     }
@@ -75,6 +75,7 @@ Rectangle {
     }
     function setAsp2(c1, c2, ia, iPosAsp){
         if(!r.visible)return
+        if(!row.children[c2])return
         let column=row.children[c2]
         let cellRow=column.col.children[c1]
         cellRow.indexAsp=ia

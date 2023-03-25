@@ -73,7 +73,6 @@ Rectangle {
         }
     }
     function setAsp2(c1, c2, ia, iPosAsp){
-        //return
         if(!r.visible)return
         if(!row.children[c2])return
         let column=row.children[c2]
