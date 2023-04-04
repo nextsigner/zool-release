@@ -1279,8 +1279,8 @@ function raiseItem(item){
 //Funciones SWEG
 function saveZoomAndPos(){
     if(app.currentPlanetIndex>=0&&app.currentXAs){
-        if(app.currentPlanetIndex===15||app.currentPlanetIndex===16){
-            if(app.currentPlanetIndex===16){
+        if(app.currentPlanetIndex===20||app.currentPlanetIndex===21){
+            if(app.currentPlanetIndex===21){
                 app.currentXAs.saveZoomAndPos('mc')
             }
             if(app.currentPlanetIndex===20){

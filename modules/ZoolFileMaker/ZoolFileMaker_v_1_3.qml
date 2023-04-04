@@ -532,9 +532,9 @@ Rectangle {
 
         let json=JSON.parse(j)
         if(zfdm.mkFileAndLoad(json)){
-            log.lv('Archivo creado: '+json.params.n)
+            if(app.dev)log.lv('Archivo creado: '+json.params.n)
         }else{
-            log.lv('Archivo NO creado: '+json.params.n)
+            if(app.dev)log.lv('Archivo NO creado: '+json.params.n)
         }
     }
     function enter(){
