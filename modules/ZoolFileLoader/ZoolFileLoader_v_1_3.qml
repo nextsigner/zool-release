@@ -30,6 +30,7 @@ Rectangle {
     Settings{
         id: s
         property bool showToolItem: false
+        property var favorites: []
     }
     MouseArea{
         anchors.fill: parent
@@ -137,6 +138,27 @@ Rectangle {
                         //border.color: 'white'
                         z: parent.z-1
                         anchors.centerIn: parent
+                    }
+                }
+                Item{
+                    //id: botFavorite
+                    width: app.fs*0.7
+                    height: width
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    anchors.rightMargin: width*0.5
+                    Text {
+                        text: '\uf005'
+                        font.family: 'FontAwesome'
+                        font.pixelSize: parent.width*0.8+5
+                        anchors.centerIn: parent
+                        color: apps.fontColor
+                    }
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            updateListFavorites()
+                        }
                     }
                 }
             }
@@ -260,7 +282,9 @@ Rectangle {
                     }
                 }
             }
+
             Rectangle{
+                id: botDelete
                 width: txtDelete.contentWidth+app.fs*0.35
                 height: width
                 radius: app.fs*0.3
@@ -280,6 +304,45 @@ Rectangle {
                 MouseArea{
                     anchors.fill: parent
                     onDoubleClicked: deleteVnData(fileName)
+                }
+            }
+            Item{
+                id: botFavorite
+                width: app.fs*0.7
+                height: width
+                anchors.horizontalCenter: botDelete.horizontalCenter
+                anchors.top: botDelete.bottom
+                anchors.topMargin: app.fs*0.3
+                Text {
+                    id: tf1
+                    text: '\uf005'
+                    font.family: 'FontAwesome'
+                    font.pixelSize: parent.width*0.8+5
+                    anchors.centerIn: parent
+                    color: index===lv.currentIndex?apps.backgroundColor:apps.fontColor                    
+                }
+                Text {
+                    id: tf2
+                    text: '\uf00c'
+                    font.family: 'FontAwesome'
+                    font.pixelSize: parent.width*0.5
+                    anchors.centerIn: parent
+                    color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
+                    visible: s.favorites.indexOf(fileName)>=0
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        let i=s.favorites.indexOf(fileName)
+                        if(i>=0){
+                            s.favorites=app.j.removeItemAll(s.favorites, fileName)
+                        }else{
+                            s.favorites.push(fileName)
+                        }
+                        tf2.visible=s.favorites.indexOf(fileName)>=0
+
+
+                    }
                 }
             }
             Component.onCompleted: {
@@ -453,6 +516,7 @@ Rectangle {
         }
         return edad
     }
+
     function updateList(){
         lv.currentIndex=-1
         lm.clear()
@@ -554,6 +618,108 @@ Rectangle {
             }
         }
     }
+
+    function updateListFavorites(){
+        lv.currentIndex=-1
+        lm.clear()
+        for(var i=0;i<s.favorites.length;i++){
+            let file=s.favorites[i]
+            let fn=file//.replace('cap_', '').replace('.png', '')
+            let jsonFileName=fn
+            //console.log('FileName: '+jsonFileName)
+
+            let jsonFileData
+            if(unik.fileExist(jsonFileName)){
+                jsonFileData=unik.getFile(jsonFileName)
+            }else{
+                continue
+            }
+            jsonFileData=jsonFileData.replace(/\n/g, '')
+            //log.lv('jsonFileData:\n '+jsonFileData)
+            //console.log(jsonFileData)
+            if(jsonFileData.indexOf(':NaN,')>=0)continue
+            let jsonData
+            try {
+                jsonData=JSON.parse(jsonFileData)
+                let nom=''+jsonData.params.n.replace(/_/g, ' ')
+                if((jsonData.params.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack)){
+                    nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
+                }
+                //if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
+                    if(jsonData.asp){
+                        //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
+                    }
+                    let vd=jsonData.params.d
+                    let vm=jsonData.params.m
+                    let va=jsonData.params.a
+                    let vh=jsonData.params.h
+                    let vmin=jsonData.params.min
+                    let vgmt=jsonData.params.gmt
+                    let vlon=jsonData.params.lon
+                    let vlat=jsonData.params.lat
+                    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+                    let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
+                    let stringEdad=edad.indexOf('NaN')<0?edad:''
+
+                    //Date of Make File
+                    let d=new Date(jsonData.params.ms)
+                    let dia=d.getDate()
+                    let mes=d.getMonth() + 1
+                    let anio=d.getFullYear()
+                    let hora=d.getHours()
+                    let minuto=d.getMinutes()
+                    let sMkFile='<b>Creado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
+                    let sModFile='<b>Modificado:</b> Nunca'
+                    if(jsonData.params.msmod){
+                        d=new Date(jsonData.params.ms)
+                        dia=d.getDate()
+                        mes=d.getMonth() + 1
+                        anio=d.getFullYear()
+                        hora=d.getHours()
+                        minuto=d.getMinutes()
+                        sModFile='<b>Modificado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
+                    }
+                    let sDataFile='<b>Tiene información:</b> No'
+                    if(jsonData.params.data){
+                        sDataFile='<b>Tiene información:</b> Si'
+                    }
+                    let stipo=''
+                    if(jsonData.params.tipo==='vn'){
+                        stipo='Carta Natal'
+                    }else if(jsonData.params.tipo==='sin'){
+                        stipo='Sinastría'
+                    }else if(jsonData.params.tipo==='rs'){
+                        stipo='Revolución Solar'
+                    }else if(jsonData.params.tipo==='trans'){
+                        stipo='Tránsitos'
+                    }else{
+                        stipo='Desconocido'
+                    }
+
+                    let textData=''
+                        +'<b>'+nom+'</b>'
+                        +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+                        +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+                        +'<!-- extra -->'
+                        +'<b>Tipo: </b>'+stipo
+                        +'<p style="font-size:'+parseInt(app.fs*0.35)+'px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+                        +sMkFile+'<br>'
+                        +sModFile+'<br>'
+                        +sDataFile+'<br>'
+                        +'<b>Archivo: </b>'+file
+                    //xNombre.nom=textData
+                    lm.append(lm.addItem(file,textData, jsonData.params.tipo))
+                //}
+                if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
+                //txtDataSearch.selectAll()
+            } catch (e) {
+                console.log('Error Json panelFileLoader: ['+file+'] '+jsonFileData)
+                continue
+                //return false;
+            }
+        }
+    }
+
     function enter(){
         app.j.loadJson(r.currentFile)
         r.currentIndex=-1
