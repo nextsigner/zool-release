@@ -39,8 +39,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {
-            if(panelSabianos.view.visible){
-                panelSabianos.view.ctrlDown()
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.ctrlDown()
                 return
             }
             xBottomBar.state=xBottomBar.state==='show'?'hide':'show'
@@ -49,8 +49,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Up'
         onActivated: {
-            if(panelSabianos.view.visible){
-                panelSabianos.view.ctrlUp()
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.ctrlUp()
                 return
             }
             xDataBar.state=xDataBar.state==='show'?'hide':'show'
@@ -265,6 +265,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.visible=false
+                return
+            }
             if(log.visible){
                 log.visible=false
                 return
@@ -334,8 +338,8 @@ ApplicationWindow {
                 //sweg.objHousesCircleBack.currentHouse=-1
                 return
             }
-            if(panelSabianos.view.visible){
-                panelSabianos.view.visible=false
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.visible=false
                 return
             }
             if(xBottomBar.objPanelCmd.state==='show'){
@@ -386,8 +390,8 @@ ApplicationWindow {
                 zsm.currentSectionFocused.up()
                 return
             }
-            if(panelSabianos.view.visible){
-                panelSabianos.view.toup()
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.toup()
                 return
             }
 
@@ -455,8 +459,8 @@ ApplicationWindow {
                 zsm.currentSectionFocused.down()
                 return
             }
-            if(panelSabianos.view.visible){
-                panelSabianos.view.todown()
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.todown()
                 return
             }
             if(apps.zFocus==='xLatIzq'){
@@ -526,9 +530,9 @@ ApplicationWindow {
                 panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
                 return
             }
-            if(apps.zFocus==='xLatIzq'){
-                if(panelSabianos.view.visible){
-                    panelSabianos.view.toleft()
+            if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.toleft()
                     return
                 }
                 if(zsm.currentIndex===2){
@@ -545,7 +549,7 @@ ApplicationWindow {
                 app.currentXAsBack.rot(false)
                 return
             }
-            if(menuBar.expanded&&!panelSabianos.view.visible){
+            if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
                 menuBar.left()
                 return
             }
@@ -563,13 +567,13 @@ ApplicationWindow {
                 panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
                 return
             }
-            if(apps.zFocus==='xLatIzq'){
+            if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.currentIndex===2){
                     zsm.getPanel('ZoolFileManager').toRight()
                     return
                 }
-                if(panelSabianos.view.visible){
-                    panelSabianos.view.toright()
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.toright()
                     return
                 }
             }
@@ -581,7 +585,7 @@ ApplicationWindow {
                 app.currentXAsBack.rot(true)
                 return
             }
-            if(menuBar.expanded&&!panelSabianos.view.visible){
+            if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
                 menuBar.right()
                 return
             }
@@ -590,6 +594,13 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Left'
         onActivated: {
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.toleft()
+                    return
+                }
+
+            }
             if(apps.zFocus==='xLatIzq'){
                 if(zsm.currentIndex>0){
                     zsm.currentIndex--
@@ -602,6 +613,13 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Right'
         onActivated: {
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.toright()
+                    return
+                }
+
+            }
             if(apps.zFocus==='xLatIzq'){
                 if(zsm.currentIndex<zsm.count-1){
                     zsm.currentIndex++
@@ -830,8 +848,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+Down'
         onActivated: {
-            if(panelSabianos.view.visible){
-                panelSabianos.view.zoomDown()
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.zoomDown()
                 return
             }
             //signCircle.subir()
@@ -841,8 +859,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+Up'
         onActivated: {
-            if(panelSabianos.view.visible){
-                panelSabianos.view.zoomUp()
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.zoomUp()
                 return
             }
             //signCircle.bajar()
