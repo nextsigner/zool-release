@@ -358,10 +358,11 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
     request.send()
 }
 function showSABIANOS(numSign, numDegree){
-    panelSabianos.numSign=numSign
-    panelSabianos.numDegree=numDegree
-    panelSabianos.state='show'
-    panelSabianos.loadData()
+    let p=zsm.getPanel('ZoolSabianos')
+    p.numSign=numSign
+    p.numDegree=numDegree
+    p.state='show'
+    p.loadData()
 }
 function quitarAcentos(cadena){
     const acentos = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};

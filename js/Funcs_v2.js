@@ -1008,7 +1008,7 @@ function setNewTimeJsonFileData(date){
     let ms=jsonData.params.ms
     let nom=jsonData.params.n.replace(/_/g, ' ')
 
-    console.log('Date: '+date.toString())
+    //console.log('Date: '+date.toString())
     let vd=date.getDate()
     let vm=date.getMonth()+1
     let va=date.getFullYear()
