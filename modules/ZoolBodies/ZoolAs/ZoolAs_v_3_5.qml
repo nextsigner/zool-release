@@ -319,7 +319,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: xIcon
-        visible: r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.tipo!=='pron'
+        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.tipo!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected

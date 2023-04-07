@@ -285,10 +285,10 @@ ApplicationWindow {
                 //app.objInFullWin.escaped()
                 return
             }
-            if(ncv.log.visible){
-                ncv.log.visible=false
-                return
-            }
+//            if(ncv.log.visible){
+//                ncv.log.visible=false
+//                return
+//            }
             //            if(log.visible){
             //                log.visible=false
             //                return
@@ -354,10 +354,10 @@ ApplicationWindow {
                 zsm.getPanel('ZoolFileManager').state='hide'
                 return
             }
-            if(panelDataBodies.state==='show'){
-                panelDataBodies.state='hide'
-                return
-            }
+//            if(zoolDataBodies.state==='show'){
+//                zoolDataBodies.state='hide'
+//                return
+//            }
             if(zsm.getPanel('ZoolFileManager').state==='show'){
                 zsm.getPanel('ZoolFileManager').state='hide'
                 return
