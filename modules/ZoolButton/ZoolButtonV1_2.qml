@@ -34,6 +34,7 @@ Item{
             Text{
                 id: btnText
                 text: r.text
+                font.family: "FontAwesome"
                 font.pixelSize: !r.pressed?r.fs:r.fs*0.8
                 color: r.colorInverted?apps.fontColor:apps.backgroundColor
                 anchors.centerIn: parent
