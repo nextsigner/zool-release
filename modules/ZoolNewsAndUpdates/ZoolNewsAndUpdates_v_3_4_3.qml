@@ -33,5 +33,13 @@ Rectangle{
             }
         }
     }
+    ZoolButton{
+        text: 'X'
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.25
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.25
+        onClicked: r.destroy(1)
+    }
     Component.onCompleted: txt.text=unik.getFile('./updates.md').replace('versión:X.XX.XX', 'versión '+app.version)
 }
