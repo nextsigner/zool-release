@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 2.12
-import ZoolButton 1.0
+import ZoolButton 1.2
 import ZoolText 1.0
 import Qt.labs.settings 1.1
 

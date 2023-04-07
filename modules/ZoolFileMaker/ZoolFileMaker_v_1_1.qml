@@ -55,7 +55,8 @@ Rectangle {
         }
     }
     ZoolButton{
-        text:'\uf013'
+        //text:'\uf013'
+        text:'AA'
         anchors.right: parent.right
         anchors.rightMargin: app.fs*0.25
         anchors.top: parent.top

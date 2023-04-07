@@ -6,7 +6,7 @@ import "../../js/Funcs.js" as JS
 
 import ZoolText 1.0
 import ZoolTextInput 1.0
-import ZoolButton 1.0
+import ZoolButton 1.2
 import ZoolControlsTime 1.0
 import ZoolLogView 1.0
 
@@ -47,7 +47,7 @@ Rectangle {
 
     property bool loadingFromExternal: false
     property string folderImg: '../../modules/ZoolBodies/ZoolAs/imgs_v1'
-
+    visible: false
     onVisibleChanged: {
         //r.moduleEnabled=visible
         //if(visible)zoolVoicePlayer.stop()

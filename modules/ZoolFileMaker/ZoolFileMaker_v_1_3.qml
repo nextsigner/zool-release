@@ -7,7 +7,7 @@ import ZoolTextInput 1.0
 //import "../../js/Funcs.js" as JS
 
 import ZoolText 1.0
-import ZoolButton 1.0
+import ZoolButton 1.2
 
 Rectangle {
     id: r

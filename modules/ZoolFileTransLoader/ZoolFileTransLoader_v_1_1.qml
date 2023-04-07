@@ -5,7 +5,7 @@ import "../../comps" as Comps
 
 import ZoolText 1.1
 import ZoolTextInput 1.0
-import ZoolButton 1.0
+import ZoolButton 1.2
 import ZoolControlsTime 1.0
 
 Rectangle {

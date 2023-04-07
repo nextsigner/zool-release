@@ -2,7 +2,6 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
-import "../../js/Funcs.js" as JS
 
 import ZoolFileMaker 1.3
 //import ZoolFileExtDataManager 1.2
@@ -194,6 +193,9 @@ Rectangle {
 
         }
     }
+//    Component.onCompleted: {
+//        r.showSection(s.currentQmlTypeShowed)
+//    }
 
     function timer() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", r);
@@ -210,12 +212,7 @@ Rectangle {
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
-        //showSection(s.currentQmlTypeShowed)
-        //        if(app.dev){
-//            zoolFileDirPrimLoader.ctFecha.gmt=-3
-//            //mkTimer()
-
-//        }
+        r.showSection(s.currentQmlTypeShowed)
     }
 
     function showSection(qmltype){

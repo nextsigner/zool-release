@@ -13,6 +13,7 @@ import "./js/Funcs_v2.js" as JS
 import "./comps" as Comps
 
 //Default Modules
+import ZoolNewsAndUpdates 3.4
 import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
 import ZoolText 1.0
@@ -268,6 +269,8 @@ ZoolMainWindow{
         //fileName:unik.getPath(4)+'/zool_'+Qt.platform.os+'.cfg'
         fileName:'zool_'+Qt.platform.os+'.cfg'
 
+        property string lastVersion: '3.14.0'
+
         //Minyma
         property string minymaClientHost: 'ws://127.0.0.1:12345'
         property int minymaClientPort: 12345
@@ -284,7 +287,6 @@ ZoolMainWindow{
         property bool showTimes: false
         property bool showLupa: false
         property bool showSWEZ: true
-
 
         //Paneles
         property string panelRemotoState: 'show'
@@ -921,6 +923,16 @@ ZoolMainWindow{
 
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
+        if(app.version!==apps.lastVersion || app.dev){
+            apps.lastVersion=app.version
+            log.lv('Se ha actualizado la aplicación.')
+            log.lv('Versión actual: '+app.version)
+            let c='import QtQuick 2.0\n'
+            c+='import ZoolNewsAndUpdates 3.4\n'
+            c+='ZoolNewsAndUpdates{}\n'
+            let obj=Qt.createQmlObject(c, xLatIzq, 'znaucode')
+            obj.z=log.z+1
+        }
 
 
         //Argumentos
