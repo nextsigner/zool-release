@@ -211,8 +211,10 @@ ApplicationWindow {
             }
         }
     }
+
+    //Esto en algunos casos funciona con la tecla Return
+    //de la derecha del teclado.
     Shortcut{
-        //sequence: 'Enter'
         sequence: 'Enter'
         onActivated: {
             if(menuBar.expanded){

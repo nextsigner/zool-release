@@ -121,6 +121,7 @@ Rectangle {
                         //xApp.focus=true
                     }
                     onTextChanged: {
+                        zsm.currentSectionFocused=r
                         updateList()
                     }
                     onFocusChanged: {
@@ -191,6 +192,10 @@ Rectangle {
             model: lm
             clip: true
             onCurrentIndexChanged: {
+                if(currentIndex>=0){
+                    zsm.currentSectionFocused=r
+                    ti.focus=false
+                }
                 if(!lm.get(currentIndex) || !lm.get(currentIndex).fileName)return
                 r.currentFile=lm.get(currentIndex).fileName
             }
@@ -516,7 +521,6 @@ Rectangle {
         }
         return edad
     }
-
     function updateList(){
         lv.currentIndex=-1
         lm.clear()
@@ -618,7 +622,6 @@ Rectangle {
             }
         }
     }
-
     function updateListFavorites(){
         lv.currentIndex=-1
         lm.clear()
@@ -719,11 +722,26 @@ Rectangle {
             }
         }
     }
-
     function enter(){
         app.j.loadJson(r.currentFile)
         r.currentIndex=-1
         //r.state='hide'
+    }
+    function up(){
+        //log.lv('up() lv.currentIndex: '+lv.currentIndex)
+        if(lv.currentIndex>0){
+            lv.currentIndex--
+        }else{
+            lv.currentIndex=lv.count-1
+        }
+    }
+    function down(){
+        //log.lv('down() lv.currentIndex: '+lv.currentIndex)
+        if(lv.currentIndex<lv.count-1){
+            lv.currentIndex++
+        }else{
+            lv.currentIndex=0
+        }
     }
     function setInitFocus(){
         txtDataSearch.focus=true

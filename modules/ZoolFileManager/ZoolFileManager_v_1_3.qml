@@ -6,7 +6,7 @@ import "../../comps" as Comps
 import ZoolFileMaker 1.3
 //import ZoolFileExtDataManager 1.2
 import ZoolFileLoader 1.3
-import ZoolFileTransLoader 1.1
+import ZoolFileTransLoader 1.2
 import ZoolFileDirPrimLoader 1.6
 import ZoolButton 1.0
 import ZoolText 1.0

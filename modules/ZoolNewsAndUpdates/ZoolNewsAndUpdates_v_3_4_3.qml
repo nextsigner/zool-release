@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.12
+import QtQuick.Controls 2.0
 import ZoolButton 1.2
 import ZoolText 1.1
 
@@ -14,6 +15,7 @@ Rectangle{
         height: r.height
         contentWidth: r.width
         contentHeight: col.height+app.fs*10
+        ScrollBar.vertical: ScrollBar{}
         Column{
             id: col
             spacing: app.fs*0.5
