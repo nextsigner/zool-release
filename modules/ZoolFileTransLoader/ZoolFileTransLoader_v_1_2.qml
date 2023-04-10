@@ -576,11 +576,7 @@ Rectangle {
             c+='                    //r.state=\'hide\'\n'
         }else{
             c+='                r.ulat=json.coords.lat\n'
-            c+='                r.ulon=json.coords.lon\n'
-            //c+='                    setNewJsonFileData()\n'
-            //c+='                if(tiGMT.t.text===""){\n'
-            //c+='                    tiGMT.t.text=parseFloat(r.ulat / 10).toFixed(1)\n'
-            //c+='                }\n'
+            c+='                r.ulon=json.coords.lon\n'            
         }
         c+='                }\n'
         c+='        }else{\n'
@@ -593,7 +589,7 @@ Rectangle {
         c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
-        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
     }
 
     //    function setNewJsonFileData(){

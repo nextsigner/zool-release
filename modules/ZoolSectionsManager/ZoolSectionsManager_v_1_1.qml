@@ -184,15 +184,33 @@ Item{
         return obj
     }
     function showPanel(typeOfSection){
+        //let newCi=-1
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
             //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 o.visible=true
+                //newCi=i
                 r.currentSectionFocused=o
             }else{
                 o.visible=false
             }
         }
+        //r.currentIndex=newCi
+    }
+    function getPanelIndex(typeOfSection){
+        let ci=-1
+        let obj
+        for(var i=0;i<xPanels.children.length;i++){
+            let o=xPanels.children[i].children[0]
+            if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(''+app.j.qmltypeof(o)===''+typeOfSection){
+                obj=o
+                ci=zsm.aPanelsIds.indexOf(app.j.qmltypeof(o))
+                break
+            }
+        }
+
+        return ci
     }
 }

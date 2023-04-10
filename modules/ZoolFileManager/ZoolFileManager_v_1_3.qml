@@ -216,6 +216,7 @@ Rectangle {
     }
 
     function showSection(qmltype){
+        let newCi=-1
         for(var i=0;i<xSections.children.length;i++){
             let o=xSections.children[i]
             o.visible=false
@@ -226,9 +227,11 @@ Rectangle {
                 o.visible=false
             }else{
                 o.visible=true
+                newCi=i
             }
         }
         s.currentQmlTypeShowed=qmltype
+        r.currentIndex=newCi
     }
     function getSection(typeOfSection){
         let obj
