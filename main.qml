@@ -825,10 +825,10 @@ ZoolMainWindow{
         property string currentJsonData: ''
         onTriggered: {
             if(tAutoMaticPlanets.currentJsonData!==app.currentData){
-                tAutoMaticPlanets.stop()
-                return
+                //tAutoMaticPlanets.stop()
+                //return
             }
-            if(app.currentPlanetIndex<16){
+            if(app.currentPlanetIndex<21){
                 app.currentPlanetIndex++
             }else{
                 app.currentPlanetIndex=-1

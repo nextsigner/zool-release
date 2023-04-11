@@ -541,7 +541,7 @@ function loadJson(file){
         if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
         return
     }
-
+    app.fileData=JSON.stringify(zfdm.getJsonAbsParams(false))
     //Global Vars Reset
     resetGlobalVars()
 
@@ -560,13 +560,22 @@ function loadJson(file){
     let vlat=p.lat
     let valt=p.alt?p.alt:0
     let vCiudad=p.ciudad.replace(/_/g, ' ')
-    let edad=''
+    let edad=getEdad(vd, vm, va, vh, vmin)
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    let stringEdad=edad.indexOf('NaN')<0?edad:''
+    let stringEdad='<b>Edad:</b> '
+    if(edad===1){
+        stringEdad+=edad+' año'
+    }else{
+        stringEdad+=edad+' años'
+    }
+
+    let dateNow=new Date(Date.now())
+    let dateFN=new Date(va, vm-1, vd, vh, vmin)
 
     let a=[]
     a.push('<b>'+nom+'</b>')
     a.push(''+vd+'/'+vm+'/'+va)
+    a.push(stringEdad)
     a.push(''+vh+':'+vmin+'hs')
     a.push('<b>GMT:</b> '+vgmt)
     a.push('<b>Ubicación:</b> '+vCiudad)
@@ -1055,7 +1064,7 @@ function setNewTimeJsonFileDataBack(date){
     //log.width=xApp.width*0.2
     //log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
     //log.ls('app.fileDataBack: '+app.fileDataBack, 0, 500)
-    if(app.fileDataBack===''&&app.dev){
+    if(app.fileDataBack===''){
         if(app.dev)log.lv('app.fileDataBack is empty.')
         return
     }
