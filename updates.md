@@ -5,9 +5,9 @@ Esta aplicación ha sido actualizada a la versión:X.XX.XX.
 
 ## Novedades
 
-* Se agregó este módulo de novedades.
-* Se agregaron los asteroides Pholus, Vesta, Juno, Pallas y Ceres.
-* Se corrigió y habilitó el módulo SAM (Sol, Asc, y Mc) para visualizar en el lateral izquierdo o en la ventana completa.
+* Se agregó un cartel de acotación con información de los aspectos del cuarpo en donde se deslizó el mouse.
+* Se agregó el dato Edad a la información superior.
+* Se agregó función click en el item inferior de numerología en los elementos. Haciendo click se mostrará el módulo NumPit en el área izquierda.
 
 ## Tareas pendientes
 
