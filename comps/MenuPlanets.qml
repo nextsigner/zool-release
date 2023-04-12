@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "../js/Funcs.js" as JS
 import "../js/Capture.js" as Cap
 Menu {
     id: r
@@ -77,7 +76,7 @@ Menu {
             xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
     }
     Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(app.uSonFCMB.split('_')[1])]+' en casa '+app.uSonFCMB.split('_')[2]); onTriggered: {
-            JS.showIWFromCtxMenuBar()
+            app.j.showIWFromCtxMenuBar()
         }
     }
     Action {text: qsTr(apps.anColorXAs?"No Centellar":"Centellar"); onTriggered: {

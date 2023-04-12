@@ -1,7 +1,6 @@
 import QtQuick 2.0
+import ZoolBodies.ZoolAs 3.6
 
-
-import ZoolBodies.ZoolAs 3.5
 Item{
     id: r
     property bool expand: false

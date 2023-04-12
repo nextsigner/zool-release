@@ -28,7 +28,7 @@ Item{
             implicitHeight: btnText.contentHeight+r.paddingWidth*2
             height: btnText.contentHeight+r.paddingWidth*2
             color: !r.colorInverted?apps.fontColor:apps.backgroundColor
-            border.width: r.colorInverted ? 2 : 1
+            border.width: r.borderWidth//r.colorInverted ? 2 : 1
             border.color: r.colorInverted?apps.fontColor:apps.backgroundColor
             radius: app.fs*0.1
             Text{

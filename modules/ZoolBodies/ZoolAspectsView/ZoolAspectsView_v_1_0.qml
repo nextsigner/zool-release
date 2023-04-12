@@ -118,6 +118,24 @@ Rectangle {
                     }else{
                         let a=asp['asp'+parseInt(i +1)]
                         setAsp(a.ic1, a.ic2, a.ia,i)
+                        let strAsp='Indefinido'
+                        if(a.ia===0){
+                            strAsp='Oposición'
+                        }else if(a.ia===1){
+                            strAsp='Cuadratura'
+                        }else if(a.ia===2){
+                            strAsp='Trígono'
+                        }else{
+                            strAsp='Conjunción'
+                        }
+
+                        if(sweg.aTexts[a.ic1]===''){
+                            sweg.aTexts[a.ic1]+='<b>'+app.planetas[a.ic1]+'</b><br />'+strAsp+' a '+app.planetas[a.ic2]
+                        }else{
+                            sweg.aTexts[a.ic1]+='<br />'+strAsp+' a '+app.planetas[a.ic2]
+                        }
+                        let nTexts=sweg.aTexts[a.ic1].split('<br />').sort().join('<br />')
+                        sweg.aTexts[a.ic1]=nTexts
                     }
                 }
             }
