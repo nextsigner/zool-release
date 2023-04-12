@@ -162,6 +162,8 @@ Item{
                     }else{
                         xTextData.rot-=5
                     }
+                    r.isHovered=true
+                    tWaitHovered.restart()
                 }else{
                     if(wheel.angleDelta.y>=0){
                         //                    if(reSizeAppsFs.fs<app.fs*2){
@@ -186,8 +188,16 @@ Item{
                 vClick=0
                 r.parent.cAs=r
             }
+            onMouseXChanged:{
+                r.isHovered=true
+                tWaitHovered.restart()
+            }
+            onMouseYChanged:{
+                r.isHovered=true
+                tWaitHovered.restart()
+            }
             onExited: {
-                waitHovered.restart()
+                tWaitHovered.restart()
                 vClick=0
                 //r.parent.cAs=r.parent
             }
@@ -305,13 +315,14 @@ Item{
         width: xIcon.width*2
         anchors.centerIn: xIcon
         z: xIcon.z-1
+        widthObjectAcoted: width*0.25
         isBack: false
         distancia: img.width*3
         text: r.text
         cotaColor: apps.fontColor
         cotaOpacity: 1.0
         opacity: r.isHovered||isPinched?1.0:0.0
-        onOpacityChanged: r.text = sweg.aTexts[numAstro]
+        onOpacityChanged: r.text = sweg.aTexts[numAstro]?sweg.aTexts[numAstro]:''
         visible: r.text!==''
         onClicked: r.isHovered=false
     }
@@ -356,10 +367,10 @@ Item{
         onTriggered: setZoomAndPos()
     }
     Timer{
-        id: waitHovered
+        id: tWaitHovered
         running: false
         repeat: false
-        interval: 1500
+        interval: 5000
         onTriggered: {
             r.isHovered=false
         }

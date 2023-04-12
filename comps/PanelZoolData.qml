@@ -517,6 +517,7 @@ Rectangle{
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
+        zsm.aPanelesTits.push('Datos')
         let f=(''+apps.repAudioTAVCurrentFolder).replace('file://', '')
         if(!unik.folderExist(documentsPath)){
             unik.mkdir(documentsPath)

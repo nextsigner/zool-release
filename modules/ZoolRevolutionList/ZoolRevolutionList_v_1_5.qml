@@ -839,9 +839,10 @@ Rectangle {
         }
     }
 
-    Component.onCompleted: zsm.aPanelsIds.push(app.j.qmltypeof(r))
-    //Item{id: xuqp}
-
+    Component.onCompleted: {
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
+        zsm.aPanelesTits.push('Revolución Solar')
+    }
     function setRsList(edad){
         r.jsonFull=''
         r.edadMaxima=edad-1

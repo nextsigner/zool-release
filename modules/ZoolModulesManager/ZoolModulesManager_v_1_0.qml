@@ -38,5 +38,8 @@ Rectangle{
         }
     }
 
-
+    Component.onCompleted: {
+        zsm.aPanelsIds.push(app.j.qmltypeof(r))
+        zsm.aPanelesTits.push('Administrar Módulos')
+    }
 }

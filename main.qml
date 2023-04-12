@@ -925,8 +925,6 @@ ZoolMainWindow{
         app.version=v.replace(/\n/g, '')
         if(app.version!==apps.lastVersion || app.dev){
             apps.lastVersion=app.version
-            log.lv('Se ha actualizado la aplicación.')
-            log.lv('Versión actual: '+app.version)
             let c='import QtQuick 2.0\n'
             c+='import ZoolNewsAndUpdates 3.4\n'
             c+='ZoolNewsAndUpdates{}\n'

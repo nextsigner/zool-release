@@ -11,6 +11,8 @@ Rectangle{
     opacity: text===''?0.0:1.0
     signal clicked()
 
+    property int widthObjectAcoted: 0
+
     property bool isBack: false
 
     property bool isPinched: false
@@ -27,7 +29,7 @@ Rectangle{
         height: 1
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.horizontalCenterOffset: r.distancia        
+        anchors.horizontalCenterOffset: r.distancia*0.5+widthObjectAcoted*0.5
         Rectangle{
             id: cotaBg
             anchors.fill: parent
@@ -43,7 +45,7 @@ Rectangle{
             padding: fs*0.5
             color: apps.fontColor
             textBackgroundColor: apps.backgroundColor
-            textBackgroundOpacity: 0.5
+            textBackgroundOpacity: 1.0
             borderWidth: 1
             borderColor: apps.fontColor
             borderRadius: fs*0.5

@@ -187,6 +187,7 @@ Rectangle{
     //    }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
+        zsm.aPanelesTits.push('Información')
         let currentFileZoolText='./resources/zooltext.txt'
         let appArgs=Qt.application.arguments
         let arg=''

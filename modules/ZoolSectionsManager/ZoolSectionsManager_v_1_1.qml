@@ -9,6 +9,7 @@ import ZoolSabianos 1.1
 import ZoolRevolutionList 1.5
 import ZoolNumPit 1.0
 import ZoolModulesManager 1.0
+import ZoolHelp 1.0
 
 import ZoolButton 1.2
 
@@ -21,6 +22,7 @@ Item{
     property int count: indicatorSV.count
     property var aPanelsIds: []
     property var currentSectionFocused
+    property var aPanelesTits: []
     onAPanelsIdsChanged: {
         indicatorSV.count=aPanelsIds.length
     }
@@ -35,13 +37,12 @@ Item{
         Rectangle{
             id: xPanelesTits
             width: xLatIzq.width
-            height: app.fs*0.6
+            height: r.aPanelesTits[zsm.currentIndex]?app.fs*0.6:0
             color: apps.fontColor
             anchors.horizontalCenter: parent.horizontalCenter
-            //property var aPanelesTits: ['Información','Esquemas', 'Sabianos', 'Archivos', 'Revolución Solar', 'Módulos', 'Numerología', 'Funciones', 'Opciones', 'Texto a voz']
-            property var aPanelesTits: ['Archivos','Esquemas', 'Rev. Solares', 'Numerología', 'Sabianos', 'Datos', 'Información', 'Funciones', 'Opciones', 'Texto a voz']
+
             Text{
-                text: parseInt(zsm.currentIndex + 1)+': '+xPanelesTits.aPanelesTits[zsm.currentIndex]
+                text: parseInt(zsm.currentIndex + 1)+': '+r.aPanelesTits[zsm.currentIndex]
                 color: apps.backgroundColor
                 font.pixelSize: app.fs*0.5
                 anchors.centerIn: parent
@@ -56,6 +57,9 @@ Item{
             //Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
             //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
             //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
+
+            //9
+            Comps.XPaneles{ZoolHelp{id: zoolHelp;}}
 
             //8
             Comps.XPaneles{ZoolDataText{id: panelZoolText;}}

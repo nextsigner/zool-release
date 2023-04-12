@@ -454,6 +454,7 @@ Rectangle {
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
+        zsm.aPanelesTits.push('Lista de Exteriores')
         app.objZoolFileExtDataManager=r
     }
     function deleteVnData(fileName){
