@@ -473,22 +473,22 @@ function getEdadDosFechas(dateAnterior, datePosterior) {
         return edad
     }
 
-//    if(vAMom >= vANac && vMNac < vMMom){
-//        edad--
-//        return Math.abs(edad)
-//    }
-//    if(vAMom >= vANac && vMMom >= vMNac && vDMom < vDNac){
-//        edad--
-//        return Math.abs(edad)
-//    }
-//    if(vAMom >= vANac && vMMom >= vMNac && vDMom >= vDNac && vHMom < vHNac){
-//        edad--
-//        return Math.abs(edad)
-//    }
-//    if(vAMom >= vANac && vMMom >= vMNac && vDMom >= vDNac && vHMom >= vHNac && vMinMom < vMinNac){
-//        edad--
-//        return Math.abs(edad)
-//    }
+    //    if(vAMom >= vANac && vMNac < vMMom){
+    //        edad--
+    //        return Math.abs(edad)
+    //    }
+    //    if(vAMom >= vANac && vMMom >= vMNac && vDMom < vDNac){
+    //        edad--
+    //        return Math.abs(edad)
+    //    }
+    //    if(vAMom >= vANac && vMMom >= vMNac && vDMom >= vDNac && vHMom < vHNac){
+    //        edad--
+    //        return Math.abs(edad)
+    //    }
+    //    if(vAMom >= vANac && vMMom >= vMNac && vDMom >= vDNac && vHMom >= vHNac && vMinMom < vMinNac){
+    //        edad--
+    //        return Math.abs(edad)
+    //    }
 
 
 
@@ -1246,30 +1246,24 @@ function getADate(date){
     return [d, m, a, h, min]
 }
 function removeItemAll(arr, value) {
-  var i = 0;
-  while (i < arr.length) {
-    if (arr[i] === value) {
-      arr.splice(i, 1);
-    } else {
-      ++i;
+    var i = 0;
+    while (i < arr.length) {
+        if (arr[i] === value) {
+            arr.splice(i, 1);
+        } else {
+            ++i;
+        }
     }
-  }
-  return arr;
+    return arr;
 }
 //Funciones de GUI
-function showMsgDialog(title, text, itext){
+function showMsgDialog(title, subTitle, text){
     let c='import QtQuick 2.0\n'
-        +'import QtQuick.Dialogs 1.1\n'
-        +'MessageDialog {\n'
-        +'      visible: true\n'
-        +'       title: "'+title+'"\n'
-        +'      standardButtons:  StandardButton.Close\n'
-        +'      icon: StandardIcon.Information\n'
-        +'     text: "                   '+text+'                  "\n'
-        +'     informativeText: "'+itext+'"\n'
-        +'    onAccepted: {\n'
-        +'       close()\n'
-        +'   }\n'
+        +'import comps.ZoolMessageDialog 1.0\n'
+        +'ZoolMessageDialog {\n'
+        +'  title: "'+title+'"\n'
+        +'  subTitle: "'+subTitle+'"\n'
+        +'  text: "                   '+text+'                  "\n'
         +'}\n'
     console.log(c)
     let comp=Qt.createQmlObject(c, app, 'codeshowMsgDialog')

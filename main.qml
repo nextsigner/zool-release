@@ -22,6 +22,7 @@ import ZoolDataView 1.1
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
+import web.ZoolServerFileDataManager 1.0
 import ZoolBodies 1.9
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxZodiacBack 1.0
@@ -266,10 +267,14 @@ ZoolMainWindow{
     Unik{id: unik}
     Settings{
         id: apps
-        //fileName:unik.getPath(4)+'/zool_'+Qt.platform.os+'.cfg'
         fileName:'zool_'+Qt.platform.os+'.cfg'
 
         property string lastVersion: '3.14.0'
+
+        property string zoolUser: ''
+        property string zoolUserId: ''
+        property string zoolKey: ''
+        property bool enableSaveBackupInServer: false
 
         //Minyma
         property string minymaClientHost: 'ws://127.0.0.1:12345'
@@ -445,6 +450,7 @@ ZoolMainWindow{
         id: menuBar
     }
     ZoolFileDataManager{id: zfdm}
+    ZoolServerFileDataManager{id: zsfdm}
     Timer{
         id: tReload
         running: false
@@ -1011,6 +1017,7 @@ ZoolMainWindow{
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)
+        apps.host='https://zool.loca.lt'
         JS.loadModules()
         app.requestActivate()
         //log.focus=true

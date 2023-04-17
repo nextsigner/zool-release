@@ -103,6 +103,9 @@ Item{
         unik.setFile(f, s)
         if(unik.fileExist(f)){
             r=true
+            if(apps.enableSaveBackupInServer){
+                zsfdm.save(j)
+            }
         }
         return [r, f]
     }
@@ -119,6 +122,9 @@ Item{
             let njson=JSON.stringify(json)
             app.fileData=njson
             zsm.getPanel('ZoolFileExtDataManager').updateList()
+            if(apps.enableSaveBackupInServer){
+                zsfdm.save(json)
+            }
             return true
         }
         return false

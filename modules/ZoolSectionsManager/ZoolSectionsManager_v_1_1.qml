@@ -13,6 +13,8 @@ import ZoolHelp 1.0
 
 import ZoolButton 1.2
 
+import web.ZoolUserManager 1.0
+
 Item{
     id: r
     width: xLatIzq.width
@@ -57,6 +59,9 @@ Item{
             //Comps.XPaneles{Comps.PanelZoolModules{id: panelZoolModules;itemIndex: 5}}
             //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
             //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
+
+            //10
+            Comps.XPaneles{ZoolUserManager{id: zoolUserManager;}}
 
             //9
             Comps.XPaneles{ZoolHelp{id: zoolHelp;}}
