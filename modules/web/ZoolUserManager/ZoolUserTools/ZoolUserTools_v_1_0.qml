@@ -35,17 +35,18 @@ Rectangle {
         Row{
             spacing: app.fs*0.25
             anchors.horizontalCenter: parent.horizontalCenter
+            visible: apps.enableShareInServer
             Text{
-                text: 'Almacenar copias de seguridad\nen el servidor de Zool: '
+                text: 'Habilitar las funciones\npara compartir archivos en el servidor de Zool: '
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 anchors.verticalCenter: parent.verticalCenter
             }
             CheckBox{
-                id: cbSaveInServer
-                checked: apps.enableSaveBackupInServer
+                id: cbShareInServer
+                checked: apps.enableShareInServer
                 anchors.verticalCenter: parent.verticalCenter
-                onCheckedChanged: apps.enableSaveBackupInServer=checked
+                onCheckedChanged: apps.enableShareInServer=checked
             }
         }
         Row{
@@ -60,7 +61,7 @@ Rectangle {
                     apps.zoolUser=''
                     apps.zoolUserId=''
                     apps.zoolKey=''
-                    apps.enableSaveBackupInServer=fale
+                    apps.enableShareInServer=fale
                 }
             }
         }

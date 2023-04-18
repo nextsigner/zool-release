@@ -103,7 +103,7 @@ Item{
         unik.setFile(f, s)
         if(unik.fileExist(f)){
             r=true
-            if(apps.enableSaveBackupInServer){
+            if(apps.enableShareInServer && j.params.shared){
                 zsfdm.save(j)
             }
         }
@@ -122,7 +122,7 @@ Item{
             let njson=JSON.stringify(json)
             app.fileData=njson
             zsm.getPanel('ZoolFileExtDataManager').updateList()
-            if(apps.enableSaveBackupInServer){
+            if(apps.enableShareInServer){
                 zsfdm.save(json)
             }
             return true

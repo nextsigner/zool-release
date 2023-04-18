@@ -274,7 +274,7 @@ ZoolMainWindow{
         property string zoolUser: ''
         property string zoolUserId: ''
         property string zoolKey: ''
-        property bool enableSaveBackupInServer: false
+        property bool enableShareInServer: false
 
         //Minyma
         property string minymaClientHost: 'ws://127.0.0.1:12345'

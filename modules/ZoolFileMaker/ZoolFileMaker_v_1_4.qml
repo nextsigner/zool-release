@@ -74,18 +74,28 @@ Rectangle {
     Column{
         id: col
         anchors.centerIn: parent
-        spacing: app.fs
+        spacing: app.fs*0.75
         Item{width: 1; height: app.fs; visible: colXConfig.visible}
         Column{
             id: colXConfig
             anchors.horizontalCenter: parent.horizontalCenter
         }
-        Text{
-            text: '<b>Crear nueva carta natal</b>'
-            font.pixelSize: app.fs*0.65
-            color: 'white'
+        Column{
+            spacing: app.fs*0.35
+            anchors.horizontalCenter: parent.horizontalCenter
+            ZoolText{
+                text: '<b>Crear una nueva carta</b>'
+                font.pixelSize: app.fs*0.65
+                color: 'white'
+            }
+            ZoolText{
+                text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
+                w: r.width-app.fs
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+            }
         }
-
+        Item{width: 1; height: app.fs; visible: colXConfig.visible}
         ZoolTextInput{
             id: tiNombre
             width: r.width-app.fs*0.5
@@ -336,6 +346,21 @@ Rectangle {
         Row{
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: app.fs*0.25
+            ZoolText{
+                text: 'Compartir con la\ncomunidad Zool'
+                fs: app.fs*0.5
+                textFormat:Text.Normal
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            CheckBox{
+                id: cbShared
+                checked: false
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+        Row{
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: app.fs*0.25
             Button{
                 id: botClear
                 text: 'Limpiar'
@@ -525,6 +550,11 @@ Rectangle {
         j+='"alt":'+valt+','
         j+='"ciudad":"'+vCiudad+'",'
         j+='"hsys":"'+vhsys+'",'
+        if(apps.enableShareInServer && cbShared.checked){
+            j+='"shared":true,'
+        }else{
+            j+='"shared":false,'
+        }
         j+='"extId":"'+extId+'"'
         j+='},'
         j+='"exts":[]'
