@@ -21,7 +21,6 @@ Rectangle {
         id: col
         anchors.centerIn: parent
         spacing: app.fs
-        Item{width: 1; height: app.fs; visible: colXConfig.visible}
         Text{
             text: '<b>Usuario</b>'
             font.pixelSize: app.fs*0.65
@@ -35,9 +34,10 @@ Rectangle {
         Row{
             spacing: app.fs*0.25
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: apps.enableShareInServer
-            Text{
+            //visible: apps.enableShareInServer
+            ZoolText{
                 text: 'Habilitar las funciones\npara compartir archivos en el servidor de Zool: '
+                w: r.width-cbShareInServer.width-parent.spacing-app.fs
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 anchors.verticalCenter: parent.verticalCenter
@@ -46,22 +46,30 @@ Rectangle {
                 id: cbShareInServer
                 checked: apps.enableShareInServer
                 anchors.verticalCenter: parent.verticalCenter
-                onCheckedChanged: apps.enableShareInServer=checked
+                onCheckedChanged: {
+                    apps.enableShareInServer=checked
+                    if(!apps.enableShareInServer){
+                        zwsm.stop()
+                    }else{
+                        zwsm.init()
+                    }
+                }
             }
         }
         Row{
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: app.fs*0.25
             Button{
-                id: botCrear
+                id: botEliminar
                 text: 'Eliminar Usuario'
                 font.pixelSize: app.fs*0.5
-                KeyNavigation.tab: tiNombre.t
+                //KeyNavigation.tab: tiNombre.t
                 onClicked: {
                     apps.zoolUser=''
                     apps.zoolUserId=''
                     apps.zoolKey=''
-                    apps.enableShareInServer=fale
+                    apps.enableShareInServer=false
+                    zwsm.stop()
                 }
             }
         }

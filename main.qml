@@ -36,6 +36,9 @@ import ZoolDataBodies 3.1
 import ZoolElementsBack 1.0
 import ZoolElementsView 1.0
 
+import comps.ZoolPanelNotifications 1.0
+import web.ZoolWebStatusManager 1.0
+
 import ZoolMediaLive 1.1
 import ZoolVoicePlayer 1.0
 import ZoolDataEditor 1.0
@@ -271,6 +274,7 @@ ZoolMainWindow{
 
         property string lastVersion: '3.14.0'
 
+        property string appId: ''
         property string zoolUser: ''
         property string zoolUserId: ''
         property string zoolKey: ''
@@ -765,6 +769,7 @@ ZoolMainWindow{
                     anchors.bottom: parent.bottom
                     visible: apps.zFocus==='xLatDer'
                 }
+                ZoolPanelNotifications{id: zpn}
             }
         }
         //Comps.XDataStatusBar{id: xDataStatusBar}
@@ -788,6 +793,7 @@ ZoolMainWindow{
         c: 'backgroundColor'
     }
     ZoolLogView{id: log}
+    ZoolWebStatusManager{id: zwsm}
     QtObject{
         id: setHost
         function setData(data, isData){

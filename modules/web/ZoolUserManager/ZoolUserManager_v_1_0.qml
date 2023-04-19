@@ -40,7 +40,7 @@ Item{
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
         zsm.aPanelesTits.push('Usuario Zool')
-        r.showSection(s.currentQmlTypeShowed)
+        //r.showSection(s.currentQmlTypeShowed)
     }
     function getPanel(typeOfSection){
         let obj
