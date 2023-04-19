@@ -275,6 +275,7 @@ ZoolMainWindow{
         property string lastVersion: '3.14.0'
 
         property string appId: ''
+        onAppIdChanged: unik.setFile('appid', appId)
         property string zoolUser: ''
         property string zoolUserId: ''
         property string zoolKey: ''
@@ -447,6 +448,11 @@ ZoolMainWindow{
                 ip.hideSS()
             }else{
                 ip.showSS()
+            }
+        }
+        Component.onCompleted: {
+            if(appId==='' && unik.fileExist('appid')){
+                appId=unik.getFile('appid').replace(/\n/g, '')
             }
         }
     }
