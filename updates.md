@@ -5,12 +5,13 @@ Esta aplicación ha sido actualizada a la versión:X.XX.XX.
 
 ## Novedades
 
-* Se agregó un cartel de acotación con información de los aspectos del cuarpo en donde se deslizó el mouse.
-* Se agregó el dato Edad a la información superior.
-* Se agregó función click en el item inferior de numerología en los elementos. Haciendo click se mostrará el módulo NumPit en el área izquierda.
+* Se agregó un panel de notificaciones en la parte inferior derecha. Este panel de momento solo notifica si el servidor de Zool se encuentra encendido o apagado.
+* Se agrego un modulo de registro de usuario de Zool. Esta aplicación siempre sera de uso libre y gratuito. Este tipo de registro sera utilizado solo a los fines de implementar la interacción entre los usuarios de la aplicación, compartir archivos, conocimientos, información y otros fines comunes.
+* Se ha agregado un panel de Ayuda pero aún esta en construcción.
 
 ## Tareas pendientes
 
+* Crear un chat en el panel de ayuda para interactuar con el programador de Zool mientras no se ha completado la documentación.
 * Completar la documentación y la ayuda.
 * Corregir el guardado de las posiciones de zoom y paneo de cada cuerpo.
 * Implementación del módulo ZoolDataSheet que tendrá información de los cuerpos, signos y casas.
