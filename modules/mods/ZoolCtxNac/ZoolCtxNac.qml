@@ -600,7 +600,7 @@ Item {
         r.uIH=ih
         let gs=parseInt(json.pc.c0.gdec)
         r.uGS=gs
-        let txt="<h1>Información</h1><br><h2>Módulo de Contexto de Nacimiento</h2><br>"
+        let txt="<h1>Información</h1><br><h2>Contexto de Nacimiento</h2><br>"
         if(ih===12||ih===7){
             setBg(0)
             xFakeSol.solTipo=3
@@ -618,18 +618,23 @@ Item {
             //txt+='En casa 1, 2, 3, 4, 5, 6 o 7'
             if(ih===1){
                 txt+=unik.getFile(r.folder+'/casa_1')
+                r.img1="crepusculo.jpg"
             }
             if(ih===2){
                 txt+=unik.getFile(r.folder+'/casa_2')
+                r.img1="noche.jpg"
             }
             if(ih===3){
                 txt+=unik.getFile(r.folder+'/casa_3')
+                r.img1="noche.jpg"
             }
             if(ih===4){
                 txt+=unik.getFile(r.folder+'/casa_4')
+                r.img1="noche.jpg"
             }
             if(ih===5){
                 txt+=unik.getFile(r.folder+'/casa_5')
+                r.img1="noche.jpg"
             }
             if(ih===6){
                 txt+=unik.getFile(r.folder+'/casa_6')
@@ -638,6 +643,7 @@ Item {
         }else if(ih===8||ih===9||ih===11){
             setBg(1)
             xFakeSol.solTipo=5
+            r.img1="siesta.jpg"
             if(ih===8){
                 txt+=unik.getFile(r.folder+'/casa_8')
             }
