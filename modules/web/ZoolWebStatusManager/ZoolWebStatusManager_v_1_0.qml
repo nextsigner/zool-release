@@ -56,7 +56,7 @@ Item{
                 }
 
             }else{
-                zpn.addNot('setUserAndAppId no isData', false)
+                //zpn.addNot('setUserAndAppId no isData', false)
             }
         }
     }
@@ -74,7 +74,7 @@ Item{
         id: timerFistRun
         running: apps.enableShareInServer
         interval: 15000
-        repeat: true
+        repeat: false
         onTriggered: {
             zpn.addNot('El servidor de Zool no se encuentra encendido.', true, 6000)
         }

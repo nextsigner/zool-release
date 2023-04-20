@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
 
+import ZoolButton 1.2
+
 Item {
     id: r
     width: sweg.objSignsCircle.width*0.5
@@ -9,6 +11,7 @@ Item {
     anchors.centerIn: parent
     parent: sweg
     visible: false
+    property string folder: './modules/mods/'+app.j.qmltypeof(r)
     property real o: 0.25
     property string moduleName: 'Contexto de Nacimiento'
     property bool showAsCircle: true
@@ -384,26 +387,30 @@ Item {
                         id: colBtns
                         spacing: app.fs*0.5
                         anchors.centerIn: parent
-                        Button{
+                        ZoolButton{
                             text: r.visible?'Ocultar':'Mostrar'
+                            fs: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
                             onClicked: r.visible=!r.visible
                         }
-                        Button{
+                        ZoolButton{
                             visible: r.visible
                             text: r.showTxtInfo?'Ocultar Información':'Mostrar Información'
+                            fs: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
                             onClicked: r.showTxtInfo=!r.showTxtInfo
                         }
-                        Button{
+                        ZoolButton{
                             visible: r.visible
                             text: r.showAsCircle?'Mostrar Rectangular':'Mostrar Circulo'
+                            fs: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
                             onClicked: r.showAsCircle=!r.showAsCircle
                         }
-                        Button{
+                        ZoolButton{
                             visible: r.visible
                             text: r.showBrujula?'Ocultar Brújula':'Mostrar Brújula'
+                            fs: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
                             onClicked: r.showBrujula=!r.showBrujula
                         }
@@ -553,6 +560,15 @@ Item {
                     }
                 }
             }
+            ZoolButton{
+                text: 'X'
+                fs: app.fs*0.5
+                anchors.right: parent.right
+                anchors.rightMargin: app.fs*0.25
+                anchors.top: parent.top
+                anchors.topMargin: app.fs*0.25
+                onClicked: r.showTxtInfo=false
+            }
         }
     }
     Timer{
@@ -583,29 +599,7 @@ Item {
             xFakeSol.solTipo=3
             if(ih===7){
                 r.img1="ocaso.jpg"
-                txt+='<h2>Sol en el Ocaso</h2><br>
-<h3>La palabra ocaso también significa occidente, oeste o poniente. El ocaso es el punto cardinal que indica el lado donde el Sol se pone o se oculta.</h3><br>
-<h2>Sol en Casa 7</h2><br>
-<p>La persona nacida con el sol en la casa 7, en principio podría tratarse de una persona cuya personalidad tendrá un perfil sociable.</p>
-
-<p>Es una persona mental, ágil para los negocios, despierta, atenta y quiere que las cosas se hagan bien. No le gustará que la traten de un modo inadecuado, será paciente con aquellas personas que deba serlo pero en determinado punto, al momento de dictar sentencia, si tiene que ser muy firme y dura, lo será de la manera más fría y mental sin importar a quien le caiga bien su veredicto. Buscará que las cosas sean justas.</p>
-
-<h2>Sol bien aspectado</h2>
-<p>Estando entre los demás, allí podrá brillar más que estando sola. Esto no significa que estando sola no se sentirá a gusto, significa que se sentirá más encendida, activa mentalmente, brillando más intensamente, en los momentos en los cuales esté frente a su pareja, a aquellas personas con las que tiene un vínculo fuerte o cuando está haciendo una actividad que requiera relacionarse públicamente con más personas.</p>
-
-<p>Esta persona tendrá buen manejo y trato con las demás personas.</p>
-
-<p>Traerá consigo mismo/a cierta armonía y equilibrio que aportará a las demás personas logrando que la comunicación, conección, dialogo e interacción entre ellas sea lo más amena y tranquila posible.</p>
-
-<!--break-->
-
-<h2>Sol mal aspectado</h2>
-<p>Podría tratarse de una persona que no se lleva bien consigo misma ni con los demás. Esto podría deberse a que ve las cosas malas o negativas en los demás que ella misma tiene y no es capaz de ver en si misma.</p>
-
-<p>Esta persona podría ser alguien que prejuzga a los demás, eso le impide integrarse de manera armónica y equilibrada con las demás personas, socios o pareja.</p>
-
-<p>Tendrá el problema de no sentirse a gusto con los demás pero estará en constante compañía o vinculación con ellos, tal vez esperando que esos vínculos se armonicen mientras reniega de ellos.</p>
-'
+                txt+=unik.getFile(r.folder+'/casa_7')
             }
             if(ih===12){
                 r.img1="amanecer.jpg"

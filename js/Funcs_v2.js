@@ -1419,7 +1419,7 @@ function loadModule(module){
     //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
     //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
     //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
-    c+='import '+module+' 1.0\n'
+    c+='import mods.'+module+' 1.0\n'
     c+='Item{\n'
     c+='    '+module+'{}\n'
     c+='}\n'
