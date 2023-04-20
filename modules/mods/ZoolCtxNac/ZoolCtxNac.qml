@@ -578,6 +578,13 @@ Item {
         interval: 1000
         onTriggered: setBgPosSol()
     }
+    Timer{
+        id: tCheck2
+        running: r.showTxtInfo
+        repeat: true
+        interval: 1000
+        onTriggered: setBgPosSol()
+    }
     property int uIH: -1
     property int uGS: -1
     Component.onCompleted: {
@@ -603,62 +610,49 @@ Item {
             }
             if(ih===12){
                 r.img1="amanecer.jpg"
-                txt+='<h2>Sol en Casa 12</h2><br>
-<p></p>
-
-<p></p>
-
-<h2>Sol bien aspectado</h2>
-<p></p>
-
-<p></p>
-
-<p></p>
-
-<!--break-->
-
-<h2>Sol mal aspectado</h2>
-<p></p>
-
-<p></p>
-
-<p></p>'
+                txt+=unik.getFile(r.folder+'/casa_12')
             }
         }else if(ih===1||ih===2||ih===3||ih===4||ih===5||ih===6){
             setBg(3)
             xFakeSol.solTipo=0
-            txt+='En casa 1, 2, 3, 4, 5, 6 o 7'
+            //txt+='En casa 1, 2, 3, 4, 5, 6 o 7'
             if(ih===1){
-                txt+='<h2>Sol en Casa 12</h2><br>
-<p></p>
-
-<p></p>
-
-<h2>Sol bien aspectado</h2>
-<p></p>
-
-<p></p>
-
-<p></p>
-
-<!--break-->
-
-<h2>Sol mal aspectado</h2>
-<p></p>
-
-<p></p>
-
-<p></p>'
+                txt+=unik.getFile(r.folder+'/casa_1')
+            }
+            if(ih===2){
+                txt+=unik.getFile(r.folder+'/casa_2')
+            }
+            if(ih===3){
+                txt+=unik.getFile(r.folder+'/casa_3')
+            }
+            if(ih===4){
+                txt+=unik.getFile(r.folder+'/casa_4')
+            }
+            if(ih===5){
+                txt+=unik.getFile(r.folder+'/casa_5')
+            }
+            if(ih===6){
+                txt+=unik.getFile(r.folder+'/casa_6')
             }
             //horizonteBg.opacity-=0.05
         }else if(ih===8||ih===9||ih===11){
             setBg(1)
             xFakeSol.solTipo=5
-            txt+='En casa 8 o 9'
+            if(ih===8){
+                txt+=unik.getFile(r.folder+'/casa_8')
+            }
+            if(ih===9){
+                txt+=unik.getFile(r.folder+'/casa_9')
+            }
+            if(ih===11){
+                txt+=unik.getFile(r.folder+'/casa_11')
+            }
         }else{
             setBg(1)
             xFakeSol.solTipo=1
-            txt+='En casa ?'
+            if(ih===10){
+                txt+=unik.getFile(r.folder+'/casa_10')
+            }
         }
         r.txtInfo=txt
         let m0=r.txtInfo.split('<!--break-->')
