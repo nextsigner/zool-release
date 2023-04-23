@@ -21,6 +21,8 @@ Item {
     property string txtInfoC1: "Información Columna 1"
     property string txtInfoC2: "Información Columna 2"
     property string img1: ""
+    property int fsz: app.fs*2
+    property bool fse: false
     onVisibleChanged: {
         if(visible){
             sweg.centerZoomAndPos()
@@ -448,7 +450,7 @@ Item {
         Rectangle{
             id: xPanelInfo
             width: !showMaximized?xLatDer.width:xApp.width//-app.fs*0.25
-            height: !showMaximized?parent.height:parent.height+xDataBar.height//+app.fs
+            height: !showMaximized?parent.height:parent.height+zoolDataView.height//+app.fs
             color: apps.backgroundColor
             border.width: 1
             border.color: apps.fontColor
@@ -488,7 +490,7 @@ Item {
                 width: parent.width
                 height: parent.height
                 contentWidth: parent.width
-                contentHeight: !xPanelInfo.showMaximized?colTxtInfo.height*1.2:(txtInfoC1.contentHeight>colTxtCol2.height?txtInfoC1.contentHeight*1.2:colTxtCol2.height*1.2)
+                contentHeight: !xPanelInfo.showMaximized?colTxtInfo.height:(txtInfoC1.contentHeight>colTxtCol2.height?txtInfoC1.contentHeight*1.2:colTxtCol2.height*1.2)
                 ScrollBar.vertical: ScrollBar {
                     width: !xPanelInfo.showMaximized?app.fs*0.25:app.fs
                     anchors.right: parent.right
@@ -496,6 +498,18 @@ Item {
                 }
                 MouseArea{
                     anchors.fill: parent
+                    onWheel: {
+                        if (wheel.modifiers & Qt.ControlModifier) {
+                            //log.lv('wheel.angleDelta.y: '+wheel.angleDelta.y)
+                            if(wheel.angleDelta.y>=0){
+                                r.fsz=r.fsz+r.fsz*0.1
+                            }else{
+                                r.fsz=r.fsz-r.fsz*0.1
+                            }
+                        }else{
+
+                        }
+                    }
                     onClicked: xPanelInfo.showMaximized=!xPanelInfo.showMaximized
                 }
                 Column{
@@ -535,7 +549,7 @@ Item {
                     Text{
                         id: txtInfoC1
                         text: r.txtInfoC1
-                        font.pixelSize: xPanelInfo.showMaximized?app.fs:app.fs*0.5
+                        font.pixelSize: xPanelInfo.showMaximized?r.fsz:app.fs*0.5
                         width: parent.parent.width*0.5-app.fs//*0.25
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
@@ -552,7 +566,7 @@ Item {
                         Text{
                             id: txtInfoC2
                             text: r.txtInfoC2
-                            font.pixelSize: xPanelInfo.showMaximized?app.fs:app.fs*0.5
+                            font.pixelSize: xPanelInfo.showMaximized?r.fsz:app.fs*0.5
                             width: parent.parent.width*0.5-app.fs//*0.5
                             wrapMode: Text.WordWrap
                             color: apps.fontColor
@@ -600,7 +614,7 @@ Item {
         r.uIH=ih
         let gs=parseInt(json.pc.c0.gdec)
         r.uGS=gs
-        let txt="<h1>Información</h1><br><h2>Contexto de Nacimiento</h2><br>"
+        let txt="<h2>Contexto de Nacimiento</h2><br>"
         if(ih===12||ih===7){
             setBg(0)
             xFakeSol.solTipo=3

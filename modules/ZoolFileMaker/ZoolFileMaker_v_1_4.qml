@@ -71,373 +71,382 @@ Rectangle {
             zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
         }
     }
-    Column{
-        id: col
-        anchors.centerIn: parent
-        spacing: app.fs*0.75
-        Item{width: 1; height: app.fs; visible: colXConfig.visible}
+    Flickable{
+        id: flk
+        width: r.width
+        height: r.height
+        contentWidth: r.width
+        contentHeight: col.height+app.fs*3
+        clip: true
+        anchors.horizontalCenter: parent.horizontalCenter
         Column{
-            id: colXConfig
+            id: col
+            spacing: app.fs*0.75
             anchors.horizontalCenter: parent.horizontalCenter
-        }
-        Column{
-            spacing: app.fs*0.35
-            anchors.horizontalCenter: parent.horizontalCenter
-            ZoolText{
-                text: '<b>Crear una nueva carta</b>'
-                font.pixelSize: app.fs*0.65
-                color: 'white'
+            Item{width: 1; height: app.fs; visible: colXConfig.visible}
+            Column{
+                id: colXConfig
+                anchors.horizontalCenter: parent.horizontalCenter
             }
-            ZoolText{
-                text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
-                w: r.width-app.fs
-                font.pixelSize: app.fs*0.5
-                color: 'white'
+            Column{
+                spacing: app.fs*0.35
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    text: '<b>Crear una nueva carta</b>'
+                    font.pixelSize: app.fs*0.65
+                    color: 'white'
+                }
+                ZoolText{
+                    text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
+                    w: r.width-app.fs
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                }
             }
-        }
-        Item{width: 1; height: app.fs; visible: colXConfig.visible}
-        ZoolTextInput{
-            id: tiNombre
-            width: r.width-app.fs*0.5
-            t.font.pixelSize: app.fs*0.65
-            anchors.horizontalCenter: parent.horizontalCenter
-            KeyNavigation.tab: controlTimeFecha
-            t.maximumLength: 30
-            borderColor:apps.fontColor
-            borderRadius: app.fs*0.25
-            padding: app.fs*0.25
-            horizontalAlignment: TextInput.AlignLeft
-            onEnterPressed: {
-                controlTimeFecha.focus=true
-                controlTimeFecha.cFocus=0
-            }
-            Text {
-                text: 'Nombre'
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                //anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.top
-            }
-        }
-        Row{
-            spacing: app.fs*0.1
-            anchors.horizontalCenter: parent.horizontalCenter
-            ZoolControlsTime{
-                id: controlTimeFecha
-                gmt: 0
-                KeyNavigation.tab: tiCiudad.t
-                setAppTime: false
-                onCurrentDateChanged: {
-                    //log.l('PanelVN CurrenDate: '+currentDate.toString())
-                    //log.visible=true
-                    //log.x=xApp.width*0.2
+            Item{width: 1; height: app.fs; visible: colXConfig.visible}
+            ZoolTextInput{
+                id: tiNombre
+                width: r.width-app.fs*0.5
+                t.font.pixelSize: app.fs*0.65
+                anchors.horizontalCenter: parent.horizontalCenter
+                KeyNavigation.tab: controlTimeFecha
+                t.maximumLength: 30
+                borderColor:apps.fontColor
+                borderRadius: app.fs*0.25
+                padding: app.fs*0.25
+                horizontalAlignment: TextInput.AlignLeft
+                onEnterPressed: {
+                    controlTimeFecha.focus=true
+                    controlTimeFecha.cFocus=0
                 }
                 Text {
-                    text: 'Fecha'
+                    text: 'Nombre'
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.top
+                }
+            }
+            Row{
+                spacing: app.fs*0.1
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolControlsTime{
+                    id: controlTimeFecha
+                    gmt: 0
+                    KeyNavigation.tab: tiCiudad.t
+                    setAppTime: false
+                    onCurrentDateChanged: {
+                        //log.l('PanelVN CurrenDate: '+currentDate.toString())
+                        //log.visible=true
+                        //log.x=xApp.width*0.2
+                    }
+                    Text {
+                        text: 'Fecha'
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                        anchors.bottom: parent.top
+                    }
+                }
+            }
+            Item{width: 1;height: app.fs*0.25}
+            ZoolTextInput{
+                id: tiCiudad
+                width: tiNombre.width
+                t.font.pixelSize: app.fs*0.65;
+                KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                t.maximumLength: 50
+                borderColor:apps.fontColor
+                borderRadius: app.fs*0.25
+                padding: app.fs*0.25
+                horizontalAlignment: TextInput.AlignLeft
+                onTextChanged: {
+                    tSearch.restart()
+                    t.color='white'
+                }
+                Text {
+                    text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
                     font.pixelSize: app.fs*0.5
                     color: 'white'
                     anchors.bottom: parent.top
                 }
             }
-        }
-        Item{width: 1;height: app.fs*0.25}
-        ZoolTextInput{
-            id: tiCiudad
-            width: tiNombre.width
-            t.font.pixelSize: app.fs*0.65;
-            KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-            t.maximumLength: 50
-            borderColor:apps.fontColor
-            borderRadius: app.fs*0.25
-            padding: app.fs*0.25
-            horizontalAlignment: TextInput.AlignLeft
-            onTextChanged: {
-                tSearch.restart()
-                t.color='white'
-            }
-            Text {
-                text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                anchors.bottom: parent.top
-            }
-        }
-        Row{
-            spacing: app.fs*0.5
-            anchors.horizontalCenter: parent.horizontalCenter
-            Text{
-                text: 'Ingresar coordenadas\nmanualmente'
-                font.pixelSize: app.fs*0.5
-                color: apps.fontColor
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            CheckBox{
-                checked: settings.inputCoords
-                anchors.verticalCenter: parent.verticalCenter
-                onCheckedChanged: settings.inputCoords=checked
-            }
-        }
-        Column{
-            id: colTiLonLat
-            anchors.horizontalCenter: parent.horizontalCenter
-            visible: settings.inputCoords
-
             Row{
-                spacing: app.fs
+                spacing: app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
-                ZoolTextInput{
-                    id: tiLat
-                    //width: r.width*0.5-app.fs*0.5
-                    //width: r.width*0.15-app.fs*0.5
-                    w: r.width*0.4-app.fs*0.5
-                    t.font.pixelSize: app.fs*0.65
+                Text{
+                    text: 'Ingresar coordenadas\nmanualmente'
+                    font.pixelSize: app.fs*0.5
+                    color: apps.fontColor
                     anchors.verticalCenter: parent.verticalCenter
-                    KeyNavigation.tab: tiLon.t
-                    t.maximumLength: 10
-                    t.validator: RegExpValidator {
-                        regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                    }
-                    borderColor:apps.fontColor
-                    borderRadius: app.fs*0.25
-                    padding: app.fs*0.25
-                    horizontalAlignment: TextInput.AlignLeft
-                    property bool valid: false
-                    Timer{
-                        running: r.visible && settings.inputCoords
-                        repeat: true
-                        interval: 100
-                        onTriggered: {
-                            parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                            if(parent.valid){
-                                r.ulat=parseFloat(parent.t.text)
-                            }else{
-                                r.ulat=-1
-                            }
-                        }
-                    }
-                    Rectangle{
-                        width: parent.width+border.width*2
-                        height: parent.height+border.width*2
-                        anchors.centerIn: parent
-                        color: 'transparent'
-                        border.width: 4
-                        border.color: 'red'
-                        visible: parent.t.text===''?false:!parent.valid
-                    }
-                    onEnterPressed: {
-                        //controlTimeFecha.focus=true
-                        //controlTimeFecha.cFocus=0
-                    }
-                    Text {
-                        text: 'Latitud'
-                        font.pixelSize: app.fs*0.5
-                        color: 'white'
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottom: parent.top
-                    }
                 }
-                ZoolTextInput{
-                    id: tiLon
-                    //width: r.width*0.15-app.fs*0.5
-                    w: r.width*0.4-app.fs*0.5
-                    t.font.pixelSize: app.fs*0.65
+                CheckBox{
+                    checked: settings.inputCoords
                     anchors.verticalCenter: parent.verticalCenter
-                    KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
-                    t.maximumLength: 10
-                    t.validator: RegExpValidator {
-                        regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                    }
-                    borderColor:apps.fontColor
-                    borderRadius: app.fs*0.25
-                    padding: app.fs*0.25
-                    horizontalAlignment: TextInput.AlignLeft
-                    property bool valid: false
-                    Timer{
-                        running: r.visible && settings.inputCoords
-                        repeat: true
-                        interval: 100
-                        onTriggered: {
-                            parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                            if(parent.valid){
-                                r.ulon=parseFloat(parent.t.text)
-                            }else{
-                                r.ulon=-1
-                            }
-                        }
-                    }
-                    Rectangle{
-                        width: parent.width+border.width*2
-                        height: parent.height+border.width*2
-                        anchors.centerIn: parent
-                        color: 'transparent'
-                        border.width: 4
-                        border.color: 'red'
-                        visible: parent.t.text===''?false:!parent.valid
-                    }
-                    //onPressed: {
-                    onEnterPressed: {
-                        //controlTimeFecha.focus=true
-                        //controlTimeFecha.cFocus=0
-                    }
-                    Text {
-                        text: 'Longitud'
-                        font.pixelSize: app.fs*0.5
-                        color: 'white'
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottom: parent.top
-                    }
+                    onCheckedChanged: settings.inputCoords=checked
                 }
             }
-            Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
-            Text{
-                text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
-                                                            (
-                                                                tiLat.valid && tiLon.valid?
-                                                                    'Estas coordenadas son válidas.':
-                                                                    'Las coordenadas no son correctas'
-                                                                )
-                font.pixelSize: app.fs*0.5
-                color: apps.fontColor
+            Column{
+                id: colTiLonLat
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: settings.inputCoords
-            }
-        }
-        Column{
-            id: colLatLon
-            anchors.horizontalCenter: parent.horizontalCenter
-            visible: r.lat===r.ulat&&r.lon===r.ulon
-            //height: !visible?0:app.fs*3
-            Text{
-                text: 'Lat:'+r.lat
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                opacity: r.lat!==-100.00?1.0:0.0
-            }
-            Text{
-                text: 'Lon:'+r.lon
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                opacity: r.lon!==-100.00?1.0:0.0
-            }
-        }
-        Column{
-            visible: !colLatLon.visible
-            //height: !visible?0:app.fs*3
-            anchors.horizontalCenter: parent.horizontalCenter
-            Text{
-                text: 'Error: Corregir el nombre de ubicación'
-                font.pixelSize: app.fs*0.25
-                color: 'white'
-                visible: r.ulat===-1&&r.ulon===-1
-            }
-            Text{
-                text: 'Lat:'+r.ulat
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                opacity: r.ulat!==-100.00?1.0:0.0
-            }
-            Text{
-                text: 'Lon:'+r.ulon
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-                opacity: r.ulon!==-100.00?1.0:0.0
-            }
-        }
-        Row{
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: app.fs*0.25
-            ZoolText{
-                text: 'Compartir con la\ncomunidad Zool'
-                fs: app.fs*0.5
-                textFormat:Text.Normal
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            CheckBox{
-                id: cbShared
-                checked: false
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
-        Row{
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: app.fs*0.25
-            Button{
-                id: botClear
-                text: 'Limpiar'
-                font.pixelSize: app.fs*0.5
-                opacity:  r.lat!==-100.00||r.lon!==-100.00||tiNombre.text!==''||tiCiudad.text!==''?1.0:0.0
-                enabled: opacity===1.0
-                onClicked: {
-                    clear()
-                }
-            }
-            Button{
-                id: botCrear
-                text: 'Crear'
-                font.pixelSize: app.fs*0.5
-                KeyNavigation.tab: tiNombre.t
-                visible: r.ulat!==-1&&r.ulon!==-1&&tiNombre.text!==''&&tiCiudad.text!==''
-                onClicked: {
-                    if(!settings.inputCoords){
-                        searchGeoLoc(true)
-                    }else{
-                        r.lat=parseFloat(tiLat.t.text)
-                        r.lon=parseFloat(tiLon.t.text)
-                        r.ulat=r.lat
-                        r.ulon=r.lon
-                        setNewJsonFileData()
+
+                Row{
+                    spacing: app.fs
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    ZoolTextInput{
+                        id: tiLat
+                        //width: r.width*0.5-app.fs*0.5
+                        //width: r.width*0.15-app.fs*0.5
+                        w: r.width*0.4-app.fs*0.5
+                        t.font.pixelSize: app.fs*0.65
+                        anchors.verticalCenter: parent.verticalCenter
+                        KeyNavigation.tab: tiLon.t
+                        t.maximumLength: 10
+                        t.validator: RegExpValidator {
+                            regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                        }
+                        borderColor:apps.fontColor
+                        borderRadius: app.fs*0.25
+                        padding: app.fs*0.25
+                        horizontalAlignment: TextInput.AlignLeft
+                        property bool valid: false
+                        Timer{
+                            running: r.visible && settings.inputCoords
+                            repeat: true
+                            interval: 100
+                            onTriggered: {
+                                parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
+                                if(parent.valid){
+                                    r.ulat=parseFloat(parent.t.text)
+                                }else{
+                                    r.ulat=-1
+                                }
+                            }
+                        }
+                        Rectangle{
+                            width: parent.width+border.width*2
+                            height: parent.height+border.width*2
+                            anchors.centerIn: parent
+                            color: 'transparent'
+                            border.width: 4
+                            border.color: 'red'
+                            visible: parent.t.text===''?false:!parent.valid
+                        }
+                        onEnterPressed: {
+                            //controlTimeFecha.focus=true
+                            //controlTimeFecha.cFocus=0
+                        }
+                        Text {
+                            text: 'Latitud'
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.top
+                        }
+                    }
+                    ZoolTextInput{
+                        id: tiLon
+                        //width: r.width*0.15-app.fs*0.5
+                        w: r.width*0.4-app.fs*0.5
+                        t.font.pixelSize: app.fs*0.65
+                        anchors.verticalCenter: parent.verticalCenter
+                        KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
+                        t.maximumLength: 10
+                        t.validator: RegExpValidator {
+                            regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                        }
+                        borderColor:apps.fontColor
+                        borderRadius: app.fs*0.25
+                        padding: app.fs*0.25
+                        horizontalAlignment: TextInput.AlignLeft
+                        property bool valid: false
+                        Timer{
+                            running: r.visible && settings.inputCoords
+                            repeat: true
+                            interval: 100
+                            onTriggered: {
+                                parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
+                                if(parent.valid){
+                                    r.ulon=parseFloat(parent.t.text)
+                                }else{
+                                    r.ulon=-1
+                                }
+                            }
+                        }
+                        Rectangle{
+                            width: parent.width+border.width*2
+                            height: parent.height+border.width*2
+                            anchors.centerIn: parent
+                            color: 'transparent'
+                            border.width: 4
+                            border.color: 'red'
+                            visible: parent.t.text===''?false:!parent.valid
+                        }
+                        //onPressed: {
+                        onEnterPressed: {
+                            //controlTimeFecha.focus=true
+                            //controlTimeFecha.cFocus=0
+                        }
+                        Text {
+                            text: 'Longitud'
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.top
+                        }
                     }
                 }
-                Timer{
-                    running: r.state==='show'
-                    repeat: true
-                    interval: 1000
-                    onTriggered: {
-                        let nom=tiNombre.t.text.replace(/ /g, '_')
-                        let fileName=apps.jsonsFolder+'/'+nom+'.json'
-                        if(unik.fileExist(fileName)){
-                            r.uFileNameLoaded=tiNombre.text
-                            let jsonFileData=unik.getFile(fileName)
-                            let j=JSON.parse(jsonFileData)
-                            let dia=''+j.params.d
-                            if(parseInt(dia)<=9){
-                                dia='0'+dia
-                            }
-                            let mes=''+j.params.m
-                            if(parseInt(mes)<=9){
-                                mes='0'+mes
-                            }
-                            let hora=''+j.params.h
-                            if(parseInt(hora)<=9){
-                                hora='0'+hora
-                            }
-                            let minuto=''+j.params.min
-                            if(parseInt(minuto)<=9){
-                                minuto='0'+minuto
-                            }
-                            let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-                            controlTimeFecha.currentDate=nt
-                            controlTimeFecha.gmt=j.params.gmt
-                            if(tiCiudad.text.replace(/ /g, '')===''){
-                                tiCiudad.text=j.params.ciudad
-                            }
-                            r.lat=j.params.lat
-                            r.lon=j.params.lon
-                            r.ulat=j.params.lat
-                            r.ulon=j.params.lon
-                            let vd=parseInt(tiFecha1.t.text)
-                            let vm=parseInt(tiFecha2.t.text)
-                            let vh=parseInt(tiHora1.t.text)
-                            let vmin=parseInt(tiHora2.t.text)
-                            let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-                            let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-                            if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-                                botCrear.text='Modificar'
-                            }else{
-                                botCrear.text='[Crear]'
-                            }
+                Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
+                Text{
+                    text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
+                                                                (
+                                                                    tiLat.valid && tiLon.valid?
+                                                                        'Estas coordenadas son válidas.':
+                                                                        'Las coordenadas no son correctas'
+                                                                    )
+                    font.pixelSize: app.fs*0.5
+                    color: apps.fontColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: settings.inputCoords
+                }
+            }
+            Column{
+                id: colLatLon
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: r.lat===r.ulat&&r.lon===r.ulon
+                //height: !visible?0:app.fs*3
+                Text{
+                    text: 'Lat:'+r.lat
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    opacity: r.lat!==-100.00?1.0:0.0
+                }
+                Text{
+                    text: 'Lon:'+r.lon
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    opacity: r.lon!==-100.00?1.0:0.0
+                }
+            }
+            Column{
+                visible: !colLatLon.visible
+                //height: !visible?0:app.fs*3
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: 'Error: Corregir el nombre de ubicación'
+                    font.pixelSize: app.fs*0.25
+                    color: 'white'
+                    visible: r.ulat===-1&&r.ulon===-1
+                }
+                Text{
+                    text: 'Lat:'+r.ulat
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    opacity: r.ulat!==-100.00?1.0:0.0
+                }
+                Text{
+                    text: 'Lon:'+r.ulon
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    opacity: r.ulon!==-100.00?1.0:0.0
+                }
+            }
+            Row{
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: app.fs*0.25
+                ZoolText{
+                    text: 'Compartir con la\ncomunidad Zool'
+                    fs: app.fs*0.5
+                    textFormat:Text.Normal
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                CheckBox{
+                    id: cbShared
+                    checked: false
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Row{
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: app.fs*0.25
+                Button{
+                    id: botClear
+                    text: 'Limpiar'
+                    font.pixelSize: app.fs*0.5
+                    opacity:  r.lat!==-100.00||r.lon!==-100.00||tiNombre.text!==''||tiCiudad.text!==''?1.0:0.0
+                    enabled: opacity===1.0
+                    onClicked: {
+                        clear()
+                    }
+                }
+                Button{
+                    id: botCrear
+                    text: 'Crear'
+                    font.pixelSize: app.fs*0.5
+                    KeyNavigation.tab: tiNombre.t
+                    visible: r.ulat!==-1&&r.ulon!==-1&&tiNombre.text!==''&&tiCiudad.text!==''
+                    onClicked: {
+                        if(!settings.inputCoords){
+                            searchGeoLoc(true)
                         }else{
-                            botCrear.text='Crear'
+                            r.lat=parseFloat(tiLat.t.text)
+                            r.lon=parseFloat(tiLon.t.text)
+                            r.ulat=r.lat
+                            r.ulon=r.lon
+                            setNewJsonFileData()
+                        }
+                    }
+                    Timer{
+                        running: r.state==='show'
+                        repeat: true
+                        interval: 1000
+                        onTriggered: {
+                            let nom=tiNombre.t.text.replace(/ /g, '_')
+                            let fileName=apps.jsonsFolder+'/'+nom+'.json'
+                            if(unik.fileExist(fileName)){
+                                r.uFileNameLoaded=tiNombre.text
+                                let jsonFileData=unik.getFile(fileName)
+                                let j=JSON.parse(jsonFileData)
+                                let dia=''+j.params.d
+                                if(parseInt(dia)<=9){
+                                    dia='0'+dia
+                                }
+                                let mes=''+j.params.m
+                                if(parseInt(mes)<=9){
+                                    mes='0'+mes
+                                }
+                                let hora=''+j.params.h
+                                if(parseInt(hora)<=9){
+                                    hora='0'+hora
+                                }
+                                let minuto=''+j.params.min
+                                if(parseInt(minuto)<=9){
+                                    minuto='0'+minuto
+                                }
+                                let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
+                                controlTimeFecha.currentDate=nt
+                                controlTimeFecha.gmt=j.params.gmt
+                                if(tiCiudad.text.replace(/ /g, '')===''){
+                                    tiCiudad.text=j.params.ciudad
+                                }
+                                r.lat=j.params.lat
+                                r.lon=j.params.lon
+                                r.ulat=j.params.lat
+                                r.ulon=j.params.lon
+                                let vd=parseInt(tiFecha1.t.text)
+                                let vm=parseInt(tiFecha2.t.text)
+                                let vh=parseInt(tiHora1.t.text)
+                                let vmin=parseInt(tiHora2.t.text)
+                                let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+                                let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                                if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                                    botCrear.text='Modificar'
+                                }else{
+                                    botCrear.text='[Crear]'
+                                }
+                            }else{
+                                botCrear.text='Crear'
+                            }
                         }
                     }
                 }
