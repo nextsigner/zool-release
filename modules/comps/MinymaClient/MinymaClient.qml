@@ -37,8 +37,8 @@ Item{
         let comp=Qt.createComponent("WebSocketClient.qml")
         let obj=comp.createObject(xWS,{loginUserName: r.loginUserName, url: r.url, parentObject: r})
         r.currentWsObject=obj
-        log.lv('obj.loginUserName: '+obj.loginUserName)
-        log.lv('obj.url: '+obj.url)
+        //log.lv('obj.loginUserName: '+obj.loginUserName)
+        //log.lv('obj.url: '+obj.url)
     }
     Timer{
         id: tAutoReset
