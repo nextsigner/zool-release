@@ -38,6 +38,7 @@ import ZoolElementsView 1.0
 
 import comps.ZoolPanelNotifications 1.0
 import web.ZoolWebStatusManager 1.0
+import comps.MinymaClient 1.0
 
 import ZoolMediaLive 1.1
 import ZoolVoicePlayer 1.0
@@ -671,7 +672,7 @@ ZoolMainWindow{
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
-    Comps.MinymaClient{
+    MinymaClient{
         id: minymaClient
         loginUserName: 'zool'+(app.dev?'-dev':'')
         host: apps.minymaClientHost

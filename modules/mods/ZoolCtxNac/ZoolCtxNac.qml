@@ -458,7 +458,7 @@ Item {
             clip: true
             //anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: !showMaximized?0:0-xDataBar.height
+            anchors.topMargin: !showMaximized?0:0-zoolDataView.height
             anchors.right: parent.right
             visible: r.showTxtInfo
             property bool showMaximized: false
@@ -477,6 +477,15 @@ Item {
                         app.objInFullWin=null
                     }
                 }
+            }
+            function capture(){
+                xPanelInfo.grabToImage(function(result) {
+                    let json=app.currentJson
+                    if(!json)return
+                    let ih=parseInt(json.pc.c0.ih)
+                    let ip=r.folder+"/casa_"+ih+".png"
+                    result.saveToFile(ip);
+                });
             }
             function escaped(){
                 showMaximized=false
@@ -553,6 +562,8 @@ Item {
                         width: parent.parent.width*0.5-app.fs//*0.25
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
+                        property int fs: font.pixelSize
+                        onFsChanged: xPanelInfo.capture()
                     }
                     Column{
                         id: colTxtCol2
@@ -581,7 +592,10 @@ Item {
                 anchors.rightMargin: app.fs*0.25
                 anchors.top: parent.top
                 anchors.topMargin: app.fs*0.25
-                onClicked: r.showTxtInfo=false
+                onClicked: {
+                    r.showTxtInfo=false
+                    //xPanelInfo.destroy(0)
+                }
             }
         }
     }

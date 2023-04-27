@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import Qt.labs.settings 1.1
 
 Settings{
@@ -20,7 +21,7 @@ Settings{
     property bool enableShareInServer: false
 
     //Minyma
-    property string minymaClientHost: 'ws://127.0.0.1:12345'
+    property string minymaClientHost: 'ws://192.168.1.51'
     property int minymaClientPort: 12345
     property bool showLog: false
     property int fs: app.width*0.02
