@@ -1375,6 +1375,11 @@ function getNums(fecha){
     return [nf, d, numArbolGen]
 }
 
+//Funciones varias
+function timer(parent) {
+    return Qt.createQmlObject("import QtQuick 2.0; Timer {}", parent);
+}
+
 //Modules
 function loadModules(){
     let d='{"modules":['

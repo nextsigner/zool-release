@@ -84,6 +84,7 @@ ZoolMainWindow{
     property bool enableAn: false
     property int msDesDuration: 500
 
+    property var minymaClient
     property var objZoolFileExtDataManager
     property var aExtsIds: []
 
@@ -672,52 +673,6 @@ ZoolMainWindow{
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
-    MinymaClient{
-        id: minymaClient
-        loginUserName: 'zool'+(app.dev?'-dev':'')
-        host: apps.minymaClientHost
-        port: apps.minymaClientPort
-        onNewMessage: {
-            //let json=JSON.parse(data)
-            //log.ls('Minyma Recibe: '+data, 0, 500)
-        }
-        onNewMessageForMe: {
-            //log.ls('Minyma For Me: '+data, 0, 500)
-            if(data==='isWindowTool'){
-                if(app.flags===Qt.Tool){
-                    minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=true')
-                }else{
-                    minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=false')
-                }
-            }
-            if(data==='windowToWindow'){
-                app.flags=Qt.Window
-            }
-            if(data==='windowToTool'){
-                app.flags=Qt.Tool
-            }
-
-            //To zoolMediaLive
-            if(data==='zoolMediaLive.loadBodiesNow()'){
-                zoolMediaLive.loadBodiesNow()
-            }
-            if(data==='zoolMediaLive.play()'){
-                zoolMediaLive.play()
-            }
-            if(data==='zoolMediaLive.pause()'){
-                zoolMediaLive.pause()
-            }
-            if(data==='zoolMediaLive.stop()'){
-                zoolMediaLive.stop()
-            }
-            if(data==='zoolMediaLive.previous()'){
-                zoolMediaLive.previous()
-            }
-            if(data==='zoolMediaLive.next()'){
-                zoolMediaLive.next()
-            }
-        }
-    }
 
     //Este esta en el centro
     Rectangle{
@@ -751,6 +706,51 @@ ZoolMainWindow{
         //Check is dev with the arg -dev
         if(Qt.application.arguments.indexOf('-dev')>=0){
             app.dev=true
+        }
+
+        if(Qt.platform.os==='linux'){
+            let compMinyma=Qt.createComponent('./modules/comps/MinymaClient/MinymaClient.qml')
+            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
+            objMinyma.newMessageForMe.connect(function(from, data) {
+                if(data==='isWindowTool'){
+                    if(app.flags===Qt.Tool){
+                        minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=true')
+                    }else{
+                        minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=false')
+                    }
+                }
+                if(data==='windowToWindow'){
+                    app.flags=Qt.Window
+                }
+                if(data==='windowToTool'){
+                    app.flags=Qt.Tool
+                }
+
+                //To zoolMediaLive
+                if(data==='zoolMediaLive.loadBodiesNow()'){
+                    zoolMediaLive.loadBodiesNow()
+                }
+                if(data==='zoolMediaLive.play()'){
+                    zoolMediaLive.play()
+                }
+                if(data==='zoolMediaLive.pause()'){
+                    zoolMediaLive.pause()
+                }
+                if(data==='zoolMediaLive.stop()'){
+                    zoolMediaLive.stop()
+                }
+                if(data==='zoolMediaLive.previous()'){
+                    zoolMediaLive.previous()
+                }
+                if(data==='zoolMediaLive.next()'){
+                    zoolMediaLive.next()
+                }
+            });
+            objMinyma.onNewMessage.connect(function(from, to, data) {
+                //Aqui se puede poner un bloque de código
+                //para procesar todos los datos que procesa MinymaServer.
+            });
+            app.minymaClient=objMinyma
         }
 
         let v=unik.getFile('./version')

@@ -36,6 +36,10 @@ ApplicationWindow {
     //    }
 
 
+    Component.onCompleted: {
+
+    }
+
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {
