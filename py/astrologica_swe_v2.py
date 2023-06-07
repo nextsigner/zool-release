@@ -228,7 +228,8 @@ jsonBodies='"pc":{'
 j["pc"]={}
 index=0
 for i in np:
-    pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+    #pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+    pos=swe.calc_ut(jd1, np[index][1])
     #print(pos)
     gObj=float(pos[0][0])
     if index == 11:
@@ -276,66 +277,77 @@ for i in np:
     retro=-1
     if index == 0:#Sol
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        #":Args: float armc, float geolat, float eps, seq objcoord,"
+        #" bytes hsys=b'P'\n\n"
+        #" - armc: ARMC\n"
+        #" - geolat: geographic latitude, in degrees (northern positive)\n"
+        #" - eps: obliquity, in degrees\n"
+        #" - objcoord: a sequence for ecl. longitude and latitude of the planet,\n"
+        #"   in degrees\n"
+        #" - hsys: house method identifier (1 byte)\n\n"
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
+
+
+        #posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 1:#Luna
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 2:#Mercurio
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 3:#Venus
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 4:#Marte
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 5:#Júpiter
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 6:#Saturno controlar que está °1 atrasado
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 7:#Urano
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 8:#Neptuno
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
     elif index == 9:#Plutón controlar que está °1 atrasado
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         #calcs = swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH)
         #posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
         #posHouse=int(posHouse)
@@ -352,34 +364,34 @@ for i in np:
     elif index == 10:#Nodo Norte
         #calcs = swe.calc_ut(jd1, np[index][1], flag=swe.TRUE_NODE)
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 11:#Nodo Sur
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0] -181.00, calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0] -181.00, calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 12:#Quirón
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
     elif index == 13:#Selena
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 14:#Lilith
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
     else:
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         #print(calcs)
 
     #hom = swisseph.house_pos(asmc[2], observer.lat, obliquity, calcs[0], objlat=calcs[1])

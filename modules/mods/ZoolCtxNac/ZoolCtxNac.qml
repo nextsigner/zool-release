@@ -21,7 +21,7 @@ Item {
     property string txtInfoC1: "Información Columna 1"
     property string txtInfoC2: "Información Columna 2"
     property string img1: ""
-    property int fsz: app.fs*2
+    property int fsz: app.fs*0.65
     property bool fse: false
     onVisibleChanged: {
         if(visible){
@@ -511,9 +511,9 @@ Item {
                         if (wheel.modifiers & Qt.ControlModifier) {
                             //log.lv('wheel.angleDelta.y: '+wheel.angleDelta.y)
                             if(wheel.angleDelta.y>=0){
-                                r.fsz=r.fsz+r.fsz*0.1
+                                r.fsz=r.fsz+1
                             }else{
-                                r.fsz=r.fsz-r.fsz*0.1
+                                r.fsz=r.fsz-1
                             }
                         }else{
 
@@ -563,7 +563,16 @@ Item {
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                         property int fs: font.pixelSize
-                        onFsChanged: xPanelInfo.capture()
+                        onFsChanged: tCapture.restart()
+                        Timer{
+                            id: tCapture
+                            running: false
+                            repeat: false
+                            interval: 1500
+                            onTriggered: {
+                                xPanelInfo.capture()
+                            }
+                        }
                     }
                     Column{
                         id: colTxtCol2
@@ -624,11 +633,13 @@ Item {
         let json=app.currentJson
         //log.ls('json: '+JSON.stringify(json.pc.c0), 0, xLatIzq.width)
         if(!json)return
+
+
         let ih=parseInt(json.pc.c0.ih)
         r.uIH=ih
         let gs=parseInt(json.pc.c0.gdec)
         r.uGS=gs
-        let txt="<h2>Contexto de Nacimiento</h2><br>"
+        let txt="<!--ctx-->"
         if(ih===12||ih===7){
             setBg(0)
             xFakeSol.solTipo=3
@@ -688,6 +699,24 @@ Item {
                 txt+=unik.getFile(r.folder+'/casa_10')
             }
         }
+        txt=txt.replace('<!--t1-->', '<h3>¿Haz nacido en esta hora o momento del día?</h3><h5>Si es así, la siguiente información te puede resultar muy útil y esclarecedora.</h5>')
+
+        let aCtx=[]
+        aCtx.push('ctx 1')
+        aCtx.push('ctx 2')
+        aCtx.push('ctx 3')
+        aCtx.push('ctx 4')
+        aCtx.push('ctx 5')
+        aCtx.push('ctx 6')
+        aCtx.push('ctx 7')
+        aCtx.push('Tarde - Horas del atardecer intermedias entre el mediodía y la noche - Sol en Casa 8')
+        aCtx.push('Ocaso - 1 o 2 horas previas al anochecer - Sol en Casa 7')
+        aCtx.push('ctx 10')
+        aCtx.push('ctx 11')
+        aCtx.push('ctx 12')
+        txt=txt.replace('<!--ctx-->', '<h2>Contexto de Nacimiento: '+aCtx[ih - 1]+'</h2><br />')
+
+
         r.txtInfo=txt
         let m0=r.txtInfo.split('<!--break-->')
         if(r.txtInfoC1&&m0[0])r.txtInfoC1=m0[0]

@@ -38,7 +38,7 @@ import ZoolElementsView 1.0
 
 import comps.ZoolPanelNotifications 1.0
 import web.ZoolWebStatusManager 1.0
-import MinymaClient 1.0
+import comps.MinymaClient 1.0
 
 import ZoolMediaLive 1.1
 import ZoolVoicePlayer 1.0
@@ -84,7 +84,7 @@ ZoolMainWindow{
     property bool enableAn: false
     property int msDesDuration: 500
 
-    property var minymaClient2
+    property var minymaClient
     property var objZoolFileExtDataManager
     property var aExtsIds: []
 
@@ -700,52 +700,6 @@ ZoolMainWindow{
     //        interval: 5000
     //        onTriggered: JS.loadModules()
     //    }
-    MinymaClient{
-        id: minymaClient
-        host: 'ws://192.168.1.51'
-        port: 1616
-        loginUserName: 'zool'
-        onNewMessage: {
-            //let json=JSON.parse(data)
-            //log.ls('Minyma Recibe: '+data, 0, 500)
-        }
-        onNewMessageForMe: {
-            if(data==='isWindowTool'){
-                if(app.flags===Qt.Tool){
-                    minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=true')
-                }else{
-                    minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=false')
-                }
-            }
-            if(data==='windowToWindow'){
-                app.flags=Qt.Window
-            }
-            if(data==='windowToTool'){
-                app.flags=Qt.Tool
-            }
-
-            //To zoolMediaLive
-            if(data==='zoolMediaLive.loadBodiesNow()'){
-                zoolMediaLive.loadBodiesNow()
-            }
-            if(data==='zoolMediaLive.play()'){
-                zoolMediaLive.play()
-            }
-            if(data==='zoolMediaLive.pause()'){
-                zoolMediaLive.pause()
-            }
-            if(data==='zoolMediaLive.stop()'){
-                zoolMediaLive.stop()
-            }
-            if(data==='zoolMediaLive.previous()'){
-                zoolMediaLive.previous()
-            }
-            if(data==='zoolMediaLive.next()'){
-                zoolMediaLive.next()
-            }
-        }
-    }
-
     Component.onCompleted: {
         JS.setFs()
 
@@ -754,10 +708,9 @@ ZoolMainWindow{
             app.dev=true
         }
 
-        if(false){
+        if(Qt.platform.os==='linux'){
             let compMinyma=Qt.createComponent('./modules/comps/MinymaClient/MinymaClient.qml')
-            //let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
-            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: 'ws://192.168.1.51', port: 1616})
+            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
             objMinyma.newMessageForMe.connect(function(from, data) {
                 if(data==='isWindowTool'){
                     if(app.flags===Qt.Tool){
@@ -877,7 +830,7 @@ ZoolMainWindow{
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
-                JS.loadJson(apps.url)
+                JS.loadJson(apps.url)                
             }else{
                 if(app.dev){
                     log.visible=true

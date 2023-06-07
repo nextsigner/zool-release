@@ -6,15 +6,21 @@ import ZoolButton 1.2
 Item{
     id: r
     width: parent.width
-    height: parent.height
+    //height: parent.height
+    height: col.height
     anchors.right: parent.right
     anchors.bottom: parent.bottom
     property int count: col.children.length
     onCountChanged: updateHeight()
+    Rectangle{
+        anchors.fill: parent
+        color: 'redΩ'
+    }
     Flickable{
         id: flk
         width: parent.width
-        height: r.height
+        //height: r.height
+        height: col.height
         contentWidth: r.width
         contentHeight: col.height+app.fs
         anchors.bottom: parent.bottom

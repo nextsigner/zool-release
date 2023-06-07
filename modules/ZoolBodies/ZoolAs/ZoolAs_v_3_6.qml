@@ -421,7 +421,7 @@ Item{
         json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
         if(app.dev){
             //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
-            log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
+            //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
         }
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
