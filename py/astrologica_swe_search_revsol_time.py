@@ -51,7 +51,9 @@ def getHour(uHora, grado):
             uHora  += datetime.timedelta(minutes=1)
             #print(str(d))
             jd1 =jdutil.datetime_to_jd(uHora)
-            pos=swe.calc_ut(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+            #pos=swe.calc_ut(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+            #Elimino los flags en la nueva versión de SwissEph
+            pos=swe.calc_ut(jd1, 0)
             gsol=float(pos[0][0])
             #print(str(gsol) + '<----->' + str(grado))
             if  gsol >= grado:
