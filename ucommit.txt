@@ -1,1 +1,1 @@
-Se actualizan los archivos python para la nueva versión de SwissEph
+Se agrega timeout a geoloc.py

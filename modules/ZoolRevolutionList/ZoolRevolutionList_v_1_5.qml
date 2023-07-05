@@ -856,6 +856,7 @@ Rectangle {
         }else{
             finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         }
+        console.log('finalCmd: '+finalCmd)
         let c=''
             +'  if(logData.length<=3||logData==="")return\n'
             +'  let j\n'

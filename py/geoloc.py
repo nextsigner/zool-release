@@ -2,8 +2,8 @@ import sys
 from geopy.geocoders import Nominatim
 
 lugar = sys.argv[1]
-geolocator = Nominatim(user_agent='myapplication')
-location = geolocator.geocode(lugar)
+geolocator = Nominatim(user_agent='email')
+location = geolocator.geocode(lugar,timeout=10000)
 #print(location.address)
 
 jsonCoords='{'

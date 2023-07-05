@@ -549,7 +549,7 @@ Item {
                     }
                 }
                 Row{
-                    spacing: app.fs*0.25
+                    spacing: app.fs//0.25
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.horizontalCenterOffset: 0-app.fs*0.5
                     anchors.top: parent.top
@@ -702,7 +702,7 @@ Item {
         txt=txt.replace('<!--t1-->', '<h3>¿Haz nacido en esta hora o momento del día?</h3><h5>Si es así, la siguiente información te puede resultar muy útil y esclarecedora.</h5>')
 
         let aCtx=[]
-        aCtx.push('ctx 1')
+        aCtx.push('Previo al Amanecer, antes de la aparición del sol - Casa 1')
         aCtx.push('ctx 2')
         aCtx.push('ctx 3')
         aCtx.push('ctx 4')
