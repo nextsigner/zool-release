@@ -1,1 +1,1 @@
-Se agrega timeout a geoloc.py
+Se corrigen los datos de pointerplanet en modo dirprim

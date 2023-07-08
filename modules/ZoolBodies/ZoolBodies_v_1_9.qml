@@ -4,7 +4,7 @@ import "../../js/Funcs.js" as JS
 
 
 import ZoolBodies.ZoolPlanetsCircle 1.1
-import ZoolBodies.ZoolPlanetsCircleBack 1.4
+import ZoolBodies.ZoolPlanetsCircleBack 1.5
 import ZoolHousesCircle 1.1
 import ZoolHousesCircleBack 1.2
 import ZoolBodies.ZoolAspectsView 1.0
@@ -405,6 +405,7 @@ Item {
     //    }
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
+        sweg.dirPrimRot=0
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -443,6 +444,7 @@ Item {
     }
     function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
+        sweg.dirPrimRot=0
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -572,9 +574,13 @@ Item {
             //panelElementsBack.visible=false
         }
         housesCircleBack.loadHouses(j)
+
         //if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
         //if(JSON.parse(app))
         planetsCircleBack.loadJson(j)
+//        if(app.mod==='dirprim'){
+//            log.lv('is dirprim')
+//        }
         zoolDataBodies.loadJsonBack(j)
         //panelDataBodiesV2.loadJson(j)
         let isSaved=false

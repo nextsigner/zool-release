@@ -49,7 +49,13 @@ Item{
             app.showPointerXAsBack=true
         }
     }
-
+    onObjDataChanged: {
+        pointerPlanet.is=r.is
+        pointerPlanet.gdeg=objData.g
+        pointerPlanet.mdeg=objData.m
+        pointerPlanet.rsgdeg=objData.rsg
+        pointerPlanet.ih=objData.ih
+    }
     //Probando/Visualizando rotación
     Rectangle{
         width: r.width
@@ -108,6 +114,7 @@ Item{
         PointerPlanet{
             id: pointerPlanet
             is:r.is
+            //is: objData.is
             gdeg: objData.g
             mdeg: objData.m
             rsgdeg:objData.rsg
