@@ -217,5 +217,14 @@ Item{
         objAs.objData=o
         objSigns[o.is]++*/
     }
-
+    function getAPD(){
+        let a=[]
+        for(var i=0;i<20;i++){
+            var objAs=r.children[i]
+            if(objAs.objData && objAs.objData.gdec){
+                a.push(objAs.objData.gdec)
+            }
+        }
+        return a
+    }
 }

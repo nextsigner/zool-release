@@ -293,7 +293,7 @@ Item {
                 }
                 AscMcCircle{id: ascMcCircle}
                 ZoolPlanetsCircle{
-                    id:planetsCircle
+                    id: planetsCircle
                     height: width
                     anchors.centerIn: parent
                     //showBorder: true
@@ -644,6 +644,9 @@ Item {
         a.push(parseInt(app.currentXAs.uRot))
         return a
     }
+    function getAPD(isBack){
+        return !isBack?planetsCircle.getAPD():planetsCircleBack.getAPD()
+    }
     function getIndexSign(gdec){
         let index=0
         let g=0.0
@@ -670,5 +673,17 @@ Item {
         min: 0 | (((D += 1e-9) % 1) * 60),
         sec: (0 | (((D * 60) % 1) * 6000)) / 100,
       };
+    }
+    function getAspType(g1, g2){
+        let ret=-1
+        let gop=g2+180.00
+        if(gop>=360)gop=gop-360.00
+        if(g1 >= g2-0.25 && g1 <= g2+0.25 ){
+            ret=1//Conjunción
+        }
+        if(g1 >= gop-0.25 && g1 <= gop+0.25 ){
+            ret=2//Oposición
+        }
+        return ret
     }
 }

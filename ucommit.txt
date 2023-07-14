@@ -1,1 +1,1 @@
-Se corrigen los datos de pointerplanet en modo dirprim
+Se programa updateAps en dirprim

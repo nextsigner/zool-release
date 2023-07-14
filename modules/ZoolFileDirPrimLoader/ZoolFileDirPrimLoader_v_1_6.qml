@@ -410,6 +410,8 @@ Rectangle {
 
         r.uParamsLoaded='params_fecha_inicio_'+vd+'.'+vm+'.'+va+'.'+vh+'.'+vmin+'.'+vgmt+'.'+vlat+'.'+vlon+'.'+vCiudad+'.'+apps.currentHsys
 
+
+
         /*let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
@@ -475,9 +477,13 @@ Rectangle {
         aR.push('<b>Edad:</b> '+edad+' años')
         zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
 
+        updateAsps()
+
+        //Lo que suceda a continuación es si ya se ha definido app.mod o app.tipo a dirprim
         if(app.ev&&app.mod==='dirprim')return
         tUpdateParamsEvento.restart()
         r.loadingFromExternal=true
+
     }
 
     function setDirPrimRotationFromExternalItem(dateInicio, dateEvento){
@@ -605,6 +611,37 @@ Rectangle {
 
 
         app.ev=true
+    }
+    function updateAsps(){
+        //
+        log.width=xApp.width*0.2
+        log.x=xApp.width*0.8
+        let a=sweg.getAPD(false)
+        let ab=sweg.getAPD(true)
+        for(var i=0;i<a.length;i++){
+            if(i!==9)continue
+            for(var ib=0;ib<a.length;ib++){
+                let pa=app.planetas[i]
+                let pab=app.planetas[ib]
+
+                let ga=parseFloat(a[i]).toFixed(6)
+                let gab=parseFloat(ab[ib]).toFixed(6)//+sweg.dirPrimRot
+                let retAspType=sweg.getAspType(ga, gab)
+
+                let f=controlTimeFechaEvento.currentDate
+                let sf='Fecha: '+controlTimeFechaEvento.dia+'/'+controlTimeFechaEvento.mes+'/'+controlTimeFechaEvento.anio+' '+controlTimeFechaEvento.hora+':'+controlTimeFechaEvento.minuto+'hs'
+
+                if(retAspType>=0){
+                    if(retAspType===1){
+                        log.lv('Conjunción\n'+pa+'/'+pab+': '+ga+' '+gab+' '+sf+'\n')
+                    }else if(retAspType===2){
+                        log.lv('Oposición\n'+pa+'/'+pab+': '+ga+' '+gab+' '+sf+'\n')
+                    }else{
+                        log.lv(retAspType+' '+pa+' comp/con '+pab+': '+ga+' '+gab+' '+sf+'\n')
+                    }
+                }
+            }
+        }
     }
 
     function enter(){
