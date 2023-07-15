@@ -614,30 +614,33 @@ Rectangle {
     }
     function updateAsps(){
         //
+        log.clear()
         log.width=xApp.width*0.2
         log.x=xApp.width*0.8
         let a=sweg.getAPD(false)
         let ab=sweg.getAPD(true)
         for(var i=0;i<a.length;i++){
-            if(i!==9)continue
+            //if(i!==9)continue
             for(var ib=0;ib<a.length;ib++){
-                let pa=app.planetas[i]
-                let pab=app.planetas[ib]
+                let pInt=app.planetas[i]
+                let pExt=app.planetas[ib]
 
                 let ga=parseFloat(a[i]).toFixed(6)
                 let gab=parseFloat(ab[ib]).toFixed(6)//+sweg.dirPrimRot
-                let retAspType=sweg.getAspType(ga, gab)
+                let retAspType=sweg.getAspType(ga, gab, true, i, ib, pInt, pExt)
 
                 let f=controlTimeFechaEvento.currentDate
                 let sf='Fecha: '+controlTimeFechaEvento.dia+'/'+controlTimeFechaEvento.mes+'/'+controlTimeFechaEvento.anio+' '+controlTimeFechaEvento.hora+':'+controlTimeFechaEvento.minuto+'hs'
 
                 if(retAspType>=0){
                     if(retAspType===1){
-                        log.lv('Conjunción\n'+pa+'/'+pab+': '+ga+' '+gab+' '+sf+'\n')
+                        log.lv(retAspType+' Conjunción\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
                     }else if(retAspType===2){
-                        log.lv('Oposición\n'+pa+'/'+pab+': '+ga+' '+gab+' '+sf+'\n')
+                        log.lv(retAspType+' Oposición\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+                    }else if(retAspType===3){
+                        log.lv(retAspType+' Cuadratura\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
                     }else{
-                        log.lv(retAspType+' '+pa+' comp/con '+pab+': '+ga+' '+gab+' '+sf+'\n')
+                        log.lv(retAspType+' '+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
                     }
                 }
             }

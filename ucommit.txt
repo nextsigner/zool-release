@@ -1,1 +1,1 @@
-Se programa updateAps en dirprim
+Se agrega la detección de Cuadratura a dirprim

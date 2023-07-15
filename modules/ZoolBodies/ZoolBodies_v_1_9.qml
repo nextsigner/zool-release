@@ -588,7 +588,7 @@ Item {
             isSaved=JSON.parse(app.fileDataBack).ms>=0
         }
         app.backIsSaved=isSaved
-        if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
+        //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         app.ev=true
         //centerZoomAndPos()
     }
@@ -674,15 +674,46 @@ Item {
         sec: (0 | (((D * 60) % 1) * 6000)) / 100,
       };
     }
-    function getAspType(g1, g2){
+    function getAspType(g1, g2, showLog, index, indexb, pInt, pExt){
         let ret=-1
-        let gop=g2+180.00
-        if(gop>=360)gop=gop-360.00
-        if(g1 >= g2-0.25 && g1 <= g2+0.25 ){
-            ret=1//Conjunción
+
+        //Prepare Grado de Margen de Conjunción
+        let gmcon1=parseFloat(g2 - 0.25)
+        let gmcon2=parseFloat(g2 + 0.25)
+        //Conjunción
+        if(g1 >= gmcon1 && g1 <= gmcon2 ){
+            ret=1
+            return ret
         }
+
+        //Prepare Grado de Oposición
+        let gop=parseFloat( parseFloat(g1) + 180.00)
+        if(gop>=360.00)gop=parseFloat(360.00-gop)
+        if(gop<0)gop=Math.abs(gop)
+        //if(showLog)log.lv('g1:'+g1+'\ngop: '+gop)
+        //Oposición
         if(g1 >= gop-0.25 && g1 <= gop+0.25 ){
-            ret=2//Oposición
+            ret=2
+            return ret
+        }
+
+        //Prepare Grado de Cuadratura
+        let gcu=parseFloat( parseFloat(g1) + 90.00)
+        if(gcu>=360.00)gcu=parseFloat(360.00-gcu)
+        if(gcu<0)gcu=Math.abs(gcu)
+        let gmcua1=parseFloat(gcu - 0.25)
+        let gmcua2=parseFloat(gcu + 0.25)
+
+        let gcu2=parseFloat( parseFloat(g1) - 90.00)
+        if(gcu2>=360.00)gcu2=parseFloat(360.00-gcu2)
+        if(gcu2<0)gcu2=Math.abs(gcu2)
+        let gmcua3=parseFloat(gcu2 - 0.25)
+        let gmcua4=parseFloat(gcu2 + 0.25)
+        //if(showLog && indexb === 6 && pInt==='Sol')log.lv('pInt '+pInt+':'+g1+'\npExt '+pExt+': g2:'+g2+' gcu: '+gcu+'\ngmcua1: '+gmcua1+'\ngmcua2: '+gmcua2)
+        //Cuadratura
+        if((g2 >= gmcua1 && g2 <= gmcua2) || (g2 >= gmcua3 && g2 <= gmcua4)){
+            ret=3
+            return ret
         }
         return ret
     }
