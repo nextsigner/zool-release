@@ -1,1 +1,1 @@
-Se agrega la detección de Cuadratura a dirprim
+Se agrega boton Iniciar Rastreo y Reiniciar a dirprim

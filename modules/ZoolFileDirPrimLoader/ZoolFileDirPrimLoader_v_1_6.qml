@@ -248,6 +248,110 @@ Rectangle {
                 }
             }
             Rectangle{
+                id: xFind
+                width: colFind.width+app.fs*0.5
+                height: colFind.height+app.fs*0.5
+                color: 'transparent'
+                border.width: 1
+                border.color: apps.fontColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: r.moduleEnabled
+                Column{
+                    id: colFind
+                    anchors.centerIn: parent
+                    Row{
+                        spacing: app.fs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        ZoolButton{
+                            text: 'Iniciar Rastreo'
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked:{
+                                if(!tAutoFindAsps.running){
+                                    log.clear()
+                                }
+                                if(rd1.checked){
+                                    tAutoFindAsps.m=0
+                                }
+                                if(rd2.checked){
+                                    tAutoFindAsps.m=1
+                                }
+                                if(rd3.checked){
+                                    tAutoFindAsps.m=2
+                                }
+                                tAutoFindAsps.running=!tAutoFindAsps.running
+                            }
+                        }
+                        ZoolButton{
+                            text: 'Reiniciar'
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked:{
+                                log.clear()
+                                tAutoFindAsps.stop()
+                                controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
+                            }
+                        }
+                    }
+                    Row{
+                        spacing: app.fs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Row{
+                            ZoolText{
+                                text:'Año'
+                                fs: app.fs*0.5
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                            RadioButton{
+                                id: rd1
+                                checked: true
+                                onCheckedChanged: {
+                                    if(checked){
+                                        rd2.checked=false
+                                        rd3.checked=false
+                                    }
+                                }
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                        Row{
+                            ZoolText{
+                                text:'Mes'
+                                fs: app.fs*0.5
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                            RadioButton{
+                                id: rd2
+                                //checked: true
+                                onCheckedChanged: {
+                                    if(checked){
+                                        rd1.checked=false
+                                        rd3.checked=false
+                                    }
+                                }
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                        Row{
+                            ZoolText{
+                                text:'Día'
+                                fs: app.fs*0.5
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                            RadioButton{
+                                id: rd3
+                                //checked: true
+                                onCheckedChanged: {
+                                    if(checked){
+                                        rd1.checked=false
+                                        rd2.checked=false
+                                    }
+                                }
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                    }
+                }
+            }
+            Rectangle{
                 id: xBtns
                 width: gribBtns.width+app.fs*0.5
                 height: col2.height+app.fs*0.5
@@ -378,6 +482,29 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+    Timer{
+        id: tAutoFindAsps
+        repeat: true
+        running: false
+        interval: 200
+        property int m: 1
+        onTriggered: {
+            let d = controlTimeFechaEvento.currentDate
+            if(m===0){
+                d.setFullYear(d.getFullYear() + 1)
+            }
+            if(m===1){
+                d.setMonth(d.getMonth() + 1)
+            }
+            if(m===2){
+                d.setDate(d.getDate() + 1)
+            }
+
+            controlTimeFechaEvento.currentDate = d
+            setDirPrimRotation()
+            updateUParams()
         }
     }
     Item{id: xuqp}
@@ -614,7 +741,7 @@ Rectangle {
     }
     function updateAsps(){
         //
-        log.clear()
+        //log.clear()
         log.width=xApp.width*0.2
         log.x=xApp.width*0.8
         let a=sweg.getAPD(false)
