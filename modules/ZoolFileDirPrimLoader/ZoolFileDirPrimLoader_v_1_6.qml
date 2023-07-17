@@ -290,6 +290,13 @@ Rectangle {
                                 controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                             }
                         }
+                        ZoolButton{
+                            text: 'Ver Lista'
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            onClicked:{
+                                aspList.visible=!aspList.visible
+                            }
+                        }
                     }
                     Row{
                         spacing: app.fs*0.25
@@ -508,7 +515,13 @@ Rectangle {
         }
     }
     Item{id: xuqp}
-
+    AspList{
+        id: aspsList
+        width: r.width
+        height: xApp.height*0.5
+        parent: log
+        visible: false
+    }
     function updateUParams(){
         controlTimeFecha.gmt=app.currentGmt
         controlTimeFechaEvento.gmt=app.currentGmt
@@ -762,10 +775,13 @@ Rectangle {
                 if(retAspType>=0){
                     if(retAspType===1){
                         log.lv(retAspType+' Conjunción\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+                        aspsList.addItem(0, 0, 0, controlTimeFechaEvento.currentDate)
                     }else if(retAspType===2){
                         log.lv(retAspType+' Oposición\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+                        aspsList.addItem(1, 0, 0, controlTimeFechaEvento.currentDate)
                     }else if(retAspType===3){
                         log.lv(retAspType+' Cuadratura\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+                        aspsList.addItem(2, 0, 0, controlTimeFechaEvento.currentDate)
                     }else{
                         log.lv(retAspType+' '+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
                     }
