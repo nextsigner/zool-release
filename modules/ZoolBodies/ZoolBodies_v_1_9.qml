@@ -682,7 +682,7 @@ Item {
         let gmcon2=parseFloat(g2 + 0.25)
         //Conjunción
         if(g1 >= gmcon1 && g1 <= gmcon2 ){
-            ret=1
+            ret=0
             return ret
         }
 
@@ -693,7 +693,7 @@ Item {
         //if(showLog)log.lv('g1:'+g1+'\ngop: '+gop)
         //Oposición
         if(g1 >= gop-0.25 && g1 <= gop+0.25 ){
-            ret=2
+            ret=1
             return ret
         }
 
@@ -712,7 +712,7 @@ Item {
         //if(showLog && indexb === 6 && pInt==='Sol')log.lv('pInt '+pInt+':'+g1+'\npExt '+pExt+': g2:'+g2+' gcu: '+gcu+'\ngmcua1: '+gmcua1+'\ngmcua2: '+gmcua2)
         //Cuadratura
         if((g2 >= gmcua1 && g2 <= gmcua2) || (g2 >= gmcua3 && g2 <= gmcua4)){
-            ret=3
+            ret=2
             return ret
         }
         return ret

@@ -294,7 +294,7 @@ Rectangle {
                             text: 'Ver Lista'
                             //anchors.horizontalCenter: parent.horizontalCenter
                             onClicked:{
-                                aspList.visible=!aspList.visible
+                                aspsList.visible=!aspsList.visible
                             }
                         }
                     }
@@ -509,6 +509,12 @@ Rectangle {
                 d.setDate(d.getDate() + 1)
             }
 
+            let dateStop=new Date(controlTimeFecha.currentDate)
+            dateStop.setFullYear(dateStop.getFullYear() + 100)
+            if(controlTimeFechaEvento.currentDate > dateStop){
+                tAutoFindAsps.running=false
+            }
+
             controlTimeFechaEvento.currentDate = d
             setDirPrimRotation()
             updateUParams()
@@ -518,8 +524,11 @@ Rectangle {
     AspList{
         id: aspsList
         width: r.width
-        height: xApp.height*0.5
-        parent: log
+        height: xLatIzq.height//*0.5
+        x:r.width//-app.fs*2
+        y: zoolDataView.height
+        parent: capa101//log
+        moduleDirPrim: r
         visible: false
     }
     function updateUParams(){
@@ -772,24 +781,30 @@ Rectangle {
                 let f=controlTimeFechaEvento.currentDate
                 let sf='Fecha: '+controlTimeFechaEvento.dia+'/'+controlTimeFechaEvento.mes+'/'+controlTimeFechaEvento.anio+' '+controlTimeFechaEvento.hora+':'+controlTimeFechaEvento.minuto+'hs'
 
+
                 if(retAspType>=0){
-                    if(retAspType===1){
-                        log.lv(retAspType+' Conjunción\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
-                        aspsList.addItem(0, 0, 0, controlTimeFechaEvento.currentDate)
-                    }else if(retAspType===2){
-                        log.lv(retAspType+' Oposición\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
-                        aspsList.addItem(1, 0, 0, controlTimeFechaEvento.currentDate)
-                    }else if(retAspType===3){
-                        log.lv(retAspType+' Cuadratura\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
-                        aspsList.addItem(2, 0, 0, controlTimeFechaEvento.currentDate)
-                    }else{
-                        log.lv(retAspType+' '+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
-                    }
+                    aspsList.addItem(retAspType, ib, i, controlTimeFechaEvento.currentDate)
+//                    if(retAspType===1){
+//                        log.lv(retAspType+' Conjunción\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+
+//                    }else if(retAspType===2){
+//                        log.lv(retAspType+' Oposición\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+//                        //aspsList.addItem(1, 0, 0, controlTimeFechaEvento.currentDate)
+//                    }else if(retAspType===3){
+//                        log.lv(retAspType+' Cuadratura\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+//                        //aspsList.addItem(2, 0, 0, controlTimeFechaEvento.currentDate)
+//                    }else{
+//                        log.lv(retAspType+' '+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
+//                    }
+
                 }
+
             }
         }
     }
-
+    function setFechaEvento(d){
+        controlTimeFechaEvento.currentDate=d
+    }
     function enter(){
         if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){
             //searchGeoLoc(true)

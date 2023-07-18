@@ -1,7 +1,11 @@
 import QtQuick 2.0
 
-Item{
+Rectangle{
     id: r
+    color: apps.backgroundColor
+    border.width: 4
+    border.color: apps.fontColor
+    property var moduleDirPrim
     ListView{
         id: lv
         width: r.width
@@ -30,12 +34,31 @@ Item{
             border.width: 2
             border.color: txt1.color
             property bool selected: index===lv.currentIndex
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    let d = new Date(vMs)
+                    moduleDirPrim.setFechaEvento(d)
+                }
+            }
             Text{
                 id: txt1
-                width: parent.width-app.fs
+                width: parent.width-app.fs*2
+                wrapMode: Text.WordWrap
                 font.pixelSize: app.fs*0.5
                 color: !selected?apps.fontColor:apps.backgroundColor
-                anchors.centerIn: parent
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: app.fs*0.5
+                //anchors.centerIn: parent
+            }
+            Rectangle{
+                id: cc
+                width: app.fs
+                height: width
+                radius: width*0.5
+                anchors.verticalCenter: parent.verticalCenter
+                x:app.fs*0.25
             }
             Component.onCompleted: {
                 /*
@@ -59,10 +82,11 @@ Item{
                 }else{
                     at='No Indefinido'
                 }
+                cc.color=ac
                 let d=new Date(vMs)
                 let s=''+at
-                s+=' '+app.planeta[vObjAspectedIndex1]
-                s+='/'+app.planeta[vObjAspectedIndex2]
+                s+=' '+app.planetas[vObjAspectedIndex1]
+                s+='/'+app.planetas[vObjAspectedIndex2]
                 s+='\nFecha: '+d.toString()
                 txt1.text=s
             }
