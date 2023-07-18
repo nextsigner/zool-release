@@ -3,8 +3,9 @@ import QtQuick 2.0
 Rectangle{
     id: r
     color: apps.backgroundColor
-    border.width: 4
+    border.width: 1
     border.color: apps.fontColor
+    clip: true
     property var moduleDirPrim
     ListView{
         id: lv
