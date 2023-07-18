@@ -367,7 +367,7 @@ Rectangle {
                 border.color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: r.moduleEnabled
-                property bool forBack: true
+                property bool forBack: false
                 Column{
                     id: col2
                     spacing: app.fs*0.25
@@ -783,7 +783,10 @@ Rectangle {
 
 
                 if(retAspType>=0){
-                    aspsList.addItem(retAspType, ib, i, controlTimeFechaEvento.currentDate)
+                    if(sweg.listCotasShowing.indexOf(i)>=0){
+                        aspsList.addItem(retAspType, ib, i, controlTimeFechaEvento.currentDate)
+                    }
+
 //                    if(retAspType===1){
 //                        log.lv(retAspType+' Conjunción\n'+pExt+'/'+pInt+': '+ga+' '+gab+' '+sf+'\n')
 
