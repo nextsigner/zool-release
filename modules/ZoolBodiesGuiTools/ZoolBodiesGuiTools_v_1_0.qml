@@ -190,6 +190,20 @@ Rectangle {
                 }
             }
             ZoolButton{
+                text:  '<b>TE</b>'
+                fs: app.fs*0.35
+                onClicked: {
+                    tHideCol.restart()
+                    if(sweg.ejeTipoCurrentIndex<5){
+                        sweg.ejeTipoCurrentIndex++
+                    }else{
+                        sweg.ejeTipoCurrentIndex=-2
+                    }
+                }
+            }
+
+
+            ZoolButton{
                 text: apps.showLatIzq?'<b>Ocultar LatIzq</b>':'<b>Ver LatIzq</b>'
                 fs: app.fs*0.35
                 onClicked: {

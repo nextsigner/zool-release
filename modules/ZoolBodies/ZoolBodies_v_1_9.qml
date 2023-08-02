@@ -5,7 +5,7 @@ import "../../js/Funcs.js" as JS
 
 import ZoolBodies.ZoolPlanetsCircle 1.1
 import ZoolBodies.ZoolPlanetsCircleBack 1.5
-import ZoolHousesCircle 1.1
+import ZoolHousesCircle 1.2
 import ZoolHousesCircleBack 1.2
 import ZoolBodies.ZoolAspectsView 1.0
 import ZoolBodies.ZoolAspectsViewBack 1.0
@@ -64,6 +64,8 @@ Item {
     property bool enableLoadBack: true
 
     property real dirPrimRot: 0.00
+
+    property int ejeTipoCurrentIndex: -2
 
     property var aTexts: []
 
@@ -387,7 +389,7 @@ Item {
         visible: app.dev
         Text{
             id: txtMod
-            text: app.mod
+            text: app.mod+r.ejeTipoCurrentIndex
             font.pixelSize: app.fs
             color: apps.backgroundColor
             anchors.centerIn: parent

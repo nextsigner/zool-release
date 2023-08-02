@@ -553,7 +553,7 @@ ZoolMainWindow{
                             anchors.centerIn: parent
                         }
                     }
-                    Comps.ControlsTime{
+                    ZoolControlsTime{
                         id: controlsTimeBack
                         isBack: true
                         anchors.horizontalCenter: parent.horizontalCenter
