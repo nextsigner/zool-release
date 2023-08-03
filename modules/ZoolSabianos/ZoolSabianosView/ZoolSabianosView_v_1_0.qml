@@ -114,9 +114,18 @@ Rectangle {
     Text {
         text: 'Presiona\nEscape\npara salir'
         horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: r.fs*0.25
+        font.pixelSize: r.fs*0.4
         anchors.left: parent.left
         anchors.leftMargin: app.fs
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.5
+    }
+    Text {
+        text: 'Presiona Ctrl+Shift Arriba/Abajo\npara el tamaño del texto.'
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: r.fs*0.4
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.5+app.fs*2
         anchors.top: parent.top
         anchors.topMargin: app.fs*0.5
     }
@@ -314,10 +323,13 @@ Rectangle {
         unik.setFile('/home/ns/nsp/uda/nextsigner.github.io/sabianos/'+nom+'.html', htmlFinal)
     }
     function setJsonZoom(numSign, numDegree, numItem, zoom){
-        let jsonFile='../../../modules/ZoolSabianos/sabianosJsonZoom.json'
+        //let jsonFile='../../../modules/ZoolSabianos/sabianosJsonZoom.json'
+        let jsonFile='./modules/ZoolSabianos/sabianosJsonZoom.json'
+        //let jsonFile='/home/ns/nsp/zool-release/modules/ZoolSabianos/sabianosJsonZoom.json'
         let existe=unik.fileExist(jsonFile)
         let jsonString=''
         let newJsonString=''
+        //console.log('Existe sabianosJsonZoom.json: '+existe)
         if(existe){
             jsonString=unik.getFile(jsonFile)
         }
@@ -335,7 +347,8 @@ Rectangle {
         unik.setFile(jsonFile, newJsonString)
     }
     function getJsonZoom(numSign, numDegree, numItem){
-        let jsonFile='./sabianosJsonZoom.json'
+        //let jsonFile='./sabianosJsonZoom.json'
+        let jsonFile='./modules/ZoolSabianos/sabianosJsonZoom.json'
         let existe=unik.fileExist(jsonFile)
         let jsonString=''
         if(existe){

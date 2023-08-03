@@ -1,1 +1,1 @@
-Se agrega tipo de ejes a ZoolBodiesGuiTools
+Se arregla el zoomUp y zoomDown en SabianosView
