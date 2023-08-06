@@ -79,6 +79,12 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+c'
+        onActivated: {
+            app.c.captureToPng()
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+Shift+w'
         onActivated: {
             //minymaClient.sendData(minymaClient.loginUserName, 'zool_data_editor', 'openPlanet|1|3|a')

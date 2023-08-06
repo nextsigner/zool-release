@@ -1,3 +1,45 @@
+function captureToPng(){
+    let c=''
+    c+='import QtQuick 2.0\n'
+    c+='import QtQuick.Dialogs 1.3\n'
+    //c+='Item{\n'
+    //c+='    id: itemCapture\n'
+    //c+='        width: 800\n'
+    //c+='        height: 500\n'
+    c+='    FileDialog {\n'
+    c+='        id: fileDialog\n'
+    //c+='        width: 800\n'
+    //c+='        height: 500\n'
+    c+='        modality: Qt.Window\n'
+    c+='        folder: "'+unik.getPath(3)+'"\n'
+    c+='        title: "Escribir el nombre del archivo de imagen."\n'
+    c+='        selectExisting: false\n'
+    c+='        nameFilters: ["Imagen PNG (*.png)"]\n'
+    c+='        onAccepted: {\n'
+    c+='            log.lv(fileUrl)\n'
+    c+='            app.c.savePng(fileUrl+".png")\n'
+    c+='            fileDialog.destroy(10000)\n'
+    c+='        }\n'
+    c+='        onRejected: {\n'
+    c+='            fileDialog.destroy(10000)\n'
+    c+='        }\n'
+    //c+='    }\n'
+    c+='    Component.onCompleted:{\n'
+    c+='        log.lv("Capture!")\n'
+    c+='        fileDialog.visible=true\n'
+    //c+='        itemCapture.destroy(1000)\n'
+    c+='    }\n'
+    c+='}\n'
+    let obj=Qt.createQmlObject(c, app, 'itemCapturecode')
+}
+function savePng(fileUrl){
+    xSwe1.grabToImage(function(result) {
+        let fn=fileUrl
+        fn=fn.replace('file://', '')
+        result.saveToFile(fn);
+        Qt.openUrlExternally(fileUrl)
+    });
+}
 function captureSweg(){
     let d = new Date(Date.now())
     let dia=d.getDate()

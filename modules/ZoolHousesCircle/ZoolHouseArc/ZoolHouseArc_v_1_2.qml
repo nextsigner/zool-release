@@ -253,11 +253,11 @@ Item {
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
-//                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-//                         ((ejeV.width-r.width)*0.5-circleBot.width)
-//                         :
-//                           //((ejeV.width-r.width)*0.5-circleBot.width)+circleBot.width*2
-//                           ((ejeV.width-r.width)*0.5)
+                //                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
+                //                         ((ejeV.width-r.width)*0.5-circleBot.width)
+                //                         :
+                //                           //((ejeV.width-r.width)*0.5-circleBot.width)+circleBot.width*2
+                //                           ((ejeV.width-r.width)*0.5)
 
                 height: r.wb
                 //color: apps.enableBackgroundColor?apps.fontColor:'white'//r.selected?r.colors[r.c]:'white'
@@ -268,10 +268,10 @@ Item {
             Rectangle{
                 id: lineaEje2
                 width: r.w
-//                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-//                           r.w
-//                         :
-//                           r.w*3
+                //                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
+                //                           r.w
+                //                         :
+                //                           r.w*3
                 height: r.wb
                 //color: apps.enableBackgroundColor?apps.fontColor:'white'//'red'//r.colors[r.c]
                 color: apps.houseLineColor
@@ -394,8 +394,9 @@ Item {
 
         Rectangle{
             id: xEjeTipo1
-            width: txtTipoEje1.contentWidth+app.fs*0.5
-            height: sweg.fs
+            //width: txtTipoEje1.contentWidth+app.fs//*0.5
+            width: txtTipoEje1.rotation===0?txtTipoEje1.contentWidth+app.fs:txtTipoEje11.contentWidth+app.fs//*0.5
+            height: colTxt1.height+app.fs*0.25
             color: apps.backgroundColor
             border.color: apps.fontColor
             border.width: 6
@@ -406,20 +407,32 @@ Item {
             clip: true
             //rotation: 360-parent.rotation
             visible:sweg.ejeTipoCurrentIndex===-1 || sweg.ejeTipoCurrentIndex===c
-            Text{
-                id: txtTipoEje1
-                text: r.aTipoEjes[r.c]+' Casa '+parseInt(r.c + 1)+'/'+parseInt(r.c + 7)
-                //width: sweg.fs*2
-                //wrapMode: Text.WordWrap
-                color: apps.fontColor
-                font.pixelSize: app.fs;
-                rotation: c===5 || c===4 || c===3?180:0
+            Column{
+                id: colTxt1
+                spacing: app.fs*0.1
                 anchors.centerIn: parent
+                Text{
+                    id: txtTipoEje1
+                    text: rotation===0?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: apps.fontColor
+                    font.pixelSize: app.fs;
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Text{
+                    id: txtTipoEje11
+                    //text: 'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    text: rotation===180?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: apps.fontColor
+                    font.pixelSize: app.fs;
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
         }
         Rectangle{
-            width: txtTipoEje2.contentWidth+app.fs*0.5
-            height: sweg.fs
+            width: txtTipoEje2.rotation===0?txtTipoEje2.contentWidth+app.fs:txtTipoEje22.contentWidth+app.fs//*0.5
+            height: colTxt2.height+app.fs*0.25
             color: apps.backgroundColor
             border.color: apps.fontColor
             border.width: 6
@@ -430,16 +443,26 @@ Item {
             clip: true
             //rotation: 360-parent.rotation
             visible: xEjeTipo1.visible
-            Text{
-                id: txtTipoEje2
-                //text: r.c<=5?r.aTipoEjes[r.c]:r.aTipoEjes[r.c - 5]
-                text: r.aTipoEjes[r.c]+' Casa '+parseInt(r.c + 1)+'/'+parseInt(r.c + 7)
-                //width: sweg.fs*2
-                //wrapMode: Text.WordWrap
-                color: 'white'//apps.fontColor
-                font.pixelSize: app.fs;
-                rotation: c===5 || c===4 || c===3?180:0
+            Column{
+                id: colTxt2
+                spacing: app.fs*0.1
                 anchors.centerIn: parent
+                Text{
+                    id: txtTipoEje2
+                    text: rotation===0?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: 'white'//apps.fontColor
+                    font.pixelSize: app.fs;
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Text{
+                    id: txtTipoEje22
+                    text: rotation===180?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: 'white'//apps.fontColor
+                    font.pixelSize: app.fs;
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
         }
 

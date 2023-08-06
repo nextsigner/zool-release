@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Dialogs 1.3
 import QtQuick.Window 2.0
 import QtMultimedia 5.12
 import Qt.labs.folderlistmodel 2.12
@@ -9,6 +10,7 @@ import unik.Unik 1.0
 
 
 import "./js/Funcs_v2.js" as JS
+import "./js/Capture.js" as CAP
 import "./comps" as Comps
 
 //Default Modules
@@ -64,6 +66,7 @@ ZoolMainWindow{
     property string version: '0.0.-1'
     property string sweBodiesPythonFile: 'astrologica_swe_v2.py'
     property var j: JS
+    property var c: CAP
 
     property string mainLocation: ''
     //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'

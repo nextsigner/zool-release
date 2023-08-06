@@ -953,13 +953,13 @@ Rectangle {
         }
     }
     function enter(){
-        if(app.dev)log.lv('ZoolRevolutionList.enter()... lv.currentIndex: '+lv.currentIndex)
+        //if(app.dev)log.lv('ZoolRevolutionList.enter()... lv.currentIndex: '+lv.currentIndex)
         if(lv.currentIndex<=0 && lv.count<1){
-            log.lv('0 ZoolRevolutionList enter()...')
+            //log.lv('0 ZoolRevolutionList enter()...')
             xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
             return
         }else{
-            log.lv('1 ZoolRevolutionList enter()...')
+            //log.lv('1 ZoolRevolutionList enter()...')
             r.prepareLoad()
         }
     }

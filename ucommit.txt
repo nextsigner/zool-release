@@ -1,1 +1,1 @@
-Se arregla el zoomUp y zoomDown en SabianosView
+Se agrega Ctrl+c para capturar xSweg
