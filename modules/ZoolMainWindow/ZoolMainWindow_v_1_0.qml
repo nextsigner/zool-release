@@ -81,7 +81,22 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+c'
         onActivated: {
-            app.c.captureToPng()
+            app.c.captureToPng('')
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Shift+c'
+        onActivated: {
+            let d=new Date(Date.now())
+            let vd=d.getDate()
+            let vm=d.getMonth() + 1
+            let va=d.getFullYear()
+            let vh=d.getHours()
+            let vmin=d.getMinutes()
+            let vsec=d.getSeconds()
+            let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec+'.png'
+            let fn=unik.getPath(3)+'/'+sn
+            app.c.captureToPng(fn)
         }
     }
     Shortcut{
@@ -749,7 +764,7 @@ ApplicationWindow {
     //    }
     //Mostrar Panel para Lineas de Comando
     Shortcut{
-        sequence: 'Ctrl+Shift+c'
+        sequence: 'Ctrl+b'
         onActivated: {
             xBottomBar.objPanelCmd.state=xBottomBar.objPanelCmd.state==='show'?'hide':'show'
         }

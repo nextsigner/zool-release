@@ -24,10 +24,9 @@ Item {
     property  real op: 100.0
     property int opacitySpeed: 100
     property int extraWidth: 0
-    property alias showEjeCentro: ejeCentro.visible
+    property alias showEjeCentro: ec.visible
 
-    //property var aTipoEjes: ['Eje de Encuentro', 'Eje de Poseciones', 'Eje de Pensamiento', 'Eje de la Individuación', 'Eje de Relaciones', 'Eje de Existencia','Eje de Encuentro', 'Eje de Poseciones', 'Eje de Pensamiento', 'Eje de la Individuación', 'Eje de Relaciones', 'Eje de Existencia']
-    property var aTipoEjes: ['Eje de Encuentro', 'Eje de Poseciones', 'Eje de Pensamiento', 'Eje de la Individuación', 'Eje de Relaciones', 'Eje de Existencia']
+    property var aTipoEjes: ['Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSECIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>']
 
     //Behavior on w{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500}}
     //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration:500}}
@@ -383,15 +382,16 @@ Item {
         }
     }
     Rectangle{
-        id: ejeCentro
-        width: canvas.width+app.fs*4
-        height: xEjeTipo1.visible?6:0
+        id: ec
+        width: canvas.width+app.fs//*2
+        height: xEjeTipo1.visible?3:0
         color: apps.fontColor//'yellow'//'transparent'
         anchors.centerIn: r
         rotation: 0-r.wg/2
         //visible:c>5
         visible:sweg.ejeTipoCurrentIndex!==-2 && (c===0 || c===1 || c===2 || c===3 || c===4 || c===5)
 
+        property int fs: app.fs*0.75
         Rectangle{
             id: xEjeTipo1
             //width: txtTipoEje1.contentWidth+app.fs//*0.5
@@ -399,7 +399,7 @@ Item {
             height: colTxt1.height+app.fs*0.25
             color: apps.backgroundColor
             border.color: apps.fontColor
-            border.width: 6
+            border.width: 3
             radius: app.fs*0.25
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
@@ -415,7 +415,8 @@ Item {
                     id: txtTipoEje1
                     text: rotation===0?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
                     color: apps.fontColor
-                    font.pixelSize: app.fs;
+                    font.pixelSize: ec.fs
+                    horizontalAlignment: Text.AlignHCenter
                     rotation: c===5 || c===4 || c===3?180:0
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -424,7 +425,9 @@ Item {
                     //text: 'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
                     text: rotation===180?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
                     color: apps.fontColor
-                    font.pixelSize: app.fs;
+                    font.pixelSize: ec.fs;
+                    horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.RichText
                     rotation: c===5 || c===4 || c===3?180:0
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -435,7 +438,7 @@ Item {
             height: colTxt2.height+app.fs*0.25
             color: apps.backgroundColor
             border.color: apps.fontColor
-            border.width: 6
+            border.width: 3
             radius: app.fs*0.25
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
@@ -451,7 +454,9 @@ Item {
                     id: txtTipoEje2
                     text: rotation===0?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
                     color: 'white'//apps.fontColor
-                    font.pixelSize: app.fs;
+                    font.pixelSize: ec.fs;
+                    horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.RichText
                     rotation: c===5 || c===4 || c===3?180:0
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -459,7 +464,9 @@ Item {
                     id: txtTipoEje22
                     text: rotation===180?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
                     color: 'white'//apps.fontColor
-                    font.pixelSize: app.fs;
+                    font.pixelSize: ec.fs;
+                    horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.RichText
                     rotation: c===5 || c===4 || c===3?180:0
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -483,7 +490,7 @@ Item {
                 font.pixelSize: parent.width*0.3
                 anchors.centerIn: parent
                 color: 'white'
-                rotation: 270+ejeCentro.rotation
+                rotation: 270+ec.rotation
             }
         }
     }

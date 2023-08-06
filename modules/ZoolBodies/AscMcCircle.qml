@@ -82,7 +82,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.verticalCenterOffset: 0-sweg.fs*2
             anchors.right: parent.left
-            anchors.rightMargin: 0+sweg.fs
+            anchors.rightMargin: sweg.ejeTipoCurrentIndex===-2?0+sweg.fs:0+sweg.fs*5//
             onSelectedChanged:{
                 if(selected){
                     app.uSon='asc_'+app.objSignsNames[r.isAsc]+'_1'

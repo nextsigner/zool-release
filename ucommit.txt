@@ -1,1 +1,1 @@
-Se agrega Ctrl+c para capturar xSweg
+Se agrega Ctrl+Shift+c para capturar xSweg
