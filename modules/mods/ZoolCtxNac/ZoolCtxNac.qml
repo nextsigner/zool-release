@@ -23,11 +23,13 @@ Item {
     property string img1: ""
     property int fsz: app.fs*0.65
     property bool fse: false
+    property bool showPortrait: false
     onVisibleChanged: {
         if(visible){
             sweg.centerZoomAndPos()
         }
     }
+    onShowPortraitChanged: setBgPosSol()
     MouseArea{
         anchors.fill: parent
         onWheel: {
@@ -449,18 +451,20 @@ Item {
         id: compInfo
         Rectangle{
             id: xPanelInfo
-            width: !showMaximized?xLatDer.width:xApp.width//-app.fs*0.25
-            height: !showMaximized?parent.height:parent.height+zoolDataView.height//+app.fs
+            width: !showMaximized?xLatDer.width:(!showPortrait?xApp.width:628)//-app.fs*0.25
+            height: !showMaximized?parent.height:(!showPortrait?parent.height+zoolDataView.height:1200)//+app.fs
             color: apps.backgroundColor
             border.width: 1
             border.color: apps.fontColor
             radius: app.fs*0.25
             clip: true
             //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: !showMaximized?0:0-zoolDataView.height
+            //anchors.top: parent.top
+            //anchors.topMargin: !showMaximized?0:0-zoolDataView.height
+            anchors.bottom: parent.bottom
             anchors.right: parent.right
             visible: r.showTxtInfo
+
             property bool showMaximized: false
             property bool objInFullWinPrev
             property bool showPanel: false
@@ -501,7 +505,7 @@ Item {
                 contentWidth: parent.width
                 contentHeight: !xPanelInfo.showMaximized?colTxtInfo.height:(txtInfoC1.contentHeight>colTxtCol2.height?txtInfoC1.contentHeight*1.2:colTxtCol2.height*1.2)
                 ScrollBar.vertical: ScrollBar {
-                    width: !xPanelInfo.showMaximized?app.fs*0.25:app.fs
+                    width: !r.showPortrait?(!xPanelInfo.showMaximized?app.fs*0.25:app.fs):0
                     anchors.right: parent.right
                     policy: ScrollBar.AlwaysOn
                 }
@@ -549,17 +553,18 @@ Item {
                     }
                 }
                 Row{
-                    spacing: app.fs//0.25
+                    spacing: !r.showPortrait?app.fs:app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.horizontalCenterOffset: 0-app.fs*0.5
-                    anchors.top: parent.top
-                    anchors.topMargin: app.fs*0.5
+                    anchors.horizontalCenterOffset: !r.showPortrait?0-app.fs*0.5:0
+                    anchors.verticalCenter: parent.verticalCenter
+                    //anchors.top: parent.top
+                    //anchors.topMargin: app.fs*0.5
                     visible: xPanelInfo.showMaximized
                     Text{
                         id: txtInfoC1
                         text: r.txtInfoC1
                         font.pixelSize: xPanelInfo.showMaximized?r.fsz:app.fs*0.5
-                        width: parent.parent.width*0.5-app.fs//*0.25
+                        width: !r.showPortrait?parent.parent.width*0.5-app.fs:parent.parent.width*0.5-app.fs*0.25//*0.25
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                         property int fs: font.pixelSize
@@ -587,7 +592,7 @@ Item {
                             id: txtInfoC2
                             text: r.txtInfoC2
                             font.pixelSize: xPanelInfo.showMaximized?r.fsz:app.fs*0.5
-                            width: parent.parent.width*0.5-app.fs//*0.5
+                            width: !r.showPortrait?parent.parent.width*0.5-app.fs:parent.parent.width*0.5-app.fs*0.25
                             wrapMode: Text.WordWrap
                             color: apps.fontColor
                         }
@@ -595,6 +600,7 @@ Item {
                 }
             }
             ZoolButton{
+                id: botClose
                 text: 'X'
                 fs: app.fs*0.5
                 anchors.right: parent.right
@@ -605,6 +611,24 @@ Item {
                     r.showTxtInfo=false
                     //xPanelInfo.destroy(0)
                 }
+            }
+            ZoolButton{
+                text: r.showPortrait?'L':'P'
+                fs: app.fs*0.5
+                anchors.right: parent.right
+                anchors.rightMargin: app.fs*0.25
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: {
+                    r.showPortrait=!r.showPortrait
+                }
+            }
+            Text{
+                text: 'Creado por <b>Ricardo Martín Pizarro</b> - Whatsapp +549 11 3802 4370'
+                color: 'white'
+                font.pixelSize: app.fs*0.35
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: app.fs*0.1
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
     }
@@ -677,6 +701,7 @@ Item {
             }
             if(ih===6){
                 txt+=unik.getFile(r.folder+'/casa_6')
+                r.img1="crepusculo.jpg"
             }
             //horizonteBg.opacity-=0.05
         }else if(ih===8||ih===9||ih===11){
@@ -703,11 +728,11 @@ Item {
 
         let aCtx=[]
         aCtx.push('Previo al Amanecer, antes de la aparición del sol - Casa 1')
-        aCtx.push('ctx 2')
+        aCtx.push('Crepúsculo - Poco antes del amanecer - Casa 2')
         aCtx.push('ctx 3')
         aCtx.push('ctx 4')
-        aCtx.push('ctx 5')
-        aCtx.push('ctx 6')
+        aCtx.push('Noche - Aproximadamente entre 2 y 4 horas despues del anochecer - Sol en Casa 5')
+        aCtx.push('Crepúsculo - Poco despues de la caída del sol - Casa 6')
         aCtx.push('ctx 7')
         aCtx.push('Tarde - Horas del atardecer intermedias entre el mediodía y la noche - Sol en Casa 8')
         aCtx.push('Ocaso - 1 o 2 horas previas al anochecer - Sol en Casa 7')
@@ -718,7 +743,13 @@ Item {
 
 
         r.txtInfo=txt
-        let m0=r.txtInfo.split('<!--break-->')
+        let m0
+        if(r.showPortrait){
+            r.txtInfo=r.txtInfo.replace('<!--breakportrait-->', '</ul><!--breakportrait--><ul>')
+            m0=r.txtInfo.split('<!--breakportrait-->')
+        }else{
+            m0=r.txtInfo.split('<!--break-->')
+        }
         if(r.txtInfoC1&&m0[0])r.txtInfoC1=m0[0]
         if(r.txtInfoC2&&m0[1])r.txtInfoC2=m0[1]
         //console.log(txt)
