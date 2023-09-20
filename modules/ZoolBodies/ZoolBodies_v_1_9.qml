@@ -278,7 +278,7 @@ Item {
                     //visible: r.v
                 }
                 AxisCircle{id: axisCircle}
-                NumberLines{}
+
                 ZoolSignCircle{
                     id:signCircle
                     //width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
@@ -289,6 +289,7 @@ Item {
                     onRotChanged: housesCircle.rotation=rot
                     //onShowDecChanged: Qt.quit()
                 }
+                NumberLines{}
                 AspCircleV2{
                     id: aspsCircle
                     rotation: signCircle.rot - 90// + 1

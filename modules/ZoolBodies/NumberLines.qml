@@ -2,16 +2,27 @@ import QtQuick 2.0
 
 Item{
     id: r
-    width: !apps.showDec?signCircle.width-(!app.ev?apps.signCircleWidth:0):signCircle.width-(!app.ev?apps.signCircleWidth*3:apps.signCircleWidth*2)
+    //width: !apps.showDec?signCircle.width-(!app.ev?apps.signCircleWidth:0):signCircle.width-(!app.ev?apps.signCircleWidth*3:apps.signCircleWidth*2)
+    width: signCircle.width-(signCircle.w*2)
     height: width
     anchors.centerIn: parent
     rotation: signCircle.rot
     visible: apps.showNumberLines
     property bool fnd: false //full number degree count
+    Rectangle{
+        id: bordeExt
+        width: r.width
+        height: width
+        color: 'transparent'
+        border.width: 2
+        border.color: 'yellow'
+        radius: width*0.5
+        anchors.centerIn: parent
+    }
     Repeater{
         model: 360
         Item{
-            width: parent.width-signCircle.w
+            width: bordeExt.width//parent.width-signCircle.w
             height: 1
             rotation: index
             anchors.centerIn: parent
@@ -27,7 +38,7 @@ Item{
     Repeater{
         model: 36
         Item{
-            width: parent.width-signCircle.w
+            width: bordeExt.width//parent.width-signCircle.w
             height: 1
             rotation: index*10
             anchors.centerIn: parent
@@ -43,7 +54,7 @@ Item{
     Repeater{
         model: 36
         Item{
-            width: parent.width-signCircle.w
+            width: bordeExt.width//parent.width-signCircle.w
             height: 1
             rotation: index*10
             anchors.centerIn: parent

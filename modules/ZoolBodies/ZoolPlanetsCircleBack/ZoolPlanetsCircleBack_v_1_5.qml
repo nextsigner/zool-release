@@ -99,7 +99,8 @@ Item{
             if(jo.mdeg>=50){
                 degRed=1.0
             }
-            objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
+            //objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
+            objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)+degRed
             if(app.mod==='dirprim'){
                 objAs.rotation-=sweg.dirPrimRot
             }
