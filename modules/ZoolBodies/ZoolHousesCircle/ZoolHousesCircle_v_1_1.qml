@@ -1,9 +1,10 @@
 import QtQuick 2.0
-
+import ZoolHousesCircle.ZoolHouseArc 1.1
 Item {
     id: r
     width: signCircle.width
     property int currentHouse: app.currentHouseIndex
+    property int houseShowSelectadIndex: -1
     property int w: sweg.fs*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0
@@ -26,11 +27,12 @@ Item {
             id:xArcs
             anchors.fill: parent
             Repeater{
-                //model: 12
-                HouseArc{
+                model: 12
+                ZoolHouseArc{
                     objectName: 'HomeArc'+index+'_'+r.extraObjectName
                     n: index+1
                     c: index
+                    opacity: r.houseShowSelectadIndex === -1 ? 1.0:(r.houseShowSelectadIndex === index?1.0:0.35)
                 }
             }
         }

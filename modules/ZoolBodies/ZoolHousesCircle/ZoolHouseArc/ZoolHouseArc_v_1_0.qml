@@ -6,7 +6,7 @@ Item {
     id: r
     //width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
     width: app.currentHouseIndex!==n?xArcs.width:xArcs.width+extraWidth
-    //width: r.width+sweg.fs*2
+
     height: width
     anchors.centerIn: parent
     property real wg: 0.0
@@ -28,7 +28,6 @@ Item {
 
     //Behavior on w{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500}}
     //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration:500}}
-
     state: sweg.state
     states: [
         State {
@@ -86,17 +85,16 @@ Item {
         }
     ]
 
-
     onColorsChanged: {
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
-//        canvasSen.requestPaint()
+        canvas.requestPaint()
+        canvas2.requestPaint()
+        canvasSen.requestPaint()
     }
     onWidthChanged: {
-//        canvas.anchors.centerIn= r
-//        canvas2.anchors.centerIn= r
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
+        canvas.anchors.centerIn= r
+        canvas2.anchors.centerIn= r
+        canvas.requestPaint()
+        canvas2.requestPaint()
     }
     onWChanged: {
         canvas.requestPaint()
@@ -106,16 +104,16 @@ Item {
         if(!selected)canvas.opacity=0.5
     }
     onWgChanged:{
-        //canvas.opacity=0.5
+        canvas.opacity=0.5
     }
     Behavior on opacity{enabled: apps.enableFullAnimation;
         NumberAnimation{duration: r.opacitySpeed}
     }
     onRotationChanged: {
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
     }
     Rectangle{
         anchors.fill: r
@@ -146,7 +144,7 @@ Item {
             antialiasing: true
             onPaint:{
                 var ctx = canvasSen.getContext('2d');
-                //ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.moveTo(0, canvasSen.width*0.5);
                 ctx.lineTo(canvasSen.width, 0);
@@ -187,7 +185,7 @@ Item {
         antialiasing: true
         onPaint:{
             var ctx = canvas.getContext('2d');
-            //ctx.reset();
+            ctx.reset();
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
             //var radius = canvas.width*0.5-r.w*0.5;
@@ -195,7 +193,6 @@ Item {
 
             //console.log('Rad: '+rad)
             var radius = rad>0?rad:r.width;
-            if(radius<=0)return
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.w;
@@ -203,7 +200,7 @@ Item {
             ctx.stroke();
         }
         function clear_canvas() {
-            //canvas.requestPaint();
+            canvas.requestPaint();
         }
     }
     Canvas {
@@ -214,20 +211,20 @@ Item {
         antialiasing: true
         onPaint:{
             var ctx = canvas2.getContext('2d')
-            //ctx.reset();
-            /*var x = canvas2.width*0.5+r.wb;
+            ctx.reset();
+            var x = canvas2.width*0.5+r.wb;
             var y = canvas2.height*0.5
             var rad=parseInt(canvas.width*0.5)
             var radius = rad>0?rad:r.width;
-            if(radius<=0)return
+
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.wb;
             ctx.strokeStyle = sweg.state===sweg.aStates[1]?r.colors2[r.c]:r.colors[r.c];
-            ctx.stroke();*/
+            ctx.stroke();
         }
         function clear_canvas() {
-            //canvas2.requestPaint();
+            canvas2.requestPaint();
         }
     }
     Rectangle{
@@ -237,8 +234,7 @@ Item {
         anchors.centerIn: r
         antialiasing: true
         Rectangle{
-            //visible: false//Depurando
-            visible: app.dev
+            visible: false//Depurando
             width: parent.width*3
             height: r.wb
             color: 'yellow'
@@ -250,12 +246,6 @@ Item {
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
-//                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-//                         ((ejeV.width-r.width)*0.5-circleBot.width)
-//                         :
-//                           //((ejeV.width-r.width)*0.5-circleBot.width)+circleBot.width*2
-//                           ((ejeV.width-r.width)*0.5)
-
                 height: r.wb
                 //color: apps.enableBackgroundColor?apps.fontColor:'white'//r.selected?r.colors[r.c]:'white'
                 color: apps.houseLineColor
@@ -265,10 +255,6 @@ Item {
             Rectangle{
                 id: lineaEje2
                 width: r.w
-//                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-//                           r.w
-//                         :
-//                           r.w*3
                 height: r.wb
                 //color: apps.enableBackgroundColor?apps.fontColor:'white'//'red'//r.colors[r.c]
                 color: apps.houseLineColor
@@ -288,10 +274,7 @@ Item {
         }
         Rectangle{
             id: circleBot
-            width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-                       sweg.fs*0.75
-                     :
-                       sweg.objHousesCircle.houseShowSelectadIndex===r.c?(sweg.fs*0.75+r.wb*2)*2:(sweg.fs*0.75*2)
+            width: sweg.fs*0.75+r.wb*2
             height: width
             radius: width*0.5
             //color: apps.enableBackgroundColor?apps.fontColor:'white'
@@ -301,7 +284,6 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
             state: sweg.state
-
             states: [
                 State {
                     name: sweg.aStates[0]
@@ -315,9 +297,7 @@ Item {
                 State {
                     name: sweg.aStates[1]
                     PropertyChanges {
-                        //        canvas2.clear_canvas()
-                        //        canvas2.requestPaint()
-                        //        canvas2.update()                target: circleBot
+                        target: circleBot
                         width: sweg.fs*0.75+r.wb*2
                         border.width: r.wb
                         border.color: lineaEje.color
@@ -333,38 +313,21 @@ Item {
                     }
                 }
             ]
-
             MouseArea{
                 anchors.fill: parent
-                acceptedButtons: Qt.AllButtons;
                 onClicked: {
-                    if (mouse.button === Qt.RightButton && (mouse.modifiers & Qt.ControlModifier)) {
-                        //Qt.quit()
-                        //sweg.state= 'pc'
-                    }else if (mouse.button === Qt.LeftButton && (mouse.modifiers & Qt.ControlModifier)) {
-                        if(sweg.objHousesCircle.houseShowSelectadIndex===-1 || sweg.objHousesCircle.houseShowSelectadIndex !== r.c){
-                            sweg.objHousesCircle.houseShowSelectadIndex=r.c
-                            //sweg.state= 'pc'
-                        }else{
-                            sweg.objHousesCircle.houseShowSelectadIndex=-1
-                            //sweg.state= 'ps'
-                        }
-                    }else{
-
-                    }
                     var ni=-1
                     ni=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
                     sweg.objHousesCircle.currentHouse=ni
-                    app.currentHouseIndex=ni
-                    //                    if(sweg.state!==sweg.aStates[1]){
-                    //                        sweg.state=sweg.aStates[1]
-                    //                        ni=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
-                    //                        sweg.objHousesCircle.currentHouse=ni
-                    //                        //swegz.sweg.objHousesCircle.currentHouse=ni
-                    //                    }else{
-                    //                        sweg.state=sweg.aStates[0]
-                    //                        sweg.objHousesCircle.currentHouse=-1
-                    //                    }
+//                    if(sweg.state!==sweg.aStates[1]){
+//                        sweg.state=sweg.aStates[1]
+//                        ni=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
+//                        sweg.objHousesCircle.currentHouse=ni
+//                        //swegz.sweg.objHousesCircle.currentHouse=ni
+//                    }else{
+//                        sweg.state=sweg.aStates[0]
+//                        sweg.objHousesCircle.currentHouse=-1
+//                    }
                 }
             }
             ZoolText{
@@ -405,7 +368,7 @@ Item {
                 font.pixelSize: parent.width*0.3
                 anchors.centerIn: parent
                 color: 'white'
-                rotation: 270+ejeCentro.rotation
+                rotation: 270+ejeCentro.rotation                
             }
         }
     }
@@ -446,12 +409,12 @@ Item {
     }
 
     function refresh(){
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas.update()
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas.update()
 
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
-//        canvas2.update()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
+        canvas2.update()
     }
 }

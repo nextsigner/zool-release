@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import ZoolText 1.0
 import "../"
 
@@ -24,7 +24,7 @@ Item {
     property  real op: 100.0
     property int opacitySpeed: 100
     property int extraWidth: 0
-    property alias showEjeCentro: ejeCentro.visible
+    //property alias showEjeCentro: ejeCentro.visible
 
     //Behavior on w{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500}}
     //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration:500}}
@@ -37,10 +37,10 @@ Item {
                 target: ejeV
                 width:  r.width+sweg.fs*2//.5
             }
-            PropertyChanges {
-                target: canvas2
-                opacity:  0.0
-            }
+//            PropertyChanges {
+//                target: canvas2
+//                opacity:  0.0
+//            }
             PropertyChanges {
                 target: r
                 //colors: r.colors//[apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor]
@@ -54,10 +54,10 @@ Item {
                 target: ejeV
                 width:  r.width+sweg.fs*2.5
             }
-            PropertyChanges {
-                target: canvas2
-                opacity:  1.0
-            }
+//            PropertyChanges {
+//                target: canvas2
+//                opacity:  1.0
+//            }
             PropertyChanges {
                 target: r
                 //colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
@@ -72,10 +72,10 @@ Item {
                 target: ejeV
                 width: r.width+sweg.fs*2
             }
-            PropertyChanges {
-                target: canvas2
-                opacity:  0.0
-            }
+//            PropertyChanges {
+//                target: canvas2
+//                opacity:  0.0
+//            }
             PropertyChanges {
                 target: r
                 //colors: [apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor, apps.houseColor]
@@ -87,45 +87,7 @@ Item {
     ]
 
 
-    onColorsChanged: {
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
-//        canvasSen.requestPaint()
-    }
-    onWidthChanged: {
-//        canvas.anchors.centerIn= r
-//        canvas2.anchors.centerIn= r
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
-    }
-    onWChanged: {
-        canvas.requestPaint()
-        canvas2.requestPaint()
-    }
-    onSelectedChanged: {
-        if(!selected)canvas.opacity=0.5
-    }
-    onWgChanged:{
-        //canvas.opacity=0.5
-    }
-    Behavior on opacity{enabled: apps.enableFullAnimation;
-        NumberAnimation{duration: r.opacitySpeed}
-    }
-    onRotationChanged: {
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
-    }
-    Rectangle{
-        anchors.fill: r
-        color: 'transparent'
-        border.width: 2
-        border.color: 'red'
-        radius: width*0.5
-        visible: r.showBorder
-        antialiasing: true
-    }
+
     Rectangle{
         id: ejeCard1
         //width: sweg.fs*2
@@ -137,28 +99,30 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: !housesCircleBack.visible?0-sweg.fs*2:0-sweg.fs*2-housesCircleBack.extraWidth-sweg.fs*2.5
         visible: c===0
-        Canvas {
-            id:canvasSen
-            width: sweg.fs*0.5
-            height: width
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            antialiasing: true
-            onPaint:{
-                var ctx = canvasSen.getContext('2d');
-                //ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.moveTo(0, canvasSen.width*0.5);
-                ctx.lineTo(canvasSen.width, 0);
-                ctx.lineTo(canvasSen.width, canvasSen.width);
-                ctx.lineTo(0, canvasSen.width*0.5);
-                ctx.strokeStyle = canvas.parent.color
-                ctx.lineWidth = canvasSen.parent.height;
-                ctx.fillStyle = canvasSen.parent.color
-                ctx.fill();
-                ctx.stroke();
-            }
-        }
+
+//        Canvas {
+//            id:canvasSen
+//            width: sweg.fs*0.5
+//            height: width
+//            anchors.verticalCenter: parent.verticalCenter
+//            anchors.left: parent.left
+//            antialiasing: true
+//            onPaint:{
+//                var ctx = canvasSen.getContext('2d');
+//                //ctx.clearRect(0, 0, canvas.width, canvas.height);
+//                ctx.beginPath();
+//                ctx.moveTo(0, canvasSen.width*0.5);
+//                ctx.lineTo(canvasSen.width, 0);
+//                ctx.lineTo(canvasSen.width, canvasSen.width);
+//                ctx.lineTo(0, canvasSen.width*0.5);
+//                ctx.strokeStyle = canvas.parent.color
+//                ctx.lineWidth = canvasSen.parent.height;
+//                ctx.fillStyle = canvasSen.parent.color
+//                ctx.fill();
+//                ctx.stroke();
+//            }
+//        }
+
         Rectangle{
             width: sweg.fs*2.2
             height: sweg.fs
@@ -179,56 +143,17 @@ Item {
             }
         }
     }
-    Canvas {
-        id: canvas
-        width: r.width//-sweg.fs
-        height: width
-        opacity: 0.65
-        antialiasing: true
-        onPaint:{
-            var ctx = canvas.getContext('2d');
-            //ctx.reset();
-            var x = canvas.width*0.5;
-            var y = canvas.height*0.5;
-            //var radius = canvas.width*0.5-r.w*0.5;
-            var rad=parseInt(canvas.width*0.5-r.w*0.5)
 
-            //console.log('Rad: '+rad)
-            var radius = rad>0?rad:r.width;
-            if(radius<=0)return
-            ctx.beginPath();
-            ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
-            ctx.lineWidth = r.w;
-            ctx.strokeStyle = sweg.state===sweg.aStates[1]?r.colors2[r.c]:r.colors[r.c];
-            ctx.stroke();
-        }
-        function clear_canvas() {
-            //canvas.requestPaint();
-        }
-    }
-    Canvas {
-        id:canvas2
+
+    ZoolandSignArc{
         width: r.width
         height: width
-        opacity: canvas.opacity
-        antialiasing: true
-        onPaint:{
-            var ctx = canvas2.getContext('2d')
-            //ctx.reset();
-            /*var x = canvas2.width*0.5+r.wb;
-            var y = canvas2.height*0.5
-            var rad=parseInt(canvas.width*0.5)
-            var radius = rad>0?rad:r.width;
-            if(radius<=0)return
-            ctx.beginPath();
-            ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
-            ctx.lineWidth = r.wb;
-            ctx.strokeStyle = sweg.state===sweg.aStates[1]?r.colors2[r.c]:r.colors[r.c];
-            ctx.stroke();*/
-        }
-        function clear_canvas() {
-            //canvas2.requestPaint();
-        }
+        w: sweg.width-aspsCircle.width
+        n: r.n//index===0?1:(index===1?9:5)
+        c:r.n
+        gr: r.gr//xSignArcs.rotation
+        //rotation: index*(360/3)-30
+        anchors.centerIn: parent
     }
     Rectangle{
         id: ejeV
@@ -383,7 +308,7 @@ Item {
     }
     Rectangle{
         id: ejeCentro
-        width: canvas.width
+        width: r.width+app.fs*3
         height: 4
         color: 'blue'//'transparent'
         anchors.centerIn: r
@@ -408,50 +333,5 @@ Item {
                 rotation: 270+ejeCentro.rotation
             }
         }
-    }
-    Timer{
-        id: tc
-        running: !app.capturing?r.selected:false //&& !apps.xAsShowIcon
-        repeat: true
-        interval: 350
-        onTriggered: {
-            canvas.opacity=canvas.opacity===1.0?0.65:1.0
-        }
-    }
-    Timer{
-        id: tc2
-        //running: apps.xAsShowIcon
-        repeat: true
-        interval: 350
-        onRunningChanged: {
-            if(!running)canvas.opacity=1.0
-        }
-        onTriggered: {
-            canvas.opacity=0.0
-        }
-    }
-
-
-    //Eje de Casa
-    Rectangle{
-        width: r.width*0.5
-        height: apps.widthHousesAxis
-        anchors.verticalCenter: parent.verticalCenter
-        //anchors.centerIn: parent
-        color: apps.houseLineColor
-        //color: 'blue'
-        visible: apps.showHousesAxis
-        y: lineaEje2.y
-        antialiasing: true
-    }
-
-    function refresh(){
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas.update()
-
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
-//        canvas2.update()
     }
 }

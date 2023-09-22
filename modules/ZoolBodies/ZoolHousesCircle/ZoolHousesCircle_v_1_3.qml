@@ -1,9 +1,10 @@
 import QtQuick 2.0
-
+import ZoolHousesCircle.ZoolHouseArc 1.2
 Item {
     id: r
     width: signCircle.width
     property int currentHouse: app.currentHouseIndex
+    property int houseShowSelectadIndex: -1
     property int w: sweg.fs*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0
@@ -26,12 +27,54 @@ Item {
             id:xArcs
             anchors.fill: parent
             Repeater{
-                //model: 12
-                HouseArc{
+                model: 12
+                ZoolHouseArc{
                     objectName: 'HomeArc'+index+'_'+r.extraObjectName
                     n: index+1
                     c: index
+                    opacity: r.houseShowSelectadIndex === -1 ? 1.0:(r.houseShowSelectadIndex === index?1.0:0.35)
+
                 }
+            }
+        }
+    }
+    Item{
+        id: dha//xDinamicHouserArcs
+        anchors.fill: r
+    }
+    Component{
+        id: compArc
+        Rectangle{
+            id: item
+            width: r.width*2
+            height: 10
+            color: 'transparent'
+            border.width: 1
+            border.color: 'white'
+            anchors.centerIn: parent
+            property int ih: -1
+            Rectangle{
+                width: parent.width*0.5
+                height: 1
+                color: 'red'
+                anchors.verticalCenter: parent.verticalCenter
+                Rectangle{
+                    width: app.fs
+                    height: width
+                    radius: width*0.5
+                    color: 'red'
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: app.fs*16
+                    Text{
+                        text: item.ih
+                        font.pixelSize: app.fs*0.8
+                        color: 'white'
+                        anchors.centerIn: parent
+                    }
+
+                }
+
             }
         }
     }
@@ -53,6 +96,11 @@ Item {
         visible: false
     }
     function loadHouses(jsonData) {
+        var i=0
+        for(i=0;i<dha.children.length;i++){
+            dha.children[i].destroy(0)
+        }
+
         r.arrayWg=[]
         xArcs.rotation=360-jsonData.ph.h1.gdec
         var h
@@ -66,7 +114,7 @@ Item {
         let indexSign2
         let p2
         let gp=[]
-        var i=0
+
         var degRet=0.0
         for(i=0;i<12;i++){
             if(i===0){
@@ -112,11 +160,16 @@ Item {
                 h.wg=p2-p1+(o1.mdeg/60)
             }
             //h.wg=1
+            let comp
+            comp=compArc.createObject(dha, {rotation: 360-jsonData.ph[sh1].gdec+sweg.objSignsCircle.rot, ih: i+1})
+            //comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec-sweg.objSignsCircle.rot, ih: i+1})
             if(i===0){
                 h.rotation=0
+                //comp=compArc.createObject(dha, {rotation: 0})
             }else{
                 if(i===1){
                     h.rotation=360-gp[i-1]
+                    //comp=compArc.createObject(dha, {rotation: 360-jsonData.ph.h1.gdec})
                     //housesAxis.reload(i, 360-gp[i-1])
                 }
                 if(i===2){
@@ -209,6 +262,10 @@ Item {
             h.wg=nwg
             r.aWs.push(nwg)
         }
+
+        /*for(i=0;i<12;i++){
+            //let comp=compArc.createObject(dha, {rotation: i*30})
+        }*/
     }
     function getHousePos(g, rot, ip, defaultRet){
         let rotDiff=360-rot

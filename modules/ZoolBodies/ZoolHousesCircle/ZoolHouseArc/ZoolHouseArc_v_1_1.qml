@@ -6,7 +6,7 @@ Item {
     id: r
     //width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
     width: app.currentHouseIndex!==n?xArcs.width:xArcs.width+extraWidth
-    //width: r.width+sweg.fs*2
+
     height: width
     anchors.centerIn: parent
     property real wg: 0.0
@@ -88,15 +88,15 @@ Item {
 
 
     onColorsChanged: {
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
-//        canvasSen.requestPaint()
+        canvas.requestPaint()
+        canvas2.requestPaint()
+        canvasSen.requestPaint()
     }
     onWidthChanged: {
-//        canvas.anchors.centerIn= r
-//        canvas2.anchors.centerIn= r
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
+        canvas.anchors.centerIn= r
+        canvas2.anchors.centerIn= r
+        canvas.requestPaint()
+        canvas2.requestPaint()
     }
     onWChanged: {
         canvas.requestPaint()
@@ -106,16 +106,16 @@ Item {
         if(!selected)canvas.opacity=0.5
     }
     onWgChanged:{
-        //canvas.opacity=0.5
+        canvas.opacity=0.5
     }
     Behavior on opacity{enabled: apps.enableFullAnimation;
         NumberAnimation{duration: r.opacitySpeed}
     }
     onRotationChanged: {
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
     }
     Rectangle{
         anchors.fill: r
@@ -146,7 +146,7 @@ Item {
             antialiasing: true
             onPaint:{
                 var ctx = canvasSen.getContext('2d');
-                //ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.moveTo(0, canvasSen.width*0.5);
                 ctx.lineTo(canvasSen.width, 0);
@@ -187,7 +187,7 @@ Item {
         antialiasing: true
         onPaint:{
             var ctx = canvas.getContext('2d');
-            //ctx.reset();
+            ctx.reset();
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
             //var radius = canvas.width*0.5-r.w*0.5;
@@ -203,7 +203,7 @@ Item {
             ctx.stroke();
         }
         function clear_canvas() {
-            //canvas.requestPaint();
+            canvas.requestPaint();
         }
     }
     Canvas {
@@ -214,8 +214,8 @@ Item {
         antialiasing: true
         onPaint:{
             var ctx = canvas2.getContext('2d')
-            //ctx.reset();
-            /*var x = canvas2.width*0.5+r.wb;
+            ctx.reset();
+            var x = canvas2.width*0.5+r.wb;
             var y = canvas2.height*0.5
             var rad=parseInt(canvas.width*0.5)
             var radius = rad>0?rad:r.width;
@@ -224,10 +224,10 @@ Item {
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.wb;
             ctx.strokeStyle = sweg.state===sweg.aStates[1]?r.colors2[r.c]:r.colors[r.c];
-            ctx.stroke();*/
+            ctx.stroke();
         }
         function clear_canvas() {
-            //canvas2.requestPaint();
+            canvas2.requestPaint();
         }
     }
     Rectangle{
@@ -315,9 +315,7 @@ Item {
                 State {
                     name: sweg.aStates[1]
                     PropertyChanges {
-                        //        canvas2.clear_canvas()
-                        //        canvas2.requestPaint()
-                        //        canvas2.update()                target: circleBot
+                        target: circleBot
                         width: sweg.fs*0.75+r.wb*2
                         border.width: r.wb
                         border.color: lineaEje.color
@@ -446,12 +444,12 @@ Item {
     }
 
     function refresh(){
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas.update()
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas.update()
 
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
-//        canvas2.update()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
+        canvas2.update()
     }
 }

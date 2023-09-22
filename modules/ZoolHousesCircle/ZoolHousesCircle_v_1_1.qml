@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolHousesCircle.ZoolHouseArc 1.1
+import ZoolHousesCircle.ZoolHouseArc 1.3
 Item {
     id: r
     width: signCircle.width
@@ -55,6 +55,7 @@ Item {
         visible: false
     }
     function loadHouses(jsonData) {
+        //return
         r.arrayWg=[]
         xArcs.rotation=360-jsonData.ph.h1.gdec
         var h

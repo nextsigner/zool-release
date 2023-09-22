@@ -26,7 +26,7 @@ Item {
             id:xArcs
             anchors.fill: parent
             Repeater{
-                //model: 12
+                model: 12
                 HouseArc{
                     objectName: 'HomeArc'+index+'_'+r.extraObjectName
                     n: index+1

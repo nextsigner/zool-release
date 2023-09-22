@@ -51,6 +51,8 @@ Settings{
     property int widthHousesAxis: 3.0
     property string houseLineColor: 'white'
     property string houseLineColorBack: 'red'
+    property int houseLineWidth: 4
+    property int houseLineWidthBack: 4
 
     //XAs
     property color xAsColor: 'white'

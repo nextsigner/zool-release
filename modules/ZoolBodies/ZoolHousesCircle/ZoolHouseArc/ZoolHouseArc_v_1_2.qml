@@ -6,7 +6,7 @@ Item {
     id: r
     //width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
     width: app.currentHouseIndex!==n?xArcs.width:xArcs.width+extraWidth
-    //width: r.width+sweg.fs*2
+
     height: width
     anchors.centerIn: parent
     property real wg: 0.0
@@ -24,7 +24,9 @@ Item {
     property  real op: 100.0
     property int opacitySpeed: 100
     property int extraWidth: 0
-    property alias showEjeCentro: ejeCentro.visible
+    property alias showEjeCentro: ec.visible
+
+    property var aTipoEjes: ['Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSECIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>']
 
     //Behavior on w{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500}}
     //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration:500}}
@@ -88,15 +90,15 @@ Item {
 
 
     onColorsChanged: {
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
-//        canvasSen.requestPaint()
+        canvas.requestPaint()
+        canvas2.requestPaint()
+        canvasSen.requestPaint()
     }
     onWidthChanged: {
-//        canvas.anchors.centerIn= r
-//        canvas2.anchors.centerIn= r
-//        canvas.requestPaint()
-//        canvas2.requestPaint()
+        canvas.anchors.centerIn= r
+        canvas2.anchors.centerIn= r
+        canvas.requestPaint()
+        canvas2.requestPaint()
     }
     onWChanged: {
         canvas.requestPaint()
@@ -106,16 +108,16 @@ Item {
         if(!selected)canvas.opacity=0.5
     }
     onWgChanged:{
-        //canvas.opacity=0.5
+        canvas.opacity=0.5
     }
     Behavior on opacity{enabled: apps.enableFullAnimation;
         NumberAnimation{duration: r.opacitySpeed}
     }
     onRotationChanged: {
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
     }
     Rectangle{
         anchors.fill: r
@@ -146,7 +148,7 @@ Item {
             antialiasing: true
             onPaint:{
                 var ctx = canvasSen.getContext('2d');
-                //ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.moveTo(0, canvasSen.width*0.5);
                 ctx.lineTo(canvasSen.width, 0);
@@ -187,7 +189,7 @@ Item {
         antialiasing: true
         onPaint:{
             var ctx = canvas.getContext('2d');
-            //ctx.reset();
+            ctx.reset();
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
             //var radius = canvas.width*0.5-r.w*0.5;
@@ -203,7 +205,7 @@ Item {
             ctx.stroke();
         }
         function clear_canvas() {
-            //canvas.requestPaint();
+            canvas.requestPaint();
         }
     }
     Canvas {
@@ -214,8 +216,8 @@ Item {
         antialiasing: true
         onPaint:{
             var ctx = canvas2.getContext('2d')
-            //ctx.reset();
-            /*var x = canvas2.width*0.5+r.wb;
+            ctx.reset();
+            var x = canvas2.width*0.5+r.wb;
             var y = canvas2.height*0.5
             var rad=parseInt(canvas.width*0.5)
             var radius = rad>0?rad:r.width;
@@ -224,10 +226,10 @@ Item {
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.wb;
             ctx.strokeStyle = sweg.state===sweg.aStates[1]?r.colors2[r.c]:r.colors[r.c];
-            ctx.stroke();*/
+            ctx.stroke();
         }
         function clear_canvas() {
-            //canvas2.requestPaint();
+            canvas2.requestPaint();
         }
     }
     Rectangle{
@@ -250,11 +252,11 @@ Item {
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
-//                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-//                         ((ejeV.width-r.width)*0.5-circleBot.width)
-//                         :
-//                           //((ejeV.width-r.width)*0.5-circleBot.width)+circleBot.width*2
-//                           ((ejeV.width-r.width)*0.5)
+                //                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
+                //                         ((ejeV.width-r.width)*0.5-circleBot.width)
+                //                         :
+                //                           //((ejeV.width-r.width)*0.5-circleBot.width)+circleBot.width*2
+                //                           ((ejeV.width-r.width)*0.5)
 
                 height: r.wb
                 //color: apps.enableBackgroundColor?apps.fontColor:'white'//r.selected?r.colors[r.c]:'white'
@@ -265,10 +267,10 @@ Item {
             Rectangle{
                 id: lineaEje2
                 width: r.w
-//                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
-//                           r.w
-//                         :
-//                           r.w*3
+                //                width: sweg.objHousesCircle.houseShowSelectadIndex===-1?
+                //                           r.w
+                //                         :
+                //                           r.w*3
                 height: r.wb
                 //color: apps.enableBackgroundColor?apps.fontColor:'white'//'red'//r.colors[r.c]
                 color: apps.houseLineColor
@@ -315,9 +317,7 @@ Item {
                 State {
                     name: sweg.aStates[1]
                     PropertyChanges {
-                        //        canvas2.clear_canvas()
-                        //        canvas2.requestPaint()
-                        //        canvas2.update()                target: circleBot
+                        target: circleBot
                         width: sweg.fs*0.75+r.wb*2
                         border.width: r.wb
                         border.color: lineaEje.color
@@ -382,14 +382,99 @@ Item {
         }
     }
     Rectangle{
-        id: ejeCentro
-        width: canvas.width
-        height: 4
-        color: 'blue'//'transparent'
+        id: ec
+        width: canvas.width+app.fs//*2
+        height: xEjeTipo1.visible?3:0
+        color: apps.fontColor//'yellow'//'transparent'
         anchors.centerIn: r
         rotation: 0-r.wg/2
-        visible:false
+        //visible:c>5
+        visible:sweg.ejeTipoCurrentIndex!==-2 && (c===0 || c===1 || c===2 || c===3 || c===4 || c===5)
+
+        property int fs: app.fs*0.75
         Rectangle{
+            id: xEjeTipo1
+            //width: txtTipoEje1.contentWidth+app.fs//*0.5
+            width: txtTipoEje1.rotation===0?txtTipoEje1.contentWidth+app.fs:txtTipoEje11.contentWidth+app.fs//*0.5
+            height: colTxt1.height+app.fs*0.25
+            color: apps.backgroundColor
+            border.color: apps.fontColor
+            border.width: 3
+            radius: app.fs*0.25
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 0-width//-app.fs
+            clip: true
+            //rotation: 360-parent.rotation
+            visible:sweg.ejeTipoCurrentIndex===-1 || sweg.ejeTipoCurrentIndex===c
+            Column{
+                id: colTxt1
+                spacing: app.fs*0.1
+                anchors.centerIn: parent
+                Text{
+                    id: txtTipoEje1
+                    text: rotation===0?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: apps.fontColor
+                    font.pixelSize: ec.fs
+                    horizontalAlignment: Text.AlignHCenter
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Text{
+                    id: txtTipoEje11
+                    //text: 'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    text: rotation===180?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: apps.fontColor
+                    font.pixelSize: ec.fs;
+                    horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.RichText
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
+        }
+        Rectangle{
+            width: txtTipoEje2.rotation===0?txtTipoEje2.contentWidth+app.fs:txtTipoEje22.contentWidth+app.fs//*0.5
+            height: colTxt2.height+app.fs*0.25
+            color: apps.backgroundColor
+            border.color: apps.fontColor
+            border.width: 3
+            radius: app.fs*0.25
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 0-width//-app.fs
+            clip: true
+            //rotation: 360-parent.rotation
+            visible: xEjeTipo1.visible
+            Column{
+                id: colTxt2
+                spacing: app.fs*0.1
+                anchors.centerIn: parent
+                Text{
+                    id: txtTipoEje2
+                    text: rotation===0?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: 'white'//apps.fontColor
+                    font.pixelSize: ec.fs;
+                    horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.RichText
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Text{
+                    id: txtTipoEje22
+                    text: rotation===180?r.aTipoEjes[r.c]:'Casas '+parseInt(r.c + 1)+' y '+parseInt(r.c + 7)
+                    color: 'white'//apps.fontColor
+                    font.pixelSize: ec.fs;
+                    horizontalAlignment: Text.AlignHCenter
+                    textFormat: Text.RichText
+                    rotation: c===5 || c===4 || c===3?180:0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
+        }
+
+        Rectangle{
+            visible: false
             width: sweg.fs
             height: width
             //x:(r.w-width)/2
@@ -405,7 +490,7 @@ Item {
                 font.pixelSize: parent.width*0.3
                 anchors.centerIn: parent
                 color: 'white'
-                rotation: 270+ejeCentro.rotation
+                rotation: 270+ec.rotation
             }
         }
     }
@@ -446,12 +531,12 @@ Item {
     }
 
     function refresh(){
-//        canvas.clear_canvas()
-//        canvas.requestPaint()
-//        canvas.update()
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas.update()
 
-//        canvas2.clear_canvas()
-//        canvas2.requestPaint()
-//        canvas2.update()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
+        canvas2.update()
     }
 }

@@ -5,12 +5,13 @@ import "../../js/Funcs.js" as JS
 
 import ZoolBodies.ZoolPlanetsCircle 1.1
 import ZoolBodies.ZoolPlanetsCircleBack 1.5
-import ZoolHousesCircle 1.3
+import ZoolHousesCircle 1.1
+import ZoolBodies.ZoolDinHousesCircle 1.3
 import ZoolHousesCircleBack 1.2
 import ZoolBodies.ZoolAspectsView 1.0
 import ZoolBodies.ZoolAspectsViewBack 1.0
 
-import ZoolSignCircle 1.0
+import ZoolSignCircle 1.1
 import ZoolAutoPanZoom 1.0
 
 //import "./comps" as Comps
@@ -266,7 +267,7 @@ Item {
                     anchors.centerIn: signCircle
                     w: r.fs
                     widthAspCircle: aspsCircle.width
-                    visible: app.ev
+                    visible: false//app.ev
                     //visible: planetsCircleBack.visible
                 }
                 ZoolHousesCircle{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
@@ -275,9 +276,10 @@ Item {
                     anchors.centerIn: signCircle
                     //w: r.fs*6
                     widthAspCircle: aspsCircle.width
+                    visible:false
                     //visible: r.v
                 }
-                AxisCircle{id: axisCircle}
+                AxisCircle{id: axisCircle;visible: !app.ev}
 
                 ZoolSignCircle{
                     id:signCircle
@@ -289,12 +291,28 @@ Item {
                     onRotChanged: housesCircle.rotation=rot
                     //onShowDecChanged: Qt.quit()
                 }
+                ZoolDinHousesCircle{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
+                    id: dinHousesCircleBack
+                    height: width
+                    anchors.centerIn: signCircle
+                    w: r.fs
+                    isBack: true
+                    visible: app.ev
+                    //widthAspCircle: aspsCircle.width
+                }
+                ZoolDinHousesCircle{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
+                    id: dinHousesCircle
+                    height: width
+                    anchors.centerIn: signCircle
+                    w: r.fs
+                    //widthAspCircle: aspsCircle.width
+                }
                 NumberLines{}
                 AspCircleV2{
                     id: aspsCircle
                     rotation: signCircle.rot - 90// + 1
                 }
-                AscMcCircle{id: ascMcCircle}
+                AscMcCircle{id: ascMcCircle;visible: !app.ev}
                 ZoolPlanetsCircle{
                     id: planetsCircle
                     height: width
@@ -536,6 +554,7 @@ Item {
         signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
+        dinHousesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         panelAspects.load(j)
         zoolDataBodies.loadJson(j)
@@ -577,6 +596,7 @@ Item {
             //panelElementsBack.visible=false
         }
         housesCircleBack.loadHouses(j)
+        dinHousesCircleBack.loadHouses(j)
 
         //if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
         //if(JSON.parse(app))

@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-import ZoolBodies.ZoolAsBack 3.4
+import ZoolBodies.ZoolAsBack 3.5
 
 Item{
     id: r
@@ -192,6 +192,7 @@ Item{
         }
         r.planetSize=rp
 
+        dinHousesCircleBack.extraWidth=rp*0.25*pMax+r.planetSize
         housesCircleBack.extraWidth=rp*0.25*pMax+r.planetSize
     }
 
