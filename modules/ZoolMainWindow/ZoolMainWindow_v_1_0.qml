@@ -843,6 +843,12 @@ ApplicationWindow {
     }
 
     Shortcut{
+        sequence: 'Ctrl+D'
+        onActivated: {
+            apps.showDec=!apps.showDec
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+s'
         onActivated: {
             if(xEditor.visible){

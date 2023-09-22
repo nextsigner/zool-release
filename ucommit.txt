@@ -1,1 +1,1 @@
-Se crear ZoolSignCircle v1.1
+Se crea sequencia de teclas para Dec con Ctrl+D
