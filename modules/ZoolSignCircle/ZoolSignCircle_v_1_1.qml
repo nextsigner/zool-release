@@ -187,7 +187,8 @@ Item {
                     source: "../../resources/imgs/signos/"+index+".svg"
                     width: !app.ev?r.w:r.w*0.5
                     height: width
-                    rotation: 360-parent.rotation+30
+                    //rotation: 360-parent.parent.rotation+parent.rotation//+30
+                    rotation: 360-r.rot-parent.rotation
                     antialiasing: true
                 }
             }

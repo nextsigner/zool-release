@@ -1,1 +1,1 @@
-Se crea sequencia de teclas para Dec con Ctrl+D
+Se corrige rotation del signo en signCircle
