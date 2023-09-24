@@ -727,8 +727,8 @@ Item {
         txt=txt.replace('<!--t1-->', '<h3>¿Haz nacido en esta hora o momento del día?</h3><h5>Si es así, la siguiente información te puede resultar muy útil y esclarecedora.</h5>')
 
         let aCtx=[]
-        aCtx.push('Previo al Amanecer, antes de la aparición del sol - Casa 1')
-        aCtx.push('Crepúsculo - Poco antes del amanecer - Casa 2')
+        aCtx.push('Crepúsculo - Poco antes del amanecer - Casa 1')
+        aCtx.push('Madrugada - Poco antes del crepúsculo - Casa 2')
         aCtx.push('ctx 3')
         aCtx.push('ctx 4')
         aCtx.push('Noche - Aproximadamente entre 2 y 4 horas despues del anochecer - Sol en Casa 5')
