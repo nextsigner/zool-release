@@ -1,1 +1,1 @@
-Se corrige ZoolSignCircle v1.1
+Se elimina ZoolSignCircle v1.0
