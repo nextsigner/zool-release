@@ -93,7 +93,7 @@ Item {
         color: 'transparent'//'blue'
         rotation: 15
         antialiasing: true
-        visible: false
+        //visible: false
         Rectangle{
             id: xImg
             //width: apps.signCircleWidth*0.8//signCircle.w*0.5

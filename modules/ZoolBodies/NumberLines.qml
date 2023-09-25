@@ -3,12 +3,13 @@ import QtQuick 2.0
 Item{
     id: r
     //width: !apps.showDec?signCircle.width-(!app.ev?apps.signCircleWidth:0):signCircle.width-(!app.ev?apps.signCircleWidth*3:apps.signCircleWidth*2)
-    width: signCircle.width-(signCircle.w*2)
+    width: !apps.showDec?signCircle.width-(signCircle.w*2):signCircle.width-(signCircle.w*4)
     height: width
     anchors.centerIn: parent
     rotation: signCircle.rot
     visible: apps.showNumberLines
     property bool fnd: false //full number degree count
+    property bool showBorder: true
     Rectangle{
         id: bordeExt
         width: r.width
@@ -18,6 +19,7 @@ Item{
         border.color: 'yellow'
         radius: width*0.5
         anchors.centerIn: parent
+        visible: r.showBorder
     }
     Repeater{
         model: 360

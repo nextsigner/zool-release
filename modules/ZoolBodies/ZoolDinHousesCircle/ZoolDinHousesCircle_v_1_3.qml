@@ -26,7 +26,7 @@ Item {
         width: r.width-app.fs
         height: width
         color: 'transparent'
-        border.width: apps.houseLineWidth
+        border.width: 1//apps.houseLineWidth
         border.color: apps.houseLineColorBack
         radius: width*0.5
         visible: r.isBack
@@ -49,7 +49,7 @@ Item {
             property int ih: -1
             Rectangle{
                 width: parent.width*0.5
-                height: apps.houseLineWidth
+                height: 1//apps.houseLineWidth
                 color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 Rectangle{
@@ -57,7 +57,7 @@ Item {
                     height: width
                     radius: width*0.5
                     color: 'transparent'
-                    border.width: apps.houseLineWidth
+                    border.width: 1//apps.houseLineWidth
                     border.color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left

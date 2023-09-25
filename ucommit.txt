@@ -1,1 +1,1 @@
-Se crea zool_launch_linux.sh 2
+Se corrige ZoolSignCircle v1.1

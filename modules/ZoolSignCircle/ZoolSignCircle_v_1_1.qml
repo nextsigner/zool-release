@@ -10,29 +10,7 @@ Item {
     property bool showBorder: false
     property bool showDec: apps.showDec
     property int rot: 0
-    Behavior on w{enabled: apps.enableFullAnimation; NumberAnimation{duration: sweg.speedRotation}}
-    /*Timer{
-        running: true
-        interval: 3000
-        onTriggered: {
-            r.width=r.width*4
-            r.w=app.fs*60
-            t2.start()
-
-        }
-    }
-    Timer{
-        id: t2
-        running: false
-        interval: 3000
-        onTriggered: {
-            r.grabToImage(function(result) {
-                result.saveToFile("/home/ns/signcircle.png");
-                Qt.openUrlExternally('file:///home/ns/signcircle.png')
-
-            });
-        }
-    }*/
+    property bool showCenterSignPoint: false
     Repeater{
         model: apps.enableWheelAspCircle?36:0
         Item{
@@ -76,14 +54,6 @@ Item {
             }
         }
     }
-
-    //Probando/Visualizando rotación
-    //    Rectangle{
-    //        width: r.width
-    //        height: 2
-    //        anchors.centerIn: parent
-    //        color: '#ff8833'
-    //    }
     Image{
         id: signs
         anchors.fill: r
@@ -139,6 +109,7 @@ Item {
         source: signs
         maskSource: mask
         invert: false
+        rotation: r.rot+36
         //visible: false
     }
     OpacityMask {
@@ -149,7 +120,7 @@ Item {
         anchors.centerIn: parent
         source: signsDec
         maskSource: maskDec
-        rotation: 0+5-10+2
+        rotation: oMSignCircle.rotation-3
         invert: false
         visible: r.showDec
     }
@@ -170,6 +141,7 @@ Item {
         border.color: apps.fontColor
         radius: width*0.5
         anchors.centerIn: parent
+        //visible: false
     }
     Item{
         rotation: r.rot
@@ -179,18 +151,28 @@ Item {
             Rectangle{
                 width: r.width
                 height: 1
-                color: 'red'//'transparent'
-                rotation: 0-(index*30)-15
+                color: 'transparent'
+                rotation: 0-(index*30)-14.95
                 anchors.centerIn: parent
                 Image {
                     id: iconoSigno
                     source: "../../resources/imgs/signos/"+index+".svg"
-                    width: !app.ev?r.w:r.w*0.5
+                    width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     //rotation: 360-parent.parent.rotation+parent.rotation//+30
                     rotation: 360-r.rot-parent.rotation
                     antialiasing: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: !app.ev?r.w*0.1:r.w*0.3
+                    Rectangle{
+                        width: 3
+                        height: width
+                        anchors.centerIn: parent
+                        visible: r.showCenterSignPoint
+                    }
                 }
+
             }
         }
     }
@@ -204,15 +186,24 @@ Item {
                 width: r.width-r.w*2
                 height: 1
                 color: 'transparent'
-                rotation: 0-(index*10)-7
+                rotation: 0-(index*10)-4.95
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec
                     source: "../../resources/imgs/signos/"+index+".svg"
-                    width: !app.ev?r.w:r.w*0.5
+                    width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
-                    rotation: 360-parent.rotation+30
+                    rotation: 360-r.rot-parent.rotation
                     antialiasing: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: !app.ev?r.w*0.1:r.w*0.3
+                    Rectangle{
+                        width: 3
+                        height: width
+                        anchors.centerIn: parent
+                        visible: r.showCenterSignPoint
+                    }
                 }
             }
         }
@@ -227,15 +218,24 @@ Item {
                 width: r.width-r.w*2
                 height: 1
                 color: 'transparent'
-                rotation: 0-(index*10)-7-120
+                rotation: 0-(index*10)-4.95-120
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec24
                     source: "../../resources/imgs/signos/"+index+".svg"
-                    width: !app.ev?r.w:r.w*0.5
+                    width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
-                    rotation: 360-parent.rotation+30
+                    rotation: 360-r.rot-parent.rotation
                     antialiasing: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: !app.ev?r.w*0.1:r.w*0.3
+                    Rectangle{
+                        width: 3
+                        height: width
+                        anchors.centerIn: parent
+                        visible: r.showCenterSignPoint
+                    }
                 }
             }
         }
@@ -250,15 +250,24 @@ Item {
                 width: r.width-r.w*2
                 height: 1
                 color: 'transparent'
-                rotation: 0-(index*10)-7-120-120
+                rotation: 0-(index*10)-4.95-120-120
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec36
                     source: "../../resources/imgs/signos/"+index+".svg"
-                    width: !app.ev?r.w:r.w*0.5
+                    width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
-                    rotation: 360-parent.rotation+30
+                    rotation: 360-r.rot-parent.rotation
                     antialiasing: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: !app.ev?r.w*0.1:r.w*0.3
+                    Rectangle{
+                        width: 3
+                        height: width
+                        anchors.centerIn: parent
+                        visible: r.showCenterSignPoint
+                    }
                 }
             }
         }
