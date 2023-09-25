@@ -49,7 +49,7 @@ Item {
             property int ih: -1
             Rectangle{
                 width: parent.width*0.5
-                height: 1//apps.houseLineWidth
+                height: apps.houseLineWidth
                 color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 Rectangle{

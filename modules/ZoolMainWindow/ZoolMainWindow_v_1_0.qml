@@ -712,12 +712,12 @@ ApplicationWindow {
         }
     }
     //Mostrar/Ocultar Panel Numerología
-    Shortcut{
+    /*Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
             //ncv.visible=!ncv.visible
         }
-    }
+    }*/
     //Mostrar/Ocultar lineas de número de grados
     Shortcut{
         sequence: 'Ctrl+Shift+l'
@@ -805,12 +805,12 @@ ApplicationWindow {
         }
     }
     //Mostrar Panel para Crear Nuevo VN
-    Shortcut{
+    /*Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
             zsm.getPanel('ZoolFileManager').state=zsm.getPanel('ZoolFileManager').state==='show'?'hide':'show'
         }
-    }
+    }*/
     //Mostrar Panel de Revoluciones Solares
     Shortcut{
         sequence: 'Ctrl+r'
@@ -846,6 +846,12 @@ ApplicationWindow {
         sequence: 'Ctrl+D'
         onActivated: {
             apps.showDec=!apps.showDec
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+n'
+        onActivated: {
+            apps.showNumberLines=!apps.showNumberLines
         }
     }
     Shortcut{

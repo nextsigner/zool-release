@@ -1,1 +1,1 @@
-Se elimina ZoolSignCircle v1.0
+Se crear shortcut Ctrl+n para showNumberLines
