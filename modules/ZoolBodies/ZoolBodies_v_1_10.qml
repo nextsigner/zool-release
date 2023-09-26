@@ -283,30 +283,11 @@ Item {
 
                 ZoolSignCircle{
                     id:signCircle
-                    //width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
-                    anchors.centerIn: parent
                     showBorder: true
-                    v:r.v
-                    w: r.w
                     onRotChanged: housesCircle.rotation=rot
-                    //onShowDecChanged: Qt.quit()
                 }
-                ZoolDinHousesCircle{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
-                    id: dinHousesCircleBack
-                    height: width
-                    anchors.centerIn: signCircle
-                    w: r.fs
-                    isBack: true
-                    visible: app.ev
-                    //widthAspCircle: aspsCircle.width
-                }
-                ZoolDinHousesCircle{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
-                    id: dinHousesCircle
-                    height: width
-                    anchors.centerIn: signCircle
-                    w: r.fs
-                    //widthAspCircle: aspsCircle.width
-                }
+                ZoolDinHousesCircle{id: dinHousesCircleBack; isBack: true}
+                ZoolDinHousesCircle{id: dinHousesCircle}
                 NumberLines{}
                 AspCircleV2{
                     id: aspsCircle

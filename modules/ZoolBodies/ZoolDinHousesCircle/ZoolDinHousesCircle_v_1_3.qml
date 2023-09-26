@@ -3,11 +3,14 @@ import QtQuick 2.0
 Item {
     id: r
     width: !isBack?signCircle.width+app.fs:(sweg.parent.height*apps.sweMargin)+extraWidth//((sweg.parent.height*(apps.sweMargin))+app.fs)
+    height: width
+    anchors.centerIn: signCircle
+    visible: isBack?app.ev:true
     property bool isBack: false
     property int extraWidth: 0
-    property int currentHouse: app.currentHouseIndex
+    property int currentHouse: !isBack?sweg.objHousesCircle.currentHouse:sweg.objHousesCircle.currentHouseBack
     property int houseShowSelectadIndex: -1
-    property int w: sweg.fs*3
+    property int w: sweg.fs//*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0
     property bool v: false
@@ -35,6 +38,7 @@ Item {
     Item{
         id: dha//xDinamicHouserArcs
         anchors.fill: r
+        property real fr: 0.00 //FakeRotation
     }
     Component{
         id: compArc
@@ -47,6 +51,7 @@ Item {
             border.color: 'white'
             anchors.centerIn: parent
             property int ih: -1
+            property real wg: 0.000
             Rectangle{
                 width: parent.width*0.5
                 height: apps.houseLineWidth
@@ -71,6 +76,31 @@ Item {
                     }
                 }
 
+                Text{
+                    text:'<b>'+item.wg+'</b>'
+                    font.pixelSize: 20
+                    color: 'red'
+                    anchors.top: parent.top
+                    anchors.topMargin: 30
+                    visible: false
+                }
+            }
+            Repeater{
+                model: item.ih===r.currentHouse?wg:0
+                //model: 10
+                Rectangle{
+                    width: !r.isBack?parent.width-(r.w*2):parent.width
+                    height: 5
+                    color: 'transparent'
+                    rotation: 0-(0+index)
+                    anchors.centerIn: parent
+                    //visible: item.ih===r.currentHouse
+                    LinePoints{
+                        width: parent.width
+                        height: parent.height
+                        c: !r.isBack?apps.houseColor:apps.houseColorBack
+                    }
+                }
             }
         }
     }
@@ -97,13 +127,28 @@ Item {
             dha.children[i].destroy(0)
         }
         for(i=0;i<12;i++){
-
-            let comp
-            comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+sweg.objSignsCircle.rot, ih: i+1})
+            if(i===0){
+                app.uAscDegreeTotal=jsonData.ph.h1.gdec
+            }
+            let wg=0.05
+            let g1=0
+            let g2=0
+            if(i!==11){
+                g1=360-jsonData.ph['h'+parseInt(i + 1)].gdec
+                g2=360-jsonData.ph['h'+parseInt(i + 2)].gdec
+                wg=g1-g2
+            }else{
+                g1=360-jsonData.ph['h'+parseInt(i + 1)].gdec
+                g2=360-jsonData.ph['h'+parseInt(0 + 1)].gdec
+                wg=g1-g2
+            }
+            if(wg<0){
+                wg=wg+360
+            }
+            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+sweg.objSignsCircle.rot, ih: i+1, wg: wg})
         }
-        ////housesAxis.reload(aDegs)
-
     }
+
     function getHousePos(g, rot, ip, defaultRet){
         let rotDiff=360-rot
         let initdeg=0-rotDiff
@@ -130,7 +175,7 @@ Item {
     }
     function reloadHousesColors() {
         for(i=0;i<12;i++){
-            let h=xArcs.children[i]
+            let h=dha.children[i]
             h.colors=['red','red','red','red','red','red','red','red','red','red','red','red']
         }
     }

@@ -4,9 +4,10 @@ import QtGraphicalEffects 1.0
 Item {
     id: r
     height: width
+    anchors.centerIn: parent
     property int f: 0
     property int w: sweg.w
-    property bool v: false
+    property bool v: sweg.v
     property bool showBorder: false
     property bool showDec: apps.showDec
     property int rot: 0

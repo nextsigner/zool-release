@@ -1,1 +1,1 @@
-Se crear shortcut Ctrl+n para showNumberLines
+Se crea LinePoints en ZoolDinHousesCircle
