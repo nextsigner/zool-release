@@ -1,1 +1,1 @@
-Se crea LinePoints en ZoolDinHousesCircle
+Se agrega splash. png
