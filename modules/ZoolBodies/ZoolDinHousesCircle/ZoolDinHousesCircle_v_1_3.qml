@@ -8,7 +8,7 @@ Item {
     visible: isBack?app.ev:true
     property bool isBack: false
     property int extraWidth: 0
-    property int currentHouse: !isBack?sweg.objHousesCircle.currentHouse:sweg.objHousesCircle.currentHouseBack
+    property int currentHouse: !isBack?sweg.objHousesCircle.currentHouse:sweg.objHousesCircleBack.currentHouse
     property int houseShowSelectadIndex: -1
     property int w: sweg.fs//*3
     property int wb: 1//sweg.fs*0.15
@@ -67,7 +67,22 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     anchors.rightMargin: 0//app.fs*14
-                    rotation: 360-parent.parent.rotation
+                    rotation: 360-parent.parent.rotation+(!r.isBack?0:sweg.dirPrimRot)
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            if(!r.isBack){
+                                //sweg.objHousesCircle.currentIndex=item.ih-1
+                                app.currentHouseIndex=item.ih
+                                r.currentHouse=app.currentHouseIndex
+                            }else{
+                                //sweg.objHousesCircleBack.currentIndex=item.ih-1
+                                app.currentHouseIndexBack=item.ih
+                                r.currentHouse=app.currentHouseIndexBack
+                            }
+                            //log.lv('r.currentHouse: '+r.currentHouse)
+                        }
+                    }
                     Text{
                         text: '<b>'+item.ih+'</b>'
                         font.pixelSize: !app.ev?app.fs*0.8:app.fs*0.75
@@ -123,6 +138,8 @@ Item {
     }
     function loadHouses(jsonData) {
         var i=0
+        //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
+        dha.rotation=0
         for(i=0;i<dha.children.length;i++){
             dha.children[i].destroy(0)
         }
@@ -146,6 +163,10 @@ Item {
                 wg=wg+360
             }
             let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+sweg.objSignsCircle.rot, ih: i+1, wg: wg})
+        }
+        if(app.mod==='dirprim'){
+            //xArcsBack.rotation-=sweg.dirPrimRot
+            dha.rotation-=sweg.dirPrimRot
         }
     }
 
