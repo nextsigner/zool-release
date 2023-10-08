@@ -165,7 +165,7 @@ Item {
                     antialiasing: true
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
-                    anchors.leftMargin: !app.ev?r.w*0.1:r.w*0.3
+                    anchors.leftMargin: r.w*0.1
                     Rectangle{
                         width: 3
                         height: width

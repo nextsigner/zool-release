@@ -286,6 +286,11 @@ ZoolMainWindow{
         to: 'all'
         onDataReceibed:{
             let json=JSON.parse(data)
+            if(app.dev){
+                log.lv("From:"+json.from+'\n\n')
+                log.lv("To:"+json.to+'\n\n')
+                log.lv("Data:"+json.data+'\n\n')
+            }
 
             /*
             let d = new Date(Date.now())
@@ -298,7 +303,17 @@ ZoolMainWindow{
             txt+='\n\n'
             log.lv('nioqml std:'+txt)
             */
-
+            /*if(json.data.indexOf('qmlcode=')>=0){
+                let m0=data.split('qmlcode=')
+                let c=''
+                c+='import QtQuick 2.0\n'
+                c+='Item{\n'
+                c+='    Component.onCompleted:{\n'
+                c+=m0[1]+'\n'
+                c+='    }\n'
+                c+='}\n'
+                let obj=Qt.createQmlObject(c, xApp, 'nioqmlcode')
+            }*/
             if(json.data==='isWindowTool'){
                 if(app.flags===Qt.Tool){
                     send(json.from, 'isWindowTool=true')
@@ -745,18 +760,26 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
+        let args=Qt.application.arguments
         JS.setFs()
 
         //Check is dev with the arg -dev
-        if(Qt.application.arguments.indexOf('-dev')>=0){
+        if(args.indexOf('-dev')>=0){
             app.dev=true
         }
+        let localhost=false
+        if(args.indexOf('-localhost')>=0)localhost=true
         if(unik.fileExist('./tcpclient.conf')){
             let data=unik.getFile('./tcpclient.conf')
 
             let lines=data.split('\n')
             nioqml.user=lines[0].replace('user=', '')
-            nioqml.host=lines[1].replace('ip=', '')
+            //nioqml.host=lines[1].replace('ip=', '')
+            if(localhost){
+                nioqml.host='127.0.0.1'
+            }else{
+                nioqml.host=lines[1].replace('ip=', '')
+            }
             nioqml.port=parseInt(lines[2].replace('port=', ''))
 
             //log.lv('User: ['+nioqml.user+']')
@@ -827,7 +850,6 @@ ZoolMainWindow{
 
 
         //Argumentos
-        let args=Qt.application.arguments
         var i=0
         for(i=0;i<args.length;i++){
             let a=args[i]
