@@ -487,7 +487,17 @@ Item {
                     let json=app.currentJson
                     if(!json)return
                     let ih=parseInt(json.pc.c0.ih)
-                    let ip=r.folder+"/casa_"+ih+".png"
+                    let subfolder='caps_'
+                    if(r.showPortrait){
+                        subfolder+='portrait'
+                    }else{
+                        subfolder+='landscape'
+                    }
+                    let finalPath=r.folder+'/'+subfolder
+                    if(!unik.folderExist(finalPath)){
+                        unik.mkdir(finalPath)
+                    }
+                    let ip=finalPath+"/casa_"+ih+".png"
                     result.saveToFile(ip);
                 });
             }
