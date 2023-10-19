@@ -1,1 +1,1 @@
-Se edita signCircle v1.1
+Se crea astrologica_swe_v3.py

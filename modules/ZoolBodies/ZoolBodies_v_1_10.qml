@@ -6,7 +6,7 @@ import "../../js/Funcs.js" as JS
 import ZoolBodies.ZoolPlanetsCircle 1.1
 import ZoolBodies.ZoolPlanetsCircleBack 1.5
 import ZoolHousesCircle 1.1
-import ZoolBodies.ZoolDinHousesCircle 1.3
+import ZoolBodies.ZoolDinHousesCircle 1.4
 import ZoolHousesCircleBack 1.2
 import ZoolBodies.ZoolAspectsView 1.0
 import ZoolBodies.ZoolAspectsViewBack 1.0
