@@ -1,1 +1,1 @@
-Se crea astrologica_swe_v3.py
+Se corrige tamaño de ZoolAsBack y se agrega color bodie

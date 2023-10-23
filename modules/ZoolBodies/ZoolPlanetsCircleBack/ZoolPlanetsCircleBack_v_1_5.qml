@@ -6,7 +6,7 @@ Item{
     id: r
     property bool expand: false
     property var cAs: r
-    property int planetSize: sweg.fs*0.75
+    property int planetSize: 100//sweg.fs*0.75
 
     property int totalPosX: 0
 
@@ -16,33 +16,10 @@ Item{
     signal cnLoaded(string nombre, string dia, string mes, string anio, string hora, string minuto, string lon, string lat, string ciudad)
     signal doubleClick
     signal posChanged(int px, int py)
-    state: sweg.state
-    states: [
-        State {
-            name: sweg.aStates[0]
-            PropertyChanges {
-                target: r
-                //width: housesCircle.parent.objectName==='sweg'?(sweg.width-sweg.fs*2.5-sweg.fs):(sweg.width-sweg.fs*3.5)
-            }
-        },
-        State {
-            name: sweg.aStates[1]
-            PropertyChanges {
-                target: r
-                //width: housesCircle.parent.objectName==='sweg'?(sweg.width-sweg.fs*6-sweg.fs):(sweg.width-sweg.fs*4)
-            }
-        },
-        State {
-            name: sweg.aStates[2]
-            PropertyChanges {
-                target: r
-                //width: housesCircle.parent.objectName==='sweg'?(sweg.width-sweg.fs*2-sweg.fs):(sweg.width-sweg.fs*2)
-            }
-        }
-    ]
     Repeater{
         model: app.planetasRes
-        ZoolAsBack{fs:r.planetSize;astro:modelData;numAstro: index}
+        //ZoolAsBack{fs:r.planetSize;astro:modelData;numAstro: index}
+        ZoolAsBack{astro:modelData;numAstro: index}
     }
 
     function pressed(o){

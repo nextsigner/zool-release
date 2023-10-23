@@ -123,7 +123,8 @@ Item{
         //anchors.leftMargin: !r.selected?0:width*0.5
         //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-sweg.fs*0.5:0
         anchors.verticalCenter: parent.verticalCenter
-        color: !apps.xAsShowIcon?(r.selected?apps.backgroundColor:'transparent'):'transparent'
+        //color: !apps.xAsShowIcon?(r.selected?apps.backgroundColor:'transparent'):'transparent'
+        color: 'blue'
         radius: width*0.5
         PointerPlanet{
             id: pointerPlanet

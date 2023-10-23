@@ -22,7 +22,7 @@ Item{
     property bool selected: numAstro === app.currentPlanetIndexBack
 
     property int is
-    property int fs:planetsCircleBack.planetSize
+    property int fs:sweg.fs*0.75//planetsCircleBack.planetSize
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
     property int pos: 1
     property int g: -1
@@ -103,14 +103,20 @@ Item{
             }
         }
     }
-    Item{
+    Rectangle{
         id: xIcon
-        width: r.fs*0.85
+        //width: r.fs*0.85
+        width:
+            !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?
+                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
+                (!app.ev?r.fs*2:r.fs)
         height: width
         anchors.left: parent.left
         anchors.leftMargin: 0-xIconPlanetSmall.width
         //anchors.leftMargin: !r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
+        radius: width*0.5
+        color: 'red'
         PointerPlanet{
             id: pointerPlanet
             is:r.is

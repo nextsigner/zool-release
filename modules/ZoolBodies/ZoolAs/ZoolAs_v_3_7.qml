@@ -4,6 +4,7 @@ import "../"
 import "../../../comps" as Comps
 
 import ZoolBodies.ZoolAsCotaDeg 1.0
+import ZoolBodies.ZoolAsCotaText 1.0
 
 Item{
     id: r
@@ -18,6 +19,9 @@ Item{
 
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
 
+    property bool isHovered: false
+    property bool isBack: false
+
     //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
     property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
     property int widthRestDec:apps.showDec?sweg.objSignsCircle.w*2:0
@@ -31,6 +35,8 @@ Item{
     property int ih: -1
     property int is: -1
     property int numAstro: 0
+
+    property string text: sweg.aTexts[numAstro]
 
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17]
 
@@ -119,7 +125,6 @@ Item{
         //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-sweg.fs*0.5:0
         anchors.verticalCenter: parent.verticalCenter
         color: !apps.xAsShowIcon?(r.selected?apps.backgroundColor:'transparent'):'transparent'
-        //color: 'red'
         radius: width*0.5
         PointerPlanet{
             id: pointerPlanet
@@ -152,6 +157,14 @@ Item{
                     }else{
                         pointerPlanet.pointerRot-=5
                     }
+                }else if (wheel.modifiers & Qt.ShiftModifier){
+                    if(wheel.angleDelta.y>=0){
+                        xTextData.rot+=5
+                    }else{
+                        xTextData.rot-=5
+                    }
+                    r.isHovered=true
+                    tWaitHovered.restart()
                 }else{
                     if(wheel.angleDelta.y>=0){
                         //                    if(reSizeAppsFs.fs<app.fs*2){
@@ -172,10 +185,20 @@ Item{
                 //reSizeAppsFs.restart()
             }
             onEntered: {
+                r.isHovered=true
                 vClick=0
                 r.parent.cAs=r
             }
+            onMouseXChanged:{
+                r.isHovered=true
+                tWaitHovered.restart()
+            }
+            onMouseYChanged:{
+                r.isHovered=true
+                tWaitHovered.restart()
+            }
             onExited: {
+                tWaitHovered.restart()
                 vClick=0
                 //r.parent.cAs=r.parent
             }
@@ -288,6 +311,22 @@ Item{
             }
         }
     }
+    ZoolAsCotaText{
+        id: xTextData
+        width: xIcon.width*2
+        anchors.centerIn: xIcon
+        z: xIcon.z-1
+        widthObjectAcoted: width*0.25
+        isBack: false
+        distancia: img.width*3
+        text: r.text
+        cotaColor: apps.fontColor
+        cotaOpacity: 1.0
+        opacity: r.isHovered||isPinched?1.0:0.0
+        onOpacityChanged: r.text = sweg.aTexts[numAstro]?sweg.aTexts[numAstro]:''
+        visible: r.text!==''
+        onClicked: r.isHovered=false
+    }
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
@@ -327,6 +366,15 @@ Item{
         repeat: true
         interval: 1000
         onTriggered: setZoomAndPos()
+    }
+    Timer{
+        id: tWaitHovered
+        running: false
+        repeat: false
+        interval: 5000
+        onTriggered: {
+            r.isHovered=false
+        }
     }
     function rot(d){
         if(d){
@@ -374,7 +422,7 @@ Item{
         json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
         if(app.dev){
             //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
-            log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
+            //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
         }
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
