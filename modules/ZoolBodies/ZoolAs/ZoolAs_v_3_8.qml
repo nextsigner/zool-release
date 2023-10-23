@@ -3,6 +3,7 @@ import QtGraphicalEffects 1.0
 import "../"
 import "../../../comps" as Comps
 
+import ZoolBodies.ZoolBodie 1.0
 import ZoolBodies.ZoolAsCotaDeg 1.0
 import ZoolBodies.ZoolAsCotaText 1.0
 
@@ -20,7 +21,6 @@ Item{
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
 
     property bool isHovered: false
-    property bool isBack: false
 
     //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
     property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
@@ -46,47 +46,12 @@ Item{
 
     property bool isZoomAndPosSeted: false
     property alias objOointerPlanet: pointerPlanet
-
-    state: sweg.state
-    states: [
-        State {
-            name: sweg.aStates[0]
-            PropertyChanges {
-                target: r
-                colorCuerpo: '#ffffff'
-            }
-            //            PropertyChanges {
-            //                target: xIcon
-            //                width: r.fs*0.85
-            //            }
-        },
-        State {
-            name: sweg.aStates[1]
-            PropertyChanges {
-                target: r
-                colorCuerpo: '#000000'
-            }
-            //            PropertyChanges {
-            //                target: xIcon
-            //                width: r.fs*0.5
-            //            }
-        },
-        State {
-            name: sweg.aStates[2]
-            PropertyChanges {
-                target: r
-                colorCuerpo: '#ffffff'
-            }
-            //            PropertyChanges {
-            //                target: xIcon
-            //                width: r.fs*0.5
-            //            }
-        }
-    ]
+    property alias img: bodie.objImg
+    property alias img0: bodie.objImg0
     onSelectedChanged: {
         if(selected)app.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
-            pointerPlanet.setPointerFs()
+            bodie.objOointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
             app.currentHouseIndex=objData.ih
             app.currentXAs=r
@@ -111,21 +76,18 @@ Item{
         color: apps.xAsLineCenterColor
         visible: r.selected && (apps.showXAsLineCenter || apps.showDec)
     }
-    Rectangle{
-        id: xIcon
-        //width: !selected?r.fs*0.85:r.fs*1.4
-        //width: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?(!app.ev?r.fs*0.85:r.fs*0.425):(!app.ev?r.fs*2:r.fs)
+    ZoolBodie{
+        id: bodie
+        numAstro: r.numAstro
+        is: r.is
         width:
             !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?
                 (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
                 (!app.ev?r.fs*2:r.fs)
-        height: width
+        objData: r.objData
         anchors.left: parent.left
-        //anchors.leftMargin: !r.selected?0:width*0.5
-        //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-sweg.fs*0.5:0
+        anchors.leftMargin: !r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
-        color: !apps.xAsShowIcon?(r.selected?apps.backgroundColor:'transparent'):'transparent'
-        radius: width*0.5
         PointerPlanet{
             id: pointerPlanet
             is:r.is
@@ -240,58 +202,14 @@ Item{
                 }
             }
         }
-        Image {
-            id: img
-            source: app.planetasRes[r.numAstro]?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
-            //width: r.parent.parent.objectName==='sweg'?!r.selected?parent.width:parent.width*2:!r.selected?parent.width:parent.width*1.25
-            width: parent.width*0.8
-            height: width
-            rotation: 0-parent.parent.rotation
-            antialiasing: true
-            anchors.centerIn: parent
-            //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-sweg.fs*0.5:0
-            Behavior on width {
-                enabled: apps.enableFullAnimation;
-                NumberAnimation{
-                    duration: 350
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on x {
-                enabled: apps.enableFullAnimation;
-                NumberAnimation{
-                    duration: 350
-                    easing.type: Easing.InOutQuad
-                }
-            }
-
-        }
-        ColorOverlay {
-            id: co1
-            anchors.fill: img
-            source: img
-            color: !apps.xAsShowIcon?(r.selected?apps.fontColor:apps.xAsColor):'white'
-            rotation: img.rotation
-            antialiasing: true
-            visible: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0
-        }
-
-        //        Component.onCompleted: {
-        //            if(r.numAstro===0){
-        //                let comp=Qt.createComponent('./zoolbody/ZoolBodySun.qml')
-        //                let obj=comp.createObject(xIcon, {w: xIcon.width*0.5})
-        //                img.visible=false
-        //                co1.visible=false
-        //            }
-        //        }
     }
     ZoolAsCotaDeg{
         id: xDegData
-        width: xIcon.width*2
-        anchors.centerIn: xIcon
-        z: xIcon.z-1
+        width: bodie.width*2
+        anchors.centerIn: bodie
+        z: bodie.z-1
         isBack: false
-        distancia: img.width
+        distancia: bodie.width
         gdec: objData.gdec
         g: objData.rsg
         m:objData.m
@@ -313,12 +231,12 @@ Item{
     }
     ZoolAsCotaText{
         id: xTextData
-        width: xIcon.width*2
-        anchors.centerIn: xIcon
-        z: xIcon.z-1
+        width: bodie.width*2
+        anchors.centerIn: bodie
+        z: bodie.z-1
         widthObjectAcoted: width*0.25
         isBack: false
-        distancia: img.width*3
+        distancia: bodie.width*3
         text: r.text
         cotaColor: apps.fontColor
         cotaOpacity: 1.0
@@ -338,13 +256,13 @@ Item{
         visible: r.numAstro===0&&apps.xAsShowIcon
     }
     Rectangle{
-        width: r.width*0.5-xIcon.width
+        width: r.width*0.5-bodie.width
         height: app.fs*0.25
         color: 'transparent'
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         visible: apps.xAsShowIcon
-        anchors.leftMargin: xIcon.width*0.5
+        anchors.leftMargin: bodie.width*0.5
         Comps.XSignal{
             width: parent.width
             anchors.verticalCenter: parent.verticalCenter
@@ -358,7 +276,7 @@ Item{
         id: xCircleSignal
         width: app.fs*16
         height: width
-        anchors.centerIn: xIcon
+        anchors.centerIn: bodie
         visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.tipo!=='pron'
     }
     Timer{
