@@ -46,8 +46,8 @@ Item{
 
     property bool isZoomAndPosSeted: false
     property alias objOointerPlanet: pointerPlanet
-    property alias img: bodie.objImg
-    property alias img0: bodie.objImg0
+    //property alias img: bodie.objImg
+    //property alias img0: bodie.objImg0
     onSelectedChanged: {
         if(selected)app.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
@@ -80,10 +80,10 @@ Item{
         id: bodie
         numAstro: r.numAstro
         is: r.is
-        width:
-            !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0?
-                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
-                (!app.ev?r.fs*2:r.fs)
+//        width:
+//            !apps.xAsShowIcon||aIcons.indexOf(r.numAstro)<0?
+//                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
+//                (!app.ev?r.fs*2:r.fs)
         objData: r.objData
         anchors.left: parent.left
         anchors.leftMargin: !r.selected?0:width*0.5
