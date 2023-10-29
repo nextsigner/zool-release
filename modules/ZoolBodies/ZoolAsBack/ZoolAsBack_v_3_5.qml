@@ -304,7 +304,7 @@ Item{
                 }
             }
         }
-    }
+    z}
     ZoolAsCotaDeg{
         id: xDegData
         width: xIcon.width*2

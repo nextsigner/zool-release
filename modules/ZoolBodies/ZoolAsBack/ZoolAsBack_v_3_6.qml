@@ -150,33 +150,6 @@ Item{
             opacity: r.selected&&app.showPointerXAs?1.0:0.0
             isBack: true
         }
-        Rectangle{
-            //Circulo prueba/ocultar.
-            width: parent.width+sweg.fs*0.1
-            height: width
-            anchors.centerIn: parent
-            radius: width*0.5
-            border.width: 1
-            border.color: "yellow"//apps.backgroundColor
-            color: apps.xAsBackgroundColorBack
-            antialiasing: true
-            visible: false
-        }
-        Rectangle{
-            //Circulo que queda mostrando el cuerpo chico.
-            id: xIconPlanetSmall
-            width: parent.width+sweg.fs*0.1
-            height: width
-            anchors.centerIn: parent
-            radius: width*0.5
-            border.width: 0
-            border.color: apps.backgroundColor
-            opacity: apps.xAsBackgroundOpacityBack
-            color: apps.xAsBackgroundColorBack
-            antialiasing: true
-            visible: false//co.visible
-        }
-
         MouseArea{
             id: maSig
             property int vClick: 0
@@ -247,79 +220,6 @@ Item{
                     }else{
                         r.parent.doublePressed(r)
                     }
-                }
-            }
-        }
-        Image{
-            id: img0
-            //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
-            source: app.planetasRes[r.numAstro]?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
-            width: parent.width*0.9
-            height: width
-            //x:!r.selected?0:r.parent.width*0.5-img0.width*0.5//+sweg.fs*2
-            //y: (parent.width-width)/2
-            anchors.centerIn: parent
-            //rotation: 0-parent.parent.rotation
-            rotation: app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-sweg.objPlanetsCircleBack.rotation
-            antialiasing: true
-            visible: !co.visible
-        }
-
-        ColorOverlay {
-            id: co
-            anchors.fill: img0
-            source: img0
-            color: apps.houseLineColorBack
-            rotation: img0.rotation
-            visible: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0
-            antialiasing: true
-            SequentialAnimation{
-                running: !r.selected//!apps.anColorXAs
-                loops: 3//Animation.Infinite
-                PropertyAnimation {
-                    target: co
-                    properties: "color"
-                    from: co.color
-                    to: apps.fontColor//xAsColorBack
-                    duration: 500
-                }
-            }
-            SequentialAnimation{
-                running: r.selected && !app.capturing//apps.anColorXAs
-                loops: Animation.Infinite
-                onRunningChanged: {
-                    if(!running&&app.capturing){
-                        co.color=apps.xAsColorBack
-                    }
-                }
-                PropertyAnimation {
-                    target: co
-                    properties: "color"
-                    from: 'red'
-                    to: 'white'
-                    duration: 500
-                }
-                PropertyAnimation {
-                    target: co
-                    properties: "color"
-                    from: 'red'
-                    to: 'red'
-                    duration: 500
-                }
-            }
-            Rectangle{
-                width: parent.width*0.35
-                height: width
-                radius: width*0.5
-                //anchors.verticalCenter: parent.verticalCenter
-                anchors.bottom: parent.bottom
-                anchors.left: parent.right
-                anchors.leftMargin: 0-width
-                visible: r.objData.retro===0
-                Text{
-                    text: '<b>R</b>'
-                    font.pixelSize: parent.width*0.8
-                    anchors.centerIn: parent
                 }
             }
         }
