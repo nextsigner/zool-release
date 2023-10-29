@@ -49,7 +49,7 @@ Rectangle{
             borderWidth: 1
             borderColor: apps.fontColor
             borderRadius: fs*0.5
-            rotation: !r.isBack?img.rotation+Math.abs(r.rot):img0.rotation+Math.abs(r.rot)
+            rotation: !r.isBack?bodie.rotation+Math.abs(r.rot):img0.rotation+Math.abs(r.rot)
             anchors.centerIn: parent
             anchors.horizontalCenterOffset: r.distancia*0.5+height*0.5
             MouseArea{

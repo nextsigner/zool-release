@@ -1,1 +1,1 @@
-Se corrige tamaño de ZoolAsBack y se agrega color bodie
+Se corrige rotation PointerPlanet

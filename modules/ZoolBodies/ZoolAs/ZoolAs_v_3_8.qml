@@ -96,7 +96,7 @@ Item{
             rsgdeg:objData.rsg
             ih:objData.ih
             expand: r.selected
-            iconoSignRot: img.rotation
+            iconoSignRot: parent.objImg.rotation
             p: r.numAstro
             opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.tipo!=='pron'
             onPointerRotChanged: {

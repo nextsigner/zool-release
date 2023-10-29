@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-import ZoolBodies.ZoolAsBack 3.5
+import ZoolBodies.ZoolAsBack 3.6
 
 Item{
     id: r
@@ -111,6 +111,8 @@ Item{
                 o.s=jo.sdeg
                 o.ih=sweg.objHousesCircleBack.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
                 o.is=jo.is
+                //o.rsg=jo.gdec-(30*(parseInt(jo.gdec/30)))
+                o.rsg=10//jo.gdec-(30*(o.ih))
                 objAs.is=jo.is
             }else{
                 let intJson=app.currentJson//JSON.parse(app.fileData)
