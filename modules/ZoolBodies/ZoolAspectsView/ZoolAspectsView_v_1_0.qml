@@ -90,6 +90,7 @@ Rectangle {
         clear()
         if(!jsonData.asps)return
         let asp=jsonData.asps
+        //log.lv('jsonData.asps: '+JSON.stringify(jsonData.asps))
         /*
         log.l(JSON.stringify(asp))
         for(var i=0;i<Object.keys(asp).length;i++){

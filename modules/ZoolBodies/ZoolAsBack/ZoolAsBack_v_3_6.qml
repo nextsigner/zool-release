@@ -145,7 +145,7 @@ Item{
             rsgdeg:objData.rsg
             ih:objData.ih
             expand: r.selected
-            iconoSignRot: img0.rotation
+            iconoSignRot: bodie.objImg.rotation
             p: r.numAstro
             opacity: r.selected&&app.showPointerXAs?1.0:0.0
             isBack: true
@@ -230,15 +230,15 @@ Item{
         anchors.centerIn: bodie
         z: bodie.z-1
         isBack: true
-        distancia: img0.width
+        distancia: bodie.objImg.width
         gdec: objData.gdec
         g: objData.rsg
         m:objData.m
         s:objData.s
         ih:objData.ih
         is:objData.is
-        cotaColor: xIconPlanetSmall.color
-        cotaOpacity: xIconPlanetSmall.opacity
+        cotaColor: 'red'//xIconPlanetSmall.color
+        cotaOpacity: 1.0//xIconPlanetSmall.opacity
         //rot: -270
         visible: sweg.listCotasShowingBack.indexOf(r.numAstro)>=0
         Timer{

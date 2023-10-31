@@ -1,1 +1,1 @@
-Se ajusta ancho de AspsCircleV2
+Se corrigen bugs varios

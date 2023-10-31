@@ -40,7 +40,7 @@ Rectangle{
             text:''+app.signos[r.is]+' Casa '+r.ih+'\n°'+parseInt(sweg.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+sweg.getDDToDMS(r.gdec).min+' \'\''+sweg.getDDToDMS(r.gdec).sec
             wrapMode: Text.NoWrap
             textFormat: Text.PlainText
-            fs: !r.isBack?img.width*0.25:img0.width*0.25
+            fs: !r.isBack?bodie.objImg.width*0.25:bodie.objImg.width*0.25
             padding: fs*0.5
             color: apps.fontColor
             textBackgroundColor: apps.backgroundColor
@@ -48,7 +48,7 @@ Rectangle{
             borderWidth: 1
             borderColor: apps.fontColor
             borderRadius: fs*0.5
-            rotation: !r.isBack?img.rotation+Math.abs(r.rot):img0.rotation+Math.abs(r.rot)
+            rotation: !r.isBack?bodie.objImg.rotation+Math.abs(r.rot):bodie.objImg.rotation+Math.abs(r.rot)
             anchors.centerIn: parent
             anchors.horizontalCenterOffset: r.distancia*0.5+height*0.5
         }
