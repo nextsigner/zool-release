@@ -2,7 +2,8 @@ import QtQuick 2.12
 
 Rectangle {
     id: r
-    width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-sweg.fs*2-(apps.showNumberLines?sweg.fs:0)
+    //width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-planetsCircle.totalPosX*planetsCircle.planetSize*2-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSize:0)
+    width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-planetsCircle.totalPosX*planetsCircle.planetSize-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSize:0)
     height: width
     radius: width*0.5
     color: 'red'//'transparent'

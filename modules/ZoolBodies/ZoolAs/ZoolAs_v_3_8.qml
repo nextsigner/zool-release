@@ -13,7 +13,7 @@ Item{
                /*Mostrando Imagen*/
                (parent.width-(r.fs*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:r.fs*2)-widthRestDec):
                /*Mostrando Símbolo de Planeta*/
-               (parent.width-(r.fs*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:r.fs*2)-widthRestDec)
+               (parent.width-(sweg.objPlanetsCircle.planetSize*2*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:sweg.objPlanetsCircle.planetSize*2)-widthRestDec)
     height: 1
     anchors.centerIn: parent
     z: !selected?numAstro:15
@@ -86,7 +86,7 @@ Item{
 //                (!app.ev?r.fs*2:r.fs)
         objData: r.objData
         anchors.left: parent.left
-        anchors.leftMargin: !r.selected?0:width*0.5
+        anchors.leftMargin: 0//!r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
         PointerPlanet{
             id: pointerPlanet

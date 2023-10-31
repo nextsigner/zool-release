@@ -1,1 +1,1 @@
-Se corrige imagen duplicada en ZoolAsBack v3.6
+Se ajusta ancho de AspsCircleV2
