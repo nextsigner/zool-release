@@ -1,1 +1,1 @@
-Se corrigen bugs varios
+Se prueba con exito la modulo NodeIOQml

@@ -294,7 +294,8 @@ Item {
                     id: aspsCircle
                     rotation: signCircle.rot - 90// + 1
                 }
-                AscMcCircle{id: ascMcCircle;visible: !app.ev}
+                //AscMcCircle{id: ascMcCircle;visible: !app.ev}
+                AscMcCircle{id: ascMcCircle;visible: false}
                 ZoolPlanetsCircle{
                     id: planetsCircle
                     height: width

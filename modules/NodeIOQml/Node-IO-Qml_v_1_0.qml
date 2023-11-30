@@ -19,6 +19,7 @@ Item{
     UnikQProcess{
         id: uqp
         onLogDataChanged:{
+            //console.log('onLogDataChanged:'+logData)
             try{
               let json=JSON.parse(logData)
               r.dataReceibed(JSON.stringify(json))
@@ -28,6 +29,7 @@ Item{
                 r.dataError(error);
                 //console.error(e);
             }
+            setLogData('')
         }
         function init(){
             let cmd='node '

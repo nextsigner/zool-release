@@ -285,6 +285,7 @@ ZoolMainWindow{
         user: 'zool'
         to: 'all'
         onDataReceibed:{
+            log.lv("onDataReceibed:"+data+'\n\n')
             let json=JSON.parse(data)
             if(app.dev){
                 log.lv("From:"+json.from+'\n\n')
@@ -326,6 +327,12 @@ ZoolMainWindow{
             }
             if(json.data==='windowToTool'){
                 app.flags=Qt.Tool
+            }
+            if(json.data.indexOf('load=')===0){
+                app.j.loadJson('/home/ns/gd/Zool/Ricardo.json')
+            }
+            if(json.data==='showDec'){
+                apps.showDec=!apps.showDec
             }
         }
         onDataError:{
