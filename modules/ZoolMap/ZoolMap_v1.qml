@@ -1,15 +1,33 @@
 import QtQuick 2.0
+import ZoolMap.ZoolMapSignCircle 1.0
 import ZoolMap.ZoolMapHousesCircle 1.0
+import ZoolMap.ZoolMapPlanetsCircle 1.0
 
 Item{
     id: r
-    height: parent.height
+    height: parent.height-app.fs*0.25
     width: height
     anchors.centerIn: parent
+
+    property alias objSignCircle: signCircle
+    property alias objHousesCircle: housesCircle
+    //property alias objHousesCircleBack: housesCircleBack
+
+    property bool showZonas: true
+
     property int zodiacBandWidth: app.fs
-    property int planetsPadding: app.fs*4
+    property int housesNumWidth: app.fs
+    property int housesNumMargin: app.fs*0.25
+    property int planetsPadding: app.fs*8
     property real dirPrimRot: 0.00
 
+    property bool enableLoad: true
+    property var aTexts: []
+
+    MouseArea{
+        anchors.fill: z0
+        onDoubleClicked: r.showZonas=!r.showZonas
+    }
     //Tamaño total
     Rectangle{
         id: z0
@@ -19,6 +37,31 @@ Item{
         border.width: 1
         border.color: apps.fontColor
         anchors.centerIn: parent
+        visible: r.showZonas
+    }
+    //Tamaño de Rueda Zodiacal
+    Rectangle{
+        id: z2
+        width: z0.width-r.housesNumWidth*2-r.housesNumMargin*2
+        height: width
+        color: 'red'
+        radius: width*0.5
+        border.width: 1
+        border.color: apps.fontColor
+        anchors.centerIn: parent
+        visible: r.showZonas
+    }
+    //Tamaño de Circulo de Planetas Interior
+    Rectangle{
+        id: z3
+        width: z2.width-r.zodiacBandWidth*2
+        height: width
+        color: 'blue'
+        radius: width*0.5
+        border.width: 0
+        border.color: apps.fontColor
+        anchors.centerIn: parent
+        visible: r.showZonas
     }
     //Tamaño de Circulo Aspecto
     Rectangle{
@@ -30,24 +73,22 @@ Item{
         border.width: 1
         border.color: apps.fontColor
         anchors.centerIn: parent
+        visible: r.showZonas
     }
-    //Tamaño de Rueda Zodiacal
-    Rectangle{
-        id: z2
-        width: z0.width-r.zodiacBandWidth*2
-        height: width
-        color: 'red'
-        radius: width*0.5
-        border.width: 1
-        border.color: apps.fontColor
-        anchors.centerIn: parent
-    }
+
     Item{id:xuqp}
-    ZoolMapHousesCircle{id: houseCircle; width: z0.width}
+    ZoolMapSignCircle{id: signCircle; width: z2.width; /*onRotChanged: housesCircle.rotation=rot*/}
+    ZoolMapHousesCircle{id: housesCircle; width: z0.width}
+    ZoolMapPlanetsCircle{
+        id: planetsCircle
+        width: z3.width
+        //rotation:signCircle.rot
+    }
 
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
         r.dirPrimRot=0
+
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -70,14 +111,15 @@ Item{
         c+='    onLogDataChanged:{\n'
         c+='        if(!r.enableLoad)return\n'
         c+='        let json=(\'\'+logData)\n'
-        c+='        //console.log(\'JSON: \'+json)\n'
+        c+='        //log.lv(\'JSON: \'+json)\n'
         c+='        loadSweJson(json)\n'
         c+='        //swegz.sweg.loadSweJson(json)\n'
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\'sweg.load() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+'\')\n'
+        c+='        console.log(\'zoolMap.load() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+'\')\n'
         c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'"\')\n'
+        //c+='        Qt.quit()\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
@@ -139,13 +181,13 @@ Item{
         //log.l(JSON.stringify(json))
         var scorrJson=json.replace(/\n/g, '')
         //app.currentJson=JSON.parse(scorrJson)
-        aspsCircle.clear()
-        zsm.getPanel('ZoolRevolutionList').clear()
+        //aspsCircle.clear()
+        //zsm.getPanel('ZoolRevolutionList').clear()
         //panelRsList.clear()
         //planetsCircleBack.visible=false
         app.ev=false
         apps.urlBack=''
-        panelAspectsBack.visible=false
+        //panelAspectsBack.visible=false
         app.currentPlanetIndex=-1
         app.currentPlanetIndexBack=-1
         app.currentHouseIndex=-1
@@ -172,11 +214,12 @@ Item{
         r.aTexts=nATexts
 
         app.currentJson=j
-        //signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
+        signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
         //ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
+
         //dinHousesCircle.loadHouses(j)
-        //planetsCircle.loadJson(j)
+        planetsCircle.loadJson(j)
         //panelAspects.load(j)
         //zoolDataBodies.loadJson(j)
         //aspsCircle.load(j)

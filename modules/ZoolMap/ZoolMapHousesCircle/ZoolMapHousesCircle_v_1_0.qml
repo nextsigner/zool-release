@@ -25,7 +25,9 @@ Item {
     property var aTipoEjesCasas:['Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12', 'Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12']
     Rectangle{
         anchors.fill: parent
-        color: 'yellow'
+        color: 'green'
+        border.width: 2
+        border.color: 'white'
         radius: width*0.5
         visible: false//r.isBack
     }
@@ -48,7 +50,7 @@ Item {
         id: compArc
         Rectangle{
             id: item
-            width: r.width
+            width: r.width-zoolMap.housesNumWidth*2
             height: 10
             color: 'transparent'
             border.width: 0
@@ -63,7 +65,8 @@ Item {
                 color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 Rectangle{
-                    width: !app.ev?app.fs*1.5:app.fs
+                    //width: !app.ev?app.fs*1.5:app.fs
+                    width: zoolMap.housesNumWidth//!app.ev?app.fs*1.5:app.fs
                     height: width
                     radius: width*0.5
                     color: 'transparent'
@@ -90,7 +93,7 @@ Item {
                     }
                     Text{
                         text: '<b>'+item.ih+'</b>'
-                        font.pixelSize: !app.ev?app.fs*0.8:app.fs*0.75
+                        font.pixelSize: parent.width*0.6//!app.ev?app.fs*0.8:app.fs*0.75
                         color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         anchors.centerIn: parent
                     }

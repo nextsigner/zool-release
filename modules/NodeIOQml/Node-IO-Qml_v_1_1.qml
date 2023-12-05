@@ -57,6 +57,7 @@ Item{
         }
         Component.onCompleted: {
             let localhost=false
+            let args=Qt.application.arguments
             if(args.indexOf('-localhost')>=0)localhost=true
             if(unik.fileExist('./tcpclient.conf')){
                 let data=unik.getFile('./tcpclient.conf')

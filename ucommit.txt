@@ -1,1 +1,1 @@
-Se crea NodeIOQml v1.1
+Se agrega ZoolMapPlanetsCircle y ZoolMapAs
