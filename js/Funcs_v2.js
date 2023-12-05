@@ -548,7 +548,7 @@ function loadJson(file){
     let jsonData=zfdm.getJsonAbs()
     let p=zfdm.getJsonAbsParams(false)
     sweg.load(jsonData)
-
+    zoolMap.load(jsonData)
     let nom=p.n.replace(/_/g, ' ')
     let vd=p.d
     let vm=p.m
@@ -959,6 +959,7 @@ function runJsonTemp(){
     let textData=''
     app.currentFecha=vd+'/'+vm+'/'+va
     sweg.load(jsonData)
+    zoolMap.load(jsonData)
     //swegz.sweg.load(jsonData)
 }
 function runJsonTempBack(){

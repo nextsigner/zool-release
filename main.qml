@@ -26,6 +26,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import web.ZoolServerFileDataManager 1.0
 import ZoolBodies 1.10
+import ZoolMap 1.0
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
@@ -49,7 +50,7 @@ import ZoolVideoPlayer 1.0
 import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
-import NodeIOQml 1.0
+import NodeIOQml 1.1
 
 
 
@@ -66,7 +67,7 @@ ZoolMainWindow{
     title: argtitle && argtitle.length>1?argtitle:'Zool '+version
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
-    property string sweBodiesPythonFile: 'astrologica_swe_v3.py'
+    property string sweBodiesPythonFile: 'astrologica_swe_v2.py'
     property var j: JS
     property var c: CAP
 
@@ -285,7 +286,7 @@ ZoolMainWindow{
         user: 'zool'
         to: 'all'
         onDataReceibed:{
-            log.lv("onDataReceibed:"+data+'\n\n')
+            //log.lv("onDataReceibed:"+data+'\n\n')
             let json=JSON.parse(data)
             if(app.dev){
                 log.lv("From:"+json.from+'\n\n')
@@ -374,6 +375,7 @@ ZoolMainWindow{
             anchors.bottom: parent.bottom
             clip: xLatIzq.visible
             ZoolBodies{id: sweg;objectName: 'sweg'}
+            ZoolMap{id: zoolMap; visible: app.dev}
             Image {
                 id: xDataBarUItemGrabber
                 //source: xDataBar.uItemGrabber

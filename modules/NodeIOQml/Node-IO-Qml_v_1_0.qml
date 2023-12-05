@@ -18,13 +18,15 @@ Item{
     onPortChanged: uqp.init()
     UnikQProcess{
         id: uqp
+        property var aLogData: []
         onLogDataChanged:{
-            //console.log('onLogDataChanged:'+logData)
+            console.log('onLogDataChanged:'+logData)
+            aLogData.push(logData)
             try{
-              let json=JSON.parse(logData)
+              let json=JSON.parse(aLogData[aLogData.length-1])
               r.dataReceibed(JSON.stringify(json))
             }catch(e){
-                let error='LogData del error: ['+logData+']\n'
+                let error='LogData del error: ['+aLogData[aLogData.length-1]+']\n'
                 error+='Descripción del error: ['+e+']\n\n'
                 r.dataError(error);
                 //console.error(e);
@@ -36,6 +38,7 @@ Item{
             cmd+=' '+r.indexPath
             cmd+=' '+r.user
             cmd+=' node-io-ss'//+r.to
+            //cmd+=' '+r.user
             cmd+=' conectado'
             cmd+=' host='+r.host
             cmd+=' port='+r.port

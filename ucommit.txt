@@ -1,1 +1,1 @@
-Se prueba con exito la modulo NodeIOQml
+Se crea NodeIOQml v1.1
