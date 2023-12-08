@@ -14,7 +14,8 @@ Item{
 //               (parent.width-(r.fs*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:r.fs*2)-widthRestDec):
 //               /*Mostrando Símbolo de Planeta*/
 //               (parent.width-(sweg.objPlanetsCircle.planetSize*2*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:sweg.objPlanetsCircle.planetSize*2)-widthRestDec)
-    width: parent.width-((zoolMap.planetsPadding/40)*numAstro)
+    //width: parent.width-((zoolMap.planetsPadding/40)*numAstro)
+    width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)-(zoolMap.planetsMargin*2*pos)
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:15
@@ -30,7 +31,7 @@ Item{
     property string astro
     property int fs
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
-    property int pos: 1
+    property int pos: 0
     property int g: -1
     property int m: -1
     property int ih: -1
@@ -86,7 +87,7 @@ Item{
         id: bodie
         numAstro: r.numAstro
         is: r.is
-        width: (zoolMap.planetsPadding/10)
+        width: zoolMap.planetSize
 //        width:
 //            !apps.xAsShowIcon||aIcons.indexOf(r.numAstro)<0?
 //                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
@@ -95,6 +96,7 @@ Item{
         anchors.left: parent.left
         anchors.leftMargin: 0//!r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
+
         /*PointerPlanet{
             id: pointerPlanet
             is:r.is
@@ -208,6 +210,14 @@ Item{
                     }
                 }
             }
+        }
+        Text{
+            text:'<b>'+r.pos+'</b>'
+            font.pixelSize: 30
+            color: 'white'
+            rotation: 360-parent.parent.rotation
+            anchors.left: parent.right
+            anchors.leftMargin: 3
         }
     }
 

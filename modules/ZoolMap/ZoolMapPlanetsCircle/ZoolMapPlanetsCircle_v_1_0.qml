@@ -101,6 +101,45 @@ Item{
             }
         }
 
+        let mDegs=[]
+        for(i=0;i<20;i++){
+            objAs=r.children[i]
+            mDegs.push(parseInt(objAs.objData.gdec))
+        }
+        log.lv('mDegs: '+mDegs)
+        let numAsRev=1
+
+        for(i=1;i<20-1;i++){
+            objAs=r.children[i]
+            let g=parseInt(objAs.objData.gdec)
+            let cn=0
+            for(var i2=0;i2<i;i2++){
+                if(isNear(mDegs[i2], g) && i2!==i && i2<i){
+                //if(isNear(mDegs[i2], g) && i2!==i && i2<i && (parseInt(mDegs[i2])!==parseInt(g))){
+                    cn++
+
+//                    for(var i3=0;i3<i2;i3++){
+//                        if(isNear(mDegs[i3], g) && i3!==i2 && i3<i2 && (parseInt(mDegs[i3])!==parseInt(g))){
+//                        //if(isNear(mDegs[i3], g)){
+
+//                            let objAs2=r.children[i3]
+//                            cn++
+//                            //cn=objAs2.pos//+1-objAs.pos//-i2
+//                        }else{
+//                            //cn--
+//                        }
+////                        let objAs2=r.children[i3]
+////                        let g2=parseInt(objAs2.objData.gdec)
+////                        if(isNear(mDegs[i3], g2))cantPrev++
+//                    }
+
+
+                }
+            }
+            objAs.pos=cn
+            cn=0
+        }
+        //objAs.pos=cn
         //Fortuna
         //        let joHouses=json.ph['h1']
         //        let joSol=json.pc['c0']
@@ -194,6 +233,11 @@ Item{
         o.rsg=rsDegSign
         objAs.objData=o
         objSigns[o.is]++*/
+    }
+    function isNear(g1, g2){
+        let is=true
+        if(g1-20 >= g2 || g1+20 <= g2)is=false
+        return is
     }
     function getAPD(){
         let a=[]

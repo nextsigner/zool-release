@@ -1,1 +1,1 @@
-Se agrega ZoolMapPlanetsCircle y ZoolMapAs
+Se logra ordena ZoolMapAs para que no se encimen

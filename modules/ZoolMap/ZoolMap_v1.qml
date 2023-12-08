@@ -18,7 +18,9 @@ Item{
     property int zodiacBandWidth: app.fs
     property int housesNumWidth: app.fs
     property int housesNumMargin: app.fs*0.25
+    property int planetSize: app.fs
     property int planetsPadding: app.fs*8
+    property int planetsMargin: app.fs*0.15
     property real dirPrimRot: 0.00
 
     property bool enableLoad: true
