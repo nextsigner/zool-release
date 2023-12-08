@@ -16,13 +16,17 @@ Item{
 
     property bool showZonas: true
 
-    property int zodiacBandWidth: app.fs
-    property int housesNumWidth: app.fs
+    property bool ev: app.ev
+    property int zodiacBandWidth: !r.ev?app.fs:app.fs*0.75
+    property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
-    property int planetSize: app.fs
+    property int planetSize: !r.ev?app.fs:app.fs*0.75
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
     property int aspsCircleWidth: 100
+    property int planetsBackBandWidth: 100
+
+
     property real dirPrimRot: 0.00
 
     //-->Theme
@@ -33,6 +37,30 @@ Item{
     property bool enableLoad: true
     property var aTexts: []
 
+    onVisibleChanged: {
+        if(visible){
+            let jsonFileData=unik.getFile('/home/ns/gd/Zool/Natalia_S._Pintos.json')
+            let j=JSON.parse(jsonFileData).params
+            //if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
+
+            let t='sin'
+            let hsys=j.hsys?j.hsys:apps.currentHsys
+            let nom=j.n
+            let d=j.d
+            let m=j.m
+            let a=j.a
+            let h=j.h
+            let min=j.min
+            let gmt=j.gmt
+            let lat=j.lat
+            let lon=j.lon
+            let alt=j.alt?j.alt:0
+            let ciudad=j.ciudad
+            let e='1000'
+            let aR=[]
+            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+        }
+    }
     MouseArea{
         anchors.fill: z0
         onDoubleClicked: r.showZonas=!r.showZonas
@@ -42,7 +70,7 @@ Item{
         id: z0
         anchors.fill: parent
         radius: width*0.5
-        color: 'transparent'//'gray'
+        color: 'gray'
         border.width: 1
         border.color: apps.fontColor
         anchors.centerIn: parent
@@ -51,7 +79,11 @@ Item{
     //Tamaño de Rueda Zodiacal
     Rectangle{
         id: z2
-        width: z0.width-r.housesNumWidth*2-r.housesNumMargin*2
+        width: !r.ev?
+                   z0.width-r.housesNumWidth*2-r.housesNumMargin*2
+                 :
+                   (z0.width-r.housesNumWidth*2-r.housesNumMargin*2)-r.planetsBackBandWidth*2
+
         height: width
         color: 'red'
         radius: width*0.5
@@ -75,7 +107,7 @@ Item{
     //Tamaño de Circulo Aspecto
     Rectangle{
         id: z1
-        width: r.aspsCircleWidth//z0.width-r.planetsPadding*2
+        width: r.aspsCircleWidth
         height: width
         color: apps.backgroundColor
         radius: width*0.5
@@ -87,14 +119,36 @@ Item{
         ZoolMapAspsCircle{id: aspsCircle}
     }
 
+    //Tamaño de Area de Planetas Exteriores
+    Rectangle{
+        width: z0.width
+        height: width
+        radius: width*0.5
+        color: '#333333'
+        //border.width: r.planetsBackBandWidth
+        //border.color: 'blue'
+        anchors.centerIn: parent
+        Rectangle{
+            id: z4
+            width: parent.width-r.planetsBackBandWidth*2
+            height: width
+            radius: width*0.5
+            color: 'blue'
+            border.width: 2
+            border.color: 'green'
+            z:z1.z-1
+            opacity: 0.5
+            anchors.centerIn: parent
+        }
+    }
+
     Item{id:xuqp}
     ZoolMapSignCircle{id: signCircle; width: z2.width; /*onRotChanged: housesCircle.rotation=rot*/}
-    ZoolMapHousesCircle{id: housesCircle; width: z0.width}
-    ZoolMapPlanetsCircle{
-        id: planetsCircle
-        width: z3.width
-        //rotation:signCircle.rot
-    }
+    ZoolMapHousesCircle{id: housesCircle; width: !r.ev?z0.width:z4.width}
+    //ZoolMapHousesCircle{id: housesCircleBack; width: z0.width; isBack: true; visible: r.ev}
+    ZoolMapHousesCircle{id: housesCircleBack; width: z0.width}
+    ZoolMapPlanetsCircle{id: planetsCircle; width: z3.width}
+    ZoolMapPlanetsCircle{id: planetsCircleBack; width: z0.width; isBack: true}
 
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -230,6 +284,7 @@ Item{
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         aspsCircle.load(j)
+        resizeAspsCircle()
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
@@ -264,7 +319,7 @@ Item{
         let j=JSON.parse(scorrJson)
         //signCircle.rot=parseInt(j.ph.h1.gdec)
         //planetsCircleBack.rotation=parseFloat(j.ph.h1.gdec).toFixed(2)
-        if(r.objectName==='sweg'){
+        /*if(r.objectName==='sweg'){
             panelAspectsBack.visible=true
         }
         panelAspectsBack.load(j)
@@ -276,26 +331,38 @@ Item{
             //Qt.quit()
         }else{
             //panelElementsBack.visible=false
-        }
+        }*/
+
+        //-->ZoolMap
         housesCircleBack.loadHouses(j)
-        dinHousesCircleBack.loadHouses(j)
+        planetsCircleBack.loadJson(j)
+        resizeAspsCircle()
+        //<--ZoolMap
+
+        //dinHousesCircleBack.loadHouses(j)
 
         //if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
         //if(JSON.parse(app))
-        planetsCircleBack.loadJson(j)
+
         //        if(app.mod==='dirprim'){
         //            log.lv('is dirprim')
         //        }
-        zoolDataBodies.loadJsonBack(j)
+        //zoolDataBodies.loadJsonBack(j)
         //panelDataBodiesV2.loadJson(j)
-        let isSaved=false
-        if(app.fileDataBack){
-            isSaved=JSON.parse(app.fileDataBack).ms>=0
-        }
-        app.backIsSaved=isSaved
+
+        //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         app.ev=true
         //centerZoomAndPos()
     }
-
+    function resizeAspsCircle(){
+        let w=0
+        w=planetsCircle.getMinAsWidth()-r.planetSize*2
+        /*if(!ev){
+            w=planetsCircle.getMinAsWidth()-r.planetSize*2
+        }else{
+            w=planetsCircle.getMinAsWidth()-r.planetSize*2
+        }*/
+        r.aspsCircleWidth=w
+    }
 }

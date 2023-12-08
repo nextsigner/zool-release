@@ -632,12 +632,14 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     if(!extIdExist && !isExtIdInAExtsIds){
         zfdm.addExtData(json)
         sweg.loadBack(json)
+        zoolMap.loadBack(json)
     }else{
         if(app.dev)log.lv('ExtId ya existe.')
         let extJson={}
         extJson.params=zfdm.getExtData(extId)
         if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
         sweg.loadBack(extJson)
+        zoolMap.loadBack(extJson)
     }
     let aL=zoolDataView.atLeft
     let aR=vAtRigth

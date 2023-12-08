@@ -6,7 +6,7 @@ Item{
     width: parent.width
     height: 10
     anchors.centerIn: parent
-    property bool expand: false
+    property bool isBack: false
     property var cAs: r
     property int planetSize: sweg.fs*0.75
 
@@ -145,14 +145,19 @@ Item{
         }
 
 
-        let minObjAsWidth=zoolMap.width
-        for(i=0;i<20;i++){
-            let oa=r.children[i]
-            if(oa.width<minObjAsWidth){
-                minObjAsWidth=oa.width
-            }
+//        let minObjAsWidth=zoolMap.width
+//        for(i=0;i<20;i++){
+//            let oa=r.children[i]
+//            if(oa.width<minObjAsWidth){
+//                minObjAsWidth=oa.width
+//            }
+//        }
+        if(!r.isBack){
+            zoolMap.aspsCircleWidth=getMinAsWidth()-zoolMap.planetSize*2
+        }else{
+            zoolMap.planetsBackBandWidth=zoolMap.width-getMinAsWidth()//-zoolMap.planetSize*2
         }
-        zoolMap.aspsCircleWidth=minObjAsWidth-zoolMap.planetSize*2
+
         //log.lv('objLastAs.width: '+objLastAs.width)
 
         //Fortuna
@@ -263,5 +268,15 @@ Item{
             }
         }
         return a
+    }
+    function getMinAsWidth(){
+        let minObjAsWidth=zoolMap.width
+        for(let i=0;i<20;i++){
+            let oa=r.children[i]
+            if(oa.width<minObjAsWidth){
+                minObjAsWidth=oa.width
+            }
+        }
+        return minObjAsWidth
     }
 }
