@@ -106,10 +106,10 @@ Item{
             objAs=r.children[i]
             mDegs.push(parseInt(objAs.objData.gdec))
         }
-        log.lv('mDegs: '+mDegs)
-        let numAsRev=1
+        //log.lv('mDegs: '+mDegs)
+        //let numAsRev=1
 
-        for(i=1;i<20-1;i++){
+        for(i=1;i<20;i++){
             objAs=r.children[i]
             let g=parseInt(objAs.objData.gdec)
             let cn=0
@@ -136,10 +136,25 @@ Item{
 
                 }
             }
+
+            //Nodo Norte
+            if(i===10)cn--
+
             objAs.pos=cn
             cn=0
         }
-        //objAs.pos=cn
+
+
+        let minObjAsWidth=zoolMap.width
+        for(i=0;i<20;i++){
+            let oa=r.children[i]
+            if(oa.width<minObjAsWidth){
+                minObjAsWidth=oa.width
+            }
+        }
+        zoolMap.aspsCircleWidth=minObjAsWidth-zoolMap.planetSize*2
+        //log.lv('objLastAs.width: '+objLastAs.width)
+
         //Fortuna
         //        let joHouses=json.ph['h1']
         //        let joSol=json.pc['c0']

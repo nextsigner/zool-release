@@ -15,7 +15,7 @@ Item{
 //               /*Mostrando Símbolo de Planeta*/
 //               (parent.width-(sweg.objPlanetsCircle.planetSize*2*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:sweg.objPlanetsCircle.planetSize*2)-widthRestDec)
     //width: parent.width-((zoolMap.planetsPadding/40)*numAstro)
-    width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)-(zoolMap.planetsMargin*2*pos)
+    width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)//-(zoolMap.planetsMargin*2)
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:15
@@ -211,14 +211,14 @@ Item{
                 }
             }
         }
-        Text{
+        /*Text{
             text:'<b>'+r.pos+'</b>'
             font.pixelSize: 30
             color: 'white'
             rotation: 360-parent.parent.rotation
             anchors.left: parent.right
             anchors.leftMargin: 3
-        }
+        }*/
     }
 
     /*

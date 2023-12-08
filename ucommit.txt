@@ -1,1 +1,1 @@
-Se logra ordena ZoolMapAs para que no se encimen
+Se agrega ZoolMapAspsCircle v1.0

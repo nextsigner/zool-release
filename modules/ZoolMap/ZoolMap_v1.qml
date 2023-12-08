@@ -2,6 +2,7 @@ import QtQuick 2.0
 import ZoolMap.ZoolMapSignCircle 1.0
 import ZoolMap.ZoolMapHousesCircle 1.0
 import ZoolMap.ZoolMapPlanetsCircle 1.0
+import ZoolMap.ZoolMapAspsCircle 1.0
 
 Item{
     id: r
@@ -21,7 +22,13 @@ Item{
     property int planetSize: app.fs
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
+    property int aspsCircleWidth: 100
     property real dirPrimRot: 0.00
+
+    //-->Theme
+    property color bodieColor: apps.fontColor
+    property color bodieBgColor: apps.backgroundColor
+    //<--Theme
 
     property bool enableLoad: true
     property var aTexts: []
@@ -35,7 +42,7 @@ Item{
         id: z0
         anchors.fill: parent
         radius: width*0.5
-        color: 'gray'
+        color: 'transparent'//'gray'
         border.width: 1
         border.color: apps.fontColor
         anchors.centerIn: parent
@@ -58,7 +65,7 @@ Item{
         id: z3
         width: z2.width-r.zodiacBandWidth*2
         height: width
-        color: 'blue'
+        color: r.bodieBgColor
         radius: width*0.5
         border.width: 0
         border.color: apps.fontColor
@@ -68,14 +75,16 @@ Item{
     //Tamaño de Circulo Aspecto
     Rectangle{
         id: z1
-        width: z0.width-r.planetsPadding*2
+        width: r.aspsCircleWidth//z0.width-r.planetsPadding*2
         height: width
         color: apps.backgroundColor
         radius: width*0.5
         border.width: 1
         border.color: apps.fontColor
         anchors.centerIn: parent
+        z: housesCircle.z+1
         visible: r.showZonas
+        ZoolMapAspsCircle{id: aspsCircle}
     }
 
     Item{id:xuqp}
@@ -183,7 +192,7 @@ Item{
         //log.l(JSON.stringify(json))
         var scorrJson=json.replace(/\n/g, '')
         //app.currentJson=JSON.parse(scorrJson)
-        //aspsCircle.clear()
+        aspsCircle.clear()
         //zsm.getPanel('ZoolRevolutionList').clear()
         //panelRsList.clear()
         //planetsCircleBack.visible=false
@@ -216,15 +225,21 @@ Item{
         r.aTexts=nATexts
 
         app.currentJson=j
+        //-->ZoolMap
         signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
-        //ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
+        planetsCircle.loadJson(j)
+        aspsCircle.load(j)
+        //<--ZoolMap
+
+        //ascMcCircle.loadJson(j)
+
 
         //dinHousesCircle.loadHouses(j)
-        planetsCircle.loadJson(j)
+
         //panelAspects.load(j)
         //zoolDataBodies.loadJson(j)
-        //aspsCircle.load(j)
+
         //zoolElementsView.load(j, false)
         //eclipseCircle.arrayWg=housesCircle.arrayWg
         //eclipseCircle.isEclipse=-1
