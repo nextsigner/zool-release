@@ -1,1 +1,1 @@
-se programa resizeAspCircle()
+Se crean Circle ae y ai en ZoolMap

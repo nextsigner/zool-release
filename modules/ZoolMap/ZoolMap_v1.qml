@@ -12,7 +12,7 @@ Item{
 
     property alias objSignCircle: signCircle
     property alias objHousesCircle: housesCircle
-    //property alias objHousesCircleBack: housesCircleBack
+
 
     property bool showZonas: true
 
@@ -26,6 +26,8 @@ Item{
     property int aspsCircleWidth: 100
     property int planetsBackBandWidth: 100
 
+    property int planetsAreaWidth: 100
+    property int planetsAreaWidthBack: 100
 
     property real dirPrimRot: 0.00
 
@@ -39,6 +41,7 @@ Item{
 
     onVisibleChanged: {
         if(visible){
+            return
             let jsonFileData=unik.getFile('/home/ns/gd/Zool/Natalia_S._Pintos.json')
             let j=JSON.parse(jsonFileData).params
             //if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
@@ -65,90 +68,45 @@ Item{
         anchors.fill: z0
         onDoubleClicked: r.showZonas=!r.showZonas
     }
-    //Tamaño total
-    Rectangle{
-        id: z0
-        anchors.fill: parent
-        radius: width*0.5
-        color: 'gray'
-        border.width: 1
-        border.color: apps.fontColor
-        anchors.centerIn: parent
-        visible: r.showZonas
-    }
-    //Tamaño de Rueda Zodiacal
-    Rectangle{
-        id: z2
-        width: !r.ev?
-                   z0.width-r.housesNumWidth*2-r.housesNumMargin*2
-                 :
-                   (z0.width-r.housesNumWidth*2-r.housesNumMargin*2)-r.planetsBackBandWidth*2
 
-        height: width
-        color: 'red'
-        radius: width*0.5
-        border.width: 1
-        border.color: apps.fontColor
-        anchors.centerIn: parent
-        visible: r.showZonas
-    }
-    //Tamaño de Circulo de Planetas Interior
-    Rectangle{
-        id: z3
-        width: z2.width-r.zodiacBandWidth*2
-        height: width
-        color: r.bodieBgColor
-        radius: width*0.5
-        border.width: 0
-        border.color: apps.fontColor
-        anchors.centerIn: parent
-        visible: r.showZonas
-    }
-    //Tamaño de Circulo Aspecto
-    Rectangle{
-        id: z1
-        width: r.aspsCircleWidth
-        height: width
-        color: apps.backgroundColor
-        radius: width*0.5
-        border.width: 1
-        border.color: apps.fontColor
-        anchors.centerIn: parent
-        z: housesCircle.z+1
-        visible: r.showZonas
-        ZoolMapAspsCircle{id: aspsCircle}
-    }
-
-    //Tamaño de Area de Planetas Exteriores
-    Rectangle{
-        width: z0.width
-        height: width
-        radius: width*0.5
-        color: '#333333'
-        //border.width: r.planetsBackBandWidth
-        //border.color: 'blue'
-        anchors.centerIn: parent
-        Rectangle{
-            id: z4
-            width: parent.width-r.planetsBackBandWidth*2
-            height: width
-            radius: width*0.5
-            color: 'blue'
-            border.width: 2
-            border.color: 'green'
-            z:z1.z-1
-            opacity: 0.5
-            anchors.centerIn: parent
-        }
-    }
 
     Item{id:xuqp}
-    ZoolMapSignCircle{id: signCircle; width: z2.width; /*onRotChanged: housesCircle.rotation=rot*/}
-    ZoolMapHousesCircle{id: housesCircle; width: !r.ev?z0.width:z4.width}
+    Rectangle{
+        id: xz
+        anchors.fill: parent
+        color: 'transparent'
+        Circle{
+            id:ae
+            d: r.ev?r.width:0
+            c: 'transparent'
+            property int w: 100
+        }
+        Circle{
+            id:ai
+            d: !r.ev?r.width:ae.width-ae.w*2
+            c: 'transparent'
+            //opacity: 0.5
+            property int w: 10
+            Circle{
+                id:bgAi
+                anchors.fill: parent
+                color: r.bodieBgColor
+            }
+            Circle{
+                id: ca
+                d: signCircle.width-(signCircle.w*2)-parent.w
+                color: apps.backgroundColor
+            }
+        }
+    }
+    ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
+    ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
     //ZoolMapHousesCircle{id: housesCircleBack; width: z0.width; isBack: true; visible: r.ev}
-    ZoolMapHousesCircle{id: housesCircleBack; width: z0.width}
-    ZoolMapPlanetsCircle{id: planetsCircle; width: z3.width}
-    ZoolMapPlanetsCircle{id: planetsCircleBack; width: z0.width; isBack: true}
+    ZoolMapHousesCircle{id: housesCircleBack; width: ai.width}
+    ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3;}
+    ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4}
+    ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true;}
+
 
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -284,7 +242,8 @@ Item{
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         aspsCircle.load(j)
-        resizeAspsCircle()
+        ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        //resizeAspsCircle()
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
@@ -336,7 +295,14 @@ Item{
         //-->ZoolMap
         housesCircleBack.loadHouses(j)
         planetsCircleBack.loadJson(j)
-        resizeAspsCircle()
+
+        housesCircleBack.width=ae.width
+        ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
+        //signCircle.width=ai.width
+        //planetsCircle.width=ai.width
+        ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+
+        //resizeAspsCircle()
         //<--ZoolMap
 
         //dinHousesCircleBack.loadHouses(j)
@@ -355,14 +321,16 @@ Item{
         app.ev=true
         //centerZoomAndPos()
     }
+    function resetAllDiams(){
+
+    }
     function resizeAspsCircle(){
-        let w=0
+        let w2=((ae.widt-planetsCircleBack.getMinAsWidth())/2)-r.planetSize*2
+        ae.w=parseInt(w2)
+        log.lv('ae.w='+ae.w)
+        //ai.width=ae.width-ae.w*2
+        /*let w=0
         w=planetsCircle.getMinAsWidth()-r.planetSize*2
-        /*if(!ev){
-            w=planetsCircle.getMinAsWidth()-r.planetSize*2
-        }else{
-            w=planetsCircle.getMinAsWidth()-r.planetSize*2
-        }*/
-        r.aspsCircleWidth=w
+        width=w*/
     }
 }

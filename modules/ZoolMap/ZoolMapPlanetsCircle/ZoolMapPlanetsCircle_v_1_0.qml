@@ -20,7 +20,7 @@ Item{
     signal posChanged(int px, int py)
     Repeater{
         model: app.planetasRes
-        ZoolMapAs{fs:r.planetSize;astro:modelData;numAstro: index}
+        ZoolMapAs{fs:r.planetSize;astro:modelData;numAstro: index; isBack: r.isBack}
     }
     function pressed(o){
         if(app.currentPlanetIndex!==o.numAstro){
@@ -153,9 +153,12 @@ Item{
 //            }
 //        }
         if(!r.isBack){
-            zoolMap.aspsCircleWidth=getMinAsWidth()-zoolMap.planetSize*2
+            //zoolMap.aspsCircleWidth=getMinAsWidth()-zoolMap.planetSize*2
+            //zoolMap.planetsAreaWidth=zoolMap.objZ2.width-getMinAsWidth()-zoolMap.planetSize*2
+            //zoolMap.objZ1.width=getMinAsWidth()-zoolMap.planetSize*2
         }else{
-            zoolMap.planetsBackBandWidth=zoolMap.width-getMinAsWidth()//-zoolMap.planetSize*2
+            //zoolMap.planetsBackBandWidth=zoolMap.width-getMinAsWidth()//-zoolMap.planetSize*2
+            //zoolMap.planetsAreaWidthBack=getMinAsWidth()-zoolMap.planetSize*2
         }
 
         //log.lv('objLastAs.width: '+objLastAs.width)

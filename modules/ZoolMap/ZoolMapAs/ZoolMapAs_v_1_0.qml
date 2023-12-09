@@ -26,6 +26,7 @@ Item{
 
     //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
     property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
+    property bool isBack: false
     property int widthRestDec:apps.showDec?sweg.objSignsCircle.w*2:0
     property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
     property string astro
@@ -60,6 +61,21 @@ Item{
             setRot()
             setZoomAndPos()
             app.showPointerXAs=true
+        }
+    }
+    onWidthChanged: {
+        if(numAstro===19 && app.ev && r.isBack){
+            log.lv('Resize...')
+            tResizeZoolMap.restart()
+        }
+    }
+    Timer{
+        id: tResizeZoolMap
+        running: false//numAstro===20
+        repeat: false
+        interval: 3000
+        onTriggered: {
+            //zoolMap.resizeAspsCircle()
         }
     }
     Rectangle{
