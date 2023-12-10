@@ -27,7 +27,7 @@ Item{
     //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
     property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
     property bool isBack: false
-    property int widthRestDec:apps.showDec?sweg.objSignsCircle.w*2:0
+    property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
     property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
     property string astro
     property int fs
@@ -39,7 +39,7 @@ Item{
     property int is: -1
     property int numAstro: 0
 
-    property string text: sweg.aTexts[numAstro]
+    property string text: numAstro>=0&&numAstro<=19?zoolMap.aTexts[numAstro]:'Text As Indefinido'
 
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17]
 
@@ -54,7 +54,7 @@ Item{
     onSelectedChanged: {
         if(selected)app.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
-            bodie.objOointerPlanet.setPointerFs()
+            //bodie.objOointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
             app.currentHouseIndex=objData.ih
             app.currentXAs=r
@@ -85,7 +85,7 @@ Item{
     }
     Rectangle{
         id: ejePos
-        width: sweg.width*3
+        width: zoolMap.width*3
         height: 1
         anchors.centerIn: parent
         color: apps.fontColor
@@ -284,7 +284,7 @@ Item{
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
-        width: sweg.width*0.05
+        width: zoolMap.width*0.05
         height: width
         rotation: -45
         antialiasing: true
@@ -373,7 +373,7 @@ Item{
         if(!json[app.stringRes+'zoompos']){
             json[app.stringRes+'zoompos']={}
         }
-        json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
+        json[app.stringRes+'zoompos']['zpc'+r.numAstro]=zoolMap.getZoomAndPos()
         if(app.dev){
             //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
             //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
@@ -387,7 +387,7 @@ Item{
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)
         if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos']['zpc'+r.numAstro]){
-            sweg.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
+            zoolMap.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true
         }else{
             r.isZoomAndPosSeted=false

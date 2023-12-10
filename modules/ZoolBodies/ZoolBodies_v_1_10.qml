@@ -650,6 +650,7 @@ Item {
         a.push(parseInt(app.currentXAs.uRot))
         return a
     }
+
     function getAPD(isBack){
         return !isBack?planetsCircle.getAPD():planetsCircleBack.getAPD()
     }

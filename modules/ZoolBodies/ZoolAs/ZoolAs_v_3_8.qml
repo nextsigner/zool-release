@@ -51,7 +51,7 @@ Item{
     onSelectedChanged: {
         if(selected)app.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
-            bodie.objOointerPlanet.setPointerFs()
+            //bodie.objOointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
             app.currentHouseIndex=objData.ih
             app.currentXAs=r
