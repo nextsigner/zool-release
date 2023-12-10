@@ -12,6 +12,8 @@ Item{
     height: parent.height-app.fs*0.25
     width: height
     anchors.centerIn: parent
+    anchors.horizontalCenterOffset: 0-r.width*0.5
+    anchors.verticalCenterOffset: 0-r.width*0.5
 
     property alias objSignCircle: signCircle
     property alias objHousesCircle: housesCircle
@@ -64,6 +66,7 @@ Item{
 
     onVisibleChanged: {
         if(visible){
+            centerZoomAndPos()
             return
             let jsonFileData=unik.getFile('/home/ns/gd/Zool/Natalia_S._Pintos.json')
             let j=JSON.parse(jsonFileData).params
@@ -87,6 +90,10 @@ Item{
             app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
         }
     }
+    onEnableAnZoomAndPosChanged: {
+        tEnableAnZoomAndPos.restart()
+    }
+    Behavior on opacity{NumberAnimation{duration: 1500}}
     Item{id:xuqp}
     Flickable{
         id: flick
@@ -121,10 +128,10 @@ Item{
                 property real m_y1: 0
                 property real m_y2: 0
                 property real m_x2: 0
-                property real m_zoom1: 0.5
-                property real m_zoom2: 0.5
+                property real m_zoom1: 1.0
+                property real m_zoom2: 1.0
                 property real m_max: 6
-                property real m_min: 0.5
+                property real m_min: 1.0
 
                 onPinchStarted: {
                     console.log("Pinch Started")
@@ -561,8 +568,8 @@ Item{
         pinchArea.m_y1 = 0
         pinchArea.m_x2 = 0
         pinchArea.m_y2 = 0
-        pinchArea.m_zoom1 = 0.5
-        pinchArea.m_zoom2 = 0.5
+        pinchArea.m_zoom1 = 1.0
+        pinchArea.m_zoom2 = 1.0
         rect.x = 0
         rect.y = 0
     }
