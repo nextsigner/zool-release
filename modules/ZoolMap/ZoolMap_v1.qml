@@ -6,6 +6,9 @@ import ZoolMap.ZoolMapSignCircle 1.0
 import ZoolMap.ZoolMapHousesCircle 1.0
 import ZoolMap.ZoolMapPlanetsCircle 1.0
 import ZoolMap.ZoolMapAspsCircle 1.0
+import ZoolBodies.ZoolAspectsView 1.0
+import ZoolBodies.ZoolAspectsViewBack 1.0
+
 
 Item{
     id: r
@@ -15,8 +18,11 @@ Item{
     anchors.horizontalCenterOffset: 0-r.width*0.5
     anchors.verticalCenterOffset: 0-r.width*0.5
 
-    property alias objSignCircle: signCircle
+    property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
+    property alias objHousesCircleBack: housesCircleBack
+    property alias objZoolAspectsView: panelAspects
+    property alias objZoolAspectsViewBack: panelAspectsBack
 
 
     property bool showZonas: true
@@ -25,6 +31,7 @@ Item{
     property int zodiacBandWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
+    property int fs: app.fs
     property int planetSize: !r.ev?app.fs:app.fs*0.75
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
@@ -67,27 +74,14 @@ Item{
     onVisibleChanged: {
         if(visible){
             centerZoomAndPos()
-            return
-            let jsonFileData=unik.getFile('/home/ns/gd/Zool/Natalia_S._Pintos.json')
-            let j=JSON.parse(jsonFileData).params
-            //if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
-
-            let t='sin'
-            let hsys=j.hsys?j.hsys:apps.currentHsys
-            let nom=j.n
-            let d=j.d
-            let m=j.m
-            let a=j.a
-            let h=j.h
-            let min=j.min
-            let gmt=j.gmt
-            let lat=j.lat
-            let lon=j.lon
-            let alt=j.alt?j.alt:0
-            let ciudad=j.ciudad
-            let e='1000'
-            let aR=[]
-            app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+            //return
+            let filePath='/home/ns/gd/Zool/Natalia_S._Pintos.json'
+            loadFromFileBack(filePath, 'sin')
+        }
+    }
+    onDirPrimRotChanged: {
+        if(app.mod==='dirprim'){
+            planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
         }
     }
     onEnableAnZoomAndPosChanged: {
@@ -158,6 +152,16 @@ Item{
                     interval: 1500
                     onTriggered: r.enableAnZoomAndPos=true
                 }
+                Rectangle{
+                    width: parent.width*3
+                    height: width
+                    color: 'transparent'
+                    anchors.centerIn: parent
+                    MouseArea{
+                        anchors.fill: parent
+                        onDoubleClicked: centerZoomAndPos()
+                    }
+                }
                 MouseArea {
                     //z:parent.z-1
                     id: dragArea
@@ -210,6 +214,7 @@ Item{
                             centerZoomAndPos()
                         }
                     }
+
                 }
             }
             Item{
@@ -223,7 +228,7 @@ Item{
                     width: parent.width*10
                     height: width
                     color: backgroundColor
-                    visible: signCircle.v
+                    //visible: signCircle.v
                 }
                 //BackgroundImages{id: backgroundImages}
                 Rectangle{
@@ -256,11 +261,10 @@ Item{
                 }
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
-                //ZoolMapHousesCircle{id: housesCircleBack; width: z0.width; isBack: true; visible: r.ev}
-                ZoolMapHousesCircle{id: housesCircleBack; width: ai.width}
+                ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
                 ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3;}
                 ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4}
-                ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true;}
+                ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true; visible: r.ev}
                 /*ZoolHousesCircleBack{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
                     id: housesCircleBack
                     height: width
@@ -338,9 +342,41 @@ Item{
             }
         }
     }
-
-
-
+    ZoolAspectsView{
+        id: panelAspects
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: xLatIzq.visible?0:0-xLatIzq.width
+        parent: xMed
+        visible: r.objectName==='sweg'
+    }
+    ZoolAspectsViewBack{
+        id: panelAspectsBack
+        anchors.top: parent.top
+        //anchors.topMargin: 0-(r.parent.height-r.height)/2
+        parent: xMed
+        anchors.left: parent.left
+        anchors.leftMargin: xLatIzq.visible?width:width-xLatIzq.width
+        transform: Scale{ xScale: -1 }
+        rotation: 180
+        visible: r.objectName==='sweg'&&planetsCircleBack.visible
+    }
+    Rectangle{
+        width: txtMod.contentWidth+app.fs
+        height: txtMod.contentHeight+app.fs
+        color: apps.fontColor
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: app.fs*3
+        visible: app.dev
+        Text{
+            id: txtMod
+            text: app.mod+r.ejeTipoCurrentIndex
+            font.pixelSize: app.fs
+            color: apps.backgroundColor
+            anchors.centerIn: parent
+        }
+    }
+    //-->Load Data
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
         r.dirPrimRot=0
@@ -474,6 +510,8 @@ Item{
         planetsCircle.loadJson(j)
         aspsCircle.load(j)
         ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        zoolDataBodies.loadJson(j)
+        zoolElementsView.load(j, false)
         //resizeAspsCircle()
         //<--ZoolMap
 
@@ -483,9 +521,9 @@ Item{
         //dinHousesCircle.loadHouses(j)
 
         //panelAspects.load(j)
-        //zoolDataBodies.loadJson(j)
 
-        //zoolElementsView.load(j, false)
+
+
         //eclipseCircle.arrayWg=housesCircle.arrayWg
         //eclipseCircle.isEclipse=-1
         //r.v=true
@@ -532,7 +570,7 @@ Item{
         //signCircle.width=ai.width
         //planetsCircle.width=ai.width
         ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
-
+        zoolDataBodies.loadJsonBack(j)
         //resizeAspsCircle()
         //<--ZoolMap
 
@@ -544,14 +582,37 @@ Item{
         //        if(app.mod==='dirprim'){
         //            log.lv('is dirprim')
         //        }
-        //zoolDataBodies.loadJsonBack(j)
+
         //panelDataBodiesV2.loadJson(j)
 
         //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         app.ev=true
-        //centerZoomAndPos()
+        centerZoomAndPos()
     }
+    function loadFromFileBack(filePath, tipo){
+        let jsonFileData=unik.getFile(filePath)
+        let j=JSON.parse(jsonFileData).params
+        let t=tipo
+        let hsys=j.hsys?j.hsys:apps.currentHsys
+        let nom=j.n
+        let d=j.d
+        let m=j.m
+        let a=j.a
+        let h=j.h
+        let min=j.min
+        let gmt=j.gmt
+        let lat=j.lat
+        let lon=j.lon
+        let alt=j.alt?j.alt:0
+        let ciudad=j.ciudad
+        let e='1000'
+        let aR=[]
+        app.mod=tipo
+        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+    }
+    //<--Load Data
+
     function resizeAspsCircle(){
         let w2=((ae.widt-planetsCircleBack.getMinAsWidth())/2)-r.planetSize*2
         ae.w=parseInt(w2)
@@ -606,4 +667,78 @@ Item{
         return a
     }
     //<--ZoomAndPan
+
+    function getAPD(isBack){
+        return !isBack?planetsCircle.getAPD():planetsCircleBack.getAPD()
+    }
+    function getIndexSign(gdec){
+        let index=0
+        let g=0.0
+        for(var i=0;i<12+5;i++){
+            g = g + 30.00
+            if (g > parseFloat(gdec)){
+                break
+            }
+            index = index + 1
+        }
+        return index
+    }
+    function convertDDToDMS(D, lng) {
+      return {
+        dir: D < 0 ? (lng ? "W" : "S") : lng ? "E" : "N",
+        deg: 0 | (D < 0 ? (D = -D) : D),
+        min: 0 | (((D += 1e-9) % 1) * 60),
+        sec: (0 | (((D * 60) % 1) * 6000)) / 100,
+      };
+    }
+    function getDDToDMS(D) {
+      return {
+        deg: 0 | (D < 0 ? (D = -D) : D),
+        min: 0 | (((D += 1e-9) % 1) * 60),
+        sec: (0 | (((D * 60) % 1) * 6000)) / 100,
+      };
+    }
+    function getAspType(g1, g2, showLog, index, indexb, pInt, pExt){
+        let ret=-1
+
+        //Prepare Grado de Margen de Conjunción
+        let gmcon1=parseFloat(g2 - 0.25)
+        let gmcon2=parseFloat(g2 + 0.25)
+        //Conjunción
+        if(g1 >= gmcon1 && g1 <= gmcon2 ){
+            ret=0
+            return ret
+        }
+
+        //Prepare Grado de Oposición
+        let gop=parseFloat( parseFloat(g1) + 180.00)
+        if(gop>=360.00)gop=parseFloat(360.00-gop)
+        if(gop<0)gop=Math.abs(gop)
+        //if(showLog)log.lv('g1:'+g1+'\ngop: '+gop)
+        //Oposición
+        if(g1 >= gop-0.25 && g1 <= gop+0.25 ){
+            ret=1
+            return ret
+        }
+
+        //Prepare Grado de Cuadratura
+        let gcu=parseFloat( parseFloat(g1) + 90.00)
+        if(gcu>=360.00)gcu=parseFloat(360.00-gcu)
+        if(gcu<0)gcu=Math.abs(gcu)
+        let gmcua1=parseFloat(gcu - 0.25)
+        let gmcua2=parseFloat(gcu + 0.25)
+
+        let gcu2=parseFloat( parseFloat(g1) - 90.00)
+        if(gcu2>=360.00)gcu2=parseFloat(360.00-gcu2)
+        if(gcu2<0)gcu2=Math.abs(gcu2)
+        let gmcua3=parseFloat(gcu2 - 0.25)
+        let gmcua4=parseFloat(gcu2 + 0.25)
+        //if(showLog && indexb === 6 && pInt==='Sol')log.lv('pInt '+pInt+':'+g1+'\npExt '+pExt+': g2:'+g2+' gcu: '+gcu+'\ngmcua1: '+gmcua1+'\ngmcua2: '+gmcua2)
+        //Cuadratura
+        if((g2 >= gmcua1 && g2 <= gmcua2) || (g2 >= gmcua3 && g2 <= gmcua4)){
+            ret=2
+            return ret
+        }
+        return ret
+    }
 }

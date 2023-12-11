@@ -6,10 +6,10 @@ import ZoolButton 1.2
 
 Item {
     id: r
-    width: sweg.objSignsCircle.width*0.5
+    width: zoolMap.objSignsCircle.width*0.5
     height: width
     anchors.centerIn: parent
-    parent: sweg
+    parent: zoolMap
     visible: false
     property string folder: './modules/mods/'+app.j.qmltypeof(r)
     property real o: 0.25
@@ -26,7 +26,7 @@ Item {
     property bool showPortrait: false
     onVisibleChanged: {
         if(visible){
-            sweg.centerZoomAndPos()
+            zoolMap.centerZoomAndPos()
         }
     }
     onShowPortraitChanged: setBgPosSol()
@@ -34,7 +34,7 @@ Item {
         anchors.fill: parent
         onWheel: {
             //apps.enableFullAnimation=false
-            fakeSignCircle.rotation=sweg.objSignsCircle.rot
+            fakeSignCircle.rotation=zoolMap.objSignsCircle.rot
             let no=r.o
             if (wheel.modifiers & Qt.ControlModifier) {
                 if(wheel.angleDelta.y>=0){
@@ -771,7 +771,7 @@ Item {
         let c='import QtQuick 2.0\nHorizonteBg{\nid: horizonteBg\n}\n'
         let comp=Qt.createComponent('HorizonteBg.qml')
         let obj=comp.createObject(xHorBg, {posSol: posSol})
-        fakeSignCircle.rotation=sweg.objSignsCircle.rot
+        fakeSignCircle.rotation=zoolMap.objSignsCircle.rot
         let gs=app.currentRotationxAsSol-(fakeSignCircle.rotation-360)//r.uGS90
         fakeSolAxis.rotation=gs
         let cd=new Date(app.currentDate)

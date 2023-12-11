@@ -547,7 +547,7 @@ function loadJson(file){
 
     let jsonData=zfdm.getJsonAbs()
     let p=zfdm.getJsonAbsParams(false)
-    sweg.load(jsonData)
+    //sweg.load(jsonData)
     zoolMap.load(jsonData)
     let nom=p.n.replace(/_/g, ' ')
     let vd=p.d
@@ -596,7 +596,7 @@ function loadJson(file){
     app.currentAlt=valt
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
 
-    sweg.centerZoomAndPos()
+    zoolMap.centerZoomAndPos()
 }
 function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
     app.ev=false
@@ -631,14 +631,12 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
     if(!extIdExist && !isExtIdInAExtsIds){
         zfdm.addExtData(json)
-        sweg.loadBack(json)
         zoolMap.loadBack(json)
     }else{
         if(app.dev)log.lv('ExtId ya existe.')
         let extJson={}
         extJson.params=zfdm.getExtData(extId)
         if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
-        sweg.loadBack(extJson)
         zoolMap.loadBack(extJson)
     }
     let aL=zoolDataView.atLeft
@@ -666,6 +664,7 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     if(tipo==='dirprim')strSep='Dir. Primarias'
     zoolDataView.setDataView(strSep, aL, aR)
     zoolDataView.uExtIdLoaded=extId
+    app.ev=true
 }
 
 
@@ -960,9 +959,7 @@ function runJsonTemp(){
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
     app.currentFecha=vd+'/'+vm+'/'+va
-    sweg.load(jsonData)
     zoolMap.load(jsonData)
-    //swegz.sweg.load(jsonData)
 }
 function runJsonTempBack(){
     var jsonData
@@ -1008,7 +1005,7 @@ function runJsonTempBack(){
     let textData=''
 
     app.currentFechaBack=vd+'/'+vm+'/'+va
-    sweg.loadBack(jsonData, params.tipo)
+    zoolMap.loadBack(jsonData, params.tipo)
     //app.currentDateBack=new Date(vd, vm, va, vh, vmin)
     //swegz.sweg.load(jsonData)
 }
@@ -1167,7 +1164,7 @@ function loadJsonNow(file){
     o.min=d.getMinutes()
     o.n=(o.n+' '+o.d+'-'+o.m+'-'+o.a+'-'+o.h+':'+o.min).replace(/Ahora/g, '').replace(/ahora/g, '')
     json.params=o
-    sweg.loadSign(json)
+    zoolMap.loadSign(json)
     //swegz.sweg.loadSign(json)
     let nom=o.n.replace(/_/g, ' ')
     let vd=o.d

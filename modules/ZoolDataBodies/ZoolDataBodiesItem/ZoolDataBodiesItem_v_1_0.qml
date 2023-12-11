@@ -83,7 +83,7 @@ Column{
                         //Mostrando 2 columas de Datos
                         (colTxtEV.height+app.fs*0.1)
 
-            color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&sweg.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&sweg.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
+            color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
             border.width: 1
             border.color: !r.isBack?apps.houseColor:apps.houseColorBack
             visible: !app.ev?txtData.width<xItem.width:true
@@ -101,7 +101,7 @@ Column{
                 //text: sd
                 font.pixelSize: app.fs
                 textFormat: Text.RichText
-                color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&sweg.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&sweg.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: parent
                 visible: !app.ev && index!==zoolDataBodies.currentIndex
@@ -128,7 +128,7 @@ Column{
                     id: txtDataSelected1
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&sweg.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&sweg.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: !app.ev
@@ -146,7 +146,7 @@ Column{
                     id: txtDataSelected2
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&sweg.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&sweg.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: !app.ev
@@ -168,7 +168,7 @@ Column{
                     id: txtDataEV
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&sweg.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&sweg.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: app.ev
@@ -187,7 +187,7 @@ Column{
                     id: txtDataEV2
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&sweg.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&sweg.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: app.ev
@@ -215,10 +215,10 @@ Column{
                         if(index>21){
                             if(!r.isBack){
                                 zoolDataBodies.latFocus=0
-                                sweg.objHousesCircle.currentHouse=index-21
+                                zoolMap.objHousesCircle.currentHouse=index-21
                             }else{
                                 zoolDataBodies.latFocus=1
-                                sweg.objHousesCircleBack.currentHouse=index-21
+                                zoolMap.objHousesCircleBack.currentHouse=index-21
                             }
                         }else{
                             if(!r.isBack){
@@ -229,7 +229,7 @@ Column{
                                 }else{
                                     app.currentPlanetIndex=-1
                                     zoolDataBodies.currentIndex=-1
-                                    sweg.objHousesCircle.currentHouse=-1
+                                    zoolMap.objHousesCircle.currentHouse=-1
                                 }
                             }else{
                                 zoolDataBodies.latFocus=1
@@ -239,7 +239,7 @@ Column{
                                 }else{
                                     app.currentPlanetIndexBack=-1
                                     zoolDataBodies.currentIndexBack=-1
-                                    sweg.objHousesCircleBack.currentHouse=-1
+                                    zoolMap.objHousesCircleBack.currentHouse=-1
                                 }
                             }
                         }
@@ -290,9 +290,9 @@ Column{
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
             if(!r.isBack){
-                ih=sweg.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                ih=zoolMap.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             }else{
-                ih=sweg.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                ih=zoolMap.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             }
             var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' <b>Casa:</b> ' +ih
             if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'

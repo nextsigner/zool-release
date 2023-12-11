@@ -71,7 +71,7 @@ Item{
                     r.host=lines[1].replace('ip=', '')
                 }
                 r.port=lines[2].replace('port=', '')
-                r.init()
+                //uqp.init()
                 return
             }
             for(i=0;i<args.length;i++){

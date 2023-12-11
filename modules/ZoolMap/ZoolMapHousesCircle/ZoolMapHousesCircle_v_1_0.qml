@@ -9,9 +9,9 @@ Item {
     visible: isBack?app.ev:true
     property bool isBack: false
     property int extraWidth: 0
-    property int currentHouse: !isBack?sweg.objHousesCircle.currentHouse:sweg.objHousesCircleBack.currentHouse
+    property int currentHouse: !isBack?zoolMap.objHousesCircle.currentHouse:zoolMap.objHousesCircleBack.currentHouse
     property int houseShowSelectadIndex: -1
-    property int w: sweg.fs//*3
+    property int w: zoolMap.fs//*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0
     property bool v: false
@@ -75,7 +75,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     anchors.rightMargin: 0//app.fs*14
-                    rotation: 360-parent.parent.rotation+(!r.isBack?0:sweg.dirPrimRot)
+                    rotation: 360-parent.parent.rotation+(!r.isBack?0:zoolMap.dirPrimRot)
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
@@ -133,7 +133,7 @@ Item {
                 //anchors.centerIn: r
                 rotation: 0-item.wg/2
                 //visible:c>5
-                visible:sweg.ejeTipoCurrentIndex!==-2 && (sweg.ejeTipoCurrentIndex===item.ih-1 || sweg.ejeTipoCurrentIndex===item.ih-1-6 || sweg.ejeTipoCurrentIndex===-1)
+                visible:zoolMap.ejeTipoCurrentIndex!==-2 && (zoolMap.ejeTipoCurrentIndex===item.ih-1 || zoolMap.ejeTipoCurrentIndex===item.ih-1-6 || zoolMap.ejeTipoCurrentIndex===-1)
                 //visible:item.ih===1
                 anchors.centerIn: parent
 
@@ -143,7 +143,7 @@ Item {
                 property bool selected: false
                 property bool toogleColor: false
                 Timer{
-                    running: parent.visible && sweg.ejeTipoCurrentIndex>=-1 && ec.selected
+                    running: parent.visible && zoolMap.ejeTipoCurrentIndex>=-1 && ec.selected
                     repeat: true
                     interval: 500
                     onTriggered: {
@@ -203,7 +203,7 @@ Item {
 
                 Rectangle{
                     visible: false
-                    width: sweg.fs
+                    width: zoolMap.fs
                     height: width
                     //x:(r.w-width)/2
                     border.width: 2
@@ -267,11 +267,11 @@ Item {
             if(wg<0){
                 wg=wg+360
             }
-            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+sweg.objSignsCircle.rot, ih: i+1, wg: wg})
+            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zoolMap.objSignsCircle.rot, ih: i+1, wg: wg})
         }
         if(app.mod==='dirprim'){
             //xArcsBack.rotation-=sweg.dirPrimRot
-            dha.rotation-=sweg.dirPrimRot
+            dha.rotation-=zoolMap.dirPrimRot
         }
     }
 

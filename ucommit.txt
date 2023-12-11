@@ -1,1 +1,1 @@
-Se agrega ZoolMapPointerPlanet v1.0 a ZoolMap
+Se eliminan todas las referencias a sweg

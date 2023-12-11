@@ -10,12 +10,8 @@ import ZoolMap.ZoolMapPointerPlanet 1.0
 
 Item{
     id: r
-    width: apps.xAsShowIcon?
-               /*Mostrando Imagen*/
-               (parent.width-(r.fs*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:r.fs*2)-widthRestDec):
-               /*Mostrando Símbolo de Planeta*/
-               (parent.width-(sweg.objPlanetsCircle.planetSize*2*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:sweg.objPlanetsCircle.planetSize*2)-widthRestDec)
-    height: 1
+    width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)//-(zoolMap.planetsMargin*2)
+    height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:15
 
@@ -26,7 +22,7 @@ Item{
     //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
     property bool isBack: false
     property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
-    property int widthRestDec:apps.showDec?sweg.objSignsCircle.w*2:0
+    property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
     property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
     property string astro
     property int fs
@@ -38,7 +34,7 @@ Item{
     property int is: -1
     property int numAstro: 0
 
-    property string text: sweg.aTexts[numAstro]
+    property string text: zoolMap.aTexts[numAstro]
 
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17]
 
@@ -64,11 +60,24 @@ Item{
     }
     Rectangle{
         id: ejePos
-        width: sweg.width*3
+        width: (zoolMap.width-r.width)*0.5
         height: 1
-        anchors.centerIn: parent
-        color: apps.fontColor
-        visible: app.mod==='dirprim'
+        //anchors.centerIn: parent
+        color: apps.houseColor
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.left
+        visible: app.mod==='dirprim' && !r.isBack
+    }
+    Rectangle{
+        id: ejePosBack
+        width: r.width*0.5
+        height: 3
+        //anchors.centerIn: parent
+        color: apps.houseColorBack
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: zoolMap.planetSize
+        visible: app.mod==='dirprim' && r.isBack
     }
     Rectangle{
         width: r.width*4
@@ -82,10 +91,7 @@ Item{
         id: bodie
         numAstro: r.numAstro
         is: r.is
-//        width:
-//            !apps.xAsShowIcon||aIcons.indexOf(r.numAstro)<0?
-//                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):
-//                (!app.ev?r.fs*2:r.fs)
+        width: zoolMap.planetSize
         objData: r.objData
         anchors.left: parent.left
         anchors.leftMargin: 0//!r.selected?0:width*0.5
@@ -221,13 +227,13 @@ Item{
         cotaColor: apps.fontColor
         cotaOpacity: 1.0//xIconPlanetSmall.opacity
         //rot: -270
-        visible: sweg.listCotasShowing.indexOf(r.numAstro)>=0
+        visible: zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
         Timer{
             running: true
             repeat: true
             interval: 250
             onTriggered: {
-                parent.visible=sweg.listCotasShowing.indexOf(r.numAstro)>=0
+                parent.visible=zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
             }
         }
     }
@@ -243,14 +249,14 @@ Item{
         cotaColor: apps.fontColor
         cotaOpacity: 1.0
         opacity: r.isHovered||isPinched?1.0:0.0
-        onOpacityChanged: r.text = sweg.aTexts[numAstro]?sweg.aTexts[numAstro]:''
+        onOpacityChanged: r.text = zoolMap.aTexts[numAstro]?zoolMap.aTexts[numAstro]:''
         visible: r.text!==''
         onClicked: r.isHovered=false
     }
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
-        width: sweg.width*0.05
+        width: zoolMap.width*0.05
         height: width
         rotation: -45
         antialiasing: true
@@ -339,7 +345,7 @@ Item{
         if(!json[app.stringRes+'zoompos']){
             json[app.stringRes+'zoompos']={}
         }
-        json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
+        json[app.stringRes+'zoompos']['zpc'+r.numAstro]=zoolMap.getZoomAndPos()
         if(app.dev){
             //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
             //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
@@ -353,7 +359,7 @@ Item{
     function setZoomAndPos(){
         let json=JSON.parse(app.fileData)
         if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos']['zpc'+r.numAstro]){
-            sweg.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
+            zoolMap.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true
         }else{
             r.isZoomAndPosSeted=false

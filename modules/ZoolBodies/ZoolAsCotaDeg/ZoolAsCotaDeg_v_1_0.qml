@@ -37,7 +37,7 @@ Rectangle{
             w: t.contentWidth
             r.width: w+padding*2
             //text:'°'+r.g+' \''+r.m+' \'\''+r.s+'\n'+sweg.getDDToDMS(r.gdec).deg
-            text:''+app.signos[r.is]+' Casa '+r.ih+'\n°'+parseInt(sweg.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+sweg.getDDToDMS(r.gdec).min+' \'\''+sweg.getDDToDMS(r.gdec).sec
+            text:''+app.signos[r.is]+' Casa '+r.ih+'\n°'+parseInt(zoolMap.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+zoolMap.getDDToDMS(r.gdec).min+' \'\''+zoolMap.getDDToDMS(r.gdec).sec
             wrapMode: Text.NoWrap
             textFormat: Text.PlainText
             fs: !r.isBack?bodie.objImg.width*0.25:bodie.objImg.width*0.25

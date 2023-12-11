@@ -43,7 +43,7 @@ Rectangle{
         }
         ZoolText{
             id: txtStatus
-            text: '<b>SWEG:</b> '+sweg.state
+            text: '<b>SWEG:</b> ???'//+sweg.state
             font.pixelSize: r.height*0.5
             color: 'white'
         }

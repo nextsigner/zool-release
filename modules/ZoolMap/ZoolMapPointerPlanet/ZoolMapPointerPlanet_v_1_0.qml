@@ -17,11 +17,11 @@ Item {
     property int rsgdeg: -1
     property int ih: -1
     property bool expand: false
-    property int wtc: (sweg.fs*0.5)/(sweg.xs*0.5) //width of each circle de triple circle
+    property int wtc: (zoolMap.fs*0.5)/(zoolMap.xs*0.5) //width of each circle de triple circle
     property int p: -1
     property alias pointerRot: eje.rotation
     property int pointerFs: app.fs*5.5
-    property real xs: sweg.xs
+    property real xs: zoolMap.xs
     property var aMargins: [0.5, 0.3, 0.4, 0.4, 0.4, 0.5, 0.5, 0.5, 0.4, 0.3, 0.5, 0.5, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
     property bool isBack: false
@@ -61,7 +61,7 @@ Item {
             color: rectData.border.color
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.horizontalCenter
-            anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5+sweg.fs*0.25
+            anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5+zoolMap.fs*0.25
             Rectangle{
                 id: rectData
                 width: col.width+r.pointerFs*0.5
@@ -74,7 +74,7 @@ Item {
                 rotation: !r.isBack?
                               r.iconoSignRot-eje.rotation
                             :
-                              r.iconoSignRot-eje.rotation-sweg.objPlanetsCircleBack.rotation
+                              r.iconoSignRot-eje.rotation-zoolMap.objPlanetsCircleBack.rotation
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
                 SequentialAnimation on border.color {

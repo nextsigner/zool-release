@@ -335,6 +335,9 @@ ZoolMainWindow{
             if(json.data==='showDec'){
                 apps.showDec=!apps.showDec
             }
+            if(json.data==='centerZoomAndPan'){
+                zoolMap.centerZoomAndPos()
+            }
         }
         onDataError:{
             log.lv('Error:\n'+e+'\n\n')
@@ -367,15 +370,15 @@ ZoolMainWindow{
         Rectangle{
             id: xSwe1
             //width: xApp.width-xLatIzq.width-xLatDer.width
-            width: sweg.width
+            width: zoolMap.width
             height: xLatIzq.height
             color: apps.backgroundColor
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width*0.5
             anchors.bottom: parent.bottom
             clip: xLatIzq.visible
-            ZoolBodies{id: sweg;objectName: 'sweg'; visible: !app.dev}
-            ZoolMap{id: zoolMap; visible: app.dev}
+            //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !app.dev}
+            ZoolMap{id: zoolMap;}
             Image {
                 id: xDataBarUItemGrabber
                 //source: xDataBar.uItemGrabber
@@ -386,7 +389,7 @@ ZoolMainWindow{
             }
             Image{
                 id: xAspsUItemGrabber
-                source: sweg.objZoolAspectsView.uItemGrabber
+                source: zoolMap.objZoolAspectsView.uItemGrabber
                 width: parent.width*0.2
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop
@@ -402,7 +405,7 @@ ZoolMainWindow{
             }
             Image{
                 id: xAspsUItemGrabberBack
-                source: sweg.objZoolAspectsViewBack.uItemGrabber
+                source: zoolMap.objZoolAspectsViewBack.uItemGrabber
                 width: parent.width*0.2
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop

@@ -7,7 +7,7 @@ Item {
     anchors.centerIn: parent
     property int f: 0
     property int w: zoolMap.zodiacBandWidth
-    property bool v: sweg.v
+    //property bool v: sweg.v
     property bool showBorder: false
     property bool showDec: apps.showDec
     property int rot: 0

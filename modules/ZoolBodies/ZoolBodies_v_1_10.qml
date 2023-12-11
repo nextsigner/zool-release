@@ -338,6 +338,7 @@ Item {
             }
         }
     }
+
     ZoolAspectsView{
         id: panelAspects
         anchors.bottom: parent.bottom
@@ -357,6 +358,7 @@ Item {
         rotation: 180
         visible: r.objectName==='sweg'&&planetsCircleBack.visible
     }
+
     //    Rectangle{
     //        color: 'red'
     //        border.color: 'blue'

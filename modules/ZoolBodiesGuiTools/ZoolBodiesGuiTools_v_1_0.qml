@@ -134,7 +134,7 @@ Rectangle {
                         tAutoMaticPlanets.running=true
                     }else{
                         tAutoMaticPlanets.running=false
-                        sweg.centerZoomAndPos()
+                        zoolMap.centerZoomAndPos()
                     }
 
                 }
@@ -194,10 +194,10 @@ Rectangle {
                 fs: app.fs*0.35
                 onClicked: {
                     tHideCol.restart()
-                    if(sweg.ejeTipoCurrentIndex<5){
-                        sweg.ejeTipoCurrentIndex++
+                    if(zoolMap.ejeTipoCurrentIndex<5){
+                        zoolMap.ejeTipoCurrentIndex++
                     }else{
-                        sweg.ejeTipoCurrentIndex=-2
+                        zoolMap.ejeTipoCurrentIndex=-2
                     }
                 }
             }
@@ -241,14 +241,14 @@ Rectangle {
         Row{
             spacing: app.fs*0.25
             anchors.right: parent.right
-            Button{
-                text: 'MODO '+parseInt(sweg.aStates.indexOf(sweg.state) + 1)
-                width: app.fs*2
-                height: app.fs*0.6
-                onClicked: {
-                    sweg.nextState()
-                }
-            }
+//            Button{
+//                text: 'MODO '+parseInt(sweg.aStates.indexOf(sweg.state) + 1)
+//                width: app.fs*2
+//                height: app.fs*0.6
+//                onClicked: {
+//                    sweg.nextState()
+//                }
+//            }
             ButtonIcon{
                 text:  'N'
                 width: apps.botSize
