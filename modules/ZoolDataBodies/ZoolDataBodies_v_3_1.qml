@@ -101,24 +101,24 @@ Rectangle {
     function toEnter(){
         if(latFocus===0){
             if(xBodiesInt.currentIndex>16){
-                sweg.objHousesCircle.currentHouse=xBodiesInt.currentIndex-16
+                zoolMap.objHousesCircle.currentHouse=xBodiesInt.currentIndex-16
             }else{
                 if(app.currentPlanetIndex!==xBodiesInt.currentIndex){
                     app.currentPlanetIndex=xBodiesInt.currentIndex
                 }else{
                     app.currentPlanetIndex=-1
-                    sweg.objHousesCircle.currentHouse=-1
+                    zoolMap.objHousesCircle.currentHouse=-1
                 }
             }
         }else{
             if(xBodiesExt.currentIndex>16){
-                sweg.objHousesCircle.currentHouse=xBodiesExt.currentIndex-16
+                zoolMap.objHousesCircle.currentHouse=xBodiesExt.currentIndex-16
             }else{
                 if(app.currentPlanetIndexBack!==xBodiesExt.currentIndex){
                     app.currentPlanetIndexBack=xBodiesExt.currentIndex
                 }else{
                     app.currentPlanetIndexBack=-1
-                    sweg.objHousesCircleBack.currentHouse=-1
+                    zoolMap.objHousesCircleBack.currentHouse=-1
                 }
             }
         }

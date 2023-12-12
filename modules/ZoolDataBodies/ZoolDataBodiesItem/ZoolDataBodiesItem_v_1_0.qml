@@ -294,7 +294,7 @@ Column{
             }else{
                 ih=zoolMap.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             }
-            var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' <b>Casa:</b> ' +ih
+            var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +parseInt(jo.rsgdeg)+ '\'' +parseInt(jo.mdeg)+ '\'\'' +parseInt(jo.sdeg)+ ' <b>Casa:</b> ' +ih
             if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'
             //console.log('--->'+s)
             lm.append(lm.addItem(jo.is, ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
