@@ -32,7 +32,7 @@ Item {
         visible: false//r.isBack
     }
     Rectangle{
-        width: r.width-app.fs
+        width: r.width-(zoolMap.housesNumWidth*2)-(zoolMap.housesNumMargin*2)
         height: width
         color: 'transparent'
         border.width: 1//apps.houseLineWidth

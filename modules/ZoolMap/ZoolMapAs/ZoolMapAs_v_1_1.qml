@@ -24,7 +24,7 @@ Item{
     property bool isBack: false
     property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
     property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
-    property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
+    property bool selected: !isBack?numAstro === app.currentPlanetIndex:numAstro === app.currentPlanetIndexBack
     property string astro
     property int fs
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
