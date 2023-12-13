@@ -60,6 +60,7 @@ Item{
         }
     }
     property int vr: 0
+    //Behavior on width{NumberAnimation{duration:1500}}
     Timer{
         running: r.vr<zoolMap.aBodies.length
         repeat: true
@@ -72,6 +73,7 @@ Item{
         onRunningChanged: {
             if(!running && numAstro===zoolMap.aBodies.length-1){
                 zoolMap.resizeAspsCircle(r.isBack)
+                zoolMap.hideTapa()
             }
         }
     }

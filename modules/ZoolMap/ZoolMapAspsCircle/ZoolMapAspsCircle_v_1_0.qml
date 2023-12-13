@@ -17,6 +17,7 @@ Rectangle {
     property var aAspStr1: []
     property var aAspStr2: []
     onWidthChanged: {
+        tHideTapa.restart()
         currentAspSelected=-1
         currentAspSelectedBack=-1
         tLoadJson.restart()
@@ -33,6 +34,14 @@ Rectangle {
         NumberAnimation{
             duration: sweg.speedRotation
             easing.type: Easing.InOutQuad
+        }
+    }
+    Timer{
+        id: tHideTapa
+        repeat: false
+        interval: 1000
+        onTriggered: {
+            //zoolMap.hideTapa()
         }
     }
     Rectangle{

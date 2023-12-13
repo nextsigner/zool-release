@@ -1,1 +1,1 @@
-Se corrige borde de housesCircleBack
+Se agrega tapa a ZoolMap

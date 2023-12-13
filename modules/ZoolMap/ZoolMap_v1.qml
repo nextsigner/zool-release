@@ -36,7 +36,7 @@ Item{
     property int fs: app.fs
 
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
-    property int planetSize: !r.ev?app.fs:app.fs*0.75
+    property int planetSize: !r.ev?app.fs*1.5:app.fs
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
     property int aspsCircleWidth: 100
@@ -247,7 +247,7 @@ Item{
                         property int w: 100
                     }
                     Circle{
-                        id:ai
+                        id: ai
                         d: !r.ev?r.width:ae.width-ae.w*2
                         c: 'transparent'
                         //opacity: 0.5
@@ -381,6 +381,23 @@ Item{
             anchors.centerIn: parent
         }
     }
+
+    Rectangle{
+        id: tapa
+        width: r.width*4
+        height: width
+        color: apps.backgroundColor
+        anchors.centerIn: parent
+        visible: false
+        onOpacityChanged:{
+            if(opacity===0.0){
+                visible=false
+                opacity=1.0
+            }
+        }
+        Behavior on opacity{NumberAnimation{duration: 3000}}
+    }
+
     //-->Load Data
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -474,6 +491,8 @@ Item{
         //console.log('JSON::: '+json)
         //log.visible=true
         //log.l(JSON.stringify(json))
+        tapa.visible=true
+        tapa.opacity=1.0
         var scorrJson=json.replace(/\n/g, '')
         //app.currentJson=JSON.parse(scorrJson)
         aspsCircle.clear()
@@ -515,6 +534,7 @@ Item{
         planetsCircle.loadJson(j)
         aspsCircle.load(j)
         //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        ai.width=r.width
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
         //resizeAspsCircle()
@@ -542,7 +562,8 @@ Item{
         }*/
     }
     function loadSweJsonBack(json){
-        //console.log('JSON::: '+json)
+        tapa.visible=true
+        tapa.opacity=1.0
         app.currentJsonBack=JSON.parse(json)
         //        if(app.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
@@ -596,6 +617,8 @@ Item{
         centerZoomAndPos()
     }
     function loadFromFileBack(filePath, tipo){
+        tapa.visible=true
+        tapa.opacity=1.0
         let jsonFileData=unik.getFile(filePath)
         let j=JSON.parse(jsonFileData).params
         let t=tipo
@@ -626,6 +649,9 @@ Item{
             ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
             ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         }
+    }
+    function hideTapa(){
+        tapa.opacity=0.0
     }
 
     //-->ZoomAndPan
