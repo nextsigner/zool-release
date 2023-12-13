@@ -10,10 +10,11 @@ import ZoolMap.ZoolMapPointerPlanet 1.0
 
 Item{
     id: r
-    width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)//-(zoolMap.planetsMargin*2)
+    //width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)//-(zoolMap.planetsMargin*2)
+    width: parent.width-((zoolMap.planetSize*pos*2))
     height: 10
     anchors.centerIn: parent
-    z: !selected?numAstro:15
+    z: !selected?numAstro:20
 
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
 
@@ -58,6 +59,35 @@ Item{
             app.showPointerXAs=true
         }
     }
+    property int vr: 0
+    Timer{
+        running: r.vr<zoolMap.aBodies.length
+        repeat: true
+        interval: 100
+        onTriggered: {
+            if(numAstro>=1){
+                revPos()
+            }
+        }
+        onRunningChanged: {
+            if(!running && numAstro===zoolMap.aBodies.length-1){
+                zoolMap.resizeAspsCircle(r.isBack)
+            }
+        }
+    }
+    function revPos(){
+        for(var i=r.vr;i<zoolMap.aBodies.length;i++){
+            const objAs=!r.isBack?zoolMap.objPlanetsCircle.getAs(i):zoolMap.objPlanetsCircleBack.getAs(i)
+            const l=parseInt(r.objData.gdec)-10
+            const h=parseInt(r.objData.gdec)+10
+            const n=objAs.objData.gdec
+            if((n > l && n < h)  && i!==numAstro  && i<numAstro){
+                r.pos=objAs.pos+1
+                break
+            }
+        }
+        r.vr++
+    }
     Rectangle{
         id: ejePos
         width: (zoolMap.width-r.width)*0.5
@@ -67,6 +97,26 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.left
         visible: app.mod==='dirprim' && !r.isBack
+    }
+    Row{
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right:  parent.left
+        visible: app.dev
+        Repeater{
+            model: r.pos
+            Rectangle{
+                width: zoolMap.planetSize
+                height: width
+                border.width: 2
+                border.color: 'red'
+                Text{
+                    text: r.vr
+                    font.pixelSize: parent.width*0.8
+                    anchors.centerIn: parent
+                }
+
+            }
+        }
     }
     Rectangle{
         id: ejePosBack
@@ -208,6 +258,18 @@ Item{
                         r.parent.doublePressed(r)
                     }
                 }
+            }
+        }
+        Rectangle{
+            width: parent.width*0.5
+            height: width
+            color: 'black'
+            visible: app.dev
+            Text{
+                text: r.pos
+                font.pixelSize: parent.width-4
+                color: 'white'
+                anchors.centerIn: parent
             }
         }
     }

@@ -1,1 +1,1 @@
-Se corrige el tipo de número en ZoolDataBodies
+Se logra ordenar los valores ZoolMap.pos

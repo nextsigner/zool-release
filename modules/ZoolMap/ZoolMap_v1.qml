@@ -4,7 +4,7 @@ import "../../js/Funcs.js" as JS
 
 import ZoolMap.ZoolMapSignCircle 1.0
 import ZoolMap.ZoolMapHousesCircle 1.0
-import ZoolMap.ZoolMapPlanetsCircle 1.0
+import ZoolMap.ZoolMapPlanetsCircle 1.1
 import ZoolMap.ZoolMapAspsCircle 1.0
 import ZoolBodies.ZoolAspectsView 1.0
 import ZoolBodies.ZoolAspectsViewBack 1.0
@@ -21,6 +21,8 @@ Item{
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
     property alias objHousesCircleBack: housesCircleBack
+    property alias objPlanetsCircle: planetsCircle
+    property alias objPlanetsCircleBack: planetsCircleBack
     property alias objZoolAspectsView: panelAspects
     property alias objZoolAspectsViewBack: panelAspectsBack
 
@@ -32,6 +34,8 @@ Item{
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
     property int fs: app.fs
+
+    property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
     property int planetSize: !r.ev?app.fs:app.fs*0.75
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
@@ -235,6 +239,7 @@ Item{
                     id: xz
                     anchors.fill: parent
                     color: 'transparent'
+                    visible: false
                     Circle{
                         id:ae
                         d: r.ev?r.width:0
@@ -509,7 +514,7 @@ Item{
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         aspsCircle.load(j)
-        ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
         //resizeAspsCircle()
@@ -566,7 +571,7 @@ Item{
         planetsCircleBack.loadJson(j)
 
         housesCircleBack.width=ae.width
-        ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
+        //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
         //signCircle.width=ai.width
         //planetsCircle.width=ai.width
         ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
@@ -613,14 +618,14 @@ Item{
     }
     //<--Load Data
 
-    function resizeAspsCircle(){
-        let w2=((ae.widt-planetsCircleBack.getMinAsWidth())/2)-r.planetSize*2
-        ae.w=parseInt(w2)
-        log.lv('ae.w='+ae.w)
-        //ai.width=ae.width-ae.w*2
-        /*let w=0
-        w=planetsCircle.getMinAsWidth()-r.planetSize*2
-        width=w*/
+    function resizeAspsCircle(isBack){
+        if(!isBack){
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        }
+        if(isBack && r.ev){
+            ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        }
     }
 
     //-->ZoomAndPan
