@@ -67,7 +67,7 @@ ZoolMainWindow{
     title: argtitle && argtitle.length>1?argtitle:'Zool '+version
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
-    property string sweBodiesPythonFile: 'astrologica_swe_v3.py'
+    property string sweBodiesPythonFile: 'astrologica_swe_v2.py'
     property var j: JS
     property var c: CAP
 

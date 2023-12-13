@@ -1,1 +1,1 @@
-Se agrega tapa a ZoolMap
+Se agrega ZoolMapAspsView a ZoolMap

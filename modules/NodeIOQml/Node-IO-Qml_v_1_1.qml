@@ -35,7 +35,12 @@ Item{
               let json=JSON.parse(logData)
               r.dataReceibed(JSON.stringify(json))
             }catch(e){
-                let error='LogData del error: ['+sjson+']\n'
+                let strError=logData
+                let errorStr=logData
+                if(strError.indexOf('ECONNREFUSED')>=0){
+                    errorStr='Node-IO-Qml: Error de conexión.'
+                }
+                let error='LogData del error: ['+errorStr+']\n'
                 error+='Descripción del error: ['+e+']\n\n'
                 r.dataError(error);
                 //console.error(e);

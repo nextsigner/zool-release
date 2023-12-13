@@ -6,8 +6,9 @@ import ZoolMap.ZoolMapSignCircle 1.0
 import ZoolMap.ZoolMapHousesCircle 1.0
 import ZoolMap.ZoolMapPlanetsCircle 1.1
 import ZoolMap.ZoolMapAspsCircle 1.0
+import ZoolMap.ZoolMapAspsView 1.0
 import ZoolBodies.ZoolAspectsView 1.0
-import ZoolBodies.ZoolAspectsViewBack 1.0
+import ZoolMap.ZoolMapAspsViewBack 1.0
 
 
 Item{
@@ -23,6 +24,7 @@ Item{
     property alias objHousesCircleBack: housesCircleBack
     property alias objPlanetsCircle: planetsCircle
     property alias objPlanetsCircleBack: planetsCircleBack
+    property alias objAspsCircle: aspsCircle
     property alias objZoolAspectsView: panelAspects
     property alias objZoolAspectsViewBack: panelAspectsBack
 
@@ -267,7 +269,7 @@ Item{
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
-                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3;}
+                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3; rotation: signCircle.rot - 90}
                 ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4}
                 ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true; visible: r.ev}
                 /*ZoolHousesCircleBack{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
@@ -347,15 +349,15 @@ Item{
             }
         }
     }
-    ZoolAspectsView{
+    ZoolMapAspsView{
         id: panelAspects
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.leftMargin: xLatIzq.visible?0:0-xLatIzq.width
         parent: xMed
-        visible: r.objectName==='sweg'
+        //visible: r.objectName==='sweg'
     }
-    ZoolAspectsViewBack{
+    ZoolMapAspsViewBack{
         id: panelAspectsBack
         anchors.top: parent.top
         //anchors.topMargin: 0-(r.parent.height-r.height)/2
@@ -364,7 +366,7 @@ Item{
         anchors.leftMargin: xLatIzq.visible?width:width-xLatIzq.width
         transform: Scale{ xScale: -1 }
         rotation: 180
-        visible: r.objectName==='sweg'&&planetsCircleBack.visible
+        visible: planetsCircleBack.visible
     }
     Rectangle{
         width: txtMod.contentWidth+app.fs
@@ -395,7 +397,7 @@ Item{
                 opacity=1.0
             }
         }
-        Behavior on opacity{NumberAnimation{duration: 3000}}
+        Behavior on opacity{NumberAnimation{duration: 1000}}
     }
 
     //-->Load Data
@@ -537,6 +539,7 @@ Item{
         ai.width=r.width
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
+        panelAspects.load(j)
         //resizeAspsCircle()
         //<--ZoolMap
 
@@ -545,7 +548,7 @@ Item{
 
         //dinHousesCircle.loadHouses(j)
 
-        //panelAspects.load(j)
+
 
 
 
