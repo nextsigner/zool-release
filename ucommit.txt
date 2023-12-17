@@ -1,1 +1,1 @@
-Se agrega ZoolMapAspsView a ZoolMap
+Se crea ZoolMapChart

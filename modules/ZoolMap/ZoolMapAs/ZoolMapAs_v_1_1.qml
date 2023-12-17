@@ -54,6 +54,7 @@ Item{
             housesCircle.currentHouse=objData.ih
             app.currentHouseIndex=objData.ih
             app.currentXAs=r
+            zoolMap.currentIndexSign=r.is
             setRot()
             setZoomAndPos()
             app.showPointerXAs=true
@@ -249,7 +250,6 @@ Item{
                 onTriggered: {
                     if(maSig.vClick<=1){
                         if(!r.selected){
-
                             let msg='Mostrando '+app.planetasReferencia[r.numAstro]
                             msg+=' en el signo '+app.signos[r.is]
                             msg+=' en el grado '+r.objData.rsg+' '+r.objData.m+' minutos '+r.objData.s+' segundos. Casa '+r.ih

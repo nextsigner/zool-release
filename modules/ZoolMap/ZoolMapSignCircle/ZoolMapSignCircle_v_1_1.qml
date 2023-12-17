@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import ZoolMap.ZoolMapChart 1.0
 
 Item {
     id: r
@@ -68,6 +69,10 @@ Item {
         source: './signCircleDec.png'
         anchors.centerIn: parent
         visible: false
+    }
+    ZoolMapChart{
+        rotation: r.rot
+        //anchors.fill: parent
     }
 
     Rectangle{

@@ -2,13 +2,15 @@ import QtQuick 2.7
 import QtQuick.Controls 2.12
 import "../../js/Funcs.js" as JS
 
-import ZoolMap.ZoolMapSignCircle 1.0
+
+import ZoolMap.ZoolMapSignCircle 1.1
 import ZoolMap.ZoolMapHousesCircle 1.0
 import ZoolMap.ZoolMapPlanetsCircle 1.1
 import ZoolMap.ZoolMapAspsCircle 1.0
 import ZoolMap.ZoolMapAspsView 1.0
-import ZoolBodies.ZoolAspectsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
+
+import ZoolMap.ZoolMapNakshatraView 1.0
 
 
 Item{
@@ -36,7 +38,7 @@ Item{
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
     property int fs: app.fs
-
+    property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
     property int planetSize: !r.ev?app.fs*1.5:app.fs
     property int planetsPadding: app.fs*8
@@ -49,6 +51,7 @@ Item{
 
     property color backgroundColor: enableBackgroundColor?apps.backgroundColor:'transparent'
     property bool enableBackgroundColor: apps.enableBackgroundColor
+    property int currentIndexSign: -1
     property string currentHsys: apps.currentHsys
 
     property bool enableAnZoomAndPos: true
@@ -267,64 +270,14 @@ Item{
                     }
                 }
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
+                //NumberLines{visible:true}
                 ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
                 ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3; rotation: signCircle.rot - 90}
                 ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4}
                 ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true; visible: r.ev}
-                /*ZoolHousesCircleBack{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
-                    id: housesCircleBack
-                    height: width
-                    anchors.centerIn: signCircle
-                    w: r.fs
-                    widthAspCircle: aspsCircle.width
-                    visible: false//app.ev
-                    //visible: planetsCircleBack.visible
-                }
-                ZoolHousesCircle{//rotation: parseInt(signCircle.rot);//z:signCircle.z+1;
-                    id:housesCircle
-                    height: width
-                    anchors.centerIn: signCircle
-                    //w: r.fs*6
-                    widthAspCircle: aspsCircle.width
-                    visible:false
-                    //visible: r.v
-                }
-                AxisCircle{id: axisCircle;visible: !app.ev}
-
-                ZoolSignCircle{
-                    id:signCircle
-                    showBorder: true
-                    onRotChanged: housesCircle.rotation=rot
-                }
-                ZoolDinHousesCircle{id: dinHousesCircleBack; isBack: true}
-                ZoolDinHousesCircle{id: dinHousesCircle}
-                NumberLines{}
-                AspCircleV2{
-                    id: aspsCircle
-                    rotation: signCircle.rot - 90// + 1
-                }
-                //AscMcCircle{id: ascMcCircle;visible: !app.ev}
-                AscMcCircle{id: ascMcCircle;visible: false}
-                ZoolPlanetsCircle{
-                    id: planetsCircle
-                    height: width
-                    anchors.centerIn: parent
-                    //showBorder: true
-                    //v:r.v
-                }
-//                PlanetsCircleBack{
-//                    id:planetsCircleBack
-//                    height: width
-//                    anchors.centerIn: parent
-//                    visible: app.ev
-//                }
-                ZoolPlanetsCircleBack{
-                    id:planetsCircleBack
-                    height: width
-                    anchors.centerIn: parent
-                    visible: app.ev
-                }
+                ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
+                /*
                 EclipseCircle{
                     id: eclipseCircle
                     width: housesCircle.width
@@ -540,6 +493,10 @@ Item{
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
         panelAspects.load(j)
+        log.lv('Nakshatra length:'+nakshatraView.aNakshatra.length)
+        log.lv('Nakshatra index:'+nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
+        log.lv('Nakshatra:'+nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec)))
+
         //resizeAspsCircle()
         //<--ZoolMap
 
