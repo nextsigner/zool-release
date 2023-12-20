@@ -4,14 +4,17 @@ import "../"
 import "../../../comps" as Comps
 
 import ZoolBodies.ZoolBodie 1.0
-import ZoolBodies.ZoolAsCotaDeg 1.0
-import ZoolBodies.ZoolAsCotaText 1.0
+import ZoolMap.ZoolMapAsCotaDeg 1.0
+import ZoolMap.ZoolMapAsCotaText 1.0
 import ZoolMap.ZoolMapPointerPlanet 1.0
 
 Item{
     id: r
     //width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)//-(zoolMap.planetsMargin*2)
-    width: parent.width-((zoolMap.planetSize*pos*2))
+    width: !apps.showDec?
+               parent.width-((zoolMap.planetSize*pos*2))
+             :
+               parent.width-((zoolMap.planetSize*pos*2))-zoolMap.objSignsCircle.w*2
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:20
@@ -176,9 +179,23 @@ Item{
                 //apps.enableFullAnimation=false
                 if (wheel.modifiers & Qt.ControlModifier) {
                     if(wheel.angleDelta.y>=0){
-                        pointerPlanet.pointerRot+=5
+                        if(pointerPlanet.opacity===1.0){
+                            pointerPlanet.pointerRot+=5
+                        }else{
+                            if(zoolMap.planetSize<app.fs*2){
+                                zoolMap.planetSize+=app.fs*0.1
+                                zoolMap.resizeAspsCircle(r.isBack)
+                            }
+                        }
                     }else{
-                        pointerPlanet.pointerRot-=5
+                        if(pointerPlanet.opacity===1.0){
+                            pointerPlanet.pointerRot-=5
+                        }else{
+                            if(zoolMap.planetSize>app.fs){
+                                zoolMap.planetSize-=app.fs*0.1
+                                zoolMap.resizeAspsCircle(r.isBack)
+                            }
+                        }
                     }
                 }else if (wheel.modifiers & Qt.ShiftModifier){
                     if(wheel.angleDelta.y>=0){
@@ -275,7 +292,7 @@ Item{
             }
         }
     }
-    ZoolAsCotaDeg{
+    ZoolMapAsCotaDeg{
         id: xDegData
         width: bodie.width*2
         anchors.centerIn: bodie
@@ -301,14 +318,15 @@ Item{
             }
         }
     }
-    ZoolAsCotaText{
+    ZoolMapAsCotaText{
         id: xTextData
         width: bodie.width*2
         anchors.centerIn: bodie
         z: bodie.z-1
         widthObjectAcoted: width*0.25
         isBack: false
-        distancia: bodie.width*3
+        distancia: bodie.width//*3
+        //rot: 270
         text: r.text
         cotaColor: apps.fontColor
         cotaOpacity: 1.0

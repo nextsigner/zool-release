@@ -376,7 +376,7 @@ ZoolMainWindow{
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width*0.5
             anchors.bottom: parent.bottom
-            clip: xLatIzq.visible
+            //clip: xLatIzq.visible
             //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !app.dev}
             ZoolMap{id: zoolMap;}
             Image {

@@ -16,11 +16,19 @@ Item {
 
     ChartView {
         id: chart
-        anchors.fill: parent
+        width: r.parent.width*1.43//zoolMap.width*1.4-(zoolMap.housesNumWidth*2)-(zoolMap.housesNumMargin*2)
+        height: width
         legend.alignment: Qt.AlignBottom
         legend.visible: false
         antialiasing: true
+        margins.top: 0
+        margins.bottom: 0
+        margins.left: 0
+        margins.right: 0
+        //implicitWidth: zoolMap.width
+        enabled: false
         backgroundColor: 'transparent'
+        anchors.centerIn: parent
         PieSeries {
             id: pieSeries
             PieSlice { value: 30.0; color: r.colors[8]; label: zoolMap.signos[8]}

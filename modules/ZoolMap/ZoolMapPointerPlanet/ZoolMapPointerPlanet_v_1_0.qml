@@ -168,6 +168,19 @@ Item {
                         spacing: r.pointerFs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text{
+                            text: '<b>Nakshatra:</b> '+(
+                                      !r.isBack?zoolMap.currentNakshatra:zoolMap.currentNakshatraBack
+                                      )
+                            font.pixelSize: r.pointerFs*0.35
+                            color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: r.p===1
+                        }
+                    }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
                             text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
                             font.pixelSize: r.pointerFs*0.5
                             color: apps.backgroundColor

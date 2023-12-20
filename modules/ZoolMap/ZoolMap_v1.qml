@@ -21,6 +21,7 @@ Item{
     anchors.horizontalCenterOffset: 0-r.width*0.5
     anchors.verticalCenterOffset: 0-r.width*0.5
 
+    property alias objTapa: tapa
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
     property alias objHousesCircleBack: housesCircleBack
@@ -52,6 +53,8 @@ Item{
     property color backgroundColor: enableBackgroundColor?apps.backgroundColor:'transparent'
     property bool enableBackgroundColor: apps.enableBackgroundColor
     property int currentIndexSign: -1
+    property string currentNakshatra: ''
+    property string currentNakshatraBack: ''
     property string currentHsys: apps.currentHsys
 
     property bool enableAnZoomAndPos: true
@@ -97,6 +100,10 @@ Item{
         tEnableAnZoomAndPos.restart()
     }
     Behavior on opacity{NumberAnimation{duration: 1500}}
+//    Rectangle{
+//        anchors.fill: parent
+//        color: 'yellow'
+//    }
     Item{id:xuqp}
     Flickable{
         id: flick
@@ -493,9 +500,10 @@ Item{
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
         panelAspects.load(j)
-        log.lv('Nakshatra length:'+nakshatraView.aNakshatra.length)
-        log.lv('Nakshatra index:'+nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
-        log.lv('Nakshatra:'+nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec)))
+        //log.lv('Nakshatra length:'+nakshatraView.aNakshatra.length)
+        //log.lv('Nakshatra index:'+nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
+        //log.lv('Nakshatra:'+nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec)))
+        r.currentNakshatra=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
 
         //resizeAspsCircle()
         //<--ZoolMap
@@ -557,6 +565,7 @@ Item{
         //planetsCircle.width=ai.width
         ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         zoolDataBodies.loadJsonBack(j)
+        r.currentNakshatraBack=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
         //resizeAspsCircle()
         //<--ZoolMap
 
@@ -603,7 +612,13 @@ Item{
 
     function resizeAspsCircle(isBack){
         if(!isBack){
-            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+            if(apps.showDec){
+                //log.lv('1 resizeAspsCircle('+isBack+') apps.showDec: '+apps.showDec)
+                ca.d=planetsCircle.getMinAsWidth()-r.planetSize//*2
+            }else{
+                //log.lv('2 resizeAspsCircle('+isBack+') apps.showDec: '+apps.showDec)
+                ca.d=planetsCircle.getMinAsWidth()-r.planetSize-r.objSignsCircle.w*2
+            }
         }
         if(isBack && r.ev){
             ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2

@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
-import ZoolMap.ZoolMapChart 1.0
 
 Item {
     id: r
@@ -13,6 +12,21 @@ Item {
     property bool showDec: apps.showDec
     property int rot: 0
     property bool showCenterSignPoint: false
+    onShowDecChanged: {
+        tResizeCa.restart()
+    }
+    Timer{
+        id: tResizeCa
+        running: false
+        repeat: false
+        interval: 2000
+        onTriggered: {
+            //zoolMap.objTapa.visible=true
+            //zoolMap.objTapa.opacity=1.0
+            zoolMap.resizeAspsCircle(zoolMap.ev)
+            //zoolMap.hideTapa()
+        }
+    }
     Repeater{
         model: apps.enableWheelAspCircle?36:0
         Item{
@@ -59,7 +73,7 @@ Item {
     Image{
         id: signs
         anchors.fill: r
-        source: './signCircle.png'
+        source: './signCircleFromChart.png'
         anchors.centerIn: parent
         visible: false
     }
@@ -69,10 +83,6 @@ Item {
         source: './signCircleDec.png'
         anchors.centerIn: parent
         visible: false
-    }
-    ZoolMapChart{
-        rotation: r.rot
-        //anchors.fill: parent
     }
 
     Rectangle{
@@ -115,7 +125,7 @@ Item {
         source: signs
         maskSource: mask
         invert: false
-        rotation: r.rot+36
+        rotation: r.rot//+36
         //visible: false
     }
     OpacityMask {
@@ -126,7 +136,7 @@ Item {
         anchors.centerIn: parent
         source: signsDec
         maskSource: maskDec
-        rotation: oMSignCircle.rotation-3
+        rotation: oMSignCircle.rotation+36-3
         invert: false
         visible: r.showDec
     }
