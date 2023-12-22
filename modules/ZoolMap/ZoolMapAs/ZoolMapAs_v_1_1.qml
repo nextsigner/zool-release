@@ -204,6 +204,7 @@ Item{
                         xTextData.rot-=5
                     }
                     r.isHovered=true
+
                     tWaitHovered.restart()
                 }else{
                     if(wheel.angleDelta.y>=0){
@@ -226,6 +227,7 @@ Item{
             }
             onEntered: {
                 r.isHovered=true
+                zoolMapAsInfoView.text=r.text
                 vClick=0
                 r.parent.cAs=r
             }
@@ -240,7 +242,7 @@ Item{
             onExited: {
                 tWaitHovered.restart()
                 vClick=0
-                //r.parent.cAs=r.parent
+                zoolMapAsInfoView.text=''
             }
             onClicked: {
                 //apps.sweFs=app.fs
@@ -318,6 +320,7 @@ Item{
             }
         }
     }
+
     ZoolMapAsCotaText{
         id: xTextData
         width: bodie.width*2
@@ -325,16 +328,16 @@ Item{
         z: bodie.z-1
         widthObjectAcoted: width*0.25
         isBack: false
-        distancia: bodie.width//*3
-        //rot: 270
+        distancia: bodie.width*3
         text: r.text
         cotaColor: apps.fontColor
         cotaOpacity: 1.0
         opacity: r.isHovered||isPinched?1.0:0.0
         onOpacityChanged: r.text = zoolMap.aTexts[numAstro]?zoolMap.aTexts[numAstro]:''
-        visible: r.text!==''
+        visible: false//r.text!==''
         onClicked: r.isHovered=false
     }
+
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"

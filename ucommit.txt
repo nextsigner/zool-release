@@ -1,1 +1,1 @@
-Se agregra funcion para achicar planetSize con el mouse wheel
+Se crear ZoolMapAsInfoView

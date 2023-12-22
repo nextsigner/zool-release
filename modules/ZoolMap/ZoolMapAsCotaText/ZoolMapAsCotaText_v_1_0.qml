@@ -49,10 +49,18 @@ Rectangle{
             borderWidth: 1
             borderColor: apps.fontColor
             borderRadius: fs*0.5
-            rotation: !r.isBack?bodie.rotation+Math.abs(r.rot):img0.rotation+Math.abs(r.rot)
+            //rotation: !r.isBack?bodie.rotation+Math.abs(r.rot):bodie.objImg.rotation+Math.abs(r.rot)
+            rotation: 360-zoolMap.objSignsCircle.rotation+r.rot
             anchors.centerIn: parent
             anchors.horizontalCenterOffset: r.distancia*0.5+height*0.5
-            visible: false//Ocultado porque no se rota bien. Corregir.
+            //visible: false//Ocultado porque no se rota bien. Corregir.
+            Rectangle{
+                anchors.fill: parent
+                color: 'transparent'
+                border.width: 3
+                border.color: 'yellow'
+
+            }
             MouseArea{
                 anchors.fill: parent
                 onClicked: r.clicked()

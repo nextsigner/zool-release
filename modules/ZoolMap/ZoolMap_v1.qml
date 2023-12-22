@@ -9,6 +9,7 @@ import ZoolMap.ZoolMapPlanetsCircle 1.1
 import ZoolMap.ZoolMapAspsCircle 1.0
 import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
+import ZoolMap.ZoolMapAsInfoView 1.0
 
 import ZoolMap.ZoolMapNakshatraView 1.0
 
@@ -327,6 +328,15 @@ Item{
         transform: Scale{ xScale: -1 }
         rotation: 180
         visible: planetsCircleBack.visible
+    }
+    ZoolMapAsInfoView{
+        id: zoolMapAsInfoView
+        width: xLatDer.width
+        anchors.bottom: parent.bottom
+        //anchors.right: parent.right
+        //anchors.rightMargin: 0-xLatIzq.width
+        parent: xLatDer
+        text: 'añl dfñaslk fñalkfj ñalkñalkjfñalkf'
     }
     Rectangle{
         width: txtMod.contentWidth+app.fs
