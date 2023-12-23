@@ -152,6 +152,7 @@ Item{
         anchors.left: parent.left
         anchors.leftMargin: 0//!r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
+        isBack: r.isBack
         ZoolMapPointerPlanet{
             id: pointerPlanet
             is:r.is

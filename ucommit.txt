@@ -1,1 +1,1 @@
-Se corrige rotacion de Bodies sin sweg
+Se corrige el seteo de zoolMap.dirPrimRot

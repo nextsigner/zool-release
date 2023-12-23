@@ -537,8 +537,10 @@ Item{
         }*/
     }
     function loadSweJsonBack(json){
-        tapa.visible=true
-        tapa.opacity=1.0
+        if(!app.mod==='dirprim'){
+            tapa.visible=true
+            tapa.opacity=1.0
+        }
         app.currentJsonBack=JSON.parse(json)
         //        if(app.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
@@ -590,7 +592,7 @@ Item{
         //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         app.ev=true
-        centerZoomAndPos()
+        if(!app.mod==='dirprim')centerZoomAndPos()
     }
     function loadFromFileBack(filePath, tipo){
         tapa.visible=true

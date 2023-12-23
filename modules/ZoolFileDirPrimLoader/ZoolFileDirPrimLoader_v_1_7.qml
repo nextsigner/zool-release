@@ -177,7 +177,9 @@ Rectangle {
                         if(!r.moduleEnabled)return
                         if(!r.visible && !r.loadingFromExternal)return
                         if(!zoolMap.ev){
+                            log.lv('Load zoolMap.loadFromFileBack()...')
                             zoolMap.loadFromFileBack(apps.url, 'dirprim')
+                            //zoolMap.ev=true
                             r.moduleEnabled=true
                             //return
                         }
@@ -617,7 +619,9 @@ Rectangle {
         //sweg.objHousesCircleBack.rotation=hcBackRot
         //sweg.objPlanetsCircleBack.rotation=hcBackRot
 
-        cloneIntToBackAndRot(parseFloat(diffAnio))
+        //cloneIntToBackAndRot(parseFloat(diffAnio))
+
+        zoolMap.dirPrimRot=parseFloat(diffAnio)
 
         let vdEvento=controlTimeFechaEvento.dia
         let vmEvento=controlTimeFechaEvento.mes

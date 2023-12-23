@@ -36,7 +36,14 @@ Item{
         width: r.width*0.75
         height: width
         anchors.centerIn: parent
-        rotation: app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zoolMap.objPlanetsCircleBack.rotation
+        /*rotation: !r.isBack?
+                      0-parent.parent.rotation:
+                      (app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zoolMap.objPlanetsCircleBack.rotation)
+        */
+        rotation: !r.isBack?
+                      0-parent.parent.rotation
+                    :
+                      0-parent.parent.rotation+zoolMap.dirPrimRot
         antialiasing: true
         visible: !co.visible
     }
