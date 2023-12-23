@@ -333,10 +333,7 @@ Item{
         id: zoolMapAsInfoView
         width: xLatDer.width
         anchors.bottom: parent.bottom
-        //anchors.right: parent.right
-        //anchors.rightMargin: 0-xLatIzq.width
         parent: xLatDer
-        text: 'añl dfñaslk fñalkfj ñalkñalkjfñalkf'
     }
     Rectangle{
         width: txtMod.contentWidth+app.fs

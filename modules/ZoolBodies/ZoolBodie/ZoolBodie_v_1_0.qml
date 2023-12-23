@@ -13,7 +13,7 @@ Item{
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19]
     property color bgColor: !r.isBack?'blue':'red'
-    width: sweg.bodieSize
+    width: zoolMap.bodieSize
     height: width
     anchors.left: parent.left
     anchors.leftMargin: 0-xIconPlanetSmall.width
@@ -36,7 +36,7 @@ Item{
         width: r.width*0.75
         height: width
         anchors.centerIn: parent
-        rotation: app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-sweg.objPlanetsCircleBack.rotation
+        rotation: app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zoolMap.objPlanetsCircleBack.rotation
         antialiasing: true
         visible: !co.visible
     }
@@ -108,7 +108,7 @@ Item{
 //        rotation: 0-parent.parent.rotation
 //        antialiasing: true
 //        anchors.centerIn: parent
-//        //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-sweg.fs*0.5:0
+//        //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-zoolMap.fs*0.5:0
 //        visible: false
 //        Behavior on width {
 //            enabled: apps.enableFullAnimation;

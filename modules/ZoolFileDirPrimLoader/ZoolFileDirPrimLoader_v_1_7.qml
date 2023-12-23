@@ -181,7 +181,7 @@ Rectangle {
                             r.moduleEnabled=true
                             //return
                         }
-                        log.lv('Load '+currentDate.toString())
+                        //log.lv('Load '+currentDate.toString())
                         tLoad.restart()
                         if(app.j.eventoEsMenorAInicio(app.currentDate, currentDate)){
                             currentDate=app.currentDate

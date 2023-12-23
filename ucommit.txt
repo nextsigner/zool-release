@@ -1,1 +1,1 @@
-Se crear ZoolMapAsInfoView
+Se corrige rotacion de Bodies sin sweg

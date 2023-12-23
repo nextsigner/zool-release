@@ -17,16 +17,16 @@ Rectangle{
     Rectangle{
         id: cotaBg
         anchors.fill: parent
-        color: '#333'//apps.backgroundColor
-        border.width: 2
-        border.color: 'yellow'
+        color: apps.backgroundColor
+        border.width: 1
+        border.color: apps.fontColor
     }
     Text{
         id: txt
         width: r.width-app.fs*0.5
         text: r.text
         color: apps.fontColor
-        font.pixelSize: app.fs*0.5
+        font.pixelSize: app.fs
         wrapMode: Text.WordWrap
         anchors.centerIn: parent
     }
