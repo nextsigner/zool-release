@@ -73,7 +73,10 @@ Item{
                 r.totalPosX=o.p
             }
             o.ns=objSignsNames.indexOf(jo.is)
-            o.ih=zoolMap.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)//jo.ih
+            o.ih=!r.isBack?
+                        zoolMap.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                      :
+                        zoolMap.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
 
             o.rsg=jo.rsgdeg
             o.g=jo.gdeg

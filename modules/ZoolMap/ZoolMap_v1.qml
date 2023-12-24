@@ -31,6 +31,7 @@ Item{
     property alias objAspsCircle: aspsCircle
     property alias objZoolAspectsView: panelAspects
     property alias objZoolAspectsViewBack: panelAspectsBack
+    property alias objAsInfoView: zoolMapAsInfoView
 
 
     property bool showZonas: true
@@ -714,6 +715,26 @@ Item{
                 break
             }
             index = index + 1
+        }
+        return index
+    }
+    function getIndexHouse(gdec, isBack){
+        let json=!isBack?app.currentJson:app.currentJsonBack
+        let index=0
+        let g=0.0
+        for(var i=0;i<12;i++){
+            let iseg=json.ph['h'+parseInt(i+1)].gdec
+            let fseg
+            if(i!==11){
+                fseg=json.ph['h'+parseInt(i+2)].gdec
+            }else{
+                fseg=json.ph['h1'].gdec
+            }
+            if(fseg<iseg)fseg=fseg+360
+            if(gdec>=iseg && gdec<=fseg){
+                index=i
+                break
+            }
         }
         return index
     }

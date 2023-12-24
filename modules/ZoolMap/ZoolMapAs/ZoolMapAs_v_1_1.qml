@@ -331,7 +331,7 @@ Item{
 //            height: 100
 //        }
         Timer{
-            running: true
+            running: false//true
             repeat: true
             interval: 250
             onTriggered: {

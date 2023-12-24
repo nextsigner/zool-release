@@ -1,1 +1,1 @@
-Se prepara para pasar ZoolMapAsCotaDeg a ZoolMapInfoView
+Se optimiza el modulo ZoolFileDirPrimLoader

@@ -9,7 +9,7 @@ import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
 import ZoolLogView 1.0
-
+//todo corregir el mal funcionamiento del boton rastreo.
 /*
     Naibod 0° 59´8.33” = 0.9856481481481388
     Ptolomeo 1° = 1.0000
@@ -209,6 +209,7 @@ Rectangle {
                         text:'Restablecer'
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked:{
+                            controlTimeFecha.currentDate=app.currentDate
                             controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                         }
                     }
@@ -265,7 +266,7 @@ Rectangle {
                         spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         ZoolButton{
-                            text: 'Iniciar Rastreo'
+                            text: !tAutoFindAsps.running?'Iniciar Rastreo':'Detener Rastreo'
                             //anchors.horizontalCenter: parent.horizontalCenter
                             onClicked:{
                                 if(!tAutoFindAsps.running){
@@ -519,7 +520,7 @@ Rectangle {
 
             controlTimeFechaEvento.currentDate = d
             setDirPrimRotation()
-            updateUParams()
+            //updateUParams()
         }
     }
     Item{id: xuqp}
@@ -616,6 +617,7 @@ Rectangle {
         //cloneIntToBackAndRot(parseFloat(diffAnio))
 
         zoolMap.dirPrimRot=parseFloat(diffAnio)
+        showInfoViewData()
 
         let vdEvento=controlTimeFechaEvento.dia
         let vmEvento=controlTimeFechaEvento.mes
@@ -829,6 +831,33 @@ Rectangle {
         tiHora2.t.text=''
         tiCiudad.t.text=''
         tiGMT.t.text=''
+    }
+    function showInfoViewData(){
+        //Get Current Json Interior
+        let json=app.currentJson
+        let jo
+        let sInt=''
+        let sExt=''
+        let objAs
+        for(var i=0;i<zoolMap.listCotasShowing.length;i++){
+            objAs=zoolMap.objPlanetsCircle.getAs(zoolMap.listCotasShowing[i])
+            sInt+=zoolMap.aBodies[zoolMap.listCotasShowing[i]]+' en '+app.signos[objAs.is]+'<br>Casa '+objAs.ih+'\n°'+parseInt(zoolMap.getDDToDMS(objAs.objData.gdec).deg - (30*objAs.is))+' \''+zoolMap.getDDToDMS(objAs.objData.gdec).min+' \'\''+zoolMap.getDDToDMS(objAs.objData.gdec).sec+'<br>'
+        }
+        for(i=0;i<zoolMap.listCotasShowingBack.length;i++){
+            objAs=zoolMap.objPlanetsCircleBack.getAs(zoolMap.listCotasShowingBack[i])
+            let ngdec=objAs.objData.gdec+zoolMap.dirPrimRot
+            jo=json.pc['c'+zoolMap.listCotasShowingBack[i]]
+            let nis=zoolMap.getIndexSign(ngdec)
+
+            let nih=zoolMap.getIndexHouse(ngdec, false)+1
+            if(ngdec>360.00)ngdec=360.00-ngdec
+            sExt+=zoolMap.aBodies[zoolMap.listCotasShowingBack[i]]+' en '+app.signos[nis]+'<br>Casa '+nih+'\n°'+parseInt(zoolMap.getDDToDMS(ngdec).deg - (30*nis))+' \''+zoolMap.getDDToDMS(ngdec).min+' \'\''+zoolMap.getDDToDMS(ngdec).sec+'<br>'
+        }
+        zoolMap.objAsInfoView.fs=app.fs*0.5
+        let sf='<b>Fecha:</b> '+controlTimeFechaEvento.currentDate.toString()+'<br><br>'
+        if(sInt!=='')sf+='<b>Interior:</b><br>'+sInt+'<br>'
+        if(sExt!=='')sf+='<b>Exterior:</b><br>'+sExt+'<br>'
+        zoolMap.objAsInfoView.text=sf
     }
     function toRight(){
         if(controlTimeFecha.focus){

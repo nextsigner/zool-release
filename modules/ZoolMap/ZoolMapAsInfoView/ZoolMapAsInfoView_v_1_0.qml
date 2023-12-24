@@ -9,6 +9,7 @@ Rectangle{
     color: 'blue'
     opacity: text===''?0.0:1.0
     property string text: ''
+    property int fs: app.fs
     MouseArea{
         anchors.fill: parent
         onClicked: r.text=''
@@ -26,8 +27,9 @@ Rectangle{
         width: r.width-app.fs*0.5
         text: r.text
         color: apps.fontColor
-        font.pixelSize: app.fs
+        font.pixelSize: r.fs
         wrapMode: Text.WordWrap
+        textFormat: Text.RichText
         anchors.centerIn: parent
     }
 }
