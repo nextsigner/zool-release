@@ -172,32 +172,32 @@ Item{
             objAs.vr=0
         }
 
-//        for(i=1;i<20;i++){
-//            objAs=r.children[i]
-//            //objAs.pos=0
+        //        for(i=1;i<20;i++){
+        //            objAs=r.children[i]
+        //            //objAs.pos=0
 
-//            //let g=parseInt(objAs.objData.gdec)
-////            for(var i3=0;i3<20;i3++){
-////                let gAs=mDegs[i3]
-//                //for(var i2=0;i2<anchoLongArc;i2++){
-//            for(var i2=i;i2<20;i2++){
-//                    //log.lv('div*i='+div*i)
-//                    let seg1=div*i2
-//                    let seg2=(div*i2)+div
-//                    //log.lv('Segmentos:'+seg1+'-'+seg2)
-//                    //if(g>=seg1 && g<=seg2 && g>=mDegs[gAs] && g<=mDegs[gAs])cn++
-//                    //if(mDegs[i]>=seg1 && mDegs[i]<=seg2 && i!==i2 && i2>i)cn++
-//                if(isNear(mDegs[i], mDegs[i2]) && i!==i2 && i2>i)cn++
+        //            //let g=parseInt(objAs.objData.gdec)
+        ////            for(var i3=0;i3<20;i3++){
+        ////                let gAs=mDegs[i3]
+        //                //for(var i2=0;i2<anchoLongArc;i2++){
+        //            for(var i2=i;i2<20;i2++){
+        //                    //log.lv('div*i='+div*i)
+        //                    let seg1=div*i2
+        //                    let seg2=(div*i2)+div
+        //                    //log.lv('Segmentos:'+seg1+'-'+seg2)
+        //                    //if(g>=seg1 && g<=seg2 && g>=mDegs[gAs] && g<=mDegs[gAs])cn++
+        //                    //if(mDegs[i]>=seg1 && mDegs[i]<=seg2 && i!==i2 && i2>i)cn++
+        //                if(isNear(mDegs[i], mDegs[i2]) && i!==i2 && i2>i)cn++
 
 
-//                }
-//            //}
-//            objAs.pos=0
-//            objAs.width=zoolMap.width
-//            objAs.vr=0
-//            cn=0
-//            log.lv('Pos '+i+':'+objAs.pos)
-//        }
+        //                }
+        //            //}
+        //            objAs.pos=0
+        //            objAs.width=zoolMap.width
+        //            objAs.vr=0
+        //            cn=0
+        //            log.lv('Pos '+i+':'+objAs.pos)
+        //        }
 
         //        for(i=1;i<20;i++){
         //            objAs=r.children[i]

@@ -86,6 +86,7 @@ Item{
             const objAs=!r.isBack?zoolMap.objPlanetsCircle.getAs(i):zoolMap.objPlanetsCircleBack.getAs(i)
             const l=parseInt(r.objData.gdec)-10
             const h=parseInt(r.objData.gdec)+10
+            if(!objAs || !objAs.objData || !objAs.objData.gdec)continue
             const n=objAs.objData.gdec
             if((n > l && n < h)  && i!==numAstro  && i<numAstro){
                 r.pos=objAs.pos+1
@@ -124,16 +125,26 @@ Item{
             }
         }
     }
-    Rectangle{
+    Item{
         id: ejePosBack
         width: r.width*0.5
         height: 3
-        //anchors.centerIn: parent
-        color: apps.houseColorBack
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: zoolMap.planetSize
         visible: app.mod==='dirprim' && r.isBack
+        Rectangle{
+            width: r.width
+            height: 1
+            anchors.top: parent.top
+            color: apps.houseColorBack
+        }
+        Rectangle{
+            width: r.width
+            height: 1
+            anchors.bottom: parent.bottom
+            color: apps.houseColorBack
+        }
     }
     Rectangle{
         width: r.width*4
@@ -300,7 +311,7 @@ Item{
         width: bodie.width*2
         anchors.centerIn: bodie
         z: bodie.z-1
-        isBack: false
+        isBack: r.isBack
         distancia: bodie.width
         gdec: objData.gdec
         g: objData.rsg
@@ -311,7 +322,14 @@ Item{
         cotaColor: apps.fontColor
         cotaOpacity: 1.0//xIconPlanetSmall.opacity
         //rot: -270
-        visible: zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
+        visible: !r.isBack?
+                     zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
+                   :
+                     zoolMap.listCotasShowingBack.indexOf(r.numAstro)>=0
+//        Rectangle{
+//            width: 100
+//            height: 100
+//        }
         Timer{
             running: true
             repeat: true

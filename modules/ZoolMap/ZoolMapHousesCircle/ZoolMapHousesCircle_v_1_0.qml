@@ -7,6 +7,7 @@ Item {
     height: width
     anchors.centerIn: parent//signCircle
     visible: isBack?app.ev:true
+    rotation: !isBack?0:0-zoolMap.dirPrimRot
     property bool isBack: false
     property int extraWidth: 0
     property int currentHouse: !isBack?zoolMap.objHousesCircle.currentHouse:zoolMap.objHousesCircleBack.currentHouse

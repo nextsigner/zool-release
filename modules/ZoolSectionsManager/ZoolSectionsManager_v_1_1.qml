@@ -33,6 +33,9 @@ Item{
         r.showPanel(r.aPanelsIds[zsm.currentIndex])
         zsm.getPanel('ZoolRevolutionList').desactivar()
     }
+    MouseArea{
+        anchors.fill: parent
+    }
     Column{
         width: r.width
         anchors.centerIn: parent

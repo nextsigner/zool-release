@@ -1,1 +1,1 @@
-Se corrige el seteo de zoolMap.dirPrimRot
+Se prepara para pasar ZoolMapAsCotaDeg a ZoolMapInfoView

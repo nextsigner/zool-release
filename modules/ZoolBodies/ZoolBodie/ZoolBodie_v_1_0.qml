@@ -12,7 +12,7 @@ Item{
     //property alias objImg0: img0
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19]
-    property color bgColor: !r.isBack?'blue':'red'
+    property color bgColor: !r.isBack?zoolMap.bodieBgColor:zoolMap.bodieBgColorBack
     width: zoolMap.bodieSize
     height: width
     anchors.left: parent.left

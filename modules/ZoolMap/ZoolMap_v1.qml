@@ -79,7 +79,9 @@ Item{
 
     //-->Theme
     property color bodieColor: apps.fontColor
-    property color bodieBgColor: apps.backgroundColor
+    property color bodieColorBack: apps.fontColor
+    property color bodieBgColor: 'transparent'
+    property color bodieBgColorBack: 'transparent'
     //<--Theme
 
     property var aTexts: []
@@ -277,13 +279,30 @@ Item{
                         }
                     }
                 }
-                ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
-                //NumberLines{visible:true}
+
                 ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
                 ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3; rotation: signCircle.rot - 90}
-                ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4}
-                ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true; visible: r.ev}
+                Rectangle{
+                    id:bgPCB
+                    width: planetsCircleBack.width
+                    height: width
+                    color: r.bodieBgColorBack
+                    radius: width*0.5
+                    anchors.centerIn: parent
+                    ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true; visible: r.ev}
+                }
+                Rectangle{
+                    id:bgPC
+                    width: signCircle.width
+                    height: width
+                    color: r.bodieBgColor
+                    radius: width*0.5
+                    anchors.centerIn: parent
+                    ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4;}
+                }
+                ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
+                //NumberLines{visible:true}
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
                 /*
                 EclipseCircle{

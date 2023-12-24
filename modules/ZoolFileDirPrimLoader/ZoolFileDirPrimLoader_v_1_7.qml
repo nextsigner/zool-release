@@ -122,7 +122,7 @@ Rectangle {
             }
             ZoolText{
                 //t.width:r.width-app.fs
-                text: '<b>Crear Direcciones Primarias</b>'+(app.ev?'zoolMap.dirPrimRot:'+zoolMap.dirPrimRot:'')
+                text: '<b>Crear Direcciones Primarias</b>'//+(app.ev?'zoolMap.dirPrimRot:'+zoolMap.dirPrimRot:'')
                 w: r.width-app.fs
                 font.pixelSize: app.fs*0.65
                 color: 'white'
@@ -172,18 +172,12 @@ Rectangle {
                     visible: r.moduleEnabled
                     anchors.horizontalCenter: parent.horizontalCenter
                     onCurrentDateChanged: {
-
-                        //if(!visible || !r.loadingFromExternal)return
                         if(!r.moduleEnabled)return
                         if(!r.visible && !r.loadingFromExternal)return
                         if(!zoolMap.ev){
-                            log.lv('Load zoolMap.loadFromFileBack()...')
                             zoolMap.loadFromFileBack(apps.url, 'dirprim')
-                            //zoolMap.ev=true
                             r.moduleEnabled=true
-                            //return
                         }
-                        //log.lv('Load '+currentDate.toString())
                         tLoad.restart()
                         if(app.j.eventoEsMenorAInicio(app.currentDate, currentDate)){
                             currentDate=app.currentDate
