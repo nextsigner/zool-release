@@ -94,39 +94,18 @@ ZoolMainWindow{
     property var objZoolFileExtDataManager
     property var aExtsIds: []
 
-    property string fileData: ''
-    property string fileDataBack: ''
-    property string currentData: ''
-    property string currentDataBack: ''
-    property var currentJson
-    property var currentJsonBack
+//    property string fileData: ''
+//    property string fileDataBack: ''
+//    property string currentData: ''
+//    property string currentDataBack: ''
+//    property var currentJson
+//    property var currentJsonBack
     property bool setFromFile: false
 
     //Para analizar signos y ascendentes por región
     property int currentIndexSignData: 0
     property var currentJsonSignData: ''
 
-    property int currentPlanetIndex: -1
-    property int currentPlanetIndexBack: -1
-
-    property int currentHouseIndex: -1
-    property int currentHouseIndexBack: -1
-
-    property int currentSignIndex: 0
-
-    property date currentDate
-    property string currentNom: ''
-    property string currentFecha: ''
-    property string currentLugar: ''
-    property int currentAbsolutoGradoSolar: -1
-    property int currentGradoSolar: -1
-    property int currentRotationxAsSol: -1
-    property int currentMinutoSolar: -1
-    property int currentSegundoSolar: -1
-    property real currentGmt: 0
-    property real currentLon//: 0.0
-    property real currentLat//: 0.0
-    property real currentAlt: 0
 
     property date currentDateBack
     property string currentNomBack: ''
@@ -142,11 +121,7 @@ ZoolMainWindow{
 
 
     property bool lock: false
-    property string uSon: ''
-    property string uSonFCMB: ''
-    property string uSonBack: ''
 
-    property string uCuerpoAsp: ''
 
     property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     //property var planetas: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith']
@@ -201,75 +176,6 @@ ZoolMainWindow{
 
     property bool sspEnabled: false
 
-    onCurrentPlanetIndexChanged: {
-        zoolDataBodies.currentIndex=currentPlanetIndex
-        if(currentPlanetIndex>=0){
-            app.currentPlanetIndexBack=-1
-            app.currentHouseIndexBack=-1
-        }
-        if(sspEnabled){
-            if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
-                app.ip.opacity=1.0
-                app.ip.children[0].ssp.setPlanet(currentPlanetIndex)
-            }else{
-                app.ip.opacity=0.0
-            }
-        }
-        //zoolDataBodies.currentIndex=currentPlanetIndex
-        if(currentPlanetIndex>14){
-            /*if(currentPlanetIndex===20){
-                sweg.objHousesCircle.currentHouse=1
-                swegz.sweg.objHousesCircle.currentHouse=1
-            }
-            if(currentPlanetIndex===16){
-                sweg.objHousesCircle.currentHouse=10
-                swegz.sweg.objHousesCircle.currentHouse=10
-            }*/
-        }
-    }
-    onCurrentPlanetIndexBackChanged: {
-        zoolDataBodies.currentIndexBack=currentPlanetIndexBack
-        if(currentPlanetIndexBack>=0){
-            app.currentPlanetIndex=-1
-            app.currentHouseIndex=-1
-        }
-    }
-    onCurrentGmtChanged: {
-        if(app.currentData===''||app.setFromFile)return
-        //xDataBar.currentGmtText=''+currentGmt
-        tReload.restart()
-    }
-    onCurrentGmtBackChanged: {
-        //if(app.currentData===''||app.setFromFile)return
-        //xDataBar.currentGmtText=''+currentGmtBack
-        tReloadBack.restart()
-    }
-    onCurrentDateChanged: {
-        controlsTime.setTime(currentDate)
-        //if(app.currentData===''||app.setFromFile)return
-        //xDataBar.state='show'
-        let a=currentDate.getFullYear()
-        let m=currentDate.getMonth()
-        let d=currentDate.getDate()
-        let h=currentDate.getHours()
-        let min=currentDate.getMinutes()
-        //xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
-        //xDataBar.currentGmtText=''+currentGmt
-        tReload.restart()
-    }
-    onCurrentDateBackChanged: {
-        controlsTimeBack.setTime(currentDateBack)
-        if(app.mod==='trans'){
-            JS.loadTransFromTime(app.currentDateBack)
-        }
-        //xDataBar.state='show'
-        let a=currentDateBack.getFullYear()
-        let m=currentDateBack.getMonth()
-        let d=currentDateBack.getDate()
-        let h=currentDateBack.getHours()
-        let min=currentDateBack.getMinutes()
-        tReloadBack.restart()
-    }
     menuBar: ZoolTopMenuBar {
         id: menuBar
     }
@@ -368,26 +274,6 @@ ZoolMainWindow{
             log.lv('Error:\n'+e+'\n\n')
         }
         //Component.onCompleted: init()
-    }
-    Timer{
-        id: tReload
-        running: false
-        repeat: false
-        interval: 100
-        onTriggered: {
-            JS.setNewTimeJsonFileData(app.currentDate)
-            JS.runJsonTemp()
-        }
-    }
-    Timer{
-        id: tReloadBack
-        running: false
-        repeat: false
-        interval: 100
-        onTriggered: {
-            JS.setNewTimeJsonFileDataBack(app.currentDateBack)
-            JS.runJsonTempBack()
-        }
     }
     Item{
         id: xApp
@@ -605,7 +491,7 @@ ZoolMainWindow{
                         anchors.bottomMargin: h
                         property int h: parent.showCT?0:0-height
                         setAppTime: true
-                        onGmtChanged: app.currentGmt=gmt
+                        onGmtChanged: zoolMap.currentGmt=gmt
                         Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
                     }
 
@@ -655,7 +541,7 @@ ZoolMainWindow{
                         anchors.bottomMargin: h
                         property int h: parent.showCT?0:0-height
                         setAppTime: true
-                        onGmtChanged: app.currentGmtBack=gmt
+                        onGmtChanged: zoolMap.currentGmtBack=gmt
                         Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
                     }
                 }
@@ -753,15 +639,15 @@ ZoolMainWindow{
         interval: 10000
         property string currentJsonData: ''
         onTriggered: {
-            if(tAutoMaticPlanets.currentJsonData!==app.currentData){
+            if(tAutoMaticPlanets.currentJsonData!==zoolMap.currentData){
                 //tAutoMaticPlanets.stop()
                 //return
             }
-            if(app.currentPlanetIndex<21){
-                app.currentPlanetIndex++
+            if(zoolMap.currentPlanetIndex<21){
+                zoolMap.currentPlanetIndex++
             }else{
-                app.currentPlanetIndex=-1
-                app.currentHouseIndex=-1
+                zoolMap.currentPlanetIndex=-1
+                zoolMap.currentHouseIndex=-1
             }
         }
     }

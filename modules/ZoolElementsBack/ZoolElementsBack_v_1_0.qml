@@ -51,9 +51,9 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    ncv.currentDate=app.currentDateBack
-                    ncv.setCurrentDate(app.currentDateBack)
-                    ncv.setCurrentNombre(app.currentNomBack)
+                    ncv.currentDate=zoolMap.currentDateBack
+                    ncv.setCurrentDate(zoolMap.currentDateBack)
+                    ncv.setCurrentNombre(zoolMap.currentNomBack)
                     ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
                     ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
                     sv.currentIndex=5
@@ -203,7 +203,7 @@ Item {
         //console.log('vi:'+v1.toString())
         updateListModel(af, v1, v2, v3, v4)
         //let d = JS.getNums('20/06/1975 22:03')
-        let d = JS.getNums(app.currentFechaBack)
+        let d = JS.getNums(zoolMap.currentFechaBack)
         xItemNums.nd=d[0]
         xItemNums.ns=d[1]
         xItemNums.ag=parseInt(d[2])

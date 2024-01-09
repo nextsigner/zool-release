@@ -23,12 +23,12 @@ Item{
         ZoolMapAs{fs:r.planetSize;astro:modelData;numAstro: index; isBack: r.isBack}
     }
     function pressed(o){
-        if(app.currentPlanetIndex!==o.numAstro){
-            app.currentPlanetIndex=o.numAstro
-            app.currentHouseIndex=o.ih
+        if(zoolMap.currentPlanetIndex!==o.numAstro){
+            zoolMap.currentPlanetIndex=o.numAstro
+            zoolMap.currentHouseIndex=o.ih
         }else{
-            app.currentPlanetIndex=-1
-            app.currentHouseIndex=-1
+            zoolMap.currentPlanetIndex=-1
+            zoolMap.currentHouseIndex=-1
         }
         //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
@@ -66,7 +66,7 @@ Item{
             if(r.isBack && app.mod==='dirprim'){
                 objAs.rotation-=zoolMap.dirPrimRot
             }
-            if(i===0)app.currentRotationxAsSol=objAs.rotation
+            if(i===0)zoolMap.currentRotationxAsSol=objAs.rotation
             o={}
             o.p=objSigns[jo.is]
             if(r.totalPosX<o.p){
@@ -107,7 +107,7 @@ Item{
                 o.rsg=10//jo.gdec-(30*(o.ih))
                 objAs.is=jo.is
             }else{
-                let intJson=app.currentJson//JSON.parse(app.fileData)
+                let intJson=zoolMap.currentJson//JSON.parse(app.fileData)
                 o.ih=!r.isBack?zoolMap.objHousesCircleBack.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih):zoolMap.objHousesCircle.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih)
                 if(i===9){
                     //log.lv('sweg.dirPrimRot:'+sweg.dirPrimRot)
@@ -148,10 +148,10 @@ Item{
             objAs.objData=o
             objSigns[jo.is]++
             if(i===0){
-                app.currentAbsolutoGradoSolar=jo.rsgdeg
-                app.currentGradoSolar=jo.gdeg
-                app.currentMinutoSolar=jo.mdeg
-                app.currentSegundoSolar=jo.sdeg
+                zoolMap.currentAbsolutoGradoSolar=jo.rsgdeg
+                zoolMap.currentGradoSolar=jo.gdeg
+                zoolMap.currentMinutoSolar=jo.mdeg
+                zoolMap.currentSegundoSolar=jo.sdeg
                 houseSun=jo.ih
             }
         }

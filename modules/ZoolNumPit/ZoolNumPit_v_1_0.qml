@@ -897,7 +897,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             calc()
-                            let aGetNums=JS.getNums(app.currentFecha)
+                            let aGetNums=JS.getNums(zoolMap.currentFecha)
                             r.currentIndexAG=aGetNums[2]
                             r.log.clear()
                             r.log.l(getTodo(checkBoxFormula.checked))

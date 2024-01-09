@@ -225,21 +225,21 @@ Column{
                         }else{
                             if(!r.isBack){
                                 zoolDataBodies.latFocus=0
-                                if(app.currentPlanetIndex!==index){
-                                    app.currentPlanetIndex=index
+                                if(zoolMap.currentPlanetIndex!==index){
+                                    zoolMap.currentPlanetIndex=index
                                     zoolDataBodies.currentIndex=index
                                 }else{
-                                    app.currentPlanetIndex=-1
+                                    zoolMap.currentPlanetIndex=-1
                                     zoolDataBodies.currentIndex=-1
                                     zoolMap.objHousesCircle.currentHouse=-1
                                 }
                             }else{
                                 zoolDataBodies.latFocus=1
-                                if(app.currentPlanetIndexBack!==index){
-                                    app.currentPlanetIndexBack=index
+                                if(zoolMap.currentPlanetIndexBack!==index){
+                                    zoolMap.currentPlanetIndexBack=index
                                     zoolDataBodies.currentIndexBack=index
                                 }else{
-                                    app.currentPlanetIndexBack=-1
+                                    zoolMap.currentPlanetIndexBack=-1
                                     zoolDataBodies.currentIndexBack=-1
                                     zoolMap.objHousesCircleBack.currentHouse=-1
                                 }

@@ -1,1 +1,1 @@
-Se crear ZoolFileTransLoader v1.3
+Se corrige lineas en housesCircle

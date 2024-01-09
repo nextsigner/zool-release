@@ -847,14 +847,14 @@ Rectangle {
         r.jsonFull=''
         r.edadMaxima=edad-1
         lm.clear()
-        let cd3= new Date(app.currentDate)
+        let cd3= new Date(zoolMap.currentDate)
         //let hsys=apps.currentHsys
         let finalCmd=''
         //finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         if(!checkBoxRetSolar.checked){
-            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+zoolMap.currentGmt+' '+zoolMap.currentLat+' '+zoolMap.currentLon+' '+zoolMap.currentGradoSolar+' '+zoolMap.currentMinutoSolar+' '+zoolMap.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         }else{
-            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+zoolMap.currentGradoSolar+' '+zoolMap.currentMinutoSolar+' '+zoolMap.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         }
         console.log('finalCmd: '+finalCmd)
         let c=''
@@ -901,22 +901,22 @@ Rectangle {
     function prepareLoad(){
         //tiEdad.focus=false
         if(!checkBoxRetSolar){
-            r.ulat=app.currentLat
-            r.ulon=app.currentLon
+            r.ulat=zoolMap.currentLat
+            r.ulon=zoolMap.currentLon
             if(app.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
             //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
+            lv.itemAtIndex(lv.currentIndex).loadRs(0, zoolMap.currentLat, zoolMap.currentLon, zoolMap.currentAlt)
         }else{
-            r.ulat=app.currentLat
-            r.ulon=app.currentLon
+            r.ulat=zoolMap.currentLat
+            r.ulon=zoolMap.currentLon
             if(app.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
+            lv.itemAtIndex(lv.currentIndex).loadRs(0, zoolMap.currentLat, zoolMap.currentLon, zoolMap.currentAlt)
             //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
         }
     }
@@ -934,7 +934,7 @@ Rectangle {
         let nom='Rev.Solar '+va
 
         let strEdad='Edad: '+index+' años'
-        let ubicacion=app.currentLugar
+        let ubicacion=zoolMap.currentLugar
         let aR=[]
         aR.push(''+va+'/'+vm+'/'+vd)
         aR.push(''+vh+':'+vmin)

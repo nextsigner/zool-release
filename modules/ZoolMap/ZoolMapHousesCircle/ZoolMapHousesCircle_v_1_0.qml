@@ -6,7 +6,7 @@ Item {
     width: app.fs*10//!isBack?signCircle.width+app.fs:(sweg.parent.height*apps.sweMargin)+extraWidth//((sweg.parent.height*(apps.sweMargin))+app.fs)
     height: width
     anchors.centerIn: parent//signCircle
-    visible: isBack?app.ev:true
+    visible: isBack?zoolMap.ev:true
     rotation: !isBack?0:0-zoolMap.dirPrimRot
     property bool isBack: false
     property int extraWidth: 0

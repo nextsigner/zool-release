@@ -282,21 +282,21 @@ Item {
     }
     function rotar(s,i){
         let grado=0
-        let currentDate=app.currentDate
+        let currentDate=zoolMap.currentDate
         if(s===0){
             currentDate.setMinutes(currentDate.getMinutes() + i)
         }else{
             currentDate.setMinutes(currentDate.getMinutes() - i)
         }
-        app.currentDate=currentDate
+        zoolMap.currentDate=currentDate
     }
     function rotarSegundos(s){
-        let currentDate=app.currentDate
+        let currentDate=zoolMap.currentDate
         if(s===0){
             currentDate.setSeconds(currentDate.getSeconds() + 10)
         }else{
             currentDate.setSeconds(currentDate.getSeconds() - 10)
         }
-        app.currentDate=currentDate
+        zoolMap.currentDate=currentDate
     }
 }

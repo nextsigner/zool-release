@@ -39,9 +39,9 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?app.currentDate:app.currentDateBack
-            zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?app.currentDate:app.currentDateBack)
-            zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?app.currentNom:app.currentNomBack)
+            zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zoolMap.currentDate:zoolMap.currentDateBack
+            zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zoolMap.currentDate:zoolMap.currentDateBack)
+            zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zoolMap.currentNom:zoolMap.currentNomBack)
             zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
             zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
             let ci=zsm.getPanelIndex('ZoolNumPit')
@@ -56,7 +56,7 @@ Rectangle{
         ZoolText{id: zt3; text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
     }
     function updateNumPit(){
-        let d = !r.isBack?app.j.getNums(app.currentFecha):app.j.getNums(app.currentFechaBack)
+        let d = !r.isBack?app.j.getNums(zoolMap.currentFecha):app.j.getNums(zoolMap.currentFechaBack)
         if(d[0]===-1 && d[1]===-1 && d[2]===-1)return
         r.nd=d[0]
         r.ns=d[1]

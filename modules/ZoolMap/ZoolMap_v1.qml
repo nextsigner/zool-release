@@ -36,7 +36,7 @@ Item{
 
     property bool showZonas: true
 
-    property bool ev: app.ev
+    property bool ev: false
     property int zodiacBandWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
@@ -56,10 +56,59 @@ Item{
 
     property color backgroundColor: enableBackgroundColor?apps.backgroundColor:'transparent'
     property bool enableBackgroundColor: apps.enableBackgroundColor
+    property int currentPlanetIndex: -1
+    property int currentPlanetIndexBack: -1
+
+    property int currentHouseIndex: -1
+    property int currentHouseIndexBack: -1
+
+    property int currentSignIndex: 0
+
+    property string fileData: ''
+    property string fileDataBack: ''
+    property string currentData: ''
+    property string currentDataBack: ''
+    property var currentJson
+    property var currentJsonBack
+
+    property date currentDate
+    property date currentDateBack
+    property string currentNom: ''
+    property string currentNomBack: ''
+    property string currentFecha: ''
+    property string currentFechaBack: ''
+    property string currentLugar: ''
+    property string currentLugarBack: ''
+    property int currentAbsolutoGradoSolar: -1
+    property int currentAbsolutoGradoSolarBack: -1
+    property int currentGradoSolar: -1
+    property int currentGradoSolarBack: -1
+    property int currentRotationxAsSol: -1
+    property int currentRotationxAsSolBack: -1
+    property int currentMinutoSolar: -1
+    property int currentMinutoSolarBack: -1
+    property int currentSegundoSolar: -1
+    property int currentSegundoSolarBack: -1
+    property real currentGmt: 0
+    property real currentGmtBack: 0
+    property real currentLon
+    property real currentLonBack
+    property real currentLat
+    property real currentLatBack
+    property real currentAlt: 0
+    property real currentAltBack: 0
+
     property int currentIndexSign: -1
+    property int currentIndexSignBack: -1
     property string currentNakshatra: ''
     property string currentNakshatraBack: ''
     property string currentHsys: apps.currentHsys
+
+    property string uSon: ''
+    property string uSonFCMB: ''
+    property string uSonBack: ''
+
+    property string uCuerpoAsp: ''
 
     property bool enableAnZoomAndPos: true
 
@@ -97,6 +146,75 @@ Item{
             loadFromFileBack(filePath, 'sin')
         }
     }
+    onCurrentPlanetIndexChanged: {
+        zoolDataBodies.currentIndex=currentPlanetIndex
+        if(currentPlanetIndex>=0){
+            zoolMap.currentPlanetIndexBack=-1
+            zoolMap.currentHouseIndexBack=-1
+        }
+        if(sspEnabled){
+            if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
+                app.ip.opacity=1.0
+                app.ip.children[0].ssp.setPlanet(currentPlanetIndex)
+            }else{
+                app.ip.opacity=0.0
+            }
+        }
+        //zoolDataBodies.currentIndex=currentPlanetIndex
+        if(currentPlanetIndex>14){
+            /*if(currentPlanetIndex===20){
+                sweg.objHousesCircle.currentHouse=1
+                swegz.sweg.objHousesCircle.currentHouse=1
+            }
+            if(currentPlanetIndex===16){
+                sweg.objHousesCircle.currentHouse=10
+                swegz.sweg.objHousesCircle.currentHouse=10
+            }*/
+        }
+    }
+    onCurrentPlanetIndexBackChanged: {
+        zoolDataBodies.currentIndexBack=currentPlanetIndexBack
+        if(currentPlanetIndexBack>=0){
+            app.currentPlanetIndex=-1
+            app.currentHouseIndex=-1
+        }
+    }
+    onCurrentGmtChanged: {
+        if(zoolMap.currentData===''||app.setFromFile)return
+        //xDataBar.currentGmtText=''+currentGmt
+        tReload.restart()
+    }
+    /*onCurrentGmtBackChanged: {
+        //if(app.currentData===''||app.setFromFile)return
+        //xDataBar.currentGmtText=''+currentGmtBack
+        tReloadBack.restart()
+    }*/
+    onCurrentDateChanged: {
+        controlsTime.setTime(currentDate)
+        //if(app.currentData===''||app.setFromFile)return
+        //xDataBar.state='show'
+        let a=currentDate.getFullYear()
+        let m=currentDate.getMonth()
+        let d=currentDate.getDate()
+        let h=currentDate.getHours()
+        let min=currentDate.getMinutes()
+        //xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
+        //xDataBar.currentGmtText=''+currentGmt
+        tReload.restart()
+    }
+//    onCurrentDateBackChanged: {
+//        controlsTimeBack.setTime(currentDateBack)
+//        if(app.mod==='trans'){
+//            JS.loadTransFromTime(app.currentDateBack)
+//        }
+//        //xDataBar.state='show'
+//        let a=currentDateBack.getFullYear()
+//        let m=currentDateBack.getMonth()
+//        let d=currentDateBack.getDate()
+//        let h=currentDateBack.getHours()
+//        let min=currentDateBack.getMinutes()
+//        tReloadBack.restart()
+//    }
     onDirPrimRotChanged: {
         if(app.mod==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
@@ -136,6 +254,26 @@ Item{
             }
             Behavior on x{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
             Behavior on y{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+            Timer{
+                id: tReload
+                running: false
+                repeat: false
+                interval: 100
+                onTriggered: {
+                    app.j.setNewTimeJsonFileData(zoolMap.currentDate)
+                    app.j.runJsonTemp()
+                }
+            }
+            Timer{
+                id: tReloadBack
+                running: false
+                repeat: false
+                interval: 100
+                onTriggered: {
+                    app.j.setNewTimeJsonFileDataBack(zoolMap.currentDateBack)
+                    app.j.runJsonTempBack()
+                }
+            }
             PinchArea {
                 id: pinchArea
                 anchors.fill: parent
@@ -291,6 +429,7 @@ Item{
                 ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
                 ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3; rotation: signCircle.rot - 90}
+                ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 Rectangle{
                     id:bgPCB
                     width: planetsCircleBack.width
@@ -309,7 +448,7 @@ Item{
                     anchors.centerIn: parent
                     ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4;}
                 }
-                ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
+
                 //NumberLines{visible:true}
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
                 Rectangle{
@@ -471,7 +610,7 @@ Item{
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
         app.mod=j.params.tipo
-        app.fileData=JSON.stringify(j)
+        r.fileData=JSON.stringify(j)
     }
     function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -505,7 +644,7 @@ Item{
         //c+='        log.lv(\'JSON Back: \'+json)\n'
         //c+='        console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
-        c+='        app.ev=true\n'
+        c+='        r.ev=true\n'
         c+='        app.objZoolFileExtDataManager.updateList()\n'
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
@@ -519,7 +658,7 @@ Item{
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
         app.mod=j.params.tipo
-        app.fileDataBack=JSON.stringify(j)
+        r.fileDataBack=JSON.stringify(j)
     }
     function loadSweJson(json){
         //console.log('JSON::: '+json)
@@ -533,17 +672,15 @@ Item{
         //zsm.getPanel('ZoolRevolutionList').clear()
         //panelRsList.clear()
         //planetsCircleBack.visible=false
-        app.ev=false
+        r.ev=false
         apps.urlBack=''
         //panelAspectsBack.visible=false
-        app.currentPlanetIndex=-1
-        app.currentPlanetIndexBack=-1
-        app.currentHouseIndex=-1
-        app.currentHouseIndexBack=-1
-        //sweg.objHousesCircle.currentHouse=-1
-        //swegz.sweg.objHousesCircle.currentHouse=-1
-        app.currentPlanetIndex=-1
-        app.currentHouseIndex=-1
+        r.currentPlanetIndex=-1
+        r.currentPlanetIndexBack=-1
+        r.currentHouseIndex=-1
+        r.currentHouseIndexBack=-1
+        r.currentPlanetIndex=-1
+        r.currentHouseIndex=-1
 
         //console.log('json: '+json)
         var j
@@ -561,7 +698,7 @@ Item{
         }
         r.aTexts=nATexts
 
-        app.currentJson=j
+        r.currentJson=j
         //-->ZoolMap
         signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
         housesCircle.loadHouses(j)
@@ -608,7 +745,7 @@ Item{
             tapa.visible=true
             tapa.opacity=1.0
         }
-        app.currentJsonBack=JSON.parse(json)
+        zoolMap.currentJsonBack=JSON.parse(json)
         //        if(app.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
         //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
@@ -658,7 +795,7 @@ Item{
 
         //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
-        app.ev=true
+        r.ev=true
         if(!app.mod==='dirprim')centerZoomAndPos()
     }
     function loadFromFileBack(filePath, tipo){
@@ -710,6 +847,7 @@ Item{
             load(JSON.parse(j))
         }else{
             loadBack(JSON.parse(j))
+            //r.ev=true
         }
     }
     function loadFromJson(j, isExt, save){
@@ -830,6 +968,36 @@ Item{
     }
     //<--ZoomAndPan
 
+    function resetGlobalVars(){
+        r.ev=false
+        r.currentPlanetIndex=-1
+        r.currentPlanetIndexBack=-1
+        r.currentHouseIndex=-1
+        r.currentHouseIndexBack=-1
+        r.currentSignIndex= 0
+        r.currentNom= ''
+        r.currentNomBack= ''
+        r.currentFecha= ''
+        r.currentFechaBack= ''
+        r.currentGradoSolar= -1
+        r.currentGradoSolarBack= -1
+        r.currentMinutoSolar= -1
+        r.currentMinutoSolarBack= -1
+        r.currentSegundoSolar= -1
+        r.currentSegundoSolarBack= -1
+        r.currentGmt= 0.0
+        r.currentGmtBack= 0.0
+        r.currentLon= 0.0
+        r.currentLonBack= 0.0
+        r.currentLat= 0.0
+        r.currentLatBack= 0.0
+        r.uSon=''
+        r.uSonBack=''
+        apps.showAspPanelBack=false
+        apps.urlBack=''
+        apps.showAspPanelBack=false
+        apps.showAspCircleBack=false
+    }
     function getAPD(isBack){
         return !isBack?planetsCircle.getAPD():planetsCircleBack.getAPD()
     }
@@ -846,7 +1014,7 @@ Item{
         return index
     }
     function getIndexHouse(gdec, isBack){
-        let json=!isBack?app.currentJson:app.currentJsonBack
+        let json=!isBack?zoolMap.currentJson:zoolMap.currentJsonBack
         let index=0
         let g=0.0
         for(var i=0;i<12;i++){

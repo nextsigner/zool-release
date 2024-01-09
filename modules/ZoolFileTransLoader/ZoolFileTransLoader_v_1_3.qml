@@ -50,20 +50,6 @@ Rectangle {
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
-    ZoolText{
-        text: 'ZoolFileMaker v1.0'
-        font.pixelSize: app.fs*0.5
-        color: apps.fontColor
-        anchors.left: parent.left
-        anchors.leftMargin: app.fs*0.1
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.1
-        opacity: settings.showModuleVersion?1.0:0.0
-        MouseArea{
-            anchors.fill: parent
-            onClicked: settings.showModuleVersion=!settings.showModuleVersion
-        }
-    }
     ZoolButton{
         text:'\uf013'
         anchors.right: parent.right
@@ -571,6 +557,12 @@ Rectangle {
                     //                }
 
                 }
+            }
+            ZoolText{
+                text: 'ZoolFileTransLoader v1.3'
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
     }

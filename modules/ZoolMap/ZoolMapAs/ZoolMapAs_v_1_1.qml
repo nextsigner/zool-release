@@ -27,7 +27,7 @@ Item{
     property bool isBack: false
     property bool isPron: false//JSON.parse(app.fileData)?JSON.parse(app.fileData).params.tipo==='pron':false
     property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
-    property bool selected: !isBack?numAstro === app.currentPlanetIndex:numAstro === app.currentPlanetIndexBack
+    property bool selected: !isBack?numAstro === zoolMap.currentPlanetIndex:numAstro === zoolMap.currentPlanetIndexBack
     property string astro
     property int fs
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
@@ -51,11 +51,11 @@ Item{
     //property alias img: bodie.objImg
     //property alias img0: bodie.objImg0
     onSelectedChanged: {
-        if(selected)app.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
+        if(selected)zoolMap.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
             //bodie.objOointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
-            app.currentHouseIndex=objData.ih
+            zoolMap.currentHouseIndex=objData.ih
             app.currentXAs=r
             zoolMap.currentIndexSign=r.is
             setRot()
@@ -260,7 +260,7 @@ Item{
             onClicked: {
                 //apps.sweFs=app.fs
                 if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
-                    app.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
+                    zoolMap.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
 
                     menuPlanets.isBack=false
                     menuPlanets.currentIndexPlanet=r.numAstro

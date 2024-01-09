@@ -71,14 +71,14 @@ Menu {
         }
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
-    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]); onTriggered: {
+    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]); onTriggered: {
             xInfoData.markDown=true
             xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
     }
-    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(app.uSonFCMB.split('_')[1])]+' en casa '+app.uSonFCMB.split('_')[2]); onTriggered: {
-            app.j.showIWFromCtxMenuBar()
-        }
-    }
+//    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(zoolMap.uSonFCMB.split('_')[1])]+' en casa '+zoolMap.uSonFCMB.split('_')[2]); onTriggered: {
+//            app.j.showIWFromCtxMenuBar()
+//        }
+//    }
     Action {text: qsTr(apps.anColorXAs?"No Centellar":"Centellar"); onTriggered: {
             apps.anColorXAs=!apps.anColorXAs
         }

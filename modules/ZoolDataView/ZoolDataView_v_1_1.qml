@@ -65,7 +65,7 @@ Rectangle {
             width: app.fs*0.5
             height: width
             radius: width*0.5
-            color: app.fileData===app.currentData?'gray':'red'
+            color: zoolMap.fileData===zoolMap.currentData?'gray':'red'
             border.width: 2
             border.color: apps.fontColor
             anchors.verticalCenter: parent.verticalCenter
