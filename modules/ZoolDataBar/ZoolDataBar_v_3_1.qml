@@ -93,7 +93,7 @@ Rectangle {
                 anchors.fill: parent
                 enabled: app.titleData!==app.currentData
                 onClicked: {
-                    JS.saveJson()
+                    app.j.saveJson()
                 }
             }
         }

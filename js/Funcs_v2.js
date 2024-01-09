@@ -1029,6 +1029,8 @@ function setNewTimeJsonFileDataBack(date){
     //console.log('fd: '+zoolMap.fileData)
 }
 function saveJson(){
+    //log.lv('zoolMap.fileData: '+JSON.stringify(JSON.parse(zoolMap.fileData), null, 2))
+    //log.lv('zoolMap.currentData: '+JSON.stringify(JSON.parse(zoolMap.currentData), null, 2))
     zoolMap.fileData=zoolMap.currentData
     let jsonFileName=apps.url
     let json=JSON.parse(zoolMap.fileData)
