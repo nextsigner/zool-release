@@ -17,7 +17,7 @@ Rectangle{
     property var audioPlayer
     property var audioPlayerTemp
     property int currentIndex: 0
-    property var lugares: []//["Córdoba Argentina", "United Kingston England"]
+    property var lugares: []//["Córdoba Argentina", "United Kingdom England"]
 
     property alias settings: s
 

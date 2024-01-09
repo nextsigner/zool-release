@@ -25,7 +25,7 @@ Item{
 
     //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
     property bool isBack: false
-    property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
+    property bool isPron: false//JSON.parse(app.fileData)?JSON.parse(app.fileData).params.tipo==='pron':false
     property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
     property bool selected: !isBack?numAstro === app.currentPlanetIndex:numAstro === app.currentPlanetIndexBack
     property string astro
@@ -61,6 +61,7 @@ Item{
             setRot()
             setZoomAndPos()
             app.showPointerXAs=true
+            //zoolMap.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zoolMap.objSignsCircle.rotation)
         }
     }
     property int vr: 0
@@ -275,7 +276,16 @@ Item{
             }
             Timer{
                 id: tClick
-                running: false
+                function rotatePoint(x, y, angle) {
+                    // Convertir el ángulo a radianes
+                    var radians = angle * Math.PI / 180;
+
+                    // Calcular las coordenadas rotadas
+                    var rotatedX = x * Math.cos(radians) - y * Math.sin(radians);
+                    var rotatedY = x * Math.sin(radians) + y * Math.cos(radians);
+
+                    return { x: rotatedX, y: rotatedY };
+                }   running: false
                 repeat: false
                 interval: 500
                 onTriggered: {

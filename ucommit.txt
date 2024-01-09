@@ -1,1 +1,1 @@
-Se optimiza el modulo ZoolFileDirPrimLoader
+Se crear ZoolFileTransLoader v1.3

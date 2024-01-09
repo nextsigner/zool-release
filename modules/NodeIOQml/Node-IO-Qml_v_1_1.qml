@@ -10,18 +10,18 @@ Item{
     property string user: 'node-io-qml'
     property string to: 'all'
     property string indexPath: '/home/ns/nsp/node-io-sc/index.js'
-    property string host: 'localhost'
-    property int port: 3111
+    property string host//: 'localhost'
+    property int port//: 8080
     signal dataReceibed(string data)
     signal dataError(string e)
-    onHostChanged: uqp.init()
-    onPortChanged: uqp.init()
+    //onHostChanged: uqp.init()
+    //onPortChanged: uqp.init()
     UnikQProcess{
         id: uqp
         property var aLogData: []
         onLogDataChanged:{
             //console.log('onLogDataChanged:'+logData)
-            //log.lv('NodeIOQml v1.1 onLogDataChanged:['+logData+']')
+            if(app.dev)log.lv('NodeIOQml v1.1 onLogDataChanged:['+logData+']')
             //let m00=(''+logData).split('\n')
 //            for(var i=0;i<m00.length;i++){
 //                log.lv('onLogDataChanged ['+i+']:['+m00[i]+']\n\n')
@@ -41,7 +41,7 @@ Item{
                     errorStr='Node-IO-Qml: Error de conexión.'
                 }
                 let error='LogData del error: ['+errorStr+']\n'
-                error+='Descripción del error: ['+e+']\n\n'
+                error+='Descripción del error: ['+e+']\n\nHost:'+r.host+' Port: '+r.port+'\nlogData: '+logData
                 r.dataError(error);
                 //console.error(e);
             }
@@ -54,10 +54,12 @@ Item{
             cmd+=' node-io-ss'//+r.to
             //cmd+=' '+r.user
             cmd+=' conectado'
-            cmd+=' host='+r.host
+            cmd+=' serverIp='+r.host
             cmd+=' port='+r.port
+            cmd+=' persistent'
             console.log('Node-IO-Qml uqp cmd: '+cmd)
             //log.lv('Node-IO-Qml logData: '+logData)
+            if(app.dev)log.lv('Node-IO-Qml logData run cmd: '+cmd)
             run(cmd)
         }
         Component.onCompleted: {
@@ -99,5 +101,8 @@ Item{
     }
     function send(to, data){
         unik.sendToTcpServer(r.host, r.port, r.user, to, data)
+    }
+    function init(){
+        uqp.init()
     }
 }

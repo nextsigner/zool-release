@@ -19,7 +19,7 @@ Rectangle{
     property alias mp: apau
     property alias mplis: plau
     property int currentIndex: 0
-    property var lugares: []//["Córdoba Argentina", "United Kingston England"]
+    property var lugares: []//["Córdoba Argentina", "United Kingdom England"]
     property var lats: []//[-31.416187, 53.4543314]
     property var longs: []//[-64.175087, -2.113293483429562]
     property var gmts: []//[0, 3]

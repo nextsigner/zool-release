@@ -24,11 +24,11 @@ Column{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    if(!r.isBack){
-                        zoolDataBodies.latFocus=0
-                    }else{
-                        zoolDataBodies.latFocus=1
-                    }
+                        if(!r.isBack){
+                            zoolDataBodies.latFocus=0
+                        }else{
+                            zoolDataBodies.latFocus=1
+                        }
                 }
             }
             Text {
@@ -78,7 +78,7 @@ Column{
             height: !app.ev?
                         //Mostrando 1 columna de datos.
                         (index===zoolDataBodies.currentIndex?(colTxtSelected.height+app.fs*0.1):
-                                                               (txtData.contentHeight+app.fs*0.1)):
+                                                              (txtData.contentHeight+app.fs*0.1)):
 
                         //Mostrando 2 columas de Datos
                         (colTxtEV.height+app.fs*0.1)
@@ -209,7 +209,9 @@ Column{
                 onClicked: {
                     if (mouse.modifiers & Qt.ControlModifier) {
                         if(index<=21){
-                            app.j.showIW()
+                            //app.j.showIW()
+                            //log.lv()
+                            unik.sendToTcpServer(nioqml.host, nioqml.port, nioqml.user, 'zool', 'zi|'+index+'|'+is+'')
                         }
                     }else{
                         if(index>21){

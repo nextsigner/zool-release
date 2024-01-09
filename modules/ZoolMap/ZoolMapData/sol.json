@@ -1,0 +1,110 @@
+{
+    "sol_en_aries": {
+        "manifestaciones": {
+            "fuerte_voluntad_y_determinación": "Demuestra una fuerte voluntad y determinación en la búsqueda de sus objetivos, siendo valiente y decidido en la toma de decisiones.",
+            "naturaleza_pionera_y_liderazgo": "Posee una naturaleza pionera y de liderazgo, disfrutando de tomar la iniciativa y liderar proyectos y equipos.",
+            "energía_activa_y_entusiasta": "Irradia una energía activa y entusiasta, mostrando una actitud dinámica y apasionada hacia la vida y sus desafíos.",
+            "independencia_y_autenticidad": "Valora la independencia y la autenticidad, buscando destacar por ser fiel a sí mismo y a sus convicciones.",
+            "impulso_a_la_acción_y_la_espontaneidad": "Siente un fuerte impulso a la acción y la espontaneidad, prefiriendo la acción directa y la resolución inmediata de problemas."
+        }
+    },
+    "sol_en_tauro": {
+        "manifestaciones": {
+            "persistencia_y_estabilidad": "Se caracteriza por su persistencia y deseo de estabilidad, buscando construir bases sólidas en su vida y en sus relaciones.",
+            "disfrute_de_sensaciones_y_comodidades": "Disfruta de las sensaciones y comodidades de la vida, apreciando la belleza en su entorno y valorando las experiencias sensoriales.",
+            "determinación_y_enfoque_práctico": "Muestra determinación y un enfoque práctico en la consecución de metas, siendo capaz de trabajar de manera constante y enfocada.",
+            "lealtad_y_confianza": "Es leal y valora la confianza en las relaciones, construyendo vínculos sólidos y duraderos con aquellos en quienes confía.",
+            "conexión_con_la_naturaleza_y_el_mundo_material": "Siente una conexión especial con la naturaleza y el mundo material, disfrutando de la estabilidad que ofrecen y buscando la armonía en su entorno."
+        }
+    },
+    "sol_en_geminis": {
+        "manifestaciones": {
+            "versatilidad_y_adaptabilidad": "Demuestra versatilidad y adaptabilidad, siendo capaz de cambiar de enfoque con facilidad y disfrutando de la variedad en la vida.",
+            "curiosidad_intelectual_y_mentalidad_abierta": "Muestra una curiosidad intelectual y una mentalidad abierta, buscando constantemente aprender y explorar nuevos conceptos y ideas.",
+            "comunicación_efectiva_y_encanto": "Destaca en la comunicación efectiva y tiene un encanto natural, siendo capaz de conectar fácilmente con los demás y expresar sus ideas de manera persuasiva.",
+            "inquietud_mental_y_necesidad_de_estímulo": "Experimenta inquietud mental y tiene una necesidad constante de estímulo, buscando mantenerse mentalmente activo y entretenido.",
+            "dualidad_y_ambivalencia": "Experimenta dualidad y ambivalencia en su personalidad, mostrando diferentes facetas de sí mismo en distintas situaciones y disfrutando de la variedad de experiencias."
+        }
+    },
+    "sol_en_cancer": {
+        "manifestaciones": {
+            "sensibilidad_emocional_y_empatía": "Se caracteriza por su sensibilidad emocional y empatía, siendo capaz de conectarse profundamente con las emociones propias y ajenas.",
+            "protección_y_cuidado_hacia_los_serios_queridos": "Muestra un instinto natural de protección y cuidado hacia los seres queridos, buscando crear un ambiente seguro y acogedor para quienes le rodean.",
+            "intuición_aguda_y_conexión_con_el_pasado": "Posee una intuición aguda y una conexión especial con el pasado, valorando la tradición y la memoria.",
+            "ciclos_emocionales_y_cambio_constante": "Experimenta ciclos emocionales y busca el cambio constante, adaptándose a las mareas emocionales y a las transformaciones en su entorno.",
+            "vínculo_fuerte_con_el_hogar_y_la_familia": "Mantiene un vínculo fuerte con el hogar y la familia, considerándolos fundamentales en su vida y encontrando seguridad en esos lazos afectivos."
+        }
+    },
+    "sol_en_leo": {
+        "manifestaciones": {
+            "carisma_y_presencia_magnética": "Irradia carisma y tiene una presencia magnética, destacando en situaciones sociales y atrayendo la atención de los demás.",
+            "autoexpresión_y_creatividad": "Busca la autoexpresión y la creatividad, disfrutando de destacar en actividades artísticas y encontrar formas únicas de expresar su identidad.",
+            "confianza_en_sí_mismo_y_afirmación_personal": "Tiene confianza en sí mismo y busca la afirmación personal, buscando reconocimiento y aprecio por sus logros y habilidades.",
+            "generosidad_y_afecto": "Es generoso y afectuoso, compartiendo con gusto con los demás y mostrando un corazón cálido y solidario.",
+            "necesidad_de_reconocimiento_y_brillo_personal": "Experimenta la necesidad de reconocimiento y brillo personal, buscando ser el centro de atención y destacar en su entorno."
+        }
+    },
+    "sol_en_virgo": {
+        "manifestaciones": {
+            "meticulosidad_y_atención_a_los_detalles": "Se caracteriza por su meticulosidad y atención a los detalles, buscando la perfección en sus actividades y tareas.",
+            "enfoque_práctico_y_servicial": "Muestra un enfoque práctico y servicial, siendo capaz de analizar problemas y ofrecer soluciones concretas, así como brindar ayuda a los demás de manera práctica.",
+            "organización_y_disciplina": "Valora la organización y la disciplina, buscando establecer estructuras sólidas y mantener un orden en su vida y entorno.",
+            "cuidado_por_la_salud_y_el_bienestar": "Tiene un cuidado especial por la salud y el bienestar, adoptando hábitos saludables y prestando atención a la nutrición y el ejercicio.",
+            "sentido_del_deber_y_la_responsabilidad": "Posee un fuerte sentido del deber y la responsabilidad, cumpliendo con sus compromisos y buscando contribuir al bienestar de su comunidad."
+        }
+    },
+    "sol_en_libra": {
+        "manifestaciones": {
+            "búsqueda_de_armonía_y_equilibrio": "Busca la armonía y el equilibrio en todas las áreas de la vida, valorando la paz y la estética en sus relaciones y entorno.",
+            "diplomacia_y_habilidad_para_la_negociación": "Muestra diplomacia y habilidad para la negociación, buscando resolver conflictos de manera equitativa y promoviendo la colaboración.",
+            "afinidad_por_el_arte_y_la_belleza": "Siente afinidad por el arte y la belleza, disfrutando de la expresión estética y buscando rodearse de entornos estéticamente agradables.",
+            "relaciones_armoniosas_y_colaborativas": "Prioriza las relaciones armoniosas y colaborativas, buscando asociaciones equitativas y construyendo conexiones basadas en la igualdad y la cooperación.",
+            "justicia_y_firmeza_en_los_valores_personales": "Valora la justicia y la firmeza en los valores personales, buscando actuar con integridad y abogar por lo que considera correcto."
+        }
+    },
+    "sol_en_escorpio": {
+        "manifestaciones": {
+            "intensidad_emocional_y_profundidad": "Se caracteriza por su intensidad emocional y su búsqueda de la profundidad en las experiencias, buscando entender las motivaciones más allá de la superficie.",
+            "determinación_y_resiliencia": "Muestra determinación y resiliencia en la consecución de metas, enfrentando los desafíos con coraje y transformando las adversidades en oportunidades de crecimiento.",
+            "capacidad_para_la_transformación_personal": "Tiene la capacidad de la transformación personal, enfrentando las sombras internas y buscando la evolución constante de su ser.",
+            "reserva_y_misterio": "Es reservado y lleva consigo un aura de misterio, revelando selectivamente aspectos de sí mismo y manteniendo una cierta privacidad.",
+            "lealtad_profunsa_y_conexiones_emocionales_intensas": "Muestra lealtad profunda y forma conexiones emocionales intensas, valorando las relaciones auténticas y comprometiéndose profundamente con aquellos en quienes confía."
+        }
+    },
+    "sol_en_sagitario": {
+        "manifestaciones": {
+            "entusiasmo_y_espíritu_aventurero": "Se caracteriza por su entusiasmo y espíritu aventurero, buscando constantemente nuevas experiencias y expandiendo sus horizontes.",
+            "optimismo_y_fe_en_el_futuro": "Muestra optimismo y fe en el futuro, manteniendo una actitud positiva incluso en medio de los desafíos y las adversidades.",
+            "búsqueda_de_significado_y_conocimiento": "Tiene una profunda búsqueda de significado y conocimiento, explorando filosofías de vida y expandiendo su comprensión del mundo.",
+            "honestidad_y_sinceridad": "Valora la honestidad y la sinceridad, expresando sus pensamientos y opiniones de manera directa y buscando la verdad en todas las situaciones.",
+            "independencia_y_espíritu_libre": "Es independiente y tiene un espíritu libre, resistiendo las restricciones y buscando la libertad para seguir su propio camino."
+        }
+    },
+    "sol_en_capricornio": {
+        "manifestaciones": {
+            "ambición_y_enfoque_en_el_logro": "Se caracteriza por su ambición y enfoque en el logro de metas a largo plazo, trabajando con determinación para alcanzar el éxito.",
+            "disciplina_y_responsabilidad": "Muestra disciplina y responsabilidad en todas sus acciones, abordando las tareas con seriedad y comprometiéndose con la excelencia.",
+            "prudencia_y_planificación": "Valora la prudencia y la planificación, tomando decisiones cuidadosas y considerando las consecuencias a largo plazo de sus acciones.",
+            "resistencia_y_capacidad_de_superación": "Tiene resistencia y capacidad de superación, enfrentando los desafíos con paciencia y perseverancia, y aprendiendo de las experiencias difíciles.",
+            "conexión_con_la_tradición_y_el_estatus": "Siente una conexión con la tradición y el estatus, buscando construir una base sólida y obtener reconocimiento en la sociedad."
+        }
+    },
+    "sol_en_acuario": {
+        "manifestaciones": {
+            "originalidad_y_mentalidad_vanguardista": "Se destaca por su originalidad y mentalidad vanguardista, buscando innovar y romper con las convenciones establecidas.",
+            "humanitarismo_y_preocupación_por_el_colectivo": "Muestra un fuerte sentido de humanitarismo y preocupación por el bienestar colectivo, buscando contribuir a causas sociales y promover la igualdad.",
+            "pensamiento_independiente_y_aversión_a_la_conformidad": "Tiene un pensamiento independiente y una aversión a la conformidad, valorando la libertad de expresión y resistiéndose a las normas restrictivas.",
+            "amistad_y_relaciones_con_un_toque_único": "Valora la amistad y las relaciones con un toque único, construyendo conexiones basadas en la autenticidad y la aceptación de la individualidad.",
+            "mentalidad_abierta_y_adaptabilidad": "Posee una mentalidad abierta y una gran adaptabilidad, siendo receptivo a nuevas ideas y capaz de ajustarse a diferentes circunstancias."
+        }
+    },
+    "sol_en_piscis": {
+        "manifestaciones": {
+            "sensibilidad_y_empatía_profunda": "Se caracteriza por su sensibilidad y empatía profunda, sintiendo intensamente las emociones propias y ajenas.",
+            "imaginación_creativa_y_mundo_interior_rico": "Posee una imaginación creativa y un mundo interior rico, explorando la espiritualidad y buscando significado en las experiencias más allá de lo tangible.",
+            "compasión_y_amor_incondicional": "Muestra compasión y amor incondicional hacia los demás, buscando ayudar y brindar apoyo sin esperar nada a cambio.",
+            "intuición_aguda_y_conexión_con_lo_transcendental": "Tiene una intuición aguda y una conexión con lo transcendental, confiando en sus corazonadas y explorando la espiritualidad en su vida cotidiana.",
+            "necesidad_de_escapismo_y_recogimiento": "Experimenta la necesidad de escapismo y recogimiento, buscando momentos de tranquilidad y soledad para recargar energías y conectar consigo mismo."
+        }
+    }
+}

@@ -42,7 +42,9 @@ Item{
     property int housesNumMargin: app.fs*0.25
     property int fs: app.fs
     property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
+    property var aSignsLowerStyle: ['aries', 'tauro', 'geminis', 'cancer', 'leo', 'virgo', 'libra', 'escorpio', 'sagitario', 'capricornio', 'acuario', 'piscis']
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
+    property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
     property int planetSize: !r.ev?app.fs*1.5:app.fs
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
@@ -179,6 +181,9 @@ Item{
                     anchors.centerIn: parent
                     MouseArea{
                         anchors.fill: parent
+                        onClicked: {
+
+                        }
                         onDoubleClicked: centerZoomAndPos()
                     }
                 }
@@ -221,6 +226,8 @@ Item{
                         anchors.fill: parent
                         acceptedButtons: Qt.AllButtons;
                         onClicked: {
+                            //log.lv('Ser pos:'+mouseX+' '+mouseY)
+                            //zoolMap.setPos(mouseX, mouseY, 0)
                             apps.zFocus='xMed'
                             if (mouse.button === Qt.RightButton) {
 
@@ -305,6 +312,44 @@ Item{
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 //NumberLines{visible:true}
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
+                Rectangle{
+                    id: capaFront
+                    width: parent.width
+                    height: width
+                    color: 'transparent'
+                    border.width: 10
+                    border.color: 'red'
+                    visible: false
+                    Rectangle{
+                        id: ejeAbstractBodie
+                        width: parent.width
+                        height: 1
+                        anchors.centerIn: parent
+                        rotation: -30
+                        Rectangle{
+                            width: r.planetSize
+                            height: width
+                            radius: width*0.5
+                            color: 'blue'
+                            anchors.verticalCenter: parent.verticalCenter
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+                                    //var globalCoordinates = parent.mapToGlobal(parent.x-parent.width*0.5, parent.y-parent.height*0.5)
+                                    //var mouseP = Qt.point();
+                                    //var mapped =
+                                    var globalCoordinates = parent.mapToItem(capaFront, parent.x, parent.y);
+                                        let s="X: " + globalCoordinates.x + " y: " + globalCoordinates.y
+                                    let nx= globalCoordinates.x+25
+                                    let ny= globalCoordinates.y-25
+                                    s+='\nnx:'+nx+'\nny:'+ny
+                                    zoolMap.objAsInfoView.text=s
+                                    zoolMap.setPos(nx, ny, ejeAbstractBodie.rotation)
+                                }
+                            }
+                        }
+                    }
+                }
                 /*
                 EclipseCircle{
                     id: eclipseCircle
@@ -533,6 +578,8 @@ Item{
         r.currentNakshatra=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
 
         //resizeAspsCircle()
+        //zoolMap.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zoolMap.objSignsCircle.rotation)
+        zoolMap.setPos(0, 0, 0)
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
@@ -637,6 +684,45 @@ Item{
         app.mod=tipo
         app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
+    function loadNow(isExt){
+        let d=new Date(Date.now())
+        let currentUserHours=d.getHours()
+        let diffHours=d.getUTCHours()
+        let currentGmtUser=0
+        if(currentUserHours>diffHours){
+            currentGmtUser=parseFloat(currentUserHours-diffHours)
+        }else{
+            currentGmtUser=parseFloat(0-(diffHours-currentUserHours)).toFixed(1)
+        }
+        //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
+        let dia=d.getDate()
+        let mes=d.getMonth()+1
+        let anio=d.getFullYear()
+        let hora=d.getHours()
+        let minutos=d.getMinutes()
+        let nom="Tránsitos de "+dia+'/'+mes+'/'+anio+' '+hora+':'+minutos
+        loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingdom", "vn", isExt)
+    }
+    function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, isExt){
+        let dataMs=new Date(Date.now())
+        let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
+        if(!isExt){
+            load(JSON.parse(j))
+        }else{
+            loadBack(JSON.parse(j))
+        }
+    }
+    function loadFromJson(j, isExt, save){
+        if(save){
+            let mf=zfdm.mkFileAndLoad(JSON.parse(j))
+            return
+        }
+        if(!isExt){
+            load(JSON.parse(j))
+        }else{
+            loadBack(JSON.parse(j))
+        }
+    }
     //<--Load Data
 
     function resizeAspsCircle(isBack){
@@ -700,6 +786,47 @@ Item{
         a.push(parseInt(rect.y))
         a.push(parseInt(app.currentXAs.uRot))
         return a
+    }
+    function setPos(x, y, angle){
+        var originalX = x;
+        var originalY = y;
+
+        // Ángulo de rotación del rectángulo contenedor
+        var rotationAngle = angle//parent.rotation;
+
+        // Calcular las coordenadas del punto después de la rotación
+        var rotatedPoint = getCoordsRotatedPoint(originalX, originalY, rotationAngle);
+
+        console.log('Coordenadas rotadas:', rotatedPoint.x+' '+rotatedPoint.y);
+        mr(rotatedPoint.x, rotatedPoint.y);
+    }
+    function getCoordsRotatedPoint(x, y, angle) {
+        // Convertir el ángulo a radianes
+        var radians = angle * Math.PI / 180;
+
+        // Calcular las coordenadas rotadas
+        var rotatedX = x * Math.cos(radians) - y * Math.sin(radians);
+        var rotatedY = x * Math.sin(radians) + y * Math.cos(radians);
+
+        return { x: rotatedX, y: rotatedY };
+    }
+    //Función para el desarrollo de el posicionamiento automático.
+    function mr(x, y) {
+        let c='import QtQuick 2.12\n'
+        c+='Rectangle {\n'
+        c+='    color: "red"\n'
+        c+='    Timer{\n'
+        c+='        running:true; repeat:false;interval:5000\n'
+        c+='        onTriggered: parent.destroy()\n'
+        c+='    }\n'
+        c+='}\n'
+        var d = Qt.createQmlObject(c, capaFront);
+        d.width=50
+        d.height=50
+        d.border.width=4
+        d.border.color='yellow'
+        d.x = x-25;
+        d.y = y-25;
     }
     //<--ZoomAndPan
 

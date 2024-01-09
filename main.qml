@@ -51,7 +51,7 @@ import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
 import NodeIOQml 1.1
-
+import comps.WindowDataView 1.0
 
 
 
@@ -337,6 +337,31 @@ ZoolMainWindow{
             }
             if(json.data==='centerZoomAndPan'){
                 zoolMap.centerZoomAndPos()
+            }
+            if(json.data.indexOf('zi|')===0){
+                let m0=json.data.split('|')
+                let c=''
+                c+='import QtQuick 2.0\n'
+                c+='import unik.UnikQProcess 1.0\n'
+                //c+='Item{\n'
+                c+='UnikQProcess{\n'
+                c+='    onLogDataChanged:{\n'
+                //c+='        log.lv("D:"+logData)\n'
+                c+='        w.text=logData\n'
+                c+='        w.raise()\n'
+                c+='        destroy()\n'
+                c+='    }\n'
+                c+='    Component.onCompleted:{\n'
+                c+='        let b=("'+zoolMap.aBodiesFiles[m0[1]]+'").toLowerCase()\n'
+                c+='        let s="'+zoolMap.aSignsLowerStyle[m0[2]]+'"\n'
+                c+='        let ss=b+"_en_"+s\n'
+                //c+='        log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
+                c+='        run("/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+"")\n'
+                c+='    }\n'
+                c+='}\n'
+                //c+='}\n'
+                let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
+
             }
         }
         onDataError:{
@@ -684,6 +709,8 @@ ZoolMainWindow{
     }
     ZoolLogView{id: log}
     ZoolWebStatusManager{id: zwsm}
+    WindowDataView{id: w}
+    Item{id: xuqps}
     QtObject{
         id: setHost
         function setData(data, isData){
@@ -781,6 +808,7 @@ ZoolMainWindow{
         }
         let localhost=false
         if(args.indexOf('-localhost')>=0)localhost=true
+        let setPortByConfigCFG=true
         if(unik.fileExist('./tcpclient.conf')){
             let data=unik.getFile('./tcpclient.conf')
 
@@ -792,62 +820,20 @@ ZoolMainWindow{
             }else{
                 nioqml.host=lines[1].replace('ip=', '')
             }
-            nioqml.port=parseInt(lines[2].replace('port=', ''))
+            if(!setPortByConfigCFG)nioqml.port=parseInt(lines[2].replace('port=', ''))
 
             //log.lv('User: ['+nioqml.user+']')
             //log.lv('Host: ['+nioqml.host+']')
             //log.lv('Port: ['+nioqml.port+']')
         }
 
+            if(setPortByConfigCFG){
+                let portByCfg=unik.getFile('/home/ns/.config/nodeiosport.cfg').replace(/\n/g,'')
+               nioqml.port=parseInt(portByCfg)
+            }
+            nioqml.init()
 
 
-        /*if(false){
-            let compMinyma=Qt.createComponent('./modules/comps/MinymaClient/MinymaClient.qml')
-            //let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
-            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: 'ws://192.168.1.51', port: 1616})
-            objMinyma.newMessageForMe.connect(function(from, data) {
-                if(data==='isWindowTool'){
-                    if(app.flags===Qt.Tool){
-                        minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=true')
-                    }else{
-                        minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=false')
-                    }
-                }
-                if(data==='windowToWindow'){
-                    app.flags=Qt.Window
-                }
-                if(data==='windowToTool'){
-                    app.flags=Qt.Tool
-                }
-
-                //To zoolMediaLive
-                if(data==='zoolMediaLive.loadBodiesNow()'){
-                    zoolMediaLive.loadBodiesNow()
-                }
-                if(data==='zoolMediaLive.play()'){
-                    zoolMediaLive.play()
-                }
-                if(data==='zoolMediaLive.pause()'){
-                    zoolMediaLive.pause()
-                }
-                if(data==='zoolMediaLive.stop()'){
-                    zoolMediaLive.stop()
-                }
-                if(data==='zoolMediaLive.previous()'){
-                    zoolMediaLive.previous()
-                }
-                if(data==='zoolMediaLive.next()'){
-                    zoolMediaLive.next()
-                }
-            });
-            objMinyma.onNewMessage.connect(function(from, to, data) {
-                //Aqui se puede poner un bloque de código
-                //para procesar todos los datos que procesa MinymaServer.
-            });
-            app.minymaClient=objMinyma
-        }
-
-        */
 
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')

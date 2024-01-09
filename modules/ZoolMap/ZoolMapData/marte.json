@@ -1,0 +1,110 @@
+{
+    "marte_en_aries": {
+        "manifestaciones": {
+            "impulso_y_energía_frenética": "Manifiesta un fuerte impulso y energía frenética, mostrando una naturaleza activa y decidida en la búsqueda de objetivos.",
+            "iniciativa_y_liderazgo": "Toma la iniciativa y muestra liderazgo, destacándose por su valentía y determinación en situaciones desafiantes.",
+            "agresividad_en_el_combate_por_objetivos": "Muestra agresividad en el combate por objetivos, enfrentando desafíos con vigor y una actitud resuelta.",
+            "competitividad_y_deseo_de_logro_personal": "Es competitivo y tiene un fuerte deseo de logro personal, buscando destacar y superar sus propias metas constantemente.",
+            "exploración_de_la_energía_vital_y_la_autodeterminación": "Se aventura en la exploración de la energía vital y la autodeterminación, buscando desarrollar una identidad fuerte y enérgica a través de sus acciones."
+        }
+    },
+    "marte_en_tauro": {
+        "manifestaciones": {
+            "determinación_y_resistencia": "Manifiesta determinación y resistencia, mostrando una persistencia y enfoque constante en la consecución de metas a largo plazo.",
+            "practicidad_y_fuerza_física": "Es práctico y posee una fuerza física notable, abordando desafíos de manera metódica y demostrando resistencia física.",
+            "tenacidad_en_la_búsqueda_de_recursos": "Muestra tenacidad en la búsqueda de recursos, siendo perseverante en la obtención de bienes materiales y seguridad financiera.",
+            "firmeza_en_la_toma_de_decisiones": "Es firme en la toma de decisiones, mostrando una actitud reflexiva y cuidadosa al evaluar opciones antes de actuar.",
+            "exploración_de_la_energía_determinada_y_la_estabilidad_material": "Se aventura en la exploración de la energía determinada y la estabilidad material, buscando construir una base sólida y asegurar el bienestar material."
+        }
+    },
+    "marte_en_geminis": {
+        "manifestaciones": {
+            "versatilidad_y_agilidad_mental": "Manifiesta versatilidad y agilidad mental, mostrando habilidades para adaptarse rápidamente a nuevas situaciones y conceptos.",
+            "comunicación_directa_y_expresiva": "Se comunica de manera directa y expresiva, destacando por su habilidad para transmitir ideas y opiniones de forma clara y convincente.",
+            "curiosidad_y_busqueda_constante_de_conocimiento": "Muestra curiosidad y una búsqueda constante de conocimiento, explorando una variedad de temas con entusiasmo y energía.",
+            "inquietud_y_necesidad_de_estímulo_mental": "Experimenta inquietud y una necesidad de estímulo mental constante, buscando desafíos intelectuales y variedad en sus actividades.",
+            "exploración_de_la_energía_mental_y_la_adaptabilidad": "Se aventura en la exploración de la energía mental y la adaptabilidad, buscando desarrollar habilidades cognitivas y adaptarse fácilmente a diferentes entornos."
+        }
+    },
+    "marte_en_cancer": {
+        "manifestaciones": {
+            "impulso_protector_y_cuidadoso": "Manifiesta un impulso protector y cuidadoso, mostrando una dedicación especial hacia aquellos a quienes considera cercanos y queridos.",
+            "acción_motivada_por_emociones": "La acción está motivada por emociones profundas, respondiendo a estímulos emocionales con determinación y sensibilidad.",
+            "necesidad_de_seguridad_y_pertenencia": "Experimenta una fuerte necesidad de seguridad y pertenencia, orientando sus acciones hacia la construcción de un hogar y relaciones estables.",
+            "tenacidad_en_la_protección_de_ser_amado": "Muestra tenacidad en la protección del ser amado, defendiendo con firmeza a aquellos a quienes considera parte de su círculo íntimo.",
+            "exploración_de_la_energía_emocional_y_la_acción_nurturante": "Se aventura en la exploración de la energía emocional y la acción nurturante, buscando satisfacción a través de la conexión emocional y el cuidado hacia otros."
+        }
+    },
+    "marte_en_leo": {
+        "manifestaciones": {
+            "autoexpresión_y_confianza": "Manifiesta una fuerte autoexpresión y confianza, destacando por su presencia magnética y su capacidad para liderar con determinación.",
+            "acción_motivada_por_el_orgullo_y_el_entusiasmo": "La acción está motivada por el orgullo y el entusiasmo, buscando destacar y lograr reconocimiento a través de sus logros.",
+            "necesidad_de_afirmación_y_admiración": "Experimenta una fuerte necesidad de afirmación y admiración, orientando sus acciones hacia la obtención de reconocimiento y elogios.",
+            "determinación_en_la_búsqueda_de_logros_personales": "Muestra determinación en la búsqueda de logros personales, abordando desafíos con audacia y perseverancia.",
+            "exploración_de_la_energía_apasionada_y_la_autoafirmación": "Se aventura en la exploración de la energía apasionada y la autoafirmación, buscando expresar su individualidad con entusiasmo y autenticidad."
+        }
+    },
+    "marte_en_virgo": {
+        "manifestaciones": {
+            "acción_orientada_a_los_detalles_y_la_perfección": "Manifiesta acción orientada a los detalles y la perfección, mostrando meticulosidad y cuidado en cada tarea que emprende.",
+            "enfoque_práctico_y_análisis_detallado": "Tiene un enfoque práctico y realiza análisis detallados, abordando los desafíos con una mente lógica y analítica.",
+            "eficiencia_en_la_resolución_de_problemas": "Muestra eficiencia en la resolución de problemas, buscando soluciones prácticas y mejoras constantes en su entorno.",
+            "necesidad_de_ord_y_eficacia_en_la_acción": "Experimenta una fuerte necesidad de orden y eficacia en la acción, organizando sus actividades de manera precisa y eficiente.",
+            "exploración_de_la_energía_práctica_y_el_mejoramiento_constante": "Se aventura en la exploración de la energía práctica y el mejoramiento constante, buscando perfeccionar habilidades y contribuir al progreso continuo."
+        }
+    },
+    "marte_en_libra": {
+        "manifestaciones": {
+            "acción_motivada_por_la_armonía_y_la_justicia": "Manifiesta acción motivada por la armonía y la justicia, buscando equilibrio en sus relaciones y en la resolución de conflictos.",
+            "diplomacia_y_cooperación_en_la_toma_de_decisiones": "Aplica diplomacia y cooperación en la toma de decisiones, buscando consenso y considerando las necesidades de los demás.",
+            "impulso_hacia_la_belleza_y_el_estilo": "Siente un impulso hacia la belleza y el estilo, orientando sus acciones hacia la creación de entornos estéticos y relaciones equitativas.",
+            "necesidad_de_relaciones_armoniosas": "Experimenta una fuerte necesidad de relaciones armoniosas, evitando conflictos y trabajando hacia la construcción de conexiones pacíficas.",
+            "exploración_de_la_energía_colaborativa_y_la_búsqueda_del_equilibrio": "Se aventura en la exploración de la energía colaborativa y la búsqueda del equilibrio, buscando contribuir a relaciones armoniosas y justas."
+        }
+    },
+    "marte_en_escorpio": {
+        "manifestaciones": {
+            "acción_motivada_por_la_intensidad_y_la_transformación": "Manifiesta acción motivada por la intensidad y la transformación, buscando profundizar en las experiencias y renovarse constantemente.",
+            "determinación_en_la_búsqueda_de_objetivos_profundos": "Muestra determinación en la búsqueda de objetivos profundos, abordando desafíos con una intensidad y enfoque férreos.",
+            "resiliencia_y_capacidad_de_resurgir": "Tiene resiliencia y capacidad de resurgir, enfrentando crisis con valentía y transformando situaciones difíciles en oportunidades.",
+            "necesidad_de_conexiones_emocionales_profundas": "Experimenta una fuerte necesidad de conexiones emocionales profundas, buscando relaciones auténticas y significativas.",
+            "exploración_de_la_energía_apasionada_y_el_poder_transformador": "Se aventura en la exploración de la energía apasionada y el poder transformador, buscando canalizar la intensidad hacia la superación personal y el logro de metas significativas."
+        }
+    },
+    "marte_en_sagitario": {
+        "manifestaciones": {
+            "acción_motivada_por_la_aventura_y_la_amplitud": "Manifiesta acción motivada por la aventura y la amplitud, buscando experiencias emocionantes y ampliando constantemente sus horizontes.",
+            "entusiasmo_y_energía_optimista": "Tiene entusiasmo y energía optimista, abordando desafíos con una actitud positiva y un espíritu aventurero.",
+            "impulso_por_la_búsqueda_de_significado_y_la_verdad": "Siente un impulso por la búsqueda de significado y la verdad, orientando sus acciones hacia la comprensión profunda y la expansión de conocimientos.",
+            "necesidad_de_libertad_y_autodeterminación": "Experimenta una fuerte necesidad de libertad y autodeterminación, evitando restricciones y buscando la autonomía en sus acciones.",
+            "exploración_de_la_energía_aventurera_y_la_búsqueda_de_conocimiento": "Se aventura en la exploración de la energía aventurera y la búsqueda de conocimiento, buscando constantemente nuevos desafíos y oportunidades de aprendizaje."
+        }
+    },
+    "marte_en_capricornio": {
+        "manifestaciones": {
+            "acción_orientada_a_la_responsabilidad_y_el_logro": "Manifiesta acción orientada a la responsabilidad y el logro, mostrando disciplina y perseverancia en la consecución de metas a largo plazo.",
+            "determinación_en_la_búsqueda_de_estabilidad_material": "Muestra determinación en la búsqueda de estabilidad material, abordando desafíos con un enfoque práctico y estratégico.",
+            "resistencia_y_paciencia_en_la_adversidad": "Tiene resistencia y paciencia en la adversidad, enfrentando obstáculos con una actitud tenaz y la capacidad de superar dificultades.",
+            "necesidad_de_reconocimiento_y_autorrealización": "Experimenta una fuerte necesidad de reconocimiento y autorrealización, buscando destacar y alcanzar el éxito personal.",
+            "exploración_de_la_energía_responsable_y_el_logro_constante": "Se aventura en la exploración de la energía responsable y el logro constante, buscando construir una base sólida y alcanzar metas ambiciosas."
+        }
+    },
+    "marte_en_acuario": {
+        "manifestaciones": {
+            "acción_motivada_por_la_originalidad_y_la_innovación": "Manifiesta acción motivada por la originalidad y la innovación, buscando desafiar convenciones y contribuir a la evolución de ideas.",
+            "compromiso_con_la_causa_social_y_el_progreso": "Tiene compromiso con la causa social y el progreso, abordando desafíos con una perspectiva de cambio y justicia social.",
+            "independencia_y_resistencia_a_la_conformidad": "Muestra independencia y resistencia a la conformidad, buscando seguir su propio camino y expresar su individualidad.",
+            "necesidad_de_libertad_y_autodeterminación": "Experimenta una fuerte necesidad de libertad y autodeterminación, evitando restricciones y buscando la autonomía en sus acciones.",
+            "exploración_de_la_energía_innovadora_y_la_contribución_al_cambio_social": "Se aventura en la exploración de la energía innovadora y la contribución al cambio social, buscando impulsar transformaciones significativas en la sociedad."
+        }
+    },
+    "marte_en_piscis": {
+        "manifestaciones": {
+            "acción_motivada_por_la_sensibilidad_y_la_compasión": "Manifiesta acción motivada por la sensibilidad y la compasión, buscando ayudar y cuidar a otros con empatía y gentileza.",
+            "enfoque_creativo_y_artístico_en_la_resolución_de_problemas": "Tiene un enfoque creativo y artístico en la resolución de problemas, abordando desafíos con imaginación y sensibilidad estética.",
+            "adaptabilidad_y_fluidez_en_las_acciones": "Muestra adaptabilidad y fluidez en las acciones, respondiendo a situaciones de manera flexible y utilizando la intuición para guiar sus elecciones.",
+            "necesidad_de_conexiones_emocionales_profundas": "Experimenta una fuerte necesidad de conexiones emocionales profundas, buscando relaciones auténticas y significativas.",
+            "exploración_de_la_energía_sensible_y_la_búsqueda_de_conexiones_espirituales": "Se aventura en la exploración de la energía sensible y la búsqueda de conexiones espirituales, buscando satisfacción a través de la conexión emocional y espiritual con el entorno."
+        }
+    }
+}

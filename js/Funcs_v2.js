@@ -8,7 +8,7 @@ function firstRunTime(){
             unik.mkdir(jsonFolder)
         }
     }
-    console.log('Loading United Kingston now...')
+    console.log('Loading United Kingdom now...')
     console.log('JsonFolder: '+apps.jsonsFolder)
 
     let d=new Date(Date.now())
@@ -26,7 +26,7 @@ function firstRunTime(){
     let mes=d.getMonth()+1
     let anio=d.getFullYear()
     let nom="Primer Inicio de Zool"
-    loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
+    loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingdom", "vn", true)
 
 
     log.ls('Al parecer es la primera vez que inicia Zool en su equipo.\n\n', 0, xLatIzq.width)
@@ -35,26 +35,6 @@ function firstRunTime(){
     log.l('\nZool se está ejecutando en la carpeta'+unik.currentFolderPath())
 }
 
-function loadNow(){
-    let d=new Date(Date.now())
-    let currentUserHours=d.getHours()
-    let diffHours=d.getUTCHours()
-    let currentGmtUser=0
-    if(currentUserHours>diffHours){
-        currentGmtUser=parseFloat(currentUserHours-diffHours)
-    }else{
-        currentGmtUser=parseFloat(0-(diffHours-currentUserHours)).toFixed(1)
-    }
-
-    //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
-    let dia=d.getDate()
-    let mes=d.getMonth()+1
-    let anio=d.getFullYear()
-    let hora=d.getHours()
-    let minutos=d.getMinutes()
-    let nom="Tránsitos de "+dia+'/'+mes+'/'+anio+' '+hora+':'+minutos
-    loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
-}
 function setFs() {
     let w = Screen.width
     let h = Screen.height
@@ -119,40 +99,6 @@ function resetGlobalVars(){
     apps.showAspCircleBack=false
 }
 
-//Funciones de Cargar Datos Interior
-function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
-    //app.ev=false
-    //apps.urlBack=''
-    let dataMs=new Date(Date.now())
-    let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
-    //let setTitleMod=1
-    //if(tipo==='pron')setTitleMod=2
-    //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, setTitleMod)
-
-    if(save){
-        //if(app.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
-        let mf=zfdm.mkFileAndLoad(JSON.parse(j))
-        //if(app.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
-        return
-    }
-    //app.currentData=j
-    app.fileData=j
-    app.currentData=j
-    runJsonTemp()
-}
-function loadFromJson(j, save){
-    if(save){
-        //if(app.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
-        let mf=zfdm.mkFileAndLoad(JSON.parse(j))
-        //if(app.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
-        return
-    }
-    //app.currentData=j
-    app.fileData=j
-    app.currentData=j
-    runJsonTemp()
-}
-//Funciones de Cargar Datos Exterior
 
 //function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save){
 //    app.ev=true
