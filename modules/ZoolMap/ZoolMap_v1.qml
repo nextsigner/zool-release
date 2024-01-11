@@ -121,6 +121,7 @@ Item{
     property real dirPrimRot: 0.00
 
     property int ejeTipoCurrentIndex: -2
+    property bool automatic: false
 
     //-->ZoomAndPan
     property bool zoomAndPosCentered: pinchArea.m_x1===0 && pinchArea.m_y1===0 && pinchArea.m_y2===0 && pinchArea.m_x2===0 && pinchArea.m_zoom1===0.5 && pinchArea.m_zoom2===0.5 && pinchArea.m_max===6 && pinchArea.m_min===0.5
@@ -144,6 +145,13 @@ Item{
             //return
             let filePath='/home/ns/gd/Zool/Natalia_S._Pintos.json'
             loadFromFileBack(filePath, 'sin')
+        }
+    }
+    onAutomaticChanged: {
+        if(automatic){
+            tAutoMaticPlanets.currentJsonData=app.currentData
+        }else{
+            centerZoomAndPos()
         }
     }
     onCurrentPlanetIndexChanged: {
@@ -569,6 +577,25 @@ Item{
             }
         }
         Behavior on opacity{NumberAnimation{duration: 1000}}
+    }
+    Timer{
+        id: tAutoMaticPlanets
+        running: r.automatic
+        repeat: true
+        interval: 10000
+        property string currentJsonData: ''
+        onTriggered: {
+//            if(tAutoMaticPlanets.currentJsonData!==zoolMap.currentData){
+//                //tAutoMaticPlanets.stop()
+//                //return
+//            }
+            if(zoolMap.currentPlanetIndex<21){
+                zoolMap.currentPlanetIndex++
+            }else{
+                zoolMap.currentPlanetIndex=-1
+                zoolMap.currentHouseIndex=-1
+            }
+        }
     }
 
     //-->Load Data

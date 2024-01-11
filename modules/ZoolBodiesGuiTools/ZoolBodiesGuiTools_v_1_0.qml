@@ -129,21 +129,14 @@ Rectangle {
                 width: apps.botSize
                 height: width
                 onClicked: {
-                    if(!tAutoMaticPlanets.running){
-                        tAutoMaticPlanets.currentJsonData=app.currentData
-                        tAutoMaticPlanets.running=true
-                    }else{
-                        tAutoMaticPlanets.running=false
-                        zoolMap.centerZoomAndPos()
-                    }
-
+                    zoolMap.automatic=!zoolMap.automatic
                 }
                 Text{
                     text:'\uf06e'
                     font.pixelSize: parent.width*0.35
                     anchors.right:parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: tAutoMaticPlanets.running
+                    visible: zoolMap.automatic
                 }
             }
             ButtonIcon{

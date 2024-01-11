@@ -179,8 +179,8 @@ Rectangle {
                             r.moduleEnabled=true
                         }
                         tLoad.restart()
-                        if(app.j.eventoEsMenorAInicio(app.currentDate, currentDate)){
-                            currentDate=app.currentDate
+                        if(app.j.eventoEsMenorAInicio(zoolMap.currentDate, currentDate)){
+                            currentDate=zoolMap.currentDate
                             return
                         }
                     }
@@ -209,7 +209,7 @@ Rectangle {
                         text:'Restablecer'
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked:{
-                            controlTimeFecha.currentDate=app.currentDate
+                            controlTimeFecha.currentDate=zoolMap.currentDate
                             controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                         }
                     }
@@ -225,11 +225,11 @@ Rectangle {
                             let vh=controlTimeFecha.hora
                             let vmin=controlTimeFecha.minuto
 
-                            let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
-                            let vlon=app.currentLon
-                            let vlat=app.currentLat
-                            let valt=app.currentAlt
-                            let vCiudad=app.currentLugar
+                            let vgmt=zoolMap.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
+                            let vlon=zoolMap.currentLon
+                            let vlat=zoolMap.currentLat
+                            let valt=zoolMap.currentAlt
+                            let vCiudad=zoolMap.currentLugar
                             let vhsys=apps.currentHsys
 
                             let vdEvento=controlTimeFechaEvento.dia
@@ -237,11 +237,11 @@ Rectangle {
                             let vaEvento=controlTimeFechaEvento.anio
                             let vhEvento=controlTimeFechaEvento.hora
                             let vminEvento=controlTimeFechaEvento.minuto
-                            let vgmtEvento=app.currentGmt
+                            let vgmtEvento=zoolMap.currentGmt
 
-                            let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+                            let edad=app.j.getEdadDosFechas(zoolMap.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
 
-                            let nom='Dir. Prim de '+app.currentNom+' '+vaEvento+'/'+vmEvento+'/'+vdEvento
+                            let nom='Dir. Prim de '+zoolMap.currentNom+' '+vaEvento+'/'+vmEvento+'/'+vdEvento
                             let aR=[]
                             aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
                             aR.push('<b>Edad:</b> '+edad+' años')
@@ -574,12 +574,12 @@ Rectangle {
     function setDirPrimRotation(){
         //if(!r.visible  && !r.loadingFromExternal)return
         //if(app.dev)log.lv('setDirPrimRotation()... r.loadingFromExternal: '+r.loadingFromExternal)
-        r.ulat=app.currentLat
-        r.ulon=app.currentLon
-        r.lat=app.currentLat
-        r.lon=app.currentLon
+        r.ulat=zoolMap.currentLat
+        r.ulon=zoolMap.currentLon
+        r.lat=zoolMap.currentLat
+        r.lon=zoolMap.currentLon
 
-        let j=app.currentJson
+        let j=zoolMap.currentJson
         if(!j)return
         let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
         //l.lv('signCircleRot:'+signCircleRot)
@@ -626,7 +626,7 @@ Rectangle {
         let vminEvento=controlTimeFechaEvento.minuto
 
         //if(app.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
-        let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+        let edad=app.j.getEdadDosFechas(zoolMap.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
         aR.push('<b>Edad:</b> '+edad+' años')
@@ -642,12 +642,12 @@ Rectangle {
     }
 
     function setDirPrimRotationFromExternalItem(dateInicio, dateEvento){
-        r.lat=app.currentLat
-        r.lon=app.currentLon
-        r.ulat=app.currentLat
-        r.lon=app.currentLon
-        controlTimeFecha.gmt=app.currentGmt
-        controlTimeFechaEvento.gmt=app.currentGmt
+        r.lat=zoolMap.currentLat
+        r.lon=zoolMap.currentLon
+        r.ulat=zoolMap.currentLat
+        r.lon=zoolMap.currentLon
+        controlTimeFecha.gmt=zoolMap.currentGmt
+        controlTimeFechaEvento.gmt=zoolMap.currentGmt
         controlTimeFecha.currentDate=dateInicio
         r.loadingFromExternal=true
         controlTimeFechaEvento.currentDate=dateEvento
@@ -751,7 +751,7 @@ Rectangle {
     //    }
 
     function cloneIntToBackAndRot(deg){
-        let json=app.currentJson
+        let json=zoolMap.currentJson
         //if(app.dev)log.lv('app.currentJson: '+JSON.stringify(app.currentJson, null, 2))
 
         //Atención! Se debe definir app.mod='dirprim'
@@ -762,7 +762,7 @@ Rectangle {
         app.mod='dirprim'
 
         //La función sweg.loadSweJsonBack(...) espera un string con datos del tipo json NO parseado.
-        zoolMap.loadSweJsonBack(JSON.stringify(app.currentJson, null, 2))
+        zoolMap.loadSweJsonBack(JSON.stringify(zoolMap.currentJson, null, 2))
 
 
 
@@ -834,7 +834,7 @@ Rectangle {
     }
     function showInfoViewData(){
         //Get Current Json Interior
-        let json=app.currentJson
+        let json=zoolMap.currentJson
         let jo
         let sInt=''
         let sExt=''

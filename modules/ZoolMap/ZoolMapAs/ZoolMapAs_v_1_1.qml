@@ -440,7 +440,7 @@ Item{
     //Rot
     function setRot(){
         if(!r.isPron){
-            let json=JSON.parse(app.fileData)
+            let json=JSON.parse(zoolMap.fileData)
             if(json.rots&&json.rots['rc'+r.numAstro]){
                 r.uRot=json.rots['rc'+r.numAstro]
                 pointerPlanet.pointerRot=r.uRot
@@ -471,7 +471,7 @@ Item{
         zfdm.saveJson(json)
     }
     function setZoomAndPos(){
-        let json=JSON.parse(app.fileData)
+        let json=JSON.parse(zoolMap.fileData)
         if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos']['zpc'+r.numAstro]){
             zoolMap.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true

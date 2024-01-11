@@ -1,1 +1,1 @@
-Se corrige la funcion saveJson()
+Se corrige ZoolFileDirPrimLoader ajustado a los parámetros de zoolMap

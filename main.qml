@@ -237,15 +237,23 @@ ZoolMainWindow{
             }
             if(json.data.indexOf('load=')===0){
                 app.j.loadJson('/home/ns/gd/Zool/Ricardo.json')
+                zoolMap.automatic=true
             }
             if(json.data==='showDec'){
                 apps.showDec=!apps.showDec
             }
+            if(json.data==='za'){
+                zoolMap.automatic=!zoolMap.automatic
+            }
             if(json.data==='centerZoomAndPan'){
                 zoolMap.centerZoomAndPos()
             }
-            if(json.data.indexOf('zi|')===0){
+            if(json.data.indexOf('zl|')===0){
                 let m0=json.data.split('|')
+                app.j.loadJson('/home/ns/gd/Zool/'+m0[1]+'.json')
+            }
+            if(json.data.indexOf('zi|')===0){
+                m0=json.data.split('|')
                 let c=''
                 c+='import QtQuick 2.0\n'
                 c+='import unik.UnikQProcess 1.0\n'
@@ -632,25 +640,6 @@ ZoolMainWindow{
     //        font.pixelSize: app.fs*3
     //        color: 'red'
     //    }
-    Timer{
-        id: tAutoMaticPlanets
-        running: false
-        repeat: true
-        interval: 10000
-        property string currentJsonData: ''
-        onTriggered: {
-            if(tAutoMaticPlanets.currentJsonData!==zoolMap.currentData){
-                //tAutoMaticPlanets.stop()
-                //return
-            }
-            if(zoolMap.currentPlanetIndex<21){
-                zoolMap.currentPlanetIndex++
-            }else{
-                zoolMap.currentPlanetIndex=-1
-                zoolMap.currentHouseIndex=-1
-            }
-        }
-    }
     Comps.MenuPlanets{id: menuPlanets}
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
