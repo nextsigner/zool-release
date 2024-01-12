@@ -5,13 +5,14 @@ Window{
     id: r
     width: xLatDer.width
     height: xLatDer.height
-    minimumWidth: xLatDer.width
-    minimumHeight: xLatDer.height
-    title: 'ZoolInfo'
+    //minimumWidth: xLatDer.width
+    //minimumHeight: xLatDer.height
+    title: 'WindowDataView'
     color: 'black'
     x: Screen.width-width
     visible: true
     property string text: ''
+    property int fs: app.fs
     Rectangle{
         anchors.fill: parent
         color: 'black'
@@ -29,7 +30,7 @@ Window{
             wrapMode: Text.WordWrap
             anchors.centerIn: parent
             color: 'white'
-            font.pixelSize: app.fs*0.5
+            font.pixelSize: r.fs
         }
 
         }

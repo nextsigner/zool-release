@@ -535,8 +535,8 @@ Rectangle {
         visible: false
     }
     function updateUParams(){
-        controlTimeFecha.gmt=app.currentGmt
-        controlTimeFechaEvento.gmt=app.currentGmt
+        controlTimeFecha.gmt=zoolMap.currentGmt
+        controlTimeFechaEvento.gmt=zoolMap.currentGmt
         if(r.ulat===-100.00&&r.ulon===-100.00)return
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -554,7 +554,7 @@ Rectangle {
         let vhEvento=controlTimeFechaEvento.hora
         let vminEvento=controlTimeFechaEvento.minuto
 
-        let vgmt=app.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
+        let vgmt=zoolMap.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
         let vCiudad=app.currentLugar

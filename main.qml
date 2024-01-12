@@ -51,7 +51,6 @@ import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
 import NodeIOQml 1.1
-import comps.WindowDataView 1.0
 
 
 
@@ -253,16 +252,17 @@ ZoolMainWindow{
                 app.j.loadJson('/home/ns/gd/Zool/'+m0[1]+'.json')
             }
             if(json.data.indexOf('zi|')===0){
-                m0=json.data.split('|')
+                let m0=json.data.split('|')
                 let c=''
                 c+='import QtQuick 2.0\n'
                 c+='import unik.UnikQProcess 1.0\n'
+                c+='import QtQuick.Window 2.0\n'
                 //c+='Item{\n'
                 c+='UnikQProcess{\n'
                 c+='    onLogDataChanged:{\n'
                 //c+='        log.lv("D:"+logData)\n'
-                c+='        w.text=logData\n'
-                c+='        w.raise()\n'
+                c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
+                c+='        zoolMap.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
                 c+='        destroy()\n'
                 c+='    }\n'
                 c+='    Component.onCompleted:{\n'
@@ -603,7 +603,6 @@ ZoolMainWindow{
     }
     ZoolLogView{id: log}
     ZoolWebStatusManager{id: zwsm}
-    WindowDataView{id: w}
     Item{id: xuqps}
     QtObject{
         id: setHost

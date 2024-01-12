@@ -1,1 +1,1 @@
-Se corrige ZoolFileDirPrimLoader ajustado a los parámetros de zoolMap
+Se crea la funcion mkWindowDataView() en zoolMap

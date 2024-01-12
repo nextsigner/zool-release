@@ -890,6 +890,28 @@ Item{
     }
     //<--Load Data
 
+    //-->Make Dinamically
+    function mkWindowDataView(title, data, x, y, width, height, parent, fs){
+        let c=''
+        c+='import QtQuick 2.0\n'
+        c+='import comps.WindowDataView 1.0\n'
+        c+='WindowDataView{\n'
+        c+='    id: w\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        let d="'+data+'"\n'
+        c+='        w.title="'+title+'"\n'
+        c+='        w.x="'+x+'"\n'
+        c+='        w.y="'+y+'"\n'
+        c+='        w.width="'+width+'"\n'
+        c+='        w.height="'+height+'"\n'
+        c+='        w.fs="'+fs+'"\n'
+        c+='        w.text=d\n'
+        c+='    }\n'
+        c+='}\n'
+        let comp=Qt.createQmlObject(c, parent, 'mkWindowDataViewCode')
+    }
+    //<--Make Dinamically
+
     function resizeAspsCircle(isBack){
         if(!isBack){
             if(apps.showDec){
