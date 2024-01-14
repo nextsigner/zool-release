@@ -182,10 +182,10 @@ Item{
     }
     onCurrentPlanetIndexBackChanged: {
         zoolDataBodies.currentIndexBack=currentPlanetIndexBack
-        if(currentPlanetIndexBack>=0){
-            app.currentPlanetIndex=-1
-            app.currentHouseIndex=-1
-        }
+        /*if(currentPlanetIndexBack>=0){
+            zoolMap.currentPlanetIndex=-1
+            zoolMap.currentHouseIndex=-1
+        }*/
     }
     onCurrentGmtChanged: {
         if(zoolMap.currentData===''||app.setFromFile)return

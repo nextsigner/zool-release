@@ -77,7 +77,7 @@ Rectangle {
         spacing: app.fs*0.15
         y:(parent.height-height)/2
         //x: app.fs*0.25
-        anchors.horizontalCenter: parent.horizontalCenter//!app.ev?parent.horizontalCenter:undefined
+        anchors.horizontalCenter: parent.horizontalCenter//!zoolMap.ev?parent.horizontalCenter:undefined
         Rectangle{
             id: circuloSave
             width: app.fs*0.5
@@ -154,7 +154,7 @@ Rectangle {
                         height: r.height
                         color: apps.houseColor
                         z:parent.z-3
-                        visible: index===0 && app.ev//(app.mod==='sin' || app.mod==='rs')
+                        visible: index===0 && zoolMap.ev//(app.mod==='sin' || app.mod==='rs')
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 0-r.width
@@ -164,7 +164,7 @@ Rectangle {
                         height: r.height
                         color: apps.houseColorBack
                         z:parent.z-3
-                        visible: modelData==='@' && index!==0 && app.ev
+                        visible: modelData==='@' && index!==0 && zoolMap.ev
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: rowData.children.length>=8?0-rowData.children[8].width*0.5:0
@@ -179,7 +179,7 @@ Rectangle {
         anchors.rightMargin: app.fs*0.5
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: yPos
-        visible:  false//!app.ev || JSON.parse(app.currentData).params.tipo==='pron'
+        visible:  false//!zoolMap.ev || JSON.parse(app.currentData).params.tipo==='pron'
     }
 
     //Editor Nombre

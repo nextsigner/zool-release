@@ -56,8 +56,13 @@ Item{
             //bodie.objOointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
             zoolMap.currentHouseIndex=objData.ih
-            app.currentXAs=r
-            zoolMap.currentIndexSign=r.is
+            if(!r.isBack){
+                app.currentXAs=r
+                zoolMap.currentIndexSign=r.is
+            }else{
+                app.currentXAsBack=r
+                zoolMap.currentIndexSignBack=r.is
+            }
             setRot()
             setZoomAndPos()
             app.showPointerXAs=true
@@ -399,7 +404,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: bodie
-        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.tipo!=='pron'
+        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zoolMap.currentData).params.tipo!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected
@@ -455,14 +460,18 @@ Item{
 
     //Zoom And Pos
     function saveZoomAndPos(){
-        let json=zfdm.getJson()
-        if(!json[app.stringRes+'zoompos']){
-            json[app.stringRes+'zoompos']={}
+        let itemName=app.stringRes+'zoompos'
+        if(r.isBack){
+            itemName+='Back'
         }
-        json[app.stringRes+'zoompos']['zpc'+r.numAstro]=zoolMap.getZoomAndPos()
+        let json=zfdm.getJson()
+        if(!json[itemName]){
+            json[itemName]={}
+        }
+        json[itemName]['zpc'+r.numAstro]=zoolMap.getZoomAndPos()
         if(app.dev){
-            //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
-            //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
+            log.lv('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2))
+            log.lv('json['+itemName+'][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[itemName+'']['zpc'+r.numAstro], null, 2))
         }
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
@@ -471,9 +480,13 @@ Item{
         zfdm.saveJson(json)
     }
     function setZoomAndPos(){
+        let itemName=app.stringRes+'zoompos'
+        if(r.isBack){
+            itemName+='Back'
+        }
         let json=JSON.parse(zoolMap.fileData)
-        if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos']['zpc'+r.numAstro]){
-            zoolMap.setZoomAndPos(json[app.stringRes+'zoompos']['zpc'+r.numAstro])
+        if(json[itemName]&&json[itemName]['zpc'+r.numAstro]){
+            zoolMap.setZoomAndPos(json[itemName]['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true
         }else{
             r.isZoomAndPosSeted=false

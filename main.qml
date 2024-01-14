@@ -165,7 +165,6 @@ ZoolMainWindow{
     //property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
     property var cmd
-    property bool ev: false //Exterior Visible
 
     //XAs
     property var currentXAs
@@ -268,9 +267,12 @@ ZoolMainWindow{
                 c+='    Component.onCompleted:{\n'
                 c+='        let b=("'+zoolMap.aBodiesFiles[m0[1]]+'").toLowerCase()\n'
                 c+='        let s="'+zoolMap.aSignsLowerStyle[m0[2]]+'"\n'
+                c+='        let h="casa_'+parseInt(m0[3]+1)+'"\n'
                 c+='        let ss=b+"_en_"+s\n'
                 //c+='        log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
-                c+='        run("/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+"")\n'
+                c+='        let cmd="/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+" "+h+""\n'
+                //c+='        log.lv("CMD:"+cmd)\n'
+                c+='        run(cmd)\n'
                 c+='    }\n'
                 c+='}\n'
                 //c+='}\n'

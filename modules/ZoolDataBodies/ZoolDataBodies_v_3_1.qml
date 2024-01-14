@@ -48,7 +48,7 @@ Rectangle {
         border.width: 2
         border.color: apps.fontColor
         color: apps.backgroundColor
-        opacity: !app.ev?(xBodiesInt.opacity===1.0?0.0:1.0):(xBodiesInt.opacity===1.0&&xBodiesExt.opacity===1.0?0.0:1.0)
+        opacity: !zoolMap.ev?(xBodiesInt.opacity===1.0?0.0:1.0):(xBodiesInt.opacity===1.0&&xBodiesExt.opacity===1.0?0.0:1.0)
         anchors.centerIn: parent
         Text{
             id: labelCargando
@@ -103,10 +103,10 @@ Rectangle {
             if(xBodiesInt.currentIndex>16){
                 zoolMap.objHousesCircle.currentHouse=xBodiesInt.currentIndex-16
             }else{
-                if(app.currentPlanetIndex!==xBodiesInt.currentIndex){
-                    app.currentPlanetIndex=xBodiesInt.currentIndex
+                if(zoolMap.currentPlanetIndex!==xBodiesInt.currentIndex){
+                    zoolMap.currentPlanetIndex=xBodiesInt.currentIndex
                 }else{
-                    app.currentPlanetIndex=-1
+                    zoolMap.currentPlanetIndex=-1
                     zoolMap.objHousesCircle.currentHouse=-1
                 }
             }
@@ -114,8 +114,8 @@ Rectangle {
             if(xBodiesExt.currentIndex>16){
                 zoolMap.objHousesCircle.currentHouse=xBodiesExt.currentIndex-16
             }else{
-                if(app.currentPlanetIndexBack!==xBodiesExt.currentIndex){
-                    app.currentPlanetIndexBack=xBodiesExt.currentIndex
+                if(zoolMap.currentPlanetIndexBack!==xBodiesExt.currentIndex){
+                    zoolMap.currentPlanetIndexBack=xBodiesExt.currentIndex
                 }else{
                     app.currentPlanetIndexBack=-1
                     zoolMap.objHousesCircleBack.currentHouse=-1

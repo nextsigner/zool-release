@@ -107,5 +107,17 @@
             "conexión_intuitiva_unica": "Desarrolla una conexión intuitiva única con el entorno, mostrando una sensibilidad especial hacia las dimensiones más sutiles de la vida."
         }
     },
+    "urano_en_casa_1": {"manifestaciones": {}},
+    "urano_en_casa_2": {"manifestaciones": {}},
+    "urano_en_casa_3": {"manifestaciones": {}},
+    "urano_en_casa_4": {"manifestaciones": {}},
+    "urano_en_casa_5": {"manifestaciones": {}},
+    "urano_en_casa_6": {"manifestaciones": {}},
+    "urano_en_casa_7": {"manifestaciones": {}},
+    "urano_en_casa_8": {"manifestaciones": {}},
+    "urano_en_casa_9": {"manifestaciones": {}},
+    "urano_en_casa_10": {"manifestaciones": {}},
+    "urano_en_casa_11": {"manifestaciones": {}},
+    "urano_en_casa_12": {"manifestaciones": {}},
     "chatgpt": "¿Según la astrología tradicional, no védica, dime una lista de 5 maneras diferentes de cómo se manifiesta la influencia astrológica de Urano en Aries en una persona nacida bajo contexto?. Dime la respuesta en formato JSON."
 }

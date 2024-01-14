@@ -23,12 +23,22 @@ Item{
         ZoolMapAs{fs:r.planetSize;astro:modelData;numAstro: index; isBack: r.isBack}
     }
     function pressed(o){
-        if(zoolMap.currentPlanetIndex!==o.numAstro){
-            zoolMap.currentPlanetIndex=o.numAstro
-            zoolMap.currentHouseIndex=o.ih
+        if(!o.isBack){
+            if(zoolMap.currentPlanetIndex!==o.numAstro){
+                zoolMap.currentPlanetIndex=o.numAstro
+                zoolMap.currentHouseIndex=o.ih
+            }else{
+                zoolMap.currentPlanetIndex=-1
+                zoolMap.currentHouseIndex=-1
+            }
         }else{
-            zoolMap.currentPlanetIndex=-1
-            zoolMap.currentHouseIndex=-1
+            if(zoolMap.currentPlanetIndexBack!==o.numAstro){
+                zoolMap.currentPlanetIndexBack=o.numAstro
+                zoolMap.currentHouseIndexBack=o.ih
+            }else{
+                zoolMap.currentPlanetIndexBack=-1
+                zoolMap.currentHouseIndexBack=-1
+            }
         }
         //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }

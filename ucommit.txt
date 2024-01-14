@@ -1,1 +1,1 @@
-Se crea la funcion mkWindowDataView() en zoolMap
+Se elimina la variable app.ev

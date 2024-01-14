@@ -1210,13 +1210,13 @@ function saveZoomAndPos(){
         //Cap.captureSweg()
         return
     }
-    if(app.currentPlanetIndexBack>=0&&app.currentXAsBack){
-        if(app.currentPlanetIndexBack===21||app.currentPlanetIndexBack===20){
-            if(app.currentPlanetIndexBack===21){
-                app.currentXAs.saveZoomAndPos('mcBack')
+    if(zoolMap.currentPlanetIndexBack>=0&&app.currentXAsBack){
+        if(zoolMap.currentPlanetIndexBack===21||zoolMap.currentPlanetIndexBack===20){
+            if(zoolMap.currentPlanetIndexBack===21){
+                zoolMap.currentXAs.saveZoomAndPos('mcBack')
             }
-            if(app.currentPlanetIndexBack===20){
-                app.currentXAsBack.saveZoomAndPos('ascBack')
+            if(zoolMap.currentPlanetIndexBack===20){
+                zoolMap.currentXAsBack.saveZoomAndPos('ascBack')
             }
         }else{
             app.currentXAsBack.saveZoomAndPos()
