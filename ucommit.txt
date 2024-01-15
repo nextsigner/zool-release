@@ -1,1 +1,1 @@
-Se crear menu item Info en MenuPlanets
+Se corrige ZoolMapData saturno.json
