@@ -269,6 +269,8 @@ Item{
 
                     menuPlanets.isBack=false
                     menuPlanets.currentIndexPlanet=r.numAstro
+                    menuPlanets.currentIndexSign=r.is
+                    menuPlanets.currentIndexHouse=r.ih
                     menuPlanets.popup()
                 } else if (mouse.button === Qt.LeftButton) {
                     vClick++

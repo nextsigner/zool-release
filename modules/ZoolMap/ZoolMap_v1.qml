@@ -888,6 +888,36 @@ Item{
             loadBack(JSON.parse(j))
         }
     }
+    function getZiData(bodieIndex, signIndex, houseIndex){
+            let b=zoolMap.aBodiesFiles[bodieIndex]
+            let s=zoolMap.aSignsLowerStyle[signIndex]
+            let h=parseInt(houseIndex)
+            let c=''
+            c+='import QtQuick 2.0\n'
+            c+='import unik.UnikQProcess 1.0\n'
+            c+='import QtQuick.Window 2.0\n'
+            //c+='Item{\n'
+            c+='UnikQProcess{\n'
+            c+='    onLogDataChanged:{\n'
+            //c+='        log.lv("D:"+logData)\n'
+            c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
+            c+='        zoolMap.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
+            c+='        destroy()\n'
+            c+='    }\n'
+            c+='    Component.onCompleted:{\n'
+            c+='        let b=("'+b+'").toLowerCase()\n'
+            c+='        let s="'+s+'"\n'
+            c+='        let h="casa_'+h+'"\n'
+            c+='        let ss=b+"_en_"+s\n'
+            c+='        log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
+            c+='        let cmd="/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+" "+h+""\n'
+            c+='        log.lv("CMD:"+cmd)\n'
+            c+='        run(cmd)\n'
+            c+='    }\n'
+            c+='}\n'
+            //c+='}\n'
+            let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
+    }
     //<--Load Data
 
     //-->Make Dinamically

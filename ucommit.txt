@@ -1,1 +1,1 @@
-Se elimina la variable app.ev
+Se crear menu item Info en MenuPlanets

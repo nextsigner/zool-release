@@ -5,6 +5,8 @@ Menu {
     id: r
     width: app.fs*8
     property int currentIndexPlanet: -1
+    property int currentIndexSign: -1
+    property int currentIndexHouse: -1
     property var aMI: []
     property bool isBack: false
     onOpenedChanged:  menuBar.expanded=opened
@@ -71,9 +73,17 @@ Menu {
         }
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
-    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]); onTriggered: {
-            xInfoData.markDown=true
-            xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
+//    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]); onTriggered: {
+//            xInfoData.markDown=true
+//            xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
+//    }
+    Action {text: qsTr("Info"); onTriggered: {
+            let b=r.currentIndexPlanet
+            let s=r.currentIndexSign
+            let h=r.currentIndexHouse
+            //log.lv('b: '+b+' s: '+s+' h: '+h)
+            zoolMap.getZiData(b, s, h)
+        }
     }
 //    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(zoolMap.uSonFCMB.split('_')[1])]+' en casa '+zoolMap.uSonFCMB.split('_')[2]); onTriggered: {
 //            app.j.showIWFromCtxMenuBar()
