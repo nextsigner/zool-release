@@ -289,10 +289,11 @@ Rectangle {
                             log.visible=false
                             zsm.showPanel('ZoolSabianos')
                             if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='S'){
-                                let h1=app.currentJson.pc.c0
+                                let h1=zoolMap.currentJson.pc.c0
                                 let gf=h1.rsgdeg//app.currentGradoSolar-gr
-                                app.uSon='sun_'+app.objSignsNames[h1.is]+'_'+h1.ih
-                                JS.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), gf-1)
+                                zoolMap.uSon='sun_'+zoolMap.objSignsNames[h1.is]+'_'+h1.ih
+                                //log.lv('zoolMap.uSon: '+zoolMap.uSon)
+                                JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), gf-1)
                                 zsm.currentIndex=4
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -315,7 +316,7 @@ Rectangle {
                                 let h1=zoolMap.currentJson.ph.h1
                                 zoolMap.uSon='asc_'+zoolMap.objSignsNames[h1.is]+'_1'
                                 //log.lv('zoolMap.uSon: '+zoolMap.uSon)
-                                log.lv('zoolMap.uAscDegree: '+zoolMap.uAscDegree)
+                                //log.lv('zoolMap.uAscDegree: '+zoolMap.uAscDegree)
                                 JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), zoolMap.uAscDegree-1)
                                 zsm.currentIndex=4
                             }else{
@@ -338,6 +339,7 @@ Rectangle {
                             if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='M'){
                                 let h1=zoolMap.currentJson.ph.h10
                                 zoolMap.uSon='mc_'+zoolMap.objSignsNames[h1.is]+'_10'
+                                //log.lv('zoolMap.uSon: '+zoolMap.uSon)
                                 JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), zoolMap.uMcDegree-1)
                                 zsm.currentIndex=4
                             }else{

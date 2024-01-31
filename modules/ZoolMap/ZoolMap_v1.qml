@@ -755,7 +755,8 @@ Item{
         //r.gdegAsc=o1.rsgdeg
         //r.mdegAsc=o1.mdeg
         zoolMap.uAscDegree=parseInt(o1.rsgdeg)
-
+        o1=j.ph['h10']
+        zoolMap.uMcDegree=parseInt(o1.rsgdeg)
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
