@@ -159,10 +159,7 @@ ZoolMainWindow{
                 ‘M’     Morinus
 */
 
-    property int uAscDegreeTotal: -1
-    property int uAscDegree: -1
-    property int uMcDegree: -1
-    //property string stringRes: "Res"+Screen.width+"x"+Screen.height
+
 
     property var cmd
 

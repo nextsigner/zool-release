@@ -107,16 +107,136 @@
             "exploración_en_el_desarrollo_mental_intuitivo": "Se aventura en la exploración del desarrollo mental intuitivo, buscando expandir la capacidad de análisis y la habilidad para comunicar ideas de manera emocionalmente inteligente."
         }
     },
-    "mercurio_en_casa_1": {"manifestaciones": {}},
-    "mercurio_en_casa_2": {"manifestaciones": {}},
-    "mercurio_en_casa_3": {"manifestaciones": {}},
-    "mercurio_en_casa_4": {"manifestaciones": {}},
-    "mercurio_en_casa_5": {"manifestaciones": {}},
-    "mercurio_en_casa_6": {"manifestaciones": {}},
-    "mercurio_en_casa_7": {"manifestaciones": {}},
-    "mercurio_en_casa_8": {"manifestaciones": {}},
-    "mercurio_en_casa_9": {"manifestaciones": {}},
-    "mercurio_en_casa_10": {"manifestaciones": {}},
-    "mercurio_en_casa_11": {"manifestaciones": {}},
-    "mercurio_en_casa_12": {"manifestaciones": {}}
+    "mercurio_en_casa_1": {
+        "manifestaciones": {
+            "mente_aguda_y_rápida_con_una_fuerte_presencia_intelectual": "La persona posee una mente aguda y rápida, con una fuerte presencia intelectual.",
+            "comunicación_directa_y_clara_con_un_enfoque_en_sí_mismo": "Se destaca por una comunicación directa y clara, con un enfoque en sí mismo y sus ideas.",
+            "curiosidad_activa_y_un_desire_de_aprender_sobre_sí_mismo_y_el_mundo": "Existe una curiosidad activa y un deseo de aprender sobre sí mismo y el mundo que lo rodea.",
+            "habilidad_para_expresar_las_propias_opiniones_y_pensamientos_con_facilidad": "La persona tiene la habilidad para expresar sus propias opiniones y pensamientos con facilidad.",
+            "rapidez_mental_y_mente_inquieta_que_puede_ser_difícil_de_calmar": "Posee rapidez mental y una mente inquieta que puede ser difícil de calmar.",
+            "énfasis_en_la_autopresentación_y_la_autoexpresión": "Hay un énfasis en la autopresentación y la autoexpresión, mostrando su personalidad de manera activa.",
+            "interés_en_iniciar_conversaciones_y_conectar_con_otros_a_un_nivel_personal": "Existe un interés en iniciar conversaciones y conectar con otros a un nivel personal, mostrando una actitud sociable y comunicativa."
+        }
+    },
+    "mercurio_en_casa_2": {
+        "manifestaciones": {
+            "habilidades_para_la_comunicación_efectiva_en_asuntos_financieros_y_comerciales": "La persona tiene habilidades para la comunicación efectiva en asuntos financieros y comerciales.",
+            "pensamiento_práctico_y_lógico_en_relación_con_el_dinero_y_los_recursos": "Existe un pensamiento práctico y lógico en relación con el dinero y los recursos materiales.",
+            "interés_en_el_análisis_detallado_de_asuntos_económicos_y_fuentes_de_ingresos": "Hay un interés en el análisis detallado de asuntos económicos y fuentes de ingresos.",
+            "capacidad_para_expresar_puntos_de_vista_claros_sobre_cuestiones_financieras": "La persona tiene la capacidad para expresar puntos de vista claros sobre cuestiones financieras y de valoración.",
+            "enfoque_mental_en_la_acumulación_de_recursos_y_la_estabilidad_material": "Existe un enfoque mental en la acumulación de recursos y la estabilidad material.",
+            "habilidad_para_negociar_y_comunicarse_eficazmente_en_transacciones_comerciales": "La persona posee habilidades para negociar y comunicarse eficazmente en transacciones comerciales y financieras.",
+            "interés_en_adquirir_conocimientos_prácticos_sobre_administración_y_gestión_de_recursos": "Hay un interés en adquirir conocimientos prácticos sobre administración y gestión de recursos financieros."
+        }
+    },
+    "mercurio_en_casa_3": {
+        "manifestaciones": {
+            "mente_inquisitiva_y_curiosa_con_una_fuerte_habilidad_para_el_aprendizaje": "La persona tiene una mente inquisitiva y curiosa, con una fuerte habilidad para el aprendizaje.",
+            "comunicación_versátil_y_hábil_en_la_transmisión_de_información": "Se destaca por una comunicación versátil y hábil en la transmisión de información en diversos contextos.",
+            "interés_en_la_adquisición_de_conocimientos_y_la_exploración_de_diferentes_temas": "Existe un interés en la adquisición de conocimientos y la exploración de diferentes temas, mostrando una mente ágil y adaptable.",
+            "habilidad_para_articular_pensamientos_de_manera_clara_y_coherente": "La persona tiene la habilidad para articular pensamientos de manera clara y coherente, facilitando la expresión de ideas.",
+            "curiosidad_por_la_comunicación_verbal_y_escrita_y_la_interacción_con_el_entorno_inmediato": "Hay una curiosidad por la comunicación verbal y escrita, así como la interacción con el entorno inmediato.",
+            "énfasis_en_la_recopilación_de_información_y_la_comunicación_de_datos": "Se pone énfasis en la recopilación de información y la comunicación de datos de manera efectiva y precisa.",
+            "interés_en_las_actividades_mentales_que_involucran_la_comunicación_y_el_aprendizaje_continuo": "Existe un interés en las actividades mentales que involucran la comunicación y el aprendizaje continuo, buscando siempre ampliar horizontes intelectuales."
+        }
+    },
+    "mercurio_en_casa_4": {
+        "manifestaciones": {
+            "mente_reflexiva_con_un_enfoque_en_el_pasado_y_la_tradición": "La persona posee una mente reflexiva, con un enfoque en el pasado y la tradición familiar.",
+            "comunicación_interna_y_autoexploración_en_profundidad": "Se destaca por la comunicación interna y la autoexploración en profundidad de sus propios pensamientos y emociones.",
+            "interés_en_la_historia_familiar_y_el_legado_personal": "Existe un interés en la historia familiar y el legado personal, buscando comprender su origen y raíces.",
+            "habilidad_para_expresar_emociones_y_sentimientos_de_manera_articulada": "La persona tiene la habilidad para expresar emociones y sentimientos de manera articulada, a través de la palabra escrita o hablada.",
+            "curiosidad_por_la_psicología_y_el_funcionamiento_de_la_mente_humana": "Hay una curiosidad por la psicología y el funcionamiento de la mente humana, explorando los motivos detrás de las acciones y comportamientos.",
+            "énfasis_en_la_comunicación_familiar_y_el_intercambio_de_memorias_y_anécdotas": "Se pone énfasis en la comunicación familiar y el intercambio de memorias y anécdotas, fortaleciendo los lazos emocionales con los seres queridos.",
+            "interés_en_la_autoexpresión_a_través_de_la_escritura_o_la_oratoria": "Existe un interés en la autoexpresión a través de la escritura o la oratoria, utilizando estas formas de comunicación para procesar emociones y experiencias."
+        }
+    },
+    "mercurio_en_casa_5": {
+        "manifestaciones": {
+            "mente_creativa_y_juguetona_con_una_fuerte_inspiración_para_la_expresión_artística": "La persona tiene una mente creativa y juguetona, con una fuerte inspiración para la expresión artística.",
+            "comunicación_vibrante_y_entusiasta_en_la_transmisión_de_ideas_y_conceptos": "Se destaca por una comunicación vibrante y entusiasta en la transmisión de ideas y conceptos, captando la atención de los demás.",
+            "interés_en_la_literatura,_el_arte_y_la_cultura": "Existe un interés en la literatura, el arte y la cultura, disfrutando de la exploración de diferentes formas de expresión creativa.",
+            "habilidad_para_contar_historias_y_entretener_a_través_de_la_palabra_hablada_o_escrita": "La persona tiene la habilidad para contar historias y entretener a través de la palabra hablada o escrita, cautivando a su audiencia con su imaginación.",
+            "curiosidad_por_el_mundo_del_espectáculo,_el_entretenimiento_y_el_ocio": "Hay una curiosidad por el mundo del espectáculo, el entretenimiento y el ocio, buscando disfrutar de experiencias creativas y emocionantes.",
+            "énfasis_en_la_comunicación_con_los_hijos_y_el_intercambio_de_ideas_con_las_nuevas_generaciones": "Se pone énfasis en la comunicación con los hijos y el intercambio de ideas con las nuevas generaciones, fomentando el aprendizaje mutuo y la creatividad compartida.",
+            "interés_en_actividades_mentales_que_promueven_la_autoexpresión_y_el_juego_intelectual": "Existe un interés en actividades mentales que promueven la autoexpresión y el juego intelectual, buscando siempre mantener viva la chispa de la creatividad."
+        }
+    },
+    "mercurio_en_casa_6": {
+        "manifestaciones": {
+            "mente_analítica_y_detallista_con_un_enfoque_en_el_trabajo_y_el_servicio": "La persona tiene una mente analítica y detallista, con un enfoque en el trabajo y el servicio.",
+            "comunicación_precisa_y_eficiente_en_el_ámbito_laboral_y_profesional": "Se destaca por una comunicación precisa y eficiente en el ámbito laboral y profesional, transmitiendo información de manera clara y concisa.",
+            "interés_en_la_salud,_la_nutrición_y_el_bienestar_personal": "Existe un interés en la salud, la nutrición y el bienestar personal, buscando información y métodos para mejorar la calidad de vida.",
+            "habilidad_para_organizar_y_planificar_tareas_con_eficacia": "La persona tiene la habilidad para organizar y planificar tareas con eficacia, optimizando los recursos disponibles y cumpliendo con sus responsabilidades de manera efectiva.",
+            "curiosidad_por_el_aprendizaje_continuo_y_el_perfeccionamiento_de_habilidades": "Hay una curiosidad por el aprendizaje continuo y el perfeccionamiento de habilidades, buscando siempre adquirir nuevos conocimientos que puedan aplicarse en el ámbito laboral.",
+            "énfasis_en_la_comunicación_con_colegas_y_subordinados_para_lograr_la_eficiencia_en_el_trabajo": "Se pone énfasis en la comunicación con colegas y subordinados para lograr la eficiencia en el trabajo, fomentando un ambiente colaborativo y productivo.",
+            "interés_en_actividades_mentales_que_promueven_la_mejora_personal_y_el_desarrollo_profesional": "Existe un interés en actividades mentales que promueven la mejora personal y el desarrollo profesional, buscando siempre alcanzar nuevas metas y objetivos."
+        }
+    },
+    "mercurio_en_casa_7": {
+        "manifestaciones": {
+            "mente_diplomática_y_cooperativa_con_un_enfoque_en_las_relaciones_interpersonales": "La persona tiene una mente diplomática y cooperativa, con un enfoque en las relaciones interpersonales.",
+            "comunicación_hábil_y_negociadora_en_el_ámbito_de_las_asociaciones_y_las_asociaciones": "Se destaca por una comunicación hábil y negociadora en el ámbito de las asociaciones y las asociaciones, buscando siempre encontrar soluciones mutuamente beneficiosas.",
+            "interés_en_la_psicología_y_la_comunicación_interpersonal": "Existe un interés en la psicología y la comunicación interpersonal, buscando comprender las motivaciones y las necesidades de los demás.",
+            "habilidad_para_escuchar_y_comprender_a_los_demás": "La persona tiene la habilidad para escuchar y comprender a los demás, mostrando empatía y consideración hacia sus puntos de vista y sentimientos.",
+            "curiosidad_por_la_diversidad_cultural_y_las_relaciones_humanas": "Hay una curiosidad por la diversidad cultural y las relaciones humanas, buscando siempre aprender de las diferentes experiencias y perspectivas.",
+            "énfasis_en_la_comunicación_con_parejas_y_socios_comerciales_para_alcanzar_acuerdos_equitativos": "Se pone énfasis en la comunicación con parejas y socios comerciales para alcanzar acuerdos equitativos, construyendo relaciones basadas en la confianza y el respeto mutuo.",
+            "interés_en_actividades_mentales_que_promueven_la_colaboración_y_la_cooperación": "Existe un interés en actividades mentales que promueven la colaboración y la cooperación, buscando siempre trabajar en equipo para lograr objetivos comunes."
+        }
+    },
+    "mercurio_en_casa_8": {
+        "manifestaciones": {
+            "mente_profunda_y_analítica_con_un_enfoque_en_la_investigación_y_la_transformación": "La persona tiene una mente profunda y analítica, con un enfoque en la investigación y la transformación.",
+            "comunicación_intensa_y_penetrante_en_el_ámbito_del_análisis_y_la_resolución_de_problemas": "Se destaca por una comunicación intensa y penetrante en el ámbito del análisis y la resolución de problemas, profundizando en temas difíciles y complejos.",
+            "interés_en_la_psicología_profunda_y_el_estudio_de_lo_oculto": "Existe un interés en la psicología profunda y el estudio de lo oculto, buscando comprender los aspectos más profundos de la mente humana y del universo.",
+            "habilidad_para_penetrar_en_el_significado_oculto_y_los_secretos": "La persona tiene la habilidad para penetrar en el significado oculto y los secretos, descubriendo información que otros pueden pasar por alto.",
+            "curiosidad_por_el_misterio_y_la_metafísica": "Hay una curiosidad por el misterio y la metafísica, explorando conceptos más allá de lo tangible y lo racional.",
+            "énfasis_en_la_comunicación_con_cónyuges_y_asociados_para_resolver_problemas_y_transformar_situaciones": "Se pone énfasis en la comunicación con cónyuges y asociados para resolver problemas y transformar situaciones, buscando siempre encontrar soluciones que promuevan el crecimiento personal y la evolución espiritual.",
+            "interés_en_actividades_mentales_que_promueven_la_regeneración_y_la_renacimiento": "Existe un interés en actividades mentales que promueven la regeneración y el renacimiento, buscando siempre crecer y transformarse a nivel personal y espiritual."
+        }
+    },
+    "mercurio_en_casa_9": {
+        "manifestaciones": {
+            "mente_amplia_y_expansiva_con_un_enfoque_en_el_conocimiento_y_la_exploración": "La persona tiene una mente amplia y expansiva, con un enfoque en el conocimiento y la exploración.",
+            "comunicación_abierta_y_entusiasta_en_el_ámbito_de_la_educación_y_el_viaje": "Se destaca por una comunicación abierta y entusiasta en el ámbito de la educación y el viaje, compartiendo conocimientos y experiencias con los demás.",
+            "interés_en_la_filosofía,_la_religión_y_la_espiritualidad": "Existe un interés en la filosofía, la religión y la espiritualidad, buscando comprender el significado más profundo de la vida y del universo.",
+            "habilidad_para_ver_el_cuadro_general_y_hacer_conexiones_amplias": "La persona tiene la habilidad para ver el cuadro general y hacer conexiones amplias, integrando diferentes perspectivas y disciplinas.",
+            "curiosidad_por_la_exploración_de_otras_culturas_y_tradiciones": "Hay una curiosidad por la exploración de otras culturas y tradiciones, buscando siempre aprender de la diversidad del mundo.",
+            "énfasis_en_la_comunicación_con_maestros_y_mentores_para_ampliar_el_conocimiento_y_la_visión_del_mundo": "Se pone énfasis en la comunicación con maestros y mentores para ampliar el conocimiento y la visión del mundo, buscando siempre crecer y expandirse intelectualmente.",
+            "interés_en_actividades_mentales_que_promueven_la_búsqueda_de_la_verdad_y_el_descubrimiento_de_nuevas_perspectivas": "Existe un interés en actividades mentales que promueven la búsqueda de la verdad y el descubrimiento de nuevas perspectivas, buscando siempre ampliar los horizontes de la mente."
+        }
+    },
+    "mercurio_en_casa_10": {
+        "manifestaciones": {
+            "mente_práctica_y_orientada_a_objetivos_con_un_enfoque_en_la_carrera_y_el_logro_profesional": "La persona tiene una mente práctica y orientada a objetivos, con un enfoque en la carrera y el logro profesional.",
+            "comunicación_eficiente_y_autoritaria_en_el_ámbito_del_trabajo_y_el_liderazgo": "Se destaca por una comunicación eficiente y autoritaria en el ámbito del trabajo y el liderazgo, expresando sus ideas de manera clara y persuasiva.",
+            "interés_en_la_planificación_y_la_estrategia_para_alcanzar_el_éxito_en_el_mundo_profesional": "Existe un interés en la planificación y la estrategia para alcanzar el éxito en el mundo profesional, buscando siempre oportunidades para avanzar en su carrera.",
+            "habilidad_para_negociar_y_concretar_acuerdos_en_el_ámbito_laboral": "La persona tiene la habilidad para negociar y concretar acuerdos en el ámbito laboral, alcanzando resultados beneficiosos para todas las partes involucradas.",
+            "curiosidad_por_la_autoridad_y_el_poder_en_el_contexto_profesional": "Hay una curiosidad por la autoridad y el poder en el contexto profesional, buscando entender las dinámicas de liderazgo y toma de decisiones.",
+            "énfasis_en_la_comunicación_con_autoridades_y_figuras_de_status_para_avanzar_en_la_carrera_y_alcanzar_el_reconocimiento_profesional": "Se pone énfasis en la comunicación con autoridades y figuras de status para avanzar en la carrera y alcanzar el reconocimiento profesional, construyendo relaciones sólidas en el ámbito laboral.",
+            "interés_en_actividades_mentales_que_promueven_el_logro_de_metas_y_la_consecución_de_objetivos_ambiciosos": "Existe un interés en actividades mentales que promueven el logro de metas y la consecución de objetivos ambiciosos, buscando siempre superarse a sí mismo y alcanzar el éxito."
+        }
+    },
+    "mercurio_en_casa_11": {
+        "manifestaciones": {
+            "mente_innovadora_y_visionaria_con_un_enfoque_en_la_colectividad_y_el_cambio_social": "La persona tiene una mente innovadora y visionaria, con un enfoque en la colectividad y el cambio social.",
+            "comunicación_abierta_y_colaborativa_en_el_ámbito_de_los_grupos_y_la_actividad_comunitaria": "Se destaca por una comunicación abierta y colaborativa en el ámbito de los grupos y la actividad comunitaria, promoviendo el intercambio de ideas y la cooperación entre individuos.",
+            "interés_en_la_technología_y_la_ciencia_para_impulsar_el_progreso_social_y_la_innovación": "Existe un interés en la tecnología y la ciencia para impulsar el progreso social y la innovación, buscando siempre soluciones creativas a los desafíos del mundo moderno.",
+            "habilidad_para_conectar_con_personas_de_diferentes_origenes_y_puntos_de_vista": "La persona tiene la habilidad para conectar con personas de diferentes orígenes y puntos de vista, creando redes de apoyo y colaboración diversificadas.",
+            "curiosidad_por_la_vanguardia_y_la_experimentación_en_el_contexto_social_y_tecnológico": "Hay una curiosidad por la vanguardia y la experimentación en el contexto social y tecnológico, explorando nuevas ideas y tendencias.",
+            "énfasis_en_la_comunicación_con_amigos_y_contactos_para_promover_el_cambio_y_la_innovación_en_la_sociedad": "Se pone énfasis en la comunicación con amigos y contactos para promover el cambio y la innovación en la sociedad, trabajando en equipo para alcanzar metas compartidas.",
+            "interés_en_actividades_mentales_que_promueven_la_colaboración_y_el_pensamiento_futurista": "Existe un interés en actividades mentales que promueven la colaboración y el pensamiento futurista, buscando siempre estar un paso adelante en la búsqueda de un mundo mejor."
+        }
+    },
+    "mercurio_en_casa_12": {
+        "manifestaciones": {
+            "mente_intuitiva_y_sensible_con_un_enfoque_en_el_mundo_interior_y_el_autoconocimiento": "La persona tiene una mente intuitiva y sensible, con un enfoque en el mundo interior y el autoconocimiento.",
+            "comunicación_subjetiva_y_emotiva_en_el_ámbito_de_la_intuición_y_la_espiritualidad": "Se destaca por una comunicación subjetiva y emotiva en el ámbito de la intuición y la espiritualidad, expresando sus sentimientos y visiones de manera profunda y reflexiva.",
+            "interés_en_la_reflexión_y_la_meditación_para_conectar_con_el_mundo_invisible": "Existe un interés en la reflexión y la meditación para conectar con el mundo invisible, explorando las dimensiones más profundas de la existencia.",
+            "habilidad_para_percepciones_no_conscientes_y_comunicación_con_el_mundo_invisible": "La persona tiene la habilidad para percepciones no conscientes y comunicación con el mundo invisible, accediendo a información más allá de los límites de la percepción sensorial.",
+            "curiosidad_por_el_misticismo_y_la_metafísica_para_entender_los_misterios_del_universo": "Hay una curiosidad por el misticismo y la metafísica para entender los misterios del universo, explorando conceptos más allá de la comprensión racional.",
+            "énfasis_en_la_comunicación_con_el_inconsciente_y_la_transmisión_de_mensajes_simbólicos": "Se pone énfasis en la comunicación con el inconsciente y la transmisión de mensajes simbólicos, explorando el lenguaje del alma y la psique.",
+            "interés_en_actividades_mentales_que_promueven_la_introspección_y_el_desarrollo_espiritual": "Existe un interés en actividades mentales que promueven la introspección y el desarrollo espiritual, buscando siempre expandir la conciencia y el entendimiento del ser."
+        }
+    }
 }

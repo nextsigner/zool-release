@@ -7,7 +7,7 @@ import ZoolFileExtDataManager 1.2
 import ZoolFileManager 1.3
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.5
-import ZoolNumPit 1.0
+import ZoolNumPit 1.1
 import ZoolModulesManager 1.0
 import ZoolHelp 1.0
 

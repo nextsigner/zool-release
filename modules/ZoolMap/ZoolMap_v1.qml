@@ -45,6 +45,7 @@ Item{
     property var aSignsLowerStyle: ['aries', 'tauro', 'geminis', 'cancer', 'leo', 'virgo', 'libra', 'escorpio', 'sagitario', 'capricornio', 'acuario', 'piscis']
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
     property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
+    property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property int planetSize: !r.ev?app.fs*1.5:app.fs
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
@@ -63,6 +64,10 @@ Item{
     property int currentHouseIndexBack: -1
 
     property int currentSignIndex: 0
+
+    property int uAscDegreeTotal: -1
+    property int uAscDegree: -1
+    property int uMcDegree: -1
 
     property string fileData: ''
     property string fileDataBack: ''
@@ -744,6 +749,13 @@ Item{
         //resizeAspsCircle()
         //zoolMap.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zoolMap.objSignsCircle.rotation)
         zoolMap.setPos(0, 0, 0)
+
+        let o1=j.ph['h1']
+        //r.isAsc=o1.is
+        //r.gdegAsc=o1.rsgdeg
+        //r.mdegAsc=o1.mdeg
+        zoolMap.uAscDegree=parseInt(o1.rsgdeg)
+
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
@@ -919,6 +931,39 @@ Item{
             //c+='}\n'
             let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
     }
+    function getZiDataNum(num, gen, show){
+        let bashScriptPath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/getDataNum.sh'
+        let jsonFilePath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_masc.json'
+        if(gen==='fem')jsonFilePath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_fem.json'
+        let c=''
+        c+='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='import QtQuick.Window 2.0\n'
+        //c+='Item{\n'
+        c+='UnikQProcess{\n'
+        c+='    onLogDataChanged:{\n'
+        //c+='        log.lv("D:"+logData)\n'
+        c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
+        if(show){
+        c+='        zoolMap.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
+        }else{
+            c+='        zoolMap.mkItemDataView(logData, 0, 0, xLatDer.width, xLatDer.height, xLatDer, app.fs*0.75)\n'
+        }
+        c+='        destroy()\n'
+        c+='    }\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        if(app.dev)log.lv("Buscando datos de:'+num+'")\n'
+        c+='        let cmd="'+bashScriptPath+' '+jsonFilePath+' '+num+'"\n'
+        c+='        if(app.dev)log.lv("CMD:"+cmd)\n'
+        c+='        console.log("CMD:"+cmd)\n'
+        c+='        run(cmd)\n'
+        c+='    }\n'
+        c+='}\n'
+        //c+='}\n'
+        let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
+        ///getDataNum.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_fem.json 1
+
+    }
     //<--Load Data
 
     //-->Make Dinamically
@@ -940,6 +985,24 @@ Item{
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, parent, 'mkWindowDataViewCode')
+    }
+    function mkItemDataView(data, x, y, width, height, parent, fs){
+        let c=''
+        c+='import QtQuick 2.0\n'
+        c+='import comps.ItemDataView 1.0\n'
+        c+='ItemDataView{\n'
+        c+='    id: w\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        let d="'+data+'"\n'
+        c+='        w.x="'+x+'"\n'
+        c+='        w.y="'+y+'"\n'
+        c+='        w.width="'+width+'"\n'
+        c+='        w.height="'+height+'"\n'
+        c+='        w.fs="'+fs+'"\n'
+        c+='        w.text=d\n'
+        c+='    }\n'
+        c+='}\n'
+        let comp=Qt.createQmlObject(c, parent, 'mkItemDataViewCode')
     }
     //<--Make Dinamically
 

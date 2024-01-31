@@ -71,7 +71,7 @@ Item {
         antialiasing: true
         Rectangle{
             id: xIconAsc
-            property bool selected: app.currentPlanetIndex===20
+            property bool selected: zoolMap.currentPlanetIndex===20
             width: sweg.fs
             height: width
             radius: width*0.5
@@ -85,10 +85,10 @@ Item {
             anchors.rightMargin: sweg.ejeTipoCurrentIndex===-2?0+sweg.fs:0+sweg.fs*5//
             onSelectedChanged:{
                 if(selected){
-                    app.uSon='asc_'+app.objSignsNames[r.isAsc]+'_1'
+                    zoolMap.uSon='asc_'+zoolMap.objSignsNames[r.isAsc]+'_1'
                     setZoomAndPos('asc')
-                    app.currentXAs=r
-                    app.showPointerXAs=true
+                    zoolMap.currentXAs=r
+                    zoolMap.showPointerXAs=true
                 }
             }
             state: sweg.state
@@ -168,7 +168,7 @@ Item {
                         menuPlanetsCtxAsc.popup()
                     } else if (mouse.button === Qt.LeftButton) {
                         sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==1?1:-1
-                        app.currentPlanetIndex=app.currentPlanetIndex!==20?20:-1
+                        zoolMap.currentPlanetIndex=zoolMap.currentPlanetIndex!==20?20:-1
                     }
                 }
 
@@ -179,7 +179,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: sweg.fs*0.05
                 Text{
-                    text: 'Asc '+app.signos[r.isAsc]
+                    text: 'Asc '+zoolMap.signos[r.isAsc]
                     font.pixelSize: sweg.fs*0.5
                     color: 'white'
                     width: contentWidth
@@ -249,7 +249,7 @@ Item {
         antialiasing: true
         Rectangle{
             id: xIconMC
-            property bool selected: app.currentPlanetIndex===21
+            property bool selected: zoolMap.currentPlanetIndex===21
             width: sweg.fs
             height: width
             radius: width*0.5
@@ -262,10 +262,10 @@ Item {
             anchors.rightMargin: app.fs*1.25
             onSelectedChanged:{
                 if(selected){
-                    app.uSon='mc_'+app.objSignsNames[r.isMC]+'_10'
+                    zoolMap.uSon='mc_'+zoolMap.objSignsNames[r.isMC]+'_10'
                     setZoomAndPos('mc')
-                    app.currentXAs=r
-                    app.showPointerXAs=true
+                    zoolMap.currentXAs=r
+                    zoolMap.showPointerXAs=true
                 }
             }
             Behavior on anchors.rightMargin{enabled: apps.enableFullAnimation;NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
@@ -335,7 +335,7 @@ Item {
                             menuPlanetsCtxAsc.popup()
                         } else if (mouse.button === Qt.LeftButton) {
                             sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==10?10:-1
-                            app.currentPlanetIndex=app.currentPlanetIndex!==21?21:-1
+                            zoolMap.currentPlanetIndex=zoolMap.currentPlanetIndex!==21?21:-1
                         }
                     }
                 }
@@ -348,7 +348,7 @@ Item {
                 color: apps.backgroundColor
             }
             Text{
-                text: 'MC '+app.signos[r.isMC]
+                text: 'MC '+zoolMap.signos[r.isMC]
                 font.pixelSize: sweg.fs*0.5
                 color: 'white'
                 width: contentWidth
@@ -396,19 +396,19 @@ Item {
         r.isAsc=o1.is
         r.gdegAsc=o1.rsgdeg
         r.mdegAsc=o1.mdeg
-        app.uAscDegree=parseInt(o1.rsgdeg)
+        zoolMap.uAscDegree=parseInt(o1.rsgdeg)
 
         let degs=(30*o1.is)+o1.rsgdeg
         o1=jsonData.ph['h10']
         r.isMC=o1.is
         r.gdegMC=o1.rsgdeg
         r.mdegMC=o1.mdeg
-        app.uMcDegree=o1.rsgdeg
+        zoolMap.uMcDegree=o1.rsgdeg
         ejeMC.rotation=degs-360-o1.gdeg
         xIconMC.rotation=0-ejeMC.rotation
     }
     function saveZoomAndPos(eje){
-        let json=JSON.parse(app.fileData)
+        let json=JSON.parse(zoolMap.fileData)
         if(!json[app.stringRes+'zoompos']){
             json[app.stringRes+'zoompos']={}
         }
@@ -418,12 +418,12 @@ Item {
             json.params.msmod=dataModNow.getTime()
         }
         let njson=JSON.stringify(json)
-        app.fileData=njson
-        app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        zoolMap.fileData=njson
+        zoolMap.currentData=zoolMap.fileData
+        unik.setFile(apps.url.replace('file://', ''), zoolMap.fileData)
     }
     function setZoomAndPos(eje){
-        let json=JSON.parse(app.fileData)
+        let json=JSON.parse(zoolMap.fileData)
         if(json[app.stringRes+'zoompos']&&json[app.stringRes+'zoompos'][''+eje]){
             sweg.setZoomAndPos(json[app.stringRes+'zoompos'][''+eje])
         }

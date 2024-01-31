@@ -1,1 +1,1 @@
-Se corrige ZoolMapData pluton.json
+Se arregla el funcionamiento de Sabianos con variables zoolMap.

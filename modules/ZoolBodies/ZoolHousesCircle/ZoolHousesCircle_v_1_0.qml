@@ -70,7 +70,7 @@ Item {
         var degRet=0.0
         for(i=0;i<12;i++){
             if(i===0){
-                app.uAscDegreeTotal=jsonData.ph.h1.gdec
+                zoolMap.uAscDegreeTotal=jsonData.ph.h1.gdec
             }
             nh=i
             let h=xArcs.children[i]

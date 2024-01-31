@@ -108,39 +108,134 @@
         }
     },
     "saturno_en_casa_1": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "responsabilidad_y_disciplina_en_la_autoimagen_y_la_autoexpresión": "Hay una fuerte tendencia hacia la responsabilidad y la disciplina en la autoimagen y la autoexpresión.",
+            "sentido_del_deber_y_la_obligación_hacia_uno_mismo_y_la_manifestación_personal": "Existe un sentido del deber y la obligación hacia uno mismo y la manifestación personal.",
+            "limitaciones_y_restricciones_en_la_forma_de_ser_y_actuar": "Pueden haber limitaciones y restricciones en la forma de ser y actuar.",
+            "autoconciencia_y_autoevaluación_rígida": "La autoconciencia y la autoevaluación pueden ser rígidas y severas.",
+            "aprendizaje_a_través_de_superar_desafíos_y_responsabilidades_personales": "El aprendizaje se produce a través de superar desafíos y responsabilidades personales.",
+            "desarrollo_de_una_fundación_sólida_para_el_crecimiento_personal": "Se busca el desarrollo de una fundación sólida para el crecimiento personal.",
+            "construcción_de_una_identidad_auténtica_a_través_del_trabajo_duro_y_la_persistencia": "La construcción de una identidad auténtica se logra a través del trabajo duro y la persistencia."
+        }
     },
     "saturno_en_casa_2": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "gestión_conservadora_de_los_recursos_y_las_finanzas": "Puede haber una gestión conservadora de los recursos y las finanzas.",
+            "sentido_de_responsabilidad_y_prudencia_en_asuntos_materiales": "Existe un sentido de responsabilidad y prudencia en los asuntos materiales.",
+            "limitaciones_y_restricciones_en_la_adquisición_y_gestión_de_recursos": "Pueden haber limitaciones y restricciones en la adquisición y gestión de recursos.",
+            "aprendizaje_a_través_de_superar_desafíos_económicos_y_materiales": "El aprendizaje se produce a través de superar desafíos económicos y materiales.",
+            "necesidad_de_establecer_una_base_segura_y_estable_en_la_vida_financiera": "Existe una necesidad de establecer una base segura y estable en la vida financiera.",
+            "desarrollo_de_la_autoestima_a_través_del_logro_y_la_autosuficiencia_material": "Se busca el desarrollo de la autoestima a través del logro y la autosuficiencia material.",
+            "construcción_de_una_relación_saludable_con_el_dinero_y_los_recursos": "Se trabaja en la construcción de una relación saludable con el dinero y los recursos."
+        }
     },
     "saturno_en_casa_3": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_el_aprendizaje_y_la_comunicación": "Hay un enfoque serio y disciplinado hacia el aprendizaje y la comunicación.",
+            "responsabilidad_en_las_interacciones_cotidianas_y_las_relaciones_familiares": "Existe responsabilidad en las interacciones cotidianas y las relaciones familiares.",
+            "limitaciones_en_el_proceso_de_aprendizaje_y_la_comunicación": "Pueden haber limitaciones en el proceso de aprendizaje y la comunicación.",
+            "aprendizaje_a_través_de_superar_desafíos_en_el_aprendizaje_y_la_comunicación": "El aprendizaje se produce a través de superar desafíos en el aprendizaje y la comunicación.",
+            "necesidad_de_estructura_y_organización_en_el_intercambio_de_información": "Existe una necesidad de estructura y organización en el intercambio de información.",
+            "desarrollo_de_habilidades_prácticas_y_una_mentalidad_realista_en_el_aprendizaje": "Se busca el desarrollo de habilidades prácticas y una mentalidad realista en el aprendizaje.",
+            "construcción_de_relaciones_de_comunicación_sólidas_y_duraderas": "Se trabaja en la construcción de relaciones de comunicación sólidas y duraderas."
+        }
     },
     "saturno_en_casa_4": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "sentido_de_responsabilidad_y_obligación_hacia_la_familia_y_el_hogar": "Existe un sentido de responsabilidad y obligación hacia la familia y el hogar.",
+            "limitaciones_y_restricciones_en_el_ámbito_doméstico_y_emocional": "Pueden haber limitaciones y restricciones en el ámbito doméstico y emocional.",
+            "aprendizaje_a_través_de_superar_desafíos_en_el_hogar_y_el_ámbito_emocional": "El aprendizaje se produce a través de superar desafíos en el hogar y el ámbito emocional.",
+            "necesidad_de_establecer_un_ambiente_seguro_y_estable_en_el_hogar": "Existe una necesidad de establecer un ambiente seguro y estable en el hogar.",
+            "desarrollo_de_un_sentido_de_seguridad_emocional_y_estabilidad_familiar": "Se busca el desarrollo de un sentido de seguridad emocional y estabilidad familiar.",
+            "construcción_de_un_hogar_sólido_y_una_base_emocional_firme": "Se trabaja en la construcción de un hogar sólido y una base emocional firme."
+        }
     },
     "saturno_en_casa_5": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_la_expresión_creativa_y_la_diversión": "Hay un enfoque serio y disciplinado hacia la expresión creativa y la diversión.",
+            "responsabilidad_en_la_manifestación_de_la_individualidad_y_la_autoexpresión": "Existe responsabilidad en la manifestación de la individualidad y la autoexpresión.",
+            "limitaciones_y_restricciones_en_la_expresión_de_la_alegría_y_la_espontaneidad": "Pueden haber limitaciones y restricciones en la expresión de la alegría y la espontaneidad.",
+            "aprendizaje_a_través_de_superar_desafíos_en_la_autoexpresión_y_la_creatividad": "El aprendizaje se produce a través de superar desafíos en la autoexpresión y la creatividad.",
+            "necesidad_de_estructura_y_disciplina_en_la_búsqueda_de_placer_y_la_expresión_creativa": "Existe una necesidad de estructura y disciplina en la búsqueda de placer y la expresión creativa.",
+            "desarrollo_de_una_mente_disciplinada_y_una_autoexpresión_auténtica": "Se busca el desarrollo de una mente disciplinada y una autoexpresión auténtica.",
+            "construcción_de_una_alegría_duradera_y_una_creatividad_sólida": "Se trabaja en la construcción de una alegría duradera y una creatividad sólida."
+        }
     },
     "saturno_en_casa_6": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_el_trabajo_y_la_salud": "Hay un enfoque serio y disciplinado hacia el trabajo y la salud.",
+            "responsabilidad_en_el_cuidado_de_la_salud_y_el_bienestar_personal": "Existe responsabilidad en el cuidado de la salud y el bienestar personal.",
+            "limitaciones_y_restricciones_en_el_ámbito_laboral_y_de_la_salud": "Pueden haber limitaciones y restricciones en el ámbito laboral y de la salud.",
+            "aprendizaje_a_través_de_superar_desafíos_en_el_trabajo_y_la_salud": "El aprendizaje se produce a través de superar desafíos en el trabajo y la salud.",
+            "necesidad_de_orden_y_eficiencia_en_el_entorno_laboral_y_de_salud": "Existe una necesidad de orden y eficiencia en el entorno laboral y de salud.",
+            "desarrollo_de_hábitos_saludables_y_una_mentalidad_práctica_en_el_trabajo": "Se busca el desarrollo de hábitos saludables y una mentalidad práctica en el trabajo.",
+            "construcción_de_una_estructura_sólida_para_la_productividad_y_el_bienestar": "Se trabaja en la construcción de una estructura sólida para la productividad y el bienestar."
+        }
     },
     "saturno_en_casa_7": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_las_relaciones_personales_y_el_matrimonio": "Hay un enfoque serio y disciplinado hacia las relaciones personales y el matrimonio.",
+            "responsabilidad_en_el_establecimiento_y_mantenimiento_de_relaciones_duraderas": "Existe responsabilidad en el establecimiento y mantenimiento de relaciones duraderas.",
+            "limitaciones_y_restricciones_en_las_asociaciones_y_relaciones_personales": "Pueden haber limitaciones y restricciones en las asociaciones y relaciones personales.",
+            "aprendizaje_a_través_de_superar_desafíos_en_las_relaciones_personales_y_el_matrimonio": "El aprendizaje se produce a través de superar desafíos en las relaciones personales y el matrimonio.",
+            "necesidad_de_equilibrio_y_responsabilidad_en_el_trato_con_los_demás": "Existe una necesidad de equilibrio y responsabilidad en el trato con los demás.",
+            "desarrollo_de_habilidades_de_negociación_y_una_mentalidad_realista_en_las_relaciones": "Se busca el desarrollo de habilidades de negociación y una mentalidad realista en las relaciones.",
+            "construcción_de_una_base_sólida_para_las_asociaciones_y_el_compromiso": "Se trabaja en la construcción de una base sólida para las asociaciones y el compromiso."
+        }
     },
     "saturno_en_casa_8": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_el_autoconocimiento_y_la_transformación_personal": "Hay un enfoque serio y disciplinado hacia el autoconocimiento y la transformación personal.",
+            "responsabilidad_en_el_abordaje_de_las_cuestiones_emocionales_y_psicológicas": "Existe responsabilidad en el abordaje de las cuestiones emocionales y psicológicas.",
+            "limitaciones_y_restricciones_en_el_proceso_de_transformación_y_regeneración": "Pueden haber limitaciones y restricciones en el proceso de transformación y regeneración.",
+            "aprendizaje_a_través_de_superar_desafíos_en_la_intimidad_y_el_autoconocimiento": "El aprendizaje se produce a través de superar desafíos en la intimidad y el autoconocimiento.",
+            "necesidad_de_honestidad_y_responsabilidad_en_la_exploración_de_lo_oculto": "Existe una necesidad de honestidad y responsabilidad en la exploración de lo oculto.",
+            "desarrollo_de_una_mentalidad_resiliente_y_una_capacidad_de_resistencia_emocional": "Se busca el desarrollo de una mentalidad resiliente y una capacidad de resistencia emocional.",
+            "construcción_de_una_base_firme_para_la_transformación_personal_y_el_empoderamiento": "Se trabaja en la construcción de una base firme para la transformación personal y el empoderamiento."
+        }
     },
     "saturno_en_casa_9": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_el_conocimiento_y_la_filosofía": "Hay un enfoque serio y disciplinado hacia el conocimiento y la filosofía.",
+            "responsabilidad_en_la_búsqueda_de_sentido_y_propósito_en_la_vida": "Existe responsabilidad en la búsqueda de sentido y propósito en la vida.",
+            "limitaciones_y_restricciones_en_el_entendimiento_y_la_ampliación_de_la_mente": "Pueden haber limitaciones y restricciones en el entendimiento y la ampliación de la mente.",
+            "aprendizaje_a_través_de_superar_desafíos_en_la_exploración_del_mundo_y_la_cultura": "El aprendizaje se produce a través de superar desafíos en la exploración del mundo y la cultura.",
+            "necesidad_de_disciplina_y_honestidad_en_la_búsqueda_de_la_verdad": "Existe una necesidad de disciplina y honestidad en la búsqueda de la verdad.",
+            "desarrollo_de_una_mentalidad_abierta_y_un_entendimiento_práctico_de_la_filosofía": "Se busca el desarrollo de una mentalidad abierta y un entendimiento práctico de la filosofía.",
+            "construcción_de_una_base_sólida_para_la_búsqueda_de_significado_y_la_ampliación_del_conocimiento": "Se trabaja en la construcción de una base sólida para la búsqueda de significado y la ampliación del conocimiento."
+        }
     },
     "saturno_en_casa_10": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_la_carrera_y_el_logro_profesional": "Hay un enfoque serio y disciplinado hacia la carrera y el logro profesional.",
+            "responsabilidad_en_el_cumplimiento_de_metas_y_objetivos_ambiciosos": "Existe responsabilidad en el cumplimiento de metas y objetivos ambiciosos.",
+            "limitaciones_y_restricciones_en_el_ámbito_profesional_y_el_reconocimiento_social": "Pueden haber limitaciones y restricciones en el ámbito profesional y el reconocimiento social.",
+            "aprendizaje_a_través_de_superar_desafíos_en_la_vida_profesional_y_la_posición_social": "El aprendizaje se produce a través de superar desafíos en la vida profesional y la posición social.",
+            "necesidad_de_disciplina_y_persistencia_en_el_logro_de_la_excelencia_profesional": "Existe una necesidad de disciplina y persistencia en el logro de la excelencia profesional.",
+            "desarrollo_de_hábitos_de_trabajo_duros_y_una_mentalidad_empresarial": "Se busca el desarrollo de hábitos de trabajo duros y una mentalidad empresarial.",
+            "construcción_de_una_base_sólida_para_la_carrera_y_el_reconocimiento_en_la_sociedad": "Se trabaja en la construcción de una base sólida para la carrera y el reconocimiento en la sociedad."
+        }
     },
     "saturno_en_casa_11": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_las_amistades_y_el_trabajo_en_equipo": "Hay un enfoque serio y disciplinado hacia las amistades y el trabajo en equipo.",
+            "responsabilidad_en_el_cumplimiento_de_objetivos_comunes_y_la_construcción_de_redes_sociales": "Existe responsabilidad en el cumplimiento de objetivos comunes y la construcción de redes sociales.",
+            "limitaciones_y_restricciones_en_las_relaciones_de_grupo_y_la_pertenencia_a_comunidades": "Pueden haber limitaciones y restricciones en las relaciones de grupo y la pertenencia a comunidades.",
+            "aprendizaje_a_través_de_superar_desafíos_en_la_colaboración_y_la_innovación_social": "El aprendizaje se produce a través de superar desafíos en la colaboración y la innovación social.",
+            "necesidad_de_lealtad_y_honestidad_en_las_relaciones_amistosas_y_la_pertenencia_a_grupos": "Existe una necesidad de lealtad y honestidad en las relaciones amistosas y la pertenencia a grupos.",
+            "desarrollo_de_habilidades_de_liderazgo_y_un_sentido_de_responsabilidad_social": "Se busca el desarrollo de habilidades de liderazgo y un sentido de responsabilidad social.",
+            "construcción_de_una_base_sólida_para_la_colaboración_y_el_cumplimiento_de_metas_colectivas": "Se trabaja en la construcción de una base sólida para la colaboración y el cumplimiento de metas colectivas."
+        }
     },
     "saturno_en_casa_12": {
-        "manifestaciones": {}
+        "manifestaciones": {
+            "enfoque_serio_y_disciplinado_hacia_la_espiritualidad_y_el_mundo_interior": "Hay un enfoque serio y disciplinado hacia la espiritualidad y el mundo interior.",
+            "responsabilidad_en_el_proceso_de_sanación_y_autoconocimiento_subconsciente": "Existe responsabilidad en el proceso de sanación y autoconocimiento subconsciente.",
+            "limitaciones_y_restricciones_en_el_acceso_a_la_conciencia_superior_y_el_éxito_espiritual": "Pueden haber limitaciones y restricciones en el acceso a la conciencia superior y el éxito espiritual.",
+            "aprendizaje_a_través_de_superar_desafíos_en_la_introspección_y_el_aislamiento": "El aprendizaje se produce a través de superar desafíos en la introspección y el aislamiento.",
+            "necesidad_de_disciplina_y_honestidad_en_el_trabajo_interior_y_la_conexión_con_el_inconsciente_colectivo": "Existe una necesidad de disciplina y honestidad en el trabajo interior y la conexión con el inconsciente colectivo.",
+            "desarrollo_de_una_mentalidad_resistente_y_una_capacidad_de_autoaceptación": "Se busca el desarrollo de una mentalidad resistente y una capacidad de autoaceptación.",
+            "construcción_de_una_base_sólida_para_la_paz_interior_y_la_sanación_emocional": "Se trabaja en la construcción de una base sólida para la paz interior y la sanación emocional."
+        }
     }
 }

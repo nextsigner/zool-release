@@ -133,6 +133,7 @@ Rectangle {
                 ZoolControlsTime{
                     id: controlTimeFecha
                     gmt: 0
+                    fs: r.width*0.07
                     KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
                     onCurrentDateChanged: {

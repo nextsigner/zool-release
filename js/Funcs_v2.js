@@ -274,6 +274,8 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
     request.send()
 }
 function showSABIANOS(numSign, numDegree){
+    log.lv('numSign: '+numSign)
+    log.lv('numDegree: '+numDegree)
     panelSabianos.numSign=numSign
     panelSabianos.numDegree=numDegree
     panelSabianos.state='show'
