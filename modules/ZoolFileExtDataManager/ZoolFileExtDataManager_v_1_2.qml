@@ -101,7 +101,7 @@ Rectangle {
                         let lon=-58.6480318
                         let alt=0
                         let ciudad='I. Casanova'
-                        let strEdad='Edad: '+app.j.getEdad(d, m, a, h, min)+' años'
+                        let strEdad='Edad: '+zoolMap.getEdad(d, m, a, h, min)+' años'
                         let aR=[]
                         app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys, -1, aR)
                     }
@@ -265,7 +265,7 @@ Rectangle {
                             let lon=j.lon
                             let alt=j.alt
                             let ciudad=j.ciudad
-                            let strEdad='Edad: '+app.j.getEdad(d, m, a, h, min)+' años'
+                            let strEdad='Edad: '+zoolMap.getEdad(d, m, a, h, min)+' años'
                             if(t==='rs'){
                                 let currentAnio=new Date(app.currentDate).getFullYear()
                                 strEdad='Edad: '+parseInt(a - currentAnio)+' años'

@@ -109,7 +109,7 @@ Item{
         color: apps.houseColor
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.left
-        visible: app.mod==='dirprim' && !r.isBack
+        visible: (app.mod==='dirprim' || app.mod==='trans') && !r.isBack
     }
     Row{
         anchors.verticalCenter: parent.verticalCenter
@@ -138,7 +138,7 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: zoolMap.planetSize
-        visible: app.mod==='dirprim' && r.isBack
+        visible: (app.mod==='dirprim'  || app.mod==='trans') && r.isBack
         Rectangle{
             width: r.width
             height: 1

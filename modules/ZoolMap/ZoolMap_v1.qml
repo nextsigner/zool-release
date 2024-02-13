@@ -692,6 +692,74 @@ Item{
         app.mod=j.params.tipo
         r.fileDataBack=JSON.stringify(j)
     }
+    function loadBackFromArgs(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
+        zoolMap.ev=false
+        let d=new Date(Date.now())
+        let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
+                            parseInt(vmin))
+        let stringEdad=(''+edad).indexOf('NaN')<0?edad:''
+
+        let extId='id'
+        extId+='_'+vd
+        extId+='_'+vm
+        extId+='_'+va
+        extId+='_'+vh
+        extId+='_'+vmin
+        extId+='_'+vgmt
+        extId+='_'+vlat
+        extId+='_'+vlon
+        extId+='_'+valt
+        extId+='_'+tipo
+        extId+='_'+hsys
+
+        let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+        //if(app.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
+
+        //if(app.dev)log.lv('Json fallado: loadBack(...) json: '+js)
+
+        let json=JSON.parse(js)
+
+        let extIdExist=zfdm.isExtId(extId)
+        if(app.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
+        let isExtIdInAExtsIds=app.aExtsIds.indexOf(extId)>=0?true:false
+        if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
+        if(!extIdExist && !isExtIdInAExtsIds){
+            zfdm.addExtData(json)
+            zoolMap.loadBack(json)
+        }else{
+            if(app.dev)log.lv('ExtId ya existe.')
+            let extJson={}
+            extJson.params=zfdm.getExtData(extId)
+            if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
+            zoolMap.loadBack(extJson)
+        }
+        let aL=zoolDataView.atLeft
+        let aR=vAtRigth
+        if(vAtRigth===[]){
+            if(tipo==='sin'){
+                aR.push('<b>'+nom+'</b>')
+                aL.reverse()
+            }
+            if(tipo==='rs')aR.push(edad)
+            aR.push(''+vd+'/'+vm+'/'+va)
+            aR.push(''+vh+':'+vmin+'hs')
+            aR.push('<b>GMT:</b> '+vgmt)
+            aR.push('<b>Ubicación:</b> '+vCiudad)
+            aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+            aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+            aR.push('<b>Alt:</b> '+valt)
+        }
+        let strSep=''
+        if(tipo==='sin'){
+            strSep='Sinastría'
+        }
+        if(tipo==='rs')strSep='Rev. Solar '+va
+        if(tipo==='trans')strSep='Tránsitos'
+        if(tipo==='dirprim')strSep='Dir. Primarias'
+        zoolDataView.setDataView(strSep, aL, aR)
+        zoolDataView.uExtIdLoaded=extId
+        zoolMap.ev=true
+    }
     function loadSweJson(json){
         //console.log('JSON::: '+json)
         //log.visible=true
@@ -869,7 +937,7 @@ Item{
         if(currentUserHours>diffHours){
             currentGmtUser=parseFloat(currentUserHours-diffHours)
         }else{
-            currentGmtUser=parseFloat(0-(diffHours-currentUserHours)).toFixed(1)
+            currentGmtUser=parseFloat(0-(diffHours+currentUserHours)).toFixed(1)
         }
         //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
         let dia=d.getDate()
@@ -889,6 +957,7 @@ Item{
             loadBack(JSON.parse(j))
             //r.ev=true
         }
+        zoolMap.ev=isExt
     }
     function loadFromJson(j, isExt, save){
         if(save){
@@ -1079,7 +1148,7 @@ Item{
         // Calcular las coordenadas del punto después de la rotación
         var rotatedPoint = getCoordsRotatedPoint(originalX, originalY, rotationAngle);
 
-        console.log('Coordenadas rotadas:', rotatedPoint.x+' '+rotatedPoint.y);
+        //console.log('Coordenadas rotadas:', rotatedPoint.x+' '+rotatedPoint.y);
         mr(rotatedPoint.x, rotatedPoint.y);
     }
     function getCoordsRotatedPoint(x, y, angle) {
@@ -1141,6 +1210,30 @@ Item{
         apps.urlBack=''
         apps.showAspPanelBack=false
         apps.showAspCircleBack=false
+    }
+    function getEdad(d, m, a, h, min) {
+        let hoy = new Date(Date.now())
+        let fechaNacimiento = new Date(a, m, d, h, min)
+        fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
+        let fechaNacimiento2 = new Date(fechaNacimiento)
+        let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
+        let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
+        if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
+            edad--
+        }
+        return edad
+    }
+    function getEdadRS(d, m, a, h, min) {
+        let hoy = app.currentDate//new Date(Date.now())
+        let fechaNacimiento = new Date(a, m, d, h, min)
+        fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
+        let fechaNacimiento2 = new Date(fechaNacimiento)
+        let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
+        let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
+        if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
+            edad--
+        }
+        return edad
     }
     function getAPD(isBack){
         return !isBack?planetsCircle.getAPD():planetsCircleBack.getAPD()

@@ -168,7 +168,7 @@ Rectangle {
                     font.pixelSize: parent.width*0.35
                     anchors.right:parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: app.ev
+                    visible: zoolMap.ev
                 }
             }
         }

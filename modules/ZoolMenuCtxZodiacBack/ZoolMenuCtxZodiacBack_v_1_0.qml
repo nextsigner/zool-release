@@ -85,20 +85,20 @@ Menu {
                        }
     }
     Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
-                           app.j.loadNow()
+                           zoolMap.loadNow()
                        }
     }
-    Action {enabled: app.ev; text: qsTr("Descartar exterior"); onTriggered: {
+    Action {enabled: zoolMap.ev; text: qsTr("Descartar exterior"); onTriggered: {
                            app.j.loadJson(apps.url)
                        }
     }
 
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
-                           sweg.zoomTo(0.5)
+                           zoolMap.zoomTo(0.5)
                        }
     }
     Action {text: qsTr("Zoom 1.5"); onTriggered: {
-                           sweg.zoomTo(1.0)
+                           zoolMap.zoomTo(1.0)
                        }
     }
     Action {text: qsTr("Capturar"); onTriggered: {

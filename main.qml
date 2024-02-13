@@ -306,7 +306,7 @@ ZoolMainWindow{
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop
                 anchors.top: parent.top
-                visible: app.capturing && app.ev
+                visible: app.capturing && zoolMap.ev
                 Rectangle{
                     anchors.fill: parent
                     color: 'transparent'
@@ -487,7 +487,7 @@ ZoolMainWindow{
                     height: controlsTimeBack.height
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: app.ev
+                    visible: zoolMap.ev
                     property bool showCT: false
                     MouseArea{
                         anchors.fill: parent

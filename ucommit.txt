@@ -1,1 +1,1 @@
-Se arregla el funcionamiento de Sabianos con variables zoolMap.uMcDegree
+Se corrigen errores en ZoolFileTransLoader v1.4
