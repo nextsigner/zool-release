@@ -50,6 +50,11 @@ Item{
     property alias objOointerPlanet: pointerPlanet
     //property alias img: bodie.objImg
     //property alias img0: bodie.objImg0
+    Behavior on rotation{enabled:(app.mod==='dirprim' || app.mod==='trans');NumberAnimation{duration: 2000}}
+    Behavior on width{enabled:(app.mod==='dirprim' || app.mod==='trans');NumberAnimation{duration: 2000}}
+    onWidthChanged: {
+        zoolMap.resizeAspCircle()
+    }
     onSelectedChanged: {
         if(selected)zoolMap.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
@@ -175,7 +180,7 @@ Item{
             is:r.is
             gdeg: objData.g
             mdeg: objData.m
-            rsgdeg:objData.rsg
+            rsgdeg:objData.gdec-(30*is)
             ih:objData.ih
             expand: r.selected
             iconoSignRot: parent.objImg.rotation

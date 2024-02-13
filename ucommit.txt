@@ -1,1 +1,1 @@
-Se corrigen errores en ZoolFileTransLoader v1.4
+Se corrige el dato de los grados en PointerPlanet

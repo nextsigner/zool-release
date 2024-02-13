@@ -1091,6 +1091,14 @@ Item{
             ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         }
     }
+    function resizeAspCircle(){
+        if(r.ev){
+            ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        }else{
+            ai.width=r.width
+        }
+    }
     function hideTapa(){
         tapa.opacity=0.0
     }

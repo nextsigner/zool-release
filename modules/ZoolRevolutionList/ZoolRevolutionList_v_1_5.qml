@@ -943,7 +943,8 @@ Rectangle {
         aR.push('<b>Lat:</b>'+lat)
         aR.push('<b>Lon:</b>'+lon)
         aR.push('<b>Alt:</b>'+alt)
-        app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
+        zoolMap.loadBackFromArgs(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
+        //app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
         /*let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'*/
     }
     function loadJson(json){
