@@ -294,6 +294,7 @@ Item{
                 interval: 1000
                 onTriggered: {
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
+                    housesCircleBack.wbgc=signCircle.width//ai.width
                 }
             }
             PinchArea {

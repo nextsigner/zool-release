@@ -52,6 +52,7 @@ Item {
         id: vacioDeCentro
         width: r.wbgc
         height: width
+        //color: !isBack?apps.backgroundColor:'blue'
         color: apps.backgroundColor
         border.width: 1
         border.color: apps.fontColor

@@ -1,1 +1,1 @@
-Se agrega wbgc a housesCircle
+Se define por Timer el valor wbgc a housesCircleBack
