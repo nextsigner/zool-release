@@ -22,6 +22,7 @@ Item {
     property int widthAspCircle: 10
     property var aWs: []
     property int c: 0
+    property int wbgc: 300
     property var aTipoEjes: ['Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>','Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>']
     property var aTipoEjesCasas:['Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12', 'Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12']
     Rectangle{
@@ -46,6 +47,16 @@ Item {
         id: dha//xDinamicHouserArcs
         anchors.fill: r
         property real fr: 0.00 //FakeRotation
+    }
+    Rectangle{
+        id: vacioDeCentro
+        width: r.wbgc
+        height: width
+        color: apps.backgroundColor
+        border.width: 1
+        border.color: apps.fontColor
+        radius: width*0.5
+        anchors.centerIn: parent
     }
     Component{
         id: compArc

@@ -287,6 +287,15 @@ Item{
                     app.j.runJsonTempBack()
                 }
             }
+            Timer{
+                id: tUpdateGUI
+                running: true
+                repeat: true
+                interval: 1000
+                onTriggered: {
+                    housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
+                }
+            }
             PinchArea {
                 id: pinchArea
                 anchors.fill: parent
@@ -439,7 +448,7 @@ Item{
                     }
                 }
 
-                ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
+                //ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
                 ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3; rotation: signCircle.rot - 90}
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
@@ -459,6 +468,7 @@ Item{
                     color: r.bodieBgColor
                     radius: width*0.5
                     anchors.centerIn: parent
+                    ZoolMapHousesCircle{id: housesCircle; width: ai.width; wbgc: ca.d}
                     ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4;}
                 }
 

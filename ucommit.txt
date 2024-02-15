@@ -1,1 +1,1 @@
-Se corrige el dato de los grados en PointerPlanet
+Se agrega wbgc a housesCircle

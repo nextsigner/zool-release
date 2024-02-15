@@ -53,7 +53,8 @@ Item{
     Behavior on rotation{enabled:(app.mod==='dirprim' || app.mod==='trans');NumberAnimation{duration: 2000}}
     Behavior on width{enabled:(app.mod==='dirprim' || app.mod==='trans');NumberAnimation{duration: 2000}}
     onWidthChanged: {
-        zoolMap.resizeAspCircle()
+        if(app.mod!=='trans' && app.mod!=='dirprim')return
+        //zoolMap.resizeAspCircle()
     }
     onSelectedChanged: {
         if(selected)zoolMap.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
