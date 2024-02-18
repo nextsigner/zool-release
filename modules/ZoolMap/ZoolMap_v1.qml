@@ -54,6 +54,7 @@ Item{
 
     property int planetsAreaWidth: 100
     property int planetsAreaWidthBack: 100
+    property string folderImg: unik.getPath(5)+'/modules/ZoolBodies/ZoolAs/imgs_v1'
 
     property color backgroundColor: enableBackgroundColor?apps.backgroundColor:'transparent'
     property bool enableBackgroundColor: apps.enableBackgroundColor
@@ -295,6 +296,8 @@ Item{
                 onTriggered: {
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
                     housesCircleBack.wbgc=signCircle.width//ai.width
+                    //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
+                    imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
                 }
             }
             PinchArea {
@@ -475,6 +478,18 @@ Item{
 
                 //NumberLines{visible:true}
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
+                Image {
+                    id: imgEarth
+                    source: r.folderImg+"/earth.png"
+                    width: r.planetSize
+                    height: width
+                    rotation: -45
+                    antialiasing: true
+                    anchors.centerIn: parent
+                    z: aspsCircle.z+1
+                    //visible: apps.xAsShowIcon
+                    //visible: r.numAstro===0&&apps.xAsShowIcon
+                }
                 Rectangle{
                     id: capaFront
                     width: parent.width

@@ -1,1 +1,1 @@
-Se define por Timer el valor wbgc a housesCircleBack
+Se agregan manifestaciones negativas a jupiter.json y marte.json
