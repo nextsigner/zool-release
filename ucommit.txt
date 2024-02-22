@@ -1,1 +1,1 @@
-Se agregan manifestaciones negativas a jupiter.json y marte.json
+Se crea importante.py

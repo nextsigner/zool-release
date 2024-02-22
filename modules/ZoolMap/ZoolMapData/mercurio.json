@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "4,880 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 88,
+      "m": 2.92,
+      "a": 0.24
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 88/12,
+      "m": 2.92/12,
+      "a": 0.24/12
+    },
+    "posición": 1,
+    "propiedadesFisicas": "Rocoso, caliente",
+    "signoRegente": "Géminis y Virgo",
+    "nombreGriego": "Hermes",
+    "nombreRomano": "Mercurio",
+    "simbologíaTeológica": "En la mitología romana, Mercurio era el mensajero de los dioses, asociado con la comunicación, el comercio, los viajes y la astucia. También era el guía de las almas al inframundo.",
+    "simbologíaMitológica": "Mercurio simboliza la mente, la agilidad mental y la capacidad de adaptación. También representa la habilidad para aprender, comunicarse y hacer conexiones en el mundo.",
+    "significadoDelGlifo": "El glifo de Mercurio representa el caduceo de Hermes, un bastón entrelazado por dos serpientes y coronado con alas. Es un símbolo de comercio, intercambio y el flujo de energía entre el cielo y la tierra.",
+    "polaridad": "Masculina",
+    "signoExaltación": "Virgo",
+    "signoCaída": "Piscis",
+    "signoExilio": "Sagitario"
+  },
     "mercurio_en_aries": {
         "manifestaciones": {
             "comunicación_directa_y_energética": "Se expresa con comunicación directa y energética, buscando transmitir sus ideas de manera clara y con entusiasmo.",

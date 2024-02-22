@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "12,104 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 225,
+      "m": 7.5,
+      "a": 0.62
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 225/12,
+      "m": 7.5/12,
+      "a": 0.62/12
+    },
+    "posición": 2,
+    "propiedadesFisicas": "Rocoso, caliente",
+    "signoRegente": "Tauro y Libra",
+    "nombreGriego": "Afrodita",
+    "nombreRomano": "Venus",
+    "simbologíaTeológica": "En la mitología romana, Venus era la diosa del amor, la belleza y la fertilidad. También era considerada la protectora de Roma y se le asociaba con la prosperidad y la seducción.",
+    "simbologíaMitológica": "Venus simboliza el amor, la armonía y el placer sensorial. También representa la atracción y el deseo, así como la capacidad de encontrar belleza y satisfacción en la vida.",
+    "significadoDelGlifo": "El glifo de Venus es un círculo con una cruz en la parte inferior, que se asemeja a un espejo o un espejo de mano. Representa la feminidad, la belleza y el poder de la atracción.",
+    "polaridad": "Femenina",
+    "signoExaltación": "Piscis",
+    "signoCaída": "Virgo",
+    "signoExilio": "Aries"
+  },
     "venus_en_aries": {
         "manifestaciones": {
             "atracción_por_la_energía_apasionada": "Experimenta atracción por la energía apasionada, buscando relaciones emocionantes y llenas de acción.",

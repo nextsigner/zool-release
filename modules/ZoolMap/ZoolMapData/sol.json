@@ -1,4 +1,29 @@
 {
+"info": {
+   "diámetro": "1,391,000 km",
+   "tiempoDeOrbitaCompleta": {
+     "d": 365.25,
+     "m": 12,
+     "a": 1
+   },
+   "tiempoDeOrbitaPorSigno": {
+     "d": 30.44,
+     "m": 1,
+     "a": 0.08
+   },
+   "posición": "Estrella central",
+   "propiedadesFisicas": "Gaseoso, caliente",
+   "signoRegente": "Leo",
+   "nombreGriego": "Helios",
+   "nombreRomano": "Sol",
+   "simbologíaTeológica": "El Sol es considerado una deidad en muchas culturas antiguas y se asocia con la vida, la energía, la iluminación y el poder creativo. Es el centro de nuestro sistema solar y provee luz y calor a todos los planetas.",
+   "simbologíaMitológica": "El Sol simboliza la fuerza vital, el poder y la autoridad. En la mitología griega, Helios era el dios del Sol, que viajaba a través del cielo en un carro dorado tirado por caballos alados.",
+   "significadoDelGlifo": "El glifo del Sol representa la imagen de un círculo con un punto en el centro, que simboliza el núcleo brillante y ardiente del Sol. Es un símbolo de energía, vitalidad y poder creativo.",
+   "polaridad": "Masculina",
+   "signoExaltación": "Aries",
+   "signoCaída": "Libra",
+   "signoExilio": "Acuario"
+ },
     "sol_en_aries": {
         "manifestaciones": {
             "fuerte_voluntad_y_determinación": "Demuestra una fuerte voluntad y determinación en la búsqueda de sus objetivos, siendo valiente y decidido en la toma de decisiones.",

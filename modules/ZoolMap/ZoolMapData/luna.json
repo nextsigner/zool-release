@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "3,474.8 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 27.3,
+      "m": 0.903,
+      "a": 0.075
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 27.3/12,
+      "m": 0.903/12,
+      "a": 0.075/12
+    },
+    "posición": "Satélite natural",
+    "propiedadesFisicas": "Rocoso, frío",
+    "signoRegente": "Cáncer",
+    "nombreGriego": "Selene",
+    "nombreRomano": "Luna",
+    "simbologíaTeológica": "La Luna ha sido venerada en muchas culturas como un símbolo de la feminidad, la fertilidad y la intuición. En la mitología griega, Selene era la diosa de la Luna, asociada con la noche y la magia.",
+    "simbologíaMitológica": "La Luna simboliza el ciclo de la vida, la muerte y el renacimiento, así como las emociones y los aspectos ocultos de la psique humana. También se asocia con la luz suave y la iluminación interior.",
+    "significadoDelGlifo": "El glifo de la Luna representa un semicírculo con dos curvas hacia afuera, que sugieren los cuernos de la Luna creciente. Es un símbolo de la fluctuación y el cambio, así como de la receptividad y la intuición.",
+    "polaridad": "Femenina",
+    "signoExaltación": "Tauro",
+    "signoCaída": "Escorpio",
+    "signoExilio": "Capricornio"
+  },
     "luna_en_aries": {
         "manifestaciones": {
             "emociones_intensas_y_explosivas": "Manifiesta emociones intensas y explosivas, mostrando respuestas apasionadas y directas frente a los estímulos emocionales.",

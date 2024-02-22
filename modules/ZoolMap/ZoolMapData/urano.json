@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "50,724 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 30,685,
+      "m": 1,009.7,
+      "a": 84
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 30,685/12,
+      "m": 1,009.7/12,
+      "a": 84/12
+    },
+    "posición": 7,
+    "propiedadesFisicas": "Gaseoso, frío",
+    "signoRegente": "Acuario",
+    "nombreGriego": "Ouranos",
+    "nombreRomano": "Urano",
+    "simbologíaTeológica": "En la mitología griega, Urano era el dios del cielo, asociado con la creación y el orden cósmico. Era el padre de los titanes y gobernaba sobre el universo desde su trono en el cielo.",
+    "simbologíaMitológica": "Urano simboliza la innovación, la originalidad y la libertad. También representa la revolución y el cambio repentino, así como la búsqueda de nuevas formas de pensamiento y expresión.",
+    "significadoDelGlifo": "El glifo de Urano es una combinación de los símbolos del Sol y la Luna, con una cruz en el centro. Representa la energía creativa y el potencial ilimitado para la transformación y la renovación.",
+    "polaridad": "Masculina",
+    "signoExaltación": "Tauro",
+    "signoCaída": "Escorpio",
+    "signoExilio": "Leo"
+  },
     "urano_en_aries": {
         "manifestaciones": {
             "busqueda_individualidad_destacada": "La persona tiende a buscar y resaltar su singularidad y individualidad, buscando destacar entre la multitud.",

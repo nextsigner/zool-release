@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "2,377 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 90,560,
+      "m": 2,996.73,
+      "a": 248
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 90,560/12,
+      "m": 2,996.73/12,
+      "a": 248/12
+    },
+    "posición": "Enana",
+    "propiedadesFisicas": "Rocoso, frío",
+    "signoRegente": "Escorpio",
+    "nombreGriego": "Plutón",
+    "nombreRomano": "Plutón",
+    "simbologíaTeológica": "Plutón era el dios del inframundo en la mitología romana, asociado con la muerte, la transformación y la riqueza oculta. Gobernaba sobre las almas de los muertos y los tesoros enterrados.",
+    "simbologíaMitológica": "Plutón simboliza la regeneración, la renovación y el poder transformador de la muerte. También representa el inconsciente colectivo y los aspectos ocultos de la psique humana.",
+    "significadoDelGlifo": "El glifo de Plutón se asemeja a la letra 'P' con una línea adicional que representa la prolongación de la regeneración. Es un símbolo de transformación, renacimiento y poder oculto.",
+    "polaridad": "Femenina",
+    "signoExaltación": "Aries",
+    "signoCaída": "Tauro",
+    "signoExilio": "Libra"
+  },
     "pluton_en_aries": {
         "manifestaciones": {
             "transformacion_personal_intensa": "Experimenta transformaciones personales intensas y profundas, marcadas por un fuerte impulso de renacimiento y autodescubrimiento.",

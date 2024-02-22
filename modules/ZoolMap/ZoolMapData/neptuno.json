@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "49,244 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": "60.190",
+      "m": "164.8/12",
+      "a": "164.8"
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": "164.8*12*365.25/12",
+      "m": "164.8/12/12",
+      "a": "14.06"
+    },
+    "posición": 8,
+    "propiedadesFisicas": "Gaseoso, frío",
+    "signoRegente": "Piscis",
+    "nombreGriego": "Poseidón",
+    "nombreRomano": "Neptuno",
+    "simbologíaTeológica": "Neptuno es el dios romano del mar y del océano, asociado con la tranquilidad, la intuición y los misterios profundos. También es considerado el gobernante de los terremotos y los caballos.",
+    "simbologíaMitológica": "Neptuno simboliza la vastedad y la profundidad de los océanos, así como los poderes ocultos de la naturaleza. Es visto como un símbolo de la imaginación, los sueños y la inspiración artística.",
+    "significadoDelGlifo": "El glifo de Neptuno representa el tridente del dios, que simboliza su dominio sobre los océanos y su poder para agitar o calmar las aguas a su voluntad.",
+    "polaridad": "Femenina",
+    "signoExaltación": "Leo",
+    "signoCaída": "Acuario",
+    "signoExilio": "Virgo"
+  },
     "neptuno_en_aries": {
         "manifestaciones": {
             "inspiracion_innovadora": "Experimenta inspiración de manera innovadora, buscando inspirar y liderar a través de la creatividad y la originalidad.",

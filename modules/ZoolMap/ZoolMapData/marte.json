@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "6,779 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 687,
+      "m": 22.8,
+      "a": 1.88
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 57.25,
+      "m": 1.9,
+      "a": 0.16
+    },
+    "posición": 4,
+    "propiedadesFisicas": "Sólido, frío",
+    "signoRegente": "Aries y Escorpio",
+    "nombreGriego": "Ares",
+    "nombreRomano": "Mars",
+    "simbologíaTeológica": "En la mitología romana, Marte era el dios de la guerra, simbolizando la virilidad, la valentía y la fuerza militar. Era considerado el padre de Rómulo y Remo, los fundadores míticos de Roma.",
+    "simbologíaMitológica": "Marte también está asociado con la energía masculina, la pasión, la agresión controlada y la determinación. Su carácter beligerante en la mitología romana lo convierte en un símbolo de la lucha y el conflicto, pero también de la estrategia militar y la disciplina.",
+    "significadoDelGlifo": "El glifo de Marte se deriva del escudo y la lanza de guerra, simbolizando la fuerza, la agresión y el poder militar. Representa la masculinidad, la acción y la energía dinámica, reflejando la naturaleza guerrera asociada con el planeta.",
+    "polaridad": "Masculina",
+    "signoExaltación": "Capricornio",
+    "signoCaída": "Cáncer",
+    "signoExilio": "Libra"
+  },
     "marte_en_aries": {
         "manifestaciones": {
             "impulso_y_energía_frenética": "Manifiesta un fuerte impulso y energía frenética, mostrando una naturaleza activa y decidida en la búsqueda de objetivos.",

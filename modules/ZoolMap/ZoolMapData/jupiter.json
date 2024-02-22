@@ -1,4 +1,29 @@
 {
+"info": {
+    "diámetro": "139,820 km",
+    "tiempoDeOrbitaCompleta": {
+      "d": 4,333,
+      "m": 142.9,
+      "a": 11.86
+    },
+    "tiempoDeOrbitaPorSigno": {
+      "d": 142.9/12,
+      "m": 11.86/12,
+      "a": 11.86/1
+    },
+    "posición": 5,
+    "propiedadesFisicas": "Gaseoso, frío",
+    "signoRegente": "Sagitario y Piscis",
+    "nombreGriego": "Zeus",
+    "nombreRomano": "Júpiter",
+    "simbologíaTeológica": "En la mitología romana, Júpiter era el rey de los dioses, asociado con el poder, la autoridad y la justicia. Era el padre de los dioses y gobernaba el cielo desde su trono en el Monte Olimpo.",
+    "simbologíaMitológica": "Júpiter simboliza la expansión, la abundancia y la sabiduría. También representa la protección y el liderazgo benevolente, así como la capacidad de alcanzar metas elevadas y aspiraciones espirituales.",
+    "significadoDelGlifo": "El glifo de Júpiter se asemeja a un número '4' estilizado, con una cruz encima. Representa el rayo del trueno y el cetro del poder divino. Es un símbolo de expansión, crecimiento y fortuna.",
+    "polaridad": "Masculina",
+    "signoExaltación": "Cáncer",
+    "signoCaída": "Capricornio",
+    "signoExilio": "Géminis"
+  },
     "jupiter_en_aries": {
         "manifestaciones": {
             "expansión_en_la_energía": "Experimenta una expansión en la energía y la vitalidad, buscando ampliar los límites y desafiar constantemente los obstáculos.",
