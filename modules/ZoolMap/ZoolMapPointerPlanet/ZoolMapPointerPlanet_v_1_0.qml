@@ -61,7 +61,7 @@ Item {
             color: rectData.border.color
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.horizontalCenter
-            anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5+zoolMap.fs*0.25
+            anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5//+zoolMap.fs*0.25
             Rectangle{
                 id: rectData
                 width: col.width+r.pointerFs*0.5
