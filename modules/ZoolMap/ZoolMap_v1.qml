@@ -454,7 +454,7 @@ Item{
 
                 //ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
-                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z:ai.z+3; rotation: signCircle.rot - 90}
+                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z: ai.z+3; rotation: signCircle.rot - 90}
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 Rectangle{
                     id:bgPCB
@@ -739,6 +739,7 @@ Item{
         extId+='_'+hsys
 
         let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+        //if(true)log.lv('Json loadBackFromArg(): '+JSON.stringify(JSON.parse(js)))
         //if(app.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
 
         //if(app.dev)log.lv('Json fallado: loadBack(...) json: '+js)
@@ -879,7 +880,9 @@ Item{
             tapa.visible=true
             tapa.opacity=1.0
         }
+
         zoolMap.currentJsonBack=JSON.parse(json)
+        log.lv('zoolMap.currentJsonBack='+JSON.stringify(zoolMap.currentJsonBack, null, 2))
         //        if(app.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
         //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
@@ -953,7 +956,7 @@ Item{
         let e='1000'
         let aR=[]
         app.mod=tipo
-        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+        r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function loadNow(isExt){
         let d=new Date(Date.now())
