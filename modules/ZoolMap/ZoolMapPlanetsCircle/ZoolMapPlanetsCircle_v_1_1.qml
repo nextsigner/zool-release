@@ -74,7 +74,8 @@ Item{
             }
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
             if(r.isBack && app.mod==='dirprim'){
-                objAs.rotation-=zoolMap.dirPrimRot
+                //objAs.rotation-=zoolMap.dirPrimRot
+                //objAs.rotation-=zoolMap.dirPrimRot
             }
             if(i===0)zoolMap.currentRotationxAsSol=objAs.rotation
             o={}

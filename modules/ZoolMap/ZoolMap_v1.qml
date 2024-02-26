@@ -690,7 +690,7 @@ Item{
         let d = new Date(Date.now())
         let ms=d.getTime()
         let hsys=apps.currentHsys
-        app.currentFechaBack=vd+'/'+vm+'/'+va
+        r.currentFechaBack=vd+'/'+vm+'/'+va
         if(params.hsys)hsys=params.hsys
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
@@ -882,7 +882,7 @@ Item{
         }
 
         zoolMap.currentJsonBack=JSON.parse(json)
-        log.lv('zoolMap.currentJsonBack='+JSON.stringify(zoolMap.currentJsonBack, null, 2))
+        //log.lv('zoolMap.currentJsonBack='+JSON.stringify(zoolMap.currentJsonBack, null, 2))
         //        if(app.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
         //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
@@ -933,7 +933,7 @@ Item{
         //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         r.ev=true
-        if(!app.mod==='dirprim')centerZoomAndPos()
+        if(app.mod!=='dirprim')centerZoomAndPos()
     }
     function loadFromFileBack(filePath, tipo){
         tapa.visible=true
@@ -956,7 +956,10 @@ Item{
         let e='1000'
         let aR=[]
         app.mod=tipo
-        r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+
+        let p=zoolMap.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, 'dirprim', hsys)
+        r.loadBack(p)
+        //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function loadNow(isExt){
         let d=new Date(Date.now())
@@ -998,6 +1001,24 @@ Item{
         }else{
             loadBack(JSON.parse(j))
         }
+    }
+    function getParamsFromArgs(n, d, m, a, h, min, gmt, lat, lon, alt, c, t, s){
+        let j={}
+        j.params={}
+        j.params.n=n
+        j.params.d=d
+        j.params.m=m
+        j.params.a=a
+        j.params.h=h
+        j.params.min=min
+        j.params.gmt=gmt
+        j.params.lat=lat
+        j.params.lon=lon
+        j.params.alt=alt
+        j.params.c=c
+        j.params.t=t
+        j.params.s=s
+        return j
     }
     function getZiData(bodieIndex, signIndex, houseIndex){
             let b=zoolMap.aBodiesFiles[bodieIndex]
