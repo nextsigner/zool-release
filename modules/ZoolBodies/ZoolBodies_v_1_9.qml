@@ -477,7 +477,7 @@ Item {
         //c+='        log.lv(\'JSON Back: \'+json)\n'
         //c+='        console.log(\'JSON Back: \'+json)\n'
         c+='        loadSweJsonBack(json)\n'
-        c+='        app.ev=true\n'
+        c+='        zoolMap.ev=true\n'
         c+='        app.objZoolFileExtDataManager.updateList()\n'
         c+='        //swegz.sweg.loadSweJsonBack(json)\n'
         c+='        uqp'+ms+'.destroy(3000)\n'

@@ -174,6 +174,12 @@ ZoolMainWindow{
     menuBar: ZoolTopMenuBar {
         id: menuBar
     }
+    onDevChanged: {
+        if(dev){
+            let c=unik.getFile('./dev.qml')
+            let comp=Qt.createQmlObject(c, xApp, 'devqmlcode')
+        }
+    }
     FontLoader {name: "fa-brands-400";source: "./fonts/fa-brands-400.ttf";}
     FontLoader {name: "FontAwesome";source: "./fonts/fontawesome-webfont.ttf";}
     FontLoader {name: "ArialMdm";source: "./fonts/ArialMdm.ttf";}

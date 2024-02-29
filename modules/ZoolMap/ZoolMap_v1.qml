@@ -296,6 +296,7 @@ Item{
                 onTriggered: {
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
                     housesCircleBack.wbgc=signCircle.width//ai.width
+                    if(app.mod==='dirprim')housesCircleBack.width=ae.width
                     //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
                     imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
                 }

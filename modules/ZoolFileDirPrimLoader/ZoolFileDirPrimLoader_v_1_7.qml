@@ -135,6 +135,7 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked:{
                         r.moduleEnabled=!r.moduleEnabled
+                        controlTimeFechaEvento.currentDate=zoolMap.currentDate
                     }
                 }
                 ZoolControlsTime{
@@ -245,7 +246,9 @@ Rectangle {
                             let aR=[]
                             aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
                             aR.push('<b>Edad:</b> '+edad+' años')
+                            //zoolMap.ev=true
                             zoolMap.loadBackFromArgs(nom, vdEvento, vmEvento, vaEvento, vhEvento, vminEvento, vgmtEvento, vlat, vlon, valt, vCiudad, edad, 'dirprim', vhsys, -1, aR)
+                            //zoolMap.ev=true
                         }
                     }
                 }
@@ -766,7 +769,7 @@ Rectangle {
 
 
 
-        app.ev=true
+        zoolMap.ev=true
     }
     function updateAsps(){
         //

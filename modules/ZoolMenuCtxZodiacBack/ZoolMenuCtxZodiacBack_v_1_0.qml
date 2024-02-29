@@ -92,6 +92,10 @@ Menu {
                            app.j.loadJson(apps.url)
                        }
     }
+    Action {text: zoolMap.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
+                           zoolMap.ev=!zoolMap.ev
+                       }
+    }
 
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
                            zoolMap.zoomTo(0.5)
