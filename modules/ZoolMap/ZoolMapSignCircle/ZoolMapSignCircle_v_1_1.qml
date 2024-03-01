@@ -287,6 +287,26 @@ Item {
                 }
             }
         }
+
+
+    }
+    Repeater{
+        model: 12
+        Rectangle{
+            width: r.width
+            height: 1
+            color: 'transparent'
+            rotation: r.rot-(30*index)
+            anchors.centerIn: parent
+            visible: app.mod==='dirprim'
+            Rectangle{
+                width: (ae.width-ai.width)*0.5
+                height: 1
+                anchors.right: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                antialiasing: true
+            }
+        }
     }
 
     function subir(){

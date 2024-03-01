@@ -134,8 +134,10 @@ Rectangle {
                     text: r.moduleEnabled?'Desactivar Modulo':'Activar Modulo'
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked:{
+                        controlTimeFecha.currentDate=zoolMap.currentDate
+                        controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                         r.moduleEnabled=!r.moduleEnabled
-                        controlTimeFechaEvento.currentDate=zoolMap.currentDate
+                        zoolMap.loadFromFileBack(apps.url, 'dirprim')
                     }
                 }
                 ZoolControlsTime{
