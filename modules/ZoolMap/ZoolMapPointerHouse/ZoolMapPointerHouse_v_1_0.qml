@@ -78,7 +78,7 @@ Item {
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
                 SequentialAnimation on border.color {
-                    running: !app.capturing
+                    running: !zoolMap.capturing
                     loops: Animation.Infinite
                     onRunningChanged: {
                         if(!running)rectData.border.color=apps.pointerLineColor
@@ -95,76 +95,6 @@ Item {
                     Row{
                         spacing: r.pointerFs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
-                        Rectangle{
-                            width: r.pointerFs//*0.8
-                            height: width
-                            radius: width*0.5
-                            color: apps.fontColor
-                            border.width: 2
-                            border.color: apps.backgroundColor
-                            anchors.verticalCenter: parent.verticalCenter
-                            Image {
-                                id: img1
-                                source: r.is>=0?"../../../resources/imgs/signos/"+r.is+".svg":""
-                                width: parent.width*0.8
-                                height: width
-                                anchors.centerIn: parent
-                                antialiasing: true
-                                visible: false
-                            }
-                            ColorOverlay {
-                                id: co1
-                                anchors.fill: img1
-                                source: img1
-                                color: apps.backgroundColor
-                                //rotation: img1.rotation
-                                antialiasing: true
-                            }
-                        }
-
-                    }
-                    Row{
-                        spacing: r.pointerFs*0.25
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            text: app.planetas[r.p]+' en '+app.signos[r.is]
-                            font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                    }
-                    Row{
-                        spacing: r.pointerFs*0.25
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            text: '<b>Nakshatra:</b> '+(
-                                      !r.isBack?zoolMap.currentNakshatra:zoolMap.currentNakshatraBack
-                                      )
-                            font.pixelSize: r.pointerFs*0.35
-                            color: apps.backgroundColor
-                            anchors.verticalCenter: parent.verticalCenter
-                            visible: r.p===1
-                        }
-                    }
-                    Row{
-                        spacing: r.pointerFs*0.25
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
-                            font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                    }
-                    Row{
-                        spacing: r.pointerFs*0.25
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            text: 'Casa '
-                            font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
                         Rectangle{
                             width: r.pointerFs*0.8
                             height: width
@@ -198,8 +128,67 @@ Item {
                                 anchors.centerIn: parent
                             }
                         }
+                        Rectangle{
+                            width: r.pointerFs//*0.8
+                            height: width
+                            radius: width*0.5
+                            color: apps.fontColor
+                            border.width: 2
+                            border.color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                            Image {
+                                id: img1
+                                source: r.is>=0?"../../../resources/imgs/signos/"+r.is+".svg":""
+                                width: parent.width*0.8
+                                height: width
+                                anchors.centerIn: parent
+                                antialiasing: true
+                                visible: false
+                            }
+                            ColorOverlay {
+                                id: co1
+                                anchors.fill: img1
+                                source: img1
+                                color: apps.backgroundColor
+                                //rotation: img1.rotation
+                                antialiasing: true
+                            }
+                        }
                     }
-                }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Casa '+r.ih+' en '+app.signos[r.is]
+                            font.pixelSize: r.pointerFs*0.5
+                            color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: '<b>Nakshatra:</b> '+(
+                                      !r.isBack?zoolMap.currentNakshatra:zoolMap.currentNakshatraBack
+                                      )
+                            font.pixelSize: r.pointerFs*0.35
+                            color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: r.p===1
+                        }
+                    }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
+                            font.pixelSize: r.pointerFs*0.5
+                            color: apps.backgroundColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                 }
             }
             Item{
                 width: apps.pointerLineWidth*4

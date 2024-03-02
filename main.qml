@@ -287,7 +287,7 @@ ZoolMainWindow{
                 source: zoolDataView.uItemGrabber
                 width: parent.width
                 fillMode: Image.PreserveAspectCrop
-                visible: app.capturing
+                visible: zoolMap.capturing
             }
             Image{
                 id: xAspsUItemGrabber
@@ -296,7 +296,7 @@ ZoolMainWindow{
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop
                 anchors.bottom: parent.bottom
-                visible: app.capturing
+                visible: zoolMap.capturing
                 Rectangle{
                     anchors.fill: parent
                     color: 'transparent'
@@ -312,7 +312,7 @@ ZoolMainWindow{
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop
                 anchors.top: parent.top
-                visible: app.capturing && zoolMap.ev
+                visible: zoolMap.capturing && zoolMap.ev
                 Rectangle{
                     anchors.fill: parent
                     color: 'transparent'
@@ -335,7 +335,7 @@ ZoolMainWindow{
                     xScale: 0.25
                     yScale: 0.25
                 }
-                visible: app.capturing
+                visible: zoolMap.capturing
             }
             Rectangle{
                 anchors.fill: parent
@@ -370,7 +370,7 @@ ZoolMainWindow{
                 color: apps.fontColor
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                visible: app.capturing
+                visible: zoolMap.capturing
             }
         }
 

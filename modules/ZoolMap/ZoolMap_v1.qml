@@ -117,6 +117,7 @@ Item{
     property string uCuerpoAsp: ''
 
     property bool enableAnZoomAndPos: true
+    property bool capturing: false
 
     property var listCotasShowing: []
     property var listCotasShowingBack: []

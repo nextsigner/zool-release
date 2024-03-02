@@ -51,7 +51,7 @@ function captureSweg(){
 
     let isDev=app.dev
     app.dev=false
-    app.capturing=true
+    zoolMap.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -79,14 +79,14 @@ function captureSweg(){
     //log.l('Nombre de archivo de imagen: '+imgFileName)
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
-        app.capturing=false
+        zoolMap.capturing=false
         app.dev=isDev
     });
 }
 
 function captureSwegBack(){
     let isDev=app.dev
-    app.capturing=true
+    zoolMap.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -114,7 +114,7 @@ function captureSwegBack(){
     //log.l('Nombre de archivo de imagen: '+imgFileName)
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
-        //app.capturing=false
+        //zoolMap.capturing=false
         app.dev=isDev
     });
 }

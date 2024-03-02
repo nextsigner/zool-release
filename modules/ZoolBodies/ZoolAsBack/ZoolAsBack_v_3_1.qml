@@ -244,10 +244,10 @@ Item{
                 }
             }
             SequentialAnimation{
-                running: r.selected && !app.capturing//apps.anColorXAs
+                running: r.selected && !zoolMap.capturing//apps.anColorXAs
                 loops: Animation.Infinite
                 onRunningChanged: {
-                    if(!running&&app.capturing){
+                    if(!running&&zoolMap.capturing){
                         co.color=apps.xAsColorBack
                     }
                 }

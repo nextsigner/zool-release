@@ -78,7 +78,7 @@ Item {
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
                 SequentialAnimation on border.color {
-                    running: !app.capturing
+                    running: !zoolMap.capturing
                     loops: Animation.Infinite
                     onRunningChanged: {
                         if(!running)rectData.border.color=apps.pointerLineColor

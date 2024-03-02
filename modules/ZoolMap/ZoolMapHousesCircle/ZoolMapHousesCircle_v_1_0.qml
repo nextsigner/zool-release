@@ -74,6 +74,12 @@ Item {
             property real wg: 0.000
             property string ejeTipoText: 'Eje Tipo Text Indefinido.'
             property bool selected: false
+            property int is: -1
+            property int rsdeg: -1
+            property int gdec: -1
+            property int gdeg: -1
+            property int mdeg: -1
+            property int sdeg: -1
             Rectangle{
                 width: (parent.width*0.5)-vacioDeCentro.width*0.5
                 height: apps.houseLineWidth
@@ -116,12 +122,22 @@ Item {
                             }else{
                                 if(!r.isBack){
                                     //sweg.objHousesCircle.currentIndex=item.ih-1
-                                    zoolMap.currentHouseIndex=item.ih
-                                    r.currentHouse=app.currentHouseIndex
+                                    if(zoolMap.currentHouseIndex!==item.ih){
+                                        zoolMap.currentHouseIndex=item.ih
+                                        r.currentHouse=zoolMap.currentHouseIndex
+                                    }else{
+                                        zoolMap.currentHouseIndex=-1
+                                        r.currentHouse=zoolMap.currentHouseIndex
+                                    }
                                 }else{
+                                    if(zoolMap.currentHouseIndexBack!==item.ih){
                                     //sweg.objHousesCircleBack.currentIndex=item.ih-1
-                                    zoolMap.currentHouseIndexBack=item.ih
-                                    r.currentHouse=app.currentHouseIndexBack
+                                        zoolMap.currentHouseIndexBack=item.ih
+                                        r.currentHouse=zoolMap.currentHouseIndexBack
+                                    }else{
+                                        zoolMap.currentHouseIndexBack=-1
+                                        r.currentHouse=zoolMap.currentHouseIndexBack
+                                    }
                                 }
                             }
                             //log.lv('r.currentHouse: '+r.currentHouse)
@@ -135,13 +151,11 @@ Item {
                     }
                     ZoolMapPointerHouse{
                         id: pointerHouse
-                        is:0//r.is
-                        gdeg: 0//objData.g
-                        mdeg: 0//objData.m
-                        rsgdeg:0//objData.gdec-(30*is)
-                        ih:0//objData.ih
-                        //iconoSignRot: parent.objImg.rotation
-                        p: 0//r.numAstro
+                        is: item.is
+                        gdeg: item.gdeg
+                        mdeg: item.mdeg
+                        rsgdeg:item.gdeg-(30*is)
+                        ih:item.ih
                         visible: item.selected
                     }
                 }
@@ -155,6 +169,17 @@ Item {
                     visible: false
                 }
             }
+            Rectangle{
+                id: centro
+                width: zoolMap.objAspsCircle.width
+                height: width
+                color: '#333'
+                radius: width*0.5
+                border.width: 1
+                border.color: apps.fontColor
+                anchors.centerIn: parent
+                opacity: 0.0
+            }
             Repeater{
                 model: item.ih===r.currentHouse?wg:0
                 //model: 10
@@ -164,9 +189,8 @@ Item {
                     color: 'transparent'
                     rotation: 0-(0+index)
                     anchors.centerIn: parent
-                    //visible: item.ih===r.currentHouse
                     LinePoints{
-                        width: parent.width
+                        width: parent.width-centro.width//*0.5+app.fs*2
                         height: parent.height
                         c: !r.isBack?apps.houseColor:apps.houseColorBack
                     }
@@ -291,6 +315,7 @@ Item {
     function loadHouses(jsonData) {
         var i=0
         //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
+        //log.lv('jsonData.ph.h1: '+JSON.stringify(jsonData.ph.h1))
         dha.rotation=0
         for(i=0;i<dha.children.length;i++){
             dha.children[i].destroy(0)
@@ -314,7 +339,7 @@ Item {
             if(wg<0){
                 wg=wg+360
             }
-            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zoolMap.objSignsCircle.rot, ih: i+1, wg: wg})
+            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zoolMap.objSignsCircle.rot, ih: i+1, wg: wg, is: jsonData.ph['h'+parseInt(i + 1)].is, rsdeg:jsonData.ph['h'+parseInt(i + 1)].rsdeg, gdec:jsonData.ph['h'+parseInt(i + 1)].gdec, gdeg:jsonData.ph['h'+parseInt(i + 1)].gdeg, mdeg: jsonData.ph['h'+parseInt(i + 1)].mdeg, sdeg: jsonData.ph['h'+parseInt(i + 1)].sdeg})
         }
         if(app.mod==='dirprim'){
             //xArcsBack.rotation-=sweg.dirPrimRot

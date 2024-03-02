@@ -348,7 +348,7 @@ Item {
 
     Timer{
         id: tc
-        running: !app.capturing?r.selected:false
+        running: !zoolMap.capturing?r.selected:false
         repeat: true
         interval: 350
         onTriggered: {

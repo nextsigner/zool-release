@@ -209,7 +209,7 @@ Rectangle {
                 onClicked: {
 //                    let panelElementsSizeValue=panelElements.sizeValue
 //                    panelElements.sizeValue=panelElementsSizeValue*2
-                    app.capturing=true
+                    zoolMap.capturing=true
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
                     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -223,7 +223,7 @@ Rectangle {
                     panelElements.showPlanets=true
                     panelElements.itemCap.grabToImage(function(result) {
                         result.saveToFile(folder+"/"+imgFileName);
-                        app.capturing=false
+                        zoolMap.capturing=false
                         panelElements.showPlanets=false
                         //panelElements.sizeValue=panelElementsSizeValue
                     });
