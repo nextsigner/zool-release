@@ -1,1 +1,1 @@
-Se agrega centro a ZoolMapHouseCircle
+Se corrige onDirPrimRotChanged en zoolMap

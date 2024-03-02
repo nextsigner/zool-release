@@ -46,6 +46,26 @@ Item {
             }
         }
     }
+    Timer{
+        running: r.visible && app.mod==='dirprim'
+        repeat: true
+        interval: 500
+        onTriggered: {
+            let json=!r.isBack?zoolMap.currentJson:zoolMap.currentJsonBack
+            let rsdeg=json.ph['h'+r.ih].rsgdeg+zoolMap.dirPrimRot
+            let a=zoolMap.getDDToDMS(rsdeg)
+            let is=zoolMap.getIndexSign(rsdeg)
+            r.is=is
+            r.rsgdeg=rsdeg-(30*is)
+            r.gdeg=a.deg
+            r.mdeg=a.min
+            r.sdeg=a.sec
+
+            if(r.gdeg>360)r.gdeg=360-r.gdeg
+            //log.x=xApp.width-xLatIzq.width
+            //log.lv('r.gdeg:'+r.gdeg+' deg: '+a.deg+' min: '+a.min+' sec: '+a.sec)
+        }
+    }
     Rectangle{
         id: eje
         width: r.width
@@ -182,7 +202,7 @@ Item {
                         spacing: r.pointerFs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text{
-                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
+                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg+' \'\''+r.sdeg
                             font.pixelSize: r.pointerFs*0.5
                             color: apps.backgroundColor
                             anchors.verticalCenter: parent.verticalCenter

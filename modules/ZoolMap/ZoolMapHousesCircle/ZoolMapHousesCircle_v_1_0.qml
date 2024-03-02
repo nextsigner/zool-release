@@ -156,6 +156,7 @@ Item {
                         mdeg: item.mdeg
                         rsgdeg:item.gdeg-(30*is)
                         ih:item.ih
+                        isBack: r.isBack
                         visible: item.selected
                     }
                 }

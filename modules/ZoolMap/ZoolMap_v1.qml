@@ -233,6 +233,7 @@ Item{
     onDirPrimRotChanged: {
         if(app.mod==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
+            housesCircleBack.rotation=360-dirPrimRot+1
         }
     }
     onEnableAnZoomAndPosChanged: {
@@ -723,7 +724,11 @@ Item{
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        app.mod=j.params.tipo
+        if(j.params.tipo){
+            app.mod=j.params.tipo
+        }else{
+            app.mod=j.params.t
+        }
         r.fileDataBack=JSON.stringify(j)
     }
     function loadBackFromArgs(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
