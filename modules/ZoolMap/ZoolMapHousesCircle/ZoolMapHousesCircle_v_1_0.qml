@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import ZoolText 1.0
+import ZoolMap.ZoolMapPointerHouse 1.0
 
 Item {
     id: r
@@ -72,6 +73,7 @@ Item {
             property int ih: -1
             property real wg: 0.000
             property string ejeTipoText: 'Eje Tipo Text Indefinido.'
+            property bool selected: false
             Rectangle{
                 width: (parent.width*0.5)-vacioDeCentro.width*0.5
                 height: apps.houseLineWidth
@@ -91,15 +93,36 @@ Item {
                     rotation: 360-parent.parent.rotation+(!r.isBack?0:zoolMap.dirPrimRot)
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: {
-                            if(!r.isBack){
-                                //sweg.objHousesCircle.currentIndex=item.ih-1
-                                app.currentHouseIndex=item.ih
-                                r.currentHouse=app.currentHouseIndex
+                        onWheel: {
+                            //apps.enableFullAnimation=false
+                            if (wheel.modifiers & Qt.ControlModifier) {
+                                if(wheel.angleDelta.y>=0){
+                                    pointerHouse.pointerRot+=5
+                                }else{
+                                    pointerHouse.pointerRot-=5
+                                }
                             }else{
-                                //sweg.objHousesCircleBack.currentIndex=item.ih-1
-                                app.currentHouseIndexBack=item.ih
-                                r.currentHouse=app.currentHouseIndexBack
+                                if(wheel.angleDelta.y>=0){
+                                    pointerHouse.pointerRot+=45
+                                }else{
+                                    pointerHouse.pointerRot-=45
+                                }
+                            }
+                            //reSizeAppsFs.restart()
+                        }
+                        onClicked: {
+                            if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
+                                item.selected=!item.selected
+                            }else{
+                                if(!r.isBack){
+                                    //sweg.objHousesCircle.currentIndex=item.ih-1
+                                    zoolMap.currentHouseIndex=item.ih
+                                    r.currentHouse=app.currentHouseIndex
+                                }else{
+                                    //sweg.objHousesCircleBack.currentIndex=item.ih-1
+                                    zoolMap.currentHouseIndexBack=item.ih
+                                    r.currentHouse=app.currentHouseIndexBack
+                                }
                             }
                             //log.lv('r.currentHouse: '+r.currentHouse)
                         }
@@ -109,6 +132,17 @@ Item {
                         font.pixelSize: parent.width*0.6//!app.ev?app.fs*0.8:app.fs*0.75
                         color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         anchors.centerIn: parent
+                    }
+                    ZoolMapPointerHouse{
+                        id: pointerHouse
+                        is:0//r.is
+                        gdeg: 0//objData.g
+                        mdeg: 0//objData.m
+                        rsgdeg:0//objData.gdec-(30*is)
+                        ih:0//objData.ih
+                        //iconoSignRot: parent.objImg.rotation
+                        p: 0//r.numAstro
+                        visible: item.selected
                     }
                 }
 
