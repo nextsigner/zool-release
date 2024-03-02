@@ -1,1 +1,1 @@
-Se repara DirPrim 2
+Se agrega Circle cc y se sitúa ZoolMapAspsCircle en el fondo.

@@ -43,22 +43,22 @@ Item {
         visible: r.isBack
         anchors.centerIn: parent
     }
-    Item{
-        id: dha//xDinamicHouserArcs
-        anchors.fill: r
-        property real fr: 0.00 //FakeRotation
-    }
     Rectangle{
         id: vacioDeCentro
-        width: r.wbgc
+        width: zoolMap.objAspsCircle.width
         height: width
-        //color: !isBack?apps.backgroundColor:'blue'
-        color: apps.backgroundColor
+        color: 'transparent'
         border.width: 1
         border.color: apps.fontColor
         radius: width*0.5
         anchors.centerIn: parent
     }
+    Item{
+        id: dha//xDinamicHouserArcs
+        anchors.fill: r
+        property real fr: 0.00 //FakeRotation
+    }
+
     Component{
         id: compArc
         Rectangle{
@@ -73,7 +73,7 @@ Item {
             property real wg: 0.000
             property string ejeTipoText: 'Eje Tipo Text Indefinido.'
             Rectangle{
-                width: parent.width*0.5
+                width: (parent.width*0.5)-vacioDeCentro.width*0.5
                 height: apps.houseLineWidth
                 color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                 anchors.verticalCenter: parent.verticalCenter

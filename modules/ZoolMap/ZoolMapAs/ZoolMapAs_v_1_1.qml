@@ -388,7 +388,7 @@ Item{
         rotation: -45
         antialiasing: true
         anchors.centerIn: parent
-        visible: r.numAstro===0&&apps.xAsShowIcon
+        visible: r.numAstro===0//&&apps.xAsShowIcon
     }
     Rectangle{
         width: r.width*0.5-bodie.width

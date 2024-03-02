@@ -296,9 +296,10 @@ Item{
                 onTriggered: {
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
                     housesCircleBack.wbgc=signCircle.width//ai.width
+                    //zoolMap.objPlanetsCircle.vw=zoolMap.objAspsCircle.width
                     if(app.mod==='dirprim')housesCircleBack.width=ae.width
                     //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
-                    imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
+                    //imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
                 }
             }
             PinchArea {
@@ -423,11 +424,17 @@ Item{
                     //visible: signCircle.v
                 }
                 //BackgroundImages{id: backgroundImages}
+                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; rotation: signCircle.rot - 90}
                 Rectangle{
                     id: xz
                     anchors.fill: parent
                     color: 'transparent'
                     visible: false
+                    Circle{
+                        id: cc
+                        d: zoolMap.objAspsCircle.width
+                        c: '#FF8833' //Esto se vera únicamente si el item de id:xz es visible.
+                    }
                     Circle{
                         id:ae
                         d: r.ev?r.width:0
@@ -448,20 +455,19 @@ Item{
                         Circle{
                             id: ca
                             d: signCircle.width-(signCircle.w*2)-parent.w
-                            color: apps.backgroundColor
+                            color: 'transparent'//apps.backgroundColor
                         }
                     }
                 }
 
                 //ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
-                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; z: ai.z+3; rotation: signCircle.rot - 90}
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 Rectangle{
                     id:bgPCB
                     width: planetsCircleBack.width
                     height: width
-                    color: r.bodieBgColorBack
+                    color: 'transparent'//r.bodieBgColorBack
                     radius: width*0.5
                     anchors.centerIn: parent
                     ZoolMapPlanetsCircle{id: planetsCircleBack; width: ae.width-r.housesNumWidth*2-r.housesNumMargin*2; z:ai.z+5; isBack: true; visible: r.ev}
@@ -470,7 +476,7 @@ Item{
                     id:bgPC
                     width: signCircle.width
                     height: width
-                    color: r.bodieBgColor
+                    color: 'transparent'//r.bodieBgColor
                     radius: width*0.5
                     anchors.centerIn: parent
                     ZoolMapHousesCircle{id: housesCircle; width: ai.width; wbgc: ca.d}
@@ -479,18 +485,18 @@ Item{
 
                 //NumberLines{visible:true}
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
-                Image {
-                    id: imgEarth
-                    source: r.folderImg+"/earth.png"
-                    width: r.planetSize
-                    height: width
-                    rotation: -45
-                    antialiasing: true
-                    anchors.centerIn: parent
-                    z: aspsCircle.z+1
-                    //visible: apps.xAsShowIcon
-                    //visible: r.numAstro===0&&apps.xAsShowIcon
-                }
+//                Image {
+//                    id: imgEarth
+//                    source: r.folderImg+"/earth.png"
+//                    width: r.planetSize
+//                    height: width
+//                    rotation: -45
+//                    antialiasing: true
+//                    anchors.centerIn: parent
+//                    z: aspsCircle.z+1
+//                    //visible: apps.xAsShowIcon
+//                    //visible: r.numAstro===0&&apps.xAsShowIcon
+//                }
                 Rectangle{
                     id: capaFront
                     width: parent.width
