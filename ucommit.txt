@@ -1,1 +1,1 @@
-Se corrige onDirPrimRotChanged en zoolMap
+Se crea swe_astrologica_v4.py con set_topo(lat, lon, alt)

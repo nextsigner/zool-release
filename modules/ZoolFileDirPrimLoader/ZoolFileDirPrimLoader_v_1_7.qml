@@ -137,7 +137,7 @@ Rectangle {
                         controlTimeFecha.currentDate=zoolMap.currentDate
                         controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                         r.moduleEnabled=!r.moduleEnabled
-                        zoolMap.loadFromFileBack(apps.url, 'dirprim')
+                        zoolMap.loadFromFile(apps.url, 'dirprim', true)
                     }
                 }
                 ZoolControlsTime{
@@ -178,7 +178,7 @@ Rectangle {
                         if(!r.moduleEnabled)return
                         if(!r.visible && !r.loadingFromExternal)return
                         if(!zoolMap.ev){
-                            zoolMap.loadFromFileBack(apps.url, 'dirprim')
+                            zoolMap.loadFromFile(apps.url, 'dirprim', true)
                             r.moduleEnabled=true
                         }
                         tLoad.restart()

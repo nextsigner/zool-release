@@ -8,13 +8,15 @@ from subprocess import run, PIPE
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-#np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12)]
 np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12), ('Pholus', 16), ('Ceres', 17), ('Pallas', 18), ('Juno', 19), ('Vesta', 20)]
 
+body=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12), ('Pholus', 16), ('Ceres', 17), ('Pallas', 18), ('Juno', 19), ('Vesta', 20)]
 
-
-body=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12)]
-
+#Nombre: Pholus Num: 16
+#Nombre: Ceres Num: 17
+#Nombre: Pallas Num: 18
+#Nombre: Juno Num: 19
+#Nombre: Vesta Num: 20
 
 
 def decdeg2dms(dd):
@@ -133,8 +135,12 @@ houseType=sys.argv[9]
 
 swePath=sys.argv[10]
 
+alt = sys.argv[11]
+
 GMSLat=decdeg2dms(float(lat))
 GMSLon=decdeg2dms(float(lon))
+
+
 
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
 
@@ -185,6 +191,12 @@ min=horaLocal.strftime('%M')
 
 
 swe.set_ephe_path(swePath+'/swe')
+
+latitud = float(lat)  # Latitud de Londres
+longitud = float(lon)  # Longitud de Londres
+altura = float(alt)  # Altura sobre el nivel del mar en metros
+swe.set_topo(latitud, longitud, altura)
+
 #swe.set_ephe_path('./swe')
 #swe.set_ephe_path('/usr/share/libswe/ephe')
 
@@ -226,7 +238,8 @@ jsonBodies='"pc":{'
 j["pc"]={}
 index=0
 for i in np:
-    pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+    #pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+    pos=swe.calc_ut(jd1, np[index][1])
     #print(pos)
     gObj=float(pos[0][0])
     if index == 11:
@@ -274,66 +287,77 @@ for i in np:
     retro=-1
     if index == 0:#Sol
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        #":Args: float armc, float geolat, float eps, seq objcoord,"
+        #" bytes hsys=b'P'\n\n"
+        #" - armc: ARMC\n"
+        #" - geolat: geographic latitude, in degrees (northern positive)\n"
+        #" - eps: obliquity, in degrees\n"
+        #" - objcoord: a sequence for ecl. longitude and latitude of the planet,\n"
+        #"   in degrees\n"
+        #" - hsys: house method identifier (1 byte)\n\n"
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
+
+
+        #posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 1:#Luna
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 2:#Mercurio
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 3:#Venus
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 4:#Marte
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 5:#Júpiter
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 6:#Saturno controlar que está °1 atrasado
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 7:#Urano
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 8:#Neptuno
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
     elif index == 9:#Plutón controlar que está °1 atrasado
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         #calcs = swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH)
         #posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
         #posHouse=int(posHouse)
@@ -350,34 +374,34 @@ for i in np:
     elif index == 10:#Nodo Norte
         #calcs = swe.calc_ut(jd1, np[index][1], flag=swe.TRUE_NODE)
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 11:#Nodo Sur
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0] -181.00, calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0] -181.00, calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 12:#Quirón
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
     elif index == 13:#Selena
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         if pos[0][3] < 0:
             retro=0
         else:
             retro=1
     elif index == 14:#Lilith
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
     else:
         calcs = swe.calc_ut(jd1, np[index][1])
-        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, calcs[0][0], calcs[0][1], bytes(houseType, encoding = "utf-8"))
+        posHouse=swe.house_pos(h[1][2],float(lat), oblicuidad, [calcs[0][0], calcs[0][1]], bytes(houseType, encoding = "utf-8"))
         #print(calcs)
 
     #hom = swisseph.house_pos(asmc[2], observer.lat, obliquity, calcs[0], objlat=calcs[1])
@@ -405,6 +429,22 @@ jsonAspets='"asps":{'
 j["asps"]={}
 #print(tuplaPosBodies)
 tuplaArr=(())
+#arr1=(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+#arr2=(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+#arr3=(0,1,3,4,5,6,7,8,9,10,11,12,13,14,15)
+#arr4=(0,1,2,4,5,6,7,8,9,10,11,12,13,14,15)
+#arr5=(0,1,2,3,5,6,7,8,9,10,11,12,13,14,15)
+#arr6=(0,1,2,3,4,6,7,8,9,10,11,12,13,14,15)
+#arr7=(0,1,2,3,4,5,7,8,9,10,11,12,13,14,15)
+#arr8=(0,1,2,3,4,5,6,8,9,10,11,12,13,14,15)
+#arr9=(0,1,2,3,4,5,6,7,9,10,11,12,13,14,15)
+#arr10=(0,1,2,3,4,5,6,7,8,10,11,12,13,14,15)
+#arr11=(0,1,2,3,4,5,6,7,8,9,11,12,13,14,15)
+#arr12=(0,1,2,3,4,5,6,7,8,9,10,12,13,14,15)
+#arr13=(0,1,2,3,4,5,6,7,8,9,10,11,13,14,15)
+#arr14=(0,1,2,3,4,5,6,7,8,9,10,11,12,14,15)
+#arr15=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,15)
+#arr16=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
 arr1=(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
 arr2=(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
 arr3=(0,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
@@ -428,12 +468,14 @@ arr20=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20)
 arr21=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)
 #tuplaArr=((arr1),(arr2),(arr3),(arr4),(arr5),(arr6),(arr7),(arr8),(arr9),(arr10),(arr11),(arr12),(arr13),(arr14),(arr15),(arr16))
 tuplaArr=((arr1),(arr2),(arr3),(arr4),(arr5),(arr6),(arr7),(arr8),(arr9),(arr10),(arr11),(arr12),(arr13),(arr14),(arr15),(arr16),(arr17),(arr18),(arr19),(arr20),(arr21))
+
 #print(tuplaArr)
 index=0
 indexAsp=0
 for i in tuplaPosBodies:
     #print('i:' + str(i))
-    for num in range(14):
+    #for num in range(14):
+    for num in range(19):
         #print('Comp: ' + str(np[index][0]) + ' con ' + str(np[tuplaArr[index][num]][0]))
         g1=float(tuplaPosBodies[index])
         g2=float(tuplaPosBodies[tuplaArr[index][num]])
@@ -533,5 +575,7 @@ print(jsonString)
 #getinfo(jd1)
 #print(get)
 #print(getHouse(114.323, h))
+#for num in range(100):
+    #print('Nombre: '+swe.get_planet_name(num)+' Num: '+str(num))
 swe.close()
 #help(swe)

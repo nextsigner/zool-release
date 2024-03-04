@@ -66,7 +66,7 @@ ZoolMainWindow{
     title: argtitle && argtitle.length>1?argtitle:'Zool '+version
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
-    property string sweBodiesPythonFile: 'astrologica_swe_v2.py'
+    property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
     property var j: JS
     property var c: CAP
 
@@ -769,6 +769,7 @@ ZoolMainWindow{
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
                 JS.loadJson(apps.url)
+                //zoolMap.loadFromFile(apps.url, 'vn', false)
             }else{
                 if(app.dev){
                     log.visible=true

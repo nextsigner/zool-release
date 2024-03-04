@@ -41,7 +41,7 @@ Item{
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
     property int fs: app.fs
-    property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
+    property var aSigns: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     property var aSignsLowerStyle: ['aries', 'tauro', 'geminis', 'cancer', 'leo', 'virgo', 'libra', 'escorpio', 'sagitario', 'capricornio', 'acuario', 'piscis']
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
     property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
@@ -151,7 +151,7 @@ Item{
             centerZoomAndPos()
             //return
             let filePath='/home/ns/gd/Zool/Natalia_S._Pintos.json'
-            loadFromFileBack(filePath, 'sin')
+            loadFromFile(filePath, 'sin', true)
         }
     }
     onAutomaticChanged: {
@@ -233,7 +233,7 @@ Item{
     onDirPrimRotChanged: {
         if(app.mod==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
-            housesCircleBack.rotation=360-dirPrimRot+1
+            housesCircleBack.rotation=360-dirPrimRot
         }
     }
     onEnableAnZoomAndPosChanged: {
@@ -654,6 +654,10 @@ Item{
         let vgmt=j.params.gmt
         let vlon=j.params.lon
         let vlat=j.params.lat
+        let valt=0.0
+        if(j.params.alt){
+            valt=j.params.alt
+        }
         let d = new Date(Date.now())
         let ms=d.getTime()
         let hsys=j.params.hsys?j.params.hsys:apps.currentHsys
@@ -670,8 +674,8 @@ Item{
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\'zoolMap.load() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+'\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'"\')\n'
+        c+='        console.log(\'zoolMap.load() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+' '+valt+'\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'" '+valt+'\')\n'
         //c+='        Qt.quit()\n'
         c+='    }\n'
         c+='}\n'
@@ -696,6 +700,10 @@ Item{
         let vgmt=params.gmt
         let vlon=params.lon
         let vlat=params.lat
+        let valt=0.0
+        if(params.alt){
+            valt=params.alt
+        }
         let d = new Date(Date.now())
         let ms=d.getTime()
         let hsys=apps.currentHsys
@@ -716,11 +724,11 @@ Item{
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\'zoolMap.loadBack() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'"\'\n'
+        c+='        let cmd=\'zoolMap.loadBack() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'" '+valt+'\'\n'
         c+='    if(apps.showLog){\n'
         c+='        log.ls(cmd, 0, xApp.width)\n'
         c+='    }\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'"\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'" '+valt+'\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
@@ -948,7 +956,7 @@ Item{
         r.ev=true
         if(app.mod!=='dirprim')centerZoomAndPos()
     }
-    function loadFromFileBack(filePath, tipo){
+    function loadFromFile(filePath, tipo, isBack){
         tapa.visible=true
         tapa.opacity=1.0
         let jsonFileData=unik.getFile(filePath)
@@ -971,7 +979,12 @@ Item{
         app.mod=tipo
 
         let p=zoolMap.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, 'dirprim', hsys)
-        r.loadBack(p)
+        if(!isBack){
+            r.load(p)
+        }else{
+            r.loadBack(p)
+        }
+
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function loadNow(isExt){

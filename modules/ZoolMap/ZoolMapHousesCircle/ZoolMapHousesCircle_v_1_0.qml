@@ -131,7 +131,7 @@ Item {
                                     }
                                 }else{
                                     if(zoolMap.currentHouseIndexBack!==item.ih){
-                                    //sweg.objHousesCircleBack.currentIndex=item.ih-1
+                                        //sweg.objHousesCircleBack.currentIndex=item.ih-1
                                         zoolMap.currentHouseIndexBack=item.ih
                                         r.currentHouse=zoolMap.currentHouseIndexBack
                                     }else{
@@ -148,6 +148,113 @@ Item {
                         font.pixelSize: parent.width*0.6//!app.ev?app.fs*0.8:app.fs*0.75
                         color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         anchors.centerIn: parent
+                    }
+                    Text{
+                        text: '<b>Asc</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.bottom: parent.top
+                        visible: item.ih===1
+                    }
+                    Text{
+                        id: tAsc1
+                        text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.right: parent.right
+                        anchors.top: parent.bottom
+                        visible: item.ih===1
+                    }
+                    Text{
+                        id: tAsc2
+                        text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.right: parent.right
+                        anchors.top: tAsc1.bottom
+                        visible: item.ih===1
+                    }
+                    Text{
+                        text: '<b>Desc</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.bottom: parent.top
+                        visible: item.ih===7
+                    }
+                    Text{
+                        id: tDesc1
+                        text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.left: parent.left
+                        anchors.top: parent.bottom
+                        visible: item.ih===7
+                    }
+                    Text{
+                        id: tDesc2
+                        text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.left: parent.left
+                        anchors.top: tDesc1.bottom
+                        horizontalAlignment: Text.AlignRight
+                        visible: item.ih===7
+                    }
+                    Text{
+                        text: '<b>Fc</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.right: parent.left
+                        anchors.rightMargin: parent.width*0.2
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: item.ih===4
+                    }
+                    Column{
+                        anchors.left: parent.right
+                        anchors.leftMargin: parent.width*0.2
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: item.ih===4
+                        Text{
+                            id: tFc1
+                            text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                            font.pixelSize: parent.parent.width*0.4
+                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        }
+                        Text{
+                            id: tFc2
+                            text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
+                            font.pixelSize: parent.parent.width*0.4
+                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        }
+                    }
+                    Text{
+                        text: '<b>Mc</b>'
+                        font.pixelSize: parent.width*0.4
+                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        anchors.right: parent.left
+                        anchors.rightMargin: parent.width*0.2
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: item.ih===10
+                    }
+                    Column{
+                        anchors.left: parent.right
+                        anchors.leftMargin: parent.width*0.2
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: item.ih===10
+                        Text{
+                            id: tMc1
+                            text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                            font.pixelSize: parent.parent.width*0.4
+                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        }
+                        Text{
+                            id: tMc2
+                            text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
+                            font.pixelSize: parent.parent.width*0.4
+                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        }
                     }
                     ZoolMapPointerHouse{
                         id: pointerHouse
