@@ -192,9 +192,9 @@ min=horaLocal.strftime('%M')
 
 swe.set_ephe_path(swePath+'/swe')
 
-latitud = float(lat)  # Latitud de Londres
-longitud = float(lon)  # Longitud de Londres
-altura = float(alt)  # Altura sobre el nivel del mar en metros
+latitud = float(lat)
+longitud = float(lon)
+altura = float(alt)
 swe.set_topo(latitud, longitud, altura)
 
 #swe.set_ephe_path('./swe')

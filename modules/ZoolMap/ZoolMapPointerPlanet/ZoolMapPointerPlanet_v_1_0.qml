@@ -63,12 +63,19 @@ Item {
             anchors.right: parent.horizontalCenter
             anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5//+zoolMap.fs*0.25
             Rectangle{
+                anchors.fill: parent
+                color: 'transparent'
+                border.width: 1
+                border.color: apps.fontColor
+                visible: zoolMap.capturing
+            }
+            Rectangle{
                 id: rectData
                 width: col.width+r.pointerFs*0.5
                 height: col.height+r.pointerFs*0.5
-                color: apps.fontColor
+                color: !isCapturing?apps.fontColor:apps.fontColor
                 border.width: 3
-                border.color: apps.pointerLineColor
+                border.color: !isCapturing?apps.pointerLineColor:apps.pointerLineColor
                 radius: r.pointerFs*0.25
                 //rotation: r.iconoSignRot-eje.rotation
                 rotation: !r.isBack?
@@ -77,6 +84,7 @@ Item {
                               r.iconoSignRot-eje.rotation-zoolMap.objPlanetsCircleBack.rotation
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
+                property bool isCapturing: zoolMap.capturing
                 SequentialAnimation on border.color {
                     running: !zoolMap.capturing
                     loops: Animation.Infinite
@@ -231,6 +239,14 @@ Item {
                         }
                     }
                 }
+                Rectangle{
+                    anchors.fill: parent
+                    radius: parent.radius
+                    color: 'transparent'
+                    border.width: 1
+                    border.color: apps.fontColor
+                    visible: zoolMap.capturing
+                }
             }
             Item{
                 width: apps.pointerLineWidth*4
@@ -246,6 +262,16 @@ Item {
                     height: width
                     anchors.centerIn: parent
                     visible: false
+                }
+                ColorOverlay {
+                    id: co33
+                    width: imgFlecha.width+2
+                    height: imgFlecha.height+2
+                    anchors.centerIn: imgFlecha
+                    source: imgFlecha
+                    color: 'white'
+                    antialiasing: true
+                    visible: zoolMap.capturing
                 }
                 ColorOverlay {
                     id: co3

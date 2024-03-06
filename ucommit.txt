@@ -1,1 +1,1 @@
-Se crea swe_astrologica_v4.py con set_topo(lat, lon, alt)
+Se agrega Timer a Ctrl+Shift+c capturing

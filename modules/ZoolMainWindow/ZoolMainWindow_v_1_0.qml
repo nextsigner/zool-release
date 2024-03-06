@@ -72,21 +72,42 @@ ApplicationWindow {
         }
     }
 
+
     Shortcut{
         sequence: 'Ctrl+w'
         onActivated: {
             minymaClient.test()
         }
     }
+
+    //--->Cap
     Shortcut{
         sequence: 'Ctrl+c'
         onActivated: {
-            app.c.captureToPng('')
+            zoolMap.capturing=true
+            tCap.restart()
         }
+    }
+    Timer{
+        id: tCap
+        running: false
+        repeat: false
+        interval: 3000
+        onTriggered: app.c.captureToPng('')
     }
     Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
+            zoolMap.capturing=true
+            tCap2.restart()
+        }
+    }
+    Timer{
+        id: tCap2
+        running: false
+        repeat: false
+        interval: 3000
+        onTriggered: {
             let d=new Date(Date.now())
             let vd=d.getDate()
             let vm=d.getMonth() + 1
@@ -99,6 +120,8 @@ ApplicationWindow {
             app.c.captureToPng(fn)
         }
     }
+    //<---Cap
+
     Shortcut{
         sequence: 'Ctrl+Shift+w'
         onActivated: {

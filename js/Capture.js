@@ -37,6 +37,7 @@ function savePng(fileUrl){
         fn=fn.replace('file://', '')
         result.saveToFile(fn);
         Qt.openUrlExternally(fileUrl)
+        zoolMap.capturing=false
     });
 }
 function captureSweg(){
@@ -114,7 +115,7 @@ function captureSwegBack(){
     //log.l('Nombre de archivo de imagen: '+imgFileName)
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
-        //zoolMap.capturing=false
+        zoolMap.capturing=false
         app.dev=isDev
     });
 }

@@ -83,7 +83,7 @@ ZoolMainWindow{
     property bool backIsSaved: false
 
     property var objInFullWin
-    property bool capturing: false
+    //property bool capturing: false
 
     property bool showCenterLine: false
     property bool enableAn: false

@@ -73,6 +73,8 @@ Item{
             setZoomAndPos()
             app.showPointerXAs=true
             //zoolMap.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zoolMap.objSignsCircle.rotation)
+
+
         }
     }
     property int vr: 0
