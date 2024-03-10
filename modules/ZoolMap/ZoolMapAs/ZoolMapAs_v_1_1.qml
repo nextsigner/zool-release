@@ -23,9 +23,9 @@ Item{
 
     property bool isHovered: false
 
-    //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
+    //property bool isPron: JSON.parse(app.currentData).params.t==='pron'
     property bool isBack: false
-    property bool isPron: false//JSON.parse(app.fileData)?JSON.parse(app.fileData).params.tipo==='pron':false
+    property bool isPron: false//JSON.parse(app.fileData)?JSON.parse(app.fileData).params.t==='pron':false
     property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
     property bool selected: !isBack?numAstro === zoolMap.currentPlanetIndex:numAstro === zoolMap.currentPlanetIndexBack
     property string astro
@@ -50,12 +50,19 @@ Item{
     property alias objOointerPlanet: pointerPlanet
     //property alias img: bodie.objImg
     //property alias img0: bodie.objImg0
-    Behavior on rotation{enabled:(app.mod==='dirprim' || app.mod==='trans');NumberAnimation{duration: 2000}}
-    Behavior on width{enabled:(app.mod==='dirprim' || app.mod==='trans');NumberAnimation{duration: 2000}}
+    Behavior on rotation{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
+    Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
+    Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
     onWidthChanged: {
-        if(app.mod!=='trans' && app.mod!=='dirprim')return
+        h()
+        if(app.t!=='trans' && app.t!=='dirprim')return
         zoolMap.resizeAspCircle()
     }
+    onRotationChanged: h()
+    onGChanged: h()
+    onMChanged: h()
+    onIhChanged: h()
+    onIsChanged: h()
     onSelectedChanged: {
         if(selected)zoolMap.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
@@ -79,22 +86,6 @@ Item{
     }
     property int vr: 0
     //Behavior on width{NumberAnimation{duration:1500}}
-    Timer{
-        running: r.vr<zoolMap.aBodies.length
-        repeat: true
-        interval: 100
-        onTriggered: {
-            if(numAstro>=1){
-                revPos()
-            }
-        }
-        onRunningChanged: {
-            if(!running && numAstro===zoolMap.aBodies.length-1){
-                zoolMap.resizeAspsCircle(r.isBack)
-                zoolMap.hideTapa()
-            }
-        }
-    }
     function revPos(){
         for(var i=r.vr;i<zoolMap.aBodies.length;i++){
             const objAs=!r.isBack?zoolMap.objPlanetsCircle.getAs(i):zoolMap.objPlanetsCircleBack.getAs(i)
@@ -117,7 +108,7 @@ Item{
         color: apps.houseColor
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.left
-        visible: (app.mod==='dirprim' || app.mod==='trans') && !r.isBack
+        visible: (app.t==='dirprim' || app.t==='trans') && !r.isBack
     }
     Row{
         anchors.verticalCenter: parent.verticalCenter
@@ -146,7 +137,7 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: zoolMap.planetSize
-        visible: (app.mod==='dirprim'  || app.mod==='trans') && r.isBack
+        visible: (app.t==='dirprim'  || app.t==='trans') && r.isBack
         Rectangle{
             width: r.width
             height: 1
@@ -168,6 +159,16 @@ Item{
         color: apps.xAsLineCenterColor
         visible: r.selected && (apps.showXAsLineCenter || apps.showDec)
     }
+    Image {
+        id: imgEarth
+        source: r.folderImg+"/earth.png"
+        width: zoolMap.width*0.05
+        height: width
+        rotation: -45
+        antialiasing: true
+        anchors.centerIn: parent
+        visible: r.numAstro===0//&&apps.xAsShowIcon
+    }
     ZoolBodie{
         id: bodie
         numAstro: r.numAstro
@@ -188,7 +189,7 @@ Item{
             expand: r.selected
             iconoSignRot: parent.objImg.rotation
             p: r.numAstro
-            opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.tipo!=='pron'
+            opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.t!=='pron'
             onPointerRotChanged: {
                 r.uRot=pointerRot
                 //saveRot()
@@ -351,10 +352,10 @@ Item{
                      zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
                    :
                      zoolMap.listCotasShowingBack.indexOf(r.numAstro)>=0
-//        Rectangle{
-//            width: 100
-//            height: 100
-//        }
+        //        Rectangle{
+        //            width: 100
+        //            height: 100
+        //        }
         Timer{
             running: false//true
             repeat: true
@@ -364,7 +365,6 @@ Item{
             }
         }
     }
-
     ZoolMapAsCotaText{
         id: xTextData
         width: bodie.width*2
@@ -380,17 +380,6 @@ Item{
         onOpacityChanged: r.text = zoolMap.aTexts[numAstro]?zoolMap.aTexts[numAstro]:''
         visible: false//r.text!==''
         onClicked: r.isHovered=false
-    }
-
-    Image {
-        id: imgEarth
-        source: r.folderImg+"/earth.png"
-        width: zoolMap.width*0.05
-        height: width
-        rotation: -45
-        antialiasing: true
-        anchors.centerIn: parent
-        visible: r.numAstro===0//&&apps.xAsShowIcon
     }
     Rectangle{
         width: r.width*0.5-bodie.width
@@ -414,7 +403,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: bodie
-        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zoolMap.currentData).params.tipo!=='pron'
+        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zoolMap.currentData).params.t!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected
@@ -429,6 +418,33 @@ Item{
         interval: 5000
         onTriggered: {
             r.isHovered=false
+        }
+    }
+    Timer{
+        id: tOpacity
+        running: r.opacity!==1.0
+        repeat: true
+        interval: 1000
+        onTriggered: {
+            anOp.enabled=true
+            r.opacity=1.0
+        }
+    }
+
+    Timer{
+        running: r.vr<zoolMap.aBodies.length
+        repeat: true
+        interval: 100
+        onTriggered: {
+            if(numAstro>=1){
+                revPos()
+            }
+        }
+        onRunningChanged: {
+            if(!running && numAstro===zoolMap.aBodies.length-1){
+                zoolMap.resizeAspsCircle(r.isBack)
+                zoolMap.hideTapa()
+            }
         }
     }
     function rot(d){
@@ -454,7 +470,7 @@ Item{
 
     //Rot
     function setRot(){
-        if(!r.isPron){
+        if(!r.isPron && !zoolMap.pointerRotToCenter){
             let json=JSON.parse(zoolMap.fileData)
             if(json.rots&&json.rots['rc'+r.numAstro]){
                 r.uRot=json.rots['rc'+r.numAstro]
@@ -501,5 +517,10 @@ Item{
         }else{
             r.isZoomAndPosSeted=false
         }
+    }
+    function h(){
+        anOp.enabled=false
+        r.opacity=0.0
+        tOpacity.restart()
     }
 }

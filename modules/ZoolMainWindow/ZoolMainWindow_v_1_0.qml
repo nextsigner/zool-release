@@ -92,7 +92,7 @@ ApplicationWindow {
         id: tCap
         running: false
         repeat: false
-        interval: 3000
+        interval: 500
         onTriggered: app.c.captureToPng('')
     }
     Shortcut{
@@ -106,7 +106,7 @@ ApplicationWindow {
         id: tCap2
         running: false
         repeat: false
-        interval: 3000
+        interval: 500
         onTriggered: {
             let d=new Date(Date.now())
             let vd=d.getDate()

@@ -235,7 +235,7 @@ Rectangle {
                         colorInverted: true
                         visible: index===lv.currentIndex
                         onClicked: {
-                            let t=j.tipo
+                            let t=j.t
                             let hsys=j.hsys
                             let nom=j.n
                             let d=j.d
@@ -247,7 +247,7 @@ Rectangle {
                             let lat=j.lat
                             let lon=j.lon
                             let alt=j.alt
-                            let ciudad=j.ciudad
+                            let ciudad=j.c
                             let strEdad='Edad: '+app.j.getEdad(d, m, a, h, min)+' años'
                             if(t==='rs'){
                                 let currentAnio=new Date(app.currentDate).getFullYear()
@@ -305,14 +305,14 @@ Rectangle {
             Component.onCompleted: {
                 //let nom=j.n
                 let tipo=''
-                if(j.tipo==='sin')tipo='Sinastría'
-                if(j.tipo==='rs')tipo='Revolución Solar'
-                if(j.tipo==='trans')tipo='Tránsitos'
+                if(j.t==='sin')tipo='Sinastría'
+                if(j.t==='rs')tipo='Revolución Solar'
+                if(j.t==='trans')tipo='Tránsitos'
                 txtDataTipo.text=tipo
                 txtDataNom.text=j.n
                 let sParams=''+j.d+'/'+j.m+'/'+j.a+'<br>'
                 sParams+=''+j.h+':'+j.min+'hs<br>'
-                sParams+='<b>Ubicación:</b> '+j.ciudad+'<br>'
+                sParams+='<b>Ubicación:</b> '+j.c+'<br>'
                 sParams+='<b>Gmt:</b> '+j.gmt+'<br>'
                 sParams+='<b>Lat:</b> '+j.lat+'<br>'
                 sParams+='<b>Long:</b> '+j.lon+'<br>'
@@ -383,11 +383,11 @@ Rectangle {
                         fs: xDatosView.fs*0.25
                         visible: index===lv.currentIndex
                         onClicked: {
-                            let tipo=JSON.parse(app.currentData).params.tipo
+                            let tipo=JSON.parse(app.currentData).params.t
                             if(tipo==='vn'){
                                 //xDataBar.stringMiddleSeparator='Sinastría'
-                                app.mod='sin'
-                                JSON.parse(app.currentData).params.tipo='sin'
+                                app.t='sin'
+                                JSON.parse(app.currentData).params.t='sin'
                             }
                             app.j.loadJsonBack(fileName, 'sin')
                             //r.state='hide'

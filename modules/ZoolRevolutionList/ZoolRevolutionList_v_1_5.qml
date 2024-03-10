@@ -392,7 +392,7 @@ Rectangle {
                                 //                                        controlTimeFecha.currentDate=nt
                                 //                                        controlTimeFecha.gmt=j.params.gmt
                                 //                                        if(tiCiudad.text.replace(/ /g, '')===''){
-                                //                                            tiCiudad.text=j.params.ciudad
+                                //                                            tiCiudad.text=j.params.c
                                 //                                        }
                                 //                                        r.lat=j.params.lat
                                 //                                        r.lon=j.params.lon
@@ -945,7 +945,7 @@ Rectangle {
         aR.push('<b>Alt:</b>'+alt)
         zoolMap.loadBackFromArgs(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
         //app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
-        /*let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'*/
+        /*let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'*/
     }
     function loadJson(json){
         lm.clear()

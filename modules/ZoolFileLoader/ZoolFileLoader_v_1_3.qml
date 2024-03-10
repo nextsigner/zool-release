@@ -419,11 +419,11 @@ Rectangle {
                         fs: xDatosView.fs*0.25
                         onClicked: {
                             //let fromTipo='vn'
-                            let tipo=JSON.parse(app.currentData).params.tipo
+                            let tipo=JSON.parse(app.currentData).params.t
                             if(tipo==='vn'){
                                 //xDataBar.stringMiddleSeparator='Sinastría'
-                                app.mod='sin'
-                                JSON.parse(app.currentData).params.tipo='sin'
+                                app.t='sin'
+                                JSON.parse(app.currentData).params.t='sin'
                             }
                             app.j.loadJsonBack(fileName, 'sin')
                             //r.state='hide'
@@ -474,11 +474,11 @@ Rectangle {
         parent: visible?xMed:r
     }
     function loadAsSin(fileName){
-//        let tipo=JSON.parse(app.currentData).params.tipo
+//        let tipo=JSON.parse(app.currentData).params.t
 //        if(tipo==='vn'){
 //            //xDataBar.stringMiddleSeparator='Sinastría'
-//            app.mod='sin'
-//            JSON.parse(app.currentData).params.tipo='sin'
+//            app.t='sin'
+//            JSON.parse(app.currentData).params.t='sin'
 //        }
         let jsonFileData=unik.getFile(fileName)
         let j=JSON.parse(jsonFileData).params
@@ -496,7 +496,7 @@ Rectangle {
         let lat=j.lat
         let lon=j.lon
         let alt=j.alt?j.alt:0
-        let ciudad=j.ciudad
+        let ciudad=j.c
         let e='1000'
         let aR=[]
         app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
@@ -545,7 +545,7 @@ Rectangle {
             try {
                 jsonData=JSON.parse(jsonFileData)
                 let nom=''+jsonData.params.n.replace(/_/g, ' ')
-                if((jsonData.params.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack)){
+                if((jsonData.params.t==='rs' && jsonData.paramsBack) || (jsonData.params.t==='sin' && jsonData.paramsBack)){
                     nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
                 }
                 if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
@@ -560,7 +560,7 @@ Rectangle {
                     let vgmt=jsonData.params.gmt
                     let vlon=jsonData.params.lon
                     let vlat=jsonData.params.lat
-                    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+                    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
                     let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
                     let stringEdad=edad.indexOf('NaN')<0?edad:''
 
@@ -587,13 +587,13 @@ Rectangle {
                         sDataFile='<b>Tiene información:</b> Si'
                     }
                     let stipo=''
-                    if(jsonData.params.tipo==='vn'){
+                    if(jsonData.params.t==='vn'){
                         stipo='Carta Natal'
-                    }else if(jsonData.params.tipo==='sin'){
+                    }else if(jsonData.params.t==='sin'){
                         stipo='Sinastría'
-                    }else if(jsonData.params.tipo==='rs'){
+                    }else if(jsonData.params.t==='rs'){
                         stipo='Revolución Solar'
-                    }else if(jsonData.params.tipo==='trans'){
+                    }else if(jsonData.params.t==='trans'){
                         stipo='Tránsitos'
                     }else{
                         stipo='Desconocido'
@@ -611,7 +611,7 @@ Rectangle {
                         +sDataFile+'<br>'
                         +'<b>Archivo: </b>'+file
                     //xNombre.nom=textData
-                    lm.append(lm.addItem(file,textData, jsonData.params.tipo))
+                    lm.append(lm.addItem(file,textData, jsonData.params.t))
                 }
                 if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()
@@ -645,7 +645,7 @@ Rectangle {
             try {
                 jsonData=JSON.parse(jsonFileData)
                 let nom=''+jsonData.params.n.replace(/_/g, ' ')
-                if((jsonData.params.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack)){
+                if((jsonData.params.t==='rs' && jsonData.paramsBack) || (jsonData.params.t==='sin' && jsonData.paramsBack)){
                     nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
                 }
                 //if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
@@ -660,7 +660,7 @@ Rectangle {
                     let vgmt=jsonData.params.gmt
                     let vlon=jsonData.params.lon
                     let vlat=jsonData.params.lat
-                    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+                    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
                     let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
                     let stringEdad=edad.indexOf('NaN')<0?edad:''
 
@@ -687,13 +687,13 @@ Rectangle {
                         sDataFile='<b>Tiene información:</b> Si'
                     }
                     let stipo=''
-                    if(jsonData.params.tipo==='vn'){
+                    if(jsonData.params.t==='vn'){
                         stipo='Carta Natal'
-                    }else if(jsonData.params.tipo==='sin'){
+                    }else if(jsonData.params.t==='sin'){
                         stipo='Sinastría'
-                    }else if(jsonData.params.tipo==='rs'){
+                    }else if(jsonData.params.t==='rs'){
                         stipo='Revolución Solar'
-                    }else if(jsonData.params.tipo==='trans'){
+                    }else if(jsonData.params.t==='trans'){
                         stipo='Tránsitos'
                     }else{
                         stipo='Desconocido'
@@ -711,7 +711,7 @@ Rectangle {
                         +sDataFile+'<br>'
                         +'<b>Archivo: </b>'+file
                     //xNombre.nom=textData
-                    lm.append(lm.addItem(file,textData, jsonData.params.tipo))
+                    lm.append(lm.addItem(file,textData, jsonData.params.t))
                 //}
                 if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()

@@ -25,7 +25,7 @@ Item{
         }
     }
     function save(j){
-        let t=j.params.tipo
+        let t=j.params.t
         let hsys=j.params.hsys
         let n=j.params.n.replace(/ /g, '%20')
         let d=j.params.d
@@ -37,7 +37,7 @@ Item{
         let lat=j.params.lat
         let lon=j.params.lon
         let alt=j.params.alt
-        let ciudad=j.params.ciudad.replace(/ /g, '%20')
+        let ciudad=j.params.c.replace(/ /g, '%20')
         let ms=j.params.ms
         let msReq=new Date(Date.now()).getTime()
         let url=apps.host

@@ -24,8 +24,8 @@ Item{
 
     property bool isHovered: false
 
-    //property bool isPron: JSON.parse(app.currentData).params.tipo==='pron'
-    property bool isPron: JSON.parse(app.fileData).params.tipo==='pron'
+    //property bool isPron: JSON.parse(app.currentData).params.t==='pron'
+    property bool isPron: JSON.parse(app.fileData).params.t==='pron'
     property bool isBack: false
     property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
     property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
@@ -89,7 +89,7 @@ Item{
         height: 1
         anchors.centerIn: parent
         color: apps.fontColor
-        visible: app.mod==='dirprim'
+        visible: app.t==='dirprim'
     }
     Rectangle{
         width: r.width*4
@@ -123,7 +123,7 @@ Item{
             expand: r.selected
             iconoSignRot: parent.objImg.rotation
             p: r.numAstro
-            opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.tipo!=='pron'
+            opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.t!=='pron'
             onPointerRotChanged: {
                 r.uRot=pointerRot
                 //saveRot()
@@ -313,7 +313,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: bodie
-        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.tipo!=='pron'
+        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.t!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected

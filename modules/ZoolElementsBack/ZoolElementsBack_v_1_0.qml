@@ -11,7 +11,7 @@ Item {
     anchors.topMargin: app.fs*0.1+panelElements.height+xItemNums.height*2
     anchors.right: parent.right
     anchors.rightMargin: app.fs*0.1//spacing
-    visible: app.ev&&app.mod!=='rs'
+    visible: app.ev&&app.t!=='rs'
     property var aPorcs: [0.0, 0.0,0.0,0.0]
     property int spacing: apps.elementsFs.fs*0.1
     property string arbolGen: '?'

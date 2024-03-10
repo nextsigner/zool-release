@@ -154,7 +154,7 @@ Rectangle {
                         height: r.height
                         color: apps.houseColor
                         z:parent.z-3
-                        visible: index===0 && zoolMap.ev//(app.mod==='sin' || app.mod==='rs')
+                        visible: index===0 && zoolMap.ev//(app.t==='sin' || app.t==='rs')
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 0-r.width
@@ -179,7 +179,7 @@ Rectangle {
         anchors.rightMargin: app.fs*0.5
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: yPos
-        visible:  false//!zoolMap.ev || JSON.parse(app.currentData).params.tipo==='pron'
+        visible:  false//!zoolMap.ev || JSON.parse(app.currentData).params.t==='pron'
     }
 
     //Editor Nombre

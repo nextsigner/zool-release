@@ -249,7 +249,7 @@ ZoolMainWindow{
     }
     onCurrentDateBackChanged: {
         controlsTimeBack.setTime(currentDateBack)
-        if(app.mod==='trans'){
+        if(app.t==='trans'){
             JS.loadTransFromTime(app.currentDateBack)
         }
         //xDataBar.state='show'

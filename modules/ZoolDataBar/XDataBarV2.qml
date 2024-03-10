@@ -59,7 +59,7 @@ Rectangle {
     Row{
         id: rowBg
         anchors.centerIn: parent
-        visible: app.mod==='sin' || app.mod==='rs'
+        visible: app.t==='sin' || app.t==='rs'
         Rectangle{
             width: r.width
             height: r.height
@@ -112,7 +112,7 @@ Rectangle {
             border.color: apps.fontColor
             anchors.centerIn: parent
             //y:(parent.height-height)/2
-            visible:  app.ev// && app.tipo!=='rs' && app.tipo!=='sin'
+            visible:  app.ev// && app.t!=='rs' && app.t!=='sin'
             //parent: xSaveRects
             property bool saved: false
             Timer{
@@ -143,7 +143,7 @@ Rectangle {
         id: rowVN
         spacing: app.fs*0.15
         anchors.centerIn: parent
-        //visible: app.mod==='vn'
+        //visible: app.t==='vn'
         Rectangle{
             id: xTextMiddleVN
             width: txtRowMiddleVN.contentWidth+app.fs*0.5
@@ -184,7 +184,7 @@ Rectangle {
         id: row
         spacing: app.fs*0.15
         anchors.centerIn: parent
-        visible: app.mod==='sin' || app.mod==='rs'
+        visible: app.t==='sin' || app.t==='rs'
         Item{
             width: 1
             height: r.height
@@ -296,7 +296,7 @@ Rectangle {
             //                anchors.centerIn: parent
             //            }
             Timer{
-                running: index===5 && parent.y===0 && (app.mod==='sin' || app.mod==='rs')
+                running: index===5 && parent.y===0 && (app.t==='sin' || app.t==='rs')
                 repeat: true
                 interval: 200
                 onTriggered: {
@@ -369,7 +369,7 @@ Rectangle {
         anchors.rightMargin: app.fs*0.5
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: yPos
-        visible:  false//!app.ev || JSON.parse(app.currentData).params.tipo==='pron'
+        visible:  false//!app.ev || JSON.parse(app.currentData).params.t==='pron'
     }
 
 

@@ -76,8 +76,8 @@ function setFs() {
 //    if(tipo==='rs')nGmt=0
 
 //    let dataMs=new Date(Date.now())
-//    let j='{"paramsBack":{"tipo":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "ciudad":"'+ciudad+'"}}'
-//    app.mod=tipo
+//    let j='{"paramsBack":{"t":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "c":"'+ciudad+'"}}'
+//    app.t=tipo
 //    j=j.replace('/, "/g', ',"')
 
 //    let aL=zoolDataView.atLeft
@@ -133,7 +133,7 @@ function loadTransFromTime(date){
     let anio=d.getFullYear()
     let hora=d.getHours()
     let minuto=d.getMinutes()
-    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.ciudad, 'trans', false)
+    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.c, 'trans', false)
     app.currentGmtBack=app.currentGmt
     //app.currentDateBack=d
 }
@@ -147,7 +147,7 @@ function loadTransNow(){
     let anio=d.getFullYear()
     let hora=d.getHours()
     let minuto=d.getMinutes()
-    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.ciudad, 'trans', false)
+    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.c, 'trans', false)
     app.currentGmtBack=app.currentGmt
     app.currentDateBack=d
 }
@@ -450,7 +450,7 @@ function loadJson(file){
     let vlon=p.lon
     let vlat=p.lat
     let valt=p.alt?p.alt:0
-    let vCiudad=p.ciudad.replace(/_/g, ' ')
+    let vCiudad=p.c.replace(/_/g, ' ')
     let edad=zoolMap.getEdad(vd, vm, va, vh, vmin)
     let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad='<b>Edad:</b> '
@@ -509,7 +509,7 @@ function loadJson(file){
 //    extId+='_'+tipo
 //    extId+='_'+hsys
 
-//    let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+//    let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
 //    //if(app.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
 
 //    //if(app.dev)log.lv('Json fallado: loadBack(...) json: '+js)
@@ -585,13 +585,13 @@ function loadJson(file){
 //    //if(app.dev)log.lv('zoolMap.fileDataBack:'+zoolMap.fileDataBack)
 //    app.currentJsonBack=zoolMap.fileDataBack
 //    let jsonData=JSON.parse(jsonFileData)
-//    if(jsonData.params.tipo){
-//        app.mod=jsonData.params.tipo
+//    if(jsonData.params.t){
+//        app.t=jsonData.params.t
 //    }else{
-//        app.mod='vn'
+//        app.t='vn'
 //    }
-//    if(parseInt(jsonData.params.ms)===0||jsonData.params.tipo==='pron'){
-//        if(jsonData.params.tipo==='pron'){
+//    if(parseInt(jsonData.params.ms)===0||jsonData.params.t==='pron'){
+//        if(jsonData.params.t==='pron'){
 //            let dd = new Date(Date.now())
 //            let ms=dd.getTime()
 //            let nom=jsonData.params.n
@@ -604,7 +604,7 @@ function loadJson(file){
 //            let lon=jsonData.params.lon
 //            let gmt=jsonData.params.gmt
 //            let ciudad=' '
-//            let j='{"params":{"tipo": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+//            let j='{"params":{"t": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"c":"'+ciudad+'"}}'
 //            zoolMap.fileDataBack=j
 //            jsonData=JSON.parse(j)
 //        }else{
@@ -631,7 +631,7 @@ function loadJson(file){
 //    let vgmt=jsonData.params.gmt
 //    let vlon=jsonData.params.lon
 //    let vlat=jsonData.params.lat
-//    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+//    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
 //    let edad=''
 //    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
 //    let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -648,7 +648,7 @@ function loadJson(file){
 //    app.currentLonBack=vlon
 //    app.currentLatBack=vlat
 
-//    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
+//    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.t)
 //    //xDataStatusBar.currentIndex=0
 //    app.setFromFile=false
 //}
@@ -682,12 +682,12 @@ function loadJson(file){
 //    }else{
 //        params=jsonData.params
 //    }
-//    if(params.tipo){
-//        app.mod=params.tipo
+//    if(params.t){
+//        app.t=params.t
 //    }else{
-//        app.mod='vn'
+//        app.t='vn'
 //    }
-//    sweg.loadBack(jsonData, params.tipo)
+//    sweg.loadBack(jsonData, params.t)
 //    let nom=params.n.replace(/_/g, ' ')
 //    let vd=params.d
 //    let vm=params.m
@@ -697,7 +697,7 @@ function loadJson(file){
 //    let vgmt=params.gmt
 //    let vlon=params.lon
 //    let vlat=params.lat
-//    let vCiudad=params.ciudad.replace(/_/g, ' ')
+//    let vCiudad=params.c.replace(/_/g, ' ')
 //    let edad=''
 //    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
 //    let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -714,7 +714,7 @@ function loadJson(file){
 //    app.currentLonBack=vlon
 //    app.currentLatBack=vlat
 
-//    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
+//    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.t)
 //    app.setFromFile=false
 //}
 
@@ -723,9 +723,9 @@ function mkSinFile(file){
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
-    json.params.tipo='sin'
+    json.params.t='sin'
     json.paramsBack=jsonExt.params
-    json.paramsBack.tipo='sin'
+    json.paramsBack.t='sin'
     json.paramsBack.n='Sinastría '+json.params.n+' - '+json.paramsBack.n
 
     let cNom=json.paramsBack.n
@@ -748,10 +748,10 @@ function mkRsFile(file){
     let jsonExt=JSON.parse(jsonFileDataExt)
     log.ls('jsonExt: '+jsonFileDataExt, 0, log.width)
     json.params.n='Rev. Solar de '+json.params.n+' - Año '+jsonExt.paramsBack.a
-    json.params.tipo='rs'
+    json.params.t='rs'
     json.paramsBack={}
     json.paramsBack=jsonExt.paramsBack
-    json.paramsBack.tipo='rs'
+    json.paramsBack.t='rs'
     json.paramsBack.n=json.params.n
 
     let cNom=json.params.n
@@ -776,13 +776,13 @@ function mkTransFile(){
     //if(app.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
     json.params.n=json.params.n+' - '+jsonExt.params.n
     //if(app.dev)log.lv('json.params.n: '+json.params.n)
-    json.params.tipo='trans'
+    json.params.t='trans'
     if(json.params[app.stringRes+'zoompos']){
         delete json.params[app.stringRes+'zoompos']
     }
     json.paramsBack={}
     json.paramsBack=jsonExt.params//Back
-    json.paramsBack.tipo='trans'
+    json.paramsBack.t='trans'
     json.paramsBack.n=json.params.n
 
     let cNom=json.params.n
@@ -843,10 +843,10 @@ function runJsonTemp(){
     let vgmt=app.currentGmt
     let vlon=jsonData.params.lon
     let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    if(jsonData.params.tipo==='pron')numEdad=0
+    if(jsonData.params.t==='pron')numEdad=0
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
     zoolMap.currentFecha=vd+'/'+vm+'/'+va
@@ -876,7 +876,7 @@ function runJsonTempBack(){
     }else{
         params=jsonData.params
     }
-    if(params.tipo==='vn'){
+    if(params.t==='vn'){
         if(app.dev)log.lv('No se carga params back porque es tipo VN.')
         return
     }
@@ -889,14 +889,14 @@ function runJsonTempBack(){
     let vgmt=app.currentGmt
     let vlon=params.lon
     let vlat=params.lat
-    let vCiudad=params.ciudad.replace(/_/g, ' ')
+    let vCiudad=params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
 
     zoolMap.currentFechaBack=vd+'/'+vm+'/'+va
-    zoolMap.loadBack(jsonData, params.tipo)
+    zoolMap.loadBack(jsonData, params.t)
     //app.currentDateBack=new Date(vd, vm, va, vh, vmin)
     //swegz.sweg.load(jsonData)
 }
@@ -918,11 +918,11 @@ function setNewTimeJsonFileData(date){
     let vgmt=zoolMap.currentGmt
     let vlon=jsonData.params.lon
     let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
     let vZoomAndPos={}
     let j='{'
     j+='"params":{'
-    j+='"tipo":"'+app.mod+'",'
+    j+='"t":"'+app.t+'",'
     j+='"ms":'+ms+','
     j+='"n":"'+nom+'",'
     j+='"d":'+vd+','
@@ -933,7 +933,7 @@ function setNewTimeJsonFileData(date){
     j+='"gmt":'+vgmt+','
     j+='"lat":'+vlat+','
     j+='"lon":'+vlon+','
-    j+='"ciudad":"'+vCiudad+'"'
+    j+='"c":"'+vCiudad+'"'
     j+='}'
     j+='}'
 
@@ -982,10 +982,10 @@ function setNewTimeJsonFileDataBack(date){
     let vgmt=app.currentGmtBack
     let vlon=params.lon
     let vlat=params.lat
-    let vCiudad=params.ciudad.replace(/_/g, ' ')
+    let vCiudad=params.c.replace(/_/g, ' ')
     let j='{'
     j+='"params":{'
-    j+='"tipo":"'+app.mod+'",'
+    j+='"t":"'+app.t+'",'
     j+='"ms":'+ms+','
     j+='"n":"'+nom+'",'
     j+='"d":'+vd+','
@@ -996,7 +996,7 @@ function setNewTimeJsonFileDataBack(date){
     j+='"gmt":'+vgmt+','
     j+='"lat":'+vlat+','
     j+='"lon":'+vlon+','
-    j+='"ciudad":"'+vCiudad+'"'
+    j+='"c":"'+vCiudad+'"'
     j+='}'
     j+='}'
     zoolMap.currentDataBack=j
@@ -1022,7 +1022,7 @@ function saveJson(){
 function saveJsonBack(){
     zoolMap.fileData=zoolMap.currentData
     let json=JSON.parse(zoolMap.currentData)
-    json.params.tipo='rs'
+    json.params.t='rs'
     //log.ls('app.currentDataBack: '+app.currentDataBack, 0, 500)
     //json['paramsBack']={}
     let pb=JSON.parse(zoolMap.currentDataBack)
@@ -1068,7 +1068,7 @@ function loadJsonNow(file){
     let vgmt=o.gmt
     let vlon=o.lon
     let vlat=o.lat
-    let vCiudad=o.ciudad.replace(/_/g, ' ')
+    let vCiudad=o.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''

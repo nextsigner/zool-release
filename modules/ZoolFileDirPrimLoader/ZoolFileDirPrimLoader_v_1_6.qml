@@ -628,8 +628,8 @@ Rectangle {
 
         updateAsps()
 
-        //Lo que suceda a continuación es si ya se ha definido app.mod o app.tipo a dirprim
-        if(app.ev&&app.mod==='dirprim')return
+        //Lo que suceda a continuación es si ya se ha definido app.t o app.t a dirprim
+        if(app.ev&&app.t==='dirprim')return
         tUpdateParamsEvento.restart()
         r.loadingFromExternal=true
 
@@ -706,7 +706,7 @@ Rectangle {
 
     //        let j='{'
     //        j+='"paramsBack":{'
-    //        j+='"tipo":"trans",'
+    //        j+='"t":"trans",'
     //        j+='"ms":'+ms+','
     //        j+='"n":"'+nom+'",'
     //        j+='"d":'+vd+','
@@ -717,7 +717,7 @@ Rectangle {
     //        j+='"gmt":'+vgmt+','
     //        j+='"lat":'+vlat+','
     //        j+='"lon":'+vlon+','
-    //        j+='"ciudad":"'+vCiudad+'",'
+    //        j+='"c":"'+vCiudad+'",'
     //        j+='"hsys":"'+vhsys+'",'
     //        j+='"extId":"'+extId+'"'
     //        j+='},'
@@ -748,11 +748,11 @@ Rectangle {
         let json=app.currentJson
         //if(app.dev)log.lv('app.currentJson: '+JSON.stringify(app.currentJson, null, 2))
 
-        //Atención! Se debe definir app.mod='dirprim'
+        //Atención! Se debe definir app.t='dirprim'
         //y sweg.dirPrimRot antes de llamar
         //a la función sweg.loadSweJsonBack(...)
         sweg.dirPrimRot=deg
-        app.mod='dirprim'
+        app.t='dirprim'
 
         //La función sweg.loadSweJsonBack(...) espera un string con datos del tipo json NO parseado.
         sweg.loadSweJsonBack(JSON.stringify(app.currentJson, null, 2))

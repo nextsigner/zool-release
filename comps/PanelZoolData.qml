@@ -83,7 +83,7 @@ Rectangle{
         playlist: Playlist{
             id: playList
             onCurrentIndexChanged: {
-                txtCurrentText.text=''+getDataIndex(r.currentP, r.currentS, r.currentH, currentIndex, lmCmd.get(currentIndex).tipo)
+                txtCurrentText.text=''+getDataIndex(r.currentP, r.currentS, r.currentH, currentIndex, lmCmd.get(currentIndex).t)
             }
             onItemCountChanged: {
                 if(itemCount===lmCmd.count){

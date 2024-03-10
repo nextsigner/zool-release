@@ -221,7 +221,7 @@ Item{
             //y: (parent.width-width)/2
             anchors.centerIn: parent
             //rotation: 0-parent.parent.rotation
-            rotation: app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-sweg.objPlanetsCircleBack.rotation
+            rotation: app.t!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-sweg.objPlanetsCircleBack.rotation
             antialiasing: true
             visible: !co.visible
         }

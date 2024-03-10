@@ -129,6 +129,8 @@ Item{
 
     property int ejeTipoCurrentIndex: -2
     property bool automatic: false
+    property bool safeTapa: false
+    property bool pointerRotToCenter: true
 
     //-->ZoomAndPan
     property bool zoomAndPosCentered: pinchArea.m_x1===0 && pinchArea.m_y1===0 && pinchArea.m_y2===0 && pinchArea.m_x2===0 && pinchArea.m_zoom1===0.5 && pinchArea.m_zoom2===0.5 && pinchArea.m_max===6 && pinchArea.m_min===0.5
@@ -156,7 +158,7 @@ Item{
     }
     onAutomaticChanged: {
         if(automatic){
-            tAutoMaticPlanets.currentJsonData=app.currentData
+            tAutoMaticPlanets.currentJsonData=zoolMap.currentData
         }else{
             centerZoomAndPos()
         }
@@ -219,7 +221,7 @@ Item{
     }
 //    onCurrentDateBackChanged: {
 //        controlsTimeBack.setTime(currentDateBack)
-//        if(app.mod==='trans'){
+//        if(app.t==='trans'){
 //            JS.loadTransFromTime(app.currentDateBack)
 //        }
 //        //xDataBar.state='show'
@@ -231,7 +233,7 @@ Item{
 //        tReloadBack.restart()
 //    }
     onDirPrimRotChanged: {
-        if(app.mod==='dirprim'){
+        if(app.t==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
             housesCircleBack.rotation=360-dirPrimRot
         }
@@ -276,8 +278,12 @@ Item{
                 repeat: false
                 interval: 100
                 onTriggered: {
-                    app.j.setNewTimeJsonFileData(zoolMap.currentDate)
-                    app.j.runJsonTemp()
+                    //app.j.setNewTimeJsonFileData(zoolMap.currentDate)
+                    //app.j.runJsonTemp()
+                    let j=getCurrentParamsWithNewTime(zoolMap.currentDate)
+                    //log.lv('NJ:'+JSON.stringify(j, null, 2))
+                    r.safeTapa=true
+                    r.load(j)
                 }
             }
             Timer{
@@ -299,7 +305,7 @@ Item{
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
                     housesCircleBack.wbgc=signCircle.width//ai.width
                     //zoolMap.objPlanetsCircle.vw=zoolMap.objAspsCircle.width
-                    if(app.mod==='dirprim')housesCircleBack.width=ae.width
+                    if(app.t==='dirprim')housesCircleBack.width=ae.width
                     //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
                     //imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
                 }
@@ -596,7 +602,7 @@ Item{
         visible: app.dev
         Text{
             id: txtMod
-            text: app.mod+r.ejeTipoCurrentIndex
+            text: app.t+r.ejeTipoCurrentIndex
             font.pixelSize: app.fs
             color: apps.backgroundColor
             anchors.centerIn: parent
@@ -680,7 +686,13 @@ Item{
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        app.mod=j.params.tipo
+        if(j.params.t){
+            app.t=j.params.t
+        }else{
+            if(j.params.t){
+                app.t=j.params.t
+            }
+        }
         r.fileData=JSON.stringify(j)
     }
     function loadBack(j){
@@ -732,10 +744,10 @@ Item{
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        if(j.params.tipo){
-            app.mod=j.params.tipo
+        if(j.params.t){
+            app.t=j.params.t
         }else{
-            app.mod=j.params.t
+            app.t=j.params.t
         }
         r.fileDataBack=JSON.stringify(j)
     }
@@ -759,7 +771,7 @@ Item{
         extId+='_'+tipo
         extId+='_'+hsys
 
-        let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+        let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
         //if(true)log.lv('Json loadBackFromArg(): '+JSON.stringify(JSON.parse(js)))
         //if(app.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
 
@@ -812,8 +824,10 @@ Item{
         //console.log('JSON::: '+json)
         //log.visible=true
         //log.l(JSON.stringify(json))
-        tapa.visible=true
-        tapa.opacity=1.0
+        if(!r.safeTapa){
+            tapa.visible=true
+            tapa.opacity=1.0
+        }
         var scorrJson=json.replace(/\n/g, '')
         //app.currentJson=JSON.parse(scorrJson)
         aspsCircle.clear()
@@ -897,7 +911,7 @@ Item{
         }*/
     }
     function loadSweJsonBack(json){
-        if(!app.mod==='dirprim'){
+        if(!app.t==='dirprim' || r.safeTapa){
             tapa.visible=true
             tapa.opacity=1.0
         }
@@ -917,7 +931,7 @@ Item{
         }
         panelAspectsBack.load(j)
         aspsCircle.add(j)
-        if(app.mod!=='rs'){
+        if(app.t!=='rs'){
             //panelElementsBack.load(j)
             zoolElementsView.load(j, true)
             //panelElementsBack.visible=true
@@ -942,10 +956,10 @@ Item{
 
         //dinHousesCircleBack.loadHouses(j)
 
-        //if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
+        //if(app.t==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
         //if(JSON.parse(app))
 
-        //        if(app.mod==='dirprim'){
+        //        if(app.t==='dirprim'){
         //            log.lv('is dirprim')
         //        }
 
@@ -954,7 +968,7 @@ Item{
         //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         r.ev=true
-        if(app.mod!=='dirprim')centerZoomAndPos()
+        if(app.t!=='dirprim')centerZoomAndPos()
     }
     function loadFromFile(filePath, tipo, isBack){
         tapa.visible=true
@@ -973,10 +987,10 @@ Item{
         let lat=j.lat
         let lon=j.lon
         let alt=j.alt?j.alt:0
-        let ciudad=j.ciudad
+        let ciudad=j.c
         let e='1000'
         let aR=[]
-        app.mod=tipo
+        app.t=tipo
 
         let p=zoolMap.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, 'dirprim', hsys)
         if(!isBack){
@@ -1008,7 +1022,7 @@ Item{
     }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, isExt){
         let dataMs=new Date(Date.now())
-        let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
+        let j='{"params":{"t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'"}}'
         if(!isExt){
             load(JSON.parse(j))
         }else{
@@ -1044,6 +1058,26 @@ Item{
         j.params.c=c
         j.params.t=t
         j.params.s=s
+        return j
+    }
+    function getCurrentParamsWithNewTime(date){
+        let jsonFromFileData=JSON.parse(r.fileData)
+        let d=new Date(date)
+        let j={}
+        j.params={}
+        j.params.n=jsonFromFileData.params.n
+        j.params.d=d.getDate()
+        j.params.m=d.getMonth() + 1
+        j.params.a=d.getFullYear()
+        j.params.h=d.getHours()
+        j.params.min=d.getMinutes()
+        j.params.gmt=jsonFromFileData.params.gmt
+        j.params.lat=jsonFromFileData.params.lat
+        j.params.lon=jsonFromFileData.params.lon
+        j.params.alt=jsonFromFileData.params.alt
+        j.params.c=jsonFromFileData.params.c
+        j.params.t=jsonFromFileData.params.t
+        j.params.s=jsonFromFileData.params.s
         return j
     }
     function getZiData(bodieIndex, signIndex, houseIndex){
@@ -1177,6 +1211,7 @@ Item{
     }
     function hideTapa(){
         tapa.opacity=0.0
+        r.safeTapa=false
     }
 
     //-->ZoomAndPan

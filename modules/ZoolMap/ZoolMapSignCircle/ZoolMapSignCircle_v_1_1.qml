@@ -298,7 +298,7 @@ Item {
             color: 'transparent'
             rotation: r.rot-(30*index)
             anchors.centerIn: parent
-            visible: app.mod==='dirprim'
+            visible: app.t==='dirprim'
             Rectangle{
                 width: (ae.width-ai.width)*0.5
                 height: 1

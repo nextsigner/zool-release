@@ -79,7 +79,7 @@ Rectangle{
     }
     XLoadingCoords{id: xLoadingCoords}
     function getCoords(text){
-        xLoadingCoords.ciudad=text
+        xLoadingCoords.c=text
         xLoadingCoords.visible=true
         let md=["Seleccionar Ciudad"]
         r.lon=''

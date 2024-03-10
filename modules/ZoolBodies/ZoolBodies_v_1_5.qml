@@ -374,7 +374,7 @@ Item {
         visible: app.dev
         Text{
             id: txtMod
-            text: app.mod
+            text: app.t
             font.pixelSize: app.fs
             color: apps.backgroundColor
             anchors.centerIn: parent
@@ -449,7 +449,7 @@ Item {
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        app.mod=j.params.tipo
+        app.t=j.params.t
         app.fileData=JSON.stringify(j)
     }
     function loadBack(j){
@@ -497,7 +497,7 @@ Item {
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        app.mod=j.params.tipo
+        app.t=j.params.t
         app.fileDataBack=JSON.stringify(j)
     }
     function loadSweJson(json){
@@ -565,7 +565,7 @@ Item {
         }
         panelAspectsBack.load(j)
         aspsCircle.add(j)
-        if(app.mod!=='rs'){
+        if(app.t!=='rs'){
             //panelElementsBack.load(j)
             zoolElementsView.load(j, true)
             //panelElementsBack.visible=true
@@ -574,7 +574,7 @@ Item {
             //panelElementsBack.visible=false
         }
         housesCircleBack.loadHouses(j)
-        if(app.mod==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
+        if(app.t==='dirprim')housesCircleBack.rotation-=360-housesCircle.rotation
         //if(JSON.parse(app))
         planetsCircleBack.loadJson(j)
         panelDataBodies.loadJsonBack(j)

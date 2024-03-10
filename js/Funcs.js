@@ -124,7 +124,7 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
     //app.ev=false
     //apps.urlBack=''
     let dataMs=new Date(Date.now())
-    let j='{"params":{"tipo":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"ciudad":"'+ciudad+'"}}'
+    let j='{"params":{"t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'"}}'
     //let setTitleMod=1
     //if(tipo==='pron')setTitleMod=2
     //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, setTitleMod)
@@ -162,8 +162,8 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
     if(tipo==='rs')nGmt=0
 
     let dataMs=new Date(Date.now())
-    let j='{"paramsBack":{"tipo":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "ciudad":"'+ciudad+'"}}'
-    app.mod=tipo
+    let j='{"paramsBack":{"t":"'+tipo+'", "ms":'+dataMs.getTime()+', "n":"'+nom+'", "d":'+d+',  "m":'+m+', "a":'+a+', "h":'+h+', "min":'+min+', "gmt":'+nGmt+', "lat":'+lat+', "lon":'+lon+', "alt":'+alt+', "c":"'+ciudad+'"}}'
+    app.t=tipo
     j=j.replace('/, "/g', ',"')
 
     let aL=zoolDataView.atLeft
@@ -217,7 +217,7 @@ function loadTransFromTime(date){
     let anio=d.getFullYear()
     let hora=d.getHours()
     let minuto=d.getMinutes()
-    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.ciudad, 'trans', false)
+    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.c, 'trans', false)
     app.currentGmtBack=app.currentGmt
     //app.currentDateBack=d
 }
@@ -231,7 +231,7 @@ function loadTransNow(){
     let anio=d.getFullYear()
     let hora=d.getHours()
     let minuto=d.getMinutes()
-    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.ciudad, 'trans', false)
+    loadFromArgsBack(dia, mes, anio, hora, minuto, p.gmt, p.lat, p.lon, p.alt?p.alt:0, 'Tránsitos '+dia+'-'+mes+'-'+anio+' '+hora+':'+minuto, p.c, 'trans', false)
     app.currentGmtBack=app.currentGmt
     app.currentDateBack=d
 }
@@ -461,22 +461,22 @@ function qmltypeof(obj) {
 //    }
 //    //let jsonData=JSON.parse(jsonFileData)
 //    let jsonData=zfdm.getJsonAbs()
-//    //if(jsonData.params.tipo){
+//    //if(jsonData.params.t){
 //    let p=zfdm.getJsonAbsParams(false)
 //    let pb=({})
 //    let isBack=zfdm.isAbsParamsBack()
-//    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
+//    if((p.t==='rs' && isBack) || (p.t==='sin' && isBack) ){
 //        pb=zfdm.getJsonAbsParams(true)
 //    }
-//    if(p.tipo){
-//        //app.mod=jsonData.params.tipo
-//        app.mod=p.tipo
+//    if(p.t){
+//        //app.t=jsonData.params.t
+//        app.t=p.t
 //    }else{
-//        if(app.dev)log.lv('Error app.j.loadFile('+file+') p.tipo no existe.')
+//        if(app.dev)log.lv('Error app.j.loadFile('+file+') p.t no existe.')
 //        return
 //    }
-//    if(parseInt(p.ms)===0||p.tipo==='pron'){
-//        if(p.tipo==='pron'){
+//    if(parseInt(p.ms)===0||p.t==='pron'){
+//        if(p.t==='pron'){
 //            let dd = new Date(Date.now())
 //            let ms=dd.getTime()
 //            let nom=p.n
@@ -489,7 +489,7 @@ function qmltypeof(obj) {
 //            let lon=p.lon
 //            let gmt=p.gmt
 //            let ciudad=' '
-//            let j='{"params":{"tipo": "'+p.tipo+'", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+//            let j='{"params":{"t": "'+p.t+'", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"c":"'+ciudad+'"}}'
 //            app.fileData=j
 //            //jsonData=JSON.parse(j)
 //        }else{
@@ -512,9 +512,9 @@ function qmltypeof(obj) {
 
 //    //let params
 
-//    //if((p.tipo==='rs' && jsonData.paramsBack) || (jsonData.params.tipo==='sin' && jsonData.paramsBack) ){
+//    //if((p.t==='rs' && jsonData.paramsBack) || (jsonData.params.t==='sin' && jsonData.paramsBack) ){
 ////    let isBack=zfdm.isAbsParamsBack()
-////    if((p.tipo==='rs' && isBack) || (p.tipo==='sin' && isBack) ){
+////    if((p.t==='rs' && isBack) || (p.t==='sin' && isBack) ){
 ////        //params=jsonData.paramsBack
 ////        params=zfdm.getJsonAbsParams(true)
 ////    }else{
@@ -522,7 +522,7 @@ function qmltypeof(obj) {
 ////        params=zfdm.getJsonAbsParams(false)
 ////    }
 
-//    //if(params.tipo==='rs'){
+//    //if(params.t==='rs'){
 //    //if(app.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
 //    //}
 
@@ -535,11 +535,11 @@ function qmltypeof(obj) {
 //    let vgmt=p.gmt
 //    let vlon=p.lon
 //    let vlat=p.lat
-//    let vCiudad=p.ciudad.replace(/_/g, ' ')
+//    let vCiudad=p.c.replace(/_/g, ' ')
 //    let edad=''
 //    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
 //    let stringEdad=edad.indexOf('NaN')<0?edad:''
-//    if(p.tipo==='rs'){
+//    if(p.t==='rs'){
 //        let edadRs=47
 //        //stringEdad=edadRs
 //        //log.l('RS params:'+params+' --->'+stringEdad, 0, log.width)
@@ -558,7 +558,7 @@ function qmltypeof(obj) {
 //    app.currentLat=vlat
 
 
-//    if(p.tipo==='sin' && isBack){
+//    if(p.t==='sin' && isBack){
 //        let m0NomCorr=nom.split(' - ')
 //        nom=m0NomCorr[0].replace('Sinastría ', '')
 //        vd=p.d
@@ -569,7 +569,7 @@ function qmltypeof(obj) {
 //        vgmt=p.gmt
 //        vlon=p.lon
 //        vlat=p.lat
-//        vCiudad=p.ciudad.replace(/_/g, ' ')
+//        vCiudad=p.c.replace(/_/g, ' ')
 //        edad=''
 //        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
 //        stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -588,7 +588,7 @@ function qmltypeof(obj) {
 //        vgmt=pb.gmt
 //        vlon=pb.lon
 //        vlat=pb.lat
-//        vCiudad=pb.ciudad.replace(/_/g, ' ')
+//        vCiudad=pb.c.replace(/_/g, ' ')
 //        edad=''
 //        numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
 //        stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -604,7 +604,7 @@ function qmltypeof(obj) {
 //    }else{
 //        setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
 //    }
-//    //    if(jsonData.params.tipo==='sin'){
+//    //    if(jsonData.params.t==='sin'){
 //    //        nom=pb.n.replace(/_/g, ' ')
 //    //        vd=pb.d
 //    //        vm=pb.m
@@ -618,7 +618,7 @@ function qmltypeof(obj) {
 //    //        if(pb.alt){
 //    //            valt=pb.alt
 //    //        }
-//    //        vCiudad=pb.ciudad.replace(/_/g, ' ')
+//    //        vCiudad=pb.c.replace(/_/g, ' ')
 //    //        //let edad=''
 //    //        //numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
 //    //        //let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -661,7 +661,7 @@ function loadJson(file){
     let vlon=p.lon
     let vlat=p.lat
     let valt=p.alt?p.alt:0
-    let vCiudad=p.ciudad.replace(/_/g, ' ')
+    let vCiudad=p.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -713,7 +713,7 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     extId+='_'+tipo
     extId+='_'+hsys
 
-    let js='{"params":{"tipo":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"ciudad":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
+    let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
     let json=JSON.parse(js)
 
     let extIdExist=zfdm.isExtId(extId)
@@ -786,13 +786,13 @@ function loadJsonBack(file, tipo){
     //if(app.dev)log.lv('app.fileDataBack:'+app.fileDataBack)
     app.currentJsonBack=app.fileDataBack
     let jsonData=JSON.parse(jsonFileData)
-    if(jsonData.params.tipo){
-        app.mod=jsonData.params.tipo
+    if(jsonData.params.t){
+        app.t=jsonData.params.t
     }else{
-        app.mod='vn'
+        app.t='vn'
     }
-    if(parseInt(jsonData.params.ms)===0||jsonData.params.tipo==='pron'){
-        if(jsonData.params.tipo==='pron'){
+    if(parseInt(jsonData.params.ms)===0||jsonData.params.t==='pron'){
+        if(jsonData.params.t==='pron'){
             let dd = new Date(Date.now())
             let ms=dd.getTime()
             let nom=jsonData.params.n
@@ -805,7 +805,7 @@ function loadJsonBack(file, tipo){
             let lon=jsonData.params.lon
             let gmt=jsonData.params.gmt
             let ciudad=' '
-            let j='{"params":{"tipo": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+            let j='{"params":{"t": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"c":"'+ciudad+'"}}'
             app.fileDataBack=j
             jsonData=JSON.parse(j)
         }else{
@@ -832,7 +832,7 @@ function loadJsonBack(file, tipo){
     let vgmt=jsonData.params.gmt
     let vlon=jsonData.params.lon
     let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -849,7 +849,7 @@ function loadJsonBack(file, tipo){
     app.currentLonBack=vlon
     app.currentLatBack=vlat
 
-    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
+    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.t)
     //xDataStatusBar.currentIndex=0
     app.setFromFile=false
 }
@@ -882,12 +882,12 @@ function loadJsonFromParamsBack(json){
     }else{
         params=jsonData.params
     }
-    if(params.tipo){
-        app.mod=params.tipo
+    if(params.t){
+        app.t=params.t
     }else{
-        app.mod='vn'
+        app.t='vn'
     }
-    sweg.loadBack(jsonData, params.tipo)
+    sweg.loadBack(jsonData, params.t)
     let nom=params.n.replace(/_/g, ' ')
     let vd=params.d
     let vm=params.m
@@ -897,7 +897,7 @@ function loadJsonFromParamsBack(json){
     let vgmt=params.gmt
     let vlon=params.lon
     let vlat=params.lat
-    let vCiudad=params.ciudad.replace(/_/g, ' ')
+    let vCiudad=params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -914,7 +914,7 @@ function loadJsonFromParamsBack(json){
     app.currentLonBack=vlon
     app.currentLatBack=vlat
 
-    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.tipo)
+    addTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, jsonData.params.t)
     app.setFromFile=false
 }
 
@@ -923,9 +923,9 @@ function mkSinFile(file){
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
-    json.params.tipo='sin'
+    json.params.t='sin'
     json.paramsBack=jsonExt.params
-    json.paramsBack.tipo='sin'
+    json.paramsBack.t='sin'
     json.paramsBack.n='Sinastría '+json.params.n+' - '+json.paramsBack.n
 
     let cNom=json.paramsBack.n
@@ -948,10 +948,10 @@ function mkRsFile(file){
     let jsonExt=JSON.parse(jsonFileDataExt)
     log.ls('jsonExt: '+jsonFileDataExt, 0, log.width)
     json.params.n='Rev. Solar de '+json.params.n+' - Año '+jsonExt.paramsBack.a
-    json.params.tipo='rs'
+    json.params.t='rs'
     json.paramsBack={}
     json.paramsBack=jsonExt.paramsBack
-    json.paramsBack.tipo='rs'
+    json.paramsBack.t='rs'
     json.paramsBack.n=json.params.n
 
     let cNom=json.params.n
@@ -976,13 +976,13 @@ function mkTransFile(){
     //if(app.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
     json.params.n=json.params.n+' - '+jsonExt.params.n
     //if(app.dev)log.lv('json.params.n: '+json.params.n)
-    json.params.tipo='trans'
+    json.params.t='trans'
     if(json.params[app.stringRes+'zoompos']){
         delete json.params[app.stringRes+'zoompos']
     }
     json.paramsBack={}
     json.paramsBack=jsonExt.params//Back
-    json.paramsBack.tipo='trans'
+    json.paramsBack.t='trans'
     json.paramsBack.n=json.params.n
 
     let cNom=json.params.n
@@ -1043,10 +1043,10 @@ function runJsonTemp(){
     let vgmt=app.currentGmt
     let vlon=jsonData.params.lon
     let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-    if(jsonData.params.tipo==='pron')numEdad=0
+    if(jsonData.params.t==='pron')numEdad=0
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
     app.currentFecha=vd+'/'+vm+'/'+va
@@ -1077,7 +1077,7 @@ function runJsonTempBack(){
     }else{
         params=jsonData.params
     }
-    if(params.tipo==='vn'){
+    if(params.t==='vn'){
         if(app.dev)log.lv('No se carga params back porque es tipo VN.')
         return
     }
@@ -1090,14 +1090,14 @@ function runJsonTempBack(){
     let vgmt=app.currentGmt
     let vlon=params.lon
     let vlat=params.lat
-    let vCiudad=params.ciudad.replace(/_/g, ' ')
+    let vCiudad=params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
 
     app.currentFechaBack=vd+'/'+vm+'/'+va
-    sweg.loadBack(jsonData, params.tipo)
+    sweg.loadBack(jsonData, params.t)
     //app.currentDateBack=new Date(vd, vm, va, vh, vmin)
     //swegz.sweg.load(jsonData)
 }
@@ -1119,11 +1119,11 @@ function setNewTimeJsonFileData(date){
     let vgmt=app.currentGmt
     let vlon=jsonData.params.lon
     let vlat=jsonData.params.lat
-    let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
     let vZoomAndPos={}
     let j='{'
     j+='"params":{'
-    j+='"tipo":"'+app.mod+'",'
+    j+='"t":"'+app.t+'",'
     j+='"ms":'+ms+','
     j+='"n":"'+nom+'",'
     j+='"d":'+vd+','
@@ -1134,7 +1134,7 @@ function setNewTimeJsonFileData(date){
     j+='"gmt":'+vgmt+','
     j+='"lat":'+vlat+','
     j+='"lon":'+vlon+','
-    j+='"ciudad":"'+vCiudad+'"'
+    j+='"c":"'+vCiudad+'"'
     j+='}'
     j+='}'
 
@@ -1183,10 +1183,10 @@ function setNewTimeJsonFileDataBack(date){
     let vgmt=app.currentGmtBack
     let vlon=params.lon
     let vlat=params.lat
-    let vCiudad=params.ciudad.replace(/_/g, ' ')
+    let vCiudad=params.c.replace(/_/g, ' ')
     let j='{'
     j+='"params":{'
-    j+='"tipo":"'+app.mod+'",'
+    j+='"t":"'+app.t+'",'
     j+='"ms":'+ms+','
     j+='"n":"'+nom+'",'
     j+='"d":'+vd+','
@@ -1197,7 +1197,7 @@ function setNewTimeJsonFileDataBack(date){
     j+='"gmt":'+vgmt+','
     j+='"lat":'+vlat+','
     j+='"lon":'+vlon+','
-    j+='"ciudad":"'+vCiudad+'"'
+    j+='"c":"'+vCiudad+'"'
     j+='}'
     j+='}'
     app.currentDataBack=j
@@ -1221,7 +1221,7 @@ function saveJson(){
 function saveJsonBack(){
     app.fileData=app.currentData
     let json=JSON.parse(app.currentData)
-    json.params.tipo='rs'
+    json.params.t='rs'
     //log.ls('app.currentDataBack: '+app.currentDataBack, 0, 500)
     //json['paramsBack']={}
     let pb=JSON.parse(app.currentDataBack)
@@ -1288,7 +1288,7 @@ function loadJsonNow(file){
     let vgmt=o.gmt
     let vlon=o.lon
     let vlat=o.lat
-    let vCiudad=o.ciudad.replace(/_/g, ' ')
+    let vCiudad=o.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
@@ -1394,7 +1394,7 @@ function loadJsonNow(file){
 //    aL.push('<b> '+vCiudad+'</b>')
 //    aL.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
 //    aL.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-//    //zoolDataView.setDataView(app.tipo, aL, [])
+//    //zoolDataView.setDataView(app.t, aL, [])
 
 //    let aR=[]
 //    aR.push('Exterior')
@@ -1405,7 +1405,7 @@ function loadJsonNow(file){
 //    aR.push('<b> '+vCiudad+'</b>')
 //    aR.push('<b>lat:</b> '+parseFloat(vlat).toFixed(2))
 //    aR.push('<b>lon:</b> '+parseFloat(vlon).toFixed(2))
-//    zoolDataView.setDataView(app.tipo, aL, aR)
+//    zoolDataView.setDataView(app.t, aL, aR)
 //}
 
 function setTitleDataTo1(){
@@ -1420,7 +1420,7 @@ function setTitleDataTo1(){
     let vgmt=json.params.gmt
     let vlon=json.params.lon
     let vlat=json.params.lat
-    let vCiudad=json.params.ciudad.replace(/_/g, ' ')
+    let vCiudad=json.params.c.replace(/_/g, ' ')
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''

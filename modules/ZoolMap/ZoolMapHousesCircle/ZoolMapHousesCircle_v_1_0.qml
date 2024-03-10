@@ -449,7 +449,7 @@ Item {
             }
             let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zoolMap.objSignsCircle.rot, ih: i+1, wg: wg, is: jsonData.ph['h'+parseInt(i + 1)].is, rsdeg:jsonData.ph['h'+parseInt(i + 1)].rsdeg, gdec:jsonData.ph['h'+parseInt(i + 1)].gdec, gdeg:jsonData.ph['h'+parseInt(i + 1)].gdeg, mdeg: jsonData.ph['h'+parseInt(i + 1)].mdeg, sdeg: jsonData.ph['h'+parseInt(i + 1)].sdeg})
         }
-        if(app.mod==='dirprim'){
+        if(app.t==='dirprim'){
             //xArcsBack.rotation-=sweg.dirPrimRot
             dha.rotation-=zoolMap.dirPrimRot
         }

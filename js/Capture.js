@@ -94,7 +94,7 @@ function captureSwegBack(){
     if(!unik.folderExist(folder)){
         unik.mkdir(folder)
     }
-    let imgFileName='cap_'+app.mod+'_'
+    let imgFileName='cap_'+app.t+'_'
     if(app.currentPlanetIndexBack>=0&&app.currentPlanetIndexBack<20){
         let json=app.currentJson
         let p=app.planetas[app.currentPlanetIndexBack]

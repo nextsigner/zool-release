@@ -27,7 +27,7 @@ Rectangle {
    Text{
        id: labelLoadingLugar
         width: r.width*0.8
-        text: 'Cargando Coordenadas de '+r.ciudad
+        text: 'Cargando Coordenadas de '+r.c
         color: 'white'
         font.pixelSize: app.fs*2
         wrapMode: Text.WordWrap

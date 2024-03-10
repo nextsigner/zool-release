@@ -181,7 +181,7 @@ Rectangle {
         let fileName=name.replace(/ /g, '_')+'.json'
         let dms=new Date(Date.now())
         let fileNamePath='./jsons/'+fileName
-        let jsonCode='{"params":{"tipo":"pl", "fileNamePath": "'+fileNamePathJsonPl+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+q+',"m":'+m+',"a":'+y+',"h":'+0+',"min":'+0+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+zona+'"}}'
+        let jsonCode='{"params":{"t":"pl", "fileNamePath": "'+fileNamePathJsonPl+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+q+',"m":'+m+',"a":'+y+',"h":'+0+',"min":'+0+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"c":"'+zona+'"}}'
         if(!unik.fileExist(fileNamePath)){
             unik.setFile(fileNamePath, jsonCode)
             //console.log('1: '+fileNamePath)

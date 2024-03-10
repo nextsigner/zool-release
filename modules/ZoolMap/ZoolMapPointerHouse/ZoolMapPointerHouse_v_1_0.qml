@@ -47,7 +47,7 @@ Item {
         }
     }
     Timer{
-        running: r.visible && app.mod==='dirprim'
+        running: r.visible && app.t==='dirprim'
         repeat: true
         interval: 500
         onTriggered: {

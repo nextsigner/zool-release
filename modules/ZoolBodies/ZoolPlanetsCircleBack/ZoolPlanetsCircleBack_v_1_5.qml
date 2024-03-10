@@ -78,7 +78,7 @@ Item{
             }
             //objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)+degRed
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 objAs.rotation-=sweg.dirPrimRot
             }
             if(i===0)app.currentRotationxAsSol=objAs.rotation
@@ -87,7 +87,7 @@ Item{
             if(r.totalPosX<o.p){
                 r.totalPosX=o.p
             }
-//            if(app.mod==='dirprim'){
+//            if(app.t==='dirprim'){
 //                log.lv('sweg.dirPrimRot:'+sweg.dirPrimRot)
 //            }
             o.ns=objSignsNames.indexOf(jo.is)
@@ -100,12 +100,12 @@ Item{
 
             o.rsg=jo.rsgdeg
             o.gdec=jo.gdec
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 o.gdec+=sweg.dirPrimRot
             }
             if(o.gdec>=360.000)o.gdec-=360.000
 
-            if(app.mod!=='dirprim'){
+            if(app.t!=='dirprim'){
                 o.g=jo.gdeg
                 o.m=jo.mdeg
                 o.s=jo.sdeg
@@ -146,7 +146,7 @@ Item{
             }
 
 
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 o.is=sweg.getIndexSign(o.gdec)
             }
 
@@ -212,7 +212,7 @@ Item{
                 degRed=1.0
             }
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)+degRed
-//            if(app.mod==='dirprim'){
+//            if(app.t==='dirprim'){
 //                objAs.rotation+=sweg.dirPrimRot
 //                //Qt.quit()
 //            }

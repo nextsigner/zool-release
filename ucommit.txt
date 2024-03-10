@@ -1,1 +1,1 @@
-Se agrega Timer a Ctrl+Shift+c capturing
+Se modifica params.tipo y app.mod a .t

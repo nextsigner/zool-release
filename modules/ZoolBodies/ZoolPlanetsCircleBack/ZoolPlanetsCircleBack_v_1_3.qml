@@ -99,7 +99,7 @@ Item{
                 degRed=1.0
             }
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 objAs.rotation-=sweg.dirPrimRot
             }
             if(i===0)app.currentRotationxAsSol=objAs.rotation
@@ -118,7 +118,7 @@ Item{
 
             o.rsg=jo.rsgdeg
             o.gdec=jo.gdec
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 o.gdec+=sweg.dirPrimRot
             }
             if(o.gdec>=360.000)o.gdec-=360.000
@@ -127,7 +127,7 @@ Item{
             o.s=jo.sdeg
             o.ih=sweg.objHousesCircleBack.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
             o.is=jo.is
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 o.is=sweg.getIndexSign(o.gdec)
             }
 
@@ -192,7 +192,7 @@ Item{
                 degRed=1.0
             }
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)+degRed
-//            if(app.mod==='dirprim'){
+//            if(app.t==='dirprim'){
 //                objAs.rotation+=sweg.dirPrimRot
 //                //Qt.quit()
 //            }

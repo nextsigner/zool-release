@@ -159,7 +159,7 @@ Rectangle {
                 text:  '<b>E</b>'
                 width: apps.botSize
                 height: width
-                visible: app.mod==='sin'||app.mod==='trans'||app.mod==='rs'
+                visible: app.t==='sin'||app.t==='trans'||app.t==='rs'
                 onClicked: {
                     zoolMap.ev=!zoolMap.ev
                 }
@@ -424,7 +424,7 @@ Rectangle {
                 //width: app.fs*3
                 height: app.fs*0.6
                 anchors.verticalCenter: parent.verticalCenter
-                visible: false//app.ev&&app.mod!=='sin'&&app.mod!=='rs'
+                visible: false//app.ev&&app.t!=='sin'&&app.t!=='rs'
                 onClicked: {
                     JS.mkSinFile(apps.urlBack)
                 }

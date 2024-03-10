@@ -404,7 +404,7 @@ Rectangle {
         aR.push('<b>Edad:</b> '+edad+' años')
         zoolDataView.setDataView('Dir. Primarias', zoolDataView.atLeft, aR)
 
-        if(app.ev&&app.mod==='dirprim')return
+        if(app.ev&&app.t==='dirprim')return
         tUpdateParamsEvento.restart()
     }
 
@@ -462,7 +462,7 @@ Rectangle {
 
         let j='{'
         j+='"paramsBack":{'
-        j+='"tipo":"trans",'
+        j+='"t":"trans",'
         j+='"ms":'+ms+','
         j+='"n":"'+nom+'",'
         j+='"d":'+vd+','
@@ -473,7 +473,7 @@ Rectangle {
         j+='"gmt":'+vgmt+','
         j+='"lat":'+vlat+','
         j+='"lon":'+vlon+','
-        j+='"ciudad":"'+vCiudad+'",'
+        j+='"c":"'+vCiudad+'",'
         j+='"hsys":"'+vhsys+'",'
         j+='"extId":"'+extId+'"'
         j+='},'

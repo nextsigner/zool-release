@@ -280,7 +280,7 @@ Rectangle{
         let o
         var ih
         let loadAudio=false
-        if(!r.isBack&&JSON.parse(app.currentData).params.tipo==='pron')loadAudio=true
+        if(!r.isBack&&JSON.parse(app.currentData).params.t==='pron')loadAudio=true
         if(loadAudio)plau.clear()
         let msg=''
         let urlEncoded=''

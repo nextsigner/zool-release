@@ -512,7 +512,7 @@ Rectangle {
                     //                            controlTimeFecha.currentDate=nt
                     //                            controlTimeFecha.gmt=j.params.gmt
                     //                            if(tiCiudad.text.replace(/ /g, '')===''){
-                    //                                tiCiudad.text=j.params.ciudad
+                    //                                tiCiudad.text=j.params.c
                     //                            }
                     //                            r.lat=j.params.lat
                     //                            r.lon=j.params.lon
@@ -626,7 +626,7 @@ Rectangle {
     //        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
     //        let j='{'
     //        j+='"paramsBack":{'
-    //        j+='"tipo":"vn",'
+    //        j+='"t":"vn",'
     //        j+='"ms":'+ms+','
     //        j+='"n":"'+nom+'",'
     //        j+='"d":'+vd+','
@@ -637,7 +637,7 @@ Rectangle {
     //        j+='"gmt":'+vgmt+','
     //        j+='"lat":'+vlat+','
     //        j+='"lon":'+vlon+','
-    //        j+='"ciudad":"'+vCiudad+'"'
+    //        j+='"c":"'+vCiudad+'"'
     //        j+='}'
     //        j+='}'
     //        app.currentData=j
@@ -725,7 +725,7 @@ Rectangle {
 
         let j='{'
         j+='"paramsBack":{'
-        j+='"tipo":"trans",'
+        j+='"t":"trans",'
         j+='"ms":'+ms+','
         j+='"n":"'+nom+'",'
         j+='"d":'+vd+','
@@ -736,7 +736,7 @@ Rectangle {
         j+='"gmt":'+vgmt+','
         j+='"lat":'+vlat+','
         j+='"lon":'+vlon+','
-        j+='"ciudad":"'+vCiudad+'"'
+        j+='"c":"'+vCiudad+'"'
         j+='}'
         j+='}'
         app.currentDataBack=j

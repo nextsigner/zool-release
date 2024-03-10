@@ -37,7 +37,7 @@ Rectangle{
             }
         }
         ZoolText{
-            text: '<b>Mod:</b> '+app.mod
+            text: '<b>Mod:</b> '+app.t
             font.pixelSize: r.height*0.5
             color: 'white'
         }

@@ -334,6 +334,6 @@ Column{
             lm2.append(lm2.addItem(jo.is, jo.ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
         }*/
 
-        //if(app.mod!=='rs'&&app.mod!=='pl')r.state='show'
+        //if(app.t!=='rs'&&app.t!=='pl')r.state='show'
     }
 }

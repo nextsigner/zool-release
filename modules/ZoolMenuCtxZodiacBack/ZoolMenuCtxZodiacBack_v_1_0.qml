@@ -74,7 +74,7 @@ Menu {
         }
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
-    Action {enabled: app.mod==='rs'; text: qsTr("Guardar Revolución"); onTriggered: {
+    Action {enabled: app.t==='rs'; text: qsTr("Guardar Revolución"); onTriggered: {
                            //if(app.dev)log.lv('MenuBack: '+JSON.stringify(JSON.parse(app.fileDataBack, null, 2)))                       }
             zfdm.addExtData(JSON.parse(app.fileDataBack))
             zsm.currentIndex=1

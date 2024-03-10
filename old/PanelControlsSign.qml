@@ -69,7 +69,7 @@ Rectangle {
                     let d1=new Date(jo.a, jo.m - 1, jo.d, jo.h, jo.min)
                     d1 = d1.setMinutes(d1.getMinutes() + 4)
                     let d2=new Date(d1)
-                    let jsonCode='{"params":{"ms":100,"n":"Trópico","d":'+d2.getDate()+',"m":'+parseInt(d2.getMonth() + 1)+',"a":'+d2.getFullYear()+',"h":'+d2.getHours()+',"min":'+d2.getMinutes()+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Ubicación no definida."}}'
+                    let jsonCode='{"params":{"ms":100,"n":"Trópico","d":'+d2.getDate()+',"m":'+parseInt(d2.getMonth() + 1)+',"a":'+d2.getFullYear()+',"h":'+d2.getHours()+',"min":'+d2.getMinutes()+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"c":"Ubicación no definida."}}'
                     app.currentData=jsonCode
                     app.fileData=jsonCode
                     JS.runJsonTemp()

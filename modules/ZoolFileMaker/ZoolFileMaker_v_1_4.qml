@@ -428,7 +428,7 @@ Rectangle {
                                 controlTimeFecha.currentDate=nt
                                 controlTimeFecha.gmt=j.params.gmt
                                 if(tiCiudad.text.replace(/ /g, '')===''){
-                                    tiCiudad.text=j.params.ciudad
+                                    tiCiudad.text=j.params.c
                                 }
                                 r.lat=j.params.lat
                                 r.lon=j.params.lon
@@ -550,7 +550,7 @@ Rectangle {
 
         let j='{'
         j+='"params":{'
-        j+='"tipo":"'+vtipo+'",'
+        j+='"t":"'+vtipo+'",'
         j+='"ms":'+ms+','
         j+='"n":"'+nom+'",'
         j+='"d":'+vd+','
@@ -562,7 +562,7 @@ Rectangle {
         j+='"lat":'+vlat+','
         j+='"lon":'+vlon+','
         j+='"alt":'+valt+','
-        j+='"ciudad":"'+vCiudad+'",'
+        j+='"c":"'+vCiudad+'",'
         j+='"hsys":"'+vhsys+'",'
         if(apps.enableShareInServer && cbShared.checked){
             j+='"shared":true,'

@@ -38,7 +38,7 @@ Item{
         anchors.centerIn: parent
         /*rotation: !r.isBack?
                       0-parent.parent.rotation:
-                      (app.mod!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zoolMap.objPlanetsCircleBack.rotation)
+                      (app.t!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zoolMap.objPlanetsCircleBack.rotation)
         */
         rotation: !r.isBack?
                       0-parent.parent.rotation

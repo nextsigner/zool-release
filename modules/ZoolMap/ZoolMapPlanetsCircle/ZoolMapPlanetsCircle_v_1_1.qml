@@ -73,7 +73,7 @@ Item{
                 degRed=1.0
             }
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
-            if(r.isBack && app.mod==='dirprim'){
+            if(r.isBack && app.t==='dirprim'){
                 //objAs.rotation-=zoolMap.dirPrimRot
                 //objAs.rotation-=zoolMap.dirPrimRot
             }
@@ -97,7 +97,7 @@ Item{
             o.rsg=jo.rsgdeg
             o.gdec=jo.gdec
 
-            if(r.isBack && app.mod==='dirprim'){
+            if(r.isBack && app.t==='dirprim'){
                 o.gdec+=zoolMap.dirPrimRot
             }
 
@@ -108,7 +108,7 @@ Item{
             o.ih=zoolMap.objHousesCircle.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
             o.is=jo.is
 
-            if(r.isBack && app.mod!=='dirprim'){
+            if(r.isBack && app.t!=='dirprim'){
                 o.g=jo.gdeg
                 o.m=jo.mdeg
                 o.s=jo.sdeg
@@ -149,7 +149,7 @@ Item{
             }
 
 
-            if(app.mod==='dirprim'){
+            if(app.t==='dirprim'){
                 o.is=zoolMap.getIndexSign(o.gdec)
             }
 

@@ -36,7 +36,7 @@ Rectangle{
         let fileName=name.replace(/ /g, '_')+'.json'
         let dms=new Date(Date.now())
         let fileNamePath='./jsons/'+fileName
-        let jsonCode='{"params":{"tipo":"pron", "fileNamePath": "'+fileNamePathJsonPl+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
+        let jsonCode='{"params":{"t":"pron", "fileNamePath": "'+fileNamePathJsonPl+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"c":"'+panelZonaMes.currentCity+'"}}'
         if(!unik.fileExist(fileNamePath)){
             unik.setFile(fileNamePath, jsonCode)
             //unik.speak('Grabando...')
@@ -163,7 +163,7 @@ Rectangle{
         }else{
 
             //JS.setTitleData(json.nom, s.currentQ===1?1:15, s.currentMonth, s.currentYear, 0, 0, 0, json.des, json.lat, json.lon, 0)
-            //let j3='{"params":{"tipo": "pl", "ms":0,"n":"'+r.currentCity+'","d":1,"m":'+s.currentMonth+',"a":'+s.currentYear+',"h":0,"min":1,"gmt":'+json.gmt+',"lat":'+r.currentLat+',"lon":'+r.currentLon+',"ciudad":"'+r.currentCity+'"}}'
+            //let j3='{"params":{"t": "pl", "ms":0,"n":"'+r.currentCity+'","d":1,"m":'+s.currentMonth+',"a":'+s.currentYear+',"h":0,"min":1,"gmt":'+json.gmt+',"lat":'+r.currentLat+',"lon":'+r.currentLon+',"c":"'+r.currentCity+'"}}'
             //sweg.loadSign(JSON.parse(j3))
             let cant=0
             let txtCab='Cargando signo'
@@ -245,7 +245,7 @@ Rectangle{
         let lon=json.lon
         let gmt=json.gmt
         let ciudad=' '
-        let j='{"params":{"tipo": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+        let j='{"params":{"t": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"c":"'+ciudad+'"}}'
         return JSON.parse(j)
     }
     function pause(){

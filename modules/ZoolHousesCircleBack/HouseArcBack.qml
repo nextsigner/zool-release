@@ -283,7 +283,7 @@ Item {
                 color: apps.fontColor
                 //color: circleBot.border.color
                 anchors.centerIn: parent
-                rotation:app.mod!=='dirprim'?0-r.rotation-r.parent.rotation:0-r.rotation-r.parent.rotation-sweg.objHousesCircleBack.rotation
+                rotation:app.t!=='dirprim'?0-r.rotation-r.parent.rotation:0-r.rotation-r.parent.rotation-sweg.objHousesCircleBack.rotation
            }
         }
         Rectangle{

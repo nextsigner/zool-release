@@ -78,7 +78,7 @@ ZoolMainWindow{
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
     property string url
-    property string mod: 'vn'
+    property string t: 'vn'
 
     property bool backIsSaved: false
 

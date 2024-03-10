@@ -54,7 +54,7 @@ Rectangle{
         }else{
             groupBack.load(json)
             groupBackPlanets.load(json)
-            if(app.mod==='vn' || app.mod==='dirprim'){
+            if(app.t==='vn' || app.t==='dirprim'){
                 r.showBack=false
             }else{
                 r.showBack=true

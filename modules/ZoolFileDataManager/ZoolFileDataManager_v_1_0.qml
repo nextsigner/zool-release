@@ -132,6 +132,15 @@ Item{
     function getParam(p){
         return r.ja.params[''+p]
     }
+    function updateParam(params, save){
+        let json=zfdm.getJson()
+        json.params=params
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
+        saveJson(json)
+    }
     function getExts(){
         return r.ja.exts
     }

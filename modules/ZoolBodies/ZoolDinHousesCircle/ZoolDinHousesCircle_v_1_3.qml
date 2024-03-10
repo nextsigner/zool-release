@@ -164,7 +164,7 @@ Item {
             }
             let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+sweg.objSignsCircle.rot, ih: i+1, wg: wg})
         }
-        if(app.mod==='dirprim'){
+        if(app.t==='dirprim'){
             //xArcsBack.rotation-=sweg.dirPrimRot
             dha.rotation-=sweg.dirPrimRot
         }

@@ -118,7 +118,7 @@ Rectangle{
                     onClicked: {
                         let j=JSON.parse(app.currentData)
                         let p=j.params
-                        JS.loadFromArgsBack(p.d, p.m, p.a, p.h, p.min, p.gmt, p.lat, p.lon, p.alt?p.alt:0, p.nom, p.ciudad, 'trans', false)
+                        JS.loadFromArgsBack(p.d, p.m, p.a, p.h, p.min, p.gmt, p.lat, p.lon, p.alt?p.alt:0, p.nom, p.c, 'trans', false)
                     }
                 }
                 Button{
