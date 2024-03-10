@@ -6,7 +6,7 @@ Item {
     height: width
     anchors.centerIn: parent
     property int f: 0
-    property int w: zoolMap.zodiacBandWidth
+    property int w: zm.zodiacBandWidth
     //property bool v: sweg.v
     property bool showBorder: false
     property bool showDec: apps.showDec
@@ -282,21 +282,21 @@ Item {
     }
     function rotar(s,i){
         let grado=0
-        let currentDate=zoolMap.currentDate
+        let currentDate=zm.currentDate
         if(s===0){
             currentDate.setMinutes(currentDate.getMinutes() + i)
         }else{
             currentDate.setMinutes(currentDate.getMinutes() - i)
         }
-        zoolMap.currentDate=currentDate
+        zm.currentDate=currentDate
     }
     function rotarSegundos(s){
-        let currentDate=zoolMap.currentDate
+        let currentDate=zm.currentDate
         if(s===0){
             currentDate.setSeconds(currentDate.getSeconds() + 10)
         }else{
             currentDate.setSeconds(currentDate.getSeconds() - 10)
         }
-        zoolMap.currentDate=currentDate
+        zm.currentDate=currentDate
     }
 }

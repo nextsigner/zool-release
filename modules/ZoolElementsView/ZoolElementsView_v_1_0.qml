@@ -33,8 +33,8 @@ Rectangle{
             id: colZoolGroupElementItemsPlanets
             spacing: app.fs*0.5
             anchors.top: parent.top
-            opacity: !zoolMap.capturing?0.0:1.0
-            Behavior on opacity{NumberAnimation{duration:!zoolMap.capturing?250:0}}
+            opacity: !zm.capturing?0.0:1.0
+            Behavior on opacity{NumberAnimation{duration:!zm.capturing?250:0}}
             ZoolGroupElementItemsPlanets{id: groupFrontPlanets; fs: r.fs; showTitle: r.showBack}
             ZoolGroupElementItemsPlanets{id: groupBackPlanets; fs: r.fs; isBack: true; showTitle: r.showBack; visible: r.showBack}
         }

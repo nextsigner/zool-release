@@ -65,28 +65,28 @@ Rectangle {
             width: app.fs*0.5
             height: width
             radius: width*0.5
-            color: zoolMap.fileData===zoolMap.currentData?'gray':'red'
+            color: zm.fileData===zm.currentData?'gray':'red'
             border.width: 2
             border.color: apps.fontColor
             anchors.verticalCenter: parent.verticalCenter
             //y:(parent.height-height)/2
-            visible:  !zoolMap.ev
+            visible:  !zm.ev
             MouseArea{
                 anchors.fill: parent
-                enabled: zoolMap.titleData!==zoolMap.currentData
+                enabled: zm.titleData!==zm.currentData
                 onClicked: {
                     //app.j.saveJson()
                     let date=new Date(Date.now())
                     let msmod=date.getTime()
-                    let json=zoolMap.currentJson.params
+                    let json=zm.currentJson.params
                     //log.lv('Parmas'+JSON.stringify(json, null, 2))
-                    //let cjson=JSON.parse(zoolMap.fileData)
+                    //let cjson=JSON.parse(zm.fileData)
                     let cjson=zfdm.getJsonAbs()
-                    let j=zoolMap.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod)
+                    let j=zm.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod)
 
                     //log.lv('Parmas'+JSON.stringify(cjson, null, 2))
                     //log.lv('Parmas: '+JSON.stringify(j, null, 2))
-                    //log.lv('zoolMap.currentJson: '+JSON.stringify(zoolMap.currentJson.params, null, 2))
+                    //log.lv('zm.currentJson: '+JSON.stringify(zm.currentJson.params, null, 2))
                     //zfdm.saveJson(j)
                     zfdm.updateParams(j.params, true)
                 }

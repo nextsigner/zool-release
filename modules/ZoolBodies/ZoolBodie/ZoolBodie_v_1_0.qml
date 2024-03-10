@@ -12,8 +12,8 @@ Item{
     //property alias objImg0: img0
     property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19]
-    property color bgColor: !r.isBack?zoolMap.bodieBgColor:zoolMap.bodieBgColorBack
-    width: zoolMap.bodieSize
+    property color bgColor: !r.isBack?zm.bodieBgColor:zm.bodieBgColorBack
+    width: zm.bodieSize
     height: width
     anchors.left: parent.left
     anchors.leftMargin: 0-xIconPlanetSmall.width
@@ -38,12 +38,12 @@ Item{
         anchors.centerIn: parent
         /*rotation: !r.isBack?
                       0-parent.parent.rotation:
-                      (app.t!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zoolMap.objPlanetsCircleBack.rotation)
+                      (app.t!=='dirprim'?0-parent.parent.rotation:0-parent.parent.rotation-zm.objPlanetsCircleBack.rotation)
         */
         rotation: !r.isBack?
                       0-parent.parent.rotation
                     :
-                      0-parent.parent.rotation+zoolMap.dirPrimRot
+                      0-parent.parent.rotation+zm.dirPrimRot
         antialiasing: true
         visible: !co.visible
     }
@@ -68,10 +68,10 @@ Item{
             }
         }
         SequentialAnimation{
-            running: r.selected && !zoolMap.capturing//apps.anColorXAs
+            running: r.selected && !zm.capturing//apps.anColorXAs
             loops: Animation.Infinite
             onRunningChanged: {
-                if(!running&&zoolMap.capturing){
+                if(!running&&zm.capturing){
                     co.color=apps.xAsColorBack
                 }
             }
@@ -115,7 +115,7 @@ Item{
 //        rotation: 0-parent.parent.rotation
 //        antialiasing: true
 //        anchors.centerIn: parent
-//        //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-zoolMap.fs*0.5:0
+//        //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-zm.fs*0.5:0
 //        visible: false
 //        Behavior on width {
 //            enabled: apps.enableFullAnimation;

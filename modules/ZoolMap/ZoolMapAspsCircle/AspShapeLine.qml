@@ -38,7 +38,7 @@ Rectangle{
         id: shapeBg
         opacity: 0.0
         //anchors.fill: parent
-        width: !zoolMap.ev?parent.width-apps.aspLineWidth:parent.width-apps.aspLineWidth*0.5//*1.8
+        width: !zm.ev?parent.width-apps.aspLineWidth:parent.width-apps.aspLineWidth*0.5//*1.8
         height: width
         anchors.centerIn: parent
         containsMode: Shape.FillContains

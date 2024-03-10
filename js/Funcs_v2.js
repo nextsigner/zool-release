@@ -432,14 +432,14 @@ function loadJson(file){
         if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
         return
     }
-    zoolMap.fileData=JSON.stringify(zfdm.getJsonAbsParams(false))
+    zm.fileData=JSON.stringify(zfdm.getJsonAbsParams(false))
     //Global Vars Reset
-    zoolMap.resetGlobalVars()
+    zm.resetGlobalVars()
 
     let jsonData=zfdm.getJsonAbs()
     let p=zfdm.getJsonAbsParams(false)
     //sweg.load(jsonData)
-    zoolMap.load(jsonData)
+    zm.load(jsonData)
     let nom=p.n.replace(/_/g, ' ')
     let vd=p.d
     let vm=p.m
@@ -451,8 +451,8 @@ function loadJson(file){
     let vlat=p.lat
     let valt=p.alt?p.alt:0
     let vCiudad=p.c.replace(/_/g, ' ')
-    let edad=zoolMap.getEdad(vd, vm, va, vh, vmin)
-    let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    let edad=zm.getEdad(vd, vm, va, vh, vmin)
+    let numEdad=zm.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad='<b>Edad:</b> '
     if(edad===1){
         stringEdad+=edad+' año'
@@ -478,19 +478,19 @@ function loadJson(file){
 
     //Seteando datos globales de mapa energético
     apps.url=file
-    zoolMap.currentNom=nom
-    zoolMap.currentFecha=vd+'/'+vm+'/'+va
-    zoolMap.currentLugar=vCiudad
-    zoolMap.currentGmt=vgmt
-    zoolMap.currentLon=vlon
-    zoolMap.currentLat=vlat
-    zoolMap.currentAlt=valt
-    zoolMap.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+    zm.currentNom=nom
+    zm.currentFecha=vd+'/'+vm+'/'+va
+    zm.currentLugar=vCiudad
+    zm.currentGmt=vgmt
+    zm.currentLon=vlon
+    zm.currentLat=vlat
+    zm.currentAlt=valt
+    zm.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
 
-    zoolMap.centerZoomAndPos()
+    zm.centerZoomAndPos()
 }
 //function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
-//    zoolMap.ev=false
+//    zm.ev=false
 //    let d=new Date(Date.now())
 //    let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
 //                        parseInt(vmin))
@@ -522,13 +522,13 @@ function loadJson(file){
 //    if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
 //    if(!extIdExist && !isExtIdInAExtsIds){
 //        zfdm.addExtData(json)
-//        zoolMap.loadBack(json)
+//        zm.loadBack(json)
 //    }else{
 //        if(app.dev)log.lv('ExtId ya existe.')
 //        let extJson={}
 //        extJson.params=zfdm.getExtData(extId)
 //        if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
-//        zoolMap.loadBack(extJson)
+//        zm.loadBack(extJson)
 //    }
 //    let aL=zoolDataView.atLeft
 //    let aR=vAtRigth
@@ -555,7 +555,7 @@ function loadJson(file){
 //    if(tipo==='dirprim')strSep='Dir. Primarias'
 //    zoolDataView.setDataView(strSep, aL, aR)
 //    zoolDataView.uExtIdLoaded=extId
-//    zoolMap.ev=true
+//    zm.ev=true
 //}
 
 
@@ -581,9 +581,9 @@ function loadJson(file){
 //    let fn=apps.urlBack
 //    let jsonFileName=fn
 //    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-//    zoolMap.fileDataBack=jsonFileData
-//    //if(app.dev)log.lv('zoolMap.fileDataBack:'+zoolMap.fileDataBack)
-//    app.currentJsonBack=zoolMap.fileDataBack
+//    zm.fileDataBack=jsonFileData
+//    //if(app.dev)log.lv('zm.fileDataBack:'+zm.fileDataBack)
+//    app.currentJsonBack=zm.fileDataBack
 //    let jsonData=JSON.parse(jsonFileData)
 //    if(jsonData.params.t){
 //        app.t=jsonData.params.t
@@ -605,7 +605,7 @@ function loadJson(file){
 //            let gmt=jsonData.params.gmt
 //            let ciudad=' '
 //            let j='{"params":{"t": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"c":"'+ciudad+'"}}'
-//            zoolMap.fileDataBack=j
+//            zm.fileDataBack=j
 //            jsonData=JSON.parse(j)
 //        }else{
 //            d=new Date(Date.now())
@@ -672,9 +672,9 @@ function loadJson(file){
 //    //panelControlsSign.state='hide'
 
 //    //apps.urlBack=file
-//    zoolMap.fileDataBack=JSON.stringify(json)
+//    zm.fileDataBack=JSON.stringify(json)
 //    //if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
-//    //app.currentJsonBack=zoolMap.fileDataBack
+//    //app.currentJsonBack=zm.fileDataBack
 //    let jsonData=json
 //    let params
 //    if(jsonData.paramsBack){
@@ -719,7 +719,7 @@ function loadJson(file){
 //}
 
 function mkSinFile(file){
-    let jsonFileDataInterior=zoolMap.fileData
+    let jsonFileDataInterior=zm.fileData
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
@@ -742,7 +742,7 @@ function mkSinFile(file){
     }
 }
 function mkRsFile(file){
-    let jsonFileDataInterior=zoolMap.fileData
+    let jsonFileDataInterior=zm.fileData
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
@@ -769,7 +769,7 @@ function mkRsFile(file){
     }
 }
 function mkTransFile(){
-    let jsonFileDataInterior=zoolMap.fileData
+    let jsonFileDataInterior=zm.fileData
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
@@ -822,11 +822,11 @@ function runJsonTemp(){
     var jsonData
     try
     {
-        jsonData=JSON.parse(zoolMap.currentData)
+        jsonData=JSON.parse(zm.currentData)
     }
     catch (e)
     {
-        console.log('Json Fallado: '+zoolMap.currentData)
+        console.log('Json Fallado: '+zm.currentData)
         log.lv('Ha fallado la carga del archivo '+apps.url)
         log.lv('Error de Json.parse(): '+e)
         //log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
@@ -845,25 +845,25 @@ function runJsonTemp(){
     let vlat=jsonData.params.lat
     let vCiudad=jsonData.params.c.replace(/_/g, ' ')
     let edad=''
-    let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    let numEdad=zm.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     if(jsonData.params.t==='pron')numEdad=0
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
-    zoolMap.currentFecha=vd+'/'+vm+'/'+va
-    zoolMap.load(jsonData)
+    zm.currentFecha=vd+'/'+vm+'/'+va
+    zm.load(jsonData)
 }
 function runJsonTempBack(){
     var jsonData
     //let jss=app.currentDataBack.replace(/\n/g, '')
-    let jss=zoolMap.currentDataBack.replace(/\n/g, '')
+    let jss=zm.currentDataBack.replace(/\n/g, '')
     try
     {
         jsonData=JSON.parse(jss)
     }catch(e){
-        console.log('runJsonTempBack() Json Fallado: '+zoolMap.currentDataBack)
+        console.log('runJsonTempBack() Json Fallado: '+zm.currentDataBack)
         if(app.dev){
             log.lv('Ha fallado la carga del archivo BACK '+apps.url)
-            log.lv(zoolMap.currentDataBack)
+            log.lv(zm.currentDataBack)
             //log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
         }
         //unik.speak('Error in Json file')
@@ -891,17 +891,17 @@ function runJsonTempBack(){
     let vlat=params.lat
     let vCiudad=params.c.replace(/_/g, ' ')
     let edad=''
-    let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    let numEdad=zm.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
 
-    zoolMap.currentFechaBack=vd+'/'+vm+'/'+va
-    zoolMap.loadBack(jsonData, params.t)
+    zm.currentFechaBack=vd+'/'+vm+'/'+va
+    zm.loadBack(jsonData, params.t)
     //app.currentDateBack=new Date(vd, vm, va, vh, vmin)
     //swegz.sweg.load(jsonData)
 }
 function setNewTimeJsonFileData(date){
-    let jsonData=JSON.parse(zoolMap.fileData)
+    let jsonData=JSON.parse(zm.fileData)
     //console.log('json: '+JSON.stringify(jsonData))
     //console.log('json2: '+jsonData.params)
     let d = new Date(Date.now())
@@ -915,7 +915,7 @@ function setNewTimeJsonFileData(date){
     let vh=date.getHours()
     let vmin=date.getMinutes()
 
-    let vgmt=zoolMap.currentGmt
+    let vgmt=zm.currentGmt
     let vlon=jsonData.params.lon
     let vlat=jsonData.params.lat
     let vCiudad=jsonData.params.c.replace(/_/g, ' ')
@@ -945,21 +945,21 @@ function setNewTimeJsonFileData(date){
         json.rots=jsonData.rots
     }
 
-    zoolMap.currentData=JSON.stringify(json)
+    zm.currentData=JSON.stringify(json)
     //console.log('j: '+j)
-    //console.log('fd: '+zoolMap.fileData)
+    //console.log('fd: '+zm.fileData)
 }
 function setNewTimeJsonFileDataBack(date){
-    //log.l('zoolMap.fileDataBack: '+zoolMap.fileDataBack)
+    //log.l('zm.fileDataBack: '+zm.fileDataBack)
     //log.visible=true
     //log.width=xApp.width*0.2
     //log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
-    //log.ls('zoolMap.fileDataBack: '+zoolMap.fileDataBack, 0, 500)
-    if(zoolMap.fileDataBack===''){
-        if(app.dev)log.lv('zoolMap.fileDataBack is empty.')
+    //log.ls('zm.fileDataBack: '+zm.fileDataBack, 0, 500)
+    if(zm.fileDataBack===''){
+        if(app.dev)log.lv('zm.fileDataBack is empty.')
         return
     }
-    let jsonData=JSON.parse(zoolMap.fileDataBack)
+    let jsonData=JSON.parse(zm.fileDataBack)
     //console.log('json: '+JSON.stringify(jsonData))
     //console.log('json2: '+jsonData.params)
     let d = new Date(Date.now())
@@ -999,19 +999,19 @@ function setNewTimeJsonFileDataBack(date){
     j+='"c":"'+vCiudad+'"'
     j+='}'
     j+='}'
-    zoolMap.currentDataBack=j
+    zm.currentDataBack=j
     //    log.l('cjb:'+app.currentDataBack)
     //    log.width=xApp.width*0.2
     //    log.visible=true
     //console.log('j: '+j)
-    //console.log('fd: '+zoolMap.fileData)
+    //console.log('fd: '+zm.fileData)
 }
 function saveJson(){
-    //log.lv('zoolMap.fileData: '+JSON.stringify(JSON.parse(zoolMap.fileData), null, 2))
-    //log.lv('zoolMap.currentData: '+JSON.stringify(JSON.parse(zoolMap.currentData), null, 2))
-    zoolMap.fileData=zoolMap.currentData
+    //log.lv('zm.fileData: '+JSON.stringify(JSON.parse(zm.fileData), null, 2))
+    //log.lv('zm.currentData: '+JSON.stringify(JSON.parse(zm.currentData), null, 2))
+    zm.fileData=zm.currentData
     let jsonFileName=apps.url
-    let json=JSON.parse(zoolMap.fileData)
+    let json=JSON.parse(zm.fileData)
     if(unik.fileExist(apps.url.replace('file://', ''))){
         let dataModNow=new Date(Date.now())
         json.params.msmod=dataModNow.getTime()
@@ -1020,19 +1020,19 @@ function saveJson(){
     loadJson(apps.url)
 }
 function saveJsonBack(){
-    zoolMap.fileData=zoolMap.currentData
-    let json=JSON.parse(zoolMap.currentData)
+    zm.fileData=zm.currentData
+    let json=JSON.parse(zm.currentData)
     json.params.t='rs'
     //log.ls('app.currentDataBack: '+app.currentDataBack, 0, 500)
     //json['paramsBack']={}
-    let pb=JSON.parse(zoolMap.currentDataBack)
+    let pb=JSON.parse(zm.currentDataBack)
     json['paramsBack']={}=pb.paramsBack
     if(unik.fileExist(apps.url.replace('file://', ''))){
         let dataModNow=new Date(Date.now())
         json.params.msmod=dataModNow.getTime()
     }
     log.ww=false
-    log.ls('zoolMap.fileData: '+JSON.stringify(json), 0, 500)
+    log.ls('zm.fileData: '+JSON.stringify(json), 0, 500)
     let jsonFileName=apps.jsonsFolder+'/'+(''+pb.paramsBack.n).replace(/ /g, '_')+'.json'
     apps.url=jsonFileName
     log.ls('apps.url: '+apps.url, 0, 500)
@@ -1057,7 +1057,7 @@ function loadJsonNow(file){
     o.min=d.getMinutes()
     o.n=(o.n+' '+o.d+'-'+o.m+'-'+o.a+'-'+o.h+':'+o.min).replace(/Ahora/g, '').replace(/ahora/g, '')
     json.params=o
-    zoolMap.loadSign(json)
+    zm.loadSign(json)
     //swegz.sweg.loadSign(json)
     let nom=o.n.replace(/_/g, ' ')
     let vd=o.d
@@ -1070,7 +1070,7 @@ function loadJsonNow(file){
     let vlat=o.lat
     let vCiudad=o.c.replace(/_/g, ' ')
     let edad=''
-    let numEdad=zoolMap.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    let numEdad=zm.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
 
@@ -1088,14 +1088,14 @@ function loadJsonNow(file){
     //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
 
     //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
-    zoolMap.currentNom=nom
-    zoolMap.currentFecha=vd+'/'+vm+'/'+va
-    zoolMap.currentGmt=vgmt
-    zoolMap.currentLon=vlon
-    zoolMap.currentLat=vlat
+    zm.currentNom=nom
+    zm.currentFecha=vd+'/'+vm+'/'+va
+    zm.currentGmt=vgmt
+    zm.currentLon=vlon
+    zm.currentLat=vlat
 
-    zoolMap.currentData=zoolMap.fileData
-    zoolMap.fileData=jsonFileData
+    zm.currentData=zm.fileData
+    zm.fileData=jsonFileData
 }
 
 //Funciones de Internet
@@ -1174,12 +1174,12 @@ function raiseItem(item){
 
 //Funciones SWEG
 function saveZoomAndPos(){
-    if(zoolMap.currentPlanetIndex>=0&&app.currentXAs){
-        if(zoolMap.currentPlanetIndex===20||app.currentPlanetIndex===21){
-            if(zoolMap.currentPlanetIndex===21){
+    if(zm.currentPlanetIndex>=0&&app.currentXAs){
+        if(zm.currentPlanetIndex===20||app.currentPlanetIndex===21){
+            if(zm.currentPlanetIndex===21){
                 app.currentXAs.saveZoomAndPos('mc')
             }
-            if(zoolMap.currentPlanetIndex===20){
+            if(zm.currentPlanetIndex===20){
                 app.currentXAs.saveZoomAndPos('asc')
             }
         }else{
@@ -1188,13 +1188,13 @@ function saveZoomAndPos(){
         //Cap.captureSweg()
         return
     }
-    if(zoolMap.currentPlanetIndexBack>=0&&app.currentXAsBack){
-        if(zoolMap.currentPlanetIndexBack===21||zoolMap.currentPlanetIndexBack===20){
-            if(zoolMap.currentPlanetIndexBack===21){
-                zoolMap.currentXAs.saveZoomAndPos('mcBack')
+    if(zm.currentPlanetIndexBack>=0&&app.currentXAsBack){
+        if(zm.currentPlanetIndexBack===21||zm.currentPlanetIndexBack===20){
+            if(zm.currentPlanetIndexBack===21){
+                zm.currentXAs.saveZoomAndPos('mcBack')
             }
-            if(zoolMap.currentPlanetIndexBack===20){
-                zoolMap.currentXAsBack.saveZoomAndPos('ascBack')
+            if(zm.currentPlanetIndexBack===20){
+                zm.currentXAsBack.saveZoomAndPos('ascBack')
             }
         }else{
             app.currentXAsBack.saveZoomAndPos()

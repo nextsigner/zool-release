@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 
 Column{
     id: r
-    width: !zoolMap.ev?parent.width:parent.width*0.5
+    width: !zm.ev?parent.width:parent.width*0.5
     opacity: 0.0
     property bool isBack: false
     property bool isLatFocus: false
@@ -75,7 +75,7 @@ Column{
         Rectangle{
             id: xItem
             width: lv.width
-            height: !zoolMap.ev?
+            height: !zm.ev?
                         //Mostrando 1 columna de datos.
                         (index===zoolDataBodies.currentIndex?(colTxtSelected.height+app.fs*0.1):
                                                               (txtData.contentHeight+app.fs*0.1)):
@@ -83,10 +83,10 @@ Column{
                         //Mostrando 2 columas de Datos
                         (colTxtEV.height+app.fs*0.1)
 
-            color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
+            color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
             border.width: 1
             border.color: !r.isBack?apps.houseColor:apps.houseColorBack
-            visible: !zoolMap.ev?txtData.width<xItem.width:true
+            visible: !zm.ev?txtData.width<xItem.width:true
             //anchors.horizontalCenter: parent.horizontalCenter
             Behavior on opacity{NumberAnimation{duration: 250}}
             property bool textSized: false
@@ -101,17 +101,17 @@ Column{
                 //text: sd
                 font.pixelSize: app.fs
                 textFormat: Text.RichText
-                color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: parent
-                visible: !zoolMap.ev && index!==zoolDataBodies.currentIndex
+                visible: !zm.ev && index!==zoolDataBodies.currentIndex
                 onVisibleChanged: {
                     if(!visible){
                         //font.pixelSize=app.fs
                     }
                 }
                 Timer{
-                    running: parent.width>xItem.width-app.fs*0.1 && !zoolMap.ev
+                    running: parent.width>xItem.width-app.fs*0.1 && !zm.ev
                     repeat: true
                     interval: 50
                     onTriggered: {
@@ -123,17 +123,17 @@ Column{
             Column{
                 id: colTxtSelected
                 anchors.centerIn: parent
-                visible: !zoolMap.ev && index===zoolDataBodies.currentIndex
+                visible: !zm.ev && index===zoolDataBodies.currentIndex
                 Text {
                     id: txtDataSelected1
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
-                    visible: !zoolMap.ev
+                    visible: !zm.ev
                     Timer{
-                        running: parent.width>xItem.width-app.fs*0.1 && !zoolMap.ev
+                        running: parent.width>xItem.width-app.fs*0.1 && !zm.ev
                         repeat: true
                         interval: 50
                         onTriggered: {
@@ -146,12 +146,12 @@ Column{
                     id: txtDataSelected2
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
-                    visible: !zoolMap.ev
+                    visible: !zm.ev
                     Timer{
-                        running: parent.width>xItem.width-app.fs*0.1 && !zoolMap.ev
+                        running: parent.width>xItem.width-app.fs*0.1 && !zm.ev
                         repeat: true
                         interval: 50
                         onTriggered: {
@@ -168,13 +168,13 @@ Column{
                     id: txtDataEV
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: zoolMap.ev
+                    visible: zm.ev
                     opacity: r.isLatFocus?1.0:0.65
                     Timer{
-                        running: parent.contentWidth>xItem.width-app.fs*0.1 && zoolMap.ev
+                        running: parent.contentWidth>xItem.width-app.fs*0.1 && zm.ev
                         repeat: true
                         interval: 50
                         onTriggered: {
@@ -187,14 +187,14 @@ Column{
                     id: txtDataEV2
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zoolMap.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zoolMap.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
-                    visible: zoolMap.ev
+                    visible: zm.ev
                     opacity: r.isLatFocus?1.0:0.65
                     anchors.horizontalCenter: parent.horizontalCenter
                     Timer{
-                        running: parent.contentWidth>xItem.width-app.fs*0.1 && zoolMap.ev
+                        running: parent.contentWidth>xItem.width-app.fs*0.1 && zm.ev
                         repeat: true
                         interval: 50
                         onTriggered: {
@@ -217,31 +217,31 @@ Column{
                         if(index>21){
                             if(!r.isBack){
                                 zoolDataBodies.latFocus=0
-                                zoolMap.objHousesCircle.currentHouse=index-21
+                                zm.objHousesCircle.currentHouse=index-21
                             }else{
                                 zoolDataBodies.latFocus=1
-                                zoolMap.objHousesCircleBack.currentHouse=index-21
+                                zm.objHousesCircleBack.currentHouse=index-21
                             }
                         }else{
                             if(!r.isBack){
                                 zoolDataBodies.latFocus=0
-                                if(zoolMap.currentPlanetIndex!==index){
-                                    zoolMap.currentPlanetIndex=index
+                                if(zm.currentPlanetIndex!==index){
+                                    zm.currentPlanetIndex=index
                                     zoolDataBodies.currentIndex=index
                                 }else{
-                                    zoolMap.currentPlanetIndex=-1
+                                    zm.currentPlanetIndex=-1
                                     zoolDataBodies.currentIndex=-1
-                                    zoolMap.objHousesCircle.currentHouse=-1
+                                    zm.objHousesCircle.currentHouse=-1
                                 }
                             }else{
                                 zoolDataBodies.latFocus=1
-                                if(zoolMap.currentPlanetIndexBack!==index){
-                                    zoolMap.currentPlanetIndexBack=index
+                                if(zm.currentPlanetIndexBack!==index){
+                                    zm.currentPlanetIndexBack=index
                                     zoolDataBodies.currentIndexBack=index
                                 }else{
-                                    zoolMap.currentPlanetIndexBack=-1
+                                    zm.currentPlanetIndexBack=-1
                                     zoolDataBodies.currentIndexBack=-1
-                                    zoolMap.objHousesCircleBack.currentHouse=-1
+                                    zm.objHousesCircleBack.currentHouse=-1
                                 }
                             }
                         }
@@ -292,9 +292,9 @@ Column{
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
             if(!r.isBack){
-                ih=zoolMap.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                ih=zm.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             }else{
-                ih=zoolMap.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                ih=zm.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             }
             var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +parseInt(jo.rsgdeg)+ '\'' +parseInt(jo.mdeg)+ '\'\'' +parseInt(jo.sdeg)+ ' <b>Casa:</b> ' +ih
             if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'

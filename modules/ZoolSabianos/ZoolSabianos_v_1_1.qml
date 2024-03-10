@@ -211,19 +211,19 @@ Rectangle {
             onClicked: {
                 //Ascendente
                 let d = ''
-                d+='<b>Ascendente '+r.signos[zoolMap.currentJson.ph.h1.is]+'</b><br />\n\n'
-                d+=getDataSAM('ASC', parseInt(zoolMap.currentJson.ph.h1.rsgdeg - 1), zoolMap.currentJson.ph.h1.is)
+                d+='<b>Ascendente '+r.signos[zm.currentJson.ph.h1.is]+'</b><br />\n\n'
+                d+=getDataSAM('ASC', parseInt(zm.currentJson.ph.h1.rsgdeg - 1), zm.currentJson.ph.h1.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
-                let sdel=''+zoolMap.currentJson.ph.h1.rsgdeg+'°: '
+                let sdel=''+zm.currentJson.ph.h1.rsgdeg+'°: '
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                let fileNameOutPut=apps.jsonsFolder+'/caps/'+zoolMap.currentNom.replace(/ /g, '_')+'/'
+                let fileNameOutPut=apps.jsonsFolder+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
-                let gAsc=''+zoolMap.currentJson.ph.h1.rsgdeg
+                let gAsc=''+zm.currentJson.ph.h1.rsgdeg
                 //if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
-                fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[zoolMap.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
+                fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[zm.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
                 //if(app.dev)log.lv('Sabianos Asc: '+d)
                 //unik.setFile(fileNameOutPut, d)
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
@@ -231,19 +231,19 @@ Rectangle {
 
                 //Medio Cielo
                 d = ''
-                d+='<b>Medio Cielo '+r.signos[zoolMap.currentJson.ph.h10.is]+'</b><br />\n\n'
-                d+=getDataSAM('MC', parseInt(zoolMap.currentJson.ph.h10.rsgdeg - 1), zoolMap.currentJson.ph.h1.is)
+                d+='<b>Medio Cielo '+r.signos[zm.currentJson.ph.h10.is]+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(zm.currentJson.ph.h10.rsgdeg - 1), zm.currentJson.ph.h1.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
-                sdel=''+zoolMap.currentJson.ph.h10.rsgdeg+'°: '
+                sdel=''+zm.currentJson.ph.h10.rsgdeg+'°: '
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
-                let gMc=''+zoolMap.currentJson.ph.h10.rsgdeg
+                let gMc=''+zm.currentJson.ph.h10.rsgdeg
                 //if(app.dev)log.lv('Sabianos gMc: '+gMc)
-                fileNameOutPut+='Sabianos_Medio_Cielo_en_'+r.signos[zoolMap.currentJson.ph.h10.is]+'_Grado_'+gMc+'.txt'
+                fileNameOutPut+='Sabianos_Medio_Cielo_en_'+r.signos[zm.currentJson.ph.h10.is]+'_Grado_'+gMc+'.txt'
                 //if(app.dev)log.lv('Sabianos Medio Cielo: '+d)
                 //unik.setFile(fileNameOutPut, d)
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
@@ -251,7 +251,7 @@ Rectangle {
 
                 //Sol
                 d = ''
-                d+='<b>Sol en el grado '+r.signos[zoolMap.currentJson.pc.c0.is]+'</b><br />\n\n'
+                d+='<b>Sol en el grado '+r.signos[zm.currentJson.pc.c0.is]+'</b><br />\n\n'
                 d+=getDataSAM('MC', parseInt(app.currentJson.pc.c0.rsgdeg - 1), app.currentJson.pc.c0.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
@@ -261,9 +261,9 @@ Rectangle {
                 d=d.replace(sdel, '')
                 fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
-                let gSol=''+zoolMap.currentJson.pc.c0.rsgdeg
+                let gSol=''+zm.currentJson.pc.c0.rsgdeg
                 //if(app.dev)log.lv('Sabianos gSol: '+gSol)
-                fileNameOutPut+='Sabianos_Sol_en_'+r.signos[zoolMap.currentJson.pc.c0.is]+'_Grado_'+gSol+'.txt'
+                fileNameOutPut+='Sabianos_Sol_en_'+r.signos[zm.currentJson.pc.c0.is]+'_Grado_'+gSol+'.txt'
                 //if(app.dev)log.lv('Sabianos Sol: '+d)
                 //unik.setFile(fileNameOutPut, d)
                 //if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')

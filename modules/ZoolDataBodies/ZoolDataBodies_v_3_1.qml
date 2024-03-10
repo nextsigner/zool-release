@@ -48,7 +48,7 @@ Rectangle {
         border.width: 2
         border.color: apps.fontColor
         color: apps.backgroundColor
-        opacity: !zoolMap.ev?(xBodiesInt.opacity===1.0?0.0:1.0):(xBodiesInt.opacity===1.0&&xBodiesExt.opacity===1.0?0.0:1.0)
+        opacity: !zm.ev?(xBodiesInt.opacity===1.0?0.0:1.0):(xBodiesInt.opacity===1.0&&xBodiesExt.opacity===1.0?0.0:1.0)
         anchors.centerIn: parent
         Text{
             id: labelCargando
@@ -101,24 +101,24 @@ Rectangle {
     function toEnter(){
         if(latFocus===0){
             if(xBodiesInt.currentIndex>16){
-                zoolMap.objHousesCircle.currentHouse=xBodiesInt.currentIndex-16
+                zm.objHousesCircle.currentHouse=xBodiesInt.currentIndex-16
             }else{
-                if(zoolMap.currentPlanetIndex!==xBodiesInt.currentIndex){
-                    zoolMap.currentPlanetIndex=xBodiesInt.currentIndex
+                if(zm.currentPlanetIndex!==xBodiesInt.currentIndex){
+                    zm.currentPlanetIndex=xBodiesInt.currentIndex
                 }else{
-                    zoolMap.currentPlanetIndex=-1
-                    zoolMap.objHousesCircle.currentHouse=-1
+                    zm.currentPlanetIndex=-1
+                    zm.objHousesCircle.currentHouse=-1
                 }
             }
         }else{
             if(xBodiesExt.currentIndex>16){
-                zoolMap.objHousesCircle.currentHouse=xBodiesExt.currentIndex-16
+                zm.objHousesCircle.currentHouse=xBodiesExt.currentIndex-16
             }else{
-                if(zoolMap.currentPlanetIndexBack!==xBodiesExt.currentIndex){
-                    zoolMap.currentPlanetIndexBack=xBodiesExt.currentIndex
+                if(zm.currentPlanetIndexBack!==xBodiesExt.currentIndex){
+                    zm.currentPlanetIndexBack=xBodiesExt.currentIndex
                 }else{
                     app.currentPlanetIndexBack=-1
-                    zoolMap.objHousesCircleBack.currentHouse=-1
+                    zm.objHousesCircleBack.currentHouse=-1
                 }
             }
         }

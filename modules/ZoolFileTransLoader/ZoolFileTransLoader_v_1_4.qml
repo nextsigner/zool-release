@@ -115,7 +115,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 ZoolControlsTime{
                     id: controlTimeFecha
-                    gmt: zoolMap.currentGmt
+                    gmt: zm.currentGmt
                     labelText: 'Momento de tránsitos'
                     KeyNavigation.tab: tiCiudad.t
                     fs:r.width*0.07
@@ -123,15 +123,15 @@ Rectangle {
                     //enableGMT:false
                     function setChanges(){
                         let d = new Date(controlTimeFecha.currentDate)
-                        if(zoolMap.currentGmt>0){
-                            d.setHours(d.getHours()+zoolMap.currentGmt)
+                        if(zm.currentGmt>0){
+                            d.setHours(d.getHours()+zm.currentGmt)
                         }else{
-                            d.setHours(d.getHours()-zoolMap.currentGmt)
+                            d.setHours(d.getHours()-zm.currentGmt)
                         }
                         controlTimeFechaUTC.currentDate=d
                         controlTimeFechaUTC.gmt=0
                         //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
-                        zoolMap.enableLoadBack=false
+                        zm.enableLoadBack=false
                         tUpdateParams.restart()
                     }
                     onGmtChanged: {
@@ -150,7 +150,7 @@ Rectangle {
                 }
                 ZoolControlsTime{
                     id: controlTimeFechaUTC
-                    gmt: zoolMap.currentGmt
+                    gmt: zm.currentGmt
                     labelText: 'UTC - Tiempo Universal'
                     //KeyNavigation.tab: tiCiudad.t
                     fs:r.width*0.07
@@ -192,7 +192,7 @@ Rectangle {
                 ZoolButton{
                     text: 'Recargar Hora de Archivo'
                     onClicked:{
-                        let json=JSON.parse(zoolMap.currentData)
+                        let json=JSON.parse(zm.currentData)
                         let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
                         controlTimeFecha.currentDate=d
                         controlTimeFecha.gmt=json.params.gmt
@@ -233,7 +233,7 @@ Rectangle {
                             text: 'Cargar'
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked:{
-                                zoolMap.loadNow(false)
+                                zm.loadNow(false)
                             }
                         }
                     }
@@ -255,7 +255,7 @@ Rectangle {
                             text: 'Cargar'
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked:{
-                                zoolMap.loadNow(true)
+                                zm.loadNow(true)
                             }
                         }
                     }
@@ -265,7 +265,7 @@ Rectangle {
                 spacing: app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text{
-                    text: 'Utilizar las coordenadas\ndel esquema interior.\nLatitud: '+zoolMap.currentLat+'\nLongitud: '+zoolMap.currentLon
+                    text: 'Utilizar las coordenadas\ndel esquema interior.\nLatitud: '+zm.currentLat+'\nLongitud: '+zm.currentLon
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     anchors.verticalCenter: parent.verticalCenter
@@ -276,14 +276,14 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     onCheckedChanged:{
                         if(app.dev){
-                            log.lv('UTC checkbox zoolMap.currentLat: '+zoolMap.currentLat)
-                            log.lv('UTC checkbox zoolMap.currentLon: '+zoolMap.currentLon)
+                            log.lv('UTC checkbox zm.currentLat: '+zm.currentLat)
+                            log.lv('UTC checkbox zm.currentLon: '+zm.currentLon)
                         }
                         if(checked){
-                            r.ulat=zoolMap.currentLat
-                            r.ulon=zoolMap.currentLon
-                            r.lat=zoolMap.currentLat
-                            r.lon=zoolMap.currentLon
+                            r.ulat=zm.currentLat
+                            r.ulon=zm.currentLon
+                            r.lat=zm.currentLat
+                            r.lon=zm.currentLon
                         }
                     }
                     //onCheckedChanged: settings.inputCoords=checked
@@ -622,8 +622,8 @@ Rectangle {
         if(!settings.inputCoords){
             if(cbUseIntCoords.checked){
                 //log.lv('Preparado para cargar con las coordenadas del del mapa actual (Interior).')
-                r.lat=zoolMap.currentLat
-                r.lon=zoolMap.currentLon
+                r.lat=zm.currentLat
+                r.lon=zm.currentLon
                 r.ulat=r.lat
                 r.ulon=r.lon
                 updateUParams()
@@ -649,7 +649,7 @@ Rectangle {
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        zoolMap.enableLoadBack=true
+        zm.enableLoadBack=true
         let vd=controlTimeFecha.dia
         let vm=controlTimeFecha.mes
         let va=controlTimeFecha.anio
@@ -685,17 +685,17 @@ Rectangle {
             lat=r.lat
             lon=r.lon
         }else{
-            lat=zoolMap.currentLat
-            lon=zoolMap.currentLon
+            lat=zm.currentLat
+            lon=zm.currentLon
         }
         //log.lv('loadJsonFromArgsBack()...\nlat: '+lat+' lon:'+lon)
         let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
 
         let nom='Tránsito '+d+'.'+m+'.'+a+' '+h+'.'+m+' GMT.'+gmt+' '+tiCiudad.text
 
-        let strEdad='Edad: '+zoolMap.getEdad(d, m, a, h, min)+' años'
+        let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
         let aR=[]
-        zoolMap.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
+        zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
 
         /*let d = new Date(Date.now())
         let ms=d.getTime()

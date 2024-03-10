@@ -847,14 +847,14 @@ Rectangle {
         r.jsonFull=''
         r.edadMaxima=edad-1
         lm.clear()
-        let cd3= new Date(zoolMap.currentDate)
+        let cd3= new Date(zm.currentDate)
         //let hsys=apps.currentHsys
         let finalCmd=''
         //finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         if(!checkBoxRetSolar.checked){
-            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+zoolMap.currentGmt+' '+zoolMap.currentLat+' '+zoolMap.currentLon+' '+zoolMap.currentGradoSolar+' '+zoolMap.currentMinutoSolar+' '+zoolMap.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         }else{
-            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+zoolMap.currentGradoSolar+' '+zoolMap.currentMinutoSolar+' '+zoolMap.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
         }
         console.log('finalCmd: '+finalCmd)
         let c=''
@@ -901,22 +901,22 @@ Rectangle {
     function prepareLoad(){
         //tiEdad.focus=false
         if(!checkBoxRetSolar){
-            r.ulat=zoolMap.currentLat
-            r.ulon=zoolMap.currentLon
+            r.ulat=zm.currentLat
+            r.ulon=zm.currentLon
             if(app.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
             //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, zoolMap.currentLat, zoolMap.currentLon, zoolMap.currentAlt)
+            lv.itemAtIndex(lv.currentIndex).loadRs(0, zm.currentLat, zm.currentLon, zm.currentAlt)
         }else{
-            r.ulat=zoolMap.currentLat
-            r.ulon=zoolMap.currentLon
+            r.ulat=zm.currentLat
+            r.ulon=zm.currentLon
             if(app.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, zoolMap.currentLat, zoolMap.currentLon, zoolMap.currentAlt)
+            lv.itemAtIndex(lv.currentIndex).loadRs(0, zm.currentLat, zm.currentLon, zm.currentAlt)
             //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
         }
     }
@@ -934,7 +934,7 @@ Rectangle {
         let nom='Rev.Solar '+va
 
         let strEdad='Edad: '+index+' años'
-        let ubicacion=zoolMap.currentLugar
+        let ubicacion=zm.currentLugar
         let aR=[]
         aR.push(''+va+'/'+vm+'/'+vd)
         aR.push(''+vh+':'+vmin)
@@ -943,7 +943,7 @@ Rectangle {
         aR.push('<b>Lat:</b>'+lat)
         aR.push('<b>Lon:</b>'+lon)
         aR.push('<b>Alt:</b>'+alt)
-        zoolMap.loadBackFromArgs(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
+        zm.loadBackFromArgs(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
         //app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
         /*let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'*/
     }

@@ -142,7 +142,7 @@ Item {
         let h=1
         for(var i=0;i<12;i++){
             sum+=r.arrayWg[i]
-            let distAscCeroAries=360-zoolMap.uAscDegreeTotal
+            let distAscCeroAries=360-zm.uAscDegreeTotal
             if(gdec+distAscCeroAries<sum){
                 r.house=h
                 break

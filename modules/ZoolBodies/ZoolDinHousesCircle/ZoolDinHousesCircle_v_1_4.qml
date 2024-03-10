@@ -247,7 +247,7 @@ Item {
         }
         for(i=0;i<12;i++){
             if(i===0){
-                zoolMap.uAscDegreeTotal=jsonData.ph.h1.gdec
+                zm.uAscDegreeTotal=jsonData.ph.h1.gdec
             }
             let wg=0.05
             let g1=0

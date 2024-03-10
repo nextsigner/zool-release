@@ -238,16 +238,16 @@ ZoolMainWindow{
             }
             if(json.data.indexOf('load=')===0){
                 app.j.loadJson('/home/ns/gd/Zool/Ricardo.json')
-                zoolMap.automatic=true
+                zm.automatic=true
             }
             if(json.data==='showDec'){
                 apps.showDec=!apps.showDec
             }
             if(json.data==='za'){
-                zoolMap.automatic=!zoolMap.automatic
+                zm.automatic=!zm.automatic
             }
             if(json.data==='centerZoomAndPan'){
-                zoolMap.centerZoomAndPos()
+                zm.centerZoomAndPos()
             }
             if(json.data.indexOf('zl|')===0){
                 let m0=json.data.split('|')
@@ -258,7 +258,7 @@ ZoolMainWindow{
                 let b=m0[1]
                 let s=m0[2]
                 let h=parseInt(m0[3])+1
-                zoolMap.getZiData(b, s, h)
+                zm.getZiData(b, s, h)
             }
         }
         onDataError:{
@@ -272,7 +272,7 @@ ZoolMainWindow{
         Rectangle{
             id: xSwe1
             //width: xApp.width-xLatIzq.width-xLatDer.width
-            width: zoolMap.width
+            width: zm.width
             height: xLatIzq.height
             color: apps.backgroundColor
             anchors.horizontalCenter: parent.horizontalCenter
@@ -280,23 +280,23 @@ ZoolMainWindow{
             anchors.bottom: parent.bottom
             //clip: xLatIzq.visible
             //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !app.dev}
-            ZoolMap{id: zoolMap;}
+            ZoolMap{id: zm;}
             Image {
                 id: xDataBarUItemGrabber
                 //source: xDataBar.uItemGrabber
                 source: zoolDataView.uItemGrabber
                 width: parent.width
                 fillMode: Image.PreserveAspectCrop
-                visible: zoolMap.capturing
+                visible: zm.capturing
             }
             Image{
                 id: xAspsUItemGrabber
-                source: zoolMap.objZoolAspectsView.uItemGrabber
+                source: zm.objZoolAspectsView.uItemGrabber
                 width: parent.width*0.2
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop
                 anchors.bottom: parent.bottom
-                visible: zoolMap.capturing
+                visible: zm.capturing
                 Rectangle{
                     anchors.fill: parent
                     color: 'transparent'
@@ -307,12 +307,12 @@ ZoolMainWindow{
             }
             Image{
                 id: xAspsUItemGrabberBack
-                source: zoolMap.objZoolAspectsViewBack.uItemGrabber
+                source: zm.objZoolAspectsViewBack.uItemGrabber
                 width: parent.width*0.2
                 height: parent.width*0.2
                 fillMode: Image.PreserveAspectCrop
                 anchors.top: parent.top
-                visible: zoolMap.capturing && zoolMap.ev
+                visible: zm.capturing && zm.ev
                 Rectangle{
                     anchors.fill: parent
                     color: 'transparent'
@@ -335,7 +335,7 @@ ZoolMainWindow{
                     xScale: 0.25
                     yScale: 0.25
                 }
-                visible: zoolMap.capturing
+                visible: zm.capturing
             }
             Rectangle{
                 anchors.fill: parent
@@ -370,7 +370,7 @@ ZoolMainWindow{
                 color: apps.fontColor
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                visible: zoolMap.capturing
+                visible: zm.capturing
             }
         }
 
@@ -482,7 +482,7 @@ ZoolMainWindow{
                         anchors.bottomMargin: h
                         property int h: parent.showCT?0:0-height
                         setAppTime: true
-                        onGmtChanged: zoolMap.currentGmt=gmt
+                        onGmtChanged: zm.currentGmt=gmt
                         Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
                     }
 
@@ -493,7 +493,7 @@ ZoolMainWindow{
                     height: controlsTimeBack.height
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: zoolMap.ev
+                    visible: zm.ev
                     property bool showCT: false
                     MouseArea{
                         anchors.fill: parent
@@ -532,7 +532,7 @@ ZoolMainWindow{
                         anchors.bottomMargin: h
                         property int h: parent.showCT?0:0-height
                         setAppTime: true
-                        onGmtChanged: zoolMap.currentGmtBack=gmt
+                        onGmtChanged: zm.currentGmtBack=gmt
                         Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
                     }
                 }
@@ -769,7 +769,7 @@ ZoolMainWindow{
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
                 JS.loadJson(apps.url)
-                //zoolMap.loadFromFile(apps.url, 'vn', false)
+                //zm.loadFromFile(apps.url, 'vn', false)
             }else{
                 if(app.dev){
                     log.visible=true

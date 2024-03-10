@@ -144,7 +144,7 @@ Rectangle {
                         controlTimeFechaUTC.currentDate=d
                         controlTimeFechaUTC.gmt=0
                         //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
-                        zoolMap.enableLoadBack=false
+                        zm.enableLoadBack=false
                         tUpdateParams.restart()
                     }
                     Timer{
@@ -652,7 +652,7 @@ Rectangle {
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        zoolMap.enableLoadBack=true
+        zm.enableLoadBack=true
         let vd=controlTimeFecha.dia
         let vm=controlTimeFecha.mes
         let va=controlTimeFecha.anio

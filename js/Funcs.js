@@ -53,7 +53,7 @@ function loadNow(){
     let hora=d.getHours()
     let minutos=d.getMinutes()
     let nom="Tránsitos de "+dia+'/'+mes+'/'+anio+' '+hora+':'+minutos
-    zoolMap.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
+    zm.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingston", "vn", true)
 }
 function setFs() {
     let w = Screen.width

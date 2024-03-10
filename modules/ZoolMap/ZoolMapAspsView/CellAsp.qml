@@ -8,7 +8,7 @@ Rectangle {
     property int indexAsp: -1
     property int indexPosAsp: -1
     SequentialAnimation{
-        running: indexPosAsp===zoolMap.objAspsCircle.currentAspSelected&&zoolMap.objAspsCircle.currentAspSelected!==-1
+        running: indexPosAsp===zm.objAspsCircle.currentAspSelected&&zm.objAspsCircle.currentAspSelected!==-1
         loops: Animation.Infinite
         onRunningChanged: {
             if(!running){
@@ -50,23 +50,23 @@ Rectangle {
 //        border.width: 2
 //        border.color: 'red'
 //        color: 'transparent'
-//        //visible: indexPosAsp===zoolMap.objAspsCircle.currentAspSelected&&zoolMap.objAspsCircle.currentAspSelected!==-1
+//        //visible: indexPosAsp===zm.objAspsCircle.currentAspSelected&&zm.objAspsCircle.currentAspSelected!==-1
 //    }
     MouseArea{
         id: ma
         anchors.fill: parent
         property int uCurrentPlanetIndex: -1
         onClicked: {
-            if(zoolMap.objAspsCircle.currentAspSelected!==r.indexPosAsp){
-                zoolMap.objAspsCircle.currentAspSelected=r.indexPosAsp
-                //swegz.zoolMap.objAspsCircle.currentAspSelected=r.indexPosAsp
+            if(zm.objAspsCircle.currentAspSelected!==r.indexPosAsp){
+                zm.objAspsCircle.currentAspSelected=r.indexPosAsp
+                //swegz.zm.objAspsCircle.currentAspSelected=r.indexPosAsp
                 ma.uCurrentPlanetIndex=app.currentPlanetIndex
                 app.currentPlanetIndex=-1
                 app.currentHouseIndex=-1
                 apps.showAspCircle=true
             }else{
-                zoolMap.objAspsCircle.currentAspSelected=-1
-                //swegz.zoolMap.objAspsCircle.currentAspSelected=-1
+                zm.objAspsCircle.currentAspSelected=-1
+                //swegz.zm.objAspsCircle.currentAspSelected=-1
                 app.currentPlanetIndex=ma.uCurrentPlanetIndex
             }
         }

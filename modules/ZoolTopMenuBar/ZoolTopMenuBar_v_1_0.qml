@@ -183,7 +183,7 @@ MenuBar{
         MenuSeparator { }
         //Action { text: qsTr("Ver Rueda Sin Aspectos"); onTriggered: sweg.state=sweg.aStates[0]; checkable: true; checked: sweg.state===sweg.aStates[0]}
         //Action { text: qsTr("Ver Rueda Resaltando Casas "); onTriggered: sweg.state=sweg.aStates[1]; checkable: true; checked: sweg.state===sweg.aStates[1]}
-        //Action { text: qsTr("Ver Rueda con Aspectos"); onTriggered: zoolMap.state=zoolMap.aStates[2]; checkable: true; checked: sweg.state===sweg.aStates[2]}
+        //Action { text: qsTr("Ver Rueda con Aspectos"); onTriggered: zm.state=zm.aStates[2]; checkable: true; checked: sweg.state===sweg.aStates[2]}
         //MenuSeparator { }
         //Action { text: qsTr("Ver PanelRemoto"); onTriggered: panelRemoto.state=panelRemoto.state==='show'?'hide':'show'; checkable: true; checked: panelRemoto.state==='show'}
     }

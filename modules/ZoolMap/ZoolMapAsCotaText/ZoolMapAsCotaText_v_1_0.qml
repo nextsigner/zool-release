@@ -50,7 +50,7 @@ Rectangle{
             borderColor: apps.fontColor
             borderRadius: fs*0.5
             //rotation: !r.isBack?bodie.rotation+Math.abs(r.rot):bodie.objImg.rotation+Math.abs(r.rot)
-            rotation: 360-zoolMap.objSignsCircle.rotation+r.rot
+            rotation: 360-zm.objSignsCircle.rotation+r.rot
             anchors.centerIn: parent
             anchors.horizontalCenterOffset: r.distancia*0.5+height*0.5
             //visible: false//Ocultado porque no se rota bien. Corregir.

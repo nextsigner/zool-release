@@ -77,18 +77,18 @@ Rectangle {
         spacing: app.fs*0.15
         y:(parent.height-height)/2
         //x: app.fs*0.25
-        anchors.horizontalCenter: parent.horizontalCenter//!zoolMap.ev?parent.horizontalCenter:undefined
+        anchors.horizontalCenter: parent.horizontalCenter//!zm.ev?parent.horizontalCenter:undefined
         Rectangle{
             id: circuloSave
             width: app.fs*0.5
             height: width
             radius: width*0.5
-            color: zoolMap.fileData===zoolMap.currentData?'gray':'red'
+            color: zm.fileData===zm.currentData?'gray':'red'
             border.width: 2
             border.color: apps.fontColor
             anchors.verticalCenter: parent.verticalCenter
             y:(parent.height-height)/2
-            visible:  !zoolMap.ev
+            visible:  !zm.ev
             MouseArea{
                 anchors.fill: parent
                 enabled: app.titleData!==app.currentData
@@ -154,7 +154,7 @@ Rectangle {
                         height: r.height
                         color: apps.houseColor
                         z:parent.z-3
-                        visible: index===0 && zoolMap.ev//(app.t==='sin' || app.t==='rs')
+                        visible: index===0 && zm.ev//(app.t==='sin' || app.t==='rs')
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 0-r.width
@@ -164,7 +164,7 @@ Rectangle {
                         height: r.height
                         color: apps.houseColorBack
                         z:parent.z-3
-                        visible: modelData==='@' && index!==0 && zoolMap.ev
+                        visible: modelData==='@' && index!==0 && zm.ev
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: rowData.children.length>=8?0-rowData.children[8].width*0.5:0
@@ -179,7 +179,7 @@ Rectangle {
         anchors.rightMargin: app.fs*0.5
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: yPos
-        visible:  false//!zoolMap.ev || JSON.parse(app.currentData).params.t==='pron'
+        visible:  false//!zm.ev || JSON.parse(app.currentData).params.t==='pron'
     }
 
     //Editor Nombre

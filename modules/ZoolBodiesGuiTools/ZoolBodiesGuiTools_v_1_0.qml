@@ -129,14 +129,14 @@ Rectangle {
                 width: apps.botSize
                 height: width
                 onClicked: {
-                    zoolMap.automatic=!zoolMap.automatic
+                    zm.automatic=!zm.automatic
                 }
                 Text{
                     text:'\uf06e'
                     font.pixelSize: parent.width*0.35
                     anchors.right:parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: zoolMap.automatic
+                    visible: zm.automatic
                 }
             }
             ButtonIcon{
@@ -161,14 +161,14 @@ Rectangle {
                 height: width
                 visible: app.t==='sin'||app.t==='trans'||app.t==='rs'
                 onClicked: {
-                    zoolMap.ev=!zoolMap.ev
+                    zm.ev=!zm.ev
                 }
                 Text{
                     text:'\uf06e'
                     font.pixelSize: parent.width*0.35
                     anchors.right:parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: zoolMap.ev
+                    visible: zm.ev
                 }
             }
         }
@@ -187,10 +187,10 @@ Rectangle {
                 fs: app.fs*0.35
                 onClicked: {
                     tHideCol.restart()
-                    if(zoolMap.ejeTipoCurrentIndex<5){
-                        zoolMap.ejeTipoCurrentIndex++
+                    if(zm.ejeTipoCurrentIndex<5){
+                        zm.ejeTipoCurrentIndex++
                     }else{
-                        zoolMap.ejeTipoCurrentIndex=-2
+                        zm.ejeTipoCurrentIndex=-2
                     }
                 }
             }
@@ -209,7 +209,7 @@ Rectangle {
                 onClicked: {
 //                    let panelElementsSizeValue=panelElements.sizeValue
 //                    panelElements.sizeValue=panelElementsSizeValue*2
-                    zoolMap.capturing=true
+                    zm.capturing=true
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
                     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -223,7 +223,7 @@ Rectangle {
                     panelElements.showPlanets=true
                     panelElements.itemCap.grabToImage(function(result) {
                         result.saveToFile(folder+"/"+imgFileName);
-                        zoolMap.capturing=false
+                        zm.capturing=false
                         panelElements.showPlanets=false
                         //panelElements.sizeValue=panelElementsSizeValue
                     });
@@ -289,11 +289,11 @@ Rectangle {
                             log.visible=false
                             zsm.showPanel('ZoolSabianos')
                             if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='S'){
-                                let h1=zoolMap.currentJson.pc.c0
+                                let h1=zm.currentJson.pc.c0
                                 let gf=h1.rsgdeg//app.currentGradoSolar-gr
-                                zoolMap.uSon='sun_'+zoolMap.objSignsNames[h1.is]+'_'+h1.ih
-                                //log.lv('zoolMap.uSon: '+zoolMap.uSon)
-                                JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), gf-1)
+                                zm.uSon='sun_'+zm.objSignsNames[h1.is]+'_'+h1.ih
+                                //log.lv('zm.uSon: '+zm.uSon)
+                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
                                 zsm.currentIndex=4
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -313,11 +313,11 @@ Rectangle {
                             //zsm.currentIndex=4
                             zsm.showPanel('ZoolSabianos')
                             if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='A'){
-                                let h1=zoolMap.currentJson.ph.h1
-                                zoolMap.uSon='asc_'+zoolMap.objSignsNames[h1.is]+'_1'
-                                //log.lv('zoolMap.uSon: '+zoolMap.uSon)
-                                //log.lv('zoolMap.uAscDegree: '+zoolMap.uAscDegree)
-                                JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), zoolMap.uAscDegree-1)
+                                let h1=zm.currentJson.ph.h1
+                                zm.uSon='asc_'+zm.objSignsNames[h1.is]+'_1'
+                                //log.lv('zm.uSon: '+zm.uSon)
+                                //log.lv('zm.uAscDegree: '+zm.uAscDegree)
+                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
                                 zsm.currentIndex=4
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -337,10 +337,10 @@ Rectangle {
                             //zsm.currentIndex=4
                             zsm.showPanel('ZoolSabianos')
                             if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='M'){
-                                let h1=zoolMap.currentJson.ph.h10
-                                zoolMap.uSon='mc_'+zoolMap.objSignsNames[h1.is]+'_10'
-                                //log.lv('zoolMap.uSon: '+zoolMap.uSon)
-                                JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), zoolMap.uMcDegree-1)
+                                let h1=zm.currentJson.ph.h10
+                                zm.uSon='mc_'+zm.objSignsNames[h1.is]+'_10'
+                                //log.lv('zm.uSon: '+zm.uSon)
+                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uMcDegree-1)
                                 zsm.currentIndex=4
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -358,7 +358,7 @@ Rectangle {
                 height: apps.botSize+app.fs*0.35
                 color: apps.houseColorBack
                 anchors.verticalCenter: parent.verticalCenter
-                visible: zoolMap.ev
+                visible: zm.ev
                 Row{
                     id: rowBotsSabIntBack
                     spacing: app.fs*0.1
@@ -371,10 +371,10 @@ Rectangle {
                             log.visible=false
                             zsm.showPanel('ZoolSabianos')
                             if(zsm.getPanel('ZoolSabianos').state==='hide'){
-                                let h1=zoolMap.currentJsonBack.pc.c0
-                                let gf=h1.rsgdeg//zoolMap.currentGradoSolar-gr
-                                zoolMap.uSon='sun_'+zoolMap.objSignsNames[h1.is]+'_'+h1.ih
-                                JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), gf-1)
+                                let h1=zm.currentJsonBack.pc.c0
+                                let gf=h1.rsgdeg//zm.currentGradoSolar-gr
+                                zm.uSon='sun_'+zm.objSignsNames[h1.is]+'_'+h1.ih
+                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
                                 zsm.getPanel('ZoolSabianos').state='show'
                             }else{
                                 zsm.getPanel('ZoolSabianos').state='hide'
@@ -387,9 +387,9 @@ Rectangle {
                         height: width
                         onClicked: {
                             if(zsm.getPanel('ZoolSabianos').state==='hide'){
-                                let h1=zoolMap.currentJsonBack.ph.h1
-                                zoolMap.uSon='asc_'+zoolMap.objSignsNames[h1.is]+'_1'
-                                JS.showSABIANOS(zoolMap.objSignsNames.indexOf(zoolMap.uSon.split('_')[1]), zoolMap.uAscDegree-1)
+                                let h1=zm.currentJsonBack.ph.h1
+                                zm.uSon='asc_'+zm.objSignsNames[h1.is]+'_1'
+                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
                                 zsm.getPanel('ZoolSabianos').state='show'
                             }else{
                                 zsm.getPanel('ZoolSabianos').state='hide'

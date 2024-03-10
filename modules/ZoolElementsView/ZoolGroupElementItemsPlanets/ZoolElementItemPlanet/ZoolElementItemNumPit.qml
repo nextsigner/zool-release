@@ -39,9 +39,9 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            ncv.currentDate=!r.isBack?zoolMap.currentDate:zoolMap.currentDateBack
-            ncv.setCurrentDate(!r.isBack?zoolMap.currentDate:zoolMap.currentDateBack)
-            ncv.setCurrentNombre(!r.isBack?zoolMap.currentNom:zoolMap.currentNomBack)
+            ncv.currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
+            ncv.setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
+            ncv.setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
             ncv.currentAG=app.arbolGenealogico[r.ag]
             ncv.currentCargaAG=ncv.aCargasAG[r.ag]
             sv.currentIndex=5
@@ -55,7 +55,7 @@ Rectangle{
         ZoolText{id: zt3; text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
     }
     function updateNumPit(){
-        let d = !r.isBack?app.j.getNums(zoolMap.currentFecha):app.j.getNums(zoolMap.currentFechaBack)
+        let d = !r.isBack?app.j.getNums(zm.currentFecha):app.j.getNums(zm.currentFechaBack)
         r.nd=d[0]
         r.ns=d[1]
         r.ag=parseInt(d[2])

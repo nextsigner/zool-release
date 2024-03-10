@@ -122,7 +122,7 @@ Rectangle {
             }
             ZoolText{
                 //t.width:r.width-app.fs
-                text: '<b>Crear Direcciones Primarias</b>'//+(app.ev?'zoolMap.dirPrimRot:'+zoolMap.dirPrimRot:'')
+                text: '<b>Crear Direcciones Primarias</b>'//+(app.ev?'zm.dirPrimRot:'+zm.dirPrimRot:'')
                 w: r.width-app.fs
                 font.pixelSize: app.fs*0.65
                 color: 'white'
@@ -134,10 +134,10 @@ Rectangle {
                     text: r.moduleEnabled?'Desactivar Modulo':'Activar Modulo'
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked:{
-                        controlTimeFecha.currentDate=zoolMap.currentDate
+                        controlTimeFecha.currentDate=zm.currentDate
                         controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                         r.moduleEnabled=!r.moduleEnabled
-                        zoolMap.loadFromFile(apps.url, 'dirprim', true)
+                        zm.loadFromFile(apps.url, 'dirprim', true)
                     }
                 }
                 ZoolControlsTime{
@@ -177,13 +177,13 @@ Rectangle {
                     onCurrentDateChanged: {
                         if(!r.moduleEnabled)return
                         if(!r.visible && !r.loadingFromExternal)return
-                        if(!zoolMap.ev){
-                            zoolMap.loadFromFile(apps.url, 'dirprim', true)
+                        if(!zm.ev){
+                            zm.loadFromFile(apps.url, 'dirprim', true)
                             r.moduleEnabled=true
                         }
                         tLoad.restart()
-                        if(app.j.eventoEsMenorAInicio(zoolMap.currentDate, currentDate)){
-                            currentDate=zoolMap.currentDate
+                        if(app.j.eventoEsMenorAInicio(zm.currentDate, currentDate)){
+                            currentDate=zm.currentDate
                             return
                         }
                     }
@@ -212,7 +212,7 @@ Rectangle {
                         text:'Restablecer'
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked:{
-                            controlTimeFecha.currentDate=zoolMap.currentDate
+                            controlTimeFecha.currentDate=zm.currentDate
                             controlTimeFechaEvento.currentDate=controlTimeFecha.currentDate
                         }
                     }
@@ -228,11 +228,11 @@ Rectangle {
                             let vh=controlTimeFecha.hora
                             let vmin=controlTimeFecha.minuto
 
-                            let vgmt=zoolMap.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
-                            let vlon=zoolMap.currentLon
-                            let vlat=zoolMap.currentLat
-                            let valt=zoolMap.currentAlt
-                            let vCiudad=zoolMap.currentLugar
+                            let vgmt=zm.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
+                            let vlon=zm.currentLon
+                            let vlat=zm.currentLat
+                            let valt=zm.currentAlt
+                            let vCiudad=zm.currentLugar
                             let vhsys=apps.currentHsys
 
                             let vdEvento=controlTimeFechaEvento.dia
@@ -240,17 +240,17 @@ Rectangle {
                             let vaEvento=controlTimeFechaEvento.anio
                             let vhEvento=controlTimeFechaEvento.hora
                             let vminEvento=controlTimeFechaEvento.minuto
-                            let vgmtEvento=zoolMap.currentGmt
+                            let vgmtEvento=zm.currentGmt
 
-                            let edad=app.j.getEdadDosFechas(zoolMap.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+                            let edad=app.j.getEdadDosFechas(zm.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
 
-                            let nom='Dir. Prim de '+zoolMap.currentNom+' '+vaEvento+'/'+vmEvento+'/'+vdEvento
+                            let nom='Dir. Prim de '+zm.currentNom+' '+vaEvento+'/'+vmEvento+'/'+vdEvento
                             let aR=[]
                             aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
                             aR.push('<b>Edad:</b> '+edad+' años')
-                            //zoolMap.ev=true
-                            zoolMap.loadBackFromArgs(nom, vdEvento, vmEvento, vaEvento, vhEvento, vminEvento, vgmtEvento, vlat, vlon, valt, vCiudad, edad, 'dirprim', vhsys, -1, aR)
-                            //zoolMap.ev=true
+                            //zm.ev=true
+                            zm.loadBackFromArgs(nom, vdEvento, vmEvento, vaEvento, vhEvento, vminEvento, vgmtEvento, vlat, vlon, valt, vCiudad, edad, 'dirprim', vhsys, -1, aR)
+                            //zm.ev=true
                         }
                     }
                 }
@@ -429,18 +429,18 @@ Rectangle {
                                 width: r.width*0.12
                                 height: width
                                 opacity: selected?1.0:0.5
-                                property bool selected: !xBtns.forBack?zoolMap.listCotasShowingBack.indexOf(index)>=0:zoolMap.listCotasShowing.indexOf(index)>=0
+                                property bool selected: !xBtns.forBack?zm.listCotasShowingBack.indexOf(index)>=0:zm.listCotasShowing.indexOf(index)>=0
                                 Timer{
                                     running: r.visible
                                     repeat: true
                                     interval: 250
                                     onTriggered: {
-                                        txtinfo1.text='a1'+zoolMap.listCotasShowing.toString()
-                                        txtinfo2.text='a2'+zoolMap.listCotasShowingBack.toString()
+                                        txtinfo1.text='a1'+zm.listCotasShowing.toString()
+                                        txtinfo2.text='a2'+zm.listCotasShowingBack.toString()
                                         if(!xBtns.forBack){
-                                            xBtn.selected=zoolMap.listCotasShowing.indexOf(index)>=0
+                                            xBtn.selected=zm.listCotasShowing.indexOf(index)>=0
                                         }else{
-                                            xBtn.selected=zoolMap.listCotasShowingBack.indexOf(index)>=0
+                                            xBtn.selected=zm.listCotasShowingBack.indexOf(index)>=0
                                         }
                                     }
                                 }
@@ -448,18 +448,18 @@ Rectangle {
                                     anchors.fill: parent
                                     onClicked: {
                                         if(!xBtns.forBack){
-                                            if(zoolMap.listCotasShowing.indexOf(index)>=0){
+                                            if(zm.listCotasShowing.indexOf(index)>=0){
                                                 //sweg.listCotasShowing.splice(index, 1)
-                                                zoolMap.listCotasShowing=app.j.removeItemAll(zoolMap.listCotasShowing, index)
+                                                zm.listCotasShowing=app.j.removeItemAll(zm.listCotasShowing, index)
                                             }else{
-                                                zoolMap.listCotasShowing.push(index)
+                                                zm.listCotasShowing.push(index)
                                             }
                                         }else{
-                                            if(zoolMap.listCotasShowingBack.indexOf(index)>=0){
+                                            if(zm.listCotasShowingBack.indexOf(index)>=0){
                                                 //sweg.listCotasShowingBack.splice(index, 1)
-                                                zoolMap.listCotasShowingBack=app.j.removeItemAll(zoolMap.listCotasShowingBack, index)
+                                                zm.listCotasShowingBack=app.j.removeItemAll(zm.listCotasShowingBack, index)
                                             }else{
-                                                zoolMap.listCotasShowingBack.push(index)
+                                                zm.listCotasShowingBack.push(index)
                                             }
                                         }
 
@@ -483,14 +483,14 @@ Rectangle {
                     }
                     Text{
                         id: txtinfo1
-                        text: 'a1: '+zoolMap.listCotasShowing.toString()
+                        text: 'a1: '+zm.listCotasShowing.toString()
                         font.pixelSize: app.fs*0.5
                         color: 'red'
                         visible: app.dev
                     }
                     Text{
                         id: txtinfo2
-                        text: 'a2: '+zoolMap.listCotasShowingBack.toString()
+                        text: 'a2: '+zm.listCotasShowingBack.toString()
                         font.pixelSize: app.fs*0.5
                         color: 'red'
                         visible: app.dev
@@ -540,8 +540,8 @@ Rectangle {
         visible: false
     }
     function updateUParams(){
-        controlTimeFecha.gmt=zoolMap.currentGmt
-        controlTimeFechaEvento.gmt=zoolMap.currentGmt
+        controlTimeFecha.gmt=zm.currentGmt
+        controlTimeFechaEvento.gmt=zm.currentGmt
         if(r.ulat===-100.00&&r.ulon===-100.00)return
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -559,7 +559,7 @@ Rectangle {
         let vhEvento=controlTimeFechaEvento.hora
         let vminEvento=controlTimeFechaEvento.minuto
 
-        let vgmt=zoolMap.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
+        let vgmt=zm.currentGmt//controlTimeFecha.gmt//tiGMT.t.text
         let vlon=r.lon
         let vlat=r.lat
         let vCiudad=app.currentLugar
@@ -579,12 +579,12 @@ Rectangle {
     function setDirPrimRotation(){
         //if(!r.visible  && !r.loadingFromExternal)return
         //if(app.dev)log.lv('setDirPrimRotation()... r.loadingFromExternal: '+r.loadingFromExternal)
-        r.ulat=zoolMap.currentLat
-        r.ulon=zoolMap.currentLon
-        r.lat=zoolMap.currentLat
-        r.lon=zoolMap.currentLon
+        r.ulat=zm.currentLat
+        r.ulon=zm.currentLon
+        r.lat=zm.currentLat
+        r.lon=zm.currentLon
 
-        let j=zoolMap.currentJson
+        let j=zm.currentJson
         if(!j)return
         let signCircleRot=parseFloat(j.ph.h1.gdec).toFixed(2)
         //l.lv('signCircleRot:'+signCircleRot)
@@ -621,7 +621,7 @@ Rectangle {
 
         //cloneIntToBackAndRot(parseFloat(diffAnio))
 
-        zoolMap.dirPrimRot=parseFloat(diffAnio)
+        zm.dirPrimRot=parseFloat(diffAnio)
         showInfoViewData()
 
         let vdEvento=controlTimeFechaEvento.dia
@@ -631,7 +631,7 @@ Rectangle {
         let vminEvento=controlTimeFechaEvento.minuto
 
         //if(app.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
-        let edad=app.j.getEdadDosFechas(zoolMap.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
+        let edad=app.j.getEdadDosFechas(zm.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
         aR.push('<b>Edad:</b> '+edad+' años')
@@ -647,12 +647,12 @@ Rectangle {
     }
 
     function setDirPrimRotationFromExternalItem(dateInicio, dateEvento){
-        r.lat=zoolMap.currentLat
-        r.lon=zoolMap.currentLon
-        r.ulat=zoolMap.currentLat
-        r.lon=zoolMap.currentLon
-        controlTimeFecha.gmt=zoolMap.currentGmt
-        controlTimeFechaEvento.gmt=zoolMap.currentGmt
+        r.lat=zm.currentLat
+        r.lon=zm.currentLon
+        r.ulat=zm.currentLat
+        r.lon=zm.currentLon
+        controlTimeFecha.gmt=zm.currentGmt
+        controlTimeFechaEvento.gmt=zm.currentGmt
         controlTimeFecha.currentDate=dateInicio
         r.loadingFromExternal=true
         controlTimeFechaEvento.currentDate=dateEvento
@@ -756,30 +756,30 @@ Rectangle {
     //    }
 
     function cloneIntToBackAndRot(deg){
-        let json=zoolMap.currentJson
+        let json=zm.currentJson
         //if(app.dev)log.lv('app.currentJson: '+JSON.stringify(app.currentJson, null, 2))
 
         //Atención! Se debe definir app.t='dirprim'
         //y sweg.dirPrimRot antes de llamar
         //a la función sweg.loadSweJsonBack(...)
-        zoolMap.dirPrimRot=deg
-        //zoolMap.dirPrimRot=deg
+        zm.dirPrimRot=deg
+        //zm.dirPrimRot=deg
         app.t='dirprim'
 
         //La función sweg.loadSweJsonBack(...) espera un string con datos del tipo json NO parseado.
-        zoolMap.loadSweJsonBack(JSON.stringify(zoolMap.currentJson, null, 2))
+        zm.loadSweJsonBack(JSON.stringify(zm.currentJson, null, 2))
 
 
 
-        zoolMap.ev=true
+        zm.ev=true
     }
     function updateAsps(){
         //
         //log.clear()
         log.width=xApp.width*0.2
         log.x=xApp.width*0.8
-        let a=zoolMap.getAPD(false)
-        let ab=zoolMap.getAPD(true)
+        let a=zm.getAPD(false)
+        let ab=zm.getAPD(true)
         for(var i=0;i<a.length;i++){
             //if(i!==9)continue
             for(var ib=0;ib<a.length;ib++){
@@ -788,14 +788,14 @@ Rectangle {
 
                 let ga=parseFloat(a[i]).toFixed(6)
                 let gab=parseFloat(ab[ib]).toFixed(6)//+sweg.dirPrimRot
-                let retAspType=zoolMap.getAspType(ga, gab, true, i, ib, pInt, pExt)
+                let retAspType=zm.getAspType(ga, gab, true, i, ib, pInt, pExt)
 
                 let f=controlTimeFechaEvento.currentDate
                 let sf='Fecha: '+controlTimeFechaEvento.dia+'/'+controlTimeFechaEvento.mes+'/'+controlTimeFechaEvento.anio+' '+controlTimeFechaEvento.hora+':'+controlTimeFechaEvento.minuto+'hs'
 
 
                 if(retAspType>=0){
-                    if(zoolMap.listCotasShowing.indexOf(i)>=0){
+                    if(zm.listCotasShowing.indexOf(i)>=0){
                         aspsList.addItem(retAspType, ib, i, controlTimeFechaEvento.currentDate)
                     }
 
@@ -839,30 +839,30 @@ Rectangle {
     }
     function showInfoViewData(){
         //Get Current Json Interior
-        let json=zoolMap.currentJson
+        let json=zm.currentJson
         let jo
         let sInt=''
         let sExt=''
         let objAs
-        for(var i=0;i<zoolMap.listCotasShowing.length;i++){
-            objAs=zoolMap.objPlanetsCircle.getAs(zoolMap.listCotasShowing[i])
-            sInt+=zoolMap.aBodies[zoolMap.listCotasShowing[i]]+' en '+app.signos[objAs.is]+'<br>Casa '+objAs.ih+'\n°'+parseInt(zoolMap.getDDToDMS(objAs.objData.gdec).deg - (30*objAs.is))+' \''+zoolMap.getDDToDMS(objAs.objData.gdec).min+' \'\''+zoolMap.getDDToDMS(objAs.objData.gdec).sec+'<br>'
+        for(var i=0;i<zm.listCotasShowing.length;i++){
+            objAs=zm.objPlanetsCircle.getAs(zm.listCotasShowing[i])
+            sInt+=zm.aBodies[zm.listCotasShowing[i]]+' en '+app.signos[objAs.is]+'<br>Casa '+objAs.ih+'\n°'+parseInt(zm.getDDToDMS(objAs.objData.gdec).deg - (30*objAs.is))+' \''+zm.getDDToDMS(objAs.objData.gdec).min+' \'\''+zm.getDDToDMS(objAs.objData.gdec).sec+'<br>'
         }
-        for(i=0;i<zoolMap.listCotasShowingBack.length;i++){
-            objAs=zoolMap.objPlanetsCircleBack.getAs(zoolMap.listCotasShowingBack[i])
-            let ngdec=objAs.objData.gdec+zoolMap.dirPrimRot
-            jo=json.pc['c'+zoolMap.listCotasShowingBack[i]]
-            let nis=zoolMap.getIndexSign(ngdec)
+        for(i=0;i<zm.listCotasShowingBack.length;i++){
+            objAs=zm.objPlanetsCircleBack.getAs(zm.listCotasShowingBack[i])
+            let ngdec=objAs.objData.gdec+zm.dirPrimRot
+            jo=json.pc['c'+zm.listCotasShowingBack[i]]
+            let nis=zm.getIndexSign(ngdec)
 
-            let nih=zoolMap.getIndexHouse(ngdec, false)+1
+            let nih=zm.getIndexHouse(ngdec, false)+1
             if(ngdec>360.00)ngdec=360.00-ngdec
-            sExt+=zoolMap.aBodies[zoolMap.listCotasShowingBack[i]]+' en '+app.signos[nis]+'<br>Casa '+nih+'\n°'+parseInt(zoolMap.getDDToDMS(ngdec).deg - (30*nis))+' \''+zoolMap.getDDToDMS(ngdec).min+' \'\''+zoolMap.getDDToDMS(ngdec).sec+'<br>'
+            sExt+=zm.aBodies[zm.listCotasShowingBack[i]]+' en '+app.signos[nis]+'<br>Casa '+nih+'\n°'+parseInt(zm.getDDToDMS(ngdec).deg - (30*nis))+' \''+zm.getDDToDMS(ngdec).min+' \'\''+zm.getDDToDMS(ngdec).sec+'<br>'
         }
-        zoolMap.objAsInfoView.fs=app.fs*0.5
+        zm.objAsInfoView.fs=app.fs*0.5
         let sf='<b>Fecha:</b> '+controlTimeFechaEvento.currentDate.toString()+'<br><br>'
         if(sInt!=='')sf+='<b>Interior:</b><br>'+sInt+'<br>'
         if(sExt!=='')sf+='<b>Exterior:</b><br>'+sExt+'<br>'
-        zoolMap.objAsInfoView.text=sf
+        zm.objAsInfoView.text=sf
     }
     function toRight(){
         if(controlTimeFecha.focus){

@@ -10,11 +10,11 @@ import ZoolMap.ZoolMapPointerPlanet 1.0
 
 Item{
     id: r
-    //width: parent.width-((zoolMap.planetSize*pos*2))-(zoolMap.planetsMargin*2)//-(zoolMap.planetsMargin*2)
+    //width: parent.width-((zm.planetSize*pos*2))-(zm.planetsMargin*2)//-(zm.planetsMargin*2)
     width: !apps.showDec?
-               parent.width-((zoolMap.planetSize*pos*2))
+               parent.width-((zm.planetSize*pos*2))
              :
-               parent.width-((zoolMap.planetSize*pos*2))-zoolMap.objSignsCircle.w*2
+               parent.width-((zm.planetSize*pos*2))-zm.objSignsCircle.w*2
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:20
@@ -26,8 +26,8 @@ Item{
     //property bool isPron: JSON.parse(app.currentData).params.t==='pron'
     property bool isBack: false
     property bool isPron: false//JSON.parse(app.fileData)?JSON.parse(app.fileData).params.t==='pron':false
-    property int widthRestDec:apps.showDec?zoolMap.objSignsCircle.w*2:0
-    property bool selected: !isBack?numAstro === zoolMap.currentPlanetIndex:numAstro === zoolMap.currentPlanetIndexBack
+    property int widthRestDec:apps.showDec?zm.objSignsCircle.w*2:0
+    property bool selected: !isBack?numAstro === zm.currentPlanetIndex:numAstro === zm.currentPlanetIndexBack
     property string astro
     property int fs
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
@@ -38,7 +38,7 @@ Item{
     property int is: -1
     property int numAstro: 0
 
-    property string text: zoolMap.aTexts[numAstro]
+    property string text: zm.aTexts[numAstro]
 
     property var aIcons: [0,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17]
 
@@ -56,7 +56,7 @@ Item{
     onWidthChanged: {
         h()
         if(app.t!=='trans' && app.t!=='dirprim')return
-        zoolMap.resizeAspCircle()
+        zm.resizeAspCircle()
     }
     onRotationChanged: h()
     onGChanged: h()
@@ -64,22 +64,22 @@ Item{
     onIhChanged: h()
     onIsChanged: h()
     onSelectedChanged: {
-        if(selected)zoolMap.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
+        if(selected)zm.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected){
             //bodie.objOointerPlanet.setPointerFs()
             housesCircle.currentHouse=objData.ih
-            zoolMap.currentHouseIndex=objData.ih
+            zm.currentHouseIndex=objData.ih
             if(!r.isBack){
                 app.currentXAs=r
-                zoolMap.currentIndexSign=r.is
+                zm.currentIndexSign=r.is
             }else{
                 app.currentXAsBack=r
-                zoolMap.currentIndexSignBack=r.is
+                zm.currentIndexSignBack=r.is
             }
             setRot()
             setZoomAndPos()
             app.showPointerXAs=true
-            //zoolMap.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zoolMap.objSignsCircle.rotation)
+            //zm.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zm.objSignsCircle.rotation)
 
 
         }
@@ -87,8 +87,8 @@ Item{
     property int vr: 0
     //Behavior on width{NumberAnimation{duration:1500}}
     function revPos(){
-        for(var i=r.vr;i<zoolMap.aBodies.length;i++){
-            const objAs=!r.isBack?zoolMap.objPlanetsCircle.getAs(i):zoolMap.objPlanetsCircleBack.getAs(i)
+        for(var i=r.vr;i<zm.aBodies.length;i++){
+            const objAs=!r.isBack?zm.objPlanetsCircle.getAs(i):zm.objPlanetsCircleBack.getAs(i)
             const l=parseInt(r.objData.gdec)-10
             const h=parseInt(r.objData.gdec)+10
             if(!objAs || !objAs.objData || !objAs.objData.gdec)continue
@@ -102,7 +102,7 @@ Item{
     }
     Rectangle{
         id: ejePos
-        width: (zoolMap.width-r.width)*0.5
+        width: (zm.width-r.width)*0.5
         height: 1
         //anchors.centerIn: parent
         color: apps.houseColor
@@ -117,7 +117,7 @@ Item{
         Repeater{
             model: r.pos
             Rectangle{
-                width: zoolMap.planetSize
+                width: zm.planetSize
                 height: width
                 border.width: 2
                 border.color: 'red'
@@ -136,7 +136,7 @@ Item{
         height: 3
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: zoolMap.planetSize
+        anchors.leftMargin: zm.planetSize
         visible: (app.t==='dirprim'  || app.t==='trans') && r.isBack
         Rectangle{
             width: r.width
@@ -162,7 +162,7 @@ Item{
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
-        width: zoolMap.width*0.05
+        width: zm.width*0.05
         height: width
         rotation: -45
         antialiasing: true
@@ -173,7 +173,7 @@ Item{
         id: bodie
         numAstro: r.numAstro
         is: r.is
-        width: zoolMap.planetSize
+        width: zm.planetSize
         objData: r.objData
         anchors.left: parent.left
         anchors.leftMargin: 0//!r.selected?0:width*0.5
@@ -209,18 +209,18 @@ Item{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot+=5
                         }else{
-                            if(zoolMap.planetSize<app.fs*2){
-                                zoolMap.planetSize+=app.fs*0.1
-                                zoolMap.resizeAspsCircle(r.isBack)
+                            if(zm.planetSize<app.fs*2){
+                                zm.planetSize+=app.fs*0.1
+                                zm.resizeAspsCircle(r.isBack)
                             }
                         }
                     }else{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot-=5
                         }else{
-                            if(zoolMap.planetSize>app.fs){
-                                zoolMap.planetSize-=app.fs*0.1
-                                zoolMap.resizeAspsCircle(r.isBack)
+                            if(zm.planetSize>app.fs){
+                                zm.planetSize-=app.fs*0.1
+                                zm.resizeAspsCircle(r.isBack)
                             }
                         }
                     }
@@ -274,7 +274,7 @@ Item{
             onClicked: {
                 //apps.sweFs=app.fs
                 if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
-                    zoolMap.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
+                    zm.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
 
                     menuPlanets.isBack=false
                     menuPlanets.currentIndexPlanet=r.numAstro
@@ -349,9 +349,9 @@ Item{
         cotaOpacity: 1.0//xIconPlanetSmall.opacity
         //rot: -270
         visible: !r.isBack?
-                     zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
+                     zm.listCotasShowing.indexOf(r.numAstro)>=0
                    :
-                     zoolMap.listCotasShowingBack.indexOf(r.numAstro)>=0
+                     zm.listCotasShowingBack.indexOf(r.numAstro)>=0
         //        Rectangle{
         //            width: 100
         //            height: 100
@@ -361,7 +361,7 @@ Item{
             repeat: true
             interval: 250
             onTriggered: {
-                parent.visible=zoolMap.listCotasShowing.indexOf(r.numAstro)>=0
+                parent.visible=zm.listCotasShowing.indexOf(r.numAstro)>=0
             }
         }
     }
@@ -377,7 +377,7 @@ Item{
         cotaColor: apps.fontColor
         cotaOpacity: 1.0
         opacity: r.isHovered||isPinched?1.0:0.0
-        onOpacityChanged: r.text = zoolMap.aTexts[numAstro]?zoolMap.aTexts[numAstro]:''
+        onOpacityChanged: r.text = zm.aTexts[numAstro]?zm.aTexts[numAstro]:''
         visible: false//r.text!==''
         onClicked: r.isHovered=false
     }
@@ -403,7 +403,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: bodie
-        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zoolMap.currentData).params.t!=='pron'
+        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zm.currentData).params.t!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected
@@ -432,7 +432,7 @@ Item{
     }
 
     Timer{
-        running: r.vr<zoolMap.aBodies.length
+        running: r.vr<zm.aBodies.length
         repeat: true
         interval: 100
         onTriggered: {
@@ -441,9 +441,9 @@ Item{
             }
         }
         onRunningChanged: {
-            if(!running && numAstro===zoolMap.aBodies.length-1){
-                zoolMap.resizeAspsCircle(r.isBack)
-                zoolMap.hideTapa()
+            if(!running && numAstro===zm.aBodies.length-1){
+                zm.resizeAspsCircle(r.isBack)
+                zm.hideTapa()
             }
         }
     }
@@ -470,8 +470,8 @@ Item{
 
     //Rot
     function setRot(){
-        if(!r.isPron && !zoolMap.pointerRotToCenter){
-            let json=JSON.parse(zoolMap.fileData)
+        if(!r.isPron && !zm.pointerRotToCenter){
+            let json=JSON.parse(zm.fileData)
             if(json.rots&&json.rots['rc'+r.numAstro]){
                 r.uRot=json.rots['rc'+r.numAstro]
                 pointerPlanet.pointerRot=r.uRot
@@ -494,7 +494,7 @@ Item{
         if(!json[itemName]){
             json[itemName]={}
         }
-        json[itemName]['zpc'+r.numAstro]=zoolMap.getZoomAndPos()
+        json[itemName]['zpc'+r.numAstro]=zm.getZoomAndPos()
         if(app.dev){
             log.lv('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2))
             log.lv('json['+itemName+'][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[itemName+'']['zpc'+r.numAstro], null, 2))
@@ -510,9 +510,10 @@ Item{
         if(r.isBack){
             itemName+='Back'
         }
-        let json=JSON.parse(zoolMap.fileData)
+        //let json=JSON.parse(zm.fileData)
+        let json=zfdm.getJsonAbs()
         if(json[itemName]&&json[itemName]['zpc'+r.numAstro]){
-            zoolMap.setZoomAndPos(json[itemName]['zpc'+r.numAstro])
+            zm.setZoomAndPos(json[itemName]['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true
         }else{
             r.isZoomAndPosSeted=false

@@ -8,7 +8,7 @@ Rectangle {
     property int indexAsp: -1
     property int indexPosAsp: -1
     SequentialAnimation{
-        running: indexPosAsp===zoolMap.objAspsCircle.currentAspSelectedBack&&zoolMap.objAspsCircle.currentAspSelectedBack!==-1
+        running: indexPosAsp===zm.objAspsCircle.currentAspSelectedBack&&zm.objAspsCircle.currentAspSelectedBack!==-1
         loops: Animation.Infinite
         onRunningChanged: {
             if(!running){
@@ -57,14 +57,14 @@ Rectangle {
         anchors.fill: parent
         property int uCurrentPlanetIndex: -1
         onClicked: {
-            if(zoolMap.objAspsCircle.currentAspSelectedBack!==r.indexPosAsp){
-                zoolMap.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
+            if(zm.objAspsCircle.currentAspSelectedBack!==r.indexPosAsp){
+                zm.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
                 //swegz.sweg.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
                 ma.uCurrentPlanetIndex=app.currentPlanetIndexBack
                 app.currentPlanetIndexBack=-1
                 apps.showAspCircleBack=true
             }else{
-                zoolMap.objAspsCircle.currentAspSelectedBack=-1
+                zm.objAspsCircle.currentAspSelectedBack=-1
                 //swegz.sweg.objAspsCircle.currentAspSelectedBack=-1
                 app.currentPlanetIndexBack=ma.uCurrentPlanetIndex
             }

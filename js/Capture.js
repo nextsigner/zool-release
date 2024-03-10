@@ -37,7 +37,7 @@ function savePng(fileUrl){
         fn=fn.replace('file://', '')
         result.saveToFile(fn);
         Qt.openUrlExternally(fileUrl)
-        zoolMap.capturing=false
+        zm.capturing=false
     });
 }
 function captureSweg(){
@@ -52,7 +52,7 @@ function captureSweg(){
 
     let isDev=app.dev
     app.dev=false
-    zoolMap.capturing=true
+    zm.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -80,14 +80,14 @@ function captureSweg(){
     //log.l('Nombre de archivo de imagen: '+imgFileName)
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
-        zoolMap.capturing=false
+        zm.capturing=false
         app.dev=isDev
     });
 }
 
 function captureSwegBack(){
     let isDev=app.dev
-    zoolMap.capturing=true
+    zm.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
     let folder=apps.jsonsFolder+'/caps/'+folderName
@@ -115,7 +115,7 @@ function captureSwegBack(){
     //log.l('Nombre de archivo de imagen: '+imgFileName)
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
-        zoolMap.capturing=false
+        zm.capturing=false
         app.dev=isDev
     });
 }

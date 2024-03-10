@@ -120,7 +120,7 @@ Item{
         let saved = unik.setFile(apps.url, JSON.stringify(r.ja, null, 2))
         if(saved){
             let njson=JSON.stringify(json)
-            zoolMap.fileData=njson
+            zm.fileData=njson
             zsm.getPanel('ZoolFileExtDataManager').updateList()
             if(apps.enableShareInServer){
                 zsfdm.save(json)

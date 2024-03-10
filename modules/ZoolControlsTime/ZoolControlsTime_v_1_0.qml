@@ -19,7 +19,7 @@ Rectangle {
     property int dia: 0
     property int hora: 0
     property int minuto: 0
-    property real gmt: !r.isBack?zoolMap.currentGmt:zoolMap.currentGmtBack
+    property real gmt: !r.isBack?zm.currentGmt:zm.currentGmtBack
     property int fs: app.fs?app.fs*0.5:16
     property bool setAppTime: false
     onFocusChanged: {
@@ -39,9 +39,9 @@ Rectangle {
             //log.l('-1 Reload CD1... '+r.setAppTime)
             //log.visible=true
             if(!r.isBack){
-                zoolMap.currentDate=r.currentDate
+                zm.currentDate=r.currentDate
             }else{
-                zoolMap.currentDateBack=r.currentDate
+                zm.currentDateBack=r.currentDate
             }
         }else{
             //log.l('333 Reload CD1...')

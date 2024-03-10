@@ -8,7 +8,7 @@ Item{
     anchors.centerIn: parent
     property bool isBack: false
     property var cAs: r
-    property int planetSize: zoolMap.fs*0.75
+    property int planetSize: zm.fs*0.75
 
     property int totalPosX: 0
 
@@ -24,20 +24,20 @@ Item{
     }
     function pressed(o){
         if(!o.isBack){
-            if(zoolMap.currentPlanetIndex!==o.numAstro){
-                zoolMap.currentPlanetIndex=o.numAstro
-                zoolMap.currentHouseIndex=o.ih
+            if(zm.currentPlanetIndex!==o.numAstro){
+                zm.currentPlanetIndex=o.numAstro
+                zm.currentHouseIndex=o.ih
             }else{
-                zoolMap.currentPlanetIndex=-1
-                zoolMap.currentHouseIndex=-1
+                zm.currentPlanetIndex=-1
+                zm.currentHouseIndex=-1
             }
         }else{
-            if(zoolMap.currentPlanetIndexBack!==o.numAstro){
-                zoolMap.currentPlanetIndexBack=o.numAstro
-                zoolMap.currentHouseIndexBack=o.ih
+            if(zm.currentPlanetIndexBack!==o.numAstro){
+                zm.currentPlanetIndexBack=o.numAstro
+                zm.currentHouseIndexBack=o.ih
             }else{
-                zoolMap.currentPlanetIndexBack=-1
-                zoolMap.currentHouseIndexBack=-1
+                zm.currentPlanetIndexBack=-1
+                zm.currentHouseIndexBack=-1
             }
         }
         //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
@@ -74,10 +74,10 @@ Item{
             }
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
             if(r.isBack && app.t==='dirprim'){
-                //objAs.rotation-=zoolMap.dirPrimRot
-                //objAs.rotation-=zoolMap.dirPrimRot
+                //objAs.rotation-=zm.dirPrimRot
+                //objAs.rotation-=zm.dirPrimRot
             }
-            if(i===0)zoolMap.currentRotationxAsSol=objAs.rotation
+            if(i===0)zm.currentRotationxAsSol=objAs.rotation
             o={}
             o.p=objSigns[jo.is]
             if(r.totalPosX<o.p){
@@ -85,41 +85,41 @@ Item{
             }
             o.ns=objSignsNames.indexOf(jo.is)
             o.ih=!r.isBack?
-                        zoolMap.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                        zm.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
                       :
-                        zoolMap.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                        zm.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
 
             o.rsg=jo.rsgdeg
             o.g=jo.gdeg
             o.m=jo.mdeg
             //o.h=jo.h
-            o.ih=zoolMap.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            o.ih=zm.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             o.rsg=jo.rsgdeg
             o.gdec=jo.gdec
 
             if(r.isBack && app.t==='dirprim'){
-                o.gdec+=zoolMap.dirPrimRot
+                o.gdec+=zm.dirPrimRot
             }
 
             if(o.gdec>=360.000)o.gdec-=360.000
             o.g=jo.gdeg
             o.m=jo.mdeg
             o.s=jo.sdeg
-            o.ih=zoolMap.objHousesCircle.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
+            o.ih=zm.objHousesCircle.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
             o.is=jo.is
 
             if(r.isBack && app.t!=='dirprim'){
                 o.g=jo.gdeg
                 o.m=jo.mdeg
                 o.s=jo.sdeg
-                o.ih=zoolMap.objHousesCircleBack.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
+                o.ih=zm.objHousesCircleBack.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
                 o.is=jo.is
                 //o.rsg=jo.gdec-(30*(parseInt(jo.gdec/30)))
                 o.rsg=10//jo.gdec-(30*(o.ih))
                 objAs.is=jo.is
             }else{
-                let intJson=zoolMap.currentJson//JSON.parse(app.fileData)
-                o.ih=!r.isBack?zoolMap.objHousesCircleBack.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih):zoolMap.objHousesCircle.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih)
+                let intJson=zm.currentJson//JSON.parse(app.fileData)
+                o.ih=!r.isBack?zm.objHousesCircleBack.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih):zm.objHousesCircle.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih)
                 if(i===9){
                     //log.lv('sweg.dirPrimRot:'+sweg.dirPrimRot)
                     //log.lv('o.is:'+o.is)
@@ -128,12 +128,12 @@ Item{
                     //log.lv('o.m:'+o.m)
                     //log.lv('o.s:'+o.s)
                 }
-                let nDMS=zoolMap.getDDToDMS(o.gdec)
+                let nDMS=zm.getDDToDMS(o.gdec)
                 o.rsg=o.gdec-(30*(parseInt(o.gdec/30)))
                 o.g=nDMS.deg
                 o.m=nDMS.min
                 o.s=nDMS.sec
-                o.is=zoolMap.getIndexSign(o.gdec)
+                o.is=zm.getIndexSign(o.gdec)
                 objAs.is=o.is
 
                 if(i===9){
@@ -150,7 +150,7 @@ Item{
 
 
             if(app.t==='dirprim'){
-                o.is=zoolMap.getIndexSign(o.gdec)
+                o.is=zm.getIndexSign(o.gdec)
             }
 
             if(i!==10&&i!==11)o.retro=jo.retro
@@ -159,10 +159,10 @@ Item{
             objAs.objData=o
             objSigns[jo.is]++
             if(i===0){
-                zoolMap.currentAbsolutoGradoSolar=jo.rsgdeg
-                zoolMap.currentGradoSolar=jo.gdeg
-                zoolMap.currentMinutoSolar=jo.mdeg
-                zoolMap.currentSegundoSolar=jo.sdeg
+                zm.currentAbsolutoGradoSolar=jo.rsgdeg
+                zm.currentGradoSolar=jo.gdeg
+                zm.currentMinutoSolar=jo.mdeg
+                zm.currentSegundoSolar=jo.sdeg
                 houseSun=jo.ih
             }
         }
@@ -182,7 +182,7 @@ Item{
             mPos.push(0)
             objAs=r.children[i]
             objAs.pos=0
-            //objAs.width=zoolMap.width
+            //objAs.width=zm.width
             objAs.vr=0
         }
 
@@ -207,7 +207,7 @@ Item{
         //                }
         //            //}
         //            objAs.pos=0
-        //            objAs.width=zoolMap.width
+        //            objAs.width=zm.width
         //            objAs.vr=0
         //            cn=0
         //            log.lv('Pos '+i+':'+objAs.pos)
@@ -253,7 +253,7 @@ Item{
         //        }
 
 
-        //        let minObjAsWidth=zoolMap.width
+        //        let minObjAsWidth=zm.width
         //        for(i=0;i<20;i++){
         //            let oa=r.children[i]
         //            if(oa.width<minObjAsWidth){
@@ -261,12 +261,12 @@ Item{
         //            }
         //        }
         if(!r.isBack){
-            //zoolMap.aspsCircleWidth=getMinAsWidth()-zoolMap.planetSize*2
-            //zoolMap.planetsAreaWidth=zoolMap.objZ2.width-getMinAsWidth()-zoolMap.planetSize*2
-            //zoolMap.objZ1.width=getMinAsWidth()-zoolMap.planetSize*2
+            //zm.aspsCircleWidth=getMinAsWidth()-zm.planetSize*2
+            //zm.planetsAreaWidth=zm.objZ2.width-getMinAsWidth()-zm.planetSize*2
+            //zm.objZ1.width=getMinAsWidth()-zm.planetSize*2
         }else{
-            //zoolMap.planetsBackBandWidth=zoolMap.width-getMinAsWidth()//-zoolMap.planetSize*2
-            //zoolMap.planetsAreaWidthBack=getMinAsWidth()-zoolMap.planetSize*2
+            //zm.planetsBackBandWidth=zm.width-getMinAsWidth()//-zm.planetSize*2
+            //zm.planetsAreaWidthBack=getMinAsWidth()-zm.planetSize*2
         }
 
         //log.lv('objLastAs.width: '+objLastAs.width)
@@ -385,7 +385,7 @@ Item{
         return a
     }
     function getMinAsWidth(){
-        let minObjAsWidth=zoolMap.width
+        let minObjAsWidth=zm.width
         for(let i=0;i<20;i++){
             let oa=r.children[i]
             if(oa.width<minObjAsWidth){

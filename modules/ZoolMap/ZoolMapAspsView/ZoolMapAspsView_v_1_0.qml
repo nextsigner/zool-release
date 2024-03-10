@@ -130,13 +130,13 @@ Rectangle {
                             strAsp='Conjunción'
                         }
 
-                        if(zoolMap.aTexts[a.ic1]===''){
-                            zoolMap.aTexts[a.ic1]+='<b>'+app.planetas[a.ic1]+'</b><br />'+strAsp+' a '+app.planetas[a.ic2]
+                        if(zm.aTexts[a.ic1]===''){
+                            zm.aTexts[a.ic1]+='<b>'+app.planetas[a.ic1]+'</b><br />'+strAsp+' a '+app.planetas[a.ic2]
                         }else{
-                            zoolMap.aTexts[a.ic1]+='<br />'+strAsp+' a '+app.planetas[a.ic2]
+                            zm.aTexts[a.ic1]+='<br />'+strAsp+' a '+app.planetas[a.ic2]
                         }
-                        let nTexts=zoolMap.aTexts[a.ic1].split('<br />').sort().join('<br />')
-                        zoolMap.aTexts[a.ic1]=nTexts
+                        let nTexts=zm.aTexts[a.ic1].split('<br />').sort().join('<br />')
+                        zm.aTexts[a.ic1]=nTexts
                     }
                 }
             }

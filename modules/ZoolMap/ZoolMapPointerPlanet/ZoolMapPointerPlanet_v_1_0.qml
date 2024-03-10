@@ -17,11 +17,11 @@ Item {
     property int rsgdeg: -1
     property int ih: -1
     property bool expand: false
-    property int wtc: (zoolMap.fs*0.5)/(zoolMap.xs*0.5) //width of each circle de triple circle
+    property int wtc: (zm.fs*0.5)/(zm.xs*0.5) //width of each circle de triple circle
     property int p: -1
     property alias pointerRot: eje.rotation
     property int pointerFs: app.fs*5.5
-    property real xs: zoolMap.xs
+    property real xs: zm.xs
     property var aMargins: [0.5, 0.3, 0.4, 0.4, 0.4, 0.5, 0.5, 0.5, 0.4, 0.3, 0.5, 0.5, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
     property bool isBack: false
@@ -61,13 +61,13 @@ Item {
             color: rectData.border.color
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.horizontalCenter
-            anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5//+zoolMap.fs*0.25
+            anchors.rightMargin: apps.xAsShowIcon?r.width*(r.aMargins[r.p]):r.width*0.5//+zm.fs*0.25
             Rectangle{
                 anchors.fill: parent
                 color: 'transparent'
                 border.width: 1
                 border.color: apps.fontColor
-                visible: zoolMap.capturing
+                visible: zm.capturing
             }
             Rectangle{
                 id: rectData
@@ -81,12 +81,16 @@ Item {
                 rotation: !r.isBack?
                               r.iconoSignRot-eje.rotation
                             :
-                              r.iconoSignRot-eje.rotation-zoolMap.objPlanetsCircleBack.rotation
+                              r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
-                property bool isCapturing: zoolMap.capturing
+                property bool isCapturing: zm.capturing
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: zm.pointerRotToCenter=!zm.pointerRotToCenter
+                }
                 SequentialAnimation on border.color {
-                    running: !zoolMap.capturing
+                    running: !zm.capturing
                     loops: Animation.Infinite
                     onRunningChanged: {
                         if(!running)rectData.border.color=apps.pointerLineColor
@@ -177,7 +181,7 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text{
                             text: '<b>Nakshatra:</b> '+(
-                                      !r.isBack?zoolMap.currentNakshatra:zoolMap.currentNakshatraBack
+                                      !r.isBack?zm.currentNakshatra:zm.currentNakshatraBack
                                       )
                             font.pixelSize: r.pointerFs*0.35
                             color: apps.backgroundColor
@@ -245,7 +249,7 @@ Item {
                     color: 'transparent'
                     border.width: 1
                     border.color: apps.fontColor
-                    visible: zoolMap.capturing
+                    visible: zm.capturing
                 }
             }
             Item{
@@ -271,7 +275,7 @@ Item {
                     source: imgFlecha
                     color: 'white'
                     antialiasing: true
-                    visible: zoolMap.capturing
+                    visible: zm.capturing
                 }
                 ColorOverlay {
                     id: co3

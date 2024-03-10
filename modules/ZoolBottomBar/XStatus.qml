@@ -26,7 +26,7 @@ Rectangle{
                 color: 'white'
             }
             ZoolText{
-                text: '<b>Asc:</b> '+zoolMap.uAscDegree
+                text: '<b>Asc:</b> '+zm.uAscDegree
                 font.pixelSize: r.height*0.25
                 color: 'white'
             }

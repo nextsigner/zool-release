@@ -130,7 +130,7 @@ Item{
     property int ejeTipoCurrentIndex: -2
     property bool automatic: false
     property bool safeTapa: false
-    property bool pointerRotToCenter: true
+    property bool pointerRotToCenter: false
 
     //-->ZoomAndPan
     property bool zoomAndPosCentered: pinchArea.m_x1===0 && pinchArea.m_y1===0 && pinchArea.m_y2===0 && pinchArea.m_x2===0 && pinchArea.m_zoom1===0.5 && pinchArea.m_zoom2===0.5 && pinchArea.m_max===6 && pinchArea.m_min===0.5
@@ -158,7 +158,7 @@ Item{
     }
     onAutomaticChanged: {
         if(automatic){
-            tAutoMaticPlanets.currentJsonData=zoolMap.currentData
+            tAutoMaticPlanets.currentJsonData=zm.currentData
         }else{
             centerZoomAndPos()
         }
@@ -166,8 +166,8 @@ Item{
     onCurrentPlanetIndexChanged: {
         zoolDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>=0){
-            zoolMap.currentPlanetIndexBack=-1
-            zoolMap.currentHouseIndexBack=-1
+            zm.currentPlanetIndexBack=-1
+            zm.currentHouseIndexBack=-1
         }
         if(sspEnabled){
             if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
@@ -192,12 +192,12 @@ Item{
     onCurrentPlanetIndexBackChanged: {
         zoolDataBodies.currentIndexBack=currentPlanetIndexBack
         /*if(currentPlanetIndexBack>=0){
-            zoolMap.currentPlanetIndex=-1
-            zoolMap.currentHouseIndex=-1
+            zm.currentPlanetIndex=-1
+            zm.currentHouseIndex=-1
         }*/
     }
     onCurrentGmtChanged: {
-        if(zoolMap.currentData===''||app.setFromFile)return
+        if(zm.currentData===''||app.setFromFile)return
         //xDataBar.currentGmtText=''+currentGmt
         tReload.restart()
     }
@@ -278,9 +278,9 @@ Item{
                 repeat: false
                 interval: 100
                 onTriggered: {
-                    //app.j.setNewTimeJsonFileData(zoolMap.currentDate)
+                    //app.j.setNewTimeJsonFileData(zm.currentDate)
                     //app.j.runJsonTemp()
-                    let j=getCurrentParamsWithNewTime(zoolMap.currentDate)
+                    let j=getCurrentParamsWithNewTime(zm.currentDate)
                     //log.lv('NJ:'+JSON.stringify(j, null, 2))
                     r.safeTapa=true
                     r.load(j)
@@ -292,7 +292,7 @@ Item{
                 repeat: false
                 interval: 100
                 onTriggered: {
-                    app.j.setNewTimeJsonFileDataBack(zoolMap.currentDateBack)
+                    app.j.setNewTimeJsonFileDataBack(zm.currentDateBack)
                     app.j.runJsonTempBack()
                 }
             }
@@ -304,7 +304,7 @@ Item{
                 onTriggered: {
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
                     housesCircleBack.wbgc=signCircle.width//ai.width
-                    //zoolMap.objPlanetsCircle.vw=zoolMap.objAspsCircle.width
+                    //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
                     if(app.t==='dirprim')housesCircleBack.width=ae.width
                     //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
                     //imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
@@ -401,7 +401,7 @@ Item{
                         acceptedButtons: Qt.AllButtons;
                         onClicked: {
                             //log.lv('Ser pos:'+mouseX+' '+mouseY)
-                            //zoolMap.setPos(mouseX, mouseY, 0)
+                            //zm.setPos(mouseX, mouseY, 0)
                             apps.zFocus='xMed'
                             if (mouse.button === Qt.RightButton) {
 
@@ -440,7 +440,7 @@ Item{
                     visible: false
                     Circle{
                         id: cc
-                        d: zoolMap.objAspsCircle.width
+                        d: zm.objAspsCircle.width
                         c: '#FF8833' //Esto se vera únicamente si el item de id:xz es visible.
                     }
                     Circle{
@@ -536,8 +536,8 @@ Item{
                                     let nx= globalCoordinates.x+25
                                     let ny= globalCoordinates.y-25
                                     s+='\nnx:'+nx+'\nny:'+ny
-                                    zoolMap.objAsInfoView.text=s
-                                    zoolMap.setPos(nx, ny, ejeAbstractBodie.rotation)
+                                    zm.objAsInfoView.text=s
+                                    zm.setPos(nx, ny, ejeAbstractBodie.rotation)
                                 }
                             }
                         }
@@ -631,15 +631,15 @@ Item{
         interval: 10000
         property string currentJsonData: ''
         onTriggered: {
-//            if(tAutoMaticPlanets.currentJsonData!==zoolMap.currentData){
+//            if(tAutoMaticPlanets.currentJsonData!==zm.currentData){
 //                //tAutoMaticPlanets.stop()
 //                //return
 //            }
-            if(zoolMap.currentPlanetIndex<21){
-                zoolMap.currentPlanetIndex++
+            if(zm.currentPlanetIndex<21){
+                zm.currentPlanetIndex++
             }else{
-                zoolMap.currentPlanetIndex=-1
-                zoolMap.currentHouseIndex=-1
+                zm.currentPlanetIndex=-1
+                zm.currentHouseIndex=-1
             }
         }
     }
@@ -680,7 +680,7 @@ Item{
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\'zoolMap.load() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+' '+valt+'\')\n'
+        c+='        console.log(\'zm.load() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' '+unik.currentFolderPath()+' '+valt+'\')\n'
         c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'" '+valt+'\')\n'
         //c+='        Qt.quit()\n'
         c+='    }\n'
@@ -730,7 +730,7 @@ Item{
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\'zoolMap.loadBack() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'" '+valt+'\'\n'
+        c+='        let cmd=\'zm.loadBack() '+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+unik.currentFolderPath()+'" '+valt+'\'\n'
         c+='    if(apps.showLog){\n'
         c+='        log.ls(cmd, 0, xApp.width)\n'
         c+='    }\n'
@@ -746,7 +746,7 @@ Item{
         r.fileDataBack=JSON.stringify(j)
     }
     function loadBackFromArgs(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
-        zoolMap.ev=false
+        zm.ev=false
         let d=new Date(Date.now())
         let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
                             parseInt(vmin))
@@ -779,13 +779,13 @@ Item{
         if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
         if(!extIdExist && !isExtIdInAExtsIds){
             zfdm.addExtData(json)
-            zoolMap.loadBack(json)
+            zm.loadBack(json)
         }else{
             if(app.dev)log.lv('ExtId ya existe.')
             let extJson={}
             extJson.params=zfdm.getExtData(extId)
             if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
-            zoolMap.loadBack(extJson)
+            zm.loadBack(extJson)
         }
         let aL=zoolDataView.atLeft
         let aR=vAtRigth
@@ -812,7 +812,7 @@ Item{
         if(tipo==='dirprim')strSep='Dir. Primarias'
         zoolDataView.setDataView(strSep, aL, aR)
         zoolDataView.uExtIdLoaded=extId
-        zoolMap.ev=true
+        zm.ev=true
     }
     function loadSweJson(json){
         //console.log('JSON::: '+json)
@@ -871,16 +871,16 @@ Item{
         r.currentNakshatra=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
 
         //resizeAspsCircle()
-        //zoolMap.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zoolMap.objSignsCircle.rotation)
-        zoolMap.setPos(0, 0, 0)
+        //zm.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zm.objSignsCircle.rotation)
+        zm.setPos(0, 0, 0)
 
         let o1=j.ph['h1']
         //r.isAsc=o1.is
         //r.gdegAsc=o1.rsgdeg
         //r.mdegAsc=o1.mdeg
-        zoolMap.uAscDegree=parseInt(o1.rsgdeg)
+        zm.uAscDegree=parseInt(o1.rsgdeg)
         o1=j.ph['h10']
-        zoolMap.uMcDegree=parseInt(o1.rsgdeg)
+        zm.uMcDegree=parseInt(o1.rsgdeg)
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
@@ -910,8 +910,8 @@ Item{
             tapa.opacity=1.0
         }
 
-        zoolMap.currentJsonBack=JSON.parse(json)
-        //log.lv('zoolMap.currentJsonBack='+JSON.stringify(zoolMap.currentJsonBack, null, 2))
+        zm.currentJsonBack=JSON.parse(json)
+        //log.lv('zm.currentJsonBack='+JSON.stringify(zm.currentJsonBack, null, 2))
         //        if(app.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
         //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
@@ -997,7 +997,7 @@ Item{
             msmod=j.msmod
         }
 
-        let p=zoolMap.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, 'dirprim', hsys, ms, msmod)
+        let p=zm.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, 'dirprim', hsys, ms, msmod)
         if(!isBack){
             r.load(p)
         }else{
@@ -1034,7 +1034,7 @@ Item{
             loadBack(JSON.parse(j))
             //r.ev=true
         }
-        zoolMap.ev=isExt
+        zm.ev=isExt
     }
     function loadFromJson(j, isExt, save){
         if(save){
@@ -1089,8 +1089,8 @@ Item{
         return j
     }
     function getZiData(bodieIndex, signIndex, houseIndex){
-            let b=zoolMap.aBodiesFiles[bodieIndex]
-            let s=zoolMap.aSignsLowerStyle[signIndex]
+            let b=zm.aBodiesFiles[bodieIndex]
+            let s=zm.aSignsLowerStyle[signIndex]
             let h=parseInt(houseIndex)
             let c=''
             c+='import QtQuick 2.0\n'
@@ -1101,7 +1101,7 @@ Item{
             c+='    onLogDataChanged:{\n'
             //c+='        log.lv("D:"+logData)\n'
             c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
-            c+='        zoolMap.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
+            c+='        zm.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
             c+='        destroy()\n'
             c+='    }\n'
             c+='    Component.onCompleted:{\n'
@@ -1133,9 +1133,9 @@ Item{
         //c+='        log.lv("D:"+logData)\n'
         c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
         if(show){
-        c+='        zoolMap.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
+        c+='        zm.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
         }else{
-            c+='        zoolMap.mkItemDataView(logData, 0, 0, xLatDer.width, xLatDer.height, xLatDer, app.fs*0.75)\n'
+            c+='        zm.mkItemDataView(logData, 0, 0, xLatDer.width, xLatDer.height, xLatDer, app.fs*0.75)\n'
         }
         c+='        destroy()\n'
         c+='    }\n'
@@ -1378,7 +1378,7 @@ Item{
         return index
     }
     function getIndexHouse(gdec, isBack){
-        let json=!isBack?zoolMap.currentJson:zoolMap.currentJsonBack
+        let json=!isBack?zm.currentJson:zm.currentJsonBack
         let index=0
         let g=0.0
         for(var i=0;i<12;i++){

@@ -41,7 +41,7 @@ Rectangle {
         repeat: false
         interval: 1000
         onTriggered: {
-            //zoolMap.hideTapa()
+            //zm.hideTapa()
         }
     }
     Rectangle{

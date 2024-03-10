@@ -73,7 +73,7 @@ Menu {
         }
     }
     title: 'Menu '+app.planetas[r.currentIndexPlanet]
-//    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]); onTriggered: {
+//    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(zm.uSonFCMB.split('_')[0])]); onTriggered: {
 //            xInfoData.markDown=true
 //            xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
 //    }
@@ -82,10 +82,10 @@ Menu {
             let s=r.currentIndexSign
             let h=r.currentIndexHouse
             //log.lv('b: '+b+' s: '+s+' h: '+h)
-            zoolMap.getZiData(b, s, h)
+            zm.getZiData(b, s, h)
         }
     }
-//    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(zoolMap.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(zoolMap.uSonFCMB.split('_')[1])]+' en casa '+zoolMap.uSonFCMB.split('_')[2]); onTriggered: {
+//    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(zm.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(zm.uSonFCMB.split('_')[1])]+' en casa '+zm.uSonFCMB.split('_')[2]); onTriggered: {
 //            app.j.showIWFromCtxMenuBar()
 //        }
 //    }

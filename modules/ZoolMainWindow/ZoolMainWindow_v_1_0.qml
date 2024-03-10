@@ -84,7 +84,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+c'
         onActivated: {
-            zoolMap.capturing=true
+            zm.capturing=true
             tCap.restart()
         }
     }
@@ -98,7 +98,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
-            zoolMap.capturing=true
+            zm.capturing=true
             tCap2.restart()
         }
     }

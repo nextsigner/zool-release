@@ -320,7 +320,7 @@ Rectangle {
                                         fs: app.fs*0.5
                                         anchors.verticalCenter: parent.verticalCenter
                                         onClicked:{
-                                            zoolMap.getZiDataNum(r.currentNumNacimiento, 'masc', checkBoxShowInfo.checked)
+                                            zm.getZiDataNum(r.currentNumNacimiento, 'masc', checkBoxShowInfo.checked)
                                         }
                                     }
                                     ZoolButton{
@@ -328,7 +328,7 @@ Rectangle {
                                         fs: app.fs*0.5
                                         anchors.verticalCenter: parent.verticalCenter
                                         onClicked:{
-                                            zoolMap.getZiDataNum(r.currentNumNacimiento, 'masc', checkBoxShowInfo.checked)
+                                            zm.getZiDataNum(r.currentNumNacimiento, 'masc', checkBoxShowInfo.checked)
                                         }
                                     }
                                 }
@@ -940,7 +940,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             calc()
-                            let aGetNums=JS.getNums(zoolMap.currentFecha)
+                            let aGetNums=JS.getNums(zm.currentFecha)
                             r.currentIndexAG=aGetNums[2]
                             r.log.clear()
                             r.log.l(getTodo(checkBoxFormula.checked))

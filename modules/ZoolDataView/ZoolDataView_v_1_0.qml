@@ -69,10 +69,10 @@ Rectangle {
             border.color: apps.fontColor
             anchors.verticalCenter: parent.verticalCenter
             //y:(parent.height-height)/2
-            visible:  !zoolMap.ev
+            visible:  !zm.ev
             MouseArea{
                 anchors.fill: parent
-                enabled: zoolMap.titleData!==zoolMap.currentData
+                enabled: zm.titleData!==zm.currentData
                 onClicked: {
                     app.j.saveJson()
                 }

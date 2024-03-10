@@ -85,24 +85,24 @@ Menu {
                        }
     }
     Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
-                           zoolMap.loadNow()
+                           zm.loadNow()
                        }
     }
-    Action {enabled: zoolMap.ev; text: qsTr("Descartar exterior"); onTriggered: {
+    Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
                            app.j.loadJson(apps.url)
                        }
     }
-    Action {text: zoolMap.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
-                           zoolMap.ev=!zoolMap.ev
+    Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
+                           zm.ev=!zm.ev
                        }
     }
 
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
-                           zoolMap.zoomTo(0.5)
+                           zm.zoomTo(0.5)
                        }
     }
     Action {text: qsTr("Zoom 1.5"); onTriggered: {
-                           zoolMap.zoomTo(1.0)
+                           zm.zoomTo(1.0)
                        }
     }
     Action {text: qsTr("Capturar"); onTriggered: {

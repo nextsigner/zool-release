@@ -7,13 +7,13 @@ Item {
     width: app.fs*10//!isBack?signCircle.width+app.fs:(sweg.parent.height*apps.sweMargin)+extraWidth//((sweg.parent.height*(apps.sweMargin))+app.fs)
     height: width
     anchors.centerIn: parent//signCircle
-    visible: isBack?zoolMap.ev:true
-    rotation: !isBack?0:0-zoolMap.dirPrimRot
+    visible: isBack?zm.ev:true
+    rotation: !isBack?0:0-zm.dirPrimRot
     property bool isBack: false
     property int extraWidth: 0
-    property int currentHouse: !isBack?zoolMap.objHousesCircle.currentHouse:zoolMap.objHousesCircleBack.currentHouse
+    property int currentHouse: !isBack?zm.objHousesCircle.currentHouse:zm.objHousesCircleBack.currentHouse
     property int houseShowSelectadIndex: -1
-    property int w: zoolMap.fs//*3
+    property int w: zm.fs//*3
     property int wb: 1//sweg.fs*0.15
     property int f: 0
     property bool v: false
@@ -35,7 +35,7 @@ Item {
         visible: false//r.isBack
     }
     Rectangle{
-        width: r.width-(zoolMap.housesNumWidth*2)-(zoolMap.housesNumMargin*2)
+        width: r.width-(zm.housesNumWidth*2)-(zm.housesNumMargin*2)
         height: width
         color: 'transparent'
         border.width: 1//apps.houseLineWidth
@@ -46,7 +46,7 @@ Item {
     }
     Rectangle{
         id: vacioDeCentro
-        width: zoolMap.objAspsCircle.width
+        width: zm.objAspsCircle.width
         height: width
         color: 'transparent'
         border.width: 1
@@ -64,7 +64,7 @@ Item {
         id: compArc
         Rectangle{
             id: item
-            width: r.width-zoolMap.housesNumWidth*2
+            width: r.width-zm.housesNumWidth*2
             height: 10
             color: 'transparent'
             border.width: 0
@@ -87,7 +87,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 Rectangle{
                     //width: !app.ev?app.fs*1.5:app.fs
-                    width: zoolMap.housesNumWidth//!app.ev?app.fs*1.5:app.fs
+                    width: zm.housesNumWidth//!app.ev?app.fs*1.5:app.fs
                     height: width
                     radius: width*0.5
                     color: 'transparent'
@@ -96,7 +96,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     anchors.rightMargin: 0//app.fs*14
-                    rotation: 360-parent.parent.rotation+(!r.isBack?0:zoolMap.dirPrimRot)
+                    rotation: 360-parent.parent.rotation+(!r.isBack?0:zm.dirPrimRot)
                     MouseArea{
                         anchors.fill: parent
                         onWheel: {
@@ -122,21 +122,21 @@ Item {
                             }else{
                                 if(!r.isBack){
                                     //sweg.objHousesCircle.currentIndex=item.ih-1
-                                    if(zoolMap.currentHouseIndex!==item.ih){
-                                        zoolMap.currentHouseIndex=item.ih
-                                        r.currentHouse=zoolMap.currentHouseIndex
+                                    if(zm.currentHouseIndex!==item.ih){
+                                        zm.currentHouseIndex=item.ih
+                                        r.currentHouse=zm.currentHouseIndex
                                     }else{
-                                        zoolMap.currentHouseIndex=-1
-                                        r.currentHouse=zoolMap.currentHouseIndex
+                                        zm.currentHouseIndex=-1
+                                        r.currentHouse=zm.currentHouseIndex
                                     }
                                 }else{
-                                    if(zoolMap.currentHouseIndexBack!==item.ih){
+                                    if(zm.currentHouseIndexBack!==item.ih){
                                         //sweg.objHousesCircleBack.currentIndex=item.ih-1
-                                        zoolMap.currentHouseIndexBack=item.ih
-                                        r.currentHouse=zoolMap.currentHouseIndexBack
+                                        zm.currentHouseIndexBack=item.ih
+                                        r.currentHouse=zm.currentHouseIndexBack
                                     }else{
-                                        zoolMap.currentHouseIndexBack=-1
-                                        r.currentHouse=zoolMap.currentHouseIndexBack
+                                        zm.currentHouseIndexBack=-1
+                                        r.currentHouse=zm.currentHouseIndexBack
                                     }
                                 }
                             }
@@ -159,7 +159,7 @@ Item {
                     }
                     Text{
                         id: tAsc1
-                        text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                        text: '<b>'+zm.aSigns[item.is]+'</b>'
                         font.pixelSize: parent.width*0.4
                         color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         anchors.right: parent.right
@@ -185,7 +185,7 @@ Item {
                     }
                     Text{
                         id: tDesc1
-                        text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                        text: '<b>'+zm.aSigns[item.is]+'</b>'
                         font.pixelSize: parent.width*0.4
                         color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         anchors.left: parent.left
@@ -218,7 +218,7 @@ Item {
                         visible: item.ih===4
                         Text{
                             id: tFc1
-                            text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                            text: '<b>'+zm.aSigns[item.is]+'</b>'
                             font.pixelSize: parent.parent.width*0.4
                             color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         }
@@ -245,7 +245,7 @@ Item {
                         visible: item.ih===10
                         Text{
                             id: tMc1
-                            text: '<b>'+zoolMap.aSigns[item.is]+'</b>'
+                            text: '<b>'+zm.aSigns[item.is]+'</b>'
                             font.pixelSize: parent.parent.width*0.4
                             color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
                         }
@@ -279,7 +279,7 @@ Item {
             }
             Rectangle{
                 id: centro
-                width: zoolMap.objAspsCircle.width
+                width: zm.objAspsCircle.width
                 height: width
                 color: '#333'
                 radius: width*0.5
@@ -312,7 +312,7 @@ Item {
                 //anchors.centerIn: r
                 rotation: 0-item.wg/2
                 //visible:c>5
-                visible:zoolMap.ejeTipoCurrentIndex!==-2 && (zoolMap.ejeTipoCurrentIndex===item.ih-1 || zoolMap.ejeTipoCurrentIndex===item.ih-1-6 || zoolMap.ejeTipoCurrentIndex===-1)
+                visible:zm.ejeTipoCurrentIndex!==-2 && (zm.ejeTipoCurrentIndex===item.ih-1 || zm.ejeTipoCurrentIndex===item.ih-1-6 || zm.ejeTipoCurrentIndex===-1)
                 //visible:item.ih===1
                 anchors.centerIn: parent
 
@@ -322,7 +322,7 @@ Item {
                 property bool selected: false
                 property bool toogleColor: false
                 Timer{
-                    running: parent.visible && zoolMap.ejeTipoCurrentIndex>=-1 && ec.selected
+                    running: parent.visible && zm.ejeTipoCurrentIndex>=-1 && ec.selected
                     repeat: true
                     interval: 500
                     onTriggered: {
@@ -382,7 +382,7 @@ Item {
 
                 Rectangle{
                     visible: false
-                    width: zoolMap.fs
+                    width: zm.fs
                     height: width
                     //x:(r.w-width)/2
                     border.width: 2
@@ -430,7 +430,7 @@ Item {
         }
         for(i=0;i<12;i++){
             if(i===0){
-                zoolMap.uAscDegreeTotal=jsonData.ph.h1.gdec
+                zm.uAscDegreeTotal=jsonData.ph.h1.gdec
             }
             let wg=0.05
             let g1=0
@@ -447,11 +447,11 @@ Item {
             if(wg<0){
                 wg=wg+360
             }
-            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zoolMap.objSignsCircle.rot, ih: i+1, wg: wg, is: jsonData.ph['h'+parseInt(i + 1)].is, rsdeg:jsonData.ph['h'+parseInt(i + 1)].rsdeg, gdec:jsonData.ph['h'+parseInt(i + 1)].gdec, gdeg:jsonData.ph['h'+parseInt(i + 1)].gdeg, mdeg: jsonData.ph['h'+parseInt(i + 1)].mdeg, sdeg: jsonData.ph['h'+parseInt(i + 1)].sdeg})
+            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zm.objSignsCircle.rot, ih: i+1, wg: wg, is: jsonData.ph['h'+parseInt(i + 1)].is, rsdeg:jsonData.ph['h'+parseInt(i + 1)].rsdeg, gdec:jsonData.ph['h'+parseInt(i + 1)].gdec, gdeg:jsonData.ph['h'+parseInt(i + 1)].gdeg, mdeg: jsonData.ph['h'+parseInt(i + 1)].mdeg, sdeg: jsonData.ph['h'+parseInt(i + 1)].sdeg})
         }
         if(app.t==='dirprim'){
             //xArcsBack.rotation-=sweg.dirPrimRot
-            dha.rotation-=zoolMap.dirPrimRot
+            dha.rotation-=zm.dirPrimRot
         }
     }
 

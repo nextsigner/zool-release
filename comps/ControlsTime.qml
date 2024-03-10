@@ -33,9 +33,9 @@ Rectangle {
             //log.l('-1 Reload CD1... '+r.setAppTime)
             //log.visible=true
             if(!r.isBack){
-                zoolMap.currentDate=r.currentDate
+                zm.currentDate=r.currentDate
             }else{
-                zoolMap.currentDateBack=r.currentDate
+                zm.currentDateBack=r.currentDate
             }
         }else{
             //log.l('333 Reload CD1...')
