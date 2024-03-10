@@ -39,7 +39,7 @@ Item {
         height: width
         color: 'transparent'
         border.width: 1//apps.houseLineWidth
-        border.color: apps.houseLineColorBack
+        border.color: zm.houseLineColorBack
         radius: width*0.5
         visible: r.isBack
         anchors.centerIn: parent
@@ -80,19 +80,37 @@ Item {
             property int gdeg: -1
             property int mdeg: -1
             property int sdeg: -1
+            Repeater{
+                model: item.ih===r.currentHouse?wg:0
+                //model: 10
+                Rectangle{
+                    width: !r.isBack?parent.width-(r.w*2):parent.width
+                    height: 5
+                    color: 'transparent'
+                    rotation: 0-(0+index)
+                    anchors.centerIn: parent
+                    LinePoints{
+                        width: parent.width-centro.width//*0.5+app.fs*2
+                        height: parent.height
+                        c: !r.isBack?apps.houseColor:apps.houseColorBack
+                    }
+                }
+            }
             Rectangle{
                 width: (parent.width*0.5)-vacioDeCentro.width*0.5
                 height: apps.houseLineWidth
-                color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                color: app.t==='dirprim'?'transparent':(!isBack?zm.houseLineColor:zm.houseLineColorBack)//apps.fontColor
+                border.width: app.t==='dirprim'?1:0
+                border.color: !isBack?zm.houseLineColor:zm.houseLineColorBack
                 anchors.verticalCenter: parent.verticalCenter
                 Rectangle{
                     //width: !app.ev?app.fs*1.5:app.fs
                     width: zm.housesNumWidth//!app.ev?app.fs*1.5:app.fs
                     height: width
                     radius: width*0.5
-                    color: 'transparent'
+                    color: r.isBack?zm.bodieBgColor:zm.bodieBgColorBack//'transparent'
                     border.width: 1//apps.houseLineWidth
-                    border.color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                    border.color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     anchors.rightMargin: 0//app.fs*14
@@ -119,26 +137,9 @@ Item {
                         onClicked: {
                             if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
                                 item.selected=!item.selected
+                                setCurrentHouseIndex(item)
                             }else{
-                                if(!r.isBack){
-                                    //sweg.objHousesCircle.currentIndex=item.ih-1
-                                    if(zm.currentHouseIndex!==item.ih){
-                                        zm.currentHouseIndex=item.ih
-                                        r.currentHouse=zm.currentHouseIndex
-                                    }else{
-                                        zm.currentHouseIndex=-1
-                                        r.currentHouse=zm.currentHouseIndex
-                                    }
-                                }else{
-                                    if(zm.currentHouseIndexBack!==item.ih){
-                                        //sweg.objHousesCircleBack.currentIndex=item.ih-1
-                                        zm.currentHouseIndexBack=item.ih
-                                        r.currentHouse=zm.currentHouseIndexBack
-                                    }else{
-                                        zm.currentHouseIndexBack=-1
-                                        r.currentHouse=zm.currentHouseIndexBack
-                                    }
-                                }
+                                setCurrentHouseIndex(item)
                             }
                             //log.lv('r.currentHouse: '+r.currentHouse)
                         }
@@ -146,13 +147,13 @@ Item {
                     Text{
                         text: '<b>'+item.ih+'</b>'
                         font.pixelSize: parent.width*0.6//!app.ev?app.fs*0.8:app.fs*0.75
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.centerIn: parent
                     }
                     Text{
                         text: '<b>Asc</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.top
                         visible: item.ih===1
@@ -161,7 +162,7 @@ Item {
                         id: tAsc1
                         text: '<b>'+zm.aSigns[item.is]+'</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.right: parent.right
                         anchors.top: parent.bottom
                         visible: item.ih===1
@@ -170,7 +171,7 @@ Item {
                         id: tAsc2
                         text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.right: parent.right
                         anchors.top: tAsc1.bottom
                         visible: item.ih===1
@@ -178,7 +179,7 @@ Item {
                     Text{
                         text: '<b>Desc</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.top
                         visible: item.ih===7
@@ -187,7 +188,7 @@ Item {
                         id: tDesc1
                         text: '<b>'+zm.aSigns[item.is]+'</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.left: parent.left
                         anchors.top: parent.bottom
                         visible: item.ih===7
@@ -196,7 +197,7 @@ Item {
                         id: tDesc2
                         text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.left: parent.left
                         anchors.top: tDesc1.bottom
                         horizontalAlignment: Text.AlignRight
@@ -205,7 +206,7 @@ Item {
                     Text{
                         text: '<b>Fc</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.right: parent.left
                         anchors.rightMargin: parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
@@ -220,19 +221,19 @@ Item {
                             id: tFc1
                             text: '<b>'+zm.aSigns[item.is]+'</b>'
                             font.pixelSize: parent.parent.width*0.4
-                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                            color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         }
                         Text{
                             id: tFc2
                             text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
                             font.pixelSize: parent.parent.width*0.4
-                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                            color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         }
                     }
                     Text{
                         text: '<b>Mc</b>'
                         font.pixelSize: parent.width*0.4
-                        color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                        color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.right: parent.left
                         anchors.rightMargin: parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
@@ -247,13 +248,13 @@ Item {
                             id: tMc1
                             text: '<b>'+zm.aSigns[item.is]+'</b>'
                             font.pixelSize: parent.parent.width*0.4
-                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                            color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         }
                         Text{
                             id: tMc2
                             text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
                             font.pixelSize: parent.parent.width*0.4
-                            color: !isBack?apps.houseLineColor:apps.houseLineColorBack//apps.fontColor
+                            color: !isBack?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         }
                     }
                     ZoolMapPointerHouse{
@@ -287,22 +288,6 @@ Item {
                 border.color: apps.fontColor
                 anchors.centerIn: parent
                 opacity: 0.0
-            }
-            Repeater{
-                model: item.ih===r.currentHouse?wg:0
-                //model: 10
-                Rectangle{
-                    width: !r.isBack?parent.width-(r.w*2):parent.width
-                    height: 5
-                    color: 'transparent'
-                    rotation: 0-(0+index)
-                    anchors.centerIn: parent
-                    LinePoints{
-                        width: parent.width-centro.width//*0.5+app.fs*2
-                        height: parent.height
-                        c: !r.isBack?apps.houseColor:apps.houseColorBack
-                    }
-                }
             }
             Rectangle{
                 id: ec
@@ -483,6 +468,26 @@ Item {
         for(i=0;i<12;i++){
             let h=dha.children[i]
             h.colors=['red','red','red','red','red','red','red','red','red','red','red','red']
+        }
+    }
+    function setCurrentHouseIndex(item){
+        if(!r.isBack){
+            if(zm.currentHouseIndex!==item.ih){
+                zm.currentHouseIndex=item.ih
+                r.currentHouse=zm.currentHouseIndex
+            }else{
+                zm.currentHouseIndex=-1
+                r.currentHouse=zm.currentHouseIndex
+            }
+        }else{
+            if(zm.currentHouseIndexBack!==item.ih){
+                //sweg.objHousesCircleBack.currentIndex=item.ih-1
+                zm.currentHouseIndexBack=item.ih
+                r.currentHouse=zm.currentHouseIndexBack
+            }else{
+                zm.currentHouseIndexBack=-1
+                r.currentHouse=zm.currentHouseIndexBack
+            }
         }
     }
 }

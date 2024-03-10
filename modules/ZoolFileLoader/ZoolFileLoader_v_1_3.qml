@@ -419,7 +419,7 @@ Rectangle {
                         fs: xDatosView.fs*0.25
                         onClicked: {
                             //let fromTipo='vn'
-                            let tipo=JSON.parse(app.currentData).params.t
+                            let tipo=JSON.parse(zm.currentData).params.t
                             if(tipo==='vn'){
                                 //xDataBar.stringMiddleSeparator='Sinastría'
                                 app.t='sin'
@@ -552,6 +552,8 @@ Rectangle {
                     if(jsonData.asp){
                         //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
                     }
+                    log.x=xApp.width-xLatIzq.width
+                    log.lv('Nom: '+jsonData.params.n)
                     let vd=jsonData.params.d
                     let vm=jsonData.params.m
                     let va=jsonData.params.a

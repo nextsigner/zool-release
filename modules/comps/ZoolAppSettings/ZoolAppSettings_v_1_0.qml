@@ -69,8 +69,9 @@ Settings{
     property int aspLineWidth: 6
     property bool panelAspShowBg: true
 
-    //Swe
-    property string swegMod: 'ps'
+    //ZoolMap
+    property int zmCurrenThemeIndex: 0
+    property string swegMod: 'vn'
     property bool showNumberLines: false
     property bool showDec: false
     property bool showXAsLineCenter: false
@@ -162,6 +163,7 @@ Settings{
     property string numUFirma
     property bool numShowFormula: false
     property int numPanelLogFs: app.width*0.02
+    onZmCurrenThemeIndexChanged:zm.setTheme(zmCurrenThemeIndex)
     onIsJsonsFolderTempChanged: {
         let jf=jsonsFolder
         let jft=jsonsFolderTemp

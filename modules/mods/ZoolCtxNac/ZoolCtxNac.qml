@@ -9,7 +9,7 @@ Item {
     width: zm.objSignsCircle.width*0.5
     height: width
     anchors.centerIn: parent
-    parent: zoolMap
+    parent: zm
     visible: false
     property string folder: './modules/mods/'+app.j.qmltypeof(r)
     property real o: 0.25

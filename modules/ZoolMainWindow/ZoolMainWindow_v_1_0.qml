@@ -115,9 +115,13 @@ ApplicationWindow {
             let vh=d.getHours()
             let vmin=d.getMinutes()
             let vsec=d.getSeconds()
-            let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec+'.png'
+            let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec//+'.png'
             let fn=unik.getPath(3)+'/'+sn
-            app.c.captureToPng(fn)
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                app.c.captureToPng(fn, zsm.getPanel('ZoolSabianos').view)
+            }else{
+                app.c.captureToPng(fn, xSwe1)
+            }
         }
     }
     //<---Cap

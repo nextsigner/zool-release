@@ -1,1 +1,1 @@
-Se repara ZoolMapAs.setZoomAndPos()
+Se crea themes.json

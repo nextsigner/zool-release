@@ -144,6 +144,16 @@ Item{
     property color bodieColorBack: apps.fontColor
     property color bodieBgColor: 'transparent'
     property color bodieBgColorBack: 'transparent'
+    property int bodieBgBorderWidth: 0
+    property int bodieBgBorderWidthBack: 0
+    property color bodieBgBorderColor: "white"
+    property color bodieBgBorderColorBack: "white"
+    property color houseLineColor: 'white'
+    property color houseLineColorBack: '#00ff00'
+    property bool showSignsCircleColors: true
+    property color iconSignColor: "white"
+    property color borderSignColor: "white"
+    property int borderSignCircleWidth: 2
     //<--Theme
 
     property var aTexts: []
@@ -642,6 +652,33 @@ Item{
                 zm.currentHouseIndex=-1
             }
         }
+    }
+
+    Component.onCompleted: {
+        if(!apps)return
+        setTheme(apps.apps.zmCurrenThemeIndex)
+    }
+
+    function setTheme(i){
+        //Set ZoolMap Theme
+        let jd=unik.getFile('./modules/ZoolMap/themes.json')
+        let t=JSON.parse(jd).themes[i]
+        //log.lv('Themes: '+JSON.stringify(j.themes[0], null, 2))
+        r.bodieColor=t.bodieColor
+        r.bodieColorBack=t.bodieColorBack
+        r.bodieBgColor=t.bodieBgColor
+        r.bodieBgColorBack=t.bodieBgColorBack
+        r.bodieBgBorderWidth=t.bodieBgBorderWidth
+        r.bodieBgBorderWidthBack=t.bodieBgBorderWidthBack
+        r.bodieBgBorderColor=t.bodieBgBorderColor
+        r.bodieBgBorderColorBack=t.bodieBgBorderColorBack
+        r.houseLineColor=t.houseLineColor
+        r.houseLineColorBack=t.houseLineColorBack
+        r.showSignsCircleColors=t.showSignsCircleColors
+        r.iconSignColor=t.iconSignColor
+        r.borderSignColor=t.borderSignColor
+        r.borderSignCircleWidth=t.borderSignCircleWidth
+        //log.lv('Themes r.bodieColor: '+r.bodieColor)
     }
 
     //-->Load Data

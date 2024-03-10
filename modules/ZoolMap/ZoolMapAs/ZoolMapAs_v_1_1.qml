@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 import "../"
 import "../../../comps" as Comps
 
-import ZoolBodies.ZoolBodie 1.0
+import ZoolMap.ZoolMapBodie 1.0
 import ZoolMap.ZoolMapAsCotaDeg 1.0
 import ZoolMap.ZoolMapAsCotaText 1.0
 import ZoolMap.ZoolMapPointerPlanet 1.0
@@ -169,7 +169,7 @@ Item{
         anchors.centerIn: parent
         visible: r.numAstro===0//&&apps.xAsShowIcon
     }
-    ZoolBodie{
+    ZoolMapBodie{
         id: bodie
         numAstro: r.numAstro
         is: r.is

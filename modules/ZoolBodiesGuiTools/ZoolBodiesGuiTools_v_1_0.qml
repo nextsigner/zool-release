@@ -125,6 +125,28 @@ Rectangle {
 //                }
 //            }
             ButtonIcon{
+                text:  '<b>T</b>'
+                width: apps.botSize
+                height: width
+                onClicked: {
+                    let jd=unik.getFile('./modules/ZoolMap/themes.json')
+                    let t=JSON.parse(jd)
+                    let cant=Object.keys(t).length
+                    if(apps.zmCurrenThemeIndex<cant){
+                        apps.zmCurrenThemeIndex++
+                    }else{
+                        apps.zmCurrenThemeIndex=0
+                    }
+                }
+                Text{
+                    text:'\uf06e'
+                    font.pixelSize: parent.width*0.35
+                    anchors.right:parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: zm.automatic
+                }
+            }
+            ButtonIcon{
                 text:  '<b>A</b>'
                 width: apps.botSize
                 height: width

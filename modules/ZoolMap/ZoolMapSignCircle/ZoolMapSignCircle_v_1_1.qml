@@ -126,7 +126,7 @@ Item {
         maskSource: mask
         invert: false
         rotation: r.rot//+36
-        //visible: false
+        visible: zm.showSignsCircleColors
     }
     OpacityMask {
         id: oMSignCircleDec
@@ -144,17 +144,17 @@ Item {
         id: borde1
         anchors.fill: parent
         color: 'transparent'
-        border.width: 2
-        border.color: apps.fontColor
+        border.width: zm.borderSignCircleWidth
+        border.color: zm.borderSignColor
         radius: width*0.5
     }
     Rectangle{
         id: borde2
-        width: !app.ev?r.width-r.w*2:(r.width-r.w)
+        width: !app.ev?(r.width-r.w*2)+(border.width*2):(r.width-r.w)+(border.width*2)
         height: width
         color: 'transparent'
-        border.width: borde1.border.width
-        border.color: apps.fontColor
+        border.width: zm.borderSignCircleWidth//borde1.border.width
+        border.color: borde1.border.color
         radius: width*0.5
         anchors.centerIn: parent
         //visible: false
@@ -170,6 +170,13 @@ Item {
                 color: 'transparent'
                 rotation: 0-(index*30)-14.95
                 anchors.centerIn: parent
+                ColorOverlay{
+                    anchors.fill: iconoSigno
+                    source: iconoSigno
+                    color: zm.iconSignColor
+                    rotation: iconoSigno.rotation
+                    visible: !zm.showSignsCircleColors
+                }
                 Image {
                     id: iconoSigno
                     source: "../../../resources/imgs/signos/"+index+".svg"
@@ -180,7 +187,8 @@ Item {
                     antialiasing: true
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
-                    anchors.leftMargin: r.w*0.1
+                    anchors.leftMargin: r.w*0.1+zm.borderSignCircleWidth
+                    visible: zm.showSignsCircleColors
                     Rectangle{
                         width: 3
                         height: width
@@ -290,6 +298,7 @@ Item {
 
 
     }
+
     Repeater{
         model: 12
         Rectangle{
@@ -309,6 +318,26 @@ Item {
         }
     }
 
+    //Separacion de Signos
+    Repeater{
+        model: 12
+        Rectangle{
+            width: r.width
+            height: 1
+            color: 'transparent'
+            rotation: r.rot-(30*index)
+            anchors.centerIn: parent
+            visible: !zm.showSignsCircleColors//app.t==='dirprim'
+            Rectangle{
+                width: r.w
+                height: 1
+                color: zm.borderSignColor
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                antialiasing: true
+            }
+        }
+    }
     function subir(){
         rotar(1,1)
     }

@@ -1,4 +1,6 @@
-function captureToPng(fileUrl){
+var itemCap
+function captureToPng(fileUrl, item){
+    itemCap=item
     if(fileUrl!==''){
         app.c.savePng(fileUrl+".png")
     }else{
@@ -32,7 +34,7 @@ function captureToPng(fileUrl){
     }
 }
 function savePng(fileUrl){
-    xSwe1.grabToImage(function(result) {
+    itemCap.grabToImage(function(result) {
         let fn=fileUrl
         fn=fn.replace('file://', '')
         result.saveToFile(fn);
