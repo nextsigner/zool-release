@@ -686,13 +686,7 @@ Item{
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        if(j.params.t){
-            app.t=j.params.t
-        }else{
-            if(j.params.t){
-                app.t=j.params.t
-            }
-        }
+        app.t=j.params.t
         r.fileData=JSON.stringify(j)
     }
     function loadBack(j){
@@ -987,12 +981,23 @@ Item{
         let lat=j.lat
         let lon=j.lon
         let alt=j.alt?j.alt:0
-        let ciudad=j.c
+        let c=j.c
         let e='1000'
         let aR=[]
         app.t=tipo
+        let ms
+        if(!j.ms){
+            let date=new Date(Date.now())
+            ms=date.getTime()
+        }
+        let msmod
+        if(!j.msmod){
+            msmod=ms
+        }else{
+            msmod=j.msmod
+        }
 
-        let p=zoolMap.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, 'dirprim', hsys)
+        let p=zoolMap.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, 'dirprim', hsys, ms, msmod)
         if(!isBack){
             r.load(p)
         }else{
@@ -1042,7 +1047,7 @@ Item{
             loadBack(JSON.parse(j))
         }
     }
-    function getParamsFromArgs(n, d, m, a, h, min, gmt, lat, lon, alt, c, t, s){
+    function getParamsFromArgs(n, d, m, a, h, min, gmt, lat, lon, alt, c, t, s, ms){
         let j={}
         j.params={}
         j.params.n=n
@@ -1058,26 +1063,29 @@ Item{
         j.params.c=c
         j.params.t=t
         j.params.s=s
+        j.params.ms=ms
+        //log.lv('getParamsFromArgs() j.params.c: '+j.params.c)
+        //log.lv('getParamsFromArgs(): '+JSON.stringify(j))
         return j
     }
     function getCurrentParamsWithNewTime(date){
-        let jsonFromFileData=JSON.parse(r.fileData)
+        let jsonFromAbs=zfdm.getJsonAbs()
         let d=new Date(date)
         let j={}
         j.params={}
-        j.params.n=jsonFromFileData.params.n
+        j.params.n=jsonFromAbs.params.n
         j.params.d=d.getDate()
         j.params.m=d.getMonth() + 1
         j.params.a=d.getFullYear()
         j.params.h=d.getHours()
         j.params.min=d.getMinutes()
-        j.params.gmt=jsonFromFileData.params.gmt
-        j.params.lat=jsonFromFileData.params.lat
-        j.params.lon=jsonFromFileData.params.lon
-        j.params.alt=jsonFromFileData.params.alt
-        j.params.c=jsonFromFileData.params.c
-        j.params.t=jsonFromFileData.params.t
-        j.params.s=jsonFromFileData.params.s
+        j.params.gmt=jsonFromAbs.params.gmt
+        j.params.lat=jsonFromAbs.params.lat
+        j.params.lon=jsonFromAbs.params.lon
+        j.params.alt=jsonFromAbs.params.alt
+        j.params.c=jsonFromAbs.params.c
+        j.params.t=jsonFromAbs.params.t
+        j.params.s=jsonFromAbs.params.s
         return j
     }
     function getZiData(bodieIndex, signIndex, houseIndex){

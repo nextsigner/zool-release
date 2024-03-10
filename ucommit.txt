@@ -1,1 +1,1 @@
-Se modifica params.tipo y app.mod a .t
+Se crea updateParams() en zfdm

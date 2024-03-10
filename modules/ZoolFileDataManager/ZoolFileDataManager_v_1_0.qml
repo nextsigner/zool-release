@@ -117,7 +117,7 @@ Item{
 //    }
     function saveJson(json){
         r.ja=json
-        let saved = unik.setFile(apps.url, JSON.stringify(r.ja))
+        let saved = unik.setFile(apps.url, JSON.stringify(r.ja, null, 2))
         if(saved){
             let njson=JSON.stringify(json)
             zoolMap.fileData=njson
@@ -132,7 +132,7 @@ Item{
     function getParam(p){
         return r.ja.params[''+p]
     }
-    function updateParam(params, save){
+    function updateParams(params, save){
         let json=zfdm.getJson()
         json.params=params
         if(unik.fileExist(apps.url.replace('file://', ''))){
