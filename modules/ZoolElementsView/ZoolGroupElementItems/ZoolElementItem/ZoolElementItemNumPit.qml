@@ -51,9 +51,9 @@ Rectangle{
     Row{
         anchors.centerIn: parent
         spacing: r.fs*0.5
-        ZoolText{id: zt1; text: '<b>'+r.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
-        ZoolText{id: zt2; text: '<b>'+r.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
-        ZoolText{id: zt3; text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
+        Text{id: zt1; text: '<b>'+r.nd+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
+        Text{id: zt2; text: '<b>'+r.ns+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
+        Text{id: zt3; text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
     }
     function updateNumPit(){
         let d = !r.isBack?app.j.getNums(zm.currentFecha):app.j.getNums(zm.currentFechaBack)

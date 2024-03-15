@@ -115,35 +115,6 @@ Item {
                     anchors.right: parent.left
                     anchors.rightMargin: 0//app.fs*14
                     rotation: 360-parent.parent.rotation+(!r.isBack?0:zm.dirPrimRot)
-                    MouseArea{
-                        anchors.fill: parent
-                        onWheel: {
-                            //apps.enableFullAnimation=false
-                            if (wheel.modifiers & Qt.ControlModifier) {
-                                if(wheel.angleDelta.y>=0){
-                                    pointerHouse.pointerRot+=5
-                                }else{
-                                    pointerHouse.pointerRot-=5
-                                }
-                            }else{
-                                if(wheel.angleDelta.y>=0){
-                                    pointerHouse.pointerRot+=45
-                                }else{
-                                    pointerHouse.pointerRot-=45
-                                }
-                            }
-                            //reSizeAppsFs.restart()
-                        }
-                        onClicked: {
-                            if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
-                                item.selected=!item.selected
-                                setCurrentHouseIndex(item)
-                            }else{
-                                setCurrentHouseIndex(item)
-                            }
-                            //log.lv('r.currentHouse: '+r.currentHouse)
-                        }
-                    }
                     Text{
                         text: '<b>'+item.ih+'</b>'
                         font.pixelSize: parent.width*0.6//!app.ev?app.fs*0.8:app.fs*0.75
@@ -266,6 +237,51 @@ Item {
                         ih:item.ih
                         isBack: r.isBack
                         visible: item.selected
+                    }
+                    MouseArea{
+                        anchors.fill: parent
+                        acceptedButtons: Qt.AllButtons;
+                        onWheel: {
+                            //apps.enableFullAnimation=false
+                            if (wheel.modifiers & Qt.ControlModifier) {
+                                if(wheel.angleDelta.y>=0){
+                                    pointerHouse.pointerRot+=5
+                                }else{
+                                    pointerHouse.pointerRot-=5
+                                }
+                            }else{
+                                if(wheel.angleDelta.y>=0){
+                                    pointerHouse.pointerRot+=45
+                                }else{
+                                    pointerHouse.pointerRot-=45
+                                }
+                            }
+                            //reSizeAppsFs.restart()
+                        }
+                        onClicked: {
+                            if(mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
+                                item.selected=!item.selected
+                                setCurrentHouseIndex(item)
+                            }else if(mouse.button === Qt.RightButton){
+                                //log.lv('House Botón Derecho house: '+item.ih)
+                                menuCtxHouses.isBack=r.isBack
+                                menuCtxHouses.currentIndexHouse=item.ih
+                                menuCtxHouses.popup()
+                            }else{
+                                //setCurrentHouseIndex(item)
+                                //log.lv('House Botón Derecho.')
+                            }
+                            //log.lv('r.currentHouse: '+r.currentHouse)
+                        }
+//                        onDoubleClicked: {
+//                            log.lv('House: '+item.ih)
+//                            //saveZoomAndPosHouse(house)
+//                        }
+                        /*Rectangle{
+                            anchors.fill: parent
+                            color: 'red'
+                            visible: parent.enabled
+                        }*/
                     }
                 }
 
@@ -432,7 +448,7 @@ Item {
             if(wg<0){
                 wg=wg+360
             }
-            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zm.objSignsCircle.rot, ih: i+1, wg: wg, is: jsonData.ph['h'+parseInt(i + 1)].is, rsdeg:jsonData.ph['h'+parseInt(i + 1)].rsdeg, gdec:jsonData.ph['h'+parseInt(i + 1)].gdec, gdeg:jsonData.ph['h'+parseInt(i + 1)].gdeg, mdeg: jsonData.ph['h'+parseInt(i + 1)].mdeg, sdeg: jsonData.ph['h'+parseInt(i + 1)].sdeg})
+            let comp=compArc.createObject(dha, {rotation: 360-jsonData.ph['h'+parseInt(i + 1)].gdec+zm.objSignsCircle.rot, ih: i+1, wg: wg, is: jsonData.ph['h'+parseInt(i + 1)].is, rsdeg:jsonData.ph['h'+parseInt(i + 1)].rsdeg, gdec:jsonData.ph['h'+parseInt(i + 1)].gdec, gdeg:jsonData.ph['h'+parseInt(i + 1)].gdeg, mdeg: jsonData.ph['h'+parseInt(i + 1)].mdeg, sdeg: jsonData.ph['h'+parseInt(i + 1)].sdeg, z:100+i})
         }
         if(app.t==='dirprim'){
             //xArcsBack.rotation-=sweg.dirPrimRot
@@ -489,5 +505,7 @@ Item {
                 r.currentHouse=zm.currentHouseIndexBack
             }
         }
+        //log.lv('House: '+item.ih)
+        //zm.saveZoomAndPosHouse(item.ih)
     }
 }

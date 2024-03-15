@@ -65,7 +65,7 @@ Rectangle {
             width: app.fs*0.5
             height: width
             radius: width*0.5
-            color: zm.fileData===zm.currentData?'gray':'red'
+            color: !zm.isDataDiff?'gray':'red'
             border.width: 2
             border.color: apps.fontColor
             anchors.verticalCenter: parent.verticalCenter
@@ -73,9 +73,8 @@ Rectangle {
             visible:  !zm.ev
             MouseArea{
                 anchors.fill: parent
-                enabled: zm.titleData!==zm.currentData
                 onClicked: {
-                    //app.j.saveJson()
+                    if(!zm.isDataDiff)return
                     let date=new Date(Date.now())
                     let msmod=date.getTime()
                     let json=zm.currentJson.params

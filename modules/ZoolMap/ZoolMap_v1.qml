@@ -10,6 +10,7 @@ import ZoolMap.ZoolMapAspsCircle 1.0
 import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
 import ZoolMap.ZoolMapAsInfoView 1.0
+import ZoolElementsView 1.0
 
 import ZoolMap.ZoolMapNakshatraView 1.0
 
@@ -32,10 +33,12 @@ Item{
     property alias objZoolAspectsView: panelAspects
     property alias objZoolAspectsViewBack: panelAspectsBack
     property alias objAsInfoView: zoolMapAsInfoView
+    property alias zev: zoolElementsView
 
 
     property bool showZonas: true
 
+    property bool isDataDiff: false
     property bool ev: false
     property int zodiacBandWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
@@ -157,7 +160,7 @@ Item{
     //<--Theme
 
     property var aTexts: []
-
+    property alias rectXBackItems: xBackItems
     onVisibleChanged: {
         if(visible){
             centerZoomAndPos()
@@ -257,6 +260,34 @@ Item{
 //        color: 'yellow'
 //    }
     Item{id:xuqp}
+    Item{
+        id: xBackItems
+        width: 100
+        height: 100
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: r.width*0.5
+        anchors.verticalCenterOffset: r.height*0.5
+        ZoolMapAspsView{
+            id: panelAspects
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.leftMargin: xLatIzq.visible?0:0-xLatIzq.width
+            parent: xMed
+            //visible: false
+            //visible: r.objectName==='sweg'
+        }
+        ZoolMapAspsViewBack{
+            id: panelAspectsBack
+            anchors.top: parent.top
+            //anchors.topMargin: 0-(r.parent.height-r.height)/2
+            parent: xMed
+            anchors.left: parent.left
+            anchors.leftMargin: xLatIzq.visible?width:width-xLatIzq.width
+            transform: Scale{ xScale: -1 }
+            rotation: 180
+            visible: planetsCircleBack.visible
+        }
+    }
     Flickable{
         id: flick
         anchors.fill: parent
@@ -312,6 +343,7 @@ Item{
                 repeat: true
                 interval: 1000
                 onTriggered: {
+                    revIsDataDiff()
                     housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
                     housesCircleBack.wbgc=signCircle.width//ai.width
                     //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
@@ -363,13 +395,18 @@ Item{
                     height: width
                     color: 'transparent'
                     anchors.centerIn: parent
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: {
+//                    MouseArea{
+//                        anchors.fill: parent
+//                        onClicked: {
 
-                        }
-                        onDoubleClicked: centerZoomAndPos()
-                    }
+//                        }
+//                        onDoubleClicked: centerZoomAndPos()
+//                        Rectangle{
+//                            anchors.fill: parent
+//                            color: '#FF8833'
+//                            visible: false
+//                        }
+//                    }
                 }
                 MouseArea {
                     //z:parent.z-1
@@ -406,9 +443,15 @@ Item{
                         rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
                         //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
                     }
+                    Rectangle{
+                        anchors.fill: parent
+                        color: '#FF8833'
+                        visible: false
+                    }
                     MouseArea {
                         anchors.fill: parent
                         acceptedButtons: Qt.AllButtons;
+                        //z: parent.z-1
                         onClicked: {
                             //log.lv('Ser pos:'+mouseX+' '+mouseY)
                             //zm.setPos(mouseX, mouseY, 0)
@@ -503,18 +546,6 @@ Item{
 
                 //NumberLines{visible:true}
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
-//                Image {
-//                    id: imgEarth
-//                    source: r.folderImg+"/earth.png"
-//                    width: r.planetSize
-//                    height: width
-//                    rotation: -45
-//                    antialiasing: true
-//                    anchors.centerIn: parent
-//                    z: aspsCircle.z+1
-//                    //visible: apps.xAsShowIcon
-//                    //visible: r.numAstro===0&&apps.xAsShowIcon
-//                }
                 Rectangle{
                     id: capaFront
                     width: parent.width
@@ -578,24 +609,15 @@ Item{
             }
         }
     }
-    ZoolMapAspsView{
-        id: panelAspects
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: xLatIzq.visible?0:0-xLatIzq.width
-        parent: xMed
-        //visible: r.objectName==='sweg'
-    }
-    ZoolMapAspsViewBack{
-        id: panelAspectsBack
-        anchors.top: parent.top
-        //anchors.topMargin: 0-(r.parent.height-r.height)/2
-        parent: xMed
-        anchors.left: parent.left
-        anchors.leftMargin: xLatIzq.visible?width:width-xLatIzq.width
-        transform: Scale{ xScale: -1 }
-        rotation: 180
-        visible: planetsCircleBack.visible
+    Item{
+        id: xFrontItems
+        anchors.fill: xBackItems
+        Rectangle{
+            anchors.fill: parent
+            color: 'black'
+            visible: zev.zoom===5.0
+        }
+        ZoolElementsView{id: zoolElementsView}
     }
     ZoolMapAsInfoView{
         id: zoolMapAsInfoView
@@ -653,7 +675,6 @@ Item{
             }
         }
     }
-
     Component.onCompleted: {
         if(!apps)return
         setTheme(apps.apps.zmCurrenThemeIndex)
@@ -1258,7 +1279,14 @@ Item{
         tapa.opacity=0.0
         r.safeTapa=false
     }
-
+    function revIsDataDiff(){
+        let j0=zfdm.getJsonAbsParams()
+        let j1=zm.currentJson.params
+        let sj1='s_'+j1.d+'_'+j1.m+'_'+j1.a+'_'+j1.h+'_'+j1.min+'_'+j1.gmt+'_'+j1.lat+'_'+j1.lon+'_'+j1.alt
+        let sj0='s_'+j0.d+'_'+j0.m+'_'+j0.a+'_'+j0.h+'_'+j0.min+'_'+j0.gmt+'_'+j0.lat+'_'+j0.lon+'_'+j0.alt
+        r.isDataDiff=sj0!==sj1
+        return r.isDataDiff
+    }
     //-->ZoomAndPan
     function centerZoomAndPos(){
         pinchArea.m_x1 = 0
@@ -1299,7 +1327,11 @@ Item{
         a.push(parseFloat(pinchArea.m_zoom2).toFixed(2))
         a.push(parseInt(rect.x))
         a.push(parseInt(rect.y))
-        a.push(parseInt(app.currentXAs.uRot))
+        if(zm.currentXAs){
+            a.push(parseInt(zm.currentXAs.uRot))
+        }else{
+            a.push(0)
+        }
         return a
     }
     function setPos(x, y, angle){
@@ -1324,6 +1356,24 @@ Item{
         var rotatedY = x * Math.sin(radians) + y * Math.cos(radians);
 
         return { x: rotatedX, y: rotatedY };
+    }
+    function saveZoomAndPosHouse(house, isExt){
+        let json=zfdm.getJsonAbs()
+        if(!json[app.stringRes+'zoompos']){
+            json[app.stringRes+'zoompos']={}
+        }
+        let sNomItem=''+app.stringRes+'zoompos'
+        if(isExt)sNomItem+='Back'
+        json[sNomItem]['h'+house]=r.getZoomAndPos()
+        if(unik.fileExist(apps.url.replace('file://', ''))){
+            let dataModNow=new Date(Date.now())
+            json.params.msmod=dataModNow.getTime()
+        }
+        let njson=JSON.stringify(json, null, 2)
+        log.lv('json: '+njson)
+        //zm.fileData=njson
+        //zm.currentData=njson
+        unik.setFile(apps.url.replace('file://', ''), njson)
     }
     //Función para el desarrollo de el posicionamiento automático.
     function mr(x, y) {

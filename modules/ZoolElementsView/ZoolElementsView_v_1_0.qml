@@ -16,6 +16,7 @@ Rectangle{
     property alias settings: s
     property bool showBack: false
     property url uItemGrabber
+    property real zoom: s.zoom
     transform: Scale {
         id: tform2
         xScale: 0.25

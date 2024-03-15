@@ -30,6 +30,7 @@ import ZoolMap 1.0
 import ZoolBodiesGuiTools 1.0
 import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
+import ZoolMenuCtxHouses 1.0
 
 import ZoolControlsTime 1.0
 
@@ -37,7 +38,7 @@ import ZoolSectionsManager 1.1
 
 import ZoolDataBodies 3.1
 import ZoolElementsBack 1.0
-import ZoolElementsView 1.0
+
 
 import comps.ZoolPanelNotifications 1.0
 import web.ZoolWebStatusManager 1.0
@@ -280,7 +281,11 @@ ZoolMainWindow{
             anchors.bottom: parent.bottom
             //clip: xLatIzq.visible
             //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !app.dev}
-            ZoolMap{id: zm;}
+            ZoolMap{
+                id: zm;
+                rectXBackItems.width: xMed.width
+                rectXBackItems.height: xMed.height
+            }
             Image {
                 id: xDataBarUItemGrabber
                 //source: xDataBar.uItemGrabber
@@ -430,7 +435,8 @@ ZoolMainWindow{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
                 height: parent.height
-                ZoolElementsView{id: zoolElementsView}
+
+                //ZoolElementsView{id: zoolElementsView}
                 //ExtId
                 Text{
                     text: '<b>uExtId: '+zoolDataView.uExtIdLoaded+'</b>'
@@ -625,6 +631,7 @@ ZoolMainWindow{
     Comps.MenuPlanets{id: menuPlanets}
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
+    ZoolMenuCtxHouses{id: menuCtxHouses}
     ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
 
     //Este esta en el centro

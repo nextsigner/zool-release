@@ -16,6 +16,7 @@ Rectangle {
     Row{
         id: row
         visible: apps.showAspPanel
+        //visible: false
         Repeater{
             //model: r.visible?15:0
             model: r.visible?20:0

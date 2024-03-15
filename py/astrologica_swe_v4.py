@@ -215,8 +215,11 @@ jsonParams+='"h": '+ str(sys.argv[4]) +','
 jsonParams+='"min": '+ str(sys.argv[5]) +','
 jsonParams+='"gmt": '+ str(sys.argv[6]) +','
 jsonParams+='"lat": '+ str(sys.argv[7]) +','
-jsonParams+='"lon": '+ str(sys.argv[8]) +''
+jsonParams+='"lon": '+ str(sys.argv[8]) +','
+jsonParams+='"alt": '+ str(sys.argv[11]) +''
 jsonParams+='}'
+
+#sys.argv[11]
 
 
 j={}

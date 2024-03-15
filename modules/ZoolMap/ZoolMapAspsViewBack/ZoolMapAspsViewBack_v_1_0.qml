@@ -11,7 +11,7 @@ Rectangle {
     property int cellWidth: app.fs*0.45
     Row{
         id: row
-        visible: apps.showAspPanelBack
+        visible: false//apps.showAspPanelBack
         Repeater{
             model: r.visible?20:0
             CellColumnAspBack{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}

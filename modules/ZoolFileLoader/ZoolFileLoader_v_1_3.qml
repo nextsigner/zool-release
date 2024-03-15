@@ -552,8 +552,8 @@ Rectangle {
                     if(jsonData.asp){
                         //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
                     }
-                    log.x=xApp.width-xLatIzq.width
-                    log.lv('Nom: '+jsonData.params.n)
+                    //log.x=xApp.width-xLatIzq.width
+                    //log.lv('Nom: '+jsonData.params.n)
                     let vd=jsonData.params.d
                     let vm=jsonData.params.m
                     let va=jsonData.params.a

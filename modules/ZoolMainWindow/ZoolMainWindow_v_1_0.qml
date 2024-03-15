@@ -102,6 +102,17 @@ ApplicationWindow {
             tCap2.restart()
         }
     }
+    Shortcut{
+        sequence: 'e'
+        onActivated: {
+            //zoolElementsView.zoom+=0.1//zoolElementsView.zoom*2
+            if(zm.zev.settings.zoom===5.0){
+                zm.zev.settings.zoom=1.0
+            }else{
+                zm.zev.settings.zoom=5.0
+            }
+        }
+    }
     Timer{
         id: tCap2
         running: false
@@ -779,7 +790,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+e'
         onActivated: {
-            panelPronEdit.state=panelPronEdit.state==='show'?'hide':'show'
+            //panelPronEdit.state=panelPronEdit.state==='show'?'hide':'show'
         }
     }
     //Mostrar Mostrar Reloj

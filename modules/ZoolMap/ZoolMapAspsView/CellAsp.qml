@@ -4,6 +4,7 @@ Rectangle {
     id: r
     height: width
     color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'transparent':apps.backgroundColor)
+    //color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'blue':'red')
     property var arrColors: ['red','#ff8833',  'green', '#124cb1']
     property int indexAsp: -1
     property int indexPosAsp: -1
@@ -56,6 +57,7 @@ Rectangle {
         id: ma
         anchors.fill: parent
         property int uCurrentPlanetIndex: -1
+        //enabled: false
         onClicked: {
             if(zm.objAspsCircle.currentAspSelected!==r.indexPosAsp){
                 zm.objAspsCircle.currentAspSelected=r.indexPosAsp

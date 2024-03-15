@@ -14,6 +14,7 @@ Rectangle{
     property var aElements: ["Fuego", "Tierra", "Aire", "Agua"]
     property string element: aElements[numElement]
     property int porc: 99
+    //Behavior on width{NumberAnimation{duration: 1500}}
     onWidthChanged: {
         zt1.font.pixelSize = r.width*0.15
         zt2.font.pixelSize = r.width*0.15
