@@ -39,13 +39,15 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
-            zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
-            zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
-            zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
-            zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
-            let ci=zsm.getPanelIndex('ZoolNumPit')
-            zsm.currentIndex=ci
+//            zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
+//            zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
+//            zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
+//            zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
+//            zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
+//            let ci=zsm.getPanelIndex('ZoolNumPit')
+//            zsm.currentIndex=ci
+            //Qt.quit()
+            sendDataToModuleNumPit()
         }
     }
     Row{
@@ -62,5 +64,14 @@ Rectangle{
         r.ns=d[1]
         r.ag=parseInt(d[2])
         r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
+    }
+    function sendDataToModuleNumPit(){
+        zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
+        zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
+        zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
+        zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
+        zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
+        let ci=zsm.getPanelIndex('ZoolNumPit')
+        zsm.currentIndex=ci
     }
 }

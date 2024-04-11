@@ -97,6 +97,7 @@ Rectangle{
         itemAgua.porc=af[3]
 
         numPit.updateNumPit()
+        numPit.sendDataToModuleNumPit()
         //setUImgGrabber()
     }
 }

@@ -1,1 +1,1 @@
-Se arregla la función Cargar como Sinastría n ZoolFileLoader 2
+Se cargan datos numpit automáticamente al cargar el archivo

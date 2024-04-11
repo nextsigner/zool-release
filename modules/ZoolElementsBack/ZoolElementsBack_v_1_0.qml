@@ -56,7 +56,8 @@ Item {
                     ncv.setCurrentNombre(zm.currentNomBack)
                     ncv.currentAG=app.arbolGenealogico[xItemNums.ag]
                     ncv.currentCargaAG=ncv.aCargasAG[xItemNums.ag]
-                    sv.currentIndex=5
+                    |sv.currentIndex=5
+                    //Qt.quit()
                     //ncv.currentDate=app.currentDateBack
                     //ncv.visible=true
                 }
