@@ -1,1 +1,1 @@
-Se crea ZoolMenuCtxHouses
+Se arregla la función Cargar como Sinastría n ZoolFileLoader

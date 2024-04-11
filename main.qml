@@ -53,6 +53,7 @@ import ZoolBottomBar 1.0
 
 import NodeIOQml 1.1
 
+import ZoolRemoteDataManager 1.0
 
 
 ZoolMainWindow{
@@ -187,6 +188,7 @@ ZoolMainWindow{
     FontLoader {name: "TypeWriter";source: "./fonts/typewriter.ttf";}
     Unik{id: unik}
     ZoolAppSettings{id: apps}
+    ZoolRemoteDataManager{id: zrdm}
     ZoolFileDataManager{id: zfdm}
     ZoolServerFileDataManager{id: zsfdm}
     NodeIOQml{

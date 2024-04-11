@@ -61,6 +61,26 @@ Rectangle {
         anchors.centerIn: parent
         visible: !tResizeFs.running
         Rectangle{
+            id: circuloSaveRemote
+            width: app.fs*0.5
+            height: width
+            radius: width*0.5
+            color: 'green'
+            border.width: 2
+            border.color: apps.fontColor
+            anchors.verticalCenter: parent.verticalCenter
+            //y:(parent.height-height)/2
+            visible:  circuloSave.visible
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    let j=zfdm.getJsonAbs()
+                    //log.lv('j:'+JSON.stringify(j.params, null, 2))
+                    zrdm.sendNewParams(j)
+                }
+            }
+        }
+        Rectangle{
             id: circuloSave
             width: app.fs*0.5
             height: width
@@ -211,20 +231,20 @@ Rectangle {
             }
         }
     }
-//    Timer{
-//        id: tWaitUpdateData
-//        running: false
-//        repeat: false
-//        interval: 1500
-//        onTriggered: {
-//            if(row.width>app.fs*53){
-//                //tResizeFs.start()
-//            }else{
-//                //tResizeFs.stop()
-//                //row.visible=true
-//            }
-//        }
-//    }
+    //    Timer{
+    //        id: tWaitUpdateData
+    //        running: false
+    //        repeat: false
+    //        interval: 1500
+    //        onTriggered: {
+    //            if(row.width>app.fs*53){
+    //                //tResizeFs.start()
+    //            }else{
+    //                //tResizeFs.stop()
+    //                //row.visible=true
+    //            }
+    //        }
+    //    }
     Timer{
         id: tResizeFs
         running: row.width>xApp.width
@@ -232,11 +252,11 @@ Rectangle {
         interval: 50
         onTriggered: {
             r.fs-=1
-//            //if(row.width<r.width-app.fs){
-//            if(row.width<app.fs*53){
-//                //stop()
-//                row.visible=true
-//            }
+            //            //if(row.width<r.width-app.fs){
+            //            if(row.width<app.fs*53){
+            //                //stop()
+            //                row.visible=true
+            //            }
         }
     }
     function setDataView(sep, aL, aR){

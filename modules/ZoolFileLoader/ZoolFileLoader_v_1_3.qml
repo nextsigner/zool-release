@@ -425,7 +425,8 @@ Rectangle {
                                 app.t='sin'
                                 JSON.parse(app.currentData).params.t='sin'
                             }
-                            app.j.loadJsonBack(fileName, 'sin')
+                            zm.loadFromFile(fileName, 'sin', true)
+                            //app.j.loadJsonBack(fileName, 'sin')
                             //r.state='hide'
                         }
                     }
@@ -499,7 +500,8 @@ Rectangle {
         let ciudad=j.c
         let e='1000'
         let aR=[]
-        app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+        zm.loadFromFile(fileName, 'sin', true)
+        //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function deleteVnData(fileName){
         unik.deleteFile(fileName)
