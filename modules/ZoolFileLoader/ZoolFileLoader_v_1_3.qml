@@ -475,16 +475,10 @@ Rectangle {
         parent: visible?xMed:r
     }
     function loadAsSin(fileName){
-//        let tipo=JSON.parse(app.currentData).params.t
-//        if(tipo==='vn'){
-//            //xDataBar.stringMiddleSeparator='Sinastría'
-//            app.t='sin'
-//            JSON.parse(app.currentData).params.t='sin'
-//        }
+        zm.loadFromFile(fileName, 'sin', true)
+
         let jsonFileData=unik.getFile(fileName)
         let j=JSON.parse(jsonFileData).params
-        //if(app.dev)log.lv('loadAsSin(\n'+fileName+')\n'+JSON.stringify(j, null, 2))
-
         let t='sin'
         let hsys=j.hsys?j.hsys:apps.currentHsys
         let nom=j.n
@@ -499,9 +493,12 @@ Rectangle {
         let alt=j.alt?j.alt:0
         let ciudad=j.c
         let e='1000'
+
+        let sep='Sinastría'
+        let aL=zoolDataView.atLeft
         let aR=[]
-        zm.loadFromFile(fileName, 'sin', true)
-        //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+        aR.push(nom, d+'/'+m+'/'+a, h+':'+min+'hs', 'GMT: '+gmt, 'Lat:'+lat, 'Lon: '+lon, 'Alt: '+alt)
+        zoolDataView.setDataView(sep, aL, aR)
     }
     function deleteVnData(fileName){
         unik.deleteFile(fileName)

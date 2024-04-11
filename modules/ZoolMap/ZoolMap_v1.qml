@@ -1059,7 +1059,7 @@ Item{
         if(!isBack){
             r.load(p)
         }else{
-            r.loadBack(p)
+            r.loadBack(p)            
         }
 
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)

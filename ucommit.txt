@@ -1,1 +1,1 @@
-Se arregla la función Cargar como Sinastría n ZoolFileLoader
+Se arregla la función Cargar como Sinastría n ZoolFileLoader 2
