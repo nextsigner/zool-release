@@ -15,6 +15,8 @@ Rectangle {
     height: parent.height
     clip: true
     color: apps.backgroundColor
+    border.width: 1
+    border.color: apps.fontColor
 
     property alias log: zoolNumPitLog
 
@@ -320,7 +322,7 @@ Rectangle {
                                         fs: app.fs*0.5
                                         anchors.verticalCenter: parent.verticalCenter
                                         onClicked:{
-                                            zm.getZiDataNum(r.currentNumNacimiento, 'masc', checkBoxShowInfo.checked)
+                                            zm.getZiDataNum(r.currentNumNacimiento, 'masc', !checkBoxShowInfo.checked)
                                         }
                                     }
                                     ZoolButton{
@@ -458,7 +460,7 @@ Rectangle {
             }
             Row{
                 spacing: app.fs*0.25
-                //anchors.horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 Text{
                     text: '<b>Género: </b>'
                     font.pixelSize: app.fs*0.5

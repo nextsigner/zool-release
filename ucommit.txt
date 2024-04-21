@@ -1,1 +1,1 @@
-Se cargan datos numpit automáticamente al cargar el archivo
+Se optimiza MouseArea drag de ZoolMap

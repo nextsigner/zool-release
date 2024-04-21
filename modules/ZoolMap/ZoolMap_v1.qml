@@ -290,12 +290,17 @@ Item{
     }
     Flickable{
         id: flick
-        anchors.fill: parent
+        //anchors.fill: parent
+        width: r.width*2
+        height: r.height*2
+        anchors.centerIn: parent
         Rectangle {
             id: rect
             border.width: 0
             width: Math.max(xSweg.width, flick.width)*2
             height: Math.max(xSweg.height, flick.height)*2
+            //x: 0-parent.width
+            //y: 0-parent.height
             border.color: '#ff8833'
             color: 'transparent'
             antialiasing: true
@@ -409,9 +414,16 @@ Item{
 //                    }
                 }
                 MouseArea {
+                    width: r.width*10
+                    height: width
+                    onClicked: {
+                        centerZoomAndPos()
+                    }
+                }
+                MouseArea {
                     //z:parent.z-1
                     id: dragArea
-                    hoverEnabled: true
+                    //hoverEnabled: true
                     anchors.fill: parent
                     drag.target: rect
                     drag.filterChildren: true
@@ -443,8 +455,13 @@ Item{
                         rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
                         //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
                     }
+                    onPositionChanged: {
+                        //zonaMouse.visible=!zonaMouse.visible
+                    }
                     Rectangle{
+                        id: zonaMouse
                         anchors.fill: parent
+                        radius: width*0.5
                         color: '#FF8833'
                         visible: false
                     }
@@ -476,7 +493,8 @@ Item{
                 width: r.width//*0.25
                 height: width
                 anchors.centerIn: parent
-                //anchors.horizontalCenterOffset: xSweg.width*0.5
+                anchors.horizontalCenterOffset: 0-r.width*0.5
+                anchors.verticalCenterOffset: 0-r.height*0.5
                 Rectangle{
                     id: bg
                     width: parent.width*10
