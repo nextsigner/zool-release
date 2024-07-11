@@ -854,7 +854,7 @@ Rectangle {
             jo=json.pc['c'+zm.listCotasShowingBack[i]]
             let nis=zm.getIndexSign(ngdec)
 
-            let nih=zm.getIndexHouse(ngdec, false)+1
+            let nih=zm      .getIndexHouse(ngdec, false)+1
             if(ngdec>360.00)ngdec=360.00-ngdec
             sExt+=zm.aBodies[zm.listCotasShowingBack[i]]+' en '+app.signos[nis]+'<br>Casa '+nih+'\n°'+parseInt(zm.getDDToDMS(ngdec).deg - (30*nis))+' \''+zm.getDDToDMS(ngdec).min+' \'\''+zm.getDDToDMS(ngdec).sec+'<br>'
         }

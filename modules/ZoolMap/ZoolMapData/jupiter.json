@@ -2,14 +2,14 @@
 "info": {
     "diámetro": "139,820 km",
     "tiempoDeOrbitaCompleta": {
-      "d": 4,333,
+      "d": 4.333,
       "m": 142.9,
       "a": 11.86
     },
     "tiempoDeOrbitaPorSigno": {
-      "d": 142.9/12,
-      "m": 11.86/12,
-      "a": 11.86/1
+      "d": 194.225,
+      "m": 1714.8,
+      "a": 142.9
     },
     "posición": 5,
     "propiedadesFisicas": "Gaseoso, frío",

@@ -1,1 +1,1 @@
-Se optimiza MouseArea drag de ZoolMap
+Se agrega un boton mkHtmlRemoto a ZoolDataView

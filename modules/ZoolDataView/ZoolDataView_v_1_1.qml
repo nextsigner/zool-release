@@ -61,6 +61,44 @@ Rectangle {
         anchors.centerIn: parent
         visible: !tResizeFs.running
         Rectangle{
+            id: circuloMkFullHtml
+            width: app.fs*0.5
+            height: width
+            radius: width*0.5
+            color: 'green'
+            border.width: 2
+            border.color: apps.fontColor
+            anchors.verticalCenter: parent.verticalCenter
+            //y:(parent.height-height)/2
+            visible:  circuloSave.visible
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    let j=zfdm.getJsonAbs().params
+                    let n=(j.n).replace(/_/g, '+')
+                    let d=j.d
+                    let m=j.m
+                    let a=j.a
+                    let h=j.h
+                    let min=j.min
+                    let gmt=j.gmt
+                    let ciudad=(j.c).replace(/_/g, '+')
+                    let lat=j.lat
+                    let lon=j.lon
+                    let alt=0
+                    if(j.alt)alt=j.alt
+                    let sexo=''
+                    if (mouse.modifiers & Qt.ControlModifier) {
+                        sexo='masculino'
+                    }else{
+                        sexo='femenino'
+                    }
+                    let url='http://www.zool.ar/getZoolDataMapFull?n='+n+'&d='+d+'&m='+m+'&a='+a+'&h='+h+'&min='+min+'&gmt='+gmt+'&lugarNacimiento='+ciudad+'&lat='+lat+'&lon='+lon+'&alt='+alt+'&ciudad='+ciudad+'&ms=0&msReq=0&adminId=zoolrelease&sexo='+sexo
+                    Qt.openUrlExternally(url)
+                }
+            }
+        }
+        Rectangle{
             id: circuloSaveRemote
             width: app.fs*0.5
             height: width

@@ -29,6 +29,7 @@ Rectangle {
     }
     Settings{
         id: s
+        fileName: './favotites.cfg'
         property bool showToolItem: false
         property var favorites: []
     }

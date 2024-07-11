@@ -2,14 +2,14 @@
 "info": {
     "diámetro": "2,377 km",
     "tiempoDeOrbitaCompleta": {
-      "d": 90,560,
-      "m": 2,996.73,
+      "d": 90.560,
+      "m": 2.996,
       "a": 248
     },
     "tiempoDeOrbitaPorSigno": {
-      "d": 90,560/12,
-      "m": 2,996.73/12,
-      "a": 248/12
+      "d": 7.5,
+      "m": 0.24,
+      "a": 20.66
     },
     "posición": "Enana",
     "propiedadesFisicas": "Rocoso, frío",

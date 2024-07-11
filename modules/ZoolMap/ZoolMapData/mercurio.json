@@ -7,9 +7,9 @@
       "a": 0.24
     },
     "tiempoDeOrbitaPorSigno": {
-      "d": 88/12,
-      "m": 2.92/12,
-      "a": 0.24/12
+      "d": 7.33,
+      "m": 0.24,
+      "a": 0.02
     },
     "posición": 1,
     "propiedadesFisicas": "Rocoso, caliente",
