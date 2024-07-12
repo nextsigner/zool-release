@@ -42,7 +42,7 @@ Rectangle{
             }
         }
         Editor.UnikTextEditor{
-            id:editor
+            id: editor
             z: xEditorTit.z-1
             width: xEditor.width
             height: xEditor.height-xEditorTit.height-xEditorTools.height//-app.fs*0.5
@@ -188,13 +188,10 @@ Rectangle{
         }
     }
     function showInfo(){
-        let json=JSON.parse(app.fileData)
-        let data=''
-        if(json.params.data){
-            data=json.params.data
-        }
-        r.e.text=data
-        r.l.text='Información de '+json.params.n.replace(/_/g, ' ')
+        let j=zfdm.getJsonAbs()
+        let info=zfdm.getInfo(false)
+        r.e.text=info
+        r.l.text='Información de '+j.params.n.replace(/_/g, ' ')
         r.editing=false
         r.visible=true
     }
@@ -202,16 +199,17 @@ Rectangle{
         //Qt.quit()
     }
     function save(){
-        let json=JSON.parse(app.fileData)
+        /*let json=JSON.parse(app.fileData)
         json.params.data=editor.text
         if(unik.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
-        }
-        let njson=JSON.stringify(json)        
-        app.fileData=njson
-        app.currentData=app.fileData
-        unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        }*/
+        zfdm.setInfo(false, editor.text)
+        //let njson=JSON.stringify(json)
+        //app.fileData=njson
+        //app.currentData=app.fileData
+        //unik.setFile(apps.url.replace('file://', ''), app.fileData)
         r.editing=!r.editing
     }
     function close(){

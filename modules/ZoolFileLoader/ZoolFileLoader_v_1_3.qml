@@ -5,7 +5,6 @@ import ZoolButton 1.2
 import ZoolText 1.0
 import Qt.labs.settings 1.1
 
-
 Rectangle {
     id: r
     width: xLatIzq.width

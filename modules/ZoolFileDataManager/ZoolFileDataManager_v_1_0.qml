@@ -239,5 +239,22 @@ Item{
         return allTaskReady
     }
     //<--Get Json Data
+
+    //-->Info Data Params Man
+    function getInfo(isExt){
+        let p=getJsonAbsParams(isExt)
+        let info=""
+        if(p.info)info=p.info
+        return info
+    }
+    function setInfo(isExt, data){
+        let j=getJsonAbs()
+        let p=getJsonAbsParams(isExt)
+        let info=data
+        p.info=info
+        j.params.info=info
+        saveJson(j)
+    }
+    //<--Info Data Params Man
 }
 

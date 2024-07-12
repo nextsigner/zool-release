@@ -131,7 +131,7 @@ Settings{
     property int iwFs: Screen.width*0.02
     property int iwWidth: Screen.width*0.5
 
-    property int editorFs: Screen.width*0.01
+    property int editorFs: Screen.width*0.025
     property bool editorShowNumberLines: false
     property int editorTextFormat: 0
 

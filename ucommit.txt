@@ -1,1 +1,1 @@
-Se agrega un boton mkHtmlRemoto a ZoolDataView
+Se mejora Editor de info
