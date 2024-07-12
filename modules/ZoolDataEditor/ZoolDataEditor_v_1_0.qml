@@ -5,9 +5,10 @@ Rectangle{
     id: r
     visible: false
     width: xApp.width*0.2
-    height: parent.height
+    height: parent.height-zoolDataView.height
     color: apps.backgroundColor
     clip: true
+    anchors.bottom: parent.bottom
     property alias l: labelEditorTitle
     property alias e: editor
     property bool editing: false

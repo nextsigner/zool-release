@@ -234,6 +234,9 @@ Item{
 
                     tWaitHovered.restart()
                 }else{
+                    let sent=wheel.angleDelta.y > 0
+                    zm.setZoom(sent, zm.uMouseX, zm.uMouseY)
+                    return
                     if(wheel.angleDelta.y>=0){
                         //                    if(reSizeAppsFs.fs<app.fs*2){
                         //                        reSizeAppsFs.fs+=reSizeAppsFs.fs*0.1

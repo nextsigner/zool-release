@@ -742,6 +742,17 @@ ApplicationWindow {
             apps.lt=!apps.lt
         }
     }
+    //Mostrar/Ocultar Información
+    Shortcut{
+        sequence: 'Ctrl+Shift+i'
+        onActivated: {
+            if(!xEditor.visible){
+                xEditor.showInfo()
+            }else{
+                xEditor.visible=false
+            }
+        }
+    }
     //Mostrar/Ocultar MenuBar
     Shortcut{
         sequence: 'Ctrl+m'
