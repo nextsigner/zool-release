@@ -1513,4 +1513,10 @@ Item{
         }
         return ret
     }
+
+    //-->Data
+    function getParams(){
+        return zfdm.getJsonAbsParams()
+    }
+    //<--Data
 }

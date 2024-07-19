@@ -89,7 +89,7 @@ Menu {
                        }
     }
     Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
-                           app.j.loadJson(apps.url)
+                            zm.loadFromFile(apps.url, zm.getParams().t, false)
                        }
     }
     Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {

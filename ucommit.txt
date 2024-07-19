@@ -1,1 +1,1 @@
-Se crea ZoolMap V2
+Se corrige Descartar exterior
