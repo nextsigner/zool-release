@@ -66,6 +66,7 @@ Rectangle{
         r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
     }
     function sendDataToModuleNumPit(){
+        if(zm.previewEnabled)return
         zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
         zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
         zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)

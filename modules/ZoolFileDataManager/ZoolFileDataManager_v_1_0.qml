@@ -78,9 +78,9 @@ Item{
 
 
     //-->Administración de archivos
-    function mkFileAndLoad(j){
+    function mkFileAndLoad(j, isTemp){
         let r=true
-        let mf=mkFile(j)
+        let mf=mkFile(j, isTemp)
         if(mf[0]===true){
             if(app.dev)log.lv('mkFileAndLoad(...) app.j.loadJson( '+mf[1]+')')
             app.j.loadJson(mf[1])
@@ -92,13 +92,16 @@ Item{
         }
         return r
     }
-    function mkFile(j){
+    function mkFile(j, isTemp){
         let r=false
         let s=JSON.stringify(j)
         let fn=(''+app.j.quitarAcentos(j.params.n)).replace(/ /g, '_')
         fn=fn.replace(/\//g, '_')
         fn=fn.replace(/:/g, '_')
         let f=apps.jsonsFolder+'/'+fn+'.json'
+        if(isTemp){
+            f=unik.getPath(2)+'/temp.json'
+        }
 
         unik.setFile(f, s)
         if(unik.fileExist(f)){

@@ -49,6 +49,7 @@ Item {
             horizontalAlignment: TextInput.Ali.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
+            onTextChanged: r.textChanged()
             Keys.onReturnPressed: r.returnPressed
             Keys.onEnterPressed:  r.returnPressed
         }

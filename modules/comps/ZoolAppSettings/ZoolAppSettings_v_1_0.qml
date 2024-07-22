@@ -70,6 +70,7 @@ Settings{
     property bool panelAspShowBg: true
 
     //ZoolMap
+    property bool previewEnabled: true
     property int zmCurrenThemeIndex: 0
     property string swegMod: 'vn'
     property bool showNumberLines: false

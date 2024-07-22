@@ -23,6 +23,8 @@ Item{
     anchors.horizontalCenterOffset: 0-r.width*0.5
     anchors.verticalCenterOffset: 0-r.width*0.5
 
+    property bool previewEnabled: false
+
     property alias objTapa: tapa
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
