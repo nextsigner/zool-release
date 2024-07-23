@@ -547,6 +547,15 @@ Rectangle {
         interval: 2000
         onTriggered: searchGeoLoc(false)
     }
+    Timer{
+        id: tLoadTemp
+        running: false
+        repeat: false
+        interval: 2000
+        onTriggered: {
+
+        }
+    }
     Item{id: xuqp}
     function searchGeoLoc(crear){
         for(var i=0;i<xuqp.children.length;i++){

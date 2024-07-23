@@ -1,1 +1,1 @@
-Se crea vista previa
+Se corrige tReload en ZoolMap V2

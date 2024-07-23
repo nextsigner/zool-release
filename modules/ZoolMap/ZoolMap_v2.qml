@@ -214,7 +214,7 @@ Item{
         }*/
     }
     onCurrentGmtChanged: {
-        if(zm.currentData===''||app.setFromFile)return
+        //if(zm.currentData===''||app.setFromFile)return
         //xDataBar.currentGmtText=''+currentGmt
         tReload.restart()
     }
@@ -317,6 +317,43 @@ Item{
             }
             Behavior on x{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
             Behavior on y{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+            Timer{
+                id: tReload
+                running: false
+                repeat: false
+                interval: 100
+                onTriggered: {
+                    let j=getCurrentParamsWithNewTime(zm.currentDate)
+                    j.params.gmt=r.currentGmt
+                    r.safeTapa=true
+                    r.load(j)
+                }
+            }
+            Timer{
+                id: tReloadBack
+                running: false
+                repeat: false
+                interval: 100
+                onTriggered: {
+                    app.j.setNewTimeJsonFileDataBack(zm.currentDateBack)
+                    app.j.runJsonTempBack()
+                }
+            }
+            Timer{
+                id: tUpdateGUI
+                running: true
+                repeat: true
+                interval: 1000
+                onTriggered: {
+                    revIsDataDiff()
+                    housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
+                    housesCircleBack.wbgc=signCircle.width//ai.width
+                    //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
+                    if(app.t==='dirprim')housesCircleBack.width=ae.width
+                    //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
+                    //imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
+                }
+            }
             PinchArea {
                 id: pinchArea
                 anchors.fill: parent
