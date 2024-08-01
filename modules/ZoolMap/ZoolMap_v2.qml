@@ -660,7 +660,7 @@ Item{
     }
     Component.onCompleted: {
         if(!apps)return
-        setTheme(apps.apps.zmCurrenThemeIndex)
+        setTheme(apps.zmCurrenThemeIndex)
     }
 
     function setTheme(i){
@@ -729,6 +729,7 @@ Item{
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
         app.t=j.params.t
         r.fileData=JSON.stringify(j)
+        //zev.load(j)
     }
     function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -888,6 +889,7 @@ Item{
         //log.width=xApp.width*0.4
         j=JSON.parse(scorrJson)
 
+
         //r.aTexts[] reset
         let nATexts=[]
         for(var i=0;i<Object.keys(j.pc).length;i++){
@@ -922,6 +924,7 @@ Item{
         zm.uAscDegree=parseInt(o1.rsgdeg)
         o1=j.ph['h10']
         zm.uMcDegree=parseInt(o1.rsgdeg)
+
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)
@@ -1046,6 +1049,72 @@ Item{
         }
 
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
+    }
+    function loadJsonFromFilePath(filePath){
+        let fileLoaded=zfdm.loadFile(filePath)
+        let fileNameMat0=filePath.split('/')
+        let fileName=fileNameMat0[fileNameMat0.length-1].replace(/_/g, ' ').replace('.json', '')
+        zoolVoicePlayer.speak('Cargando el archivo '+fileName, false)
+        if(!fileLoaded){
+            if(app.dev)log.lv('Error app.j.loadFile('+filePath+') fileLoaded: '+fileLoaded)
+            return
+        }
+        zm.fileData=JSON.stringify(zfdm.getJsonAbsParams(false))
+        //Global Vars Reset
+        zm.resetGlobalVars()
+
+        let jsonData=zfdm.getJsonAbs()
+        let p=zfdm.getJsonAbsParams(false)
+        //sweg.load(jsonData)
+        zm.load(jsonData)
+        let nom=p.n.replace(/_/g, ' ')
+        let vd=p.d
+        let vm=p.m
+        let va=p.a
+        let vh=p.h
+        let vmin=p.min
+        let vgmt=p.gmt
+        let vlon=p.lon
+        let vlat=p.lat
+        let valt=p.alt?p.alt:0
+        let vCiudad=p.c.replace(/_/g, ' ')
+        let edad=zm.getEdad(vd, vm, va, vh, vmin)
+        let numEdad=zm.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+        let stringEdad='<b>Edad:</b> '
+        if(edad===1){
+            stringEdad+=edad+' año'
+        }else{
+            stringEdad+=edad+' años'
+        }
+
+        let dateNow=new Date(Date.now())
+        let dateFN=new Date(va, vm-1, vd, vh, vmin)
+
+        let a=[]
+        a.push('<b>'+nom+'</b>')
+        a.push(''+vd+'/'+vm+'/'+va)
+        a.push(stringEdad)
+        a.push(''+vh+':'+vmin+'hs')
+        a.push('<b>GMT:</b> '+vgmt)
+        a.push('<b>Ubicación:</b> '+vCiudad)
+        a.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+        a.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+        a.push('<b>Alt:</b> '+valt)
+
+        zoolDataView.setDataView(nom, a, [])
+
+        //Seteando datos globales de mapa energético
+        apps.url=filePath
+        zm.currentNom=nom
+        zm.currentFecha=vd+'/'+vm+'/'+va
+        zm.currentLugar=vCiudad
+        zm.currentGmt=vgmt
+        zm.currentLon=vlon
+        zm.currentLat=vlat
+        zm.currentAlt=valt
+        zm.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+
+        zm.centerZoomAndPos()
     }
     function loadNow(isExt){
         let d=new Date(Date.now())

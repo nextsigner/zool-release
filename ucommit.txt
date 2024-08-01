@@ -1,1 +1,1 @@
-Se corrige tReload en ZoolMap V2
+Se comienza a programar ZoolEvolutionView

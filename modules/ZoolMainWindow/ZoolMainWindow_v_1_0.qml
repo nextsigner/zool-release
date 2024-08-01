@@ -103,6 +103,12 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+Shift+e'
+        onActivated: {
+            zev.visible=!zev.visible
+        }
+    }
+    Shortcut{
         sequence: 'e'
         onActivated: {
             //zoolElementsView.zoom+=0.1//zoolElementsView.zoom*2

@@ -21,6 +21,7 @@ import ZoolTopMenuBar 1.0
 import ZoolText 1.0
 import ZoolDataBar 3.1
 import ZoolDataView 1.1
+import ZoolEvolutionView 1.0
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
@@ -585,6 +586,7 @@ ZoolMainWindow{
         //Num.PanelLog{id: panelLog}
         ZoolVideoPlayer{id: panelVideLectura;}
         Comps.VideoListEditor{id: videoListEditor}
+        ZoolEvolutionView{id: zev}
     }
     Comps.XSelectColor{
         id: xSelectColor
@@ -762,7 +764,7 @@ ZoolMainWindow{
                 if(ma.length>1){
                     arg=ma[1]
                     //log.ls('File: '+arg, 0, xApp.width*0.5)
-                    JS.loadJson(arg)
+                    zm.loadJsonFromFilePath(arg)
                     fileLoaded=true
                 }
             }
@@ -777,8 +779,7 @@ ZoolMainWindow{
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
-                JS.loadJson(apps.url)
-                //zm.loadFromFile(apps.url, 'vn', false)
+                zm.loadJsonFromFilePath(apps.url)
             }else{
                 if(app.dev){
                     log.visible=true
