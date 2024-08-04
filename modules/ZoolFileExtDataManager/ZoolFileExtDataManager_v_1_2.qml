@@ -167,7 +167,8 @@ Rectangle {
 
                 }
                 onDoubleClicked: {
-                    app.j.loadJson(fileName)
+                    //app.j.loadJson(fileName)
+                    zm.loadJsonFromFilePath(fileName)
                 }
             }
             Column{
@@ -356,7 +357,8 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    app.j.loadJson(fileName)
+                    //app.j.loadJson(fileName)
+                    zm.loadJsonFromFilePath(fileName)
                     //r.state='hide'
                 }
             }
@@ -494,7 +496,8 @@ Rectangle {
         }
     }
     function enter(){
-        app.j.loadJson(r.currentFile)
+        //app.j.loadJson(r.currentFile)
+        zm.loadJsonFromFilePath(r.currentFile)
         r.currentIndex=-1
         //r.state='hide'
     }

@@ -81,7 +81,7 @@ Menu {
         }
     }
     Action {enabled: app.dev; text: qsTr("Cargar Ricardo"); onTriggered: {
-                           app.j.loadJson('/home/ns/gd/Zool/Ricardo.json')
+                           zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
                        }
     }
     Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {

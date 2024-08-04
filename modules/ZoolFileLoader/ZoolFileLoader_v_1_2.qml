@@ -89,7 +89,7 @@ Rectangle {
                     anchors.centerIn: parent
                     maximumLength: 30
                     Keys.onReturnPressed: {
-                        JS.loadJson(lm.get(lv.currentIndex).fileName)
+                        zm.loadJsonFromFilePath(lm.get(lv.currentIndex).fileName)
                         r.state='hide'
                     }
                     Keys.onRightPressed: {
@@ -179,7 +179,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    JS.loadJson(fileName)
+                    zm.loadJsonFromFilePath(fileName)
                     //r.state='hide'
                 }
             }
@@ -380,7 +380,7 @@ Rectangle {
         }
     }
     function enter(){
-        JS.loadJson(r.currentFile)
+        zm.loadJsonFromFilePath(r.currentFile)
         r.currentIndex=-1
         //r.state='hide'
     }

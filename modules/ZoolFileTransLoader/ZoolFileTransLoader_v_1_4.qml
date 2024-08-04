@@ -615,7 +615,7 @@ Rectangle {
     //        nom=tiNombre.t.text.replace(/ /g, '_')
     //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
     //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-    //        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
+    //        zm.loadJsonFromFilePath(apps.jsonsFolder+'/'+nom+'.json')
     //        //runJsonTemp()
     //    }
     function loadTrans(){

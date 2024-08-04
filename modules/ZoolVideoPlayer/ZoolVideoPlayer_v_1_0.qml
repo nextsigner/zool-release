@@ -80,7 +80,7 @@ Rectangle {
                 if(playList.currentIndex===-1||playList.currentIndex===0){
                     if(r.uJson['itemData']){
                         let file=r.uJson['itemData'].file
-                        JS.loadJson(file)
+                        zm.loadJsonFromFilePath(file)
                     }
                 }
             }

@@ -130,7 +130,7 @@ Item{
     Component.onCompleted:{
         panelZoolText.areaCamera.height=1
         if(!panelZoolText.fileInitLoaded){
-            //JS.loadJson('/home/zool//gd/Zool/Ricardo.json')
+            //zm.loadJsonFromFilePath('/home/zool//gd/Zool/Ricardo.json')
             //tAutoMaticPlanets.currentJsonData=app.currentData
             //tAutoMaticPlanets.running=true
             //app.currentPlanetIndex=0

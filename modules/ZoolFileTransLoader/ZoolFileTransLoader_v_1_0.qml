@@ -110,7 +110,7 @@ Rectangle {
                     updateUParams()
                     //JS.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
                     //sweg.load(JSON.parse(app.currentData))
-                    //JS.loadJson(apps.url)
+                    //zm.loadJsonFromFilePath(apps.url)
                 }
             }
 
@@ -609,7 +609,7 @@ Rectangle {
     //        nom=tiNombre.t.text.replace(/ /g, '_')
     //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
     //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-    //        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
+    //        zm.loadJsonFromFilePath(apps.jsonsFolder+'/'+nom+'.json')
     //        //runJsonTemp()
     //    }
     function updateUParams(){

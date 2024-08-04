@@ -83,7 +83,8 @@ Item{
         let mf=mkFile(j, isTemp)
         if(mf[0]===true){
             if(app.dev)log.lv('mkFileAndLoad(...) app.j.loadJson( '+mf[1]+')')
-            app.j.loadJson(mf[1])
+            //app.j.loadJson(mf[1])
+            zm.loadJsonFromFilePath(mf[1])
             return r
         }else{
             log.lv('Error al crear el archivo: '+mf[1])

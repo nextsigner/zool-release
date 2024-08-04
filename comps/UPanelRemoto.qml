@@ -781,7 +781,7 @@ Rectangle{
                                 apps.houseColor=modelData
                                 xColorSelector.visible=false
                                 tSetHouseColor1.start()
-                                //JS.loadJson(apps.url)
+                                //zm.loadJsonFromFilePath(apps.url)
                             }
                             if(xColorSelector.mod===1){
                                 apps.houseColorBack=modelData
@@ -793,13 +793,13 @@ Rectangle{
                                 apps.houseLineColor=modelData
                                 xColorSelector.visible=false
                                 sweg.objHousesCircleBack.loadHouses(app.currentJsonBack)
-                                //JS.loadJson(apps.url)
+                                //zm.loadJsonFromFilePath(apps.url)
                             }
                             if(xColorSelector.mod===3){
                                 apps.houseLineColorBack=modelData
                                 xColorSelector.visible=false
                                 sweg.objHousesCircleBack.loadHouses(app.currentJsonBack)
-                                //JS.loadJson(apps.url)
+                                //zm.loadJsonFromFilePath(apps.url)
                             }
                         }
                     }

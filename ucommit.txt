@@ -1,1 +1,1 @@
-Se comienza a programar ZoolEvolutionView
+Se corrigen cargas de archivos con zm.loadFromFilePath()

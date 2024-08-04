@@ -108,7 +108,8 @@ Rectangle {
                     anchors.centerIn: parent
                     maximumLength: 30
                     Keys.onReturnPressed: {
-                        app.j.loadJson(lm.get(lv.currentIndex).fileName)
+                        //app.j.loadJson(lm.get(lv.currentIndex).fileName)
+                        zm.loadJsonFromFilePath(lm.get(lv.currentIndex).fileName)
                         r.state='hide'
                     }
                     Keys.onRightPressed: {
@@ -235,7 +236,8 @@ Rectangle {
                                                            tipo: tipo})
                 }
                 onDoubleClicked: {
-                    app.j.loadJson(fileName)
+                    //app.j.loadJson(fileName)
+                    zm.loadJsonFromFilePath(fileName)
                 }
             }
             Column{
@@ -273,7 +275,8 @@ Rectangle {
                         visible: index===lv.currentIndex && !s.showToolItem// && tipo !== 'rs'  && tipo !== 'sin'
                         colorInverted: true
                         onClicked: {
-                            app.j.loadJson(fileName)
+                            //app.j.loadJson(fileName)
+                            zm.loadJsonFromFilePath(fileName)
                         }
                     }
                     ZoolButton{
@@ -375,7 +378,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    app.j.loadJson(fileName)
+                    zm.loadJsonFromFilePath(fileName)
                     //r.state='hide'
                 }
             }
@@ -724,7 +727,7 @@ Rectangle {
         }
     }
     function enter(){
-        app.j.loadJson(r.currentFile)
+        zm.loadJsonFromFilePath(r.currentFile)
         r.currentIndex=-1
         //r.state='hide'
     }
