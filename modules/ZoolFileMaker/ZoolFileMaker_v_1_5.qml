@@ -748,4 +748,19 @@ Rectangle {
             setNewJsonFileData()
         }
     }
+    function setForEdit(){
+        zsm.currentIndex=0
+        let panel=zsm.getPanel('ZoolFileManager')
+        panel.showSection('ZoolFileMaker')
+        let p=zfdm.getJsonAbs().params
+        tiNombre.t.text=p.n
+        controlTimeFecha.dia=p.d
+        controlTimeFecha.mes=p.m
+        controlTimeFecha.anio=p.a
+        controlTimeFecha.hora=p.h
+        controlTimeFecha.minuto=p.min
+        controlTimeFecha.gmt=p.gmt
+        tiCiudad.t.text=p.c
+        //log.lv('p:'+JSON.stringify(p, null, 2))
+    }
 }

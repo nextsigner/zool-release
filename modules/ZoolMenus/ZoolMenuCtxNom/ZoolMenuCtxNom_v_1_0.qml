@@ -70,16 +70,13 @@ Menu {
         }
     }
     title: 'Menu Nombre'//+app.planetas[r.currentIndexPlanet]
-    //    Action {text: qsTr("Características de "+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]); onTriggered: {
-    //            xInfoData.markDown=true
-    //            xInfoData.loadData('./resources/caracteristicas_'+(''+app.planetas[r.currentIndexPlanet]).toLocaleLowerCase()+'')}
-    //    }
-    //    Action {text: qsTr('Info '+app.planetas[app.planetasRes.indexOf(app.uSonFCMB.split('_')[0])]+' en '+app.signos[app.objSignsNames.indexOf(app.uSonFCMB.split('_')[1])]+' en casa '+app.uSonFCMB.split('_')[2]); onTriggered: {
-    //            JS.showIWFromCtxMenuBar()
-    //        }
-    //    }
-        Action {text: qsTr("Eliminar Archivo"); onTriggered: {
-                zfdm.deleteCurrentJson()
-            }
+    Action {text: qsTr("Editar Archivo"); onTriggered: {
+            let panel=zsm.getPanel('ZoolFileManager').getSection('ZoolFileMaker')
+            panel.setForEdit()
         }
+    }
+    Action {text: qsTr("Eliminar Archivo"); onTriggered: {
+            zfdm.deleteCurrentJson()
+        }
+    }
 }

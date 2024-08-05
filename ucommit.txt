@@ -1,1 +1,1 @@
-Se agrega ZoolMenuCtxNom
+Se agrega menu editar archivo a Nombre
