@@ -236,7 +236,7 @@ Rectangle{
         }
     }
     Component.onCompleted: {
-        //r.visible=false
+        r.visible=false
         let s12Signs1 = comp12Sign.createObject(rowSigns, {})
         let s12Signs2 = comp12Sign.createObject(rowSigns, {})
         let s12Signs3 = comp12Sign.createObject(rowSigns, {})

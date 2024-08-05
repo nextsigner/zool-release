@@ -482,6 +482,9 @@ Rectangle {
     function updateList(){
         lv.currentIndex=-1
         lm.clear()
+        if(!zfdm.getParam('n')){
+            return
+        }
         txtFileName.text=zfdm.getParam('n').replace(/_/g, ' ')
         //Filtrado de los valores null
         let exts=zfdm.getExts().filter(Boolean);

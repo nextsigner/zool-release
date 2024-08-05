@@ -249,6 +249,7 @@ Rectangle {
             border.color: apps.fontColor
             radius: app.fs*0.1
             anchors.verticalCenter: parent.verticalCenter
+            property int cellIndex: -1
             property string txtData: 'txtData'
 
             Rectangle{
@@ -267,6 +268,20 @@ Rectangle {
                 color: apps.fontColor
                 anchors.centerIn: parent
             }
+            MouseArea{
+                anchors.fill: parent
+                enabled: parent.cellIndex===0
+                acceptedButtons: Qt.AllButtons;
+                onClicked: {
+                    //apps.sweFs=app.fs
+                    if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
+                        zMenuNom.popup()
+                    } else if (mouse.button === Qt.LeftButton) {
+                        //Qt.quit()
+                    }
+                }
+            }
+
         }
     }
     //    Timer{
@@ -316,7 +331,7 @@ Rectangle {
         let aL=r.atLeft
         let aR=r.atRight
         for(i=0; i < aL.length;i++){
-            var obj=compCellData.createObject(rowDataLeft, {txtData:aL[i]})
+            var obj=compCellData.createObject(rowDataLeft, {txtData:aL[i], cellIndex: i})
         }
         for(i=0; i < aR.length;i++){
             obj=compCellData.createObject(rowDataRight, {txtData:aR[i]})

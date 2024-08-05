@@ -29,6 +29,8 @@ import web.ZoolServerFileDataManager 1.0
 import ZoolBodies 1.10
 import ZoolMap 2.0
 import ZoolBodiesGuiTools 1.0
+
+import ZoolMenus.ZoolMenuCtxNom 1.0
 import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 import ZoolMenuCtxHouses 1.0
@@ -633,6 +635,7 @@ ZoolMainWindow{
     //        color: 'red'
     //    }
     Comps.MenuPlanets{id: menuPlanets}
+    ZoolMenuCtxNom{id: zMenuNom}
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}
@@ -781,6 +784,15 @@ ZoolMainWindow{
                 }
                 zm.loadJsonFromFilePath(apps.url)
             }else{
+                if(!unik.fileExist(apps.url)){
+                    log.lv('El archivo '+apps.url+' que se intenta cargar, no existe o ha sido eliminado. Se procede a cargar los tránsitos actuales.')
+                    zm.loadNow(false)
+                    /*let sep='Sinastría'
+                    let aL=[]
+                    aL.push('Trásitos de Ahora')
+                    let aR=[]
+                    zoolDataView.setDataView(sep, aL, aR)*/
+                }
                 if(app.dev){
                     log.visible=true
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)

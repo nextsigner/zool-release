@@ -362,10 +362,10 @@ Item{
                 property real m_y1: 0
                 property real m_y2: 0
                 property real m_x2: 0
-                property real m_zoom1: 0.5
-                property real m_zoom2: 0.5
+                property real m_zoom1: 1.0//0.5
+                property real m_zoom2: 1.0//0.5
                 property real m_max: 6
-                property real m_min: 0.5
+                property real m_min: 1.0//0.5
 
                 onPinchStarted: {
                     console.log("Pinch Started")
@@ -1133,17 +1133,71 @@ Item{
         let hora=d.getHours()
         let minutos=d.getMinutes()
         let nom="Tránsitos de "+dia+'/'+mes+'/'+anio+' '+hora+':'+minutos
-        loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,0.0,0.0,6, nom, "United Kingdom", "vn", isExt)
+        let ciudad="United Kingdom"
+        let lat=0.0
+        let lon=0.0
+        let alt=6
+
+        if(!isExt){
+            zm.currentNom=nom
+            zm.currentFecha=dia+'/'+mes+'/'+anio
+            zm.currentLugar=ciudad
+            zm.currentGmt=currentGmtUser
+            zm.currentLon=lon
+            zm.currentLat=lat
+            zm.currentAlt=alt
+            zm.currentDate= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
+        }else{
+            zm.currentNomBack=nom
+            zm.currentFechaBack=dia+'/'+mes+'/'+anio
+            zm.currentLugarBack=ciudad
+            zm.currentGmtBack=currentGmtUser
+            zm.currentLonBack=lon
+            zm.currentLatBack=lat
+            zm.currentAltBack=alt
+            zm.currentDateBack= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
+        }
+
+        loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,lat,lon, alt, nom, ciudad, "trans", isExt)
     }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, isExt){
         let dataMs=new Date(Date.now())
-        let j='{"params":{"t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'"}}'
+        let j='{"params":{"n":"Tránsitos", "t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'"}}'
+        //log.lv('loadFromArgs(...): '+JSON.stringify(JSON.parse(j), null, 2))
+        let json=JSON.parse(j)
         if(!isExt){
-            load(JSON.parse(j))
+            zfdm.setJsonAbsParams(json.params, false)
+            load(json)
         }else{
-            loadBack(JSON.parse(j))
+            zfdm.setJsonAbsParams(json.params, true)
+            loadBack(json)
             //r.ev=true
         }
+        let sep='Sinastría'
+        let aL=[]
+        let aR=[]
+        if(!isExt){
+            aL.push('Trásitos')
+            aL.push(''+d+'/'+m+'/'+a)
+            aL.push(''+h+':'+min+'hs')
+            aL.push('GMT: '+gmt)
+            aL.push('Ubicación: '+ciudad)
+            aL.push('Lat.: '+lat)
+            aL.push('Lon.: '+lon)
+            aL.push('Alt.: '+alt)
+        }else{
+            sep='Tránsitos'
+            aL=zoolDataView.atLeft
+            aR.push('Ahora')
+            aR.push(''+d+'/'+m+'/'+a)
+            aR.push(''+h+':'+min+'hs')
+            aR.push('GMT: '+gmt)
+            aR.push('Ubicación: '+ciudad)
+            aR.push('Lat.: '+lat)
+            aR.push('Lon.: '+lon)
+            aR.push('Alt.: '+alt)
+        }
+        zoolDataView.setDataView(sep, aL, aR)
         zm.ev=isExt
     }
     function loadFromJson(j, isExt, save){
@@ -1333,6 +1387,7 @@ Item{
     }
     function revIsDataDiff(){
         let j0=zfdm.getJsonAbsParams()
+        //log.lv('j0:'+JSON.stringify(j0, null, 2))
         let j1=zm.currentJson.params
         let sj1='s_'+j1.d+'_'+j1.m+'_'+j1.a+'_'+j1.h+'_'+j1.min+'_'+j1.gmt+'_'+j1.lat+'_'+j1.lon+'_'+j1.alt
         let sj0='s_'+j0.d+'_'+j0.m+'_'+j0.a+'_'+j0.h+'_'+j0.min+'_'+j0.gmt+'_'+j0.lat+'_'+j0.lon+'_'+j0.alt

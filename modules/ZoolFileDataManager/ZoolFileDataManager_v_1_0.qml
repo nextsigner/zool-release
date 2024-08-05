@@ -18,9 +18,9 @@ Item{
     //Devuelve booleano verdadero si existen parámetros back.
     function isParamsBack(){
         let b=false
-            if(getJson().paramsBack){
-                b=true
-            }
+        if(getJson().paramsBack){
+            b=true
+        }
         return b
     }
     //Retorna json con los parámetros front o back.
@@ -62,9 +62,9 @@ Item{
     }
     function isAbsParamsBack(){
         let b=false
-            if(r.ja.paramsBack){
-                b=true
-            }
+        if(r.ja.paramsBack){
+            b=true
+        }
         return b
     }
     function getJsonAbsParams(isBack){
@@ -73,6 +73,14 @@ Item{
         }
         if(isBack && !r.ja.paramsBack) return ({})
         return r.ja.paramsBack
+    }
+    function setJsonAbsParams(params, isBack){
+        if(!isBack){
+            r.ja.params=params
+        }
+        if(isBack){
+            r.ja.paramsBack=params
+        }
     }
     //<--Finaliza Json Abstracto.
 
@@ -116,9 +124,9 @@ Item{
     //<--Administración de archivos
 
     //-->Get Json Data
-//    function getJson(){
-//        return r.ja
-//    }
+    //    function getJson(){
+    //        return r.ja
+    //    }
     function saveJson(json){
         r.ja=json
         let saved = unik.setFile(apps.url, JSON.stringify(r.ja, null, 2))
@@ -133,6 +141,13 @@ Item{
         }
         return false
     }
+    function deleteCurrentJson(){
+        let deleted = unik.deleteFile(apps.url)
+        zm.loadNow(false)
+        if(apps.enableShareInServer){
+            //zsfdm.save(json)
+        }
+    }
     function getParam(p){
         return r.ja.params[''+p]
     }
@@ -146,7 +161,9 @@ Item{
         saveJson(json)
     }
     function getExts(){
-        return r.ja.exts
+        let exts=[]
+        if(r.ja.exts)exts=r.ja.exts
+        return exts
     }
     function isExtId(extId){
         let ret=false
@@ -223,11 +240,11 @@ Item{
         for(var i=0;i<Object.keys(o).length;i++){
             let json=o[i].params
             if(o[i]){
-            if(json.extId!==extId){
-                njson.exts[i]={}
-                njson.exts[i].params={}
-                njson.exts[i].params=o[i].params
-            }
+                if(json.extId!==extId){
+                    njson.exts[i]={}
+                    njson.exts[i].params={}
+                    njson.exts[i].params=o[i].params
+                }
             }
         }
         njson.exts=njson.exts.filter(Boolean)
