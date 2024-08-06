@@ -46,7 +46,7 @@ Rectangle {
             id: col
             anchors.centerIn: parent
             spacing: app.fs*0.5
-            //Item{width: 1; height: app.fs; visible: colXConfig.visible}
+            Item{width: 1; height: app.fs*0.25}
             ZoolText{
                 id: tit
                 //t.width:r.width-app.fs
@@ -55,11 +55,10 @@ Rectangle {
                 font.pixelSize: app.fs*0.65
                 color: 'white'
             }
-            //Item{width: 1; height: app.fs; visible: colXConfig.visible}
             ListView{
                 id: lv
                 width: r.width-app.fs
-                height: r.height-tit.t.contentHeight-app.fs*5
+                height: r.height-tit.t.contentHeight-app.fs*5//1.75
                 delegate: delegate
                 model: lm
                 clip: true
@@ -100,6 +99,7 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    zsm.currentSectionFocused=r
                     lv.currentIndex=index
                     r.loadProgSec(a)
                 }
@@ -116,6 +116,9 @@ Rectangle {
         onTriggered: {
             let p=zfdm.getJsonAbs().params
             r.currentAnioNac=p.a
+            if(lm.count===0){
+                updateDateList()
+            }
         }
     }
     function updateDateList(){
@@ -157,5 +160,22 @@ Rectangle {
             zm.currentDateBack= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
         zm.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), gmt,lat,lon, alt, nom, ciudad, "progsec", true)
 
+    }
+    function toUp(){
+        if(lv.currentIndex>0){
+            lv.currentIndex--
+        }else{
+            lv.currentIndex=lm.count-1
+        }
+    }
+    function toDown(){
+        if(lv.currentIndex<lm.count-1){
+            lv.currentIndex++
+        }else{
+            lv.currentIndex=0
+        }
+    }
+    function toRight(){
+        loadProgSec(lv.currentIndex)
     }
 }

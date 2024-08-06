@@ -25,6 +25,7 @@ Item{
 
     property bool previewEnabled: false
 
+    property alias cm: capaMods
     property alias objTapa: tapa
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
@@ -566,6 +567,10 @@ Item{
                         }
                     }
                 }
+                Item{
+                    id: capaMods
+                    anchors.fill: parent
+                }
                 /*
                 EclipseCircle{
                     id: eclipseCircle
@@ -590,7 +595,9 @@ Item{
                 */
             }
 
+
         }
+
     }
     Item{
         id: xFrontItems
@@ -1121,11 +1128,11 @@ Item{
         let currentUserHours=d.getHours()
         let diffHours=d.getUTCHours()
         let currentGmtUser=0
-        if(currentUserHours>diffHours){
-            currentGmtUser=parseFloat(currentUserHours-diffHours)
-        }else{
-            currentGmtUser=parseFloat(0-(diffHours+currentUserHours)).toFixed(1)
-        }
+//        if(currentUserHours>diffHours){
+//            currentGmtUser=parseFloat(currentUserHours-diffHours)
+//        }else{
+//            currentGmtUser=parseFloat(0-(diffHours+currentUserHours)).toFixed(1)
+//        }
         //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
         let dia=d.getDate()
         let mes=d.getMonth()+1
@@ -1157,7 +1164,6 @@ Item{
             zm.currentAltBack=alt
             zm.currentDateBack= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
         }
-
         loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,lat,lon, alt, nom, ciudad, "trans", isExt)
     }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, isExt){
@@ -1174,28 +1180,30 @@ Item{
             //r.ev=true
         }
         let sep='Sinastría'
+        if(tipo==='progsec')sep='Prog. Sec.'
+        if(tipo==='trans')sep='Tránsitos'
         let aL=[]
         let aR=[]
         if(!isExt){
-            aL.push('Trásitos')
+            //aL.push('Trásitos')
+            aL.push(nom)
             aL.push(''+d+'/'+m+'/'+a)
             aL.push(''+h+':'+min+'hs')
-            aL.push('GMT: '+gmt)
-            aL.push('Ubicación: '+ciudad)
-            aL.push('Lat.: '+lat)
-            aL.push('Lon.: '+lon)
-            aL.push('Alt.: '+alt)
+            aL.push('<b>GMT:</b> '+gmt)
+            aL.push('<b>Ubicación:</b> '+ciudad)
+            aL.push('<b>Lat.:</b> '+lat)
+            aL.push('<b>Lon.:</b> '+lon)
+            aL.push('<b>Alt.:</b> '+alt)
         }else{
-            sep='Tránsitos'
             aL=zoolDataView.atLeft
-            aR.push('Ahora')
+            aR.push(nom)
             aR.push(''+d+'/'+m+'/'+a)
             aR.push(''+h+':'+min+'hs')
-            aR.push('GMT: '+gmt)
-            aR.push('Ubicación: '+ciudad)
-            aR.push('Lat.: '+lat)
-            aR.push('Lon.: '+lon)
-            aR.push('Alt.: '+alt)
+            aR.push('<b>GMT:</b> '+gmt)
+            aR.push('<b>Ubicación:</b> '+ciudad)
+            aR.push('<b>Lat.:</b> '+lat)
+            aR.push('<b>Lon.:</b> '+lon)
+            aR.push('<b>Alt.:</b> '+alt)
         }
         zoolDataView.setDataView(sep, aL, aR)
         zm.ev=isExt

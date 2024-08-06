@@ -458,7 +458,8 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                zsm.currentSectionFocused.up()
+                zsm.currentSectionFocused.toUp()
+                //zsm.toUp()
                 return
             }
             if(zsm.getPanel('ZoolSabianos').view.visible){
@@ -527,7 +528,7 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                zsm.currentSectionFocused.down()
+                zsm.currentSectionFocused.toDown()
                 return
             }
             if(zsm.getPanel('ZoolSabianos').view.visible){
@@ -672,6 +673,10 @@ ApplicationWindow {
                 }
 
             }
+            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
+                zsm.currentSectionFocused.toLeft()
+                return
+            }
             if(apps.zFocus==='xLatIzq'){
                 if(zsm.currentIndex>0){
                     zsm.currentIndex--
@@ -690,6 +695,10 @@ ApplicationWindow {
                     return
                 }
 
+            }
+            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
+                zsm.currentSectionFocused.toRight()
+                return
             }
             if(apps.zFocus==='xLatIzq'){
                 if(zsm.currentIndex<zsm.count-1){
@@ -947,7 +956,7 @@ ApplicationWindow {
                 return
             }
             //signCircle.subir()
-            sweg.objSignsCircle.rotarSegundos(0)
+            zm.objSignsCircle.rotarSegundos(0)
         }
     }
     Shortcut{
@@ -958,7 +967,7 @@ ApplicationWindow {
                 return
             }
             //signCircle.bajar()
-            sweg.objSignsCircle.rotarSegundos(1)
+            zm.objSignsCircle.rotarSegundos(1)
         }
     }
     Shortcut{

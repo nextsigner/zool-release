@@ -129,12 +129,13 @@ Menu {
         repeat: true
         interval: 250
         onTriggered: {
+            /*let p=zfdm.getJsonAbs().params
             let json=JSON.parse(app.fileData)
             if(!app.ev&&json.paramsBack){
                 aDeleteExt.enabled=true
             }else{
                 aDeleteExt.enabled=false
-            }
+            }*/
             //let d = new Date(Date.now())
             //log.lv('Menu ...'+d.getTime())
         }

@@ -141,6 +141,11 @@ Rectangle {
                     fs: r.width*0.07
                     KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
+                    onGmtChanged:{
+                        if(cbPreview.checked){
+                            loadTemp()
+                        }
+                    }
                     onCurrentDateChanged: {
                         if(cbPreview.checked){
                             loadTemp()
@@ -182,7 +187,7 @@ Rectangle {
                 id: tiCiudad
                 width: tiNombre.width
                 t.font.pixelSize: app.fs*0.65;
-                KeyNavigation.tab: settings.inputCoords?tiLat.t:tiAlt.t
+                KeyNavigation.tab: cbInputCoords.checked?tiLat.t:tiAlt.t
                 t.maximumLength: 50
                 borderColor:apps.fontColor
                 borderRadius: app.fs*0.25
@@ -202,7 +207,7 @@ Rectangle {
             Column{
                 id: colTiLonLat
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: settings.inputCoords
+                visible: cbInputCoords.checked
 
                 Row{
                     spacing: app.fs
@@ -225,7 +230,7 @@ Rectangle {
                         horizontalAlignment: TextInput.AlignLeft
                         property bool valid: false
                         Timer{
-                            running: r.visible && settings.inputCoords
+                            running: r.visible && cbInputCoords.checked
                             repeat: true
                             interval: 100
                             onTriggered: {
@@ -275,7 +280,7 @@ Rectangle {
                         horizontalAlignment: TextInput.AlignLeft
                         property bool valid: false
                         Timer{
-                            running: r.visible && settings.inputCoords
+                            running: r.visible && cbInputCoords.checked
                             repeat: true
                             interval: 100
                             onTriggered: {
@@ -310,7 +315,7 @@ Rectangle {
                         }
                     }
                 }
-                Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
+                Item{width: 1; height: app.fs*0.5;visible: cbInputCoords.checked}
                 Text{
                     text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
                                                                 (
@@ -321,7 +326,7 @@ Rectangle {
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: settings.inputCoords
+                    visible: cbInputCoords.checked
                 }
             }
             Column{
@@ -431,6 +436,7 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                     CheckBox{
+                        id: cbInputCoords
                         checked: settings.inputCoords
                         anchors.verticalCenter: parent.verticalCenter
                         onCheckedChanged: settings.inputCoords=checked
@@ -473,7 +479,7 @@ Rectangle {
                     visible: r.ulat!==-1&&r.ulon!==-1&&tiNombre.text!==''&&tiCiudad.text!==''
                     onClicked: {
                         cbPreview.checked=false
-                        if(!settings.inputCoords){
+                        if(!cbInputCoords.checked){
                             searchGeoLoc(true)
                         }else{
                             r.lat=parseFloat(tiLat.t.text)
@@ -731,7 +737,7 @@ Rectangle {
         tiNombre.t.focus=true
     }
     function loadTemp(){
-        if(!settings.inputCoords){
+        if(!cbInputCoords.checked){
             searchGeoLoc(true)
         }else{
             if(r.ulat===-1&&r.ulon===-1){
@@ -761,6 +767,16 @@ Rectangle {
         controlTimeFecha.minuto=p.min
         controlTimeFecha.gmt=p.gmt
         tiCiudad.t.text=p.c
+        cbInputCoords.checked=true
+        r.ulat=p.lat
+        r.ulon=p.lon
+        r.ualt=p.alt
+        r.lat=p.lat
+        r.lon=p.lon
+        r.alt=p.alt
+        tiLat.t.text=parseFloat(r.lat).toFixed(2)
+        tiLon.t.text=parseFloat(r.lon).toFixed(2)
+        tiAlt.t.text=''+r.alt
         //log.lv('p:'+JSON.stringify(p, null, 2))
     }
 }

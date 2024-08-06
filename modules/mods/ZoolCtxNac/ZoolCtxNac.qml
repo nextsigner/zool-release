@@ -6,10 +6,10 @@ import ZoolButton 1.2
 
 Item {
     id: r
-    width: zm.objSignsCircle.width*0.5
+    width: zm.objSignsCircle.width//*0.5
     height: width
     anchors.centerIn: parent
-    parent: zm
+    parent: zm.cm
     visible: false
     property string folder: './modules/mods/'+app.j.qmltypeof(r)
     property real o: 0.25
@@ -463,6 +463,8 @@ Item {
             //anchors.topMargin: !showMaximized?0:0-zoolDataView.height
             anchors.bottom: parent.bottom
             anchors.right: parent.right
+            parent: xLatDer
+            z: parent.z+999
             visible: r.showTxtInfo
 
             property bool showMaximized: false
@@ -484,7 +486,7 @@ Item {
             }
             function capture(){
                 xPanelInfo.grabToImage(function(result) {
-                    let json=app.currentJson
+                    let json=zm.currentJson
                     if(!json)return
                     let ih=parseInt(json.pc.c0.ih)
                     let subfolder='caps_'
@@ -664,7 +666,7 @@ Item {
         setBgPosSol()
     }
     function setBgPosSol(){
-        let json=app.currentJson
+        let json=zm.currentJson
         //log.ls('json: '+JSON.stringify(json.pc.c0), 0, xLatIzq.width)
         if(!json)return
 
@@ -746,7 +748,7 @@ Item {
         aCtx.push('ctx 7')
         aCtx.push('Tarde - Horas del atardecer intermedias entre el mediodía y la noche - Sol en Casa 8')
         aCtx.push('Ocaso - 1 o 2 horas previas al anochecer - Sol en Casa 7')
-        aCtx.push('ctx 10')
+        aCtx.push('Cenit')
         aCtx.push('ctx 11')
         aCtx.push('ctx 12')
         txt=txt.replace('<!--ctx-->', '<h2>Contexto de Nacimiento: '+aCtx[ih - 1]+'</h2><br />')
@@ -772,11 +774,11 @@ Item {
         let comp=Qt.createComponent('HorizonteBg.qml')
         let obj=comp.createObject(xHorBg, {posSol: posSol})
         fakeSignCircle.rotation=zm.objSignsCircle.rot
-        let gs=app.currentRotationxAsSol-(fakeSignCircle.rotation-360)//r.uGS90
+        let gs=zm.currentRotationxAsSol-(fakeSignCircle.rotation-360)//r.uGS90
         fakeSolAxis.rotation=gs
-        let cd=new Date(app.currentDate)
+        let cd=new Date(zm.currentDate)
         let hora=cd.getHours()
         let min=cd.getMinutes()
-        txt3.text='Lugar de nacimiento de <b>'+app.currentNom+'</b> el día <b>'+app.currentFecha+'</b> a las <b>'+hora+':'+min+'hs</b> en '+app.currentLugar
+        txt3.text='Lugar de nacimiento de <b>'+zm.currentNom+'</b> el día <b>'+zm.currentFecha+'</b> a las <b>'+hora+':'+min+'hs</b> en '+zm.currentLugar
     }
 }

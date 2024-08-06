@@ -8,6 +8,7 @@ import ZoolFileMaker 1.5
 import ZoolFileLoader 1.3
 import ZoolFileTransLoader 1.4
 import ZoolFileDirPrimLoader 1.7
+import ZoolFileProgSecLoader 1.0
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -113,10 +114,18 @@ Rectangle {
                 }
                 ZoolButton{
                     id: botDirPrim
-                    text:'Direcciones'
+                    text:'Dir. Prim.'
                     colorInverted: zoolFileDirPrimLoader.visible
                     onClicked: {
                         showSection('ZoolFileDirPrimLoader')
+                    }
+                }
+                ZoolButton{
+                    id: botProgSec
+                    text:'Prog. Sec.'
+                    colorInverted: zoolFileProgSecLoader.visible
+                    onClicked: {
+                        showSection('ZoolFileProgSecLoader')
                     }
                 }
             }
@@ -133,6 +142,7 @@ Rectangle {
             ZoolFileLoader{id: zoolFileLoader}
             ZoolFileTransLoader{id: zoolFileTransLoader}
             ZoolFileDirPrimLoader{id: zoolFileDirPrimLoader}
+            ZoolFileProgSecLoader{id: zoolFileProgSecLoader}
         }
     }
     Rectangle{
@@ -233,6 +243,8 @@ Rectangle {
         }
         s.currentQmlTypeShowed=qmltype
         r.currentIndex=newCi
+        //zsm.currentSectionFocused=r
+        apps.zFocus='xLatIzq'
     }
     function getSection(typeOfSection){
         let obj
