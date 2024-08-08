@@ -175,12 +175,15 @@ Rectangle {
                     visible: r.moduleEnabled
                     anchors.horizontalCenter: parent.horizontalCenter
                     onCurrentDateChanged: {
+                        //log.lv('tLoad.. r.moduleEnabled: '+r.moduleEnabled)
                         if(!r.moduleEnabled)return
+                        //log.lv('tLoad.. r.loadingFromExternal: '+r.loadingFromExternal)
                         if(!r.visible && !r.loadingFromExternal)return
                         if(!zm.ev){
                             zm.loadFromFile(apps.url, 'dirprim', true)
                             r.moduleEnabled=true
                         }
+
                         tLoad.restart()
                         if(app.j.eventoEsMenorAInicio(zm.currentDate, currentDate)){
                             currentDate=zm.currentDate
@@ -274,6 +277,7 @@ Rectangle {
                             text: !tAutoFindAsps.running?'Iniciar Rastreo':'Detener Rastreo'
                             //anchors.horizontalCenter: parent.horizontalCenter
                             onClicked:{
+                                if(!tAutoFindAsps.running)setForRastreo()
                                 if(!tAutoFindAsps.running){
                                     log.clear()
                                 }
@@ -361,6 +365,32 @@ Rectangle {
                                     }
                                 }
                                 anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                    }
+                    Row{
+                        spacing: app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Límite'
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                        }
+                        Rectangle{
+                            width: tiLimit.width+app.fs*0.5
+                            height: tiLimit.height+app.fs*0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            color: 'transparent'
+                            radius: app.fs*0.25
+                            TextInput{
+                                id: tiLimit
+                                text: '100'
+                                font.pixelSize: app.fs*0.5
+                                width: app.fs*2
+                                height: app.fs
+                                color: apps.fontColor
+                                anchors.centerIn: parent
                             }
                         }
                     }
@@ -503,10 +533,17 @@ Rectangle {
         id: tAutoFindAsps
         repeat: true
         running: false
-        interval: 200
+        interval: 2000
         property int m: 1
         onTriggered: {
             let d = controlTimeFechaEvento.currentDate
+            let p=zfdm.getJsonAbs().params
+            let anioLimit=p.a+parseInt(tiLimit.text)
+            if(d.getFullYear()>=anioLimit){
+                aspsList.mkHtml()
+                stop()
+                return
+            }
             if(m===0){
                 d.setFullYear(d.getFullYear() + 1)
             }
@@ -640,7 +677,7 @@ Rectangle {
         updateAsps()
 
         //Lo que suceda a continuación es si ya se ha definido app.t o app.t a dirprim
-        if(app.ev&&app.t==='dirprim')return
+        if(zm.ev&&zm.t==='dirprim')return
         tUpdateParamsEvento.restart()
         r.loadingFromExternal=true
 
@@ -773,21 +810,27 @@ Rectangle {
 
         zm.ev=true
     }
+    property var a: []
+    //property var ab: []
     function updateAsps(){
         //
         //log.clear()
         log.width=xApp.width*0.2
         log.x=xApp.width*0.8
-        let a=zm.getAPD(false)
-        let ab=zm.getAPD(true)
-        for(var i=0;i<a.length;i++){
+        //let a=zm.getAPD(false)
+        //let ab=zm.getAPD(true)
+        for(var i=0;i<r.a.length;i++){
             //if(i!==9)continue
-            for(var ib=0;ib<a.length;ib++){
+            for(var ib=0;ib<r.a.length;ib++){
                 let pInt=app.planetas[i]
                 let pExt=app.planetas[ib]
 
-                let ga=parseFloat(a[i]).toFixed(6)
-                let gab=parseFloat(ab[ib]).toFixed(6)//+sweg.dirPrimRot
+                let ga=parseFloat(r.a[i]).toFixed(6)
+                //let gab=parseFloat(ab[ib]).toFixed(6)//+sweg.dirPrimRot
+                let gab=parseFloat(r.a[ib] + zm.dirPrimRot).toFixed(6)
+                if(gab>=360.00){
+                    gab=gab-360.00
+                }
                 let retAspType=zm.getAspType(ga, gab, true, i, ib, pInt, pExt)
 
                 let f=controlTimeFechaEvento.currentDate
@@ -796,7 +839,12 @@ Rectangle {
 
                 if(retAspType>=0){
                     if(zm.listCotasShowing.indexOf(i)>=0){
-                        aspsList.addItem(retAspType, ib, i, controlTimeFechaEvento.currentDate)
+                        //for(var i=0;i<)
+                        let sd=''+retAspType+'_'+ib+'_'+i+'_'+controlTimeFechaEvento.currentDate.getTime()
+                        if(!isAspListed(sd)){
+                            aspsList.addItem(retAspType, ib, i, controlTimeFechaEvento.currentDate)
+                        }
+                        //aspsList.addItem(retAspType, pInt, pExt, controlTimeFechaEvento.currentDate)
                     }
 
 //                    if(retAspType===1){
@@ -816,6 +864,26 @@ Rectangle {
 
             }
         }
+    }
+    property var asplList: []
+    function setForRastreo(){
+        aspsList.clear()
+        r.a=zm.getAPD(false)
+        r.asplList=[]
+    }
+    function isAspListed(s){
+        let ret=false
+        //for(var i=0; i<asplList.length-1;i++){
+
+            if(asplList.indexOf(s)>=0){
+                ret=true
+                //break
+            }
+        //}
+        if(!ret){
+           asplList.push(s)
+        }
+        return ret
     }
     function setFechaEvento(d){
         controlTimeFechaEvento.currentDate=d

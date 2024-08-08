@@ -379,7 +379,12 @@ Item{
         for(var i=0;i<20;i++){
             var objAs=r.children[i]
             if(objAs.objData && objAs.objData.gdec){
-                a.push(objAs.objData.gdec)
+                let deg=objAs.objData.gdec
+                if(app.t==='dirprim' && r.isBack){
+                    deg=parseFloat(deg+zm.dirPrimRot)
+                }
+                if(deg>=360.00)deg=parseFloat(deg-360)
+                a.push(deg)
             }
         }
         return a

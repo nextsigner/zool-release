@@ -1580,7 +1580,7 @@ Item{
         return edad
     }
     function getEdadRS(d, m, a, h, min) {
-        let hoy = app.currentDate//new Date(Date.now())
+        let hoy = zm.currentDate//new Date(Date.now())
         let fechaNacimiento = new Date(a, m, d, h, min)
         fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
         let fechaNacimiento2 = new Date(fechaNacimiento)
@@ -1590,6 +1590,16 @@ Item{
             edad--
         }
         return edad
+    }
+    function getAgeFromTwoDates(fechaNacimiento, fechaActual) {
+        var edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        var mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+
+        if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNacimiento.getDate())) {
+            edad--;
+        }
+
+        return edad;
     }
     function getAPD(isBack){
         return !isBack?planetsCircle.getAPD():planetsCircleBack.getAPD()
