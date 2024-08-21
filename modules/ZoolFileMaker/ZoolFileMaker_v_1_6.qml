@@ -133,6 +133,24 @@ Rectangle {
                 }
             }
             Row{
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    id: labelGenero
+                    text: 'Género: '
+                    w: app.fs*2.5
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ComboBox{
+                    id: cbGenero
+                    model: ['No Binario', 'Femenino', 'Masculino']
+                    width: r.width-labelGenero.w-app.fs
+                    font.pixelSize: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Row{
                 spacing: app.fs*0.1
                 anchors.horizontalCenter: parent.horizontalCenter
                 ZoolControlsTime{
@@ -654,6 +672,9 @@ Rectangle {
         json.params.t=vtipo
         json.params.ms=ms
         json.params.n=nom
+        json.params.g='n'
+        if(cbGenero.currentIndex===1)json.params.g='f'
+        if(cbGenero.currentIndex===2)json.params.g='m'
         if(cbPreview.checked){
             if(nom==='')nom='Sin Nombre'
             json.params.n='Vista Previa - '+nom
@@ -785,6 +806,20 @@ Rectangle {
         tiLat.t.text=parseFloat(r.lat).toFixed(2)
         tiLon.t.text=parseFloat(r.lon).toFixed(2)
         tiAlt.t.text=''+r.alt
+
+        if(p.g){
+            if(p.g==='n'){
+                cbGenero.currentIndex=0
+            }
+            if(p.g==='f'){
+                cbGenero.currentIndex=1
+            }
+            if(p.g==='m'){
+                cbGenero.currentIndex=2
+            }
+        }else{
+            cbGenero.currentIndex=0
+        }
         //log.lv('p:'+JSON.stringify(p, null, 2))
     }
 }

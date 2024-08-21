@@ -95,6 +95,7 @@ Menu {
     }
     Action {text: qsTr("Grabar Posición"); onTriggered: {
             app.j.saveZoomAndPos()
+            Cap.capturePlanet()
         }
     }
     Action {text: qsTr("Capturar"); onTriggered: {

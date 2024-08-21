@@ -43,6 +43,7 @@ Item{
 
     property bool isDataDiff: false
     property bool ev: false
+    property bool lockEv: false
     property int zodiacBandWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumWidth: !r.ev?app.fs:app.fs*0.75
     property int housesNumMargin: app.fs*0.25
@@ -87,6 +88,8 @@ Item{
     property date currentDateBack
     property string currentNom: ''
     property string currentNomBack: ''
+    property string currentGenero: 'n'
+    property string currentGeneroBack: 'n'
     property string currentFecha: ''
     property string currentFechaBack: ''
     property string currentLugar: ''
@@ -237,19 +240,19 @@ Item{
         //xDataBar.currentGmtText=''+currentGmt
         tReload.restart()
     }
-//    onCurrentDateBackChanged: {
-//        controlsTimeBack.setTime(currentDateBack)
-//        if(app.t==='trans'){
-//            JS.loadTransFromTime(app.currentDateBack)
-//        }
-//        //xDataBar.state='show'
-//        let a=currentDateBack.getFullYear()
-//        let m=currentDateBack.getMonth()
-//        let d=currentDateBack.getDate()
-//        let h=currentDateBack.getHours()
-//        let min=currentDateBack.getMinutes()
-//        tReloadBack.restart()
-//    }
+    //    onCurrentDateBackChanged: {
+    //        controlsTimeBack.setTime(currentDateBack)
+    //        if(app.t==='trans'){
+    //            JS.loadTransFromTime(app.currentDateBack)
+    //        }
+    //        //xDataBar.state='show'
+    //        let a=currentDateBack.getFullYear()
+    //        let m=currentDateBack.getMonth()
+    //        let d=currentDateBack.getDate()
+    //        let h=currentDateBack.getHours()
+    //        let min=currentDateBack.getMinutes()
+    //        tReloadBack.restart()
+    //    }
     onDirPrimRotChanged: {
         if(app.t==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
@@ -260,10 +263,10 @@ Item{
         tEnableAnZoomAndPos.restart()
     }
     Behavior on opacity{NumberAnimation{duration: 1500}}
-//    Rectangle{
-//        anchors.fill: parent
-//        color: 'yellow'
-//    }
+    //    Rectangle{
+    //        anchors.fill: parent
+    //        color: 'yellow'
+    //    }
     Item{id:xuqp}
     Item{
         id: xBackItems
@@ -556,7 +559,7 @@ Item{
                                     //var mouseP = Qt.point();
                                     //var mapped =
                                     var globalCoordinates = parent.mapToItem(capaFront, parent.x, parent.y);
-                                        let s="X: " + globalCoordinates.x + " y: " + globalCoordinates.y
+                                    let s="X: " + globalCoordinates.x + " y: " + globalCoordinates.y
                                     let nx= globalCoordinates.x+25
                                     let ny= globalCoordinates.y-25
                                     s+='\nnx:'+nx+'\nny:'+ny
@@ -653,10 +656,10 @@ Item{
         interval: 10000
         property string currentJsonData: ''
         onTriggered: {
-//            if(tAutoMaticPlanets.currentJsonData!==zm.currentData){
-//                //tAutoMaticPlanets.stop()
-//                //return
-//            }
+            //            if(tAutoMaticPlanets.currentJsonData!==zm.currentData){
+            //                //tAutoMaticPlanets.stop()
+            //                //return
+            //            }
             if(zm.currentPlanetIndex<21){
                 zm.currentPlanetIndex++
             }else{
@@ -795,7 +798,10 @@ Item{
         r.fileDataBack=JSON.stringify(j)
     }
     function loadBackFromArgs(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
-        zm.ev=false
+        if(!r.lockEv){
+            r.ev=false
+        }
+        r.lockEv=false
         let d=new Date(Date.now())
         let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh),
                             parseInt(vmin))
@@ -861,7 +867,10 @@ Item{
         if(tipo==='dirprim')strSep='Dir. Primarias'
         zoolDataView.setDataView(strSep, aL, aR)
         zoolDataView.uExtIdLoaded=extId
-        zm.ev=true
+        if(!r.lockEv){
+            r.ev=true
+        }
+        r.lockEv=false
     }
     function loadSweJson(json){
         //console.log('JSON::: '+json)
@@ -877,7 +886,10 @@ Item{
         //zsm.getPanel('ZoolRevolutionList').clear()
         //panelRsList.clear()
         //planetsCircleBack.visible=false
-        r.ev=false
+        if(!r.lockEv){
+            r.ev=false
+        }
+        r.lockEv=false
         apps.urlBack=''
         //panelAspectsBack.visible=false
         r.currentPlanetIndex=-1
@@ -1012,7 +1024,10 @@ Item{
 
         //app.backIsSaved=isSaved
         //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
-        r.ev=true
+        if(!r.lockEv){
+            r.ev=true
+        }
+        r.lockEv=false
         if(app.t!=='dirprim')centerZoomAndPos()
     }
     function loadFromFile(filePath, tipo, isBack){
@@ -1052,7 +1067,7 @@ Item{
         if(!isBack){
             r.load(p)
         }else{
-            r.loadBack(p)            
+            r.loadBack(p)
         }
 
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
@@ -1113,6 +1128,8 @@ Item{
         //Seteando datos globales de mapa energético
         apps.url=filePath
         zm.currentNom=nom
+        zm.currentGenero='n'
+        if(p.g)zm.currentGenero=p.g
         zm.currentFecha=vd+'/'+vm+'/'+va
         zm.currentLugar=vCiudad
         zm.currentGmt=vgmt
@@ -1123,16 +1140,120 @@ Item{
 
         zm.centerZoomAndPos()
     }
+    function loadIntOrExt(fileName, isExt){
+        let existe=unik.fileExist(fileName)
+        if(!existe)return
+        r.lockEv=true
+        let jsonData=unik.getFile(fileName)
+        let p=JSON.parse(jsonData).params
+
+        if(!isExt){
+            zm.fileData=JSON.stringify(p)
+        }else{
+            zm.fileDataBack=JSON.stringify(p)
+        }
+        //Global Vars Reset
+        zm.resetGlobalVars()
+
+        //let jsonData=zfdm.getJsonAbs()
+        //let p=zfdm.getJsonAbsParams(false)
+        //sweg.load(jsonData)
+        if(!isExt){
+            zm.load(p)
+        }else{
+            zm.loadBack(p)
+        }
+        let nom=p.n.replace(/_/g, ' ')
+        let vd=p.d
+        let vm=p.m
+        let va=p.a
+        let vh=p.h
+        let vmin=p.min
+        let vgmt=p.gmt
+        let vlon=p.lon
+        let vlat=p.lat
+        let valt=p.alt?p.alt:0
+        let vCiudad=p.c.replace(/_/g, ' ')
+        let edad=zm.getEdad(vd, vm, va, vh, vmin)
+        let numEdad=zm.getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+        let stringEdad='<b>Edad:</b> '
+        if(edad===1){
+            stringEdad+=edad+' año'
+        }else{
+            stringEdad+=edad+' años'
+        }
+
+        let dateNow=new Date(Date.now())
+        let dateFN=new Date(va, vm-1, vd, vh, vmin)
+
+        let aL=zoolDataView.atLeft
+        let aR=zoolDataView.aRigth
+        if(!isExt){
+            aL=[]
+            aL.push('<b>'+nom+'</b>')
+            aL.push(''+vd+'/'+vm+'/'+va)
+            aL.push(stringEdad)
+            aL.push(''+vh+':'+vmin+'hs')
+            aL.push('<b>GMT:</b> '+vgmt)
+            aL.push('<b>Ubicación:</b> '+vCiudad)
+            aL.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+            aL.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+            aL.push('<b>Alt:</b> '+valt)
+
+            zoolDataView.setDataView(nom, aL, aR)
+
+            //Seteando datos globales de mapa energético
+            apps.url=filePath
+            zm.currentNom=nom
+            zm.currentGenero='n'
+            if(p.g)zm.currentGenero=p.g
+            zm.currentFecha=vd+'/'+vm+'/'+va
+            zm.currentLugar=vCiudad
+            zm.currentGmt=vgmt
+            zm.currentLon=vlon
+            zm.currentLat=vlat
+            zm.currentAlt=valt
+            zm.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+        }else{
+            aR=[]
+            aR.push('<b>'+nom+'</b>')
+            aR.push(''+vd+'/'+vm+'/'+va)
+            aR.push(stringEdad)
+            aR.push(''+vh+':'+vmin+'hs')
+            aR.push('<b>GMT:</b> '+vgmt)
+            aR.push('<b>Ubicación:</b> '+vCiudad)
+            aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+            aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+            aR.push('<b>Alt:</b> '+valt)
+
+            zoolDataView.setDataView(nom, aL, aR)
+
+            //Seteando datos globales de mapa energético
+            apps.urlBack=filePath
+            zm.currentNomBack=nom
+            zm.currentGenero='n'
+            if(p.g)zm.currentGenero=p.g
+            zm.currentFechaBack=vd+'/'+vm+'/'+va
+            zm.currentLugarBack=vCiudad
+            zm.currentGmtBack=vgmt
+            zm.currentLonBack=vlon
+            zm.currentLatBack=vlat
+            zm.currentAltBack=valt
+            zm.currentDateBack= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+        }
+
+        zm.centerZoomAndPos()
+    }
     function loadNow(isExt){
         let d=new Date(Date.now())
         let currentUserHours=d.getHours()
         let diffHours=d.getUTCHours()
         let currentGmtUser=0
-//        if(currentUserHours>diffHours){
-//            currentGmtUser=parseFloat(currentUserHours-diffHours)
-//        }else{
-//            currentGmtUser=parseFloat(0-(diffHours+currentUserHours)).toFixed(1)
-//        }
+        //        if(currentUserHours>diffHours){
+        //            currentGmtUser=parseFloat(currentUserHours-diffHours)
+        //        }else{
+        //            currentGmtUser=parseFloat(0-(diffHours+currentUserHours)).toFixed(1)
+        //        }
         //log.ls('currentGmtUser: '+currentGmtUser, 0, xLatIzq.width)
         let dia=d.getDate()
         let mes=d.getMonth()+1
@@ -1147,6 +1268,7 @@ Item{
 
         if(!isExt){
             zm.currentNom=nom
+            zm.currentGenero='n'
             zm.currentFecha=dia+'/'+mes+'/'+anio
             zm.currentLugar=ciudad
             zm.currentGmt=currentGmtUser
@@ -1156,6 +1278,7 @@ Item{
             zm.currentDate= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
         }else{
             zm.currentNomBack=nom
+            zm.currentGeneroBack='n'
             zm.currentFechaBack=dia+'/'+mes+'/'+anio
             zm.currentLugarBack=ciudad
             zm.currentGmtBack=currentGmtUser
@@ -1206,7 +1329,11 @@ Item{
             aR.push('<b>Alt.:</b> '+alt)
         }
         zoolDataView.setDataView(sep, aL, aR)
-        zm.ev=isExt
+        if(!r.lockEv){
+            r.ev=isExt
+        }
+        r.lockEv=false
+        //zm.ev=isExt
     }
     function loadFromJson(j, isExt, save){
         if(save){
@@ -1261,35 +1388,35 @@ Item{
         return j
     }
     function getZiData(bodieIndex, signIndex, houseIndex){
-            let b=zm.aBodiesFiles[bodieIndex]
-            let s=zm.aSignsLowerStyle[signIndex]
-            let h=parseInt(houseIndex)
-            let c=''
-            c+='import QtQuick 2.0\n'
-            c+='import unik.UnikQProcess 1.0\n'
-            c+='import QtQuick.Window 2.0\n'
-            //c+='Item{\n'
-            c+='UnikQProcess{\n'
-            c+='    onLogDataChanged:{\n'
-            //c+='        log.lv("D:"+logData)\n'
-            c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
-            c+='        zm.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
-            c+='        destroy()\n'
-            c+='    }\n'
-            c+='    Component.onCompleted:{\n'
-            c+='        let b=("'+b+'").toLowerCase()\n'
-            c+='        let s="'+s+'"\n'
-            c+='        let h="casa_'+h+'"\n'
-            c+='        let ss=b+"_en_"+s\n'
-            c+='        if(app.dev)log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
-            c+='        let cmd="/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+" "+h+""\n'
-            c+='        if(app.dev)log.lv("CMD:"+cmd)\n'
-            c+='        console.log("CMD:"+cmd)\n'
-            c+='        run(cmd)\n'
-            c+='    }\n'
-            c+='}\n'
-            //c+='}\n'
-            let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
+        let b=zm.aBodiesFiles[bodieIndex]
+        let s=zm.aSignsLowerStyle[signIndex]
+        let h=parseInt(houseIndex)
+        let c=''
+        c+='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='import QtQuick.Window 2.0\n'
+        //c+='Item{\n'
+        c+='UnikQProcess{\n'
+        c+='    onLogDataChanged:{\n'
+        //c+='        log.lv("D:"+logData)\n'
+        c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
+        c+='        zm.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
+        c+='        destroy()\n'
+        c+='    }\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        let b=("'+b+'").toLowerCase()\n'
+        c+='        let s="'+s+'"\n'
+        c+='        let h="casa_'+h+'"\n'
+        c+='        let ss=b+"_en_"+s\n'
+        c+='        if(app.dev)log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
+        c+='        let cmd="/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+" "+h+""\n'
+        c+='        if(app.dev)log.lv("CMD:"+cmd)\n'
+        c+='        console.log("CMD:"+cmd)\n'
+        c+='        run(cmd)\n'
+        c+='    }\n'
+        c+='}\n'
+        //c+='}\n'
+        let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
     }
     function getZiDataNum(num, gen, show){
         let bashScriptPath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/getDataNum.sh'
@@ -1305,7 +1432,7 @@ Item{
         //c+='        log.lv("D:"+logData)\n'
         c+='        let t=(""+(""+logData).split("</h1>")[0]).replace("<h1>", "")\n'
         if(show){
-        c+='        zm.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
+            c+='        zm.mkWindowDataView(t, logData, Screen.width*0.5-app.fs*10, Screen.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)\n'
         }else{
             c+='        zm.mkItemDataView(logData, 0, 0, xLatDer.width, xLatDer.height, xLatDer, app.fs*0.75)\n'
         }
@@ -1538,7 +1665,10 @@ Item{
     //<--ZoomAndPan
 
     function resetGlobalVars(){
-        r.ev=false
+        if(!r.lockEv){
+            r.ev=false
+        }
+        r.lockEv=false
         r.currentPlanetIndex=-1
         r.currentPlanetIndexBack=-1
         r.currentHouseIndex=-1
@@ -1637,19 +1767,19 @@ Item{
         return index
     }
     function convertDDToDMS(D, lng) {
-      return {
-        dir: D < 0 ? (lng ? "W" : "S") : lng ? "E" : "N",
-        deg: 0 | (D < 0 ? (D = -D) : D),
-        min: 0 | (((D += 1e-9) % 1) * 60),
-        sec: (0 | (((D * 60) % 1) * 6000)) / 100,
-      };
+        return {
+            dir: D < 0 ? (lng ? "W" : "S") : lng ? "E" : "N",
+            deg: 0 | (D < 0 ? (D = -D) : D),
+            min: 0 | (((D += 1e-9) % 1) * 60),
+            sec: (0 | (((D * 60) % 1) * 6000)) / 100,
+        };
     }
     function getDDToDMS(D) {
-      return {
-        deg: 0 | (D < 0 ? (D = -D) : D),
-        min: 0 | (((D += 1e-9) % 1) * 60),
-        sec: (0 | (((D * 60) % 1) * 6000)) / 100,
-      };
+        return {
+            deg: 0 | (D < 0 ? (D = -D) : D),
+            min: 0 | (((D += 1e-9) % 1) * 60),
+            sec: (0 | (((D * 60) % 1) * 6000)) / 100,
+        };
     }
     function getAspType(g1, g2, showLog, index, indexb, pInt, pExt){
         let ret=-1

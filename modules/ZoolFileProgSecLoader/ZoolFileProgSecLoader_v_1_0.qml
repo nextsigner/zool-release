@@ -151,6 +151,7 @@ Rectangle {
 
 
             zm.currentNomBack=nom
+            zm.currentGeneroBack='n'
             zm.currentFechaBack=dia+'/'+mes+'/'+anio
             zm.currentLugarBack=ciudad
             zm.currentGmtBack=gmt

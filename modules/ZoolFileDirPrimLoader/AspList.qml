@@ -173,8 +173,8 @@ Rectangle{
             if(lv.itemAtIndex(i))s+=lv.itemAtIndex(i).getText()+'<br><br>'
         }
         html=html.replace('*****', s)
-       unik.setFile(fileNamePath, html)
-       log.lv('html: '+html)
+        unik.setFile(fileNamePath, html)
+       //log.lv('html: '+html)
         Qt.openUrlExternally(fileNamePath)
     }
 }

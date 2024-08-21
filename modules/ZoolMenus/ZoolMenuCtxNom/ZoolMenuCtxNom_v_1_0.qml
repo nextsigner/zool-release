@@ -75,12 +75,11 @@ Menu {
             panel.setForEdit()
         }
     }
-    Action {text: qsTr("Crear Html Masculino"); onTriggered: {
-            mkHtml('masculino')
-        }
-    }
-    Action {text: qsTr("Crear Html Femenino"); onTriggered: {
-            mkHtml('femenino')
+    Action {text: qsTr("Crear Html"); onTriggered: {
+            let genero='femenino'
+            let p=zfdm.getJsonAbs().params
+            if(p.g && p.g==='m')genero='masculino'
+            mkHtml(genero)
         }
     }
     Action {text: qsTr("Eliminar Archivo"); onTriggered: {

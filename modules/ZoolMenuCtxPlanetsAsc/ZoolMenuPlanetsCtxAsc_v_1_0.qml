@@ -85,7 +85,7 @@ Menu {
 //        }
 //    }
     Action {text: qsTr("Grabar Posición"); onTriggered: {
-            app.j.saveZoomAndPos()
+            app.j.saveZoomAndPos()            
         }
     }
     Action {text: qsTr("Capturar"); onTriggered: {

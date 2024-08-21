@@ -3,9 +3,9 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
-import ZoolFileMaker 1.5
+import ZoolFileMaker 1.6
 //import ZoolFileExtDataManager 1.2
-import ZoolFileLoader 1.3
+import ZoolFileLoader 1.4
 import ZoolFileTransLoader 1.4
 import ZoolFileDirPrimLoader 1.7
 import ZoolFileProgSecLoader 1.0
