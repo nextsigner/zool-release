@@ -84,7 +84,9 @@ Rectangle {
                     width: app.fs*0.5
                     checked: s.showToolItem
                     anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged: s.showToolItem=checked
+                    onCheckedChanged: {
+                        s.showToolItem=checked
+                    }
                 }
             }
             Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
@@ -123,7 +125,8 @@ Rectangle {
                     }
                     onTextChanged: {
                         zsm.currentSectionFocused=r
-                        updateList()
+                        botFavoriteGlobal.showFavorites=false
+                        tSearch.restart()
                     }
                     onFocusChanged: {
                         if(focus){
@@ -131,6 +134,15 @@ Rectangle {
                             selectAll()
                         }
 
+                    }
+                    Timer{
+                        id: tSearch
+                        running: false
+                        repeat: false
+                        interval: 250
+                        onTriggered: {
+                            updateList()
+                        }
                     }
                     Rectangle{
                         width: parent.width+app.fs
@@ -143,12 +155,13 @@ Rectangle {
                     }
                 }
                 Item{
-                    //id: botFavorite
+                    id: botFavoriteGlobal
                     width: app.fs*0.7
                     height: width
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     anchors.rightMargin: width*0.5
+                    property bool showFavorites: false
                     Text {
                         text: '\uf005'
                         font.family: 'FontAwesome'
@@ -156,10 +169,24 @@ Rectangle {
                         anchors.centerIn: parent
                         color: apps.fontColor
                     }
+                    Text {
+                        text: '\uf00c'
+                        font.family: 'FontAwesome'
+                        font.pixelSize: parent.width*0.5
+                        anchors.centerIn: parent
+                        //color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
+                        color: apps.backgroundColor
+                        visible: botFavoriteGlobal.showFavorites
+                    }
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            updateListFavorites()
+                            botFavoriteGlobal.showFavorites=!botFavoriteGlobal.showFavorites
+                            if(botFavoriteGlobal.showFavorites){
+                                updateListFavorites()
+                            }else{
+                                updateList()
+                            }
                         }
                     }
                 }
@@ -204,11 +231,12 @@ Rectangle {
     }
     ListModel{
         id: lm
-        function addItem(vFileName, vData, vTipo){
+        function addItem(vFileName, vData, vTipo, vIsFavorite){
             return {
                 fileName: vFileName,
                 dato: vData,
-                tipo: vTipo
+                tipo: vTipo,
+                esFavorito: vIsFavorite
             }
         }
     }
@@ -349,20 +377,13 @@ Rectangle {
                     font.pixelSize: parent.width*0.5
                     anchors.centerIn: parent
                     color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
-                    visible: s.favorites.indexOf(fileName)>=0
+                    visible: esFavorito//s.favorites.indexOf(fileName)>=0
                 }
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        let i=s.favorites.indexOf(fileName)
-                        if(i>=0){
-                            s.favorites=app.j.removeItemAll(s.favorites, fileName)
-                        }else{
-                            s.favorites.push(fileName)
-                        }
-                        tf2.visible=s.favorites.indexOf(fileName)>=0
-
-
+                        esFavorito=!esFavorito
+                        let modificado=zfdm.setFavoriteDataJson(fileName, esFavorito)
                     }
                 }
             }
@@ -387,6 +408,7 @@ Rectangle {
             property string fileName: ''
             property string dato: ''
             property string tipo: ''
+            property bool f: false
             MouseArea{
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
@@ -615,10 +637,22 @@ Rectangle {
                     }else{
                         stipo='Desconocido'
                     }
+                    let sGenero='No especificado'
+                    if(jsonData.params.g==='n'){
+                        sGenero='No binario'
+                    }else if(jsonData.params.g==='f'){
+                        sGenero='Femenino'
+                    }else if(jsonData.params.g==='m'){
+                        sGenero='Masculino'
+                    }else{
+                        sGenero='Indefinido'
+                    }
 
                     let textData=''
                         +'<b>'+nom+'</b>'
                         +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+                        +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Género: '+sGenero+'</p>'
+                    +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Favorito: '+jsonData.params.f+'</p>'
                         +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
                         +'<!-- extra -->'
                         +'<b>Tipo: </b>'+stipo
@@ -628,7 +662,7 @@ Rectangle {
                         +sDataFile+'<br>'
                         +'<b>Archivo: </b>'+file
                     //xNombre.nom=textData
-                    lm.append(lm.addItem(file,textData, jsonData.params.t))
+                    lm.append(lm.addItem(file,textData, jsonData.params.t, jsonData.params.f))
                 }
                 if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()
@@ -642,8 +676,10 @@ Rectangle {
     function updateListFavorites(){
         lv.currentIndex=-1
         lm.clear()
-        for(var i=0;i<s.favorites.length;i++){
-            let file=s.favorites[i]
+        for(var i=0;i<flm.count;i++){
+            //let file='/home/ns/nsp/uda/astrologica/jsons/'+flm.get(i, 'fileName')
+            //let file=app.mainLocation+'/jsons/'+flm.get(i, 'fileName')
+            let file=apps.jsonsFolder+'/'+flm.get(i, 'fileName')
             let fn=file//.replace('cap_', '').replace('.png', '')
             let jsonFileName=fn
             //console.log('FileName: '+jsonFileName)
@@ -655,20 +691,23 @@ Rectangle {
                 continue
             }
             jsonFileData=jsonFileData.replace(/\n/g, '')
-            //log.lv('jsonFileData:\n '+jsonFileData)
             //console.log(jsonFileData)
             if(jsonFileData.indexOf(':NaN,')>=0)continue
             let jsonData
             try {
                 jsonData=JSON.parse(jsonFileData)
+                if(!jsonData.params.f)continue
                 let nom=''+jsonData.params.n.replace(/_/g, ' ')
                 if((jsonData.params.t==='rs' && jsonData.paramsBack) || (jsonData.params.t==='sin' && jsonData.paramsBack)){
                     nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
                 }
                 //if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
+                if(true){
                     if(jsonData.asp){
                         //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
                     }
+                    //log.x=xApp.width-xLatIzq.width
+                    //log.lv('Nom: '+jsonData.params.n)
                     let vd=jsonData.params.d
                     let vm=jsonData.params.m
                     let va=jsonData.params.a
@@ -715,10 +754,22 @@ Rectangle {
                     }else{
                         stipo='Desconocido'
                     }
+                    let sGenero='No especificado'
+                    if(jsonData.params.g==='n'){
+                        sGenero='No binario'
+                    }else if(jsonData.params.g==='f'){
+                        sGenero='Femenino'
+                    }else if(jsonData.params.g==='m'){
+                        sGenero='Masculino'
+                    }else{
+                        sGenero='Indefinido'
+                    }
 
                     let textData=''
                         +'<b>'+nom+'</b>'
                         +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+                        +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Género: '+sGenero+'</p>'
+                    +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Favorito: '+jsonData.params.f+'</p>'
                         +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
                         +'<!-- extra -->'
                         +'<b>Tipo: </b>'+stipo
@@ -728,8 +779,8 @@ Rectangle {
                         +sDataFile+'<br>'
                         +'<b>Archivo: </b>'+file
                     //xNombre.nom=textData
-                    lm.append(lm.addItem(file,textData, jsonData.params.t))
-                //}
+                    lm.append(lm.addItem(file,textData, jsonData.params.t, jsonData.params.f))
+                }
                 if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()
             } catch (e) {
@@ -739,6 +790,107 @@ Rectangle {
             }
         }
     }
+//    function updateListFavorites(){
+//        lv.currentIndex=-1
+//        lm.clear()
+//        for(var i=0;i<s.favorites.length;i++){
+//            let file=s.favorites[i]
+//            let fn=file//.replace('cap_', '').replace('.png', '')
+//            let jsonFileName=fn
+//            //console.log('FileName: '+jsonFileName)
+
+//            let jsonFileData
+//            if(unik.fileExist(jsonFileName)){
+//                jsonFileData=unik.getFile(jsonFileName)
+//            }else{
+//                continue
+//            }
+//            jsonFileData=jsonFileData.replace(/\n/g, '')
+//            //log.lv('jsonFileData:\n '+jsonFileData)
+//            //console.log(jsonFileData)
+//            if(jsonFileData.indexOf(':NaN,')>=0)continue
+//            let jsonData
+//            try {
+//                jsonData=JSON.parse(jsonFileData)
+//                let nom=''+jsonData.params.n.replace(/_/g, ' ')
+//                if((jsonData.params.t==='rs' && jsonData.paramsBack) || (jsonData.params.t==='sin' && jsonData.paramsBack)){
+//                    nom=''+jsonData.paramsBack.n.replace(/_/g, ' ')
+//                }
+//                //if(nom.toLowerCase().indexOf(txtDataSearch.text.toLowerCase())>=0){
+//                    if(jsonData.asp){
+//                        //console.log('Aspectos: '+JSON.stringify(jsonData.asp))
+//                    }
+//                    let vd=jsonData.params.d
+//                    let vm=jsonData.params.m
+//                    let va=jsonData.params.a
+//                    let vh=jsonData.params.h
+//                    let vmin=jsonData.params.min
+//                    let vgmt=jsonData.params.gmt
+//                    let vlon=jsonData.params.lon
+//                    let vlat=jsonData.params.lat
+//                    let vCiudad=jsonData.params.c.replace(/_/g, ' ')
+//                    let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
+//                    let stringEdad=edad.indexOf('NaN')<0?edad:''
+
+//                    //Date of Make File
+//                    let d=new Date(jsonData.params.ms)
+//                    let dia=d.getDate()
+//                    let mes=d.getMonth() + 1
+//                    let anio=d.getFullYear()
+//                    let hora=d.getHours()
+//                    let minuto=d.getMinutes()
+//                    let sMkFile='<b>Creado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
+//                    let sModFile='<b>Modificado:</b> Nunca'
+//                    if(jsonData.params.msmod){
+//                        d=new Date(jsonData.params.ms)
+//                        dia=d.getDate()
+//                        mes=d.getMonth() + 1
+//                        anio=d.getFullYear()
+//                        hora=d.getHours()
+//                        minuto=d.getMinutes()
+//                        sModFile='<b>Modificado: </b>'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto+'hs'
+//                    }
+//                    let sDataFile='<b>Tiene información:</b> No'
+//                    if(jsonData.params.data){
+//                        sDataFile='<b>Tiene información:</b> Si'
+//                    }
+//                    let stipo=''
+//                    if(jsonData.params.t==='vn'){
+//                        stipo='Carta Natal'
+//                    }else if(jsonData.params.t==='sin'){
+//                        stipo='Sinastría'
+//                    }else if(jsonData.params.t==='rs'){
+//                        stipo='Revolución Solar'
+//                    }else if(jsonData.params.t==='trans'){
+//                        stipo='Tránsitos'
+//                    }else{
+//                        stipo='Desconocido'
+//                    }
+
+//                    let textData=''
+//                        +'<b>'+nom+'</b>'
+//                        +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+//                        +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+//                        +'<!-- extra -->'
+//                        +'<b>Tipo: </b>'+stipo
+//                        +'<p style="font-size:'+parseInt(app.fs*0.35)+'px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+//                        +sMkFile+'<br>'
+//                        +sModFile+'<br>'
+//                        +sDataFile+'<br>'
+//                        +'<b>Archivo: </b>'+file
+//                    //xNombre.nom=textData
+//                    lm.append(lm.addItem(file,textData, jsonData.params.t, jsonData.params.f))
+//                //}
+//                if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
+//                //txtDataSearch.selectAll()
+//            } catch (e) {
+//                console.log('Error Json panelFileLoader: ['+file+'] '+jsonFileData)
+//                continue
+//                //return false;
+//            }
+//        }
+//    }
+
     function enter(){
         zm.loadJsonFromFilePath(r.currentFile)
         r.currentIndex=-1

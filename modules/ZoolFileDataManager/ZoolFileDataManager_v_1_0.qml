@@ -141,6 +141,16 @@ Item{
         }
         return false
     }
+    function setFavoriteDataJson(url, f){
+        let jsonData=unik.getFile(url)
+        let json=JSON.parse(jsonData)
+        json.params.f=f
+        let saved = unik.setFile(url, JSON.stringify(json, null, 2))
+        if(saved){
+            return true
+        }
+        return false
+    }
     function deleteCurrentJson(){
         let deleted = unik.deleteFile(apps.url)
         zm.loadNow(false)

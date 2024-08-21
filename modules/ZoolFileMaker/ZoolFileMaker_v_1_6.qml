@@ -675,6 +675,7 @@ Rectangle {
         json.params.g='n'
         if(cbGenero.currentIndex===1)json.params.g='f'
         if(cbGenero.currentIndex===2)json.params.g='m'
+        json.params.f=false
         if(cbPreview.checked){
             if(nom==='')nom='Sin Nombre'
             json.params.n='Vista Previa - '+nom
@@ -696,7 +697,7 @@ Rectangle {
             json.params.shared=false
         }
         json.params.extId=extId
-        json.params.exts=[]
+        json.exts=[]
 
         //let json=JSON.parse(j)
         if(zfdm.mkFileAndLoad(json, cbPreview.checked)){

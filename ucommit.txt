@@ -1,1 +1,1 @@
-Se agrega params.g para género y se optimiza Menu Nom Crear Html
+Se agrega params.f
