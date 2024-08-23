@@ -639,7 +639,7 @@ Rectangle {
                     }
                     let sGenero='No especificado'
                     if(jsonData.params.g==='n'){
-                        sGenero='No binario'
+                        sGenero='No binario o no especificado.'
                     }else if(jsonData.params.g==='f'){
                         sGenero='Femenino'
                     }else if(jsonData.params.g==='m'){
@@ -649,10 +649,10 @@ Rectangle {
                     }
 
                     let textData=''
-                        +'<b>'+nom+'</b>'
+                        +'<b style="font-size:'+parseInt(app.fs*0.75)+'px;">'+nom+'</b>'
                         +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
                         +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Género: '+sGenero+'</p>'
-                    +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Favorito: '+jsonData.params.f+'</p>'
+                    //+'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Favorito: '+jsonData.params.f+'</p>'
                         +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
                         +'<!-- extra -->'
                         +'<b>Tipo: </b>'+stipo
@@ -756,7 +756,7 @@ Rectangle {
                     }
                     let sGenero='No especificado'
                     if(jsonData.params.g==='n'){
-                        sGenero='No binario'
+                        sGenero='No binario o no especificado.'
                     }else if(jsonData.params.g==='f'){
                         sGenero='Femenino'
                     }else if(jsonData.params.g==='m'){
@@ -766,10 +766,10 @@ Rectangle {
                     }
 
                     let textData=''
-                        +'<b>'+nom+'</b>'
+                        +'<b style="font-size:'+parseInt(app.fs*0.75)+'px;">'+nom+'</b>'
                         +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
                         +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Género: '+sGenero+'</p>'
-                    +'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Favorito: '+jsonData.params.f+'</p>'
+                    //+'<p style="font-size:'+parseInt(app.fs*0.5)+'px;">Favorito: '+jsonData.params.f+'</p>'
                         +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
                         +'<!-- extra -->'
                         +'<b>Tipo: </b>'+stipo
