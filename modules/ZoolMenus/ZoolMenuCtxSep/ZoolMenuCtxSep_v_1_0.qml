@@ -4,21 +4,13 @@ import ZoolMenus 1.0
 
 ZoolMenus{
     id: r
+    property int currentIndexHouse: -1
+    property var aMI: []
+    property bool isBack: false
     title: 'Menu Nombre'//+app.planetas[r.currentIndexPlanet]
     Action {text: qsTr("Editar Archivo"); onTriggered: {
             let panel=zsm.getPanel('ZoolFileManager').getSection('ZoolFileMaker')
             panel.setForEdit()
-        }
-    }
-    Action {text: qsTr("Crear Html"); onTriggered: {
-            let genero='femenino'
-            let p=zfdm.getJsonAbs().params
-            if(p.g && p.g==='m')genero='masculino'
-            mkHtml(genero)
-        }
-    }
-    Action {text: qsTr("Eliminar Archivo"); onTriggered: {
-            zfdm.deleteCurrentJson()
         }
     }
     function mkHtml(sexo){

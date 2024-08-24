@@ -30,7 +30,10 @@ import ZoolBodies 1.10
 import ZoolMap 2.0
 import ZoolBodiesGuiTools 1.0
 
+import ZoolMenus.ZoolMenuCtxAs 1.0
 import ZoolMenus.ZoolMenuCtxNom 1.0
+import ZoolMenus.ZoolMenuCtxSep 1.0
+
 import ZoolMenuCtxZodiacBack 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 import ZoolMenuCtxHouses 1.0
@@ -634,8 +637,10 @@ ZoolMainWindow{
     //        font.pixelSize: app.fs*3
     //        color: 'red'
     //    }
-    Comps.MenuPlanets{id: menuPlanets}
+    //Comps.MenuPlanets{id: menuPlanets}
+    ZoolMenuCtxAs{id: menuPlanets}
     ZoolMenuCtxNom{id: zMenuNom}
+    ZoolMenuCtxSep{id: zMenuSep}
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}
