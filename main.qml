@@ -337,7 +337,7 @@ ZoolMainWindow{
             Image {
                 id: xElementsUItemGrabber
                 //source: panelElements.uItemGrabber
-                source: zoolElementsView.uItemGrabber
+                //source: zoolElementsView.uItemGrabber
                 //width: panelElements.width
                 //fillMode: Image.PreserveAspectFit
                 fillMode: Image.PreserveAspectCrop

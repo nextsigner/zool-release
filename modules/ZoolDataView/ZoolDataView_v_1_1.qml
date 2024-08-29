@@ -1,6 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.12
 
+//import ZoolMenus.ZoolMenuCtxSep 1.0
+
 Rectangle {
     id: r
     width: parent.width
@@ -8,12 +10,14 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
+
     property string stringMiddleSeparator: 'VN'
     property url uItemGrabber
     property int fs: app.fs*0.5
     property var atLeft: []
     property var atRight: []
     property string uExtIdLoaded: ''
+
     onAtLeftChanged: {
         //setDataView(r.stringMiddleSeparator, r.atLeft, r.atRight)
     }
@@ -156,6 +160,20 @@ Rectangle {
                 anchors.centerIn: parent
                 z:11
             }
+            MouseArea{
+                anchors.fill: parent
+                //enabled: parent.cellIndex===0
+                acceptedButtons: Qt.AllButtons;
+                onClicked: {
+                    if (mouse.button === Qt.RightButton) {
+                        zMenuSep.stringMiddleSep=r.stringMiddleSeparator
+                        zMenuSep.popup()
+
+                    } else if (mouse.button === Qt.LeftButton) {
+                        //Qt.quit()
+                    }
+                }
+            }
             Rectangle{
                 id: xTxtSG
                 width: txtSG.contentWidth+app.fs*0.3+border.width
@@ -168,14 +186,16 @@ Rectangle {
                 anchors.verticalCenter: parent.bottom
                 z: txtSep.z+1
                 visible: !app.backIsSaved
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        let isSaved=zfdm.saveExtToJsonFile(r.uExtIdLoaded)
-                        app.backIsSaved=isSaved
-                        if(app.dev)log.lv('Guardado desde zoolDataView: '+app.backIsSaved)
-                    }
-                }
+
+//                MouseArea{
+//                    anchors.fill: parent
+//                    onClicked: {
+//                        let isSaved=zfdm.saveExtToJsonFile(r.uExtIdLoaded)
+//                        app.backIsSaved=isSaved
+//                        if(app.dev)log.lv('Guardado desde zoolDataView: '+app.backIsSaved)
+//                    }
+//                }
+
                 Text{
                     id: txtSG
                     text: '<b>Sin guardar</b>'
@@ -232,12 +252,14 @@ Rectangle {
             }
             MouseArea{
                 anchors.fill: parent
-                enabled: parent.cellIndex===0
+                //enabled: parent.cellIndex===0
                 acceptedButtons: Qt.AllButtons;
                 onClicked: {
                     //apps.sweFs=app.fs
                     if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
-                        zMenuNom.popup()
+                        if(parent.cellIndex===0){
+                            zMenuNom.popup()
+                        }
                     } else if (mouse.button === Qt.LeftButton) {
                         //Qt.quit()
                     }
@@ -301,4 +323,10 @@ Rectangle {
         //tWaitUpdateData.start()
     }
 
+    function clearExtData(){
+        r.fs=r.height*0.5
+        r.stringMiddleSeparator=''
+        r.atRight=[]
+        updateDataView()
+    }
 }

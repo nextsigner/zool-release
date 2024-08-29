@@ -743,6 +743,7 @@ Item{
     }
     function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
+        zm.ev=true
         r.dirPrimRot=0
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -1051,6 +1052,7 @@ Item{
         let e='1000'
         let aR=[]
         app.t=tipo
+        j.t=t
         let ms
         if(!j.ms){
             let date=new Date(Date.now())
@@ -1063,13 +1065,12 @@ Item{
             msmod=j.msmod
         }
 
-        let p=zm.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, 'dirprim', hsys, ms, msmod)
+        let p=zm.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, t, hsys, ms, msmod)
         if(!isBack){
             r.load(p)
         }else{
             r.loadBack(p)
         }
-
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function loadJsonFromFilePath(filePath){

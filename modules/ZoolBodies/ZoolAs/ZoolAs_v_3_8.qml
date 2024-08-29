@@ -218,7 +218,7 @@ Item{
         is:objData.is
         cotaColor: apps.fontColor
         cotaOpacity: 1.0//xIconPlanetSmall.opacity
-        //rot: -270
+        rot: -180
         visible: sweg.listCotasShowing.indexOf(r.numAstro)>=0
         Timer{
             running: true

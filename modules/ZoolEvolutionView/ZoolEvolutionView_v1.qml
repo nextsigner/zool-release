@@ -175,7 +175,7 @@ Rectangle{
                 }
                 Text{
                     text: '<b>'+xIcon.ih+'</b>'
-                    color: apps.backgroudColor
+                    color: apps.backgroundColor
                     font.pixelSize: app.fs*0.35
                     anchors.centerIn: parent
                 }

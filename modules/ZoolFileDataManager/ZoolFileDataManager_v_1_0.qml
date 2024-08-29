@@ -171,9 +171,12 @@ Item{
         saveJson(json)
     }
     function getExts(){
-        let exts=[]
-        if(r.ja.exts)exts=r.ja.exts
-        return exts
+        let sd=unik.getFile(apps.url)
+        let json=JSON.parse(sd)
+        return json.exts
+        //let exts=[]
+        //if(r.ja.exts)exts=r.ja.exts
+        //return exts
     }
     function isExtId(extId){
         let ret=false
@@ -188,16 +191,23 @@ Item{
         }
         return ret
     }
-    function addExtData(json){
-        if(app.dev)log.lv('zfdm.addExtData( '+JSON.stringify(json, null, 2)+' )')
-        let o=r.ja.exts
-        if(app.dev)log.lv('r.ja.exts= '+JSON.stringify(o, null, 2)+'')
-        if(!o)return
-        let nIndex=Object.keys(o).length
-        o[nIndex]={}
-        o[nIndex]=json
-        if(app.dev)log.lv('adding ext data:'+JSON.stringify(r.ja, null, 2))
+    function addExtDataAndSave(p){
+        let sd=unik.getFile(apps.url)
+        let json=JSON.parse(sd)
+        json.exts.push(p)
+        unik.setFile(apps.url, JSON.stringify(json, null, 2))
+        //log.lv('json: '+JSON.stringify(json, null, 2))
     }
+    //    function addExtData(json){
+//        if(app.dev)log.lv('zfdm.addExtData( '+JSON.stringify(json, null, 2)+' )')
+//        let o=r.ja.exts
+//        if(app.dev)log.lv('r.ja.exts= '+JSON.stringify(o, null, 2)+'')
+//        if(!o)return
+//        let nIndex=Object.keys(o).length
+//        o[nIndex]={}
+//        o[nIndex]=json
+//        if(app.dev)log.lv('adding ext data:'+JSON.stringify(r.ja, null, 2))
+//    }
     function getParamExt(p,i){
         return r.ja.exts[i][''+p]
     }
@@ -238,36 +248,49 @@ Item{
         if(isSaved)zsm.getPanel('ZoolFileExtDataManager').updateList()
         return isSaved
     }
-    function deleteExtToJsonFile(extId){
-        let njson={}
-        njson.params={}
-        njson.params=r.ja.params
-        njson.exts=[]
-        let o=r.ja.exts
-        if(app.dev)log.lv('o:'+o.toString())
-        o=o.filter(Boolean)
-        if(app.dev)log.lv('o2:'+o.toString())
-        for(var i=0;i<Object.keys(o).length;i++){
-            let json=o[i].params
-            if(o[i]){
-                if(json.extId!==extId){
-                    njson.exts[i]={}
-                    njson.exts[i].params={}
-                    njson.exts[i].params=o[i].params
-                }
-            }
-        }
-        njson.exts=njson.exts.filter(Boolean)
-        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
-        let seted=unik.setFile(apps.url, JSON.stringify(njson))
-        if(seted)r.ja=njson
-        let forReload=extId===zoolDataView.uExtIdLoaded
-        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+' )\nzoolDataView.uExtIdLoaded: '+zoolDataView.uExtIdLoaded+'\nforReload: '+forReload)
 
-        let reLoaded=forReload?r.loadFile(apps.url):true
-        if(forReload)app.j.loadJson(apps.url)
-        let allTaskReady=(seted && reLoaded)?true:false
-        return allTaskReady
+//    function deleteExtToJsonFile(extId){
+//        let njson={}
+//        njson.params={}
+//        njson.params=r.ja.params
+//        njson.exts=[]
+//        let o=r.ja.exts
+//        if(app.dev)log.lv('o:'+o.toString())
+//        o=o.filter(Boolean)
+//        if(app.dev)log.lv('o2:'+o.toString())
+//        for(var i=0;i<Object.keys(o).length;i++){
+//            let json=o[i].params
+//            if(o[i]){
+//                if(json.extId!==extId){
+//                    njson.exts[i]={}
+//                    njson.exts[i].params={}
+//                    njson.exts[i].params=o[i].params
+//                }
+//            }
+//        }
+//        njson.exts=njson.exts.filter(Boolean)
+//        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
+//        let seted=unik.setFile(apps.url, JSON.stringify(njson))
+//        if(seted)r.ja=njson
+//        let forReload=extId===zoolDataView.uExtIdLoaded
+//        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+' )\nzoolDataView.uExtIdLoaded: '+zoolDataView.uExtIdLoaded+'\nforReload: '+forReload)
+
+//        let reLoaded=forReload?r.loadFile(apps.url):true
+//        if(forReload)app.j.loadJson(apps.url)
+//        let allTaskReady=(seted && reLoaded)?true:false
+//        return allTaskReady
+//    }
+
+    function deleteExt(ms){
+        let jsonData=unik.getFile(apps.url)
+        let json=JSON.parse(jsonData)
+        let data={}
+        data.exts=json.exts
+        data.exts = data.exts.filter(function(ext) {
+          return ext.params.ms !== ms;
+        });
+        json.exts=data.exts
+        unik.setFile(apps.url, JSON.stringify(json, null, 2))
     }
     //<--Get Json Data
 

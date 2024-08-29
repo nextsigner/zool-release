@@ -90,6 +90,7 @@ Menu {
     }
     Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
                             zm.loadFromFile(apps.url, zm.getParams().t, false)
+                            zoolDataView.clearExtData()
                        }
     }
     Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {

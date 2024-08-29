@@ -29,7 +29,10 @@ Rectangle {
 
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para gestionar mapas externos.', true)
+        if(visible){
+            updateList()
+            zoolVoicePlayer.speak('Sección para gestionar mapas externos.', true)
+        }
     }
 
     MouseArea{
@@ -205,22 +208,24 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.centerIn: parent
                 }
-                ZoolText {
-                    id: txtNotSaved
-                    text: 'Sin guardar'
-                    font.pixelSize: r.fs*0.5
-                    w: lv.width*0.5
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: !xDatos.saved
-                    SequentialAnimation on color {
-                        running: !xDatos.saved
-                        loops: Animation.Infinite
-                        ColorAnimation { from: 'yellow'; to: 'red'; duration: 200 }
-                        ColorAnimation { from: 'red'; to: 'white'; duration: 200 }
-                        ColorAnimation { from: 'white'; to: 'yellow'; duration: 200 }
-                    }
-                }
+
+//                ZoolText {
+//                    id: txtNotSaved
+//                    text: 'Sin guardar'
+//                    font.pixelSize: r.fs*0.5
+//                    w: lv.width*0.5
+//                    horizontalAlignment: Text.AlignHCenter
+//                    anchors.horizontalCenter: parent.horizontalCenter
+//                    visible: !xDatos.saved
+//                    SequentialAnimation on color {
+//                        running: !xDatos.saved
+//                        loops: Animation.Infinite
+//                        ColorAnimation { from: 'yellow'; to: 'red'; duration: 200 }
+//                        ColorAnimation { from: 'red'; to: 'white'; duration: 200 }
+//                        ColorAnimation { from: 'white'; to: 'yellow'; duration: 200 }
+//                    }
+//                }
+
                 Row{
                     spacing: app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -229,30 +234,36 @@ Rectangle {
                         text:'Eliminar'
                         colorInverted: true
                         onClicked: {
-                            let deleted=zfdm.deleteExtToJsonFile(j.extId)
+                            zfdm.deleteExt(j.ms)
+                            /*let deleted=zfdm.deleteExtToJsonFile(j.extId)
                             if(app.dev)log.lv('ZoolFileExtDataManager deleted: '+deleted)
                             if(deleted){
                                 r.updateList()
-                            }
+                            }*/
                         }
                     }
-                    ZoolButton{
-                        id: btnSave
-                        text:'Guardar'
-                        visible: !xDatos.saved
-                        colorInverted: true
-                        onClicked: {
-                            let isSaved=zfdm.saveExtToJsonFile(j.extId)
-                            xDatos.saved=isSaved
-                            btnSave.visible=!isSaved
-                        }
-                    }
+//                    ZoolButton{
+//                        id: btnSave
+//                        text:'Guardar'
+//                        visible: !xDatos.saved
+//                        colorInverted: true
+//                        onClicked: {
+//                            let isSaved=zfdm.saveExtToJsonFile(j.extId)
+//                            xDatos.saved=isSaved
+//                            btnSave.visible=!isSaved
+//                        }
+//                    }
                     ZoolButton{
                         id: btnLoadExt
                         text:'Cargar'
                         colorInverted: true
                         visible: index===lv.currentIndex
                         onClicked: {
+                            let json={}
+                            json.params=j
+                            //zm.ev=true
+                            zm.loadBack(json)
+                            return
                             let t=j.t
                             let hsys=j.hsys
                             let nom=j.n
@@ -335,6 +346,9 @@ Rectangle {
                 sParams+='<b>Lat:</b> '+j.lat+'<br>'
                 sParams+='<b>Long:</b> '+j.lon+'<br>'
                 sParams+='<b>Alt:</b> '+j.alt+'<br>'
+                let d=new Date(j.ms)
+                let sd=d.getDate()+'/'+parseInt(d.getMonth() + 1)+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes()+'hs.'
+                sParams+='<b>Cread:</b> '+sd+'<br>'
                 txtDataParams.text=sParams
             }
         }

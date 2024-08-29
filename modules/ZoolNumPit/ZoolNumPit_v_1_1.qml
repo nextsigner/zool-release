@@ -1295,7 +1295,7 @@ Rectangle {
 
         let m0
         if(vtv===11||vtv===33){
-            dataInt='En su interior nació con el número Maestro '+vtv+'\n'
+            let dataInt='En su interior nació con el número Maestro '+vtv+'\n'
             dataInt+=getDataNum('intm', vtv)+'\n\n'
             //vtv=1
         }
@@ -1683,6 +1683,12 @@ Rectangle {
         labelFNTS.text=r.currentDate?r.currentDate.toString():''
     }
     function getTodo(formula){
+        let m0=txtDataSearchFecha.text.split('.')
+        if(m0.length<=2){
+            log.lv('Error en la fecha del módulo NumPit. Elformato debería ser algo como esto: 20.6.1975')
+            return
+        }
+        let anioNac=parseInt(m0[2])
         let ret=''
         let genero='m'
         if(rbF.checked)genero='f'
@@ -1750,19 +1756,23 @@ Rectangle {
 
         //Pinaculos
         ret+='Pináculos\n\n'
-        ret+='1° Pináculo del tipo '+r.currentTipoPin1+': Desde los '+r.currentPin1+' hasta '+parseInt(r.currentPin2)+' años.\n'
+        ret+='1° Pináculo del tipo '+r.currentTipoPin1+': Desde los '+r.currentPin1+' hasta '+parseInt(r.currentPin2)+' años. '
+        ret+='Duración aproximada desde el año '+(parseInt(anioNac + r.currentPin1))+' hasta el año '+(parseInt(anioNac + r.currentPin2))+'.\n'
         ret+=getItemJson('pin'+r.currentTipoPin1)
         ret+='\n\n'
 
-        ret+='2° Pináculo del tipo '+r.currentTipoPin2+': Desde los '+r.currentPin2+' hasta '+parseInt(r.currentPin3)+' años.\n'
+        ret+='2° Pináculo del tipo '+r.currentTipoPin2+': Desde los '+r.currentPin2+' hasta '+parseInt(r.currentPin3)+' años. '
+        ret+='Duración aproximada desde el año '+(parseInt(anioNac + r.currentPin2))+' hasta el año '+(parseInt(anioNac + r.currentPin3))+'.\n'
         ret+=getItemJson('pin'+r.currentTipoPin2)
         ret+='\n\n'
 
-        ret+='3° Pináculo del tipo '+r.currentTipoPin3+': Desde los '+r.currentPin3+' hasta '+parseInt(r.currentPin4)+' años.\n'
+        ret+='3° Pináculo del tipo '+r.currentTipoPin3+': Desde los '+r.currentPin3+' hasta '+parseInt(r.currentPin4)+' años. '
+        ret+='Duración aproximada desde el año '+(parseInt(anioNac + r.currentPin3))+' hasta el año '+(parseInt(anioNac + r.currentPin4))+'.\n'
         ret+=getItemJson('pin'+r.currentTipoPin3)
         ret+='\n\n'
 
         ret+='4° Pináculo del tipo '+r.currentTipoPin4+': Desde los '+r.currentPin4+' hasta el final de la vida.\n'
+        ret+='Desde el año '+(parseInt(anioNac + r.currentPin4))+' en adelante.\n'
         ret+=getItemJson('pin'+r.currentTipoPin4)
         ret+='\n\n'
 
@@ -1860,5 +1870,13 @@ Rectangle {
             calc()
             return
         }
+    }
+    function updateGenero(){
+        let p=zfdm.getJsonAbsParams(false)
+        if(p.g==='m'){
+            rbM.checked=true
+            return
+        }
+        rbF.checked=true
     }
 }

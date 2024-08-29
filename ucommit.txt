@@ -1,1 +1,1 @@
-Se comienzan a ordenar los menus
+Se optimiza la gestion de los exts

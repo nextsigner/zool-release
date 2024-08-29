@@ -71,6 +71,7 @@ Rectangle{
         zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
         zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
         zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
+        zsm.getPanel('ZoolNumPit').updateGenero()
         zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
         let ci=zsm.getPanelIndex('ZoolNumPit')
         zsm.currentIndex=ci

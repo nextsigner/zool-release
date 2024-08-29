@@ -4,13 +4,19 @@ import ZoolMenus 1.0
 
 ZoolMenus{
     id: r
-    property int currentIndexHouse: -1
-    property var aMI: []
-    property bool isBack: false
-    title: 'Menu Nombre'//+app.planetas[r.currentIndexPlanet]
-    Action {text: qsTr("Editar Archivo"); onTriggered: {
-            let panel=zsm.getPanel('ZoolFileManager').getSection('ZoolFileMaker')
-            panel.setForEdit()
+    title: 'Menu Separador'
+    property string stringMiddleSep: 'Menu Separador'
+    //property int currentIndexHouse: -1
+    //property var aMI: []
+    //property bool isBack: false
+
+
+    Action {text: qsTr("Guardar "+r.stringMiddleSep); onTriggered: {
+            let sp=zm.fileDataBack
+            let p=JSON.parse(sp)
+            let nd=new Date(Date.now())
+            p.params.ms=nd.getTime()
+            zfdm.addExtDataAndSave(p)
         }
     }
     function mkHtml(sexo){
