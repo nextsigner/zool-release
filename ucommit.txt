@@ -1,1 +1,1 @@
-Se optimiza la gestion de los exts
+Se optimiza ZoolFileExtDataManager

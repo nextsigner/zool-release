@@ -147,12 +147,13 @@ Rectangle {
             id: xDatos
             width: lv.width
             height: colDatos.height+app.fs
-            color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
+            //color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
+            color: apps.backgroundColor
             border.width: index===lv.currentIndex?4:2
-            border.color: xDatos.saved?'white':txtNotSaved.color
+            //border.color: index===lv.currentIndex?apps.backgroundColor:apps.fontColor
+            border.color: apps.fontColor
             radius: app.fs*0.25
             property bool selected: index===lv.currentIndex
-            property bool saved: j.ms>=0
             MouseArea{
                 anchors.fill: parent
                 acceptedButtons: Qt.AllButtons;
@@ -176,94 +177,61 @@ Rectangle {
             }
             Column{
                 id: colDatos
-                spacing: app.fs*0.25
+                spacing: app.fs*0.1
                 anchors.centerIn: parent
                 Text {
                     id: txtDataTipo
-                    font.pixelSize: r.fs*0.5
+                    font.pixelSize: r.fs*0.75
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
-                    color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+                    color: xDatos.border.color
                     anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.centerIn: parent
                 }
                 Text {
                     id: txtDataNom
+                    font.pixelSize: r.fs//*0.5
+                    width: xDatos.width-app.fs
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    color: xDatos.border.color
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Text {
+                    id: txtDataParams
                     font.pixelSize: r.fs*0.5
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
-                    color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+                    color: xDatos.border.color
                     anchors.horizontalCenter: parent.horizontalCenter
+                    visible: index===lv.currentIndex
                     //anchors.centerIn: parent
                 }
-                Text {
-                    id: txtDataParams
-                    font.pixelSize: r.fs*0.35
-                    width: xDatos.width-app.fs
-                    wrapMode: Text.WordWrap
-                    textFormat: Text.RichText
-                    color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    //anchors.centerIn: parent
-                }
-
-//                ZoolText {
-//                    id: txtNotSaved
-//                    text: 'Sin guardar'
-//                    font.pixelSize: r.fs*0.5
-//                    w: lv.width*0.5
-//                    horizontalAlignment: Text.AlignHCenter
-//                    anchors.horizontalCenter: parent.horizontalCenter
-//                    visible: !xDatos.saved
-//                    SequentialAnimation on color {
-//                        running: !xDatos.saved
-//                        loops: Animation.Infinite
-//                        ColorAnimation { from: 'yellow'; to: 'red'; duration: 200 }
-//                        ColorAnimation { from: 'red'; to: 'white'; duration: 200 }
-//                        ColorAnimation { from: 'white'; to: 'yellow'; duration: 200 }
-//                    }
-//                }
-
                 Row{
                     spacing: app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
+                    visible: index===lv.currentIndex
                     ZoolButton{
                         id: btnDelete
                         text:'Eliminar'
-                        colorInverted: true
+                        //colorInverted: true
                         onClicked: {
                             zfdm.deleteExt(j.ms)
-                            /*let deleted=zfdm.deleteExtToJsonFile(j.extId)
-                            if(app.dev)log.lv('ZoolFileExtDataManager deleted: '+deleted)
-                            if(deleted){
-                                r.updateList()
-                            }*/
                         }
                     }
-//                    ZoolButton{
-//                        id: btnSave
-//                        text:'Guardar'
-//                        visible: !xDatos.saved
-//                        colorInverted: true
-//                        onClicked: {
-//                            let isSaved=zfdm.saveExtToJsonFile(j.extId)
-//                            xDatos.saved=isSaved
-//                            btnSave.visible=!isSaved
-//                        }
-//                    }
                     ZoolButton{
                         id: btnLoadExt
                         text:'Cargar'
-                        colorInverted: true
+                        //colorInverted: true
                         visible: index===lv.currentIndex
                         onClicked: {
                             let json={}
                             json.params=j
                             //zm.ev=true
                             zm.loadBack(json)
-                            return
+                            //return
                             let t=j.t
                             let hsys=j.hsys
                             let nom=j.n
@@ -284,7 +252,29 @@ Rectangle {
                                 //strEdad='Edad: '+Math.abs(parseInt(currentAnio - a))+' años'
                             }
                             let ms=j.ms
+                            let aL=zoolDataView.atLeft
                             let aR=[]
+                            let strSep='?'
+                            if(t==='sin'){
+                                strSep='Sinastría'
+                            }else if(t==='trans'){
+                                strSep='Tránsitos'
+                            }else{
+                                strSep='Indefinido!'
+                            }
+                            //zoolDataView.stringMiddleSeparator=t
+
+                            //aR.push('<b>'+nom+'</b>')
+                            aR.push(''+d+'/'+m+'/'+a)
+                            //aR.push(stringEdad)
+                            aR.push(''+h+':'+min+'hs')
+                            aR.push('<b>GMT:</b> '+gmt)
+                            aR.push('<b>Ubicación:</b> '+ciudad)
+                            aR.push('<b>Lat:</b> '+parseFloat(lat).toFixed(2))
+                            aR.push('<b>Lon:</b> '+parseFloat(lon).toFixed(2))
+                            aR.push('<b>Alt:</b> '+alt)
+
+                            zoolDataView.setDataView(strSep, aL, aR)
 
                             if(t==='dirprim'){
 //                                let vDirPrimA=j.dirprimA
@@ -298,14 +288,14 @@ Rectangle {
                                 section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
                             }else{
                                 if(app.dev)log.lv('ZoolFileExtDataManager Boton Cargar... gmt: '+gmt)
-                                app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
+                                //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
                             }
                         }
                     }
                 }
 
             }            
-            Rectangle{
+            /*Rectangle{
                 width: txtDelete.contentWidth+app.fs*0.35
                 height: width
                 radius: app.fs*0.3
@@ -330,22 +320,22 @@ Rectangle {
                         }
                     }
                 }
-            }
+            }*/
             Component.onCompleted: {
                 //let nom=j.n
                 let tipo=''
                 if(j.t==='sin')tipo='Sinastría'
                 if(j.t==='rs')tipo='Revolución Solar'
                 if(j.t==='trans')tipo='Tránsitos'
-                txtDataTipo.text=tipo
-                txtDataNom.text=j.n
-                let sParams=''+j.d+'/'+j.m+'/'+j.a+'<br>'
-                sParams+=''+j.h+':'+j.min+'hs<br>'
-                sParams+='<b>Ubicación:</b> '+j.c+'<br>'
-                sParams+='<b>Gmt:</b> '+j.gmt+'<br>'
-                sParams+='<b>Lat:</b> '+j.lat+'<br>'
-                sParams+='<b>Long:</b> '+j.lon+'<br>'
-                sParams+='<b>Alt:</b> '+j.alt+'<br>'
+                txtDataTipo.text='<b>'+tipo+'</b>'
+                txtDataNom.text='<b>'+j.n+'</b>'
+                let sParams=''+j.d+'/'+j.m+'/'+j.a+' '
+                sParams+=''+j.h+':'+j.min+'hs<br><br>'
+                sParams+='<b>Ubicación:</b> '+j.c+'<br><br>'
+                sParams+='<b>Gmt:</b> '+j.gmt+'<br><br>'
+                sParams+='<b>Lat:</b> '+j.lat+' '
+                sParams+='<b>Long:</b> '+j.lon+' '
+                sParams+='<b>Alt:</b> '+j.alt+'<br><br>'
                 let d=new Date(j.ms)
                 let sd=d.getDate()+'/'+parseInt(d.getMonth() + 1)+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes()+'hs.'
                 sParams+='<b>Cread:</b> '+sd+'<br>'

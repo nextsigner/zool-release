@@ -829,12 +829,12 @@ Item{
 
         let json=JSON.parse(js)
 
-        let extIdExist=zfdm.isExtId(extId)
+        /*let extIdExist=zfdm.isExtId(extId)
         if(app.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
         let isExtIdInAExtsIds=app.aExtsIds.indexOf(extId)>=0?true:false
         if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
         if(!extIdExist && !isExtIdInAExtsIds){
-            zfdm.addExtData(json)
+            //zfdm.addExtData(json)
             zm.loadBack(json)
         }else{
             if(app.dev)log.lv('ExtId ya existe.')
@@ -842,10 +842,11 @@ Item{
             extJson.params=zfdm.getExtData(extId)
             if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
             zm.loadBack(extJson)
-        }
+        }*/
+        zm.loadBack(json)
         let aL=zoolDataView.atLeft
         let aR=vAtRigth
-        if(vAtRigth===[]){
+        //if(vAtRigth===[]){
             if(tipo==='sin'){
                 aR.push('<b>'+nom+'</b>')
                 aL.reverse()
@@ -858,7 +859,7 @@ Item{
             aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
             aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
             aR.push('<b>Alt:</b> '+valt)
-        }
+        //}
         let strSep=''
         if(tipo==='sin'){
             strSep='Sinastría'
@@ -867,7 +868,7 @@ Item{
         if(tipo==='trans')strSep='Tránsitos'
         if(tipo==='dirprim')strSep='Dir. Primarias'
         zoolDataView.setDataView(strSep, aL, aR)
-        zoolDataView.uExtIdLoaded=extId
+        //zoolDataView.uExtIdLoaded=extId
         if(!r.lockEv){
             r.ev=true
         }
