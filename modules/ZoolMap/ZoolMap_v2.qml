@@ -1289,7 +1289,24 @@ Item{
             zm.currentAltBack=alt
             zm.currentDateBack= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
         }
-        loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,lat,lon, alt, nom, ciudad, "trans", isExt)
+        //loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), currentGmtUser,lat,lon, alt, nom, ciudad, "trans", isExt)
+        let json={}
+        json.params={}
+        json.params.n=nom
+        json.params.d=d.getDate()
+        json.params.m=d.getMonth() + 1
+        json.params.a=d.getFullYear()
+        json.params.h=d.getHours()
+        json.params.min=d.getMinutes()
+        json.params.gmt=currentGmtUser
+        json.params.lat=lat
+        json.params.lon=lon
+        json.params.alt=alt
+        json.params.c=ciudad
+        json.params.t='trans'
+        json.params.g='n'
+
+        zfdm.mkFileAndLoad(json, true)
     }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, isExt){
         let dataMs=new Date(Date.now())
@@ -1348,7 +1365,7 @@ Item{
             loadBack(JSON.parse(j))
         }
     }
-    function getParamsFromArgs(n, d, m, a, h, min, gmt, lat, lon, alt, c, t, s, ms){
+    function getParamsFromArgs(n, d, m, a, h, min, gmt, lat, lon, alt, c, t, s, ms, msmod, f, g){
         let j={}
         j.params={}
         j.params.n=n
@@ -1364,7 +1381,10 @@ Item{
         j.params.c=c
         j.params.t=t
         j.params.s=s
-        j.params.ms=ms
+        j.params.ms=ms        
+        j.params.msmod=msmod
+        j.params.f=f
+        j.params.g=g
         //log.lv('getParamsFromArgs() j.params.c: '+j.params.c)
         //log.lv('getParamsFromArgs(): '+JSON.stringify(j))
         return j

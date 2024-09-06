@@ -5,6 +5,7 @@ Item{
     property string currentUrl: apps.url
     property var j: ({})
     property var ja: ({})
+    property var jaBack: ({})
 
     //Retorna string con el contenido del archivo actual
     function getData(){
@@ -56,6 +57,7 @@ Item{
             j.exts=[]
         }
         r.ja=j
+        //log.lv('r.ja: '+JSON.stringify(r.ja, null, 2))
     }
     function getJsonAbs(){
         return r.ja
@@ -168,7 +170,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
-        saveJson(json)
+        return saveJson(json)
     }
     function getExts(){
         let sd=unik.getFile(apps.url)

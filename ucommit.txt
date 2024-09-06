@@ -1,1 +1,1 @@
-Se optimiza ZoolFileExtDataManager
+Se corrige el aspecto de ZoolNumPit

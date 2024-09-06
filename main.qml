@@ -20,7 +20,7 @@ import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
 import ZoolText 1.0
 import ZoolDataBar 3.1
-import ZoolDataView 1.1
+import ZoolDataView 1.2
 import ZoolEvolutionView 1.0
 import ZoolLogView 1.0
 
@@ -32,6 +32,7 @@ import ZoolBodiesGuiTools 1.0
 
 import ZoolMenus.ZoolMenuCtxAs 1.0
 import ZoolMenus.ZoolMenuCtxNom 1.0
+import ZoolMenus.ZoolMenuCtxIsDataDiff 1.0
 import ZoolMenus.ZoolMenuCtxSep 1.0
 
 import ZoolMenuCtxZodiacBack 1.0
@@ -639,6 +640,7 @@ ZoolMainWindow{
     //    }
     //Comps.MenuPlanets{id: menuPlanets}
     ZoolMenuCtxAs{id: menuPlanets}
+    ZoolMenuCtxIsDataDiff{id: zMenuIsDataDiff}
     ZoolMenuCtxNom{id: zMenuNom}
     ZoolMenuCtxSep{id: zMenuSep}
     ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}

@@ -219,6 +219,7 @@ Rectangle {
                         //colorInverted: true
                         onClicked: {
                             zfdm.deleteExt(j.ms)
+                            updateList()
                         }
                     }
                     ZoolButton{
@@ -491,8 +492,12 @@ Rectangle {
         }
         txtFileName.text=zfdm.getParam('n').replace(/_/g, ' ')
         //Filtrado de los valores null
-        let exts=zfdm.getExts().filter(Boolean);
-        if(!exts)return
+        let exts=zfdm.getExts()
+        if(!exts){
+            return
+        }else{
+            exts=zfdm.getExts().filter(Boolean);
+        }
         //exts=exts.filter(Object)
         //if(app.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
         for(var i=0;i<Object.keys(exts).length;i++){

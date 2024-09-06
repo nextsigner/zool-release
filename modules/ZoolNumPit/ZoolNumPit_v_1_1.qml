@@ -17,6 +17,7 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
+    property int contentWidth: r.width-app.fs*0.5
 
     property alias log: zoolNumPitLog
 
@@ -128,9 +129,10 @@ Rectangle {
         Column{
             id: col1
             spacing: app.fs*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
             Rectangle{
                 id: xForm
-                width: r.width-app.fs*0.5
+                width: r.contentWidth
                 height: col2.height
                 color: 'transparent'
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -203,6 +205,12 @@ Rectangle {
                                 width: app.fs
                                 height: width
                                 anchors.horizontalCenter: parent.horizontalCenter
+                                //Este Item muestra la fecha en tipo string()
+                                visible: false
+//                                Rectangle{
+//                                    anchors.fill: parent
+//                                    color: 'red'
+//                                }
                                 Text{
                                     id: labelFNTS
                                     text: r.currentDate?r.currentDate.toString():''
@@ -318,19 +326,16 @@ Rectangle {
                                     spacing: app.fs*0.25
                                     anchors.horizontalCenter:  parent.horizontalCenter
                                     ZoolButton{
-                                        text: 'Masculino'
+                                        text: 'Ver información'
                                         fs: app.fs*0.5
                                         anchors.verticalCenter: parent.verticalCenter
                                         onClicked:{
-                                            zm.getZiDataNum(r.currentNumNacimiento, 'masc', !checkBoxShowInfo.checked)
-                                        }
-                                    }
-                                    ZoolButton{
-                                        text: 'Femenino'
-                                        fs: app.fs*0.5
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        onClicked:{
-                                            zm.getZiDataNum(r.currentNumNacimiento, 'masc', checkBoxShowInfo.checked)
+                                            let p=zfdm.getJsonAbsParams(false)
+                                            let sexo='fem'
+                                            if(p.g==='m'){
+                                                sexo='masc'
+                                            }
+                                            zm.getZiDataNum(r.currentNumNacimiento, sexo, !checkBoxShowInfo.checked)
                                         }
                                     }
                                 }
@@ -341,7 +346,7 @@ Rectangle {
             }
             Rectangle{
                 id: xFormNom
-                width: xForm.width
+                width: r.contentWidth
                 height: colNom.height+app.fs
                 color: 'transparent'
                 border.width: 2
@@ -506,7 +511,7 @@ Rectangle {
             }
             Rectangle{
                 id: xResults
-                width: r.width-app.fs*0.25
+                width: r.contentWidth
                 height: children[0].height+app.fs*0.5
                 border.width: 2
                 border.color: apps.fontColor
@@ -515,7 +520,8 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Column{
                     spacing: app.fs*0.5
-                    width: r.width-app.fs*0.5
+                    //width: r.width-app.fs*0.5
+                    width: parent.width-app.fs*0.5
                     anchors.centerIn: parent
                     opacity: r.currentNumPersonalidad!==-1&&r.currentNumNombre!==-1&&r.currentNumNombreInt!==-1&&r.currentNumNombreExt!==-1&&r.currentNumFirma!==-1&&r.currentNumDestino!==-1?1.0:0.5
                     Text{
@@ -585,7 +591,8 @@ Rectangle {
                         }
                     }
                     Rectangle{
-                        width: xResults.width-app.fs*0.25
+                        //width: xResults.width-app.fs*0.25
+                        width: xForm.width-app.fs*0.5
                         height: children[0].height+app.fs*0.5
                         border.width: 2
                         border.color: apps.fontColor
@@ -715,7 +722,7 @@ Rectangle {
             //            }
             Rectangle{
                 id: xAG
-                width: r.width//-app.fs*0.5
+                width: r.contentWidth
                 height: colAG.height+app.fs
                 color: 'transparent'
                 border.width: 2
@@ -730,7 +737,7 @@ Rectangle {
 
                         
                         text: '<b>Tipo de Árbol Genealógico</b>'
-                        width: r.width-app.fs
+                        width: parent.parent.width-app.fs
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                         font.pixelSize: app.fs*0.6
@@ -738,7 +745,7 @@ Rectangle {
                     }
                     Text{
                         text: '<b>Árbol tipo:</b> '+r.currentAG
-                        width: r.width-app.fs
+                        width: parent.parent.width-app.fs
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                         font.pixelSize: app.fs*0.45
@@ -747,7 +754,7 @@ Rectangle {
                     Item{width: 1; height: app.fs*0.25}
                     Text{
                         text: '<b>Tipo de Carga Familiar</b>'
-                        width: r.width-app.fs
+                        width: parent.parent.width-app.fs
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                         font.pixelSize: app.fs*0.45
@@ -756,7 +763,7 @@ Rectangle {
                     Text{
                         id: txtCargaAG
                         text: r.currentCargaAG
-                        width: r.width-app.fs
+                        width: parent.parent.width-app.fs
                         wrapMode: Text.WordWrap
                         color: apps.fontColor
                         font.pixelSize: app.fs*0.45
@@ -766,7 +773,7 @@ Rectangle {
             }
             Rectangle{
                 id: xAP
-                width: r.width//-app.fs*0.5
+                width: r.contentWidth
                 height: colAP.height+app.fs
                 color: 'transparent'
                 border.width: 2
@@ -790,11 +797,11 @@ Rectangle {
 
                         Row{
                             id: rowAp
-                            spacing: app.fs*0.5
+                            spacing: app.fs*0.25
                             anchors.horizontalCenter: parent.horizontalCenter
                             Rectangle{
                                 id: xTiFechaAP
-                                width: r.width-labelAP2.width-xNumAP.width-parent.spacing*3
+                                width: r.contentWidth-labelAP2.width-xNumAP.width-parent.spacing*3
                                 height: app.fs*1.2
                                 color: apps.backgroundColor
                                 border.width: 2
@@ -875,7 +882,7 @@ Rectangle {
             }
             Rectangle{
                 id: xBtns
-                width: parent.width//-app.fs*0.5
+                width: r.contentWidth
                 height: colBtns.height+app.fs
                 color: 'transparent'
                 border.width: 2

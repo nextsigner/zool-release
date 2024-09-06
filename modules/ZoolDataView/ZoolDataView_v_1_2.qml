@@ -64,61 +64,63 @@ Rectangle {
         spacing: app.fs*0.15
         anchors.centerIn: parent
         visible: !tResizeFs.running
-        Rectangle{
-            id: circuloSaveRemote
-            width: app.fs*0.5
-            height: width
-            radius: width*0.5
-            color: 'green'
-            border.width: 2
-            border.color: apps.fontColor
-            anchors.verticalCenter: parent.verticalCenter
-            //y:(parent.height-height)/2
-            visible:  circuloSave.visible
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    let j=zfdm.getJsonAbs()
-                    //log.lv('j:'+JSON.stringify(j.params, null, 2))
-                    zrdm.sendNewParams(j)
-                }
-            }
-        }
-        Rectangle{
-            id: circuloSave
-            width: app.fs*0.5
-            height: width
-            radius: width*0.5
-            color: !zm.isDataDiff?'gray':'red'
-            border.width: 2
-            border.color: apps.fontColor
-            anchors.verticalCenter: parent.verticalCenter
-            //y:(parent.height-height)/2
-            visible:  !zm.ev
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    if(!zm.isDataDiff)return
-                    let date=new Date(Date.now())
-                    let msmod=date.getTime()
-                    let json=zm.currentJson.params
-                    //log.lv('Parmas'+JSON.stringify(json, null, 2))
-                    //let cjson=JSON.parse(zm.fileData)
-                    let cjson=zfdm.getJsonAbs()
-                    let j=zm.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod)
-
-                    //log.lv('Parmas'+JSON.stringify(cjson, null, 2))
-                    //log.lv('Parmas: '+JSON.stringify(j, null, 2))
-                    //log.lv('zm.currentJson: '+JSON.stringify(zm.currentJson.params, null, 2))
-                    //zfdm.saveJson(j)
-                    zfdm.updateParams(j.params, true)
-                }
-            }
-        }
         Row{
             id: rowDataLeft
             spacing: app.fs*0.15
             anchors.verticalCenter: parent.verticalCenter
+            Rectangle{
+                id: cell0
+                width: txtRow0.contentWidth+app.fs*0.3
+                height: txtRow0.contentHeight+app.fs*0.3
+                color: apps.backgroundColor
+                border.width: 2//modelData==='@'?0:1
+                border.color: apps.fontColor
+                radius: app.fs*0.1
+                anchors.verticalCenter: parent.verticalCenter
+                visible: zm.isDataDiff
+                property int cellIndex: -1
+                property string txtData: '<b>Sin guardar</b>'
+
+                Rectangle{
+                    id: bgCell0
+                    anchors.fill: parent
+                    color: 'red'//apps.backgroundColor
+                    radius: parent.radius
+                    border.width: 1//modelData==='@'?0:1
+                    border.color: apps.fontColor
+                }
+                Text{
+                    id: txtRow0
+                    //text: modelData!=='@'?modelData:r.stringMiddleSeparator//.replace(/_/g, ' ')
+                    text: cell0.txtData
+                    font.pixelSize: r.fs
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
+                Timer{
+                    running: parent.visible
+                    repeat: true
+                    interval: 500
+                    onTriggered: bgCell0.visible=!bgCell0.visible
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    //enabled: parent.cellIndex===0
+                    acceptedButtons: Qt.AllButtons;
+                    onClicked: {
+                        //apps.sweFs=app.fs
+                        if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
+                            //if(parent.cellIndex===0){
+                                zMenuIsDataDiff.popup()
+                            //}
+                        } else if (mouse.button === Qt.LeftButton) {
+                            //Qt.quit()
+                        }
+                    }
+                }
+
+            }
+
         }
         Item{
             id: xSep
@@ -310,7 +312,7 @@ Rectangle {
     }
     function updateDataView(){
         for(var i=0; i < rowDataLeft.children.length;i++){
-            rowDataLeft.children[i].destroy(1)
+            if(i!==0)rowDataLeft.children[i].destroy(1)
         }
         for(i=0; i < rowDataRight.children.length;i++){
             rowDataRight.children[i].destroy(1)
@@ -326,6 +328,64 @@ Rectangle {
         //tWaitUpdateData.start()
     }
 
+    function updateFromCurrentJson(isExt){
+        let json=isExt?zfdm.ja:zfdm.jaBack
+        //log.lv('zfdm.ja: '+JSON.stringify(zfdm.ja, null, 2))
+        log.lv('json: '+JSON.stringify(json, null, 2))
+        //return
+        let n=json.params.n
+        let d=json.params.n
+        let m=json.params.d
+        let a=json.params.m
+        let h=json.params.a
+        let min=json.params.min
+        let gmt=json.params.gmt
+        let lat=json.params.lat
+        let lon=json.params.lon
+        let alt=json.params.alt
+        let c=json.params.c
+        let t=json.params.t
+
+        let edad=zm.getEdad(d, m, a, h, min)
+        let numEdad=zm.getEdad(parseInt(a), parseInt(m), parseInt(d), parseInt(h), parseInt(min))
+        let stringEdad='<b>Edad:</b> '
+        if(edad===1){
+            stringEdad+=edad+' año'
+        }else{
+            stringEdad+=edad+' años'
+        }
+
+        let sep='Sinastría'
+        if(t==='progsec')sep='Prog. Sec.'
+        if(t==='trans')sep='Tránsitos'
+        let aL=[]
+        let aR=[]
+        if(!isExt){
+            //aL.push('Trásitos')
+            aL.push(n)
+            aL.push(''+d+'/'+m+'/'+a)
+            aL.push(''+h+':'+min+'hs')
+            aL.push('<b>GMT:</b> '+gmt)
+            if(t==='vn')aL.push(stringEdad)
+            aL.push('<b>Ubicación:</b> '+c)
+            aL.push('<b>Lat.:</b> '+lat)
+            aL.push('<b>Lon.:</b> '+lon)
+            aL.push('<b>Alt.:</b> '+alt)
+        }else{
+            aL=zoolDataView.atLeft
+            aR.push(n)
+            aR.push(''+d+'/'+m+'/'+a)
+            aR.push(''+h+':'+min+'hs')
+            if(t==='vn')aL.push(stringEdad)
+            aR.push('<b>GMT:</b> '+gmt)
+            aR.push('<b>Ubicación:</b> '+c)
+            aR.push('<b>Lat.:</b> '+lat)
+            aR.push('<b>Lon.:</b> '+lon)
+            aR.push('<b>Alt.:</b> '+alt)
+        }
+        zoolDataView.setDataView(sep, aL, aR)
+
+    }
     function clearExtData(){
         r.fs=r.height*0.5
         r.stringMiddleSeparator=''
