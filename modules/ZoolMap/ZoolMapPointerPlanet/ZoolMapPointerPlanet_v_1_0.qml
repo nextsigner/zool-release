@@ -8,7 +8,7 @@ Item {
     anchors.centerIn: parent
     z:r.parent.z-1
     rotation: 0-signCircle.rotation
-    property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
+    property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
     property int iconoSignRot: 0
     property int is: -1
     property int gdeg: -1

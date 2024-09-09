@@ -7,7 +7,7 @@ Rectangle {
     height: width
     antialiasing: true
     property int indexPlanet: -1
-    property string folderImg: '../../../modules/ZoolBodies/ZoolAs/imgs_v1'
+    property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
     Image {
         id: img
         source: r.folderImg+"/"+app.planetasRes[r.indexPlanet]+".svg"
