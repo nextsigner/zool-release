@@ -990,4 +990,12 @@ ApplicationWindow {
             sweg.width-=app.fs
         }
     }
+    Shortcut{
+        sequence: '1'
+        onActivated: {
+            let pos=zm.objPlanetsCircle.getAs(0).getPos()
+            log.lv('pos: x:'+pos.x+' y:'+pos.y)
+            zm.panTo(pos.x, pos.y)
+        }
+    }
 }

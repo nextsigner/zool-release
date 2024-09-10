@@ -25,6 +25,8 @@ Item{
 
     property bool previewEnabled: false
 
+    property alias xzm: xSweg
+
     property alias cm: capaMods
     property alias objTapa: tapa
     property alias objSignsCircle: signCircle
@@ -668,6 +670,29 @@ Item{
             }
         }
     }
+    // Animación para mover en el eje X
+    PropertyAnimation {
+        id: rectXAnim
+        target: rect
+        property: "x"
+        duration: 1000 // 1 segundo
+    }
+
+    // Animación para mover en el eje Y
+    PropertyAnimation {
+        id: rectYAnim
+        target: rect
+        property: "y"
+        duration: 1000 // 1 segundo
+    }
+    Timer {
+        interval: 3000
+        running: true
+        repeat: true
+        onTriggered: {
+            //panTo(100, 100)
+        }
+    }
     Component.onCompleted: {
         if(!apps)return
         setTheme(apps.zmCurrenThemeIndex)
@@ -847,18 +872,18 @@ Item{
         let aL=zoolDataView.atLeft
         let aR=vAtRigth
         //if(vAtRigth===[]){
-            if(tipo==='sin'){
-                aR.push('<b>'+nom+'</b>')
-                aL.reverse()
-            }
-            if(tipo==='rs')aR.push(edad)
-            aR.push(''+vd+'/'+vm+'/'+va)
-            aR.push(''+vh+':'+vmin+'hs')
-            aR.push('<b>GMT:</b> '+vgmt)
-            aR.push('<b>Ubicación:</b> '+vCiudad)
-            aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
-            aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
-            aR.push('<b>Alt:</b> '+valt)
+        if(tipo==='sin'){
+            aR.push('<b>'+nom+'</b>')
+            aL.reverse()
+        }
+        if(tipo==='rs')aR.push(edad)
+        aR.push(''+vd+'/'+vm+'/'+va)
+        aR.push(''+vh+':'+vmin+'hs')
+        aR.push('<b>GMT:</b> '+vgmt)
+        aR.push('<b>Ubicación:</b> '+vCiudad)
+        aR.push('<b>Lat:</b> '+parseFloat(vlat).toFixed(2))
+        aR.push('<b>Lon:</b> '+parseFloat(vlon).toFixed(2))
+        aR.push('<b>Alt:</b> '+valt)
         //}
         let strSep=''
         if(tipo==='sin'){
@@ -1381,7 +1406,7 @@ Item{
         j.params.c=c
         j.params.t=t
         j.params.s=s
-        j.params.ms=ms        
+        j.params.ms=ms
         j.params.msmod=msmod
         j.params.f=f
         j.params.g=g
@@ -1637,6 +1662,12 @@ Item{
 
         //console.log('Coordenadas rotadas:', rotatedPoint.x+' '+rotatedPoint.y);
         mr(rotatedPoint.x, rotatedPoint.y);
+    }
+    function panTo(newX, newY) {
+        rectXAnim.to = newX-rect.width*0.5;
+        rectYAnim.to = newY-rect.height*0.5;
+        rectXAnim.start();
+        rectYAnim.start();
     }
     function getCoordsRotatedPoint(x, y, angle) {
         // Convertir el ángulo a radianes

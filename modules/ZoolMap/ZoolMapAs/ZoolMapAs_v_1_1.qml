@@ -100,6 +100,51 @@ Item{
         }
         r.vr++
     }
+    Timer {
+        interval: 1000
+        //running: r.numAstro===1 || r.numAstro===2
+        repeat: true
+        onTriggered: {
+            let pos=getPos()
+            let x=pos.x
+            let y=pos.y
+            let tx=parseInt(x)
+            let ty=parseInt(y)
+            let c='import QtQuick 2.0\n'
+            c+='Rectangle{\n'
+            c+='    width: 50\n'
+            c+='    height: 50\n'
+            c+='    color: "red"\n'
+            c+='    x: '+x+'\n'
+            c+='    y: '+y+'\n'
+            c+='    Text{\n'
+            c+='        text:"'+r.numAstro+':'+tx+'\n'+ty+'"\n'
+            c+='        color: "white"\n'
+            c+='        font.pixelSize: parent.width*0.35\n'
+            c+='        anchors.centerIn: parent\n'
+            c+='    }\n'
+            c+='    Timer{\n'
+            c+='        running: true\n'
+            c+='        interval: 800\n'
+            c+='        onTriggered: {\n'
+            c+='            xLatIzq.opacity=0.0\n'
+            c+='            xLatDer.opacity=0.0\n'
+            c+='            parent.destroy(0)\n'
+            c+='        }\n'
+            c+='    }\n'
+            c+='}\n'
+            let obj=Qt.createQmlObject(c, zm.xzm, 'rectPosCode')
+            //log.lv("Absolute Position of child rectangle: x ="+absolutePosition.x+", y ="+absolutePosition.y);
+        }
+    }
+    Rectangle{
+        id: centroBodie
+        width: 2
+        height: width
+        radius: width*0.5
+        color: 'red'
+        anchors.centerIn: bodie
+    }
     Rectangle{
         id: ejePos
         width: (zm.width-r.width)*0.5
@@ -526,5 +571,11 @@ Item{
         anOp.enabled=false
         r.opacity=0.0
         tOpacity.restart()
+    }
+    function getPos(){
+        var item1=zm.xzm
+        var item2=centroBodie
+        var absolutePosition = item2.mapToItem(item1, 0, 0);
+        return {x: absolutePosition.x, y:absolutePosition.y}
     }
 }
