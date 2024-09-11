@@ -990,12 +990,43 @@ ApplicationWindow {
             sweg.width-=app.fs
         }
     }
+    property int ppp: 0
+    Timer{
+        id: tMultiCap
+        interval: 1000
+        onTriggered: {
+            let fn=zm.objPlanetsCircle.getAs(ppp).getAsFileNameForCap()
+            //log.lv('fn: '+fn)
+            app.c.captureToPng(fn, xSwe1)
+        }
+    }
     Shortcut{
         sequence: '1'
         onActivated: {
-            let pos=zm.objPlanetsCircle.getAs(0).getPos()
-            log.lv('pos: x:'+pos.x+' y:'+pos.y)
-            zm.panTo(pos.x, pos.y)
+            zm.isMultiCapturing=true
+            zm.capturing=true
+            let pos=zm.objPlanetsCircle.getAs(ppp).getPos()
+
+
+
+            tMultiCap.restart()
+
+
+            if(zm.currentPlanetIndex<19){
+                zm.currentPlanetIndex++
+            }else{
+                zm.currentPlanetIndex=0
+            }
+
+            //log.lv('pos: x:'+pos.x+' y:'+pos.y)
+            //zm.panTo(pos.x, pos.y)
+            //pppText.text='p'+ppp+': '+zm.aBodies[ppp]
+
+            if(ppp<10){
+                ppp++
+            }else{
+                ppp=0
+            }
         }
     }
 }

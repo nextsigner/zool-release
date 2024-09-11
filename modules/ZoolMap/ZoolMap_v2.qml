@@ -128,6 +128,7 @@ Item{
     property string uCuerpoAsp: ''
 
     property bool enableAnZoomAndPos: true
+    property bool isMultiCapturing: false
     property bool capturing: false
 
     property var listCotasShowing: []
@@ -321,8 +322,8 @@ Item{
                 Behavior on xScale{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
                 Behavior on yScale{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
             }
-            Behavior on x{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
-            Behavior on y{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+            Behavior on x{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+            Behavior on y{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
             Timer{
                 id: tReload
                 running: false
@@ -671,7 +672,7 @@ Item{
         }
     }
     // Animación para mover en el eje X
-    PropertyAnimation {
+    /*PropertyAnimation {
         id: rectXAnim
         target: rect
         property: "x"
@@ -684,7 +685,7 @@ Item{
         target: rect
         property: "y"
         duration: 1000 // 1 segundo
-    }
+    }*/
     Timer {
         interval: 3000
         running: true
@@ -1614,8 +1615,13 @@ Item{
         rect.x = 0
         rect.y = 0
     }
-    function zoomTo(z){
+    /*function zoomTo(z){
         centerZoomAndPos()
+        pinchArea.m_zoom1 = z
+        pinchArea.m_zoom2 = z
+    }*/
+    function zoomTo(z, centering){
+        if(centering)centerZoomAndPos()
         pinchArea.m_zoom1 = z
         pinchArea.m_zoom2 = z
     }
@@ -1664,10 +1670,12 @@ Item{
         mr(rotatedPoint.x, rotatedPoint.y);
     }
     function panTo(newX, newY) {
-        rectXAnim.to = newX-rect.width*0.5;
-        rectYAnim.to = newY-rect.height*0.5;
-        rectXAnim.start();
-        rectYAnim.start();
+        //rectXAnim.to = newX-rect.width*0.5//-xLatIzq.width//*0.5//-rect.width*0.25;
+        rect.x = 0-rect.width*0.25+r.width*0.5-((0-newX+r.width*0.5)-(0-newX+r.width*0.5)-(0-newX+r.width*0.5))
+        //rectYAnim.to = newY*0.25//+rect.height*0.25;
+        rect.y = 0-rect.height*0.25+r.height*0.5-((0-newY+r.height*0.5)-(0-newY+r.height*0.5)-(0-newY+r.height*0.5))
+        //rectXAnim.start();
+        //rectYAnim.start();
     }
     function getCoordsRotatedPoint(x, y, angle) {
         // Convertir el ángulo a radianes

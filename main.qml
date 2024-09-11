@@ -26,7 +26,7 @@ import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
 import web.ZoolServerFileDataManager 1.0
-import ZoolBodies 1.10
+//import ZoolBodies 1.10
 import ZoolMap 2.0
 import ZoolBodiesGuiTools 1.0
 
@@ -557,6 +557,23 @@ ZoolMainWindow{
                     color: 'red'
                     anchors.bottom: parent.bottom
                     visible: apps.zFocus==='xMed'
+                }
+                Rectangle{
+                    id: centro
+                    width: 10
+                    height: 5000
+                    anchors.centerIn: parent
+                    visible: false
+                    Rectangle{
+                        width: pppText.contentWidth+10
+                        height: app.fs
+                        anchors.centerIn: parent
+                        Text{
+                            id: pppText
+                            font.pixelSize: app.fs*0.5
+                            anchors.centerIn: parent
+                        }
+                    }
                 }
             }
             Item{

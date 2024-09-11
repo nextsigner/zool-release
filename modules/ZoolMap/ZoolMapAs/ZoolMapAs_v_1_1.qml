@@ -1,4 +1,4 @@
-import QtQuick 2.0
+﻿import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import "../"
 import "../../../comps" as Comps
@@ -560,11 +560,14 @@ Item{
         }
         //let json=JSON.parse(zm.fileData)
         let json=zfdm.getJsonAbs()
-        if(json[itemName]&&json[itemName]['zpc'+r.numAstro]){
+        if(json[itemName]&&json[itemName]['zpc'+r.numAstro] && !zm.isMultiCapturing){
             zm.setZoomAndPos(json[itemName]['zpc'+r.numAstro])
             r.isZoomAndPosSeted=true
         }else{
             r.isZoomAndPosSeted=false
+            zm.zoomTo(1.0, false)
+            let pos=zm.objPlanetsCircle.getAs(r.numAstro).getPos()
+            zm.panTo(pos.x, pos.y)
         }
     }
     function h(){
@@ -577,5 +580,19 @@ Item{
         var item2=centroBodie
         var absolutePosition = item2.mapToItem(item1, 0, 0);
         return {x: absolutePosition.x, y:absolutePosition.y}
+    }
+    function getAsFileNameForCap(){
+        let sn=''+zm.aBodies[r.numAstro]
+        sn+='_en_'+zm.aSigns[r.is]
+        sn+='_en_casa_'+r.ih
+        sn+='.png'
+        let fn=unik.getPath(3)+'/Zool/caps'
+        let folder=zm.currentNom.replace(/ /g, '_')
+        let folderPath=fn+'/'+folder
+        if(!unik.folderExist(folderPath)){
+            unik.mkdir(folderPath)
+        }
+        let ffn=folderPath+'/'+sn
+        return ffn
     }
 }

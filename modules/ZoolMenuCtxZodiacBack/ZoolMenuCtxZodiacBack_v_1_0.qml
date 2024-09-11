@@ -99,11 +99,11 @@ Menu {
     }
 
     Action {text: qsTr("Zoom 1.0"); onTriggered: {
-                           zm.zoomTo(0.5)
+                           zm.zoomTo(1.0, true)
                        }
     }
     Action {text: qsTr("Zoom 1.5"); onTriggered: {
-                           zm.zoomTo(1.0)
+                           zm.zoomTo(1.5, true)
                        }
     }
     Action {text: qsTr("Capturar"); onTriggered: {
