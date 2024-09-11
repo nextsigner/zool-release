@@ -956,6 +956,8 @@ ApplicationWindow {
     Shortcut{
         sequence: '1'
         onActivated: {
+            zm.isMultiCapturing=true
+            zm.capturing=true
             if(zm.currentHouseIndex<12){
                 zm.currentHouseIndex++
             }else if(zm.currentHouseIndex===0){
@@ -966,6 +968,9 @@ ApplicationWindow {
             if(zm.currentHouseIndex===0){
                 zm.currentHouseIndex=1
             }
+            let pos=zm.objHousesCircle.getPosOfHouse(zm.currentHouseIndex-1)
+            zm.panTo(pos.x, pos.y)
+            //log.lv('house pos: '+pos.x)
             //log.width=xLatIzq.width
             //log.lv('zm.currentHouseIndex: '+zm.currentHouseIndex)
             //zm.currentPlanetIndex=20

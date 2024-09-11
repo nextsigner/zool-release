@@ -16,13 +16,42 @@ Item{
             }else{
                 zm.currentPlanetIndex=-1
                 stop()
-                zm.centerZoomAndPos()
+                //zm.centerZoomAndPos()
+                tMultiCapHouses.start()
             }
             let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
             zm.panTo(pos.x, pos.y)
-            log.lv('pi: '+zm.currentPlanetIndex)
-            log.lv('pos: x:'+pos.x+' y:'+pos.y)
+            //log.lv('pi: '+zm.currentPlanetIndex)
+            //log.lv('pos: x:'+pos.x+' y:'+pos.y)
             tMultiCap2.restart()
+
+        }
+    }
+    Timer{
+        id: tMultiCapHouses
+        repeat: true
+        interval: 250
+        property int piCaptured: 0
+        onTriggered: {
+            zm.isMultiCapturing=true
+            zm.capturing=true
+            if(zm.currentHouseIndex<12){
+                zm.currentHouseIndex++
+            }else if(zm.currentHouseIndex===0){
+                zm.currentHouseIndex=1
+            }else{
+                zm.currentHouseIndex=1
+            }
+            if(zm.currentHouseIndex===0){
+                zm.currentHouseIndex=1
+            }
+            if(zm.currentHouseIndex===12){
+                stop()
+            }
+
+            let pos=zm.objHousesCircle.getPosOfHouse(zm.currentHouseIndex-1)
+            zm.panTo(pos.x, pos.y)
+            tMultiCap2Houses.restart()
 
         }
     }
@@ -31,6 +60,15 @@ Item{
         interval: 100
         onTriggered: {
             let fn=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
+            //log.lv('fn: '+fn)
+            captureToPng(fn, zm.parent, false)
+        }
+    }
+    Timer{
+        id: tMultiCap2Houses
+        interval: 100
+        onTriggered: {
+            let fn=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             //log.lv('fn: '+fn)
             captureToPng(fn, zm.parent, false)
         }

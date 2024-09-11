@@ -243,9 +243,18 @@ Item {
                         rsgdeg:item.gdeg-(30*is)
                         ih:item.ih
                         isBack: r.isBack
-                        //rot: -90
+                        pointerRot: 360-item.gdeg-30
                         //visible: item.selected || (zm.currentPlanetIndex>=20 && zm.currentPlanetIndex===item.ih-20)
                         visible: item.selected
+                        onVisibleChanged:{
+                            if(item.ih===1){
+                                //pointerRot=90
+                            }
+                            if(item.ih===2){
+                                //pointerRot=pointerRot-180
+                            }
+
+                        }
                     }
                     MouseArea{
                         anchors.fill: parent
@@ -516,5 +525,11 @@ Item {
         }
         //log.lv('House: '+item.ih)
         //zm.saveZoomAndPosHouse(item.ih)
+    }
+    function getPosOfHouse(ih){
+        var item1=zm.xzm
+        var item2=dha.children[ih]
+        var absolutePosition = item2.mapToItem(item1, 0, 0);
+        return {x: absolutePosition.x, y:absolutePosition.y}
     }
 }
