@@ -956,6 +956,19 @@ ApplicationWindow {
     Shortcut{
         sequence: '1'
         onActivated: {
+            if(zm.currentHouseIndex<12){
+                zm.currentHouseIndex++
+            }else if(zm.currentHouseIndex===0){
+                zm.currentHouseIndex=1
+            }else{
+                zm.currentHouseIndex=1
+            }
+            if(zm.currentHouseIndex===0){
+                zm.currentHouseIndex=1
+            }
+            //log.width=xLatIzq.width
+            //log.lv('zm.currentHouseIndex: '+zm.currentHouseIndex)
+            //zm.currentPlanetIndex=20
             //zm.zmc.start()
         }
     }

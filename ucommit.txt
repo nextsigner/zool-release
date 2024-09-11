@@ -1,1 +1,1 @@
-Se corrige ZoolMenuCtxZodiacBack
+Se comienza a programar multi captura de casas.

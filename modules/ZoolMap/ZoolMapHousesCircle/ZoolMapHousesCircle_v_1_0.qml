@@ -73,13 +73,20 @@ Item {
             property int ih: -1
             property real wg: 0.000
             property string ejeTipoText: 'Eje Tipo Text Indefinido.'
-            property bool selected: false
+            property bool selected: item.ih===zm.currentHouseIndex//item.ih===r.currentHouse//false
             property int is: -1
             property int rsdeg: -1
             property int gdec: -1
             property int gdeg: -1
             property int mdeg: -1
             property int sdeg: -1
+            onSelectedChanged: {
+                //log.lv('house '+item.ih+': '+item.selected)
+                if(selected){
+
+                    setCurrentHouseIndex(item)
+                }
+            }
             Repeater{
                 model: item.ih===r.currentHouse?wg:0
                 //model: 10
@@ -236,6 +243,8 @@ Item {
                         rsgdeg:item.gdeg-(30*is)
                         ih:item.ih
                         isBack: r.isBack
+                        //rot: -90
+                        //visible: item.selected || (zm.currentPlanetIndex>=20 && zm.currentPlanetIndex===item.ih-20)
                         visible: item.selected
                     }
                     MouseArea{
@@ -489,10 +498,10 @@ Item {
     function setCurrentHouseIndex(item){
         if(!r.isBack){
             if(zm.currentHouseIndex!==item.ih){
-                zm.currentHouseIndex=item.ih
+                //zm.currentHouseIndex=item.ih
                 r.currentHouse=zm.currentHouseIndex
             }else{
-                zm.currentHouseIndex=-1
+                //zm.currentHouseIndex=-1
                 r.currentHouse=zm.currentHouseIndex
             }
         }else{

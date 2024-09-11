@@ -74,8 +74,8 @@ Item{
     property int currentPlanetIndex: -1
     property int currentPlanetIndexBack: -1
 
-    property int currentHouseIndex: -1
-    property int currentHouseIndexBack: -1
+    property int currentHouseIndex: 0
+    property int currentHouseIndexBack: 0
 
     property int currentSignIndex: 0
 
