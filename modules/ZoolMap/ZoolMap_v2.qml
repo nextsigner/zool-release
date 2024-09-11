@@ -14,6 +14,8 @@ import ZoolElementsView 1.0
 
 import ZoolMap.ZoolMapNakshatraView 1.0
 
+import ZoolMap.ZoolMultiCap 1.0
+
 
 Item{
     id: r
@@ -38,7 +40,9 @@ Item{
     property alias objZoolAspectsView: panelAspects
     property alias objZoolAspectsViewBack: panelAspectsBack
     property alias objAsInfoView: zoolMapAsInfoView
+
     property alias zev: zoolElementsView
+    property alias zmc: zoolMultiCap
 
 
     property bool showZonas: true
@@ -447,9 +451,9 @@ Item{
                             apps.zFocus='xMed'
                             if (mouse.button === Qt.RightButton) {
 
-                                menuRuedaZodiacal.uX=mouseX
-                                menuRuedaZodiacal.uY=mouseY
-                                menuRuedaZodiacal.isBack=false
+                                //menuRuedaZodiacal.uX=mouseX
+                                //menuRuedaZodiacal.uY=mouseY
+                                //menuRuedaZodiacal.isBack=false
                                 menuRuedaZodiacal.popup()
                             }
                         }
@@ -621,6 +625,7 @@ Item{
         anchors.bottom: parent.bottom
         parent: xLatDer
     }
+    ZoolMultiCap{id: zoolMultiCap}
     Rectangle{
         width: txtMod.contentWidth+app.fs
         height: txtMod.contentHeight+app.fs

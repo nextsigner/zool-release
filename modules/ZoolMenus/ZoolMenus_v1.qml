@@ -18,7 +18,10 @@ Menu {
                 }
                 //log.lv('cantMaxCaracteres='+cantMaxCaracteres)
             }
-            r.w=cantMaxCaracteres*r.fs*0.65
+            r.w=cantMaxCaracteres*r.fs*0.5
+            r.width=r.w
+            //menuItem.implicitWidth= r.w*2
+            //menuItem.width=r.w*2
         }
     }
     delegate: MenuItem {
@@ -28,7 +31,6 @@ Menu {
         implicitHeight: r.fs*1.25
         width: r.w
         height: r.fs*1.25
-
         //        arrow: Canvas {
         //            x: parent.width - width
         //            implicitWidth: 40

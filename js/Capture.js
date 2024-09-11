@@ -1,8 +1,8 @@
 var itemCap
-function captureToPng(fileUrl, item){
+function captureToPng(fileUrl, item, openInExternal){
     itemCap=item
     if(fileUrl!==''){
-        app.c.savePng(fileUrl+".png")
+        app.c.savePng(fileUrl, openInExternal)
     }else{
         let c=''
         c+='import QtQuick 2.0\n'
@@ -33,12 +33,12 @@ function captureToPng(fileUrl, item){
         let obj=Qt.createQmlObject(c, app, 'itemCapturecode')
     }
 }
-function savePng(fileUrl){
+function savePng(fileUrl, openInExternal){
     itemCap.grabToImage(function(result) {
         let fn=fileUrl
         fn=fn.replace('file://', '')
         result.saveToFile(fn);
-        Qt.openUrlExternally(fileUrl)
+        if(openInExternal)Qt.openUrlExternally(fileUrl)
         zm.capturing=false
     });
 }

@@ -82,24 +82,9 @@ ApplicationWindow {
 
     //--->Cap
     Shortcut{
-        sequence: 'Ctrl+c'
-        onActivated: {
-            zm.capturing=true
-            tCap.restart()
-        }
-    }
-    Timer{
-        id: tCap
-        running: false
-        repeat: false
-        interval: 500
-        onTriggered: app.c.captureToPng('')
-    }
-    Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
-            zm.capturing=true
-            tCap2.restart()
+            zm.zmc.startSinNombreYAbrir()
         }
     }
     Shortcut{
@@ -116,28 +101,6 @@ ApplicationWindow {
                 zm.zev.settings.zoom=1.0
             }else{
                 zm.zev.settings.zoom=5.0
-            }
-        }
-    }
-    Timer{
-        id: tCap2
-        running: false
-        repeat: false
-        interval: 500
-        onTriggered: {
-            let d=new Date(Date.now())
-            let vd=d.getDate()
-            let vm=d.getMonth() + 1
-            let va=d.getFullYear()
-            let vh=d.getHours()
-            let vmin=d.getMinutes()
-            let vsec=d.getSeconds()
-            let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec//+'.png'
-            let fn=unik.getPath(3)+'/'+sn
-            if(zsm.getPanel('ZoolSabianos').view.visible){
-                app.c.captureToPng(fn, zsm.getPanel('ZoolSabianos').view)
-            }else{
-                app.c.captureToPng(fn, xSwe1)
             }
         }
     }
@@ -990,43 +953,10 @@ ApplicationWindow {
             sweg.width-=app.fs
         }
     }
-    property int ppp: 0
-    Timer{
-        id: tMultiCap
-        interval: 1000
-        onTriggered: {
-            let fn=zm.objPlanetsCircle.getAs(ppp).getAsFileNameForCap()
-            //log.lv('fn: '+fn)
-            app.c.captureToPng(fn, xSwe1)
-        }
-    }
     Shortcut{
         sequence: '1'
         onActivated: {
-            zm.isMultiCapturing=true
-            zm.capturing=true
-            let pos=zm.objPlanetsCircle.getAs(ppp).getPos()
-
-
-
-            tMultiCap.restart()
-
-
-            if(zm.currentPlanetIndex<19){
-                zm.currentPlanetIndex++
-            }else{
-                zm.currentPlanetIndex=0
-            }
-
-            //log.lv('pos: x:'+pos.x+' y:'+pos.y)
-            //zm.panTo(pos.x, pos.y)
-            //pppText.text='p'+ppp+': '+zm.aBodies[ppp]
-
-            if(ppp<10){
-                ppp++
-            }else{
-                ppp=0
-            }
+            //zm.zmc.start()
         }
     }
 }
