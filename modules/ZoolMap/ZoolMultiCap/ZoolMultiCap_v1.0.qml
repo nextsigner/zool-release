@@ -71,6 +71,19 @@ Item{
             let fn=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             //log.lv('fn: '+fn)
             captureToPng(fn, zm.parent, false)
+            if(zm.currentHouseIndex===12){
+                tSetFinishedMultiCap.start()
+
+            }
+        }
+    }
+    Timer{
+        id: tSetFinishedMultiCap
+        interval: 1000
+        onTriggered: {
+            zpn.addNot('Se finalizó la multicaptura.', true, 10000)
+            zm.currentHouseIndex=0
+            zm.objHousesCircle.currentHouse=-1
         }
     }
     /*Timer{

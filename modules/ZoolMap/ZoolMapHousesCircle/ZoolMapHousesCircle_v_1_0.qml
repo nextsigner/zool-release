@@ -9,6 +9,8 @@ Item {
     anchors.centerIn: parent//signCircle
     visible: isBack?zm.ev:true
     rotation: !isBack?0:0-zm.dirPrimRot
+    property var aHousesActivated: []
+    property var aHousesActivatedExt: []
     property bool isBack: false
     property int extraWidth: 0
     property int currentHouse: !isBack?zm.objHousesCircle.currentHouse:zm.objHousesCircleBack.currentHouse
@@ -26,6 +28,9 @@ Item {
     property int wbgc: 300
     property var aTipoEjes: ['Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>','Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>']
     property var aTipoEjesCasas:['Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12', 'Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12']
+//    onAHousesActivatedChanged: {
+//        log.lv('aHousesActivated: '+aHousesActivated.toString())
+//    }
     Rectangle{
         anchors.fill: parent
         color: 'green'
@@ -82,13 +87,14 @@ Item {
             property int sdeg: -1
             onSelectedChanged: {
                 //log.lv('house '+item.ih+': '+item.selected)
-                if(selected){
+                //if(selected){
 
-                    setCurrentHouseIndex(item)
-                }
+                    //setCurrentHouseIndex(item)
+                //}
             }
             Repeater{
-                model: item.ih===r.currentHouse?wg:0
+                model: !r.isBack?(r.aHousesActivated.indexOf(item.ih)>=0?wg:0):(r.aHousesActivatedExt.indexOf(item.ih)>=0?wg:0)
+
                 //model: 10
                 Rectangle{
                     width: !r.isBack?parent.width-(r.w*2):parent.width
@@ -286,6 +292,18 @@ Item {
                                 menuCtxHouses.currentIndexHouse=item.ih
                                 menuCtxHouses.popup()
                             }else{
+                                item.selected=!item.selected
+                                setCurrentHouseIndex(item)
+                                if(item.selected){
+                                    var obj
+                                    if(!r.isBack){
+                                        obj=zm.objHousesCircle
+                                    }else{
+                                        obj=zm.objHousesCircleBack
+                                    }
+                                    let pos=obj.getPosOfHouse(item.ih-1)
+                                    zm.panTo(pos.x, pos.y)
+                                }
                                 //setCurrentHouseIndex(item)
                                 //log.lv('House Botón Derecho.')
                             }
@@ -505,26 +523,40 @@ Item {
         }
     }
     function setCurrentHouseIndex(item){
+        var i
+        var existe
+        var a
         if(!r.isBack){
-            if(zm.currentHouseIndex!==item.ih){
-                //zm.currentHouseIndex=item.ih
-                r.currentHouse=zm.currentHouseIndex
+            existe=r.aHousesActivated.indexOf(item.ih)>=0
+            a=[]
+            if(existe){
+                for(i=0;i<r.aHousesActivated.length;i++){
+                    if(r.aHousesActivated[i]!==item.ih){
+                        a.push(r.aHousesActivated[i])
+                    }
+                }
             }else{
-                //zm.currentHouseIndex=-1
-                r.currentHouse=zm.currentHouseIndex
+                a=r.aHousesActivated
+                a.push(item.ih)
             }
+            r.aHousesActivated=a
+            r.currentHouse=item.ih
         }else{
-            if(zm.currentHouseIndexBack!==item.ih){
-                //sweg.objHousesCircleBack.currentIndex=item.ih-1
-                zm.currentHouseIndexBack=item.ih
-                r.currentHouse=zm.currentHouseIndexBack
+            existe=r.aHousesActivatedExt.indexOf(item.ih)>=0
+            a=[]
+            if(existe){
+                for(i=0;i<r.aHousesActivatedExt.length;i++){
+                    if(r.aHousesActivatedExt[i]!==item.ih){
+                        a.push(r.aHousesActivatedExt[i])
+                    }
+                }
             }else{
-                zm.currentHouseIndexBack=-1
-                r.currentHouse=zm.currentHouseIndexBack
+                a=r.aHousesActivatedExt
+                a.push(item.ih)
             }
+            r.aHousesActivatedExt=a
+            r.currentHouse=item.ih
         }
-        //log.lv('House: '+item.ih)
-        //zm.saveZoomAndPosHouse(item.ih)
     }
     function getPosOfHouse(ih){
         var item1=zm.xzm
