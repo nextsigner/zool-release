@@ -74,7 +74,7 @@ Item {
         //color: 'red'
         anchors.centerIn: parent
         Rectangle{
-            width: r.pointerFs*5
+            width: r.pointerFs*4
             height: apps.pointerLineWidth
             //color: apps.pointerLineColor
             //color: borde.border.color

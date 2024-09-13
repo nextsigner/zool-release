@@ -20,6 +20,10 @@ ZoolMenus{
             }
         }
     }
+    Action {text: qsTr("Ver Cambios"); onTriggered: {
+            log.lv(zm.getRevIsDataDiff())
+        }
+    }
     Action {text: qsTr("Enviar a Zool.ar"); onTriggered: {
             let j=zfdm.getJsonAbs()
             //log.lv('json for send to zool.ar:'+JSON.stringify(j.params, null, 2))

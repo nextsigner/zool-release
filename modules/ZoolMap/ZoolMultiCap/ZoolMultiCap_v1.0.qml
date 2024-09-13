@@ -17,7 +17,10 @@ Item{
                 zm.currentPlanetIndex=-1
                 stop()
                 //zm.centerZoomAndPos()
-                tMultiCapHouses.start()
+                zm.isMultiCapturingPlanets=false
+                zm.currentPlanetIndex=-1
+                zm.currentHouseIndex=0
+                tMultiHouseWait.start()
             }
             let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
             zm.panTo(pos.x, pos.y)
@@ -25,6 +28,13 @@ Item{
             //log.lv('pos: x:'+pos.x+' y:'+pos.y)
             tMultiCap2.restart()
 
+        }
+    }
+    Timer{
+        id: tMultiHouseWait
+        interval: 500
+        onTriggered: {
+            tMultiCapHouses.start()
         }
     }
     Timer{
@@ -45,6 +55,7 @@ Item{
             if(zm.currentHouseIndex===0){
                 zm.currentHouseIndex=1
             }
+            //zpn.addNot('chi: '+zm.currentHouseIndex, true, 20000)
             if(zm.currentHouseIndex===12){
                 stop()
             }
@@ -60,7 +71,6 @@ Item{
         interval: 100
         onTriggered: {
             let fn=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
-            //log.lv('fn: '+fn)
             captureToPng(fn, zm.parent, false)
         }
     }
@@ -69,7 +79,10 @@ Item{
         interval: 100
         onTriggered: {
             let fn=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
+            //zpn.addNot('fn: '+fn, false, 0)
             //log.lv('fn: '+fn)
+            //fn=fn.toLowerCase()
+            //fn=app.j.quitarAcentos(fn)
             captureToPng(fn, zm.parent, false)
             if(zm.currentHouseIndex===12){
                 tSetFinishedMultiCap.start()
@@ -84,6 +97,7 @@ Item{
             zpn.addNot('Se finalizó la multicaptura.', true, 10000)
             zm.currentHouseIndex=0
             zm.objHousesCircle.currentHouse=-1
+            zm.centerZoomAndPos()
         }
     }
     /*Timer{
@@ -108,6 +122,8 @@ Item{
             let vsec=d.getSeconds()
             let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec//+'.png'
             let fn=unik.getPath(3)+'/'+sn+'.png'
+            //fn=fn.toLowerCase()
+            //fn=app.j.quitarAcentos(fn)
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 captureToPng(fn, zsm.getPanel('ZoolSabianos').view, true)
             }else{
@@ -116,6 +132,8 @@ Item{
         }
     }
     function startMultiCap(){
+        zm.isMultiCapturingPlanets=true
+        zm.currentHouseIndex=0
         tMultiCap.start()
     }
     function startSinNombreYAbrir(){

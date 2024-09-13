@@ -251,7 +251,7 @@ Item {
                         isBack: r.isBack
                         pointerRot: 360-item.gdeg-30
                         //visible: item.selected || (zm.currentPlanetIndex>=20 && zm.currentPlanetIndex===item.ih-20)
-                        visible: item.selected
+                        visible: item.selected && !zm.isMultiCapturingPlanets
                         onVisibleChanged:{
                             if(item.ih===1){
                                 //pointerRot=90

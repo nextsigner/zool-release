@@ -133,6 +133,7 @@ Item{
 
     property bool enableAnZoomAndPos: true
     property bool isMultiCapturing: false
+    property bool isMultiCapturingPlanets: false
     property bool capturing: false
 
     property var listCotasShowing: []
@@ -1581,6 +1582,30 @@ Item{
         let sj0='s_'+j0.d+'_'+j0.m+'_'+j0.a+'_'+j0.h+'_'+j0.min+'_'+j0.gmt+'_'+j0.lat+'_'+j0.lon+'_'+j0.alt
         r.isDataDiff=sj0!==sj1
         return r.isDataDiff
+    }
+    function getRevIsDataDiff(){
+        let s=''
+
+        let j0=zfdm.getJsonAbsParams()
+
+        s+='Datos del Archivo'+'\n'
+        s+='Fecha: '+j0.d+'/'+j0.m+'/'+j0.a+'\n'
+        s+='Hora: '+j0.h+':'+j0.min+'hs GMT:'+j0.gmt+'\n'
+        s+='\n'
+
+        let j1=zm.currentJson.params
+
+        s+='Datos modificados'+'\n'
+        s+='Fecha: '+j1.d+'/'+j1.m+'/'+j1.a+'\n'
+        s+='Hora: '+j1.h+':'+j1.min+'hs GMT:'+j1.gmt+'\n'
+        s+='\n'
+
+        let sj1='s_'+j1.d+'_'+j1.m+'_'+j1.a+'_'+j1.h+'_'+j1.min+'_'+j1.gmt+'_'+j1.lat+'_'+j1.lon+'_'+j1.alt
+        let sj0='s_'+j0.d+'_'+j0.m+'_'+j0.a+'_'+j0.h+'_'+j0.min+'_'+j0.gmt+'_'+j0.lat+'_'+j0.lon+'_'+j0.alt
+        s+='['+sj1+']\n'
+        s+='['+sj0+']\n'
+        //r.isDataDiff=sj0!==sj1
+        return s
     }
     //-->ZoomAndPan
     function setZoom(sent, mouseX, mouseY){

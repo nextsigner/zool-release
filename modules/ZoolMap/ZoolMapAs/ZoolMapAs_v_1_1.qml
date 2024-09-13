@@ -584,6 +584,8 @@ Item{
     function getAsFileNameForCap(){
         let sn=''+zm.aBodies[r.numAstro]
         sn+='_en_'+zm.aSigns[r.is]
+        sn=sn.toLowerCase()
+        sn=app.j.quitarAcentos(sn)
         sn+='_en_casa_'+r.ih
         sn+='.png'
         let fn=unik.getPath(3)+'/Zool/caps'
