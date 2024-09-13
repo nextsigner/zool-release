@@ -958,18 +958,8 @@ ApplicationWindow {
         onActivated: {
             zm.isMultiCapturing=true
             zm.capturing=true
-            if(zm.currentHouseIndex<12){
-                zm.currentHouseIndex++
-            }else if(zm.currentHouseIndex===0){
-                zm.currentHouseIndex=1
-            }else{
-                zm.currentHouseIndex=1
-            }
-            if(zm.currentHouseIndex===0){
-                zm.currentHouseIndex=1
-            }
-            let pos=zm.objHousesCircle.getPosOfHouse(zm.currentHouseIndex-1)
-            zm.panTo(pos.x, pos.y)
+            zm.centrarZooMap()
+
             //log.lv('house pos: '+pos.x)
             //log.width=xLatIzq.width
             //log.lv('zm.currentHouseIndex: '+zm.currentHouseIndex)

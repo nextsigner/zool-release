@@ -14,7 +14,7 @@ import ZoolElementsView 1.0
 
 import ZoolMap.ZoolMapNakshatraView 1.0
 
-import ZoolMap.ZoolMultiCap 1.0
+import ZoolMap.ZoolMultiCap 2.0
 
 
 Item{
@@ -30,6 +30,7 @@ Item{
     property alias xzm: xSweg
 
     property alias cm: capaMods
+    property alias oc: centro
     property alias objTapa: tapa
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
@@ -322,10 +323,10 @@ Item{
                 origin.y: pinchArea.m_y2
                 xScale: pinchArea.m_zoom2
                 yScale: pinchArea.m_zoom2
-                Behavior on origin.x{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
-                Behavior on origin.y{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
-                Behavior on xScale{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
-                Behavior on yScale{NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+                Behavior on origin.x{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+                Behavior on origin.y{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+                Behavior on xScale{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
+                Behavior on yScale{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
             }
             Behavior on x{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
             Behavior on y{enabled: !r.isMultiCapturing; NumberAnimation{duration: r.enableAnZoomAndPos?2500:1}}
@@ -606,6 +607,12 @@ Item{
                 */
             }
 
+            Rectangle{
+                id: centro
+                width: 1
+                height: width
+                anchors.centerIn: parent
+            }
 
         }
 
@@ -677,21 +684,7 @@ Item{
             }
         }
     }
-    // Animación para mover en el eje X
-    /*PropertyAnimation {
-        id: rectXAnim
-        target: rect
-        property: "x"
-        duration: 1000 // 1 segundo
-    }
 
-    // Animación para mover en el eje Y
-    PropertyAnimation {
-        id: rectYAnim
-        target: rect
-        property: "y"
-        duration: 1000 // 1 segundo
-    }*/
     Timer {
         interval: 3000
         running: true
@@ -1634,6 +1627,14 @@ Item{
         }
         rect.x = rect.x + (pinchArea.m_x1-pinchArea.m_x2)*(1-pinchArea.m_zoom1)
         rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
+    }
+    function centrarZooMap(){
+        var item1=zm.xzm
+        var item2=centro
+        var absolutePosition = item2.mapToItem(item1, 0, 0);
+        //return {x: absolutePosition.x, y:absolutePosition.y}
+        zm.panTo(absolutePosition.x, absolutePosition.y)
+
     }
     function centerZoomAndPos(){
         pinchArea.m_x1 = 0

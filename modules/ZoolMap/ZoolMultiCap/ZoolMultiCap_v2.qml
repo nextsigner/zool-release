@@ -2,13 +2,7 @@ import QtQuick 2.12
 
 Item{
     id: r
-
-    /*
-
     property var itemCap
-
-
-
     Timer{
         id: tMultiCap
         repeat: true
@@ -127,8 +121,6 @@ Item{
             zm.centerZoomAndPos()
         }
     }
-    */
-
     /*Timer{
         id: tCap//Captura sin nombre, se definirá nombre de png zool_cap...
         running: false
@@ -136,7 +128,7 @@ Item{
         interval: 500
         onTriggered: captureToPng('', true)
     }*/
-/*    Timer{
+    Timer{
         id: tCap2
         running: false
         repeat: false
@@ -164,10 +156,11 @@ Item{
     function startMultiCap(){
         zm.capturing=true
         zm.isMultiCapturingPlanets=true
+        zm.isMultiCapturing=true
+        zm.centrarZooMap()
+        zm.zoomTo(1.0, false)
         zm.currentHouseIndex=0
-        zm.centerZoomAndPos()
         tInitMultiCap.start()
-        //tMultiCap.start()
     }
     function startSinNombreYAbrir(){
         zm.capturing=true
@@ -216,5 +209,4 @@ Item{
             zm.capturing=false
         });
     }
-*/
 }

@@ -1,1 +1,1 @@
-Se agrega menu item ver cambios
+Se optimiza multicap para centrar y alejar antes de capturar

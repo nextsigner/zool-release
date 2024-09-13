@@ -5,7 +5,7 @@ Item{
     property string currentUrl: apps.url
     property var j: ({})
     property var ja: ({})
-    property var jaBack: ({})
+    property var jaExt: ({})
 
     //Retorna string con el contenido del archivo actual
     function getData(){
@@ -16,23 +16,15 @@ Item{
     function getJson(){
         return JSON.parse(getData())
     }
-    //Devuelve booleano verdadero si existen parámetros back.
-    function isParamsBack(){
-        let b=false
-        if(getJson().paramsBack){
-            b=true
-        }
-        return b
-    }
-    //Retorna json con los parámetros front o back.
-    function getJsonParams(isBack){
+    //Retorna json con los parámetros interior o exterior.
+    /*function getJsonParams(isExt){
         let p
-        if(isBack){
+        if(isExt){
             p=getJson().paramsBack
         }
         p=getJson().params
         return p
-    }
+    }*/
     //Carga archivo
     function loadFile(url){
         let ret=false
@@ -62,26 +54,22 @@ Item{
     function getJsonAbs(){
         return r.ja
     }
-    function isAbsParamsBack(){
-        let b=false
-        if(r.ja.paramsBack){
-            b=true
-        }
-        return b
+    function getJsonAbsExt(){
+        return r.jaExt
     }
     function getJsonAbsParams(isBack){
         if(!isBack){
             return r.ja.params
         }
-        if(isBack && !r.ja.paramsBack) return ({})
-        return r.ja.paramsBack
+        //if(isBack && !r.ja.paramsBack) return ({})
+        return r.jaExt.params
     }
     function setJsonAbsParams(params, isBack){
         if(!isBack){
             r.ja.params=params
         }
         if(isBack){
-            r.ja.paramsBack=params
+            r.jaExt.params=params
         }
     }
     //<--Finaliza Json Abstracto.
