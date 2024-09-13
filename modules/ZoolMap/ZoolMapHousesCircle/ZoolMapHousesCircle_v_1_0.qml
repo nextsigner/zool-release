@@ -249,7 +249,8 @@ Item {
                         rsgdeg:item.gdeg-(30*is)
                         ih:item.ih
                         isBack: r.isBack
-                        pointerRot: 360-item.gdeg-30
+                        pointerRot: 0-parent.rotation//(360-item.gdeg)-(360-parent.parent.parent.rotation)//+90
+                        //pointerRot: 360-item.gdeg-
                         //visible: item.selected || (zm.currentPlanetIndex>=20 && zm.currentPlanetIndex===item.ih-20)
                         visible: item.selected && !zm.isMultiCapturingPlanets
                         onVisibleChanged:{

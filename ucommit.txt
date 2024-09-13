@@ -1,1 +1,1 @@
-Se optimiza multicap para centrar y alejar antes de capturar
+Se corrigen los grados de pointerRot de PointerHouses

@@ -3,10 +3,11 @@ import QtQuick 2.12
 Item{
     id: r
     property var itemCap
+    property int msChangeBodieOrHouse: 500
     Timer{
         id: tMultiCap
         repeat: true
-        interval: 250
+        interval: r.msChangeBodieOrHouse
         property int piCaptured: 0
         onTriggered: {
             zm.isMultiCapturing=true
@@ -22,6 +23,7 @@ Item{
                 zm.currentHouseIndex=0
                 tMultiHouseWait.start()
             }
+            zpn.addNot('cpi: '+zm.currentPlanetIndex, true, 20000)
             let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
             zm.panTo(pos.x, pos.y)
             //log.lv('pi: '+zm.currentPlanetIndex)
@@ -46,7 +48,7 @@ Item{
     Timer{
         id: tMultiCapHouses
         repeat: true
-        interval: 250
+        interval: r.msChangeBodieOrHouse
         property int piCaptured: 0
         onTriggered: {
             zm.isMultiCapturing=true
@@ -61,7 +63,7 @@ Item{
             if(zm.currentHouseIndex===0){
                 zm.currentHouseIndex=1
             }
-            //zpn.addNot('chi: '+zm.currentHouseIndex, true, 20000)
+            zpn.addNot('chi: '+zm.currentHouseIndex, true, 20000)
             if(zm.currentHouseIndex===12){
                 stop()
             }
