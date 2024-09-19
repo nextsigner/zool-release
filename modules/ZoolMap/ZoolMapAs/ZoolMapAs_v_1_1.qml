@@ -453,12 +453,12 @@ Item{
         anchors.centerIn: bodie
         visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zm.currentData).params.t!=='pron'
     }
-    Timer{
-        running: !r.isZoomAndPosSeted && r.selected
-        repeat: true
-        interval: 1000
-        onTriggered: setZoomAndPos()
-    }
+//    Timer{
+//        running: !r.isZoomAndPosSeted && r.selected
+//        repeat: true
+//        interval: 1000
+//        onTriggered: setZoomAndPos()
+//    }
     Timer{
         id: tWaitHovered
         running: false
@@ -566,8 +566,10 @@ Item{
         }else{
             r.isZoomAndPosSeted=false
             zm.zoomTo(1.0, false)
-            let pos=zm.objPlanetsCircle.getAs(r.numAstro).getPos()
+            let pos=!r.isBack?zm.objPlanetsCircle.getAs(r.numAstro).getPos():zm.objPlanetsCircleBack.getAs(r.numAstro).getPos()
+
             zm.panTo(pos.x, pos.y)
+            //log.lv('setZoomAndPos()....')
         }
     }
     function h(){

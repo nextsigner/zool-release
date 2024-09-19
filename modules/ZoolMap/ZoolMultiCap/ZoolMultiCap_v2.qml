@@ -10,6 +10,7 @@ Item{
         interval: r.msChangeBodieOrHouse
         property int piCaptured: 0
         onTriggered: {
+            //log.lv('tMultiCap....')
             zm.isMultiCapturing=true
             zm.capturing=true
             if(zm.currentPlanetIndex<19){
@@ -39,6 +40,7 @@ Item{
         id: tMultiHouseWait
         interval: 500
         onTriggered: {
+            //log.lv('tMultiHouseWait....')
             tMultiCapHouses.start()
         }
     }
@@ -51,6 +53,7 @@ Item{
         interval: r.msChangeBodieOrHouse
         property int piCaptured: 0
         onTriggered: {
+            //log.lv('tMultiCapHouses....')
             zm.isMultiCapturing=true
             zm.capturing=true
             if(zm.currentHouseIndex<12){
@@ -81,6 +84,7 @@ Item{
         id: tMultiCap2
         interval: 100
         onTriggered: {
+            //log.lv('tMultiCap2....')
             let fn=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             captureToPng(fn, zm.parent, false)
         }
@@ -91,6 +95,7 @@ Item{
         id: tMultiCap2Houses
         interval: 100
         onTriggered: {
+            //log.lv('tMultiCap2Houses....')
             let fn=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             //zpn.addNot('fn: '+fn, false, 0)
             //log.lv('fn: '+fn)
@@ -109,6 +114,7 @@ Item{
         id: tInitMultiCap
         interval: 1000
         onTriggered: {
+            //log.lv('tInitMultiCap....')
             tMultiCap.start()
         }
     }
@@ -117,6 +123,7 @@ Item{
         id: tSetFinishedMultiCap
         interval: 1000
         onTriggered: {
+            //log.lv('tFinishedMultiCap....')
             zpn.addNot('Se finalizó la multicaptura.', true, 10000)
             zm.currentHouseIndex=0
             zm.objHousesCircle.currentHouse=-1
@@ -136,6 +143,7 @@ Item{
         repeat: false
         interval: 500
         onTriggered: {
+            //log.lv('tCap2....')
             let d=new Date(Date.now())
             let vd=d.getDate()
             let vm=d.getMonth() + 1

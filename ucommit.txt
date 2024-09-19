@@ -1,1 +1,1 @@
-Se corrigen los grados de pointerRot de PointerHouses
+Se corrigen zm.panTo(...) de bodies exts

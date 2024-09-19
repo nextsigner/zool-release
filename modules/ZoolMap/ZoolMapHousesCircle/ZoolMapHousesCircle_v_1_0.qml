@@ -78,7 +78,7 @@ Item {
             property int ih: -1
             property real wg: 0.000
             property string ejeTipoText: 'Eje Tipo Text Indefinido.'
-            property bool selected: item.ih===zm.currentHouseIndex//item.ih===r.currentHouse//false
+            property bool selected: r.isBack?(item.ih===zm.currentHouseIndex && zm.currentPlanetIndex<0):(item.ih===zm.currentHouseIndexBack && zm.currentPlanetIndexBack<0)//item.ih===r.currentHouse//false
             property int is: -1
             property int rsdeg: -1
             property int gdec: -1

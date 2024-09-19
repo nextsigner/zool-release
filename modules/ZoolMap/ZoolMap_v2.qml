@@ -1701,6 +1701,7 @@ Item{
         mr(rotatedPoint.x, rotatedPoint.y);
     }
     function panTo(newX, newY) {
+        //log.lv('panTo('+newX+', '+newY+')')
         //rectXAnim.to = newX-rect.width*0.5//-xLatIzq.width//*0.5//-rect.width*0.25;
         rect.x = 0-rect.width*0.25+r.width*0.5-((0-newX+r.width*0.5)-(0-newX+r.width*0.5)-(0-newX+r.width*0.5))
         //rectYAnim.to = newY*0.25//+rect.height*0.25;
