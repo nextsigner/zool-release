@@ -4,7 +4,7 @@ import "../../js/Funcs.js" as JS
 
 
 import ZoolMap.ZoolMapSignCircle 1.1
-import ZoolMap.ZoolMapHousesCircle 1.0
+import ZoolMap.ZoolMapHousesCircle 1.1
 import ZoolMap.ZoolMapPlanetsCircle 1.1
 import ZoolMap.ZoolMapAspsCircle 1.0
 import ZoolMap.ZoolMapAspsView 1.0
@@ -517,7 +517,7 @@ Item{
                 }
 
                 //ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
-                ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isBack: true}
+                ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isExt: true}
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
                 Rectangle{
                     id:bgPCB

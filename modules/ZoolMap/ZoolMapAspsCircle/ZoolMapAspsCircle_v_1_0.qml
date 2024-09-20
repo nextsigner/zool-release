@@ -6,7 +6,7 @@ Rectangle {
     width: parent.width
     height: width
     radius: width*0.5
-    color: 'red'//'transparent'
+    color: r.show?apps.backgroundColor:'transparent'
     border.width: 2
     border.color: 'white'
     anchors.centerIn: parent
@@ -44,6 +44,13 @@ Rectangle {
             //zm.hideTapa()
         }
     }
+    MouseArea{
+        anchors.fill: parent
+        onClicked:{
+            r.show=!r.show
+        }
+    }
+    property bool show: true
     Rectangle{
         id: bg
         width: r.width
@@ -54,7 +61,7 @@ Rectangle {
 
         radius: width*0.5
         anchors.centerIn: r
-        //visible: !app.ev?apps.showAspCircle:(apps.showAspCircle && apps.showAspCircleBack)
+        visible:r.show// !app.ev?apps.showAspCircle:(apps.showAspCircle && apps.showAspCircleBack)
     }
     Rectangle{
         id: bgTotalBack
@@ -68,7 +75,8 @@ Rectangle {
         anchors.centerIn: r
         property var json
         onJsonChanged: tLoadJsonBack.restart()
-        visible: apps.showAspCircleBack
+        visible: apps.showAspCircleBack && r.show
+        //visible:r.show
         Timer{
             id: tLoadJsonBack
             running: false
@@ -120,7 +128,7 @@ Rectangle {
         anchors.centerIn: r
         property var json
         onJsonChanged: tLoadJson.restart()
-        visible: apps.showAspCircle
+        visible: apps.showAspCircle && r.show
         Timer{
             id: tLoadJson
             running: false

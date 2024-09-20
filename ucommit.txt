@@ -1,1 +1,1 @@
-Se corrigen zm.panTo(...) de bodies exts
+Se optimiza el trazo de la linea de las casas.
