@@ -953,12 +953,15 @@ ApplicationWindow {
             sweg.width-=app.fs
         }
     }
+    property int rv: 0
     Shortcut{
         sequence: '1'
         onActivated: {
-            zm.isMultiCapturing=true
-            zm.capturing=true
-            zm.centrarZooMap()
+            zm.objSignsCircle.rotar(0, rv)
+            rv++
+            //zm.isMultiCapturing=true
+            //zm.capturing=true
+            //zm.centrarZooMap()
 
             //log.lv('house pos: '+pos.x)
             //log.width=xLatIzq.width

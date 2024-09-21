@@ -40,7 +40,7 @@ Item {
                 height: r.w*2
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin:  0-sweg.fs*0.05
+                anchors.leftMargin:  0-zm.fs*0.05
                 onClicked: r.v=!r.v
                 property int m:0
                 property date uDate//: app.currentDate
