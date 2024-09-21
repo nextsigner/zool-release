@@ -35,7 +35,7 @@ import ZoolMenus.ZoolMenuCtxNom 1.0
 import ZoolMenus.ZoolMenuCtxIsDataDiff 1.0
 import ZoolMenus.ZoolMenuCtxSep 1.0
 
-import ZoolMenuCtxZodiacBack 1.0
+import ZoolMenus.ZoolMapMenuCtx 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 import ZoolMenuCtxHouses 1.0
 
@@ -660,7 +660,7 @@ ZoolMainWindow{
     ZoolMenuCtxIsDataDiff{id: zMenuIsDataDiff}
     ZoolMenuCtxNom{id: zMenuNom}
     ZoolMenuCtxSep{id: zMenuSep}
-    ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
+    ZoolMapMenuCtx{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}
     ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}

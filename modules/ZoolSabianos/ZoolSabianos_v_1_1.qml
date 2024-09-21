@@ -719,5 +719,9 @@ Rectangle {
 '
         return d
     }
+    function getCurrentFileName(){
+        let fn='sabianos_'+r.signos[sabianosView.numSign]+'_grado_'+parseInt(sabianosView.numDegree+ 1)+'_texto_'+parseInt(sabianosView.currentInterpreter + 1)+'.png'
+        return fn
+    }
 }
 

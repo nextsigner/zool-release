@@ -156,7 +156,18 @@ Item{
             //fn=fn.toLowerCase()
             //fn=app.j.quitarAcentos(fn)
             if(zsm.getPanel('ZoolSabianos').view.visible){
+                let fnp=unik.getPath(3)+'/Zool/caps/sabianos'
+                if(!unik.folderExist(fnp)){
+                    unik.mkdir(fnp)
+                }
+                fn=fnp
+                fn+='/'+zsm.getPanel('ZoolSabianos').getCurrentFileName()
                 captureToPng(fn, zsm.getPanel('ZoolSabianos').view, true)
+                if (Qt.platform.os === "windows") {
+                    Qt.openUrlExternally("file:///" + fnp)
+                }else{
+                    Qt.openUrlExternally("file://" + fnp)
+                }
             }else{
                 captureToPng(fn, zm.parent, true)
             }
