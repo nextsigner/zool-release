@@ -1,1 +1,1 @@
-Se optimiza captura de Sabianos
+Se muestra el PanelId en el PageIndicator de ZoolSectionManager

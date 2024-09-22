@@ -25,6 +25,7 @@ Item{
     property var aPanelsIds: []
     property var currentSectionFocused
     property var aPanelesTits: []
+    property string uPanelIdHovered: ''
     onAPanelsIdsChanged: {
         indicatorSV.count=aPanelsIds.length
     }
@@ -99,6 +100,49 @@ Item{
             height: indicatorSV.height
             color: 'transparent'
             anchors.horizontalCenter: parent.horizontalCenter
+            Rectangle{
+                id: container
+                width: r.width-app.fs
+                height: txtUPanelIdHovered.contentHeight+app.fs*0.25
+                color: apps.fontColor
+                border.width: 2
+                border.color: 'blue'
+                radius: app.fs*0.25
+                anchors.bottom: parent.top
+                anchors.bottomMargin: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: r.uPanelIdHovered!==''
+                property int minFontSize: 10 // Tamaño mínimo de fuente permitido
+                property int maxFontSize: app.fs
+
+                Text{}
+                Text{
+                    id: txtUPanelIdHovered
+                    text: r.uPanelIdHovered
+                    //width: contentWidth
+                    font.pixelSize: app.fs
+                    color: apps.backgroundColor
+                    anchors.centerIn: parent
+                    onTextChanged: ajustarTamanioFuente()
+                    function ajustarTamanioFuente() {
+                                    var newFontSize = container.maxFontSize;
+                                    txtUPanelIdHovered.font.pixelSize = newFontSize;
+                                    while (txtUPanelIdHovered.contentWidth > container.width-app.fs && newFontSize > container.minFontSize) {
+                                        newFontSize -= 1;
+                                        txtUPanelIdHovered.font.pixelSize = newFontSize;
+                                    }
+                                    tHideTxtUPanelId.restart()
+                                }
+                }
+                Timer{
+                    id: tHideTxtUPanelId
+                    running: false
+                    repeat: false
+                    interval: 5000
+                    onTriggered: r.uPanelIdHovered=''
+                }
+
+            }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -128,8 +172,18 @@ Item{
                     }
                     MouseArea{
                         anchors.fill: parent
+                        hoverEnabled: true
+                        onPositionChanged: r.uPanelIdHovered=r.aPanelesTits[index]
+                        onEntered: {
+                            //log.lv('PageIndicator: '+r.aPanelsIds[index])
+                            r.uPanelIdHovered=r.aPanelesTits[index]
+                        }
+                        onExited: {
+                            //log.lv('PageIndicator exited... ')
+                            r.uPanelIdHovered=''
+                        }
                         onClicked: {
-                            zsm.currentIndex=index                            
+                            zsm.currentIndex=index
                             if (mouse.modifiers) {
                                 apps.repLectVisible=!apps.repLectVisible
                             }

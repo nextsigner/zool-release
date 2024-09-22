@@ -130,7 +130,7 @@ Item {
                     Rectangle{
                         id: ejeSegmentadoP2
                         width: zm.objSignsCircle.w
-                        height: 1//parent.height*0.5
+                        height: !r.isExt?1:parent.height//*0.5
                         anchors.verticalCenter: parent.verticalCenter
                         color: parent.color
                         border.width: 1

@@ -182,7 +182,7 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: zm.planetSize
-        visible: (app.t==='dirprim'  || app.t==='trans') && r.isBack
+        visible: (app.t==='dirprim'  || app.t==='trans' || app.t==='progsec') && r.isBack
         Rectangle{
             width: r.width
             height: 1
