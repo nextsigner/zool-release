@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import comps.MouseAreaView 1.0
 import "../"
 import "../../../comps" as Comps
 
@@ -241,12 +242,19 @@ Item{
                 //setRot()
             }
         }
-        MouseArea{
+        MouseAreaView{
             id: maSig
             property int vClick: 0
             anchors.fill: parent
             acceptedButtons: Qt.AllButtons;
             hoverEnabled: true
+            c: true
+            Rectangle{
+                anchors.fill: parent
+                color: 'red'
+                radius: width*0.5
+                visible: false
+            }
             onWheel: {
                 //apps.enableFullAnimation=false
                 if (wheel.modifiers & Qt.ControlModifier) {
@@ -307,20 +315,21 @@ Item{
                 r.parent.cAs=r
             }
             onMouseXChanged:{
-                r.isHovered=true
-                tWaitHovered.restart()
+                //r.isHovered=true
+                //tWaitHovered.restart()
             }
             onMouseYChanged:{
-                r.isHovered=true
-                tWaitHovered.restart()
+                //r.isHovered=true
+                //tWaitHovered.restart()
             }
             onExited: {
-                tWaitHovered.restart()
-                vClick=0
+                //tWaitHovered.restart()
+                //vClick=0
                 zoolMapAsInfoView.text=''
             }
             onClicked: {
                 //apps.sweFs=app.fs
+                //log.lv('ZoolMapAs clicked: r.isBack'+r.isBack)
                 if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
                     zm.uSonFCMB=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
 

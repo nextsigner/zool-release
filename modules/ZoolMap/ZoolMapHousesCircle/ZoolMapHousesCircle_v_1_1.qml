@@ -28,9 +28,9 @@ Item {
     property int wbgc: 300
     property var aTipoEjes: ['Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>','Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>']
     property var aTipoEjesCasas:['Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12', 'Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12']
-//    onAHousesActivatedChanged: {
-//        log.lv('aHousesActivated: '+aHousesActivated.toString())
-//    }
+    //    onAHousesActivatedChanged: {
+    //        log.lv('aHousesActivated: '+aHousesActivated.toString())
+    //    }
     Rectangle{
         anchors.fill: parent
         color: 'green'
@@ -89,7 +89,7 @@ Item {
                 //log.lv('house '+item.ih+': '+item.selected)
                 //if(selected){
 
-                    //setCurrentHouseIndex(item)
+                //setCurrentHouseIndex(item)
                 //}
             }
             Repeater{
@@ -110,6 +110,7 @@ Item {
                 }
             }
             Rectangle{
+                id: xLineHouse
                 width: (parent.width*0.5)-vacioDeCentro.width*0.5
                 height: apps.houseLineWidth
                 //color: app.t==='dirprim'?'transparent':(!isExt?zm.houseLineColor:zm.houseLineColorBack)//apps.fontColor
@@ -117,39 +118,84 @@ Item {
                 border.width: app.t==='dirprim'?1:0
                 border.color: !isExt?zm.houseLineColor:zm.houseLineColorBack
                 anchors.verticalCenter: parent.verticalCenter
-                Rectangle{
-                    id: ejeSegmentadoP1
-                    width: parent.width-zm.housesNumMargin-zm.objSignsCircle.w
-                    height: parent.height
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: app.t==='dirprim'?'transparent':(!isExt?zm.houseLineColor:zm.houseLineColorBack)//apps.fontColor
-                    border.width: 1
-                    border.color: 'yellow'
-                    anchors.right: parent.right
-                    //visible: false
+                Item{
+                    anchors.fill: parent
                     Rectangle{
-                        id: ejeSegmentadoP2
-                        width: zm.objSignsCircle.w
-                        height: !r.isExt?1:parent.height//*0.5
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: parent.color
-                        border.width: 1
-                        border.color: 'yellow'
-                        anchors.right: parent.left
-                        //anchors.left: parent.left
-                        //visible: false
-                    }
-                    Rectangle{
-                        id: ejeSegmentadoP3
-                        width: ejeSegmentadoP1.parent.width-ejeSegmentadoP1.width-ejeSegmentadoP2.width
+                        id: ejeSegmentadoP1
+                        width: parent.width-zm.housesNumMargin-zm.objSignsCircle.w
                         height: parent.height
                         anchors.verticalCenter: parent.verticalCenter
-                        color: parent.color
+                        color: app.t==='dirprim'?'transparent':(!isExt?zm.houseLineColor:zm.houseLineColorBack)//apps.fontColor
                         border.width: 1
                         border.color: 'yellow'
-                        anchors.right: ejeSegmentadoP2.left
-                        //anchors.left: parent.left
-                        //visible: false
+                        anchors.right: parent.right
+                        visible: !r.isExt
+                        antialiasing: true
+                        Rectangle{
+                            id: ejeSegmentadoP2
+                            width: zm.objSignsCircle.w
+                            height: !r.isExt?1:parent.height//*0.5
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: parent.color
+                            border.width: 1
+                            border.color: 'yellow'
+                            anchors.right: parent.left
+                            //anchors.left: parent.left
+                            //visible: false
+                        }
+                        Rectangle{
+                            id: ejeSegmentadoP3
+                            width: ejeSegmentadoP1.parent.width-ejeSegmentadoP1.width-ejeSegmentadoP2.width
+                            height: parent.height
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: parent.color
+                            border.width: 1
+                            border.color: 'yellow'
+                            anchors.right: ejeSegmentadoP2.left
+                            //anchors.left: parent.left
+                            //visible: false
+                        }
+                    }
+                    Rectangle{
+                        id: ejeSegmentadoP1Ext
+                        //width: parent.width-zm.housesNumMargin-zm.objSignsCircle.w
+                        width: parent.width-zm.housesNumMargin-2
+                        height: 1//parent.height
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: zm.houseLineColorBack//app.t==='dirprim' || app.t==='trans'?'transparent':zm.houseLineColorBack
+                        //color: 'red'
+                        //border.width: 1
+                        //border.color: 'yellow'
+                        anchors.right: parent.right
+                        antialiasing: true
+                        visible: r.isExt
+                        Rectangle{
+                            id: ejeSegmentadoP2Ext
+                            width: zm.housesNumMargin+2
+                            //height: !r.isExt?1:parent.height//*0.5
+                            //height: parent.height
+                            height: xLineHouse.height
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: parent.color
+                            //color: 'red'
+                            //border.width: 1
+                            //border.color: 'yellow'
+                            anchors.right: parent.left
+                            //anchors.left: parent.left
+                            //visible: false
+                        }
+                        /*Rectangle{
+                            id: ejeSegmentadoP3Ext
+                            width: ejeSegmentadoP1.parent.width-ejeSegmentadoP1.width-ejeSegmentadoP2.width
+                            height: parent.height
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: parent.color
+                            border.width: 1
+                            border.color: 'yellow'
+                            anchors.right: ejeSegmentadoP2.left
+                            //anchors.left: parent.left
+                            //visible: false
+                        }*/
                     }
                 }
                 Rectangle{
@@ -346,10 +392,10 @@ Item {
                             }
                             //log.lv('r.currentHouse: '+r.currentHouse)
                         }
-//                        onDoubleClicked: {
-//                            log.lv('House: '+item.ih)
-//                            //saveZoomAndPosHouse(house)
-//                        }
+                        //                        onDoubleClicked: {
+                        //                            log.lv('House: '+item.ih)
+                        //                            //saveZoomAndPosHouse(house)
+                        //                        }
                         /*Rectangle{
                             anchors.fill: parent
                             color: 'red'
@@ -592,7 +638,8 @@ Item {
                 a.push(item.ih)
             }
             r.aHousesActivatedExt=a
-            r.currentHouse=item.ih
+            r.currentHouseBack=item.ih
+            //log.lv('r.aHousesActivatedExt: '+r.aHousesActivatedExt)
         }
     }
     function getPosOfHouse(ih){

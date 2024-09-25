@@ -100,9 +100,26 @@ ZoolMenus{
                 apps.enableWheelAspCircle=!apps.enableWheelAspCircle
             }
         }
+        Action {
+            text: !app.dev?"Habilitar Modo Desarrollador":"Deshabilitar Modo Desarrollador"
+            onTriggered: {
+                if(unik.folderExist('/home/ns')){
+                    app.dev=!app.dev
+                }
+            }
+        }
     }
     Action {text: qsTr("Salir"); onTriggered: {
             Qt.quit()
+        }
+    }
+    Component{
+        id: compDev
+        Action {
+            text: "Dev: "//+app.dev;
+            onTriggered: {
+                app.dev=!app.dev
+            }
         }
     }
 
@@ -122,4 +139,5 @@ ZoolMenus{
             //log.lv('Menu ...'+d.getTime())
         }
     }
+
 }

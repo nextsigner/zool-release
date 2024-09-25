@@ -1,1 +1,1 @@
-Se muestra el PanelId en el PageIndicator de ZoolSectionManager
+se crea MouseAreaView

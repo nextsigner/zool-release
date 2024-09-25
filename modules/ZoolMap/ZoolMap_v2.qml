@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.12
 import "../../js/Funcs.js" as JS
-
+import comps.MouseAreaView 1.0
 
 import ZoolMap.ZoolMapSignCircle 1.1
 import ZoolMap.ZoolMapHousesCircle 1.1
@@ -405,7 +405,7 @@ Item{
                     interval: 1500
                     onTriggered: r.enableAnZoomAndPos=true
                 }
-                MouseArea {
+                MouseAreaView{
                     //z:parent.z-1
                     id: dragArea
                     hoverEnabled: true
