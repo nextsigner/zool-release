@@ -130,7 +130,7 @@ Rectangle {
                         }
                         controlTimeFechaUTC.currentDate=d
                         controlTimeFechaUTC.gmt=0
-                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
+                        //if(apps.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
                         zm.enableLoadBack=false
                         tUpdateParams.restart()
                     }
@@ -267,7 +267,7 @@ Rectangle {
                     checked: false
                     anchors.verticalCenter: parent.verticalCenter
                     onCheckedChanged:{
-                        if(app.dev){
+                        if(apps.dev){
                             log.lv('UTC checkbox app.currentLat: '+app.currentLat)
                             log.lv('UTC checkbox app.currentLon: '+app.currentLon)
                         }
@@ -695,7 +695,7 @@ Rectangle {
 
     }
     function loadJsonFromArgsBack(){
-        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
         r.uParamsLoaded=''
         let t='trans'
         let hsys=apps.currentHsys
@@ -767,7 +767,7 @@ Rectangle {
         j+='}'
         j+='}'
         app.currentDataBack=j
-        //if(app.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
         app.j.loadJsonFromParamsBack(JSON.parse(app.currentDataBack))*/
     }
     function enter(){

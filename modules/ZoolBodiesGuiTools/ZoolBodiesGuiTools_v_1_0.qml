@@ -201,7 +201,7 @@ Rectangle {
                 text:  '<b>DEV</b>'
                 fs: app.fs*0.35
                 onClicked: {
-                    app.dev=!app.dev
+                    apps.dev=!apps.dev
                 }
             }
             ZoolButton{

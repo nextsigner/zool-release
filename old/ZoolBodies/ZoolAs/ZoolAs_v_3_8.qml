@@ -277,7 +277,7 @@ Item{
         width: app.fs*16
         height: width
         anchors.centerIn: bodie
-        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.t!=='pron'
+        visible: apps.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(app.currentData).params.t!=='pron'
     }
     Timer{
         running: !r.isZoomAndPosSeted && r.selected
@@ -338,7 +338,7 @@ Item{
             json[app.stringRes+'zoompos']={}
         }
         json[app.stringRes+'zoompos']['zpc'+r.numAstro]=sweg.getZoomAndPos()
-        if(app.dev){
+        if(apps.dev){
             //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
             //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
         }

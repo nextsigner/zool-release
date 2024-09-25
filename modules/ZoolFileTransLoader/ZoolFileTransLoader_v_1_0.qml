@@ -134,7 +134,7 @@ Rectangle {
                     }
                     controlTimeFechaUTC.currentDate=d
                     controlTimeFechaUTC.gmt=0
-                    //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
+                    //if(apps.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
                     sweg.enableLoadBack=false
                     tUpdateParams.restart()
                 }
@@ -633,7 +633,7 @@ Rectangle {
 
     }
     function loadJsonFromArgsBack(){
-        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
         r.uParamsLoaded=''
         let d = new Date(Date.now())
         let ms=d.getTime()
@@ -677,7 +677,7 @@ Rectangle {
         j+='}'
         j+='}'
         app.currentDataBack=j
-        //if(app.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
         app.j.loadJsonFromParamsBack(JSON.parse(app.currentDataBack))
     }
     function enter(){

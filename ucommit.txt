@@ -1,1 +1,1 @@
-se crea MouseAreaView
+Se agrega apps.dev a ZoolAppSettings

@@ -130,9 +130,9 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
     //setTitleData(nom, d, m, a, h, min, gmt, ciudad, lat, lon, setTitleMod)
 
     if(save){
-        //if(app.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
+        //if(apps.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
         let mf=zfdm.mkFileAndLoad(JSON.parse(j))
-        //if(app.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
+        //if(apps.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
         return
     }
     //app.currentData=j
@@ -142,9 +142,9 @@ function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, sa
 }
 function loadFromJson(j, save){
     if(save){
-        //if(app.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
+        //if(apps.dev)log.lv('loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, save): '+'d:'+d+'\nm:'+m+'\na:'+a+'\nh:'+h+'\nmin:'+min+'\ngmt:'+gmt+'\nlat:'+ lat+'\nlon:'+lon+'\nalt:'+alt+'\nnom:'+nom+'\nciudad:'+ciudad+'\ntipo:'+tipo+'\nsave:'+save)
         let mf=zfdm.mkFileAndLoad(JSON.parse(j))
-        //if(app.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
+        //if(apps.dev)log.lv('zfdm.mkFileAndLoad(...):'+mf)
         return
     }
     //app.currentData=j
@@ -197,13 +197,13 @@ function loadFromArgsBack(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo
 
     if(save){
         let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
-        //if(app.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
+        //if(apps.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
         unik.setFile(fn, j)
         loadJsonBack(fn)
         return
     }
     app.currentDataBack=j
-    //if(app.dev)log.lv('sweg.loadBack(JSON.parse(j), tipo): '+j+'\ntipo: '+tipo)
+    //if(apps.dev)log.lv('sweg.loadBack(JSON.parse(j), tipo): '+j+'\ntipo: '+tipo)
     sweg.loadBack(JSON.parse(j), tipo)
     //runJsonTempBack()
 }
@@ -436,7 +436,7 @@ function qmltypeof(obj) {
 //    //let fileLoaded=zfdm.loadFile(apps.url)
 //    let fileLoaded=zfdm.loadFile(file)
 //    if(!fileLoaded){
-//        if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
+//        if(apps.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
 //        return
 //    }
 
@@ -472,7 +472,7 @@ function qmltypeof(obj) {
 //        //app.t=jsonData.params.t
 //        app.t=p.t
 //    }else{
-//        if(app.dev)log.lv('Error app.j.loadFile('+file+') p.t no existe.')
+//        if(apps.dev)log.lv('Error app.j.loadFile('+file+') p.t no existe.')
 //        return
 //    }
 //    if(parseInt(p.ms)===0||p.t==='pron'){
@@ -523,7 +523,7 @@ function qmltypeof(obj) {
 ////    }
 
 //    //if(params.t==='rs'){
-//    //if(app.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
+//    //if(apps.dev)log.l('RS params:'+JSON.stringify(params, null, 2), 0, log.width)
 //    //}
 
 //    let nom=p.n.replace(/_/g, ' ')
@@ -635,7 +635,7 @@ function loadJson(file){
     //let fileLoaded=zfdm.loadFile(apps.url)
     let fileLoaded=zfdm.loadFile(file)
     if(!fileLoaded){
-        if(app.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
+        if(apps.dev)log.lv('Error app.j.loadFile('+file+') fileLoaded: '+fileLoaded)
         return
     }
 
@@ -647,7 +647,7 @@ function loadJson(file){
     resetGlobalVars()
     let jsonData=zfdm.getJsonAbs()
     let p=zfdm.getJsonAbsParams(false)
-    //if(app.dev)log.lv('loadFile( '+file+' ):\n'+JSON.stringify(jsonData, null, 2))
+    //if(apps.dev)log.lv('loadFile( '+file+' ):\n'+JSON.stringify(jsonData, null, 2))
     sweg.load(jsonData)
     //loadFromJson(jsonData, false)
 
@@ -717,17 +717,17 @@ function loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, ed
     let json=JSON.parse(js)
 
     let extIdExist=zfdm.isExtId(extId)
-    if(app.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
+    if(apps.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
     let isExtIdInAExtsIds=app.aExtsIds.indexOf(extId)>=0?true:false
-    if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
+    if(apps.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
     if(!extIdExist && !isExtIdInAExtsIds){
         zfdm.addExtData(json)
         sweg.loadBack(json)
     }else{
-        if(app.dev)log.lv('ExtId ya existe.')
+        if(apps.dev)log.lv('ExtId ya existe.')
         let extJson={}
         extJson.params=zfdm.getExtData(extId)
-        if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
+        if(apps.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
         sweg.loadBack(extJson)
     }
     let aL=zoolDataView.atLeft
@@ -783,7 +783,7 @@ function loadJsonBack(file, tipo){
     let jsonFileName=fn
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
     app.fileDataBack=jsonFileData
-    //if(app.dev)log.lv('app.fileDataBack:'+app.fileDataBack)
+    //if(apps.dev)log.lv('app.fileDataBack:'+app.fileDataBack)
     app.currentJsonBack=app.fileDataBack
     let jsonData=JSON.parse(jsonFileData)
     if(jsonData.params.t){
@@ -873,7 +873,7 @@ function loadJsonFromParamsBack(json){
 
     //apps.urlBack=file
     app.fileDataBack=JSON.stringify(json)
-    //if(app.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
+    //if(apps.dev)log.ls('loadJsonFromParamsBack(json): '+JSON.stringify(json, null, 2), 0, log.width)
     //app.currentJsonBack=app.fileDataBack
     let jsonData=json
     let params
@@ -973,9 +973,9 @@ function mkTransFile(){
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
-    //if(app.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
+    //if(apps.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
     json.params.n=json.params.n+' - '+jsonExt.params.n
-    //if(app.dev)log.lv('json.params.n: '+json.params.n)
+    //if(apps.dev)log.lv('json.params.n: '+json.params.n)
     json.params.t='trans'
     if(json.params[app.stringRes+'zoompos']){
         delete json.params[app.stringRes+'zoompos']
@@ -1062,7 +1062,7 @@ function runJsonTempBack(){
         jsonData=JSON.parse(jss)
     }catch(e){
         console.log('runJsonTempBack() Json Fallado: '+app.currentDataBack)
-        if(app.dev){
+        if(apps.dev){
             log.lv('Ha fallado la carga del archivo BACK '+apps.url)
             log.lv(app.currentDataBack)
             //log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
@@ -1078,7 +1078,7 @@ function runJsonTempBack(){
         params=jsonData.params
     }
     if(params.t==='vn'){
-        if(app.dev)log.lv('No se carga params back porque es tipo VN.')
+        if(apps.dev)log.lv('No se carga params back porque es tipo VN.')
         return
     }
     let nom=params.n.replace(/_/g, ' ')
@@ -1156,8 +1156,8 @@ function setNewTimeJsonFileDataBack(date){
     //log.width=xApp.width*0.2
     //log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
     //log.ls('app.fileDataBack: '+app.fileDataBack, 0, 500)
-    if(app.fileDataBack===''&&app.dev){
-        if(app.dev)log.lv('app.fileDataBack is empty.')
+    if(app.fileDataBack===''&&apps.dev){
+        if(apps.dev)log.lv('app.fileDataBack is empty.')
         return
     }
     let jsonData=JSON.parse(app.fileDataBack)
@@ -1249,10 +1249,10 @@ function saveJsonAs(newUrl){
     }
 }
 function deleteJsonBackHidden(){
-    //if(app.dev)log.lv('JSON.parse(app.fileData).paramsBack: '+JSON.parse(app.fileData).paramsBack)
+    //if(apps.dev)log.lv('JSON.parse(app.fileData).paramsBack: '+JSON.parse(app.fileData).paramsBack)
     let json=JSON.parse(app.fileData)
-    if(app.dev)log.lv('deleteJsonBackHidden() app.currentData: '+JSON.stringify(json.params, null, 2))
-    if(app.dev&&json.paramsBack){
+    if(apps.dev)log.lv('deleteJsonBackHidden() app.currentData: '+JSON.stringify(json.params, null, 2))
+    if(apps.dev&&json.paramsBack){
         log.lv('deleteJsonBackHidden() app.fileData: '+JSON.stringify(json.paramsBack, null, 2))
     }
     delete json['paramsBack'];

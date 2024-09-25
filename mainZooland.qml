@@ -327,7 +327,7 @@ ZoolMainWindow{
                     color: 'transparent'
                     border.width: 1
                     border.color: 'red'
-                    visible: app.dev
+                    visible: apps.dev
                 }
             }
             Image{
@@ -343,7 +343,7 @@ ZoolMainWindow{
                     color: 'transparent'
                     border.width: 1
                     border.color: 'red'
-                    visible: app.dev
+                    visible: apps.dev
                 }
             }
             Image {
@@ -367,7 +367,7 @@ ZoolMainWindow{
                 color: 'transparent'
                 border.width: 1
                 border.color: 'yellow'
-                visible: app.dev
+                visible: apps.dev
             }
             Rectangle{
                 width: 6
@@ -462,7 +462,7 @@ ZoolMainWindow{
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: app.dev
+                    visible: apps.dev
                 }
                 Item{
                     id: xControlsTime
@@ -673,7 +673,7 @@ ZoolMainWindow{
     //Este esta en el centro
     Rectangle{
         id: centroideXMed
-        visible: app.dev
+        visible: apps.dev
         width: 6
         height: width
         color: 'transparent'
@@ -687,7 +687,7 @@ ZoolMainWindow{
         width: 2
         height: xApp.height*2
         anchors.centerIn: parent
-        visible: app.dev
+        visible: apps.dev
     }
     //    Timer{
     //        id: tLoadModules
@@ -701,12 +701,12 @@ ZoolMainWindow{
 
         //Check is dev with the arg -dev
         if(Qt.application.arguments.indexOf('-dev')>=0){
-            app.dev=true
+            apps.dev=true
         }
 
         if(Qt.platform.os==='linux'){
             let compMinyma=Qt.createComponent('./modules/comps/MinymaClient/MinymaClient.qml')
-            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(app.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
+            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(apps.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
             objMinyma.newMessageForMe.connect(function(from, data) {
                 if(data==='isWindowTool'){
                     if(app.flags===Qt.Tool){
@@ -751,7 +751,7 @@ ZoolMainWindow{
 
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
-        if(app.version!==apps.lastVersion || app.dev){
+        if(app.version!==apps.lastVersion || apps.dev){
             apps.lastVersion=app.version
             let c='import QtQuick 2.0\n'
             c+='import ZoolNewsAndUpdates 3.4\n'
@@ -785,7 +785,7 @@ ZoolMainWindow{
             apps.jsonsFolderTemp=jsonF
         }
 
-        if(app.dev){
+        if(apps.dev){
             log.ls('\nRunning as Dev', 0, xLatIzq.width)
             //log.ls('\nVersion:\n'+version, log.x,
             log.ls('\nunik.currentFolderPath():\n'+unik.currentFolderPath(), log.x, log.width)
@@ -821,14 +821,14 @@ ZoolMainWindow{
             if(apps.url!==''&&unik.fileExist(apps.url)&&apps.jsonsFolder!==''){
                 console.log('Cargando al iniciar: '+apps.url)
                 //Detalles Técnicos extras
-                if(app.dev){
+                if(apps.dev){
                     log.visible=true
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
                 JS.loadJson(apps.url)                
             }else{
-                if(app.dev){
+                if(apps.dev){
                     log.visible=true
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)

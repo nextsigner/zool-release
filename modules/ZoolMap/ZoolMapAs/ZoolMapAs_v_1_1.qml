@@ -159,7 +159,7 @@ Item{
     Row{
         anchors.verticalCenter: parent.verticalCenter
         anchors.right:  parent.left
-        visible: app.dev
+        visible: apps.dev
         Repeater{
             model: r.pos
             Rectangle{
@@ -249,12 +249,6 @@ Item{
             acceptedButtons: Qt.AllButtons;
             hoverEnabled: true
             c: true
-            Rectangle{
-                anchors.fill: parent
-                color: 'red'
-                radius: width*0.5
-                visible: false
-            }
             onWheel: {
                 //apps.enableFullAnimation=false
                 if (wheel.modifiers & Qt.ControlModifier) {
@@ -339,6 +333,7 @@ Item{
                     menuPlanets.currentIndexHouse=r.ih
                     menuPlanets.popup()
                 } else if (mouse.button === Qt.LeftButton) {
+                    if(apps.dev)log.lv('Click en astro '+zm.aBodies[r.numAstro])
                     vClick++
                     tClick.restart()
                 }
@@ -358,7 +353,8 @@ Item{
                     var rotatedY = x * Math.sin(radians) + y * Math.cos(radians);
 
                     return { x: rotatedX, y: rotatedY };
-                }   running: false
+                }
+                running: false
                 repeat: false
                 interval: 500
                 onTriggered: {
@@ -380,7 +376,7 @@ Item{
             width: parent.width*0.5
             height: width
             color: 'black'
-            visible: app.dev
+            visible: apps.dev
             Text{
                 text: r.pos
                 font.pixelSize: parent.width-4
@@ -455,13 +451,13 @@ Item{
             visible: r.selected
         }
     }
-    Comps.XCircleSignal{
+    /*Comps.XCircleSignal{
         id: xCircleSignal
         width: app.fs*16
         height: width
         anchors.centerIn: bodie
-        visible: app.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zm.currentData).params.t!=='pron'
-    }
+        visible: apps.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zm.currentData).params.t!=='pron'
+    }*/
 //    Timer{
 //        running: !r.isZoomAndPosSeted && r.selected
 //        repeat: true
@@ -552,7 +548,7 @@ Item{
             json[itemName]={}
         }
         json[itemName]['zpc'+r.numAstro]=zm.getZoomAndPos()
-        if(app.dev){
+        if(apps.dev){
             log.lv('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2))
             log.lv('json['+itemName+'][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[itemName+'']['zpc'+r.numAstro], null, 2))
         }

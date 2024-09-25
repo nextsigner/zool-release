@@ -79,7 +79,7 @@ Rectangle {
         function setData(data, isData){
             if(isData){
                 let j=JSON.parse(data)
-                if(app.dev){
+                if(apps.dev){
                     log.lv('New user, id: '+j.user._id)
                     log.lv('New user, n: '+j.user.n)
                     log.lv('New user, c: '+unik.decData(j.user.c, tiNombre.text, tiClave.text))

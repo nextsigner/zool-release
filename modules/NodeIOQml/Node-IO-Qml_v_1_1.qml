@@ -21,7 +21,7 @@ Item{
         property var aLogData: []
         onLogDataChanged:{
             //console.log('onLogDataChanged:'+logData)
-            if(app.dev)log.lv('NodeIOQml v1.1 onLogDataChanged:['+logData+']')
+            if(apps.dev)log.lv('NodeIOQml v1.1 onLogDataChanged:['+logData+']')
             //let m00=(''+logData).split('\n')
 //            for(var i=0;i<m00.length;i++){
 //                log.lv('onLogDataChanged ['+i+']:['+m00[i]+']\n\n')
@@ -59,7 +59,7 @@ Item{
             cmd+=' persistent'
             console.log('Node-IO-Qml uqp cmd: '+cmd)
             //log.lv('Node-IO-Qml logData: '+logData)
-            if(app.dev)log.lv('Node-IO-Qml logData run cmd: '+cmd)
+            if(apps.dev)log.lv('Node-IO-Qml logData run cmd: '+cmd)
             run(cmd)
         }
         Component.onCompleted: {

@@ -217,11 +217,11 @@ Rectangle {
                 let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
                 let gAsc=''+app.currentJson.ph.h1.rsgdeg
-                if(app.dev)log.lv('Sabianos gAsc: '+gAsc)
+                if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)
                 fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[app.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
-                //if(app.dev)log.lv('Sabianos: '+d)
+                //if(apps.dev)log.lv('Sabianos: '+d)
                 unik.setFile(fileNameOutPut, d)
-                if(app.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
+                if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos fileNameOutPut: '+fileNameOutPut)
                 tHideRowBtns.restart()
             }

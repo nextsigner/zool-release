@@ -62,7 +62,7 @@ Rectangle {
 //        color: 'transparent'
 //        border.width: 2
 //        border.color: 'red'
-//        visible: app.dev
+//        visible: apps.dev
 //    }
     function clear(){
         if(!r.visible)return

@@ -785,7 +785,7 @@ Rectangle {
                 }
             }
             function loadRs(gmt, lat, lon, alt){
-                if(app.dev)log.lv('itemRs.loadRs()... gmt: '+gmt+' lat:'+lat+' lon: '+lon+' alt: '+alt)
+                if(apps.dev)log.lv('itemRs.loadRs()... gmt: '+gmt+' lat:'+lat+' lon: '+lon+' alt: '+alt)
                 r.loadRs(itemRS.rsDate, index, gmt, lat, lon, alt)
             }
             Component.onCompleted: {
@@ -903,7 +903,7 @@ Rectangle {
         if(!checkBoxRetSolar){
             r.ulat=zm.currentLat
             r.ulon=zm.currentLon
-            if(app.dev){
+            if(apps.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
@@ -912,7 +912,7 @@ Rectangle {
         }else{
             r.ulat=zm.currentLat
             r.ulon=zm.currentLon
-            if(app.dev){
+            if(apps.dev){
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
@@ -921,7 +921,7 @@ Rectangle {
         }
     }
     function loadRs(date, index, gmt, lat, lon, alt){
-        //if(app.dev)log.lv('1 loadRs()... gmt: '+gmt)
+        //if(apps.dev)log.lv('1 loadRs()... gmt: '+gmt)
         let d = new Date(date)
         let ms=new Date(Date.now()).getTime()
 
@@ -955,7 +955,7 @@ Rectangle {
         }
     }
     function enter(){
-        //if(app.dev)log.lv('ZoolRevolutionList.enter()... lv.currentIndex: '+lv.currentIndex)
+        //if(apps.dev)log.lv('ZoolRevolutionList.enter()... lv.currentIndex: '+lv.currentIndex)
         if(lv.currentIndex<=0 && lv.count<1){
             //log.lv('0 ZoolRevolutionList enter()...')
             xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)

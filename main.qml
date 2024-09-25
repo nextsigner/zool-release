@@ -46,7 +46,6 @@ import ZoolSectionsManager 1.1
 import ZoolDataBodies 3.1
 import ZoolElementsBack 1.0
 
-
 import comps.ZoolPanelNotifications 1.0
 import web.ZoolWebStatusManager 1.0
 //import MinymaClient 1.0
@@ -205,7 +204,7 @@ ZoolMainWindow{
         onDataReceibed:{
             //log.lv("onDataReceibed:"+data+'\n\n')
             let json=JSON.parse(data)
-            if(app.dev){
+            if(apps.dev){
                 log.lv("From:"+json.from+'\n\n')
                 log.lv("To:"+json.to+'\n\n')
                 log.lv("Data:"+json.data+'\n\n')
@@ -289,7 +288,7 @@ ZoolMainWindow{
             anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width*0.5
             anchors.bottom: parent.bottom
             //clip: xLatIzq.visible
-            //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !app.dev}
+            //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !apps.dev}
             ZoolMap{
                 id: zm;
                 rectXBackItems.width: xMed.width
@@ -316,7 +315,7 @@ ZoolMainWindow{
                     color: 'transparent'
                     border.width: 1
                     border.color: 'red'
-                    visible: app.dev
+                    visible: apps.dev
                 }
             }
             Image{
@@ -332,7 +331,7 @@ ZoolMainWindow{
                     color: 'transparent'
                     border.width: 1
                     border.color: 'red'
-                    visible: app.dev
+                    visible: apps.dev
                 }
             }
             Image {
@@ -356,7 +355,7 @@ ZoolMainWindow{
                 color: 'transparent'
                 border.width: 1
                 border.color: 'yellow'
-                visible: app.dev
+                visible: apps.dev
             }
             Rectangle{
                 width: 6
@@ -452,7 +451,7 @@ ZoolMainWindow{
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: app.dev
+                    visible: apps.dev
                 }
                 Item{
                     id: xControlsTime
@@ -668,7 +667,7 @@ ZoolMainWindow{
     //Este esta en el centro
     Rectangle{
         id: centroideXMed
-        visible: app.dev
+        visible: apps.dev
         width: 6
         height: width
         color: 'transparent'
@@ -682,7 +681,7 @@ ZoolMainWindow{
         width: 2
         height: xApp.height*2
         anchors.centerIn: parent
-        visible: app.dev
+        visible: apps.dev
     }
     //    Timer{
     //        id: tLoadModules
@@ -694,12 +693,13 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
+        if(apps.dev)log.lv('Ultimo archivo cargado con anterioridad: '+apps.url)
         let args=Qt.application.arguments
         JS.setFs()
 
         //Check is dev with the arg -dev
         if(args.indexOf('-dev')>=0){
-            app.dev=true
+            apps.dev=true
         }
         let localhost=false
         if(args.indexOf('-localhost')>=0)localhost=true
@@ -732,7 +732,7 @@ ZoolMainWindow{
 
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
-        if(app.version!==apps.lastVersion || app.dev){
+        if(app.version!==apps.lastVersion || apps.dev){
             apps.lastVersion=app.version
             let c='import QtQuick 2.0\n'
             c+='import ZoolNewsAndUpdates 3.4\n'
@@ -765,7 +765,7 @@ ZoolMainWindow{
             apps.jsonsFolderTemp=jsonF
         }
 
-        if(app.dev){
+        if(apps.dev){
             log.ls('\nRunning as Dev', 0, xLatIzq.width)
             //log.ls('\nVersion:\n'+version, log.x,
             log.ls('\nunik.currentFolderPath():\n'+unik.currentFolderPath(), log.x, log.width)
@@ -791,6 +791,7 @@ ZoolMainWindow{
                 if(ma.length>1){
                     arg=ma[1]
                     //log.ls('File: '+arg, 0, xApp.width*0.5)
+                    if(apps.dev)log.lv('Cargando '+arg)
                     zm.loadJsonFromFilePath(arg)
                     fileLoaded=true
                 }
@@ -801,11 +802,12 @@ ZoolMainWindow{
             if(apps.url!==''&&unik.fileExist(apps.url)&&apps.jsonsFolder!==''){
                 console.log('Cargando al iniciar: '+apps.url)
                 //Detalles Técnicos extras
-                if(app.dev){
+                if(apps.dev){
                     log.visible=true
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
+                if(apps.dev)log.lv('Cargando '+apps.url)
                 zm.loadJsonFromFilePath(apps.url)
             }else{
                 if(!unik.fileExist(apps.url)){
@@ -817,19 +819,19 @@ ZoolMainWindow{
                     let aR=[]
                     zoolDataView.setDataView(sep, aL, aR)*/
                 }
-                if(app.dev){
+                if(apps.dev){
                     log.visible=true
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                     log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                     log.l('\napp.url: '+app.url)
                     log.l('\napp.url exist: '+unik.fileExist(apps.url))
                 }
-                JS.firstRunTime()
+                app.j.firstRunTime()
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)
         apps.host='https://zool.loca.lt'
-        JS.loadModules()
+        app.j.loadModules()
         app.requestActivate()
         //log.focus=true
     }

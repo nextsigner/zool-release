@@ -143,13 +143,13 @@ Rectangle {
         function setData(data, isData){
             zlc.visible=false
             tWaitingResponse.stop()
-            if(app.dev){
+            if(apps.dev){
                 log.lv('getUserAndSet:\n'+JSON.stringify(JSON.parse(data), null, 2))
             }
             if(isData){
                 let j=JSON.parse(data)
                 if(j.isRec){
-                    if(app.dev){
+                    if(apps.dev){
                         log.lv('New user, id: '+j.user._id)
                         log.lv('New user, n: '+j.user.n)
                         log.lv('New user, c: '+unik.decData(j.user.c, tiNombre.text, tiClave.text))

@@ -46,7 +46,7 @@ Item{
         let obj
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
-            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 obj=o
                 break
@@ -58,7 +58,7 @@ Item{
         //let newCi=-1
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
-            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 o.visible=true
                 //newCi=i
@@ -74,7 +74,7 @@ Item{
         let obj
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
-            if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 obj=o
                 ci=zsm.aPanelsIds.indexOf(app.j.qmltypeof(o))

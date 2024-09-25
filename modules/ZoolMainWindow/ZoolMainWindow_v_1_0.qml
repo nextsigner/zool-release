@@ -307,7 +307,7 @@ ApplicationWindow {
                 log.visible=false
                 return
             }
-            if(app.dev && !log.visible){
+            if(apps.dev && !log.visible){
                 Qt.quit()
                 return
             }

@@ -189,7 +189,7 @@ AbstractColorDialog {
                     "
                 }
 
-                MouseArea {
+                MouseArea{
                     id: mapMouseArea
                     anchors.fill: parent
                     onPositionChanged: {
@@ -340,7 +340,7 @@ AbstractColorDialog {
                     id: copyIcon
                     anchors.verticalCenter: parent.verticalCenter
                     source: "images/copy.png"
-                    MouseArea {
+                    MouseArea{
                         anchors.fill: parent
                         onClicked: colorField.copyAll()
                     }

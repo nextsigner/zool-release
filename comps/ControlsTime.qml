@@ -169,7 +169,7 @@ Rectangle {
                 font.pixelSize: r.fs
                 anchors.centerIn: parent
             }
-            MouseArea {
+            MouseArea{
                 id: maw
                 anchors.fill: parent
                 //onClicked: r.v=!r.v

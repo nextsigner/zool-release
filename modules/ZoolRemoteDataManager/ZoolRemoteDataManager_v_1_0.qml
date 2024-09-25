@@ -8,14 +8,14 @@ Item{
     QtObject{
         id: saveZoolParams
         function setData(data, isData){
-            //if(app.dev){
+            //if(apps.dev){
                 //log.lv('saveZoolParams:\n'+JSON.stringify(JSON.parse(data), null, 2))
             log.lv('saveZoolParams isData:'+isData)
             //}
             if(isData){
                 let j=JSON.parse(data)
                 if(j.isRec){
-                    if(app.dev){
+                    if(apps.dev){
                         log.lv('New remote params, id: '+j.params._id)
                     }
                     //app.j.showMsgDialog('Zool Informa', 'Los datos se han guardado.', 'Una copia del archivo '+app.currentNom+' ha sido respaldado en el servidor de Zool.')

@@ -52,8 +52,8 @@ function captureSweg(){
     let sCapDate='Fecha de Captura\n'+dia+'/'+mes+'/'+anio+' '+hora+':'+minuto
     capDate.text=sCapDate
 
-    let isDev=app.dev
-    app.dev=false
+    let isDev=apps.dev
+    apps.dev=false
     zm.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
@@ -83,12 +83,12 @@ function captureSweg(){
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
         zm.capturing=false
-        app.dev=isDev
+        apps.dev=isDev
     });
 }
 
 function captureSwegBack(){
-    let isDev=app.dev
+    let isDev=apps.dev
     zm.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
@@ -118,7 +118,7 @@ function captureSwegBack(){
     xSwe1.grabToImage(function(result) {
         result.saveToFile(folder+"/"+imgFileName);
         zm.capturing=false
-        app.dev=isDev
+        apps.dev=isDev
     });
 }
 

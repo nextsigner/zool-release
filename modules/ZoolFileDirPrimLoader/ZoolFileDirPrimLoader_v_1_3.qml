@@ -145,7 +145,7 @@ Rectangle {
                     //                        }
                     //                        controlTimeFechaUTC.currentDate=d
                     //                        controlTimeFechaUTC.gmt=0
-                    //                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
+                    //                        //if(apps.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
                     //                        sweg.enableLoadBack=false
                     //                        tUpdateParams.restart()
                     //                    }
@@ -397,7 +397,7 @@ Rectangle {
         let vhEvento=controlTimeFechaEvento.hora
         let vminEvento=controlTimeFechaEvento.minuto
 
-        //if(app.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
+        //if(apps.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
         let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
@@ -411,7 +411,7 @@ Rectangle {
 
 
     function loadJsonFromArgsBack(){
-        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
         if(!r.visible)return
         r.uParamsLoaded=''
 
@@ -483,7 +483,7 @@ Rectangle {
 
         app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '0', vtipo, vhsys, -1, [])
 
-        //if(app.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
+        //if(apps.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
         //let json=JSON.parse(app.currentJsonData)
         //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
         let rotSignCircle=sweg.objSignsCircle.rot

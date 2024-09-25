@@ -118,7 +118,7 @@ Rectangle {
         border.width: 4
         border.color: 'red'
         color: 'transparent'
-        visible: app.dev
+        visible: apps.dev
     }
     Component{
         id: compCellData
@@ -184,7 +184,7 @@ Rectangle {
         r.stringMiddleSeparator=sep
         r.atLeft=aL
         r.atRight=aR
-        //if(app.dev)log.lv('zoolDataView.setDataView(sep, aL, aR): '+aL.toString()+' \n'+aR.toString())
+        //if(apps.dev)log.lv('zoolDataView.setDataView(sep, aL, aR): '+aL.toString()+' \n'+aR.toString())
         updateDataView()
     }
     function updateDataView(){

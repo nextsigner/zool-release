@@ -130,7 +130,7 @@ Rectangle {
                         }
                         controlTimeFechaUTC.currentDate=d
                         controlTimeFechaUTC.gmt=0
-                        //if(app.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
+                        //if(apps.dev)log.lv('controlTimeFechaUTC.currentDate:'+controlTimeFechaUTC.currentDate.toString())
                         zm.enableLoadBack=false
                         tUpdateParams.restart()
                     }
@@ -275,7 +275,7 @@ Rectangle {
                     checked: true
                     anchors.verticalCenter: parent.verticalCenter
                     onCheckedChanged:{
-                        if(app.dev){
+                        if(apps.dev){
                             log.lv('UTC checkbox zm.currentLat: '+zm.currentLat)
                             log.lv('UTC checkbox zm.currentLon: '+zm.currentLon)
                         }
@@ -559,7 +559,7 @@ Rectangle {
         c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
-        if(app.dev)log.lv('\n\n'+c+'\n\n')
+        if(apps.dev)log.lv('\n\n'+c+'\n\n')
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
     }
 
@@ -665,7 +665,7 @@ Rectangle {
 
     }
     function loadJsonFromArgsBack(){
-        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
         r.uParamsLoaded=''
         let t='trans'
         let hsys=apps.currentHsys
@@ -739,7 +739,7 @@ Rectangle {
         j+='}'
         j+='}'
         app.currentDataBack=j
-        //if(app.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
+        //if(apps.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
         app.j.loadJsonFromParamsBack(JSON.parse(app.currentDataBack))*/
     }
     function enter(){

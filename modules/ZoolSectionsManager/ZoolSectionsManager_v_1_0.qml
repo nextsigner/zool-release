@@ -85,7 +85,7 @@ Item{
             height: indicatorSV.height
             color: 'transparent'
             anchors.horizontalCenter: parent.horizontalCenter
-            MouseArea {
+            MouseArea{
                 anchors.fill: parent
                 onClicked: {
                     apps.zFocus='xLatIzq'
@@ -173,7 +173,7 @@ Item{
         let obj
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
-            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 obj=o
                 break
@@ -185,7 +185,7 @@ Item{
         let obj
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
-            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 o.visible=true
                 //obj=o

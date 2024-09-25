@@ -19,7 +19,7 @@ Item {
             height: 1
             anchors.centerIn: parent
             rotation: 10*index
-            MouseArea {
+            MouseArea{
                 id: maw
                 width: r.w
                 height: r.w*2

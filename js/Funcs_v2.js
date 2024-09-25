@@ -113,13 +113,13 @@ function setFs() {
 //    }
 //    if(save){
 //        let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
-//        //if(app.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
+//        //if(apps.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
 //        unik.setFile(fn, j)
 //        loadJsonBack(fn)
 //        return
 //    }
 //    app.currentDataBack=j
-//    //if(app.dev)log.lv('sweg.loadBack(JSON.parse(j), tipo): '+j+'\ntipo: '+tipo)
+//    //if(apps.dev)log.lv('sweg.loadBack(JSON.parse(j), tipo): '+j+'\ntipo: '+tipo)
 //    sweg.loadBack(JSON.parse(j), tipo)
 //    //runJsonTempBack()
 //}
@@ -309,7 +309,7 @@ function getEdadDosFechas(dateAnterior, datePosterior) {
     let dA= new Date(dateAnterior)
     let dB = new Date(datePosterior)
     let edad = dB.getFullYear() - dA.getFullYear()
-    //if(app.dev)log.lv('getEdadDosFechas( ... ): \n'+dA.toString()+'\n'+dB.toString())
+    //if(apps.dev)log.lv('getEdadDosFechas( ... ): \n'+dA.toString()+'\n'+dB.toString())
 
     let vANac=dA.getFullYear()
     let vMNac=dA.getMonth()
@@ -478,9 +478,9 @@ function mkTransFile(){
     let json=JSON.parse(jsonFileDataInterior)
     let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
-    //if(app.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
+    //if(apps.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
     json.params.n=json.params.n+' - '+jsonExt.params.n
-    //if(app.dev)log.lv('json.params.n: '+json.params.n)
+    //if(apps.dev)log.lv('json.params.n: '+json.params.n)
     json.params.t='trans'
     if(json.params[app.stringRes+'zoompos']){
         delete json.params[app.stringRes+'zoompos']
@@ -566,7 +566,7 @@ function runJsonTempBack(){
         jsonData=JSON.parse(jss)
     }catch(e){
         console.log('runJsonTempBack() Json Fallado: '+zm.currentDataBack)
-        if(app.dev){
+        if(apps.dev){
             log.lv('Ha fallado la carga del archivo BACK '+apps.url)
             log.lv(zm.currentDataBack)
             //log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
@@ -582,7 +582,7 @@ function runJsonTempBack(){
         params=jsonData.params
     }
     if(params.t==='vn'){
-        if(app.dev)log.lv('No se carga params back porque es tipo VN.')
+        if(apps.dev)log.lv('No se carga params back porque es tipo VN.')
         return
     }
     let nom=params.n.replace(/_/g, ' ')
@@ -661,7 +661,7 @@ function setNewTimeJsonFileDataBack(date){
     //log.ls('setNewTimeJsonFileDataBack(date): '+date, 0, 500)
     //log.ls('zm.fileDataBack: '+zm.fileDataBack, 0, 500)
     if(zm.fileDataBack===''){
-        if(app.dev)log.lv('zm.fileDataBack is empty.')
+        if(apps.dev)log.lv('zm.fileDataBack is empty.')
         return
     }
     let jsonData=JSON.parse(zm.fileDataBack)

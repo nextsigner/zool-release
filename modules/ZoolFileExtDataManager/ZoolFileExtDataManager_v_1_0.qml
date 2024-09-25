@@ -78,9 +78,9 @@ Rectangle {
             Row{
                 spacing: app.fs*0.25
                 anchors.right: parent.right
-                visible: app.dev
+                visible: apps.dev
                 ZoolButton{
-                    visible: app.dev
+                    visible: apps.dev
                     text: 'Prueba'
                     onClicked: {
                         let t='sin'
@@ -102,7 +102,7 @@ Rectangle {
                     }
                 }
                 ZoolButton{
-                    visible: app.dev
+                    visible: apps.dev
                     text: 'UpdateList'
                     onClicked: {
                         r.updateList()
@@ -418,7 +418,7 @@ Rectangle {
         font.pixelSize: app.fs*2
         color: 'red'
         anchors.centerIn: parent
-        visible: app.dev
+        visible: apps.dev
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
@@ -450,7 +450,7 @@ Rectangle {
         txtFileName.text=zfdm.getParam('n').replace(/_/g, ' ')
         let exts=zfdm.getExts()
         if(!exts)return
-        //if(app.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
+        //if(apps.dev)log.lv('Object.keys(exts).length: '+Object.keys(exts).length)
         for(var i=0;i<Object.keys(exts).length;i++){
             let json=exts[i].params
             lm.append(lm.addItem(json))

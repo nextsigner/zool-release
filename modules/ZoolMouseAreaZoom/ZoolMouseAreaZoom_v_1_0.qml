@@ -7,7 +7,7 @@ Item{
     transform: Scale {
         id: tform
     }
-    MouseArea {
+    MouseArea{
         anchors.fill: parent
         property double factor: 2.0
         onWheel:

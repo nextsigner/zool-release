@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import comps.MouseAreaView 1.0
 
 Item {
     id: r
@@ -19,10 +20,11 @@ Item {
             height: 1
             anchors.centerIn: parent
             rotation: 10*index
-            MouseArea {
+            MouseAreaView{
                 id: maw
                 width: r.w
                 height: r.w*2
+                bgc: '#ff8833'
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin:  0-sweg.fs*0.05

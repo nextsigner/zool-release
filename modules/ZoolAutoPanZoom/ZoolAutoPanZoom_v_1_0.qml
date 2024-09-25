@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 
 Rectangle{
     id: r
-    visible: app.dev
+    visible: apps.dev
     width: parent.width
     height: parent.height
     color: 'transparent'

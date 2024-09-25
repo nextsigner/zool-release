@@ -446,9 +446,11 @@ Item{
                         //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
                         */
                     }
-                    MouseArea {
+                    MouseAreaView{
                         anchors.fill: parent
                         acceptedButtons: Qt.AllButtons;
+                        bgc: 'green'
+                        //z:parent.z-1
                         onClicked: {
                             apps.zFocus='xMed'
                             if (mouse.button === Qt.RightButton) {
@@ -640,7 +642,7 @@ Item{
         color: apps.fontColor
         anchors.centerIn: parent
         anchors.verticalCenterOffset: app.fs*3
-        visible: app.dev
+        visible: apps.dev
         Text{
             id: txtMod
             text: app.t+r.ejeTipoCurrentIndex
@@ -848,24 +850,24 @@ Item{
 
         let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'
         //if(true)log.lv('Json loadBackFromArg(): '+JSON.stringify(JSON.parse(js)))
-        //if(app.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
+        //if(apps.dev)log.lv('Json fallado: loadBack( '+nom+',  '+vd+',  '+vm+',  '+va+',  '+vh+',  '+vmin+',  '+vgmt+',  '+vlat+',  '+vlon+',  '+valt+',  '+vCiudad+',  '+edad+',  '+tipo+',  '+hsys+',  '+ms+',  '+vAtRigth+')')
 
-        //if(app.dev)log.lv('Json fallado: loadBack(...) json: '+js)
+        //if(apps.dev)log.lv('Json fallado: loadBack(...) json: '+js)
 
         let json=JSON.parse(js)
 
         /*let extIdExist=zfdm.isExtId(extId)
-        if(app.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
+        if(apps.dev && extIdExist)log.lv('ExtId ya existe. extIdExist='+extIdExist)
         let isExtIdInAExtsIds=app.aExtsIds.indexOf(extId)>=0?true:false
-        if(app.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
+        if(apps.dev && isExtIdInAExtsIds)log.lv('ExtId ya estan en aExtsIds. isExtIdInAExtsIds='+isExtIdInAExtsIds)
         if(!extIdExist && !isExtIdInAExtsIds){
             //zfdm.addExtData(json)
             zm.loadBack(json)
         }else{
-            if(app.dev)log.lv('ExtId ya existe.')
+            if(apps.dev)log.lv('ExtId ya existe.')
             let extJson={}
             extJson.params=zfdm.getExtData(extId)
-            if(app.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
+            if(apps.dev)log.lv('Cargando ExtData...\n'+JSON.stringify(extJson, null, 2))
             zm.loadBack(extJson)
         }*/
         zm.loadBack(json)
@@ -1002,7 +1004,7 @@ Item{
 
         zm.currentJsonBack=JSON.parse(json)
         //log.lv('zm.currentJsonBack='+JSON.stringify(zm.currentJsonBack, null, 2))
-        //        if(app.dev)
+        //        if(apps.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
         //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
         let scorrJson=json.replace(/\n/g, '')
@@ -1050,7 +1052,7 @@ Item{
         //panelDataBodiesV2.loadJson(j)
 
         //app.backIsSaved=isSaved
-        //if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
+        //if(apps.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         if(!r.lockEv){
             r.ev=true
         }
@@ -1105,7 +1107,7 @@ Item{
         let fileName=fileNameMat0[fileNameMat0.length-1].replace(/_/g, ' ').replace('.json', '')
         zoolVoicePlayer.speak('Cargando el archivo '+fileName, false)
         if(!fileLoaded){
-            if(app.dev)log.lv('Error app.j.loadFile('+filePath+') fileLoaded: '+fileLoaded)
+            if(apps.dev)log.lv('Error app.j.loadFile('+filePath+') fileLoaded: '+fileLoaded)
             return
         }
         zm.fileData=JSON.stringify(zfdm.getJsonAbsParams(false))
@@ -1455,9 +1457,9 @@ Item{
         c+='        let s="'+s+'"\n'
         c+='        let h="casa_'+h+'"\n'
         c+='        let ss=b+"_en_"+s\n'
-        c+='        if(app.dev)log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
+        c+='        if(apps.dev)log.lv("Buscando datos de:"+b+" en "+s+" "+ss)\n'
         c+='        let cmd="/home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/getData.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/"+b+".json "+b+" "+s+" "+h+""\n'
-        c+='        if(app.dev)log.lv("CMD:"+cmd)\n'
+        c+='        if(apps.dev)log.lv("CMD:"+cmd)\n'
         c+='        console.log("CMD:"+cmd)\n'
         c+='        run(cmd)\n'
         c+='    }\n'
@@ -1486,9 +1488,9 @@ Item{
         c+='        destroy()\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        if(app.dev)log.lv("Buscando datos de:'+num+'")\n'
+        c+='        if(apps.dev)log.lv("Buscando datos de:'+num+'")\n'
         c+='        let cmd="'+bashScriptPath+' '+jsonFilePath+' '+num+'"\n'
-        c+='        if(app.dev)log.lv("CMD:"+cmd)\n'
+        c+='        if(apps.dev)log.lv("CMD:"+cmd)\n'
         c+='        console.log("CMD:"+cmd)\n'
         c+='        run(cmd)\n'
         c+='    }\n'
@@ -1570,6 +1572,7 @@ Item{
     function revIsDataDiff(){
         let j0=zfdm.getJsonAbsParams()
         //log.lv('j0:'+JSON.stringify(j0, null, 2))
+        if(!zm.currentJson)return false;
         let j1=zm.currentJson.params
         let sj1='s_'+j1.d+'_'+j1.m+'_'+j1.a+'_'+j1.h+'_'+j1.min+'_'+j1.gmt+'_'+j1.lat+'_'+j1.lon+'_'+j1.alt
         let sj0='s_'+j0.d+'_'+j0.m+'_'+j0.a+'_'+j0.h+'_'+j0.min+'_'+j0.gmt+'_'+j0.lat+'_'+j0.lon+'_'+j0.alt

@@ -250,7 +250,7 @@ Rectangle {
         let obj
         for(var i=0;i<xSections.children.length;i++){
             let o=xSections.children[i]//.children[0]
-            //if(app.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 obj=o
                 break

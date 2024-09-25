@@ -240,7 +240,7 @@ Item {
         antialiasing: true
         Rectangle{
             //visible: false//Depurando
-            visible: app.dev
+            visible: apps.dev
             width: parent.width*3
             height: r.wb
             color: 'yellow'

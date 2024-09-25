@@ -150,7 +150,7 @@ Rectangle{
         c+='    UnikQProcess{\n'
         c+='        id: uqpPico2Wave'+ms+'\n'
         c+='        onLogDataChanged:{\n'
-        c+='            //if(app.dev)log.lv(\'Audio: '+filePath+'\')\n'
+        c+='            //if(apps.dev)log.lv(\'Audio: '+filePath+'\')\n'
         if(!isTemp){
             c+='                    mkAudio("'+filePath+'")\n'
         }else{

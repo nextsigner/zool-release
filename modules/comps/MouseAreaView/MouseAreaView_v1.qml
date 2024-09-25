@@ -5,7 +5,7 @@ MouseArea{
     property color bgc: 'red'
     property color bc: 'yellow'
     property int bw: 2
-    property int v: !app.dev?0:2
+    property int v: !apps.dev?0:2
     property bool c: false
     Rectangle{
         visible: r.v!==0

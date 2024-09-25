@@ -8,6 +8,8 @@ Settings{
 
     property string lastVersion: '3.14.0'
 
+    property bool dev: false
+
     property string appId: ''
     onAppIdChanged: {
         unik.setFile('appid', appId)

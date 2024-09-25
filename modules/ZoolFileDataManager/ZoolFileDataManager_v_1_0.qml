@@ -9,7 +9,7 @@ Item{
 
     //Retorna string con el contenido del archivo actual
     function getData(){
-        //if(app.dev)log.lv('zfdm.getData( '+r.currentUrl+' )')
+        //if(apps.dev)log.lv('zfdm.getData( '+r.currentUrl+' )')
         return unik.getFile(r.currentUrl)
     }
     //Retorna json con el contenido del archivo actual
@@ -30,12 +30,12 @@ Item{
         let ret=false
         r.currentUrl=url
         if(getData()==='error'){
-            if(app.dev)log.lv(' Error de carga de archivo! zfdm.loadFile( '+url+' )')
+            if(apps.dev)log.lv(' Error de carga de archivo! zfdm.loadFile( '+url+' )')
             return ret
         }
         let j = getJson()
         if(!j){
-            if(app.dev)log.lv(' Error carga y formato de archivo! zfdm.loadFile( '+url+' )')
+            if(apps.dev)log.lv(' Error carga y formato de archivo! zfdm.loadFile( '+url+' )')
             return ret
         }
         setJsonAbs(j)
@@ -80,7 +80,7 @@ Item{
         let r=true
         let mf=mkFile(j, isTemp)
         if(mf[0]===true){
-            if(app.dev)log.lv('mkFileAndLoad(...) app.j.loadJson( '+mf[1]+')')
+            if(apps.dev)log.lv('mkFileAndLoad(...) app.j.loadJson( '+mf[1]+')')
             //app.j.loadJson(mf[1])
             zm.loadJsonFromFilePath(mf[1])
             return r
@@ -189,14 +189,14 @@ Item{
         //log.lv('json: '+JSON.stringify(json, null, 2))
     }
     //    function addExtData(json){
-//        if(app.dev)log.lv('zfdm.addExtData( '+JSON.stringify(json, null, 2)+' )')
+//        if(apps.dev)log.lv('zfdm.addExtData( '+JSON.stringify(json, null, 2)+' )')
 //        let o=r.ja.exts
-//        if(app.dev)log.lv('r.ja.exts= '+JSON.stringify(o, null, 2)+'')
+//        if(apps.dev)log.lv('r.ja.exts= '+JSON.stringify(o, null, 2)+'')
 //        if(!o)return
 //        let nIndex=Object.keys(o).length
 //        o[nIndex]={}
 //        o[nIndex]=json
-//        if(app.dev)log.lv('adding ext data:'+JSON.stringify(r.ja, null, 2))
+//        if(apps.dev)log.lv('adding ext data:'+JSON.stringify(r.ja, null, 2))
 //    }
     function getParamExt(p,i){
         return r.ja.exts[i][''+p]
@@ -233,7 +233,7 @@ Item{
                 njson.exts[i].params.ms=d.getTime()
             }
         }
-        if(app.dev)log.lv('saveExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
+        if(apps.dev)log.lv('saveExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
         let isSaved=unik.setFile(apps.url, JSON.stringify(njson))
         if(isSaved)zsm.getPanel('ZoolFileExtDataManager').updateList()
         return isSaved
@@ -245,9 +245,9 @@ Item{
 //        njson.params=r.ja.params
 //        njson.exts=[]
 //        let o=r.ja.exts
-//        if(app.dev)log.lv('o:'+o.toString())
+//        if(apps.dev)log.lv('o:'+o.toString())
 //        o=o.filter(Boolean)
-//        if(app.dev)log.lv('o2:'+o.toString())
+//        if(apps.dev)log.lv('o2:'+o.toString())
 //        for(var i=0;i<Object.keys(o).length;i++){
 //            let json=o[i].params
 //            if(o[i]){
@@ -259,11 +259,11 @@ Item{
 //            }
 //        }
 //        njson.exts=njson.exts.filter(Boolean)
-//        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
+//        if(apps.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
 //        let seted=unik.setFile(apps.url, JSON.stringify(njson))
 //        if(seted)r.ja=njson
 //        let forReload=extId===zoolDataView.uExtIdLoaded
-//        if(app.dev)log.lv('deleteExtToJsonFile( '+extId+' )\nzoolDataView.uExtIdLoaded: '+zoolDataView.uExtIdLoaded+'\nforReload: '+forReload)
+//        if(apps.dev)log.lv('deleteExtToJsonFile( '+extId+' )\nzoolDataView.uExtIdLoaded: '+zoolDataView.uExtIdLoaded+'\nforReload: '+forReload)
 
 //        let reLoaded=forReload?r.loadFile(apps.url):true
 //        if(forReload)app.j.loadJson(apps.url)

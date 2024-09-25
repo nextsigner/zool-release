@@ -61,7 +61,7 @@ Rectangle {
         interval: 3000
         onTriggered: {
             //comentado en v1.5
-            //if(app.dev)log.lv('tWaitLoadExterior...')
+            //if(apps.dev)log.lv('tWaitLoadExterior...')
             //r.setDirPrimRotation()
         }
     }
@@ -478,14 +478,14 @@ Rectangle {
                         text: 'a1: '+sweg.listCotasShowing.toString()
                         font.pixelSize: app.fs*0.5
                         color: 'red'
-                        visible: app.dev
+                        visible: apps.dev
                     }
                     Text{
                         id: txtinfo2
                         text: 'a2: '+sweg.listCotasShowingBack.toString()
                         font.pixelSize: app.fs*0.5
                         color: 'red'
-                        visible: app.dev
+                        visible: apps.dev
                     }
                 }
             }
@@ -570,7 +570,7 @@ Rectangle {
     }
     function setDirPrimRotation(){
         //if(!r.visible  && !r.loadingFromExternal)return
-        //if(app.dev)log.lv('setDirPrimRotation()... r.loadingFromExternal: '+r.loadingFromExternal)
+        //if(apps.dev)log.lv('setDirPrimRotation()... r.loadingFromExternal: '+r.loadingFromExternal)
         r.ulat=app.currentLat
         r.ulon=app.currentLon
         r.lat=app.currentLat
@@ -619,7 +619,7 @@ Rectangle {
         let vhEvento=controlTimeFechaEvento.hora
         let vminEvento=controlTimeFechaEvento.minuto
 
-        //if(app.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
+        //if(apps.dev)log.lv('controlTimeFechaEvento.onCurrentDateChanged...')
         let edad=app.j.getEdadDosFechas(app.currentDate, new Date(vaEvento, vmEvento-1, vdEvento, vhEvento, vminEvento))
         let aR=[]
         aR.push('<b>Fecha:</b> '+vdEvento+'/'+vmEvento+'/'+vaEvento)
@@ -651,7 +651,7 @@ Rectangle {
 
 
     //    function loadJsonFromArgsBack(){
-    //        //if(app.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
+    //        //if(apps.dev)log.ls('loadJsonFromArgsBack()...', 0, log.width)
 
     //        //return en v1.5
     //        return
@@ -727,7 +727,7 @@ Rectangle {
 
     //        app.j.loadBack(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, '0', vtipo, vhsys, -1, [])
 
-    //        //if(app.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
+    //        //if(apps.dev)log.lv('loadJsonFromArgsBack():\n'+app.fileData)
     //        //let json=JSON.parse(app.currentJsonData)
     //        //xArcsBack.rotation=360-jsonData.ph.h1.gdec+signCircle.rot//+1
     //        let rotSignCircle=sweg.objSignsCircle.rot
@@ -746,7 +746,7 @@ Rectangle {
 
     function cloneIntToBackAndRot(deg){
         let json=app.currentJson
-        //if(app.dev)log.lv('app.currentJson: '+JSON.stringify(app.currentJson, null, 2))
+        //if(apps.dev)log.lv('app.currentJson: '+JSON.stringify(app.currentJson, null, 2))
 
         //Atención! Se debe definir app.t='dirprim'
         //y sweg.dirPrimRot antes de llamar

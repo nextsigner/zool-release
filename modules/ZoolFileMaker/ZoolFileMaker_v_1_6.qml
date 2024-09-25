@@ -729,9 +729,9 @@ function setNewJsonFileData(){
             asTemp=false
         }
         if(zfdm.mkFileAndLoad(json, asTemp)){
-            if(app.dev)log.lv('Archivo creado: '+json.params.n)
+            if(apps.dev)log.lv('Archivo creado: '+json.params.n)
         }else{
-            if(app.dev)log.lv('Archivo NO creado: '+json.params.n)
+            if(apps.dev)log.lv('Archivo NO creado: '+json.params.n)
         }
     }
     function enter(){

@@ -50,9 +50,9 @@ Item{
                 let j=JSON.parse(data)
                 if(j.isRec && j.app._id===apps.appId && j.app.userId===apps.zoolUserId){
                     timerCheckUserAndAppIds.stop()
-                    if(app.dev)log.lv('setUserAndAppId dice UserId y AppId sincronizadas')
+                    if(apps.dev)log.lv('setUserAndAppId dice UserId y AppId sincronizadas')
                 }else{
-                    if(app.dev)log.lv('setUserAndAppId dice UserId y AppId NO sincronizadas')
+                    if(apps.dev)log.lv('setUserAndAppId dice UserId y AppId NO sincronizadas')
                 }
 
             }else{

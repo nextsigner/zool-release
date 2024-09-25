@@ -133,10 +133,10 @@ Item {
                                 //rotation: img1.rotation
                                 antialiasing: true
                             }
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: apps.xAsShowIcon=!apps.xAsShowIcon
-                            }
+//                            MouseArea{
+//                                anchors.fill: parent
+//                                onClicked: apps.xAsShowIcon=!apps.xAsShowIcon
+//                            }
                         }
                         Rectangle{
                             width: r.pointerFs//*0.8

@@ -188,7 +188,7 @@ Item {
                     interval: 1500
                     onTriggered: r.enableAnZoomAndPos=true
                 }
-                MouseArea {
+                MouseArea{
                     //z:parent.z-1
                     id: dragArea
                     hoverEnabled: true
@@ -223,7 +223,7 @@ Item {
                         rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
                         //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
                     }
-                    MouseArea {
+                    MouseArea{
                         anchors.fill: parent
                         acceptedButtons: Qt.AllButtons;
                         onClicked: {
@@ -374,7 +374,7 @@ Item {
         color: 'transparent'
         border.width: 12
         border.color: 'red'
-        visible: app.dev
+        visible: apps.dev
     }
     Rectangle{
         width: txtMod.contentWidth+app.fs
@@ -382,7 +382,7 @@ Item {
         color: apps.fontColor
         anchors.centerIn: parent
         anchors.verticalCenterOffset: app.fs*3
-        visible: app.dev
+        visible: apps.dev
         Text{
             id: txtMod
             text: app.t
@@ -565,7 +565,7 @@ Item {
     function loadSweJsonBack(json){
         //console.log('JSON::: '+json)
         app.currentJsonBack=JSON.parse(json)
-        //        if(app.dev)
+        //        if(apps.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
         //            log.lv('ZoolBodies.loadSweJsonBack(json) app.currentJsonBack: '+app.currentJsonBack)
         let scorrJson=json.replace(/\n/g, '')
@@ -597,7 +597,7 @@ Item {
             isSaved=JSON.parse(app.fileDataBack).ms>=0
         }
         app.backIsSaved=isSaved
-        if(app.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
+        if(apps.dev)log.lv('sweg.loadSweJsonBack() isSaved: '+isSaved)
         app.ev=true
         //centerZoomAndPos()
     }

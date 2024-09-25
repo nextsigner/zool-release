@@ -10,7 +10,7 @@ ZoolMenus{
         enabled: app.t==='rs'
         text: qsTr("Guardar Revolución")
         onTriggered: {
-            //if(app.dev)log.lv('MenuBack: '+JSON.stringify(JSON.parse(app.fileDataBack, null, 2)))                       }
+            //if(apps.dev)log.lv('MenuBack: '+JSON.stringify(JSON.parse(app.fileDataBack, null, 2)))                       }
             zfdm.addExtData(JSON.parse(app.fileDataBack))
             zsm.currentIndex=1
         }
@@ -88,7 +88,7 @@ ZoolMenus{
             text: qsTr(apps.showNumberLines?"Ocultar grados":"Mostrar grados")
             onTriggered: {apps.showNumberLines=!apps.showNumberLines}
         }
-        Action {enabled: app.dev; text: qsTr("Cargar Ejemplo"); onTriggered: {
+        Action {enabled: apps.dev; text: qsTr("Cargar Ejemplo"); onTriggered: {
                 zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
             }
         }
@@ -101,13 +101,24 @@ ZoolMenus{
             }
         }
         Action {
-            text: !app.dev?"Habilitar Modo Desarrollador":"Deshabilitar Modo Desarrollador"
+            text: !apps.dev?"Habilitar Modo Desarrollador":"Deshabilitar Modo Desarrollador"
             onTriggered: {
                 if(unik.folderExist('/home/ns')){
-                    app.dev=!app.dev
+                    apps.dev=!apps.dev
                 }
             }
         }
+        Action {
+            text: !apps.speakEnabled?"Habilitar Voz (Linux)":"Deshabilitar Voz (Linux)"
+            onTriggered: {
+                apps.speakEnabled=!apps.speakEnabled
+                if(apps.speakEnabled){
+                    let msg='Audio activado.'
+                    zoolVoicePlayer.speak(msg, true)
+                }
+            }
+        }
+
     }
     Action {text: qsTr("Salir"); onTriggered: {
             Qt.quit()
@@ -116,9 +127,9 @@ ZoolMenus{
     Component{
         id: compDev
         Action {
-            text: "Dev: "//+app.dev;
+            text: "Dev: "//+apps.dev;
             onTriggered: {
-                app.dev=!app.dev
+                apps.dev=!apps.dev
             }
         }
     }
