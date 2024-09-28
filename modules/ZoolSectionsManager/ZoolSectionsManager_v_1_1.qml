@@ -5,6 +5,7 @@ import '../../comps' as Comps
 import ZoolDataText 1.0
 import ZoolFileExtDataManager 1.2
 import ZoolFileManager 1.3
+import ZoolListLunar 1.0
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.5
 import ZoolNumPit 1.1
@@ -90,6 +91,9 @@ Item{
 
             //2
             Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;}}
+
+            //2
+            Comps.XPaneles{ZoolListLunar{id: zoolListLunar;}}
 
             //1
             Comps.XPaneles{ZoolFileManager{id: zoolFileManager}}

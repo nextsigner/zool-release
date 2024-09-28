@@ -1,1 +1,1 @@
-Se agrega apps.dev a ZoolAppSettings
+Se comienza a programar ZoolListLunar

@@ -804,10 +804,9 @@ ZoolMainWindow{
                 //Detalles Técnicos extras
                 if(apps.dev){
                     log.visible=true
-                    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
-                    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
+                    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)                    
                 }
-                if(apps.dev)log.lv('Cargando '+apps.url)
+                if(apps.dev)log.lv('Cargando en modo desarrollo: '+apps.url)
                 zm.loadJsonFromFilePath(apps.url)
             }else{
                 if(!unik.fileExist(apps.url)){
