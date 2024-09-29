@@ -34,17 +34,24 @@ Rectangle {
 
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
-//        if(svIndex===itemIndex){
-//            if(edadMaxima<=0)xTit.showTi=true
-//            tF.restart()
-//        }else{
-//            tF.stop()
-//            tiEdad.focus=false
-//        }
+        //        if(svIndex===itemIndex){
+        //            if(edadMaxima<=0)xTit.showTi=true
+        //            tF.restart()
+        //        }else{
+        //            tF.stop()
+        //            tiEdad.focus=false
+        //        }
     }
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para crear revoluciones solares.', true)
+        if(visible){
+            if(lv.count===0&&tiEdad.text===''){
+                let d=new Date(Date.now())
+                tiEdad.text=d.getFullYear()
+                setListLunar(d.getFullYear())
+            }
+            zoolVoicePlayer.speak('Sección de Lista de Eventos Lunares.', true)
+        }
     }
     Item{id:xuqp}
 
@@ -144,26 +151,26 @@ Rectangle {
                     }
                 }
 
-//                ZoolText{
-//                    id: txtLabelTit
-//                    //text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
-//                    text: 'Revoluciones Solares hasta los '+r.edadMaxima+' años'
-//                    font.pixelSize: app.fs*0.5
-//                    width: parent.width-app.fs
-//                    wrapMode: Text.WordWrap
-//                    color: apps.backgroundColor
-//                    //focus: true
-//                    anchors.centerIn: parent
-//                    visible: !xTit.showTi
-//                }
+                //                ZoolText{
+                //                    id: txtLabelTit
+                //                    //text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
+                //                    text: 'Revoluciones Solares hasta los '+r.edadMaxima+' años'
+                //                    font.pixelSize: app.fs*0.5
+                //                    width: parent.width-app.fs
+                //                    wrapMode: Text.WordWrap
+                //                    color: apps.backgroundColor
+                //                    //focus: true
+                //                    anchors.centerIn: parent
+                //                    visible: !xTit.showTi
+                //                }
 
-//                Timer{
-//                    id: tShowXTit
-//                    running: false
-//                    repeat: false
-//                    interval: 3000
-//                    onTriggered: parent.showTit=true
-//                }
+                //                Timer{
+                //                    id: tShowXTit
+                //                    running: false
+                //                    repeat: false
+                //                    interval: 3000
+                //                    onTriggered: parent.showTit=true
+                //                }
 
             }
             //        Item{
@@ -216,6 +223,7 @@ Rectangle {
             //}
             ListView{
                 id: lv
+                spacing: app.fs*0.1
                 width: r.width
                 height: r.height-xTit.height-xCtrls.height//-xRetSolar.height
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -224,7 +232,7 @@ Rectangle {
                 //cacheBuffer: 150
                 //displayMarginBeginning: cacheBuffer*app.fs*3
                 clip: true
-               }
+            }
         }
     }
     ListModel{
@@ -241,10 +249,73 @@ Rectangle {
             id: item
             width: lv.width-r.border.width*2
             height: txtData.contentHeight+app.fs
-            color: selected?apps.fontColor:apps.backgroundColor
-            border.width: 1
-            border.color: !selected?apps.fontColor:apps.backgroundColor
+            color: apps.backgroundColor
+            border.width: !selected?1:3
+            border.color: apps.fontColor
             property bool selected: lv.currentIndex===index
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    lv.currentIndex=index
+                    let j=zfdm.getJsonAbs()
+                    //j.params=zfdm.getJsonAbs().params
+                    j.params.d=json.d
+                    j.params.m=json.m
+                    j.params.a=json.a
+                    j.params.h=json.h
+                    j.params.min=json.min
+                    j.params.t='trans'
+                    //let json2={}
+                    //json2.params=j.params
+                    //zm.ev=true
+                    //log.lv('j:'+JSON.stringify(j, null, 2))
+                    zm.loadBack(j)
+                    //return
+                    let t=j.params.t
+                    let hsys=j.params.hsys
+                    let nom=j.params.n
+                    let d=j.params.d
+                    let m=j.params.m
+                    let a=j.params.a
+                    let h=j.params.h
+                    let min=j.params.min
+                    let gmt=j.params.gmt
+                    let lat=j.params.lat
+                    let lon=j.params.lon
+                    let alt=j.params.alt
+                    let ciudad=j.params.c
+                    let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
+                    if(t==='rs'){
+                        let currentAnio=new Date(app.currentDate).getFullYear()
+                        strEdad='Edad: '+parseInt(a - currentAnio)+' años'
+                        //strEdad='Edad: '+Math.abs(parseInt(currentAnio - a))+' años'
+                    }
+                    let ms=j.params.ms
+                    let aL=zoolDataView.atLeft
+                    let aR=[]
+                    let strSep='?'
+                    if(t==='sin'){
+                        strSep='Sinastría'
+                    }else if(t==='trans'){
+                        strSep='Tránsitos'
+                    }else{
+                        strSep='Indefinido!'
+                    }
+                    //zoolDataView.stringMiddleSeparator=t
+
+                    //aR.push('<b>'+nom+'</b>')
+                    aR.push(''+d+'/'+m+'/'+a)
+                    //aR.push(stringEdad)
+                    aR.push(''+h+':'+min+'hs')
+                    aR.push('<b>GMT:</b> '+gmt)
+                    aR.push('<b>Ubicación:</b> '+ciudad)
+                    aR.push('<b>Lat:</b> '+parseFloat(lat).toFixed(2))
+                    aR.push('<b>Lon:</b> '+parseFloat(lon).toFixed(2))
+                    aR.push('<b>Alt:</b> '+alt)
+
+                    zoolDataView.setDataView(strSep, aL, aR)
+                }
+            }
             Row{
                 spacing: app.fs*0.25
                 anchors.centerIn: parent
@@ -285,8 +356,8 @@ Rectangle {
                 Text{
                     id: txtData
                     text: 'Dato index: '+index
-                    font.pixelSize: app.fs*0.5
-                    color: !selected?apps.fontColor:apps.backgroundColor
+                    font.pixelSize: app.fs*0.65
+                    color: apps.fontColor
                     width: parent.parent.width-xLuna.width-app.fs-app.fs*0.25
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -294,25 +365,29 @@ Rectangle {
                 }
             }
             Component.onCompleted: {
+                //log.lv('json: '+JSON.stringify(json, null, 2))
                 let sd=''
                 let d=json.d
                 let m=json.m
                 let a=json.a
-                sd+='<b>'+json.t+'</b><br>'
+                if(json.isEvent===0){
+                    xLuna.t=0
+                    sd+='<b>Luna Nueva</b><br>'
+                }
+                if(json.isEvent===1){
+                    xLuna.t=1
+                    sd+='<b>Luna Creciente</b><br>'
+                }
+                if(json.isEvent===2){
+                    xLuna.t=2
+                    sd+='<b>Luna Llena</b><br>'
+                }
+                if(json.isEvent===3){
+                    xLuna.t=3
+                    sd+='<b>Luna Menguante</b><br>'
+                }
                 sd+='<b>Fecha</b>: '+d+'/'+m+'/'+a+' '
                 txtData.text=sd
-                if(json.t.indexOf('Nueva')>=0){
-                    xLuna.t=0
-                }
-                if(json.t.indexOf('Creciente')>=0){
-                    xLuna.t=1
-                }
-                if(json.t.indexOf('Llena')>=0){
-                    xLuna.t=2
-                }
-                if(json.t.indexOf('Menguante')>=0){
-                    xLuna.t=3
-                }
             }
         }
     }
@@ -326,15 +401,15 @@ Rectangle {
     function setListLunar(anio){
         lm.clear()
         let finalCmd=''
-        finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoonsAtYear.py" '+anio+' ciclos'
+        finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoons.py" '+anio+' ciclos'
         console.log('finalCmd: '+finalCmd)
         let c=''
-            //+'  if(logData.length<=3||logData==="")return\n'
+        //+'  if(logData.length<=3||logData==="")return\n'
             +'  let j\n'
             +'  try {\n'
             +'      j=JSON.parse(logData)\n'
             +'      procesarDatos(j)\n'
-            //+'  logData=""\n'
+        //+'  logData=""\n'
             +'  } catch(e) {\n'
             +'      console.log(e+" "+logData);\n'
             +'  }\n'
@@ -365,8 +440,24 @@ Rectangle {
     }
     function procesarDatos(j){
         //log.lv('json: '+JSON.stringify(j, null, 2))
+        for(var i=0;i<12;i++){
+            let mes=j.meses[i]
+            //log.lv('mes '+i+': '+JSON.stringify(mes, null, 2))
+            for(var i2=0;i2<Object.keys(mes.ciclos).length;i2++){
+                let ciclo=mes.ciclos[i2]
+                //log.lv('ciclo '+i2+': '+JSON.stringify(ciclo, null, 2))
+                if(ciclo.isEvent>=0){
+                    //log.lv('ciclo '+i2+': '+JSON.stringify(ciclo, null, 2))
+                    lm.append(lm.addItem(ciclo))
+                }
+            }
+        }
+
+        return
         let aData=[]
+        let aDataTipos=[]
         let t=Object.keys(j)[0]
+        let uTipo=''
         if(t==='ciclos'){
             for(var i=0;Object.keys(j).length;i++){
                 let tipo=j[t][i].t
@@ -375,11 +466,16 @@ Rectangle {
                 let a=j[t][i].a
                 let s=d+'-'+m+'-'+a
                 if(aData.indexOf(s)<0){
+
                     aData.push(s)
-                    //log.lv('tipo: '+tipo+' s: '+s)
-                    if(a===parseInt(tiEdad.text)){
-                        lm.append(lm.addItem(j[t][i]))
-                    }
+                    if(uTipo!==tipo)lm.append(lm.addItem(j[t][i]))
+                    uTipo=tipo
+                    //                    if(i>0 && aDataTipos[i - 1].indexOf(tipo)<0){
+                    //                        lm.append(lm.addItem(j[t][i]))
+                    //                    }else if(a===parseInt(tiEdad.text)){
+
+                    //                    }
+                    //                    aDataTipos.push(tipo)
                 }
             }
         }
@@ -432,4 +528,4 @@ Rectangle {
     function desactivar(){
         tiEdad.focus=false
     }
-    }
+}
