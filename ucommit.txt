@@ -1,1 +1,1 @@
-Se crea script para calculo de lunas getMoons.py
+Se crea script getMoons.py

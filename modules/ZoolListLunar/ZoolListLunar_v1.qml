@@ -265,12 +265,7 @@ Rectangle {
                     j.params.h=json.h
                     j.params.min=json.min
                     j.params.t='trans'
-                    //let json2={}
-                    //json2.params=j.params
-                    //zm.ev=true
-                    //log.lv('j:'+JSON.stringify(j, null, 2))
                     zm.loadBack(j)
-                    //return
                     let t=j.params.t
                     let hsys=j.params.hsys
                     let nom=j.params.n
@@ -294,14 +289,19 @@ Rectangle {
                     let aL=zoolDataView.atLeft
                     let aR=[]
                     let strSep='?'
-                    if(t==='sin'){
-                        strSep='Sinastría'
-                    }else if(t==='trans'){
-                        strSep='Tránsitos'
-                    }else{
-                        strSep='Indefinido!'
+                    strSep='Evento Lunar'
+                    if(json.isEvent===0){
+                        strSep='Luna Nueva'
                     }
-                    //zoolDataView.stringMiddleSeparator=t
+                    if(json.isEvent===1){
+                        strSep='Luna Creciente'
+                    }
+                    if(json.isEvent===2){
+                        strSep='Luna Llena'
+                    }
+                    if(json.isEvent===3){
+                        strSep='Luna Menguante'
+                    }
 
                     //aR.push('<b>'+nom+'</b>')
                     aR.push(''+d+'/'+m+'/'+a)
