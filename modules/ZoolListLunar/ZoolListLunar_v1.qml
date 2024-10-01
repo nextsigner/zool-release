@@ -271,6 +271,7 @@ Rectangle {
                         let minte=matTe[1]
                         j.params.h=parseInt(hte)
                         j.params.min=parseInt(minte)
+                        j.params.gmt=0
                     }
                     j.params.t='trans'
                     zm.loadBack(j)
