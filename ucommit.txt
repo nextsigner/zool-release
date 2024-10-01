@@ -1,1 +1,1 @@
-Se modifica el gmt al cargar eclipse en ZoolListLunar
+Se corrigen errores de ZoolListLunar

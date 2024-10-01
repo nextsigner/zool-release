@@ -31,6 +31,10 @@ Rectangle {
     property real ulat:-100.00
     property real ulon:-100.00
 
+    property int uAnio: -1
+
+    property var uJson: ({})
+
 
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
@@ -39,16 +43,14 @@ Rectangle {
         //            tF.restart()
         //        }else{
         //            tF.stop()
-        //            tiEdad.focus=false
+        //            tiAnio.focus=false
         //        }
     }
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
         if(visible){
-            if(lv.count===0&&tiEdad.text===''){
-                let d=new Date(Date.now())
-                tiEdad.text=d.getFullYear()
-                setListLunar(d.getFullYear())
+            if(lv.count===0){
+                setListLunar(parseInt(tiAnio.text), showAll.checked)
             }
             zoolVoicePlayer.speak('Sección de Lista de Eventos Lunares.', true)
         }
@@ -77,9 +79,9 @@ Rectangle {
                 //visible: !checkBoxRetSolar.checked
                 onShowTiChanged: {
                     if(showTi){
-                        tiEdad.focus=true
-                        tiEdad.text=r.edadMaxima
-                        tiEdad.selectAll()
+                        tiAnio.focus=true
+                        tiAnio.text=r.edadMaxima
+                        tiAnio.selectAll()
                     }
                 }
                 MouseArea{
@@ -120,7 +122,7 @@ Rectangle {
                             border.width: 1
                             border.color: apps.backgroundColor
                             TextInput{
-                                id: tiEdad
+                                id: tiAnio
                                 color: apps.backgroundColor
                                 font.pixelSize: app.fs*0.5
                                 width: parent.width*0.8
@@ -145,7 +147,24 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
+                                setListLunar(parseInt(tiAnio.text), showAll.checked)
+                            }
+                        }
+                        Row{
+                            spacing: app.fs*0.1
+                            anchors.verticalCenter: parent.verticalCenter
+                            ZoolText{
+                                text:showAll.checked?'<b>Ver Solo</b><br><b>Eclipses</b>':'<b>Ver todas</b><br><b>las lunas</b>'
+                                anchors.verticalCenter: parent.verticalCenter
+                                color: apps.backgroundColor
+                                font.pixelSize: app.fs*0.5
+                            }
+                            CheckBox{
+                                id: showAll
+                                checked: true
+                                onCheckedChanged: {
+                                    setListLunar(tiAnio.text, checked)
+                                }
                             }
                         }
                     }
@@ -197,6 +216,7 @@ Rectangle {
                     //height:fs
                     fs: app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
+                    opacity: lv.currentIndex>=0?1.0:0.0
                 }
                 ZoolButton{
                     text:'\uf061'
@@ -205,18 +225,20 @@ Rectangle {
                         if(lv.currentIndex<lv.count-1)lv.currentIndex++
                     }
                 }
-                ZoolText{
-                    text: r.currentAnioSelected//lv.currentIndex
-                    fs: app.fs*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+//                ZoolText{
+//                    text: r.currentAnioSelected//lv.currentIndex
+//                    fs: app.fs*0.5
+//                    anchors.verticalCenter: parent.verticalCenter
+//                }
                 ZoolButton{
                     id: btnLoad
                     text:'Cargar'
                     //height: app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked:{
-                        r.prepareLoad()
+                        //setListLunar(parseInt(tiAnio.text), true)
+                        //log.lv('c:'+JSON.stringify(lm.get(lv.currentIndex).json, null, 2))
+                        loadToZm(lm.get(lv.currentIndex).json, lm.get(lv.currentIndex).ste)
                     }
                 }
             }
@@ -232,6 +254,20 @@ Rectangle {
                 //cacheBuffer: 150
                 //displayMarginBeginning: cacheBuffer*app.fs*3
                 clip: true
+                Rectangle{
+                    id: xLoading
+                    anchors.fill: parent
+                    color: 'red'//apps.backgroundColor
+                    opacity: 0.5
+                    visible: false
+                    ZoolText{
+                        text:'<b>Cargando...</b>'
+                        color: apps.backgroundColor
+                        font.pixelSize: app.fs*0.5
+                        anchors.centerIn: parent
+                    }
+                }
+
             }
         }
     }
@@ -254,75 +290,17 @@ Rectangle {
             border.width: !selected?1:3
             border.color: apps.fontColor
             property bool selected: lv.currentIndex===index
+            Rectangle{
+                anchors.fill: parent
+                color: parent.border.color
+                opacity: 0.2
+                visible: parent.selected
+            }
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
                     lv.currentIndex=index
-                    let j=zfdm.getJsonAbs()
-                    //j.params=zfdm.getJsonAbs().params
-                    j.params.d=json.d
-                    j.params.m=json.m
-                    j.params.a=json.a
-                    if(ste!==''){
-                        let mste=ste.split('|')
-                        let te=mste[0]
-                        let matTe=mste[1].split('-')
-                        let hte=matTe[0]
-                        let minte=matTe[1]
-                        j.params.h=parseInt(hte)
-                        j.params.min=parseInt(minte)
-                        j.params.gmt=0
-                    }
-                    j.params.t='trans'
-                    zm.loadBack(j)
-                    let t=j.params.t
-                    let hsys=j.params.hsys
-                    let nom=j.params.n
-                    let d=j.params.d
-                    let m=j.params.m
-                    let a=j.params.a
-                    let h=j.params.h
-                    let min=j.params.min
-                    let gmt=j.params.gmt
-                    let lat=j.params.lat
-                    let lon=j.params.lon
-                    let alt=j.params.alt
-                    let ciudad=j.params.c
-                    let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
-                    if(t==='rs'){
-                        let currentAnio=new Date(app.currentDate).getFullYear()
-                        strEdad='Edad: '+parseInt(a - currentAnio)+' años'
-                        //strEdad='Edad: '+Math.abs(parseInt(currentAnio - a))+' años'
-                    }
-                    let ms=j.params.ms
-                    let aL=zoolDataView.atLeft
-                    let aR=[]
-                    let strSep='?'
-                    strSep='Evento Lunar'
-                    if(json.isEvent===0){
-                        strSep='Luna Nueva'
-                    }
-                    if(json.isEvent===1){
-                        strSep='Luna Creciente'
-                    }
-                    if(json.isEvent===2){
-                        strSep='Luna Llena'
-                    }
-                    if(json.isEvent===3){
-                        strSep='Luna Menguante'
-                    }
-
-                    //aR.push('<b>'+nom+'</b>')
-                    aR.push(''+d+'/'+m+'/'+a)
-                    //aR.push(stringEdad)
-                    aR.push(''+h+':'+min+'hs')
-                    aR.push('<b>GMT:</b> '+gmt)
-                    aR.push('<b>Ubicación:</b> '+ciudad)
-                    aR.push('<b>Lat:</b> '+parseFloat(lat).toFixed(2))
-                    aR.push('<b>Lon:</b> '+parseFloat(lon).toFixed(2))
-                    aR.push('<b>Alt:</b> '+alt)
-
-                    zoolDataView.setDataView(strSep, aL, aR)
+                    loadToZm(json, ste)
                 }
             }
             Row{
@@ -413,9 +391,17 @@ Rectangle {
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
         zsm.aPanelesTits.push('Lista Lunar')
+        let d = new Date(Date.now())
+        r.uAnio=d.getFullYear()
+        tiAnio.text=r.uAnio
     }
-    function setListLunar(anio){
-        lm.clear()
+    function setListLunar(anio, onlyEclipses){
+        if(parseInt(r.uAnio)===parseInt(anio) && JSON.stringify(r.uJson)!=='{}'){
+            //log.lv('Cargando r.uJson de '+r.uAnio+'.')
+            procesarDatos(r.uJson, onlyEclipses)
+            return
+        }
+        //log.lv('Creando nuevo json de '+anio+'.')
         let finalCmd=''
         finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoonsV2.py" '+anio+' '+unik.getPath(5)
         console.log('finalCmd: '+finalCmd)
@@ -424,11 +410,12 @@ Rectangle {
             +'  let j\n'
             +'  try {\n'
             +'      j=JSON.parse(logData)\n'
-            +'      procesarDatos(j)\n'
+            +'      procesarDatos(j, '+onlyEclipses+')\n'
         //+'  logData=""\n'
             +'  } catch(e) {\n'
             +'      console.log(e+" "+logData);\n'
             +'  }\n'
+        r.uAnio=parseInt(anio)
         mkCmd(finalCmd, c, xuqp)
     }
     function mkCmd(finalCmd, code, item){
@@ -454,11 +441,13 @@ Rectangle {
         //console.log(c)
         let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
     }
-    function procesarDatos(j){
+    function procesarDatos(j, onlyEclipses){
         //log.lv('json: '+JSON.stringify(j, null, 2))
         //return
+        //log.lv('onlyEclipses: '+onlyEclipses)
+        r.uJson=j
+        lm.clear()
         let eclipses=j.eclipses
-
         for(var i=0;i<12;i++){
             let mes=j.meses[i]
             //log.lv('mes '+i+': '+JSON.stringify(mes, null, 2))
@@ -488,7 +477,12 @@ Rectangle {
                             break
                         }
                     }
-                    lm.append(lm.addItem(ciclo, te+'|'+he))
+                    if(onlyEclipses){
+                        if(te!=='')lm.append(lm.addItem(ciclo, te+'|'+he))
+                    }else{
+                        lm.append(lm.addItem(ciclo, te+'|'+he))
+                    }
+
                 }
             }
         }
@@ -513,7 +507,7 @@ Rectangle {
                     uTipo=tipo
                     //                    if(i>0 && aDataTipos[i - 1].indexOf(tipo)<0){
                     //                        lm.append(lm.addItem(j[t][i]))
-                    //                    }else if(a===parseInt(tiEdad.text)){
+                    //                    }else if(a===parseInt(tiAnio.text)){
 
                     //                    }
                     //                    aDataTipos.push(tipo)
@@ -523,35 +517,76 @@ Rectangle {
 
 
     }
-    function prepareLoad(){
-        //tiEdad.focus=false
-        if(!checkBoxRetSolar){
-            r.ulat=zm.currentLat
-            r.ulon=zm.currentLon
-            if(apps.dev){
-                log.lv('r.ulat: '+r.ulat)
-                log.lv('r.ulon: '+r.ulon)
-            }
-            //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, zm.currentLat, zm.currentLon, zm.currentAlt)
-        }else{
-            r.ulat=zm.currentLat
-            r.ulon=zm.currentLon
-            if(apps.dev){
-                log.lv('r.ulat: '+r.ulat)
-                log.lv('r.ulon: '+r.ulon)
-            }
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, zm.currentLat, zm.currentLon, zm.currentAlt)
-            //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
+    function loadToZm(json, ste){
+        let j=zfdm.getJsonAbs()
+        //j.params=zfdm.getJsonAbs().params
+        j.params.d=json.d
+        j.params.m=json.m
+        j.params.a=json.a
+        if(ste!==''){
+            let mste=ste.split('|')
+            let te=mste[0]
+            let matTe=mste[1].split('-')
+            let hte=matTe[0]
+            let minte=matTe[1]
+            j.params.h=parseInt(hte)
+            j.params.min=parseInt(minte)
+            j.params.gmt=0
         }
+        j.params.t='trans'
+        zm.loadBack(j)
+        let t=j.params.t
+        let hsys=j.params.hsys
+        let nom=j.params.n
+        let d=j.params.d
+        let m=j.params.m
+        let a=j.params.a
+        let h=j.params.h
+        let min=j.params.min
+        let gmt=j.params.gmt
+        let lat=j.params.lat
+        let lon=j.params.lon
+        let alt=j.params.alt
+        let ciudad=j.params.c
+
+        let ms=j.params.ms
+        let aL=zoolDataView.atLeft
+        let aR=[]
+        let strSep='?'
+        strSep='Evento Lunar'
+        let mste=ste.split('|')
+        let te=mste[0]
+        if(json.isEvent===0){
+            strSep=te===''?'Luna Nueva':(te==='lunar'?'Eclipse Lunar':'Eclipse Solar')
+        }
+        if(json.isEvent===1){
+            strSep='Luna Creciente'
+        }
+        if(json.isEvent===2){
+            strSep=te===''?'Luna Llena':(te==='lunar'?'Eclipse Lunar':'Eclipse Solar')
+        }
+        if(json.isEvent===3){
+            strSep='Luna Menguante'
+        }
+
+        //aR.push('<b>'+nom+'</b>')
+        aR.push(''+d+'/'+m+'/'+a)
+        aR.push(''+h+':'+min+'hs')
+        aR.push('<b>GMT:</b> '+gmt)
+        aR.push('<b>Ubicación:</b> '+ciudad)
+        aR.push('<b>Lat:</b> '+parseFloat(lat).toFixed(2))
+        aR.push('<b>Lon:</b> '+parseFloat(lon).toFixed(2))
+        aR.push('<b>Alt:</b> '+alt)
+
+        zoolDataView.setDataView(strSep, aL, aR)
     }
     function enter(){
-        //log.lv('Ejecutando List Lunar: '+tiEdad.text)
-        setListLunar(tiEdad.text)
+        //log.lv('Ejecutando List Lunar: '+tiAnio.text)
+        setListLunar(tiAnio.text, showAll.checked)
         //if(apps.dev)log.lv('ZoolRevolutionList.enter()... lv.currentIndex: '+lv.currentIndex)
         /*if(lv.currentIndex<=0 && lv.count<1){
             //log.lv('0 ZoolRevolutionList enter()...')
-            xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
+            xBottomBar.objPanelCmd.runCmd('rsl '+tiAnio.text)
             return
         }else{
             //log.lv('1 ZoolRevolutionList enter()...')
@@ -559,7 +594,7 @@ Rectangle {
         }*/
     }
     function insert(){
-        tiEdad.focus=true
+        tiAnio.focus=true
     }
     function up(){
         if(lv.currentIndex>0)lv.currentIndex--
@@ -568,6 +603,6 @@ Rectangle {
         if(lv.currentIndex<lv.count)lv.currentIndex++
     }
     function desactivar(){
-        tiEdad.focus=false
+        tiAnio.focus=false
     }
 }
