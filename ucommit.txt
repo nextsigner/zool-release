@@ -1,1 +1,1 @@
-Se crea script getMoons.py
+Se modifica script getMoons.py para mostrar fecha y hora exacta del eclipse

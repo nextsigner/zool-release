@@ -107,7 +107,7 @@ Rectangle {
                         spacing: app.fs*0.5
                         ZoolText{
                             id: label
-                            text:!checkBoxRetSolar.checked?'<b>Edad:</b>':'<b>Año:</b>'
+                            text:'<b>Año:</b>'
                             anchors.verticalCenter: parent.verticalCenter
                             color: apps.backgroundColor
                             font.pixelSize: app.fs*0.5
@@ -237,9 +237,10 @@ Rectangle {
     }
     ListModel{
         id: lm
-        function addItem(vJson){
+        function addItem(vJson, vSTE){
             return {
-                json: vJson
+                json: vJson,
+                ste: vSTE
             }
         }
     }
@@ -262,8 +263,15 @@ Rectangle {
                     j.params.d=json.d
                     j.params.m=json.m
                     j.params.a=json.a
-                    j.params.h=json.h
-                    j.params.min=json.min
+                    if(ste!==''){
+                        let mste=ste.split('|')
+                        let te=mste[0]
+                        let matTe=mste[1].split('-')
+                        let hte=matTe[0]
+                        let minte=matTe[1]
+                        j.params.h=parseInt(hte)
+                        j.params.min=parseInt(minte)
+                    }
                     j.params.t='trans'
                     zm.loadBack(j)
                     let t=j.params.t
@@ -370,9 +378,15 @@ Rectangle {
                 let d=json.d
                 let m=json.m
                 let a=json.a
+                let mste=ste.split('|')
+                let te=mste[0]
+                let matTe=mste[1].split('-')
+                let hte=matTe[0]
+                let minte=matTe[1]
+                let sTimeEclipse=''
                 if(json.isEvent===0){
                     xLuna.t=0
-                    sd+='<b>Luna Nueva</b><br>'
+                    sd+=te===''?'<b>Luna Nueva</b><br>':(te==='lunar'?'<b>Eclipse Lunar</b><br>':'<b>Eclipse Solar</b><br>')
                 }
                 if(json.isEvent===1){
                     xLuna.t=1
@@ -380,13 +394,14 @@ Rectangle {
                 }
                 if(json.isEvent===2){
                     xLuna.t=2
-                    sd+='<b>Luna Llena</b><br>'
+                    sd+=te===''?'<b>Luna Llena</b><br>':(te==='lunar'?'<b>Eclipse Lunar</b><br>':'<b>Eclipse Solar</b><br>')
                 }
                 if(json.isEvent===3){
                     xLuna.t=3
                     sd+='<b>Luna Menguante</b><br>'
                 }
-                sd+='<b>Fecha</b>: '+d+'/'+m+'/'+a+' '
+                if(te!=='')sTimeEclipse=''+hte+':'+minte+'hs '
+                sd+='<b>Fecha</b>: '+d+'/'+m+'/'+a+' '+sTimeEclipse
                 txtData.text=sd
             }
         }
@@ -401,7 +416,7 @@ Rectangle {
     function setListLunar(anio){
         lm.clear()
         let finalCmd=''
-        finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoons.py" '+anio+' ciclos'
+        finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoonsV2.py" '+anio+' '+unik.getPath(5)
         console.log('finalCmd: '+finalCmd)
         let c=''
         //+'  if(logData.length<=3||logData==="")return\n'
@@ -440,6 +455,9 @@ Rectangle {
     }
     function procesarDatos(j){
         //log.lv('json: '+JSON.stringify(j, null, 2))
+        //return
+        let eclipses=j.eclipses
+
         for(var i=0;i<12;i++){
             let mes=j.meses[i]
             //log.lv('mes '+i+': '+JSON.stringify(mes, null, 2))
@@ -447,11 +465,33 @@ Rectangle {
                 let ciclo=mes.ciclos[i2]
                 //log.lv('ciclo '+i2+': '+JSON.stringify(ciclo, null, 2))
                 if(ciclo.isEvent>=0){
-                    //log.lv('ciclo '+i2+': '+JSON.stringify(ciclo, null, 2))
-                    lm.append(lm.addItem(ciclo))
+                    let te=''
+                    let he=''
+                    for(var i3=0;i3<Object.keys(eclipses).length;i3++){
+                        let ds=eclipses['solar'][i3].d
+                        let ms=eclipses['solar'][i3].m
+                        let as=eclipses['solar'][i3].a
+                        if(ds===ciclo.d && ms===ciclo.m && as===ciclo.a){
+                            te='solar'
+                            he=''+eclipses['solar'][i3].h+'-'+eclipses['solar'][i3].min
+                            break
+                        }
+                    }
+                    for(i3=0;i3<Object.keys(eclipses).length;i3++){
+                        let ds=eclipses['lunar'][i3].d
+                        let ms=eclipses['lunar'][i3].m
+                        let as=eclipses['lunar'][i3].a
+                        if(ds===ciclo.d && ms===ciclo.m && as===ciclo.a){
+                            te='lunar'
+                            he=''+eclipses['lunar'][i3].h+'-'+eclipses['lunar'][i3].min
+                            break
+                        }
+                    }
+                    lm.append(lm.addItem(ciclo, te+'|'+he))
                 }
             }
         }
+        //log.lv('eclipses: '+JSON.stringify(j.eclipses, null, 2))
 
         return
         let aData=[]
@@ -479,6 +519,7 @@ Rectangle {
                 }
             }
         }
+
 
     }
     function prepareLoad(){

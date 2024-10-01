@@ -3,6 +3,13 @@ import datetime
 import sys
 import json
 
+
+def float_to_time(hour_float):
+    hours = int(hour_float)  # Obtener las horas
+    minutes = int((hour_float - hours) * 60)  # Obtener los minutos
+    seconds = int((hour_float - hours - minutes / 60) * 3600)  # Obtener los segundos
+    return [hours, minutes, seconds]
+
 def find_eclipses(year):
     resultado = {
         'solar':[],
@@ -25,7 +32,10 @@ def find_eclipses(year):
             item = {
                 'a': date[0],
                 'm': date[1],
-                'd': date[2]
+                'd': date[2],
+                'h': float_to_time(date[3])[0],
+                'min': float_to_time(date[3])[1],
+                'sec': float_to_time(date[3])[2]
             }
             resultado['solar'].append(item)
 
@@ -40,11 +50,14 @@ def find_eclipses(year):
         jd_max = tret[0]
         if jd_max < jd_end:
             date = swe.revjul(jd_max)  # Convertir a fecha gregoriana
-            eclipses.append(f"Eclipse lunar: {date[0]}-{date[1]:02d}-{date[2]:02d}")
+            #eclipses.append(f"Eclipse lunar: {date[0]}-{date[1]:02d}-{date[2]:02d}")
             item = {
-                'a': date[0],
-                'm': date[1],
-                'd': date[2]
+                'a': int(date[0]),
+                'm': int(date[1]),
+                'd': int(date[2]),
+                'h': float_to_time(date[3])[0],
+                'min': float_to_time(date[3])[1],
+                'sec': float_to_time(date[3])[2]
             }
             resultado['lunar'].append(item)
         jd = jd_max + 30  # Saltar 30 días después del último eclipse para buscar el siguiente
@@ -124,15 +137,15 @@ def iterar_julian_day(jd):
         if evento['e'] >=0:
             resultado ={
                 'isEvent': evento['e'],
-                'd':f"{dia}",
-                'm':f"{mes}",
-                'a':f"{anio}",
-                'h':f"{hora}",
-                'min':f"{minuto}",
-                'gs': evento['gs'],
-                'ms': evento['ms'],
-                'gl': evento['gl'],
-                'ml': evento['ml']
+                'd':int(f"{dia}"),
+                'm':int(f"{mes}"),
+                'a':int(f"{anio}"),
+                'h':int(f"{hora}"),
+                'min':int(f"{minuto}"),
+                'gs': int(evento['gs']),
+                'ms': int(evento['ms']),
+                'gl': int(evento['gl']),
+                'ml': int(evento['ml'])
                 #'eclipse': find_eclipses(2024)
             }
             #print(json.dumps(resultado, indent=4))
@@ -204,6 +217,6 @@ if __name__ == "__main__":
     #iterar_meses(anio)
     print(json.dumps(iterar_meses(int(sys.argv[1])), indent=4))
 
-    print(json.dumps(find_eclipses(2024), indent=4))
+    #print(json.dumps(find_eclipses(2024), indent=4))
     #print(find_eclipses(2024))
     #help(swe)
