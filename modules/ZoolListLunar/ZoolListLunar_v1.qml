@@ -363,6 +363,11 @@ Rectangle {
                 let hte=matTe[0]
                 let minte=matTe[1]
                 let sTimeEclipse=''
+
+                let matDege=mste[2].split('-')
+                let degDege=matDege[0]
+                let minDege=matDege[1]
+
                 if(json.isEvent===0){
                     xLuna.t=0
                     sd+=te===''?'<b>Luna Nueva</b><br>':(te==='lunar'?'<b>Eclipse Lunar</b><br>':'<b>Eclipse Solar</b><br>')
@@ -381,6 +386,12 @@ Rectangle {
                 }
                 if(te!=='')sTimeEclipse=''+hte+':'+minte+'hs '
                 sd+='<b>Fecha</b>: '+d+'/'+m+'/'+a+' '+sTimeEclipse
+                if(te!==''){
+                    let indexSign=zm.getIndexSign(parseInt(degDege))
+                    let rsdeg=parseInt(degDege)-(30*indexSign)
+                    sd+='<br><b>Signo:</b> '+zm.aSigns[indexSign]
+                    sd+=' °'+rsdeg+' \''+minDege
+                }
                 txtData.text=sd
             }
         }
@@ -404,7 +415,7 @@ Rectangle {
         //log.lv('Creando nuevo json de '+anio+'.')
         let finalCmd=''
         finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoonsV2.py" '+anio+' '+unik.getPath(5)
-        console.log('finalCmd: '+finalCmd)
+        //console.log('finalCmd: '+finalCmd)
         let c=''
         //+'  if(logData.length<=3||logData==="")return\n'
             +'  let j\n'
@@ -457,6 +468,7 @@ Rectangle {
                 if(ciclo.isEvent>=0){
                     let te=''
                     let he=''
+                    let dege=''
                     for(var i3=0;i3<Object.keys(eclipses).length;i3++){
                         let ds=eclipses['solar'][i3].d
                         let ms=eclipses['solar'][i3].m
@@ -464,6 +476,7 @@ Rectangle {
                         if(ds===ciclo.d && ms===ciclo.m && as===ciclo.a){
                             te='solar'
                             he=''+eclipses['solar'][i3].h+'-'+eclipses['solar'][i3].min
+                            dege=''+ciclo.gs+'-'+ciclo.ms
                             break
                         }
                     }
@@ -474,13 +487,14 @@ Rectangle {
                         if(ds===ciclo.d && ms===ciclo.m && as===ciclo.a){
                             te='lunar'
                             he=''+eclipses['lunar'][i3].h+'-'+eclipses['lunar'][i3].min
+                            dege=''+ciclo.gl+'-'+ciclo.ml
                             break
                         }
                     }
                     if(onlyEclipses){
-                        if(te!=='')lm.append(lm.addItem(ciclo, te+'|'+he))
+                        if(te!=='')lm.append(lm.addItem(ciclo, te+'|'+he+'|'+dege))
                     }else{
-                        lm.append(lm.addItem(ciclo, te+'|'+he))
+                        lm.append(lm.addItem(ciclo, te+'|'+he+'|'+dege))
                     }
 
                 }
