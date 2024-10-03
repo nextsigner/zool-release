@@ -65,35 +65,36 @@ Item{
             //XPaneles{PanelBotsFuncs{id: panelBotsFuncs;itemIndex: 6}}
             //XPaneles{PanelVideoLectura{id: panelVideLectura;itemIndex: 9}}
 
-            //10
+            //11
             Comps.XPaneles{ZoolUserManager{id: zoolUserManager;}}
 
-            //9
+            //10
             Comps.XPaneles{ZoolHelp{id: zoolHelp;}}
 
-            //8
+            //9
             Comps.XPaneles{ZoolDataText{id: panelZoolText;}}
 
-            //7
+            //8
             Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData}}
 
-            //6
+            //7
             Comps.XPaneles{ZoolModulesManager{}}
 
-            //5
+            //6
             Comps.XPaneles{ZoolSabianos{id: panelSabianos}}
 
-            //4
+            //5
             Comps.XPaneles{ZoolNumPit{id: ncv}}
 
-            //3
+            //4
             Comps.XPaneles{ZoolRevolutionList{id: panelRsList}}
+
+            //3
+            Comps.XPaneles{ZoolListLunar{id: zoolListLunar;}}
 
             //2
             Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;}}
 
-            //2
-            Comps.XPaneles{ZoolListLunar{id: zoolListLunar;}}
 
             //1
             Comps.XPaneles{ZoolFileManager{id: zoolFileManager}}

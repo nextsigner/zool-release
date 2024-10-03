@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
-import ZoolSabianos.ZoolSabianosView 1.0
+import ZoolSabianos.ZoolSabianosView 1.1
 import ZoolButton 1.1
 import ZoolText 1.0
 

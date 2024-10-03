@@ -24,7 +24,7 @@ Item{
                 zm.currentHouseIndex=0
                 tMultiHouseWait.start()
             }
-            zpn.addNot('cpi: '+zm.currentPlanetIndex, true, 20000)
+            //zpn.addNot('cpi: '+zm.currentPlanetIndex, true, 20000)
             let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
             zm.panTo(pos.x, pos.y)
             //log.lv('pi: '+zm.currentPlanetIndex)
@@ -86,6 +86,7 @@ Item{
         onTriggered: {
             //log.lv('tMultiCap2....')
             let fn=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
+            //zpn.addNot('fn: '+fn, true, 20000)
             captureToPng(fn, zm.parent, false)
         }
     }
@@ -162,13 +163,14 @@ Item{
                 }
                 fn=fnp
                 fn+='/'+zsm.getPanel('ZoolSabianos').getCurrentFileName()
-                captureToPng(fn, zsm.getPanel('ZoolSabianos').view, true)
+                captureToPng(fn, zsm.getPanel('ZoolSabianos').view.container, true)
                 if (Qt.platform.os === "windows") {
                     Qt.openUrlExternally("file:///" + fnp)
                 }else{
                     Qt.openUrlExternally("file://" + fnp)
                 }
             }else{
+                //zpn.addNot('Capturando '+fn, 8000, false)
                 captureToPng(fn, zm.parent, true)
             }
         }

@@ -1,1 +1,1 @@
-Se corrigen errores de ZoolListLunar 2
+Se crea ZoolSabianosView v1.1
