@@ -85,7 +85,7 @@ Rectangle {
         }
     }
     Text{
-        text: '<h1>Cargando...</h1>'
+        text: 'Cargando...'
         color: r.showDark?'white':'black'
         font.pixelSize: app.fs
         anchors.centerIn: parent

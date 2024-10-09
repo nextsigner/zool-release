@@ -260,6 +260,8 @@ Rectangle {
                                 strSep='Sinastría'
                             }else if(t==='trans'){
                                 strSep='Tránsitos'
+                            }else if(t==='rs'){
+                                strSep='Rev. Solar'
                             }else{
                                 strSep='Indefinido!'
                             }

@@ -12,7 +12,7 @@ import ZoolText 1.0
 
 Rectangle {
     id: r
-    color: 'white'
+    color: !r.showDark?'white':'black'
     width: parent.width
     height: parent.height
     clip: true
@@ -36,6 +36,8 @@ Rectangle {
 
     property string prevZFocus: ''
 
+    property bool showDark: true
+
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
 
     onVisibleChanged: {
@@ -57,6 +59,7 @@ Rectangle {
             Text {
                 id: sourceData
                 text: getSource()
+                color: r.showDark?'white':'black'
                 width: r.width-app.fs
                 wrapMode: Text.WordWrap
                 font.pixelSize: app.fs*0.5
@@ -70,6 +73,7 @@ Rectangle {
             Text {
                 id: currentSign
                 text: '<b>LOS 360 GRADOS DEL ZODIACO SIMBOLIZADOS</b>'
+                color: r.showDark?'white':'black'
                 width: r.width-app.fs
                 wrapMode: Text.WordWrap
                 font.pixelSize: app.fs*0.75*apps.panelSabianosFz
@@ -187,8 +191,10 @@ Rectangle {
             onTriggered: parent.opacity=0.0
         }
         Behavior on opacity{NumberAnimation{duration: 500}}
-        Button{
+        ZoolButton{
             text: 'Copiar HTML'
+            fs: app.fs*0.5
+            anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 let d = '<!DOCTYPE html><html>'
                 d+='<head>Simbología de los Sabianos<title></title><meta charset="utf-8"></head>'
@@ -203,9 +209,9 @@ Rectangle {
             }
         }
         //Graba 3 archivos SAM separados
-        ZoolButton{
-            //width:app.fs*3
-            fs:app.fs
+        Comps.ButtonIcon{
+            width: apps.botSize
+            height: width
             text: '\uf0c7'
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
@@ -220,7 +226,7 @@ Rectangle {
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 let fileNameOutPut=apps.jsonsFolder+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
-                //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
+                //log.lv('zm.currentJson.ph.h1: '+JSON.stringify(zm.currentJson.ph.h1, null, 2))
                 let gAsc=''+zm.currentJson.ph.h1.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)
                 fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[zm.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
@@ -240,7 +246,7 @@ Rectangle {
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
-                //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
+                //log.lv('zm.currentJson.ph.h10: '+JSON.stringify(zm.currentJson.ph.h10, null, 2))
                 let gMc=''+zm.currentJson.ph.h10.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gMc: '+gMc)
                 fileNameOutPut+='Sabianos_Medio_Cielo_en_'+r.signos[zm.currentJson.ph.h10.is]+'_Grado_'+gMc+'.txt'
@@ -252,15 +258,15 @@ Rectangle {
                 //Sol
                 d = ''
                 d+='<b>Sol en el grado '+r.signos[zm.currentJson.pc.c0.is]+'</b><br />\n\n'
-                d+=getDataSAM('MC', parseInt(app.currentJson.pc.c0.rsgdeg - 1), app.currentJson.pc.c0.is)
+                d+=getDataSAM('MC', parseInt(zm.currentJson.pc.c0.rsgdeg - 1), zm.currentJson.pc.c0.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
-                sdel=''+app.currentJson.pc.c0.rsgdeg+'°: '
+                sdel=''+zm.currentJson.pc.c0.rsgdeg+'°: '
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
-                //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
+                //log.lv('zm.currentJson.pc.c0: '+JSON.stringify(zm.currentJson.pc.c0, null, 2))
                 let gSol=''+zm.currentJson.pc.c0.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gSol: '+gSol)
                 fileNameOutPut+='Sabianos_Sol_en_'+r.signos[zm.currentJson.pc.c0.is]+'_Grado_'+gSol+'.txt'
@@ -282,9 +288,9 @@ Rectangle {
         }
 
         //Graba 3 archivos SAM unidos en 1
-        ZoolButton{
-            //width:app.fs*3
-            fs:app.fs
+        Comps.ButtonIcon{
+            width: apps.botSize
+            height: width
             text: '\uf0c7'
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
@@ -292,19 +298,19 @@ Rectangle {
 
                 //Ascendente
                 let d = ''
-                d+='<b>Ascendente en '+r.signos[app.currentJson.ph.h1.is]+' en °'+app.currentJson.ph.h1.rsgdeg+'</b><br />\n\n'
-                d+=getDataSAM('ASC', parseInt(app.currentJson.ph.h1.rsgdeg - 1), app.currentJson.ph.h1.is)
+                d+='<b>Ascendente en '+r.signos[zm.currentJson.ph.h1.is]+' en °'+zm.currentJson.ph.h1.rsgdeg+'</b><br />\n\n'
+                d+=getDataSAM('ASC', parseInt(zm.currentJson.ph.h1.rsgdeg - 1), zm.currentJson.ph.h1.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
-                let sdel=''+app.currentJson.ph.h1.rsgdeg+'°: '
+                let sdel=''+zm.currentJson.ph.h1.rsgdeg+'°: '
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
-                //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
-                let gAsc=''+app.currentJson.ph.h1.rsgdeg
+                let fileNameOutPut=apps.jsonsFolder+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
+                //log.lv('zm.currentJson.ph.h1: '+JSON.stringify(zm.currentJson.ph.h1, null, 2))
+                let gAsc=''+zm.currentJson.ph.h1.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)
-                fileNameOutPut+='Sabianos_Asc_'+r.signos[app.currentJson.ph.h1.is]+'_'+gAsc
+                fileNameOutPut+='Sabianos_Asc_'+r.signos[zm.currentJson.ph.h1.is]+'_'+gAsc
                 //if(apps.dev)log.lv('Sabianos Asc: '+d)
                 sf+='\n'+d
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
@@ -312,18 +318,18 @@ Rectangle {
 
                 //Medio Cielo
                 d = ''
-                d+='<b>Medio Cielo en '+r.signos[app.currentJson.ph.h10.is]+' en °'+app.currentJson.ph.h10.rsgdeg+'</b><br />\n\n'
-                d+=getDataSAM('MC', parseInt(app.currentJson.ph.h10.rsgdeg - 1), app.currentJson.ph.h1.is)
+                d+='<b>Medio Cielo en '+r.signos[zm.currentJson.ph.h10.is]+' en °'+zm.currentJson.ph.h10.rsgdeg+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(zm.currentJson.ph.h10.rsgdeg - 1), zm.currentJson.ph.h1.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
-                sdel=''+app.currentJson.ph.h10.rsgdeg+'°: '
+                sdel=''+zm.currentJson.ph.h10.rsgdeg+'°: '
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                //log.lv('app.currentJson.ph.h10: '+JSON.stringify(app.currentJson.ph.h10, null, 2))
-                let gMc=''+app.currentJson.ph.h10.rsgdeg
+                //log.lv('zm.currentJson.ph.h10: '+JSON.stringify(zm.currentJson.ph.h10, null, 2))
+                let gMc=''+zm.currentJson.ph.h10.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gMc: '+gMc)
-                fileNameOutPut+='_Mc_'+r.signos[app.currentJson.ph.h10.is]+'_'+gMc
+                fileNameOutPut+='_Mc_'+r.signos[zm.currentJson.ph.h10.is]+'_'+gMc
                 //if(apps.dev)log.lv('Sabianos Medio Cielo: '+d)
                 sf+='\n'+d
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
@@ -331,18 +337,18 @@ Rectangle {
 
                 //Sol
                 d = ''
-                d+='<b>Sol en '+r.signos[app.currentJson.pc.c0.is]+' en °'+app.currentJson.pc.c0.rsgdeg+'</b><br />\n\n'
-                d+=getDataSAM('MC', parseInt(app.currentJson.pc.c0.rsgdeg - 1), app.currentJson.pc.c0.is)
+                d+='<b>Sol en '+r.signos[zm.currentJson.pc.c0.is]+' en °'+zm.currentJson.pc.c0.rsgdeg+'</b><br />\n\n'
+                d+=getDataSAM('MC', parseInt(zm.currentJson.pc.c0.rsgdeg - 1), zm.currentJson.pc.c0.is)
                 d=d.replace(/<[^>]*>/g, '')
                 d=d.replace(/&nbsp;/g, ' ')
-                sdel=''+app.currentJson.pc.c0.rsgdeg+'°: '
+                sdel=''+zm.currentJson.pc.c0.rsgdeg+'°: '
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                //log.lv('app.currentJson.pc.c0: '+JSON.stringify(app.currentJson.pc.c0, null, 2))
-                let gSol=''+app.currentJson.pc.c0.rsgdeg
+                //log.lv('zm.currentJson.pc.c0: '+JSON.stringify(zm.currentJson.pc.c0, null, 2))
+                let gSol=''+zm.currentJson.pc.c0.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gSol: '+gSol)
-                fileNameOutPut+='_Sol_'+r.signos[app.currentJson.pc.c0.is]+'_'+gSol+'.txt'
+                fileNameOutPut+='_Sol_'+r.signos[zm.currentJson.pc.c0.is]+'_'+gSol+'.txt'
                 //if(apps.dev)log.lv('Sabianos Sol: '+d)
                 sf+='\n'+d
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
@@ -386,7 +392,7 @@ Rectangle {
         }
         Comps.ButtonIcon{
             text: '\uf06e'
-            width: apps.botSize*2
+            width: apps.botSize
             height: width
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
@@ -397,6 +403,16 @@ Rectangle {
                 text:apps.sabianosAutoShow?'\uf023':'\uf13e'
                 font.pixelSize: parent.width*0.5
                 anchors.right:parent.right
+            }
+        }
+        Comps.ButtonIcon{
+            text: '\uf1fc'
+            width: apps.botSize
+            height: width
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                r.showDark=!r.showDark
+                r.loadData()
             }
         }
     }
@@ -505,9 +521,30 @@ Rectangle {
         let json=JSON.parse(fileData.replace(/\n/g, ''))
         //console.log('df:'+df)
         //console.log('sf:'+sf)
-        data.text=json['g'+df]['p1'].text
-        data.text+=json['g'+df]['p2'].text
-        data.text+=json['g'+df]['p3'].text
+//        data.text=json['g'+df]['p1'].text
+//        data.text+=json['g'+df]['p2'].text
+//        data.text+=json['g'+df]['p3'].text
+
+        //Cambiando color
+        let dataFinal=json['g'+df]['p1'].text
+        dataFinal+=json['g'+df]['p2'].text
+        dataFinal+=json['g'+df]['p3'].text
+        //let dataFinal=json['g'+df]['p'+parseInt(r.currentInterpreter+1)].text
+        let s1='<p class="entry-excerpt" style="text-align: justify;"><span style="color: rgb(0, 0, 255);">'
+        let s2='<p class="entry-excerpt" style="text-align: justify;"><span style="color: rgb(125, 125, 255);">'
+        //log.lv('data: '+dataFinal)
+        let res=dataFinal.replace(s1, s2)
+        let s3='<p class="entry-excerpt" style="text-align: justify;"><strong>'
+        let s4='<p class="entry-excerpt" style="text-align: justify; color:#ff8833"><strong>'
+        res=res.replace(s3, s4)
+        let s5=/rgb\(0, 0, 255\)/g
+        let s6='rgb(125, 125, 255)'
+        res=res.replace(s5, s6)
+        if(r.showDark){
+            data.text=res
+        }else{
+            data.text=dataFinal
+        }
         flk.contentY=0
     }
     function getData(){

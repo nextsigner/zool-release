@@ -102,13 +102,9 @@ Rectangle {
                     onCurrentIndexChanged: {
                         if(currentIndex===app.ahys.indexOf(apps.currentHsys))return
                         apps.currentHsys=app.ahys[currentIndex]
-                        updateUParams()
-                        //JS.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
-                        //sweg.load(JSON.parse(app.currentData))
-                        //JS.loadJson(apps.url)
+                        updateUParams()                        
                     }
                 }
-
             }
             Column{
                 spacing: app.fs*0.1
@@ -562,62 +558,6 @@ Rectangle {
         if(apps.dev)log.lv('\n\n'+c+'\n\n')
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
     }
-
-    //    function setNewJsonFileData(){
-    //        console.log('setNewJsonFileData...')
-    //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
-    //        let fileName=apps.jsonsFolder+'/'+unom+'.json'
-    //        console.log('setNewJsonFileData() fileName: '+fileName)
-    //        if(unik.fileExist(fileName)){
-    //            //unik.deleteFile(fileName)
-    //        }
-    //        let d = new Date(Date.now())
-    //        let ms=d.getTime()
-    //        let nom=tiNombre.t.text.replace(/ /g, '_')
-
-    //        //let m0=tiFecha.t.text.split('/')
-    //        //if(m0.length!==3)return
-    //        //let vd=parseInt(tiFecha1.t.text)
-    //        //let vm=parseInt(tiFecha2.t.text)
-    //        //let va=parseInt(tiFecha3.t.text)
-
-    //        //m0=tiHora.t.text.split(':')
-    //        //let vh=parseInt(tiHora1.t.text)
-    //        //let vmin=parseInt(tiHora2.t.text)
-
-    //        let vd=controlTimeFecha.dia
-    //        let vm=controlTimeFecha.mes
-    //        let va=controlTimeFecha.anio
-    //        let vh=controlTimeFecha.hora
-    //        let vmin=controlTimeFecha.minuto
-
-    //        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-    //        let vlon=r.lon
-    //        let vlat=r.lat
-    //        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-    //        let j='{'
-    //        j+='"paramsBack":{'
-    //        j+='"t":"vn",'
-    //        j+='"ms":'+ms+','
-    //        j+='"n":"'+nom+'",'
-    //        j+='"d":'+vd+','
-    //        j+='"m":'+vm+','
-    //        j+='"a":'+va+','
-    //        j+='"h":'+vh+','
-    //        j+='"min":'+vmin+','
-    //        j+='"gmt":'+vgmt+','
-    //        j+='"lat":'+vlat+','
-    //        j+='"lon":'+vlon+','
-    //        j+='"c":"'+vCiudad+'"'
-    //        j+='}'
-    //        j+='}'
-    //        app.currentData=j
-    //        nom=tiNombre.t.text.replace(/ /g, '_')
-    //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
-    //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-    //        zm.loadJsonFromFilePath(apps.jsonsFolder+'/'+nom+'.json')
-    //        //runJsonTemp()
-    //    }
     function loadTrans(){
         if(!settings.inputCoords){
             if(cbUseIntCoords.checked){
@@ -695,52 +635,7 @@ Rectangle {
 
         let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
         let aR=[]
-        zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
-
-        /*let d = new Date(Date.now())
-        let ms=d.getTime()
-
-        let vd=controlTimeFecha.dia
-        let vm=controlTimeFecha.mes
-        let va=controlTimeFecha.anio
-        let vh=controlTimeFecha.hora
-        let vmin=controlTimeFecha.minuto
-
-
-        let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-
-        let vlat
-        let vlon
-        if(!cbUseIntCoords.checked){
-            vlat=r.lat
-            vlon=r.lon
-        }else{
-            vlat=app.currentLat
-            vlon=app.currentLon
-        }
-        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-
-        let nom='Tránsito '+vd+'.'+vm+'.'+va+' '+vh+'.'+vm+' GMT.'+vgmt+' '+tiCiudad.text
-
-        let j='{'
-        j+='"paramsBack":{'
-        j+='"t":"trans",'
-        j+='"ms":'+ms+','
-        j+='"n":"'+nom+'",'
-        j+='"d":'+vd+','
-        j+='"m":'+vm+','
-        j+='"a":'+va+','
-        j+='"h":'+vh+','
-        j+='"min":'+vmin+','
-        j+='"gmt":'+vgmt+','
-        j+='"lat":'+vlat+','
-        j+='"lon":'+vlon+','
-        j+='"c":"'+vCiudad+'"'
-        j+='}'
-        j+='}'
-        app.currentDataBack=j
-        //if(apps.dev)log.ls('loadJsonFromArgsBack() app.currentDataBack: '+app.currentDataBack, 0, log.width)
-        app.j.loadJsonFromParamsBack(JSON.parse(app.currentDataBack))*/
+        zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)        
     }
     function enter(){
         if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){

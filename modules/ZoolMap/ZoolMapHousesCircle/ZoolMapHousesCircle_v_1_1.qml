@@ -223,6 +223,17 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.top
                         visible: item.ih===1
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
                     Text{
                         id: tAsc1
@@ -232,6 +243,17 @@ Item {
                         anchors.right: parent.right
                         anchors.top: parent.bottom
                         visible: item.ih===1
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
                     Text{
                         id: tAsc2
@@ -241,6 +263,17 @@ Item {
                         anchors.right: parent.right
                         anchors.top: tAsc1.bottom
                         visible: item.ih===1
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
                     Text{
                         text: '<b>Desc</b>'
@@ -249,6 +282,17 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.top
                         visible: item.ih===7
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
                     Text{
                         id: tDesc1
@@ -258,6 +302,17 @@ Item {
                         anchors.left: parent.left
                         anchors.top: parent.bottom
                         visible: item.ih===7
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
                     Text{
                         id: tDesc2
@@ -268,6 +323,17 @@ Item {
                         anchors.top: tDesc1.bottom
                         horizontalAlignment: Text.AlignRight
                         visible: item.ih===7
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
                     Text{
                         text: '<b>Fc</b>'
@@ -277,23 +343,48 @@ Item {
                         anchors.rightMargin: parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
                         visible: item.ih===4
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
-                    Column{
+                    Item{
+                        width: col101.width+app.fs*0.2
+                        height: col101.height+app.fs*0.2
                         anchors.left: parent.right
                         anchors.leftMargin: parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
                         visible: item.ih===4
-                        Text{
-                            id: tFc1
-                            text: '<b>'+zm.aSigns[item.is]+'</b>'
-                            font.pixelSize: parent.parent.width*0.4
-                            color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
+                        Rectangle{
+                            anchors.fill: parent
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            radius: app.fs*0.1
                         }
-                        Text{
-                            id: tFc2
-                            text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
-                            font.pixelSize: parent.parent.width*0.4
-                            color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
+                        Column{
+                            id: col101
+                            anchors.centerIn: parent
+                            Text{
+                                id: tFc1
+                                text: '<b>'+zm.aSigns[item.is]+'</b>'
+                                font.pixelSize: parent.parent.parent.width*0.4
+                                color: !isExt?zm.houseLineColor:zm.houseLineColorBack
+                            }
+                            Text{
+                                id: tFc2
+                                text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
+                                font.pixelSize: parent.parent.parent.width*0.4
+                                color: !isExt?zm.houseLineColor:zm.houseLineColorBack
+                            }
                         }
                     }
                     Text{
@@ -304,25 +395,52 @@ Item {
                         anchors.rightMargin: parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
                         visible: item.ih===10
+                        Rectangle{
+                            width: parent.width+app.fs*0.2
+                            height: parent.height+app.fs*0.2
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            z: parent.z-1
+                            radius: app.fs*0.1
+                            anchors.centerIn: parent
+                        }
                     }
-                    Column{
+
+                    Item{
+                        width: col100.width+app.fs*0.2
+                        height: col100.height+app.fs*0.2
                         anchors.left: parent.right
                         anchors.leftMargin: parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
                         visible: item.ih===10
-                        Text{
-                            id: tMc1
-                            text: '<b>'+zm.aSigns[item.is]+'</b>'
-                            font.pixelSize: parent.parent.width*0.4
-                            color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
+                        Rectangle{
+                            anchors.fill: parent
+                            color: apps.backgroundColor
+                            opacity: 0.5
+                            border.width: 1
+                            border.color: apps.fontColor
+                            radius: app.fs*0.1
                         }
-                        Text{
-                            id: tMc2
-                            text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
-                            font.pixelSize: parent.parent.width*0.4
-                            color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
+                        Column{
+                            id: col100
+                            anchors.centerIn: parent
+                            Text{
+                                id: tMc1
+                                text: '<b>'+zm.aSigns[item.is]+'</b>'
+                                font.pixelSize: parent.parent.parent.width*0.4
+                                color: !isExt?zm.houseLineColor:zm.houseLineColorBack
+                            }
+                            Text{
+                                id: tMc2
+                                text: '<b>°'+parseInt(item.gdeg-(30*item.is))+' \''+item.mdeg+'</b>'
+                                font.pixelSize: parent.parent.parent.width*0.4
+                                color: !isExt?zm.houseLineColor:zm.houseLineColorBack
+                            }
                         }
                     }
+
                     ZoolMapPointerHouse{
                         id: pointerHouse
                         is: item.is
