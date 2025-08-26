@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import ZoolSectionsManager.XSection 1.0
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import "../"
@@ -9,15 +10,9 @@ import "../../js/Funcs.js" as JS
 
 import ZoolNumPit.ZoolNumPitLog 1.0
 
-Rectangle {
+XSection{
     id: r
-    width: parent.width
-    height: parent.height
-    clip: true
-    color: apps.backgroundColor
-    border.width: 1
-    border.color: apps.fontColor
-    property int contentWidth: r.width-app.fs*0.5
+    itemType: r
 
     property alias log: zoolNumPitLog
 
@@ -89,7 +84,8 @@ Rectangle {
 
 
     property int itemIndex: -1
-    visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
+
+    //visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
         if(visible)zoolVoicePlayer.speak('Sección de numerología.', true)
@@ -1735,7 +1731,6 @@ Rectangle {
         ret+='\n\n'
 
         //Firma
-        //console.log('r.currentNumFirma: '+r.currentNumFirma)
         if(getItemJson('firma'+r.currentNumFirma)){
             ret+='¿Cómo es la energía de su firma?\n\n'
             ret+=getItemJson('firma'+r.currentNumFirma)

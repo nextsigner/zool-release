@@ -1,15 +1,15 @@
 function firstRunTime(){
     log.ls('\n\nBienvenido!.\n', 0, xLatIzq.width)
-    if(apps.jsonsFolder===''){
+    if(apps.workSpace===''){
         let jsonFolder=unik.getPath(3)+'/Zool'
-        apps.jsonsFolder=jsonFolder
+        apps.workSpace=jsonFolder
         if(!unik.fileExist(jsonFolder)){
-            log.ls('\nCreando carpeta de archivos:\n'+apps.jsonsFolder, log.x, log.width)
+            log.ls('\nCreando carpeta de archivos:\n'+apps.workSpace, log.x, log.width)
             unik.mkdir(jsonFolder)
         }
     }
     console.log('Loading United Kingdom now...')
-    console.log('JsonFolder: '+apps.jsonsFolder)
+    console.log('JsonFolder: '+apps.workSpace)
 
     let d=new Date(Date.now())
     let currentUserHours=d.getHours()
@@ -30,7 +30,7 @@ function firstRunTime(){
 
 
     log.ls('Al parecer es la primera vez que inicia Zool en su equipo.\n\n', 0, xLatIzq.width)
-    //apps.url=apps.jsonsFolder+'/Primer_Inicio_de_Zool.json'
+    //apps.url=apps.workSpace+'/Primer_Inicio_de_Zool.json'
     log.ls('Cargando el archivo '+apps.url+' creado por primera y única vez a modo de ejemplo.\n\n', 0, xLatIzq.width)
     log.l('\nZool se está ejecutando en la carpeta'+unik.currentFolderPath())
 }
@@ -112,7 +112,7 @@ function setFs() {
 //        zoolDataView.setDataView('Dir. Prim. '+a+'/'+m+'/'+d, aL, aR)
 //    }
 //    if(save){
-//        let fn=apps.jsonsFolder+'/'+nom.replace(/ /g, '_')+'.json'
+//        let fn=apps.workSpace+'/'+nom.replace(/ /g, '_')+'.json'
 //        //if(apps.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
 //        unik.setFile(fn, j)
 //        loadJsonBack(fn)
@@ -434,7 +434,7 @@ function mkSinFile(file){
     json.paramsBack.n='Sinastría '+json.params.n+' - '+json.paramsBack.n
 
     let cNom=json.paramsBack.n
-    let nFileName=(apps.jsonsFolder+'/'+cNom+'.json').replace(/ /g,'_')
+    let nFileName=(apps.workSpace+'/'+cNom+'.json').replace(/ /g,'_')
     let e=unik.fileExist(nFileName)
     if(e){
         //log.l('Existe')
@@ -460,7 +460,7 @@ function mkRsFile(file){
     json.paramsBack.n=json.params.n
 
     let cNom=json.params.n
-    let nFileName=(apps.jsonsFolder+'/'+cNom+'.json').replace(/ /g,'_')
+    let nFileName=(apps.workSpace+'/'+cNom+'.json').replace(/ /g,'_')
     log.ls('nFileName: '+nFileName, 0, log.width)
     let e=unik.fileExist(nFileName)
     if(e){
@@ -491,7 +491,7 @@ function mkTransFile(){
     json.paramsBack.n=json.params.n
 
     let cNom=json.params.n
-    let nFileName=(apps.jsonsFolder+'/'+cNom+'.json').replace(/ /g,'_')
+    let nFileName=(apps.workSpace+'/'+cNom+'.json').replace(/ /g,'_')
     log.lv('nFileName: '+nFileName)
     let e=unik.fileExist(nFileName)
     if(e){
@@ -738,7 +738,7 @@ function saveJsonBack(){
     }
     log.ww=false
     log.ls('zm.fileData: '+JSON.stringify(json), 0, 500)
-    let jsonFileName=apps.jsonsFolder+'/'+(''+pb.paramsBack.n).replace(/ /g, '_')+'.json'
+    let jsonFileName=apps.workSpace+'/'+(''+pb.paramsBack.n).replace(/ /g, '_')+'.json'
     apps.url=jsonFileName
     log.ls('apps.url: '+apps.url, 0, 500)
     unik.setFile(jsonFileName, JSON.stringify(json))

@@ -405,11 +405,11 @@ Rectangle{
                         Text{text: 'Carpeta de Archivos:'; font.pixelSize: app.fs*0.5; color:apps.fontColor; }
                         TextField{
                             id: tfJsonsFolder
-                            text: apps.jsonsFolder
+                            text: apps.workSpace
                             width: r.width-app.fs*0.25
                             anchors.horizontalCenter: parent.horizontalCenter
                             onTextChanged: {
-                                if(text!==apps.jsonsFolder&&unik.folderExist(text)){
+                                if(text!==apps.workSpace&&unik.folderExist(text)){
                                     botSetJsonsFolder.enabled=true
                                 }else{
                                     botSetJsonsFolder.enabled=false
@@ -421,7 +421,7 @@ Rectangle{
                             text: 'Definir como carpeta de Archivos'
                             enabled: false
                             onClicked: {
-                                apps.jsonsFolder=tfJsonsFolder.text
+                                apps.workSpace=tfJsonsFolder.text
                                 enabled=false
                             }
                         }

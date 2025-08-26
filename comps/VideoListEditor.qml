@@ -303,7 +303,7 @@ Rectangle {
     FileDialog {
         id: fileDialogJson
         title: "Seleccionar Archivo"
-        folder: apps.jsonsFolder
+        folder: apps.workSpace
         selectFolder: false
         nameFilters: ["*.json"]
         selectMultiple: false

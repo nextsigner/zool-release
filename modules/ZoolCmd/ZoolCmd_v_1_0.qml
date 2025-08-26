@@ -100,9 +100,9 @@ Rectangle {
             if(comando[0]==='temp'){
                 log.visible=true
                 if(apps.isJsonsFolderTemp){
-                    log.l('Los archivos se guardarán en la carpeta temporal '+apps.jsonsFolder)
+                    log.l('Los archivos se guardarán en la carpeta temporal '+apps.workSpace)
                 }else{
-                    log.l('Los archivos se guardarán en la carpeta '+apps.jsonsFolder)
+                    log.l('Los archivos se guardarán en la carpeta '+apps.workSpace)
                 }
             }
             return

@@ -155,7 +155,7 @@ Settings{
     property bool lt:false
     property bool enableFullAnimation: false
 
-    property string jsonsFolder: ''
+    property string workSpace: ''
     property string jsonsFolderTemp: ''
     property bool isJsonsFolderTemp: false
 

@@ -566,7 +566,7 @@ Rectangle {
     //    function setNewJsonFileData(){
     //        console.log('setNewJsonFileData...')
     //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
-    //        let fileName=apps.jsonsFolder+'/'+unom+'.json'
+    //        let fileName=apps.workSpace+'/'+unom+'.json'
     //        console.log('setNewJsonFileData() fileName: '+fileName)
     //        if(unik.fileExist(fileName)){
     //            //unik.deleteFile(fileName)
@@ -613,9 +613,9 @@ Rectangle {
     //        j+='}'
     //        app.currentData=j
     //        nom=tiNombre.t.text.replace(/ /g, '_')
-    //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
+    //        unik.setFile(apps.workSpace+'/'+nom+'.json', app.currentData)
     //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-    //        zm.loadJsonFromFilePath(apps.jsonsFolder+'/'+nom+'.json')
+    //        zm.loadJsonFromFilePath(apps.workSpace+'/'+nom+'.json')
     //        //runJsonTemp()
     //    }
     function loadTrans(){

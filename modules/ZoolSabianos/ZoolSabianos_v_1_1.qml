@@ -225,7 +225,7 @@ Rectangle {
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                let fileNameOutPut=apps.jsonsFolder+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
+                let fileNameOutPut=apps.workSpace+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('zm.currentJson.ph.h1: '+JSON.stringify(zm.currentJson.ph.h1, null, 2))
                 let gAsc=''+zm.currentJson.ph.h1.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)
@@ -245,7 +245,7 @@ Rectangle {
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
+                fileNameOutPut=apps.workSpace+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('zm.currentJson.ph.h10: '+JSON.stringify(zm.currentJson.ph.h10, null, 2))
                 let gMc=''+zm.currentJson.ph.h10.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gMc: '+gMc)
@@ -265,7 +265,7 @@ Rectangle {
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
+                fileNameOutPut=apps.workSpace+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('zm.currentJson.pc.c0: '+JSON.stringify(zm.currentJson.pc.c0, null, 2))
                 let gSol=''+zm.currentJson.pc.c0.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gSol: '+gSol)
@@ -306,7 +306,7 @@ Rectangle {
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
                 d=d.replace(sdel, '')
-                let fileNameOutPut=apps.jsonsFolder+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
+                let fileNameOutPut=apps.workSpace+'/caps/'+zm.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('zm.currentJson.ph.h1: '+JSON.stringify(zm.currentJson.ph.h1, null, 2))
                 let gAsc=''+zm.currentJson.ph.h1.rsgdeg
                 //if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)

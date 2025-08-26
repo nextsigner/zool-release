@@ -214,7 +214,7 @@ Rectangle {
                 d+='<b>'+r.signos[r.numSign]+'</b><br />'
                 d+=getData()
                 d=d.replace(/<[^>]*>/g, '')
-                let fileNameOutPut=apps.jsonsFolder+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
+                let fileNameOutPut=apps.workSpace+'/caps/'+app.currentNom.replace(/ /g, '_')+'/'
                 //log.lv('app.currentJson.ph.h1: '+JSON.stringify(app.currentJson.ph.h1, null, 2))
                 let gAsc=''+app.currentJson.ph.h1.rsgdeg
                 if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)

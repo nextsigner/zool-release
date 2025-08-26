@@ -772,17 +772,17 @@ ZoolMainWindow{
             }
         }
 
-        //Check apps.jsonsFolderTemp
-        if(apps.jsonsFolder===''){
+        //Check apps.workSpaceTemp
+        if(apps.workSpace===''){
             let jft=unik.getPath(3)+'/Zool/Temp'
             unik.mkdir(jft)
-            apps.jsonsFolderTemp=jft
+            apps.workSpaceTemp=jft
         }
         if(apps.isJsonsFolderTemp){
-            let jsonF=apps.jsonsFolder
-            let jsonFT=apps.jsonsFolderTemp
-            apps.jsonsFolder=jsonFT
-            apps.jsonsFolderTemp=jsonF
+            let jsonF=apps.workSpace
+            let jsonFT=apps.workSpaceTemp
+            apps.workSpace=jsonFT
+            apps.workSpaceTemp=jsonF
         }
 
         if(apps.dev){
@@ -790,7 +790,7 @@ ZoolMainWindow{
             //log.ls('\nVersion:\n'+version, log.x,
             log.ls('\nunik.currentFolderPath():\n'+unik.currentFolderPath(), log.x, log.width)
             log.ls('\nunik.getPath(4):\n'+unik.getPath(4), log.x, log.width)
-            log.ls('\napps.jsonsFolder:\n'+apps.jsonsFolder, log.x, log.width)
+            log.ls('\napps.workSpace:\n'+apps.workSpace, log.x, log.width)
             log.ls('\nDocumentPath:\n'+documentsPath, log.x, log.width)
         }
 
@@ -818,7 +818,7 @@ ZoolMainWindow{
         }
         if(!fileLoaded){
             //let fp=
-            if(apps.url!==''&&unik.fileExist(apps.url)&&apps.jsonsFolder!==''){
+            if(apps.url!==''&&unik.fileExist(apps.url)&&apps.workSpace!==''){
                 console.log('Cargando al iniciar: '+apps.url)
                 //Detalles Técnicos extras
                 if(apps.dev){

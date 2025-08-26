@@ -164,7 +164,7 @@ Rectangle {
                 fs: app.fs*0.5
             }
             ZoolText{
-                text:apps.jsonsFolder
+                text:apps.workSpace
                 fs: app.fs*0.5
             }
             Row{
@@ -188,9 +188,9 @@ Rectangle {
                 t.font.pixelSize: app.fs*0.65
                 anchors.horizontalCenter: parent.horizontalCenter
                 t.maximumLength: 200
-                text: apps.jsonsFolder
+                text: apps.workSpace
                 onPressed: {
-                    apps.jsonsFolder=text
+                    apps.workSpace=text
                 }
                 Text {
                     text: 'Cambiar a carpeta'

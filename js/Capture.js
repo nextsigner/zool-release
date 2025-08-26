@@ -57,7 +57,7 @@ function captureSweg(){
     zm.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
-    let folder=apps.jsonsFolder+'/caps/'+folderName
+    let folder=apps.workSpace+'/caps/'+folderName
     if(!unik.folderExist(folder)){
         unik.mkdir(folder)
     }
@@ -92,7 +92,7 @@ function captureSwegBack(){
     zm.capturing=true
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
-    let folder=apps.jsonsFolder+'/caps/'+folderName
+    let folder=apps.workSpace+'/caps/'+folderName
     if(!unik.folderExist(folder)){
         unik.mkdir(folder)
     }
@@ -136,7 +136,7 @@ function capturePlanet(){
     let params=zfdm.getJsonAbs().params
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
-    let folder=unik.getPath(3)//apps.jsonsFolder+'/caps/'+folderName
+    let folder=unik.getPath(3)//apps.workSpace+'/caps/'+folderName
 
     let json=zm.currentJson
 

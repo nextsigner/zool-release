@@ -487,7 +487,7 @@ Rectangle {
                     //                    interval: 1000
                     //                    onTriggered: {
                     //                        let nom=tiNombre.t.text.replace(/ /g, '_')
-                    //                        let fileName=apps.jsonsFolder+'/'+nom+'.json'
+                    //                        let fileName=apps.workSpace+'/'+nom+'.json'
                     //                        if(unik.fileExist(fileName)){
                     //                            r.uFileNameLoaded=tiNombre.text
                     //                            let jsonFileData=unik.getFile(fileName)
@@ -599,7 +599,7 @@ Rectangle {
     //    function setNewJsonFileData(){
     //        console.log('setNewJsonFileData...')
     //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
-    //        let fileName=apps.jsonsFolder+'/'+unom+'.json'
+    //        let fileName=apps.workSpace+'/'+unom+'.json'
     //        console.log('setNewJsonFileData() fileName: '+fileName)
     //        if(unik.fileExist(fileName)){
     //            //unik.deleteFile(fileName)
@@ -646,9 +646,9 @@ Rectangle {
     //        j+='}'
     //        app.currentData=j
     //        nom=tiNombre.t.text.replace(/ /g, '_')
-    //        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
+    //        unik.setFile(apps.workSpace+'/'+nom+'.json', app.currentData)
     //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-    //        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
+    //        JS.loadJson(apps.workSpace+'/'+nom+'.json')
     //        //runJsonTemp()
     //    }
     function updateUParams(){

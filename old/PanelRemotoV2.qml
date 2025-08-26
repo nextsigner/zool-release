@@ -99,7 +99,7 @@ Rectangle {
     function setData(data, isData){
         if(isData){
             //console.log('Host: '+data)
-            unik.setFile(apps.jsonsFolder+'/PanelRemotoDoc.qml', data)
+            unik.setFile(apps.workSpace+'/PanelRemotoDoc.qml', data)
             let comp=Qt.createQmlObject(data, r, 'xzoolpanelremoto')
             //comp.z=0//panelSabianos.z-1
             //panelSabianos.z=comp.z+1
@@ -108,8 +108,8 @@ Rectangle {
             //r.state='show'
             sv.currentIndex=6
             bot.visible=true
-            if(unik.fileExist(apps.jsonsFolder+'/PanelRemotoDoc.qml')){
-                let fd=unik.getFile(apps.jsonsFolder+'/PanelRemotoDoc.qml')
+            if(unik.fileExist(apps.workSpace+'/PanelRemotoDoc.qml')){
+                let fd=unik.getFile(apps.workSpace+'/PanelRemotoDoc.qml')
                 comp=Qt.createQmlObject(fd, r, 'xzoolpanelremoto')
 
             }else{

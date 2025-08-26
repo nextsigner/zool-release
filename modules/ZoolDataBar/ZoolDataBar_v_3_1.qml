@@ -228,7 +228,7 @@ Rectangle {
                     repeat: true
                     interval: 250
                     onTriggered: {
-                        if(apps.jsonsFolder+'/'+tiNom.t.text.replace(/ /g, '_')+'.json' !== apps.url){
+                        if(apps.workSpace+'/'+tiNom.t.text.replace(/ /g, '_')+'.json' !== apps.url){
                             parent.visible=true
                         }else{
                             parent.visible=false
@@ -300,7 +300,7 @@ Rectangle {
                     repeat: true
                     interval: 250
                     onTriggered: {
-                        //                        if(apps.jsonsFolder+'/'+tiNom.t.text.replace(/ /g, '_')+'.json' !== apps.url){
+                        //                        if(apps.workSpace+'/'+tiNom.t.text.replace(/ /g, '_')+'.json' !== apps.url){
                         //                            parent.visible=true
                         //                        }else{
                         //                            parent.visible=false
@@ -313,7 +313,7 @@ Rectangle {
 
     function saveNom(){
         let fn=apps.url
-        let nfn=apps.jsonsFolder+'/'+tiNom.t.text.replace(/ /g, '_')+'.json'
+        let nfn=apps.workSpace+'/'+tiNom.t.text.replace(/ /g, '_')+'.json'
         let json = app.currentData
         let jsonData=JSON.parse(app.currentData)
         jsonData.params.n=tiNom.t.text
@@ -321,14 +321,14 @@ Rectangle {
         //log.l('Actual url: '+apps.url)
         //log.l('Nueva url: '+nfn)
         //log.l('documentsPath: '+documentsPath)
-        //log.l('apps.jsonsFolder: '+apps.jsonsFolder)
+        //log.l('apps.workSpace: '+apps.workSpace)
         //log.visible=true
         JS.saveJsonAs(nfn)
         nomEditor.visible=false
     }
     function saveLatLon(){
         //let fn=apps.url
-        //let nfn=apps.jsonsFolder+'/'+tiNom.t.text.replace(/ /g, '_')+'.json'
+        //let nfn=apps.workSpace+'/'+tiNom.t.text.replace(/ /g, '_')+'.json'
         //let json = app.currentData
         let jsonData=JSON.parse(app.currentData)
         jsonData.params.lat=tiLat.t.text
@@ -337,7 +337,7 @@ Rectangle {
         //log.l('Actual url: '+apps.url)
         //log.l('Nueva url: '+nfn)
         //log.l('documentsPath: '+documentsPath)
-        //log.l('apps.jsonsFolder: '+apps.jsonsFolder)
+        //log.l('apps.workSpace: '+apps.workSpace)
         //log.visible=true
         JS.saveJson()
         latLonEditor.visible=false

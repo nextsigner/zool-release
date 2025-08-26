@@ -88,7 +88,9 @@ ZoolMenus{
             text: qsTr(apps.showNumberLines?"Ocultar grados":"Mostrar grados")
             onTriggered: {apps.showNumberLines=!apps.showNumberLines}
         }
-        Action {enabled: apps.dev; text: qsTr("Cargar Ejemplo"); onTriggered: {
+        Action {
+            text: qsTr("Cargar Ejemplo")
+            onTriggered: {
                 zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
             }
         }

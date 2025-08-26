@@ -234,7 +234,7 @@ Rectangle {
                     zm.capturing=true
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
-                    let folder=apps.jsonsFolder+'/caps/'+folderName
+                    let folder=apps.workSpace+'/caps/'+folderName
                     if(!unik.folderExist(folder)){
                         unik.mkdir(folder)
                     }

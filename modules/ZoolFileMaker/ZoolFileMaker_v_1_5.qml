@@ -495,7 +495,7 @@ Rectangle {
                         interval: 1000
                         onTriggered: {
                             let nom=tiNombre.t.text.replace(/ /g, '_')
-                            let fileName=apps.jsonsFolder+'/'+nom+'.json'
+                            let fileName=apps.workSpace+'/'+nom+'.json'
                             if(unik.fileExist(fileName)){
                                 r.uFileNameLoaded=tiNombre.text
                                 let jsonFileData=unik.getFile(fileName)

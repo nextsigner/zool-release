@@ -35,7 +35,7 @@ Rectangle {
     }
     FolderListModel{
         id: flm
-        folder: 'file:'+apps.jsonsFolder
+        folder: 'file:'+apps.workSpace
         showDirs: false
         showFiles: true
         showHidden: false
@@ -284,7 +284,7 @@ Rectangle {
         for(var i=0;i<flm.count;i++){
             //let file='/home/ns/nsp/uda/astrologica/jsons/'+flm.get(i, 'fileName')
             //let file=app.mainLocation+'/jsons/'+flm.get(i, 'fileName')
-            let file=apps.jsonsFolder+'/'+flm.get(i, 'fileName')
+            let file=apps.workSpace+'/'+flm.get(i, 'fileName')
             let fn=file//.replace('cap_', '').replace('.png', '')
             let jsonFileName=fn
             //console.log('FileName: '+jsonFileName)

@@ -539,7 +539,7 @@ Rectangle{
         lmCmd.countS=0
 
         //Cargando datos de signos
-        let fileDataPath=apps.jsonsFolder+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_s'+parseInt(s + 1)+'.txt'
+        let fileDataPath=apps.workSpace+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_s'+parseInt(s + 1)+'.txt'
         //log.ls('FilePath: '+fileDataPath, 0, 500)
         if(!unik.fileExist(fileDataPath))return
         let fileData=unik.getFile(fileDataPath)
@@ -567,7 +567,7 @@ Rectangle{
         }
 
         //Cargando datos de casas
-        fileDataPath=apps.jsonsFolder+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_h'+parseInt(h + 1)+'.txt'
+        fileDataPath=apps.workSpace+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_h'+parseInt(h + 1)+'.txt'
         //log.ls('FilePath House: '+fileDataPath, 0, 500)
         if(!unik.fileExist(fileDataPath))return
         fileData=unik.getFile(fileDataPath)
@@ -598,9 +598,9 @@ Rectangle{
         let index=i
         let fileDataPath=''
         if(t==='s'){
-            fileDataPath=apps.jsonsFolder+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_s'+parseInt(s + 1)+'.txt'
+            fileDataPath=apps.workSpace+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_s'+parseInt(s + 1)+'.txt'
         }else{
-            fileDataPath=apps.jsonsFolder+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_h'+parseInt(h + 1)+'.txt'
+            fileDataPath=apps.workSpace+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_h'+parseInt(h + 1)+'.txt'
             index=i-lmCmd.countS
         }
         //log.ls('Leyendo archivo: '+fileDataPath, 400, 400)

@@ -108,7 +108,7 @@ ApplicationWindow {
                 }else{
                     console.log('Definiendo carpeta '+jsonsFolderString)
                 }
-                apps.jsonsFolder=jsonsFolderString
+                apps.workSpace=jsonsFolderString
             }
             //fileName=jsonsFolder+'/zool_'+Qt.platform.os+'.cfg'*/
         }

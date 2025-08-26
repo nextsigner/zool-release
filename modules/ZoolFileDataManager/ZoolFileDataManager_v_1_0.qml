@@ -97,7 +97,7 @@ Item{
         let fn=(''+app.j.quitarAcentos(j.params.n)).replace(/ /g, '_')
         fn=fn.replace(/\//g, '_')
         fn=fn.replace(/:/g, '_')
-        let f=apps.jsonsFolder+'/'+fn+'.json'
+        let f=apps.workSpace+'/'+fn+'.json'
         if(isTemp){
             f=unik.getPath(2)+'/temp.json'
         }
