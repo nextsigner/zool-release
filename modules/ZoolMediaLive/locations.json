@@ -1,9 +1,0 @@
-{
-    "locations":[
-        {"n":"Córdoba Argentina", "lat":-12.0266383, "lon":-64.175087, "gmt": -3},
-        {"n":"Lima Perú", "lat":-31.416187, "lon":-76.9877791, "gmt": -5},
-        {"n":"United Kingdom England", "lat":53.4543314, "lon":-2.113293483429562, "gmt": 0},
-        {"n":"Barcelona España", "lat":41.38879, "lon":2.15899, "gmt": 2}
-
-    ]
-}
