@@ -60,7 +60,7 @@ Item{
     //property alias img: bodie.objImg
     //property alias img0: bodie.objImg0
     Behavior on rotation{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
-    Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
+    Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 500}}
     Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
     onWidthChanged: {
         h()
@@ -73,6 +73,14 @@ Item{
         zm.objTRAC.restart()
         zm.objTapa.opacity=1.0
         //zm.resizeAspCircle()
+
+        if(selected){
+            if(!r.isBack){
+                zm.objXII.setPosAndRot(r.rotation, r.width)
+            }else{
+                zm.objXIE.setPosAndRot(r.rotation, r.width)
+            }
+        }
     }
     onRotationChanged: h()
     onGChanged: h()
@@ -95,9 +103,17 @@ Item{
             setRot()
             setZoomAndPos()
             app.showPointerXAs=true
+            pointerPlanet.parent=!r.isBack?zm.objXII.pa:zm.objXIE.pa
+            if(!r.isBack){
+                zm.objXII.setPosAndRot(r.rotation, r.width)
+            }else{
+                zm.objXIE.setPosAndRot(r.rotation, r.width)
+            }
             //zm.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zm.objSignsCircle.rotation)
 
 
+        }else{
+            pointerPlanet.parent=bodie
         }
     }
     property int vr: 0
@@ -507,7 +523,7 @@ Item{
             rsgdeg:objData.gdec-(30*is)
             ih:objData.ih
             //expand: r.selected
-            iconoSignRot: parent.objImg.rotation
+            iconoSignRot: bodie.objImg.rotation+90
             p: r.numAstro
             cotaLong: app.fs*6
             pointerFs: app.fs*4
@@ -584,6 +600,11 @@ Item{
                 zoolMapAsInfoView.text=r.text
                 vClick=0
                 r.parent.cAs=r
+                if(!r.isBack){
+                    if(zm.objXII.z<=zm.objXIE.z)zm.objXII.z=zm.objXIE.z+1
+                }else{
+                    if(zm.objXIE.z<=zm.objXII.z)zm.objXIE.z=zm.objXII.z+1
+                }
             }
             onMouseXChanged:{
                 //r.isHovered=true

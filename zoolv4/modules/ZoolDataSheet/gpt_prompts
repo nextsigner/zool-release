@@ -1,0 +1,7 @@
+
+
+
+
+//Mostrar datos de un planeta en formato json
+//Ejemplo de Neptuno
+Muestrame formato json con todos sus valores en formato string de lo siguiente: Características y propiedades físicas del planeta Neptuno, los datos ordenados de la siguiente forma. 1. diametro, 2. masa, 3. densidad, 4. volumen, 5. gravedad. 6. temperatura, 7. Período de rotación sobre su eje con nombre de item "periodo_rotacion" , 8. Tipo de orbita con respecto al sol con nombre de item "orbita_tipo", 9. Duración de orbita con respecto al sol con nombre de item "orbita_duracion", 10. Posición numérica en el sistema solar, 12. Distancia de la tierra, 12. Elementos principales de la que se compone la materia de Neptuno con nombre de item elementos.

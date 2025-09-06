@@ -1148,6 +1148,9 @@ Rectangle {
     function isFocus(){
         return false
     }
+    function toEscape(){
+        //return false
+    }
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')

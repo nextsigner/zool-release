@@ -387,13 +387,13 @@ ApplicationWindow {
             }
             if(zm.currentPlanetIndex>=0){
                 zm.currentPlanetIndex=-1
-                app.currentHouseIndex=-1
+                zm.currentHouseIndex=-1
                 return
             }
             if(zm.currentPlanetIndexBack>=0){
                 zm.currentPlanetIndexBack=-1
                 zm.currentPlanetIndexBack=-1
-                app.currentHouseIndexBack=-1
+                zm.currentHouseIndexBack=-1
                 //sweg.objHousesCircleBack.currentHouse=-1
                 return
             }

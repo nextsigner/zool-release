@@ -5,6 +5,9 @@ import comps.MouseAreaView 1.0
 import ZoolMap.ZoolMapSignCircle 1.1
 import ZoolMap.ZoolMapHousesCircle 1.2
 import ZoolMap.ZoolMapPlanetsCircle 1.1
+import ZoolMap.XIndic 1.0
+
+
 import ZoolMap.ZoolMapAspsCircle 1.2
 import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
@@ -55,6 +58,8 @@ Rectangle{
     property alias objHousesCircleBack: housesCircleBack
     property alias objPlanetsCircle: planetsCircle
     property alias objPlanetsCircleBack: planetsCircleBack
+    property alias objXII: xIndicInt
+    property alias objXIE: xIndicExt
     property alias objCA: ca
     property alias objAspsCircle: aspsCircle
     property alias objAspsCircleBack: aspsCircleBack
@@ -838,6 +843,8 @@ Rectangle{
                         anchors.centerIn: parent
                     }
                 }*/
+                XIndic{id: xIndicExt; isExt: true}
+                XIndic{id: xIndicInt}
                 Item{
                     id: capaMods
                     anchors.fill: parent

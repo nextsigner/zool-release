@@ -1,0 +1,1 @@
+## Areas de la Aplicación

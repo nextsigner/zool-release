@@ -1,0 +1,424 @@
+import QtQuick 2.12
+
+Rectangle {
+    id: r
+    //width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-planetsCircle.totalPosX*planetsCircle.planetSize-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSize:0)
+    width: parent.width
+    height: width
+    radius: width*0.5
+    color: 'transparent'//r.show?apps.backgroundColor:'transparent'
+    border.width: 2
+    border.color: 'white'
+    anchors.centerIn: parent
+    antialiasing: true
+    property bool isExt: false
+    property int currentAspSelected: -1
+    property int widthNodosAspSelected: 8
+    property var aAspStr1: []
+    property var aAspStr2: []
+    property var aAspsColors: ['red','#ff8833',  'green', '#124cb1', '#90EE90', '#FFC0CB', '#EE82EE']
+    onOpacityChanged:{
+        if(opacity===0.0){
+            tShow.restart()
+        }
+    }
+    Timer{
+        id: tShow
+        running: false
+        repeat: false
+        interval: 250
+        onTriggered: {
+            na1.duration=2500
+            r.opacity=1.0
+        }
+    }
+    Behavior on opacity {
+        NumberAnimation{id: na1; duration: 2500}
+    }
+    function hideAndShow(){
+        na1.duration=1
+        r.opacity=0.0
+    }
+    onWidthChanged: {
+        tHideTapa.restart()
+        currentAspSelected=-1
+        tLoadJson.restart()
+        //log.lv('bgTotal.json: '+JSON.stringify(bgTotal.json))
+    }
+    Timer{
+        id: tHideTapa
+        repeat: false
+        interval: 1000
+        onTriggered: {
+            //zm.hideTapa()
+        }
+    }
+    MouseArea{
+        anchors.fill: parent
+        onClicked:{
+            //r.show=!r.show
+        }
+    }
+    property bool show: true
+    Rectangle{
+        id: bg
+        width: r.width
+        height: width
+        color: apps.backgroundColor
+        border.width: 1
+        border.color: 'yellow'
+
+        radius: width*0.5
+        anchors.centerIn: r
+        visible: false
+        //visible:r.show// !app.ev?apps.showAspCircle:(apps.showAspCircle && apps.showAspCircleBack)
+        //        visible: !r.isExt?
+        //                     (apps.showAspCircle)
+        //                   :
+        //                     (apps.showAspCircleBack)
+    }
+    Rectangle{
+        id: bgTotal
+        width: r.width
+        height: width
+        color: 'transparent'//apps.backgroundColor//'black'
+        radius: width*0.5
+        anchors.centerIn: r
+        property var json
+        onJsonChanged: tLoadJson.restart()
+        //visible: apps.showAspCircle && r.show
+        Timer{
+            id: tLoadJson
+            running: false
+            repeat: false
+            interval: 500
+            onTriggered: {
+                if(!bgTotal.json)return
+                clearSL(bgTotal)
+                var x = bgTotal.width*0.5;
+                var y = bgTotal.height*0.5;
+                var radius=bgTotal.width*0.5
+                var cx=bgTotal.width*0.5
+                var cy=bgTotal.height*0.5
+                //log.lv('bgTotal.json: '+JSON.stringify(bgTotal.json, null, 2))
+                if(bgTotal.json&&bgTotal.json.asps){
+                    let asp=bgTotal.json.asps
+                    for(var i=0;i<Object.keys(asp).length;i++){
+                        if(asp['asp'+parseInt(i +1)]){
+                            if((asp['asp'+parseInt(i +1)].ic1===10 && asp['asp'+parseInt(i +1)].ic2===11)||(asp['asp'+parseInt(i +1)].ic1===11 && asp['asp'+parseInt(i +1)].ic2===10)){
+                                continue
+                            }else{
+                                let a=asp['asp'+parseInt(i +1)]
+                                let colorAsp='black'
+                                //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+                                if(a.ia===-1){
+                                    colorAsp='gray'
+                                }
+                                if(a.ia===0){
+                                    colorAsp='red'
+                                }
+                                if(a.ia===1){
+                                    colorAsp='#ff8833'
+                                }
+                                if(a.ia===2){
+                                    colorAsp='green'
+                                }
+                                if(a.ia===3){
+                                    colorAsp='blue'
+                                }
+                                if(a.ia===4){
+                                    colorAsp='#90EE90'
+                                }
+                                if(a.ia===5){
+                                    colorAsp='#FFC0CB'
+                                }
+                                if(a.ia===6){
+                                    colorAsp='#EE82EE'
+                                }
+                                drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
+                                //drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
+                            }
+                        }
+                    }
+                }
+                r.visible=true
+                r.opacity=1.0
+            }
+        }
+    }
+    Rectangle{
+        id: xAxis
+        width: r.width
+        height: width
+        color: 'transparent'//apps.backgroundColor//'black'
+        border.width: 0
+        border.color: 'blue'
+        radius: width*0.5
+        anchors.centerIn: r
+    }
+    Component{
+        id: compLineSen
+        Rectangle{
+            width: 1
+            height: 1
+            Rectangle{
+                width: 500
+                height: 3
+                color: parent.color
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.left
+            }
+        }
+    }
+    function drawAsp(cx, cy, gdeg1, gdeg2, c, i, item, isBack){
+        var angulo= gdeg1
+        var coords=gCoords(radius, angulo)
+        var px1 = coords[0]
+        var py1 = coords[1]
+        angulo= gdeg2
+        coords=gCoords(radius, angulo)
+        var px2 = coords[0]
+        var py2 = coords[1]
+        drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack, 360-angulo)
+    }
+    function drawAspRect(sx, sy, px, py, c, i, item, isBack, angulo){
+        let s='s'+sx+'-'+sy+'-'+px+'-'+py
+        //let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
+        let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspShapeLine.qml")
+        let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
+        //        if(i<3){
+        //            let objLineSen=compLineSen.createObject(item,{x: sx, y: sy, color: c, rotation: angulo})
+        //        }
+        r.aAspStr1.push(s)
+    }
+    function drawAspAxisRect(numAstro, indexAsp, angulo, isExt){
+        let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspAxisLine.qml")
+        let as=zm.objPlanetsCircle.getAs(numAstro)
+        let l1=zm.objPlanetsCircle.width
+        let l2=zm.objAspsCircle.width//-((app.fs*as.pos))
+        let l3=(l1-(l1-l2))*0.5
+        let l=l3-zm.planetSize-(zm.planetSize*as.pos)
+        //log.lv('as.pos:'+as.pos)
+        //log.lv('l1:'+l1)
+        //log.lv('l2:'+l2)
+        //log.lv('l:'+l)
+        //let obj=comp.createObject(xAxis,{numAstro:numAstro, indexAsp: indexAsp, l:l, rot: angulo, isExt: isExt})
+        //r.aAspStr1.push(s)
+    }
+    function clearAxis(){
+        for(var i=0;i<xAxis.children.length;i++){
+            xAxis.children[i].destroy(0)
+        }
+    }
+    function gCoords(radius, angle) {
+        var d = Math.PI/180 //to convert deg to rads
+        var deg
+        var x
+        var y
+        deg = (360 - angle - 90) * d
+        x = radius * Math.cos(deg)
+        y = radius * Math.sin(deg)
+        return [ x, y ];
+    }
+    function load(json){
+        clearSL(bgTotal)
+        r.aAspStr1=[]
+        bgTotal.json=getAsps(json)
+
+        //drawAspAxisRect(0, 0, 0, false)
+
+        //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
+    }
+    function loadFromJsonAsps(json){
+        clearSL(bgTotal)
+        r.aAspStr1=[]
+        bgTotal.json=json
+
+        //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
+    }
+    function clear(){
+        clearSL(bgTotal)
+    }
+    function clearSL(item){
+        for(var i=0;i<item.children.length;i++){
+            item.children[i].destroy(1)
+        }
+    }
+    function rotate_point(pointX, pointY, originX, originY, angle) {
+        angle = angle * Math.PI / 180.0;
+        return {
+            x: Math.cos(angle) * (pointX-originX) - Math.sin(angle) * (pointY-originY) + originX,
+            y: Math.sin(angle) * (pointX-originX) + Math.cos(angle) * (pointY-originY) + originY
+        };
+    }
+    function angle(cx, cy, ex, ey) {
+        var dy = ey - cy;
+        var dx = ex - cx;
+        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+        //if (theta < 0) theta = 360 + theta; // range [0, 360)
+        return theta;
+    }
+    function getAsps(json){
+        let j={}
+        j.asps={}
+        let indexAsp=1
+        let aAspsReg=[]
+        for(var i=0;i<zm.aBodies.length;i++){
+            //log.lv('aBodies['+i+']: '+aBodies[i])
+            let g1=json.pc['c'+i].gdec
+            //log.lv('g1 de '+aBodies[i]+': '+g1)
+            for(var i2=0;i2<zm.aBodies.length;i2++){
+                //log.lv('g2 de '+aBodies[i2]+': '+g2+'\n\n')
+                let g2=json.pc['c'+i2].gdec
+                let aspType=getAsp(g1, g2)
+                if(aspType!==-1){
+                    //log.lv('aspType: '+aspType+' entre '+aBodies[i]+' y '+aBodies[i2]+'\n\n')
+                    let search=''+i2+':'+i
+                    if(aAspsReg.indexOf(search)<0&&i!==i2){
+                        j.asps['asp'+indexAsp]={}
+                        j.asps['asp'+indexAsp].ic1=i
+                        j.asps['asp'+indexAsp].ic2=i2
+                        j.asps['asp'+indexAsp].c1=zm.aBodies[i]
+                        j.asps['asp'+indexAsp].c2=zm.aBodies[i2]
+                        j.asps['asp'+indexAsp].ia=aspType
+                        j.asps['asp'+indexAsp].gdeg1=g1
+                        j.asps['asp'+indexAsp].gdeg2=g2
+                        j.asps['asp'+indexAsp].dga=diffDegn(g1, g2)
+                        aAspsReg.push(''+i+':'+i2)
+                        indexAsp++
+                    }
+                }
+            }
+        }
+        //log.lv('Nuevo Json Asps: '+JSON.stringify(j, null, 2))
+        //log.lv('Total asps: '+indexAsp)
+        //json.asps=j
+        return j
+    }
+    function getAsp(g1, g2) {
+        let asp = -1; // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
+        let orbeConjunccion = 8;
+        let orbeOposicion = 8;
+        let orbeTrigono = 8;
+        let orbeCuadratura = 7;
+        let orbeSextil = 6;
+        let orbeSemicuadratura = 2;
+        let orbeQuincuncio = 2;
+
+
+        let difDeg;
+
+        // Calculo conjunción.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < orbeConjunccion && difDeg > -orbeConjunccion) {
+            asp = 3; // Conjunción
+            return asp;
+        }
+
+        // Calculo oposición.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 180.00 + orbeOposicion && difDeg > 180.00 - orbeOposicion) {
+            asp = 0; // Oposición
+            return asp;
+        }
+
+        // Calculo cuadratura.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 90.00 + orbeCuadratura && difDeg > 90.00 - orbeCuadratura) {
+            asp = 1; // Cuadratura
+            return asp;
+        }
+
+        // Calculo trígono.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 120.00 + orbeTrigono && difDeg > 120.00 - orbeTrigono) {
+            asp = 2; // Trígono
+            return asp;
+        }
+
+        // Calculo sextil.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 60.00 + orbeSextil && difDeg > 60.00 - orbeSextil) {
+            asp = 4; // Sextil
+            return asp;
+        }
+
+        // Calculo semicuadratura (45 grados).
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 45.00 + orbeSemicuadratura && difDeg > 45.00 - orbeSemicuadratura) {
+            asp = 5; // Semicuadratura
+            return asp;
+        }
+
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 135.00 + orbeSemicuadratura && difDeg > 135.00 - orbeSemicuadratura) {
+            asp = 5; // Semicuadratura
+            return asp;
+        }
+
+        // Calculo quincuncio (150 grados).
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 150.00 + orbeQuincuncio && difDeg > 150.00 - orbeQuincuncio) {
+            asp = 6; // Quincuncio
+            return asp;
+        }
+
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 210.00 + orbeQuincuncio && difDeg > 210.00 - orbeQuincuncio) {
+            asp = 6; // Quincuncio
+            return asp;
+        }
+
+        return asp; // -1 = no hay aspectos dentro de los orbes definidos
+    }
+    function diffDegn(deg1, deg2) {
+        let diff = Math.abs(deg1 - deg2) % 360;
+        return Math.min(diff, 360 - diff);
+    }
+    function getAspName(indexAsp){
+        // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
+        let aspName=''
+        if(indexAsp<0){
+            aspName='Indefinido'
+        }else if(indexAsp===0){
+            aspName='Oposición'
+        }else if(indexAsp===1){
+            aspName='Cuadratura'
+        }else if(indexAsp===2){
+            aspName='Trígono'
+        }else if(indexAsp===3){
+            aspName='Conjunción'
+        }else if(indexAsp===4){
+            aspName='Sextil'
+        }else if(indexAsp===5){
+            aspName='Semicuadratura'
+        }else if(indexAsp===6){
+            aspName='Quincuncio'
+        }else{
+            aspName='?'
+        }
+        return aspName
+    }
+    function getAspDeg(asp) {
+        switch (asp.toLowerCase()) {
+        case "oposición":
+            return 180;
+        case "cuadratura":
+            return 90;
+        case "trígono":
+            return 120;
+        case "conjunción":
+            return 0;
+        case "sextil":
+            return 60;
+        case "semicuadratura":
+            return 45;
+        case "quincuncio":
+            return 150;
+        default:
+            return null; // Retorna null si el aspecto no es reconocido
+        }
+    }
+
+}
